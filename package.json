@@ -1,0 +1,89 @@
+{
+  "name": "sfr-bookfinder-fe",
+  "version": "0.0.1",
+  "description": "Bookfinder front-end application for NYPL's newest search & retrieval platform.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "dist": "NODE_ENV=production ./node_modules/.bin/webpack --config webpack.config.js",
+    "postinstall": "npm run dist",
+    "test": "mocha --compilers js:babel-core/register",
+    "test-file": "mocha -w test/helpers/browser.js",
+    "test-with-coverage": "nyc ./node_modules/.bin/mocha test/helpers/browser.js test/*.test.js",
+    "coverage": "BABEL_ENV=test node_modules/.bin/nyc --require mocha npm test",
+    "coverage-report": "BABEL_ENV=test node_modules/.bin/nyc report --reporter=lcov",
+    "coverage-report-html": "BABEL_ENV=test ./node_modules/.bin/nyc report --reporter=html && open -a 'Google Chrome' ./coverage/index.html",
+    "init": "sudo rm -rf .git && git init && npm init"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NYPL/sfr-bookfinder-front-end"
+  },
+  "keywords": [
+    "react",
+    "webpack",
+    "boilerplate",
+    "sass",
+    "hot",
+    "reload"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/NYPL/sfr-bookfinder-front-end/issues"
+  },
+  "devDependencies": {
+    "chai": "3.5.0",
+    "enzyme": "2.9.1",
+    "esdoc": "0.4.6",
+    "jsdom": "9.8.3",
+    "mocha": "4.0.1",
+    "nyc": "11.4.1",
+    "react-addons-test-utils": "15.6.2",
+    "react-hot-loader": "1.2.8",
+    "sinon": "4.1.3",
+    "webpack-dev-server": "2.9.7"
+  },
+  "dependencies": {
+    "@nypl/design-toolkit": "^0.1.36",
+    "@nypl/dgx-header-component": "2.4.11",
+    "@nypl/dgx-react-footer": "0.5.1",
+    "alt": "0.18.6",
+    "axios": "0.17.1",
+    "babel-core": "6.26.0",
+    "babel-loader": "6.4.1",
+    "babel-plugin-istanbul": "3.0.0",
+    "babel-polyfill": "6.26.0",
+    "babel-preset-env": "1.6.1",
+    "babel-preset-react": "6.24.1",
+    "babel-register": "6.26.0",
+    "clean-webpack-plugin": "0.1.17",
+    "colors": "1.1.2",
+    "compression": "1.7.1",
+    "css-loader": "0.28.7",
+    "dgx-feature-flags": "git+https://bitbucket.org/NYPL/dgx-feature-flags.git#master",
+    "dgx-model-data": "git+https://bitbucket.org/NYPL/dgx-model-data.git#master",
+    "dgx-react-ga": "git+https://bitbucket.org/NYPL/dgx-react-ga.git#master",
+    "ejs": "2.5.7",
+    "eslint": "4.14.0",
+    "eslint-config-airbnb": "16.1.0",
+    "eslint-plugin-import": "2.8.0",
+    "eslint-plugin-jsx-a11y": "6.0.2",
+    "eslint-plugin-react": "7.5.1",
+    "express": "4.16.2",
+    "extract-text-webpack-plugin": "2.1.2",
+    "iso": "5.2.0",
+    "node-sass": "3.8.0",
+    "react": "15.5.4",
+    "react-dom": "15.5.4",
+    "redux": "4.0.1",
+    "rootpath": "0.1.2",
+    "sass-loader": "5.0.0",
+    "style-loader": "0.19.1",
+    "webpack": "2.7.0",
+    "webpack-merge": "0.8.4"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "author": "NYPL Digital"
+}

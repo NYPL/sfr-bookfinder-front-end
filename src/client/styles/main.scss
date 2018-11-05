@@ -1,0 +1,28 @@
+/*
+Import style rules from NYPL Design Toolkit
+*/
+@import "nypl-normalize";
+@import "toolkit";
+
+/*
+Import style rules from NYPL React module components
+*/
+@import "~@nypl/dgx-header-component/dist/styles/main";
+@import '~@nypl/dgx-react-footer/dist/styles/styles';
+
+$nypl-dark-blue: #135772;
+
+#app {
+  margin: 0;
+}
+
+#mainContent {
+  margin: 0 auto;
+  width: 1024px;
+  min-height: 400px;
+}
+
+#sfr-tagline {
+  text-align: center;
+  margin: 25px 0;
+}
