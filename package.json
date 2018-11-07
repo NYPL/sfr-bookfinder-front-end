@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
+    "eb-start": "npm run dist && node index",
     "dist": "NODE_ENV=production ./node_modules/.bin/webpack --config webpack.config.js",
     "postinstall": "npm run dist",
     "test": "mocha --compilers js:babel-core/register",
@@ -12,8 +13,7 @@
     "test-with-coverage": "nyc ./node_modules/.bin/mocha test/helpers/browser.js test/*.test.js",
     "coverage": "BABEL_ENV=test node_modules/.bin/nyc --require mocha npm test",
     "coverage-report": "BABEL_ENV=test node_modules/.bin/nyc report --reporter=lcov",
-    "coverage-report-html": "BABEL_ENV=test ./node_modules/.bin/nyc report --reporter=html && open -a 'Google Chrome' ./coverage/index.html",
-    "init": "sudo rm -rf .git && git init && npm init"
+    "coverage-report-html": "BABEL_ENV=test ./node_modules/.bin/nyc report --reporter=html && open -a 'Google Chrome' ./coverage/index.html"
   },
   "repository": {
     "type": "git",

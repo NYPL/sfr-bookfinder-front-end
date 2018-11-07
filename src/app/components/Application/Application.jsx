@@ -33,7 +33,7 @@ class App extends React.Component {
             <div className="nypl-row">
               <div className="nypl-column-full">
                 <h1 className="sfr-heading">
-                  Bookfinder
+                  ResearchNow
                 </h1>
                 <SearchForm />
                 <div id="sfr-tagline">

@@ -3,6 +3,7 @@ import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import Application from './../src/app/components/Application/Application';
+import appConfig from './../appConfig';
 
 
 describe('Application', () => {
@@ -19,6 +20,6 @@ describe('Application', () => {
   it('contains an h1.', () => {
     const title = component.find('h1');
     expect(title).to.have.length(1);
-    expect(title.text()).to.equal('NYPL Bookfinder');
+    expect(title.text()).to.equal(appConfig.appName);
   });
 });
