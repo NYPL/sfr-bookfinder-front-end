@@ -1,10 +1,10 @@
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const cleanBuild = require('clean-webpack-plugin');
+const CleanBuild = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const sassPaths = require('@nypl/design-toolkit').includePaths
-  .map((sassPath) => sassPath).join('&');
+  .map(sassPath => sassPath).join('&');
 
 // References the applications root path
 const ROOT_PATH = path.resolve(__dirname);
@@ -32,7 +32,7 @@ const commonSettings = {
     // Cleans the Dist folder after every build.
     // Alternately, we can run rm -rf dist/ as
     // part of the package.json scripts.
-    new cleanBuild(['dist']),
+    new CleanBuild(['dist']),
     new ExtractTextPlugin('styles.css'),
   ],
 };
@@ -44,7 +44,7 @@ const commonSettings = {
  * the common app configuration with the
  * additional development specific settings.
  *
-**/
+ */
 // Need to configure webpack-dev-server and hot-reload
 // module correctly.
 if (ENV === 'development') {
@@ -97,7 +97,7 @@ if (ENV === 'development') {
  * the common app configuration with the
  * additional production specific settings.
  *
-**/
+ */
 if (ENV === 'production') {
   const loaders = [
     {
