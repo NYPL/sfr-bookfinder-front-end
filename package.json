@@ -1,5 +1,5 @@
 {
-  "name": "sfr-bookfinder-fe",
+  "name": "rnw-front-end-development",
   "version": "0.0.1",
   "description": "Bookfinder front-end application for NYPL's newest search & retrieval platform.",
   "main": "index.js",

@@ -74,7 +74,7 @@ if (ENV === 'development') {
         {
           test: /\.jsx?$/,
           exclude: /(node_modules|bower_components)/,
-          loader: 'babel-loader',
+          use: 'babel-loader',
         },
         {
           test: /\.scss?$/,
@@ -121,14 +121,14 @@ if (ENV === 'production') {
         {
           test: /\.jsx?$/,
           exclude: /(node_modules|bower_components)/,
-          loader: 'babel-loader',
+          use: 'babel-loader',
         },
         {
           test: /\.scss$/,
           include: path.resolve(ROOT_PATH, 'src'),
           use: ExtractTextPlugin.extract({
             fallback: 'style-loader',
-            loader: loaders,
+            use: loaders,
           }),
         },
       ],
