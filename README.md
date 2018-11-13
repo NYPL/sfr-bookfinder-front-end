@@ -1,6 +1,6 @@
-# NYPL Bookfinder
+# NYPL ResearchNow
 
-Bookfinder front end application based on NYPL's React boilerplate code start quickly and efficiently.
+ResearchNow front end application based on NYPL's React boilerplate code start quickly and efficiently.
 
 Provides a "welcome page" entry point with heading, search box, and tagline.
 

@@ -1,7 +1,7 @@
 {
   "name": "rnw-front-end-development",
   "version": "0.0.1",
-  "description": "Bookfinder front-end application for NYPL's newest search & retrieval platform.",
+  "description": "ResearchNow front-end application for NYPL's newest search & retrieval platform.",
   "main": "index.js",
   "scripts": {
     "start": "node index",
@@ -73,6 +73,7 @@
     "extract-text-webpack-plugin": "2.1.2",
     "iso": "5.2.0",
     "node-sass": "3.8.0",
+    "prop-types": "15.6.2",
     "react": "15.5.4",
     "react-dom": "15.5.4",
     "redux": "4.0.1",
