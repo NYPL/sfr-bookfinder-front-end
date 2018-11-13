@@ -12,7 +12,6 @@ import alt from './src/app/alt.js';
 import appConfig from './appConfig.js';
 import { config as analyticsConfig } from 'dgx-react-ga';
 import webpack from 'webpack';
-import WebpackDevServer from 'webpack-dev-server';
 import webpackConfig from './webpack.config.js';
 
 import Application from './src/app/components/Application/Application.jsx';
@@ -103,6 +102,8 @@ process.on('SIGINT', gracefulShutdown);
  * - Using Webpack Dev Server
 */
 if (!isProduction) {
+  const WebpackDevServer = require('webpack-dev-server');
+
   new WebpackDevServer(webpack(webpackConfig), {
     publicPath: webpackConfig.output.publicPath,
     hot: true,
