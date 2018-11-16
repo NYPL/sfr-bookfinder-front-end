@@ -3,6 +3,23 @@ node_js:
 - stable
 - '6'
 - '4'
+install: npm install
+before_script: npm run dist
+script: npm test
+before_deploy: echo "All unit tests pass. Launching build on AWS EB."
+deploy:
+ - provider: elasticbeanstalk
+   skip_cleanup: true
+   access_key_id: "$AWS_ACCESS_KEY_ID_DEVELOPMENT"
+   secret_access_key: "$AWS_SECRET_ACCESS_KEY_DEVELOPMENT"
+   region: us-east-1
+   app: sfr-front-end # This is the name of the app
+   env: rnw-front-end-development # This is the specific deployment
+   bucket_name: elasticbeanstalk-us-east-1-224280085904 # This is common across EB deployments in a given account
+   bucket_path: rnw-front-end-development # Conventionally this should equal the `env` name
+   on:
+     repo: NYPL/sfr-bookfinder-front-end
+     branch: development # specify the branch for travis to watch
 env:
   global:
   - secure: PIoxFQdL+7D7S1cgPeveb3sbkqgzc+DEGsNBWx+fQnwvEMEST7DaxVQmxOhtq4rZXCZ/tx/qTqtqYC95wLAJLAKhbZPN+zdwS3e2U2YMOEy68XyQPibudBm46uWO5728YsFL5tIK7GW4UUhDXBgQtRHlSoi/HFS7QvjUVy/aVdA4xWzd/4Ykt6+fCDGQezf6Qle6CqP0k+AQn5vjb5we/jbfcpfQQMiJlVnhFXwkw22gbUF5qKk+Yg1fSTUX8DrK212qnV0wAishe+3HVqx4docuYouaSiZGOB+G47UIGTnzBEOY63OjY2MQNvgaHT6dVXVVEPRGuB45/cen3O4WVoP5HxkG4AeAwsSJYsFtB1xefoYFNN2NPn5hRQzT/zFXOYdTz9qihW1C46kll7sZB8IK2PtAe6knOT2kuSygAwdP3AzilQUJadTdgwf5jQm/Z8DQLGoJzGZHHdpY/XFZgcn20N4qf08GcqtsRQRTmlofeQLpRQ24UO4iIQd20SnTKWGtWNMQlsRJk+p0cgabrLlC0fG5yZMXa3nPEez19zlGBPd6Xv16yGR/1AmWaqDWLeYZ5EuNb/k607sAna3iWLRozDBO45jKtmfKpRzst5jlC+S6UIG6VxFu/V9YRePAFSzCgC6O9vBvUsjpI6dOCKfI8NeFNMT9miieTzCDfYM=
