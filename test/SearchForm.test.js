@@ -34,4 +34,16 @@ describe('SearchForm', () => {
     const authorOpt = component.find('option');
     expect(authorOpt.nodes[2].props.value).to.equal('filters[author]');
   });
+
+  it('contains a text field for keyword search with an initial value.', () => {
+    const kwTextField = component.find('input');
+    expect(kwTextField.nodes[0].props.type).to.equal('text');
+    expect(kwTextField.nodes[0].props.placeholder).to.equal('Keyword, title, or author');
+  });
+
+  it('contains a submit input with an initial value.', () => {
+    const authorOpt = component.find('input');
+    expect(authorOpt.nodes[1].props.type).to.equal('submit');
+    expect(authorOpt.nodes[1].props.value).to.equal('Search');
+  });
 });

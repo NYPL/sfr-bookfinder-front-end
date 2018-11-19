@@ -15,6 +15,8 @@ import store from '../src/app/stores/Store.js';
  */
 const getDispatcherArguments = (dispatcherSpy, num) => dispatcherSpy.args[num][0];
 const searchByKeyword = ['keyword one', 'keyword two'];
+const searchByTitle = ['title one', 'title two'];
+const searchByAuthor = ['author one', 'author two'];
 
 describe('Alt', () => {
   describe('Actions', () => {
@@ -35,17 +37,39 @@ describe('Alt', () => {
       actions.searchByKeyword([]);
 
       // Get the payload passed to the dispatcher.
-      // Note, the offset must match the order that the action was called.
+      // NOTE: the offset must match the order that the action was called.
       const dispatcherArgs = getDispatcherArguments(dispatcherSpy, 0);
 
       // Test that the correct name of the action was called with the expected data.
       expect(dispatcherArgs.action).to.equal(action);
       expect(dispatcherArgs.data).to.eql([]);
     });
+
+    it('should pass data to searchByTitle Action', () => {
+      const action = actions.SEARCH_BY_TITLE;
+
+      actions.searchByTitle([]);
+
+      const dispatcherArgs = getDispatcherArguments(dispatcherSpy, 1);
+
+      expect(dispatcherArgs.action).to.equal(action);
+      expect(dispatcherArgs.data).to.eql([]);
+    });
+
+    it('should pass data to searchByAuthor Action', () => {
+      const action = actions.SEARCH_BY_AUTHOR;
+
+      actions.searchByAuthor([]);
+
+      const dispatcherArgs = getDispatcherArguments(dispatcherSpy, 2);
+
+      expect(dispatcherArgs.action).to.equal(action);
+      expect(dispatcherArgs.data).to.eql([]);
+    });
   });
 
   describe('Store', () => {
-    it('should pass data to searchByKeyword Action', () => {
+    it('should pass data to searchByKeyword Store', () => {
       const origSearchByKeyword = store.getState().searchByKeyword;
       const action = actions.SEARCH_BY_KEYWORD;
 
@@ -56,6 +80,32 @@ describe('Alt', () => {
       const newSearchByKeyword = store.getState().searchByKeyword;
 
       expect(newSearchByKeyword).to.eql(searchByKeyword);
+    });
+
+    it('should pass data to searchByTitle Store', () => {
+      const origSearchByTitle = store.getState().searchByTitle;
+      const action = actions.SEARCH_BY_TITLE;
+
+      expect(origSearchByTitle).to.eql([]);
+
+      // Dispatching new data.
+      alt.dispatcher.dispatch({ action, data: searchByTitle });
+      const newSearchByTitle = store.getState().searchByTitle;
+
+      expect(newSearchByTitle).to.eql(searchByTitle);
+    });
+
+    it('should pass data to searchByAuthor Store', () => {
+      const origSearchByAuthor = store.getState().searchByAuthor;
+      const action = actions.SEARCH_BY_AUTHOR;
+
+      expect(origSearchByAuthor).to.eql([]);
+
+      // Dispatching new data.
+      alt.dispatcher.dispatch({ action, data: searchByAuthor });
+      const newSearchByAuthor = store.getState().searchByAuthor;
+
+      expect(newSearchByAuthor).to.eql(searchByAuthor);
     });
   });
 });

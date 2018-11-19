@@ -60,7 +60,7 @@ app.get('/', (req, res) => {
     gaCode: analyticsConfig.google.code(isProduction),
     webpackPort: WEBPACK_DEV_PORT,
     appEnv: process.env.APP_ENV,
-    apiUrl: res.locals.data.completeApiUrl,
+    apiUrl: '',
     isProduction,
   });
 });

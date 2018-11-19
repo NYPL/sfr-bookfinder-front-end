@@ -18,33 +18,35 @@ class App extends React.Component {
         <Header
           skipNav={{ target: 'mainContent' }}
           navData={navConfig.current}
+          urlType='absolute'
         />
-        <div id="mainContent">
+        <main id="mainContent">
           {
             // Replace the following with your code. The #mainContent ID is needed for an
             // accessible skip nav from the Header component.
           }
           <div className="nypl-page-header">
-            <div className="sfr-breadcrumb">
+            <div className="breadcrumb">
               {/* <Breadcrumb /> */}
             </div>
           </div>
-          <div className="nypl-page-content">
+          <div className="nypl-full-width-wrapper">
             <div className="nypl-row">
               <div className="nypl-column-full">
-                <h1 className="sfr-heading">
-                  ResearchNow
-                </h1>
+                <h1 className="nypl-heading">ResearchNow</h1>
+              </div>
+            </div>
+            <div className="nypl-row">
+              <div className="nypl-column-full">
                 <SearchForm />
-                <div id="sfr-tagline">
+                <div id="tagline">
                   Search the world's research collections and more for digital books you
                   can use right now.
                 </div>
               </div>
             </div>
           </div>
-        </div>
-
+        </main>
         <Footer />
       </div>
     );
