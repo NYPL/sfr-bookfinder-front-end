@@ -2,6 +2,7 @@
   "name": "rnw-front-end-development",
   "version": "0.0.1",
   "description": "ResearchNow front-end application for NYPL's newest search & retrieval platform.",
+  "author": "NYPL Digital",
   "main": "index.js",
   "scripts": {
     "start": "node index",
@@ -44,9 +45,11 @@
     "webpack-dev-server": "2.9.7"
   },
   "dependencies": {
-    "@nypl/design-toolkit": "^0.1.36",
+    "@nypl/design-toolkit": "0.1.36",
     "@nypl/dgx-header-component": "2.4.11",
     "@nypl/dgx-react-footer": "0.5.1",
+    "@nypl/dgx-svg-icons": "0.3.8",
+    "@nypl/nypl-data-api-client": "1.0.0",
     "alt": "0.18.6",
     "axios": "0.17.1",
     "babel-core": "6.26.0",
@@ -71,11 +74,16 @@
     "eslint-plugin-react": "7.5.1",
     "express": "4.16.2",
     "extract-text-webpack-plugin": "2.1.2",
+    "history": "3.3.0",
     "iso": "5.2.0",
     "node-sass": "3.8.0",
     "prop-types": "15.6.2",
     "react": "15.5.4",
+    "react-a11y": "1.1.0",
     "react-dom": "15.5.4",
+    "react-redux": "^5.1.1",
+    "react-router": "3.0.5",
+    "react-router-scroll": "^0.4.4",
     "redux": "4.0.1",
     "rootpath": "0.1.2",
     "sass-loader": "5.0.0",
@@ -85,6 +93,5 @@
   },
   "directories": {
     "test": "test"
-  },
-  "author": "NYPL Digital"
+  }
 }

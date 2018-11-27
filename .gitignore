@@ -4,6 +4,7 @@ npm-debug.log
 .DS_STORE
 .nyc_output
 coverage
+.env
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*

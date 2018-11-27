@@ -12,6 +12,9 @@ const ROOT_PATH = path.resolve(__dirname);
 // Sets the variable as either development or production
 const ENV = process.env.NODE_ENV || 'development';
 
+// Sets appEnv so the the header component will point to the search app on either Dev or Prod
+const appEnv = process.env.APP_ENV ? process.env.APP_ENV : 'production';
+
 // Holds the common settings for any environment
 const commonSettings = {
   // path.resolve - resolves to an absolute path
@@ -34,6 +37,10 @@ const commonSettings = {
     // part of the package.json scripts.
     new CleanBuild(['dist']),
     new ExtractTextPlugin('styles.css'),
+    new webpack.DefinePlugin({
+      loadA11y: process.env.loadA11y || false,
+      appEnv: JSON.stringify(appEnv),
+    }),
   ],
 };
 

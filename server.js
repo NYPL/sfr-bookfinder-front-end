@@ -5,17 +5,19 @@ import colors from 'colors';
 
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-
-import Iso from 'iso';
-import alt from './src/app/alt.js';
-
-import appConfig from './appConfig.js';
+import { match, RouterContext } from 'react-router';
 import { config as analyticsConfig } from 'dgx-react-ga';
 import webpack from 'webpack';
-import webpackConfig from './webpack.config.js';
 
-import Application from './src/app/components/Application/Application.jsx';
-import apiRoutes from './src/server/ApiRoutes/ApiRoutes.js';
+import Iso from 'iso';
+import alt from './src/app/alt';
+import apiRoutes from './src/server/ApiRoutes/ApiRoutes';
+import routes from './src/app/routes/routes';
+
+import appConfig from './appConfig';
+import webpackConfig from './webpack.config';
+
+// import Application from './src/app/components/Application/Application.jsx';
 
 const ROOT_PATH = __dirname;
 const INDEX_PATH = path.resolve(ROOT_PATH, 'src/client');
@@ -44,24 +46,36 @@ app.use('*/src/client', express.static(INDEX_PATH));
 
 app.use('/', apiRoutes);
 
-app.get('/', (req, res) => {
+app.get('/*', (req, res) => {
   alt.bootstrap(JSON.stringify(res.locals.data || {}));
 
-  const iso = new Iso();
-  const application = ReactDOMServer.renderToString(<Application />);
+  const appRoutes = (req.url).indexOf(appConfig.baseUrl) !== -1 ? routes.client : routes.server;
 
-  iso.add(application, alt.flush());
+  match({ routes: appRoutes, location: req.url }, (error, redirectLocation, renderProps) => {
+    if (error) {
+      res.status(500).send(error.message);
+    } else if (redirectLocation) {
+      res.redirect(302, redirectLocation);
+    } else if (renderProps) {
+      const application = ReactDOMServer.renderToString(<RouterContext {...renderProps} />);
+      // const application = ReactDOMServer.renderToString(<Application />);
+      const iso = new Iso();
 
-  // First parameter references the ejs filename
-  res.render('index', {
-    application: iso.render(),
-    appTitle: appConfig.appTitle,
-    favicon: appConfig.favIconPath,
-    gaCode: analyticsConfig.google.code(isProduction),
-    webpackPort: WEBPACK_DEV_PORT,
-    appEnv: process.env.APP_ENV,
-    apiUrl: '',
-    isProduction,
+      iso.add(application, alt.flush());
+      // First parameter references the ejs filename
+      res.render('index', {
+        application: iso.render(),
+        appTitle: appConfig.appTitle,
+        favicon: appConfig.favIconPath,
+        gaCode: analyticsConfig.google.code(isProduction),
+        webpackPort: WEBPACK_DEV_PORT,
+        appEnv: process.env.APP_ENV,
+        apiUrl: '',
+        isProduction,
+      });
+    } else {
+      res.status(404).send(error.message);
+    }
   });
 });
 

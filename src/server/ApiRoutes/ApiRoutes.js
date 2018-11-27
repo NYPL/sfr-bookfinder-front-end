@@ -1,39 +1,25 @@
 import express from 'express';
-import axios from 'axios';
+
+import Search from './Search';
+import appConfig from '../../../appConfig';
 
 const router = express.Router();
 
-function fetchApiData(url) {
-  return axios.get(url);
-}
-
 function MainApp(req, res, next) {
-  // Example of how to use the fetchApiData function:
-  // const apiUrl = '';
-  // fetchApiData(url)
-  //   .then(data => {
-  //     // Do something with the data
-  //     res.locals.data = {
-  //       Store: data,
-  //     };
-  //
-  //     next();
-  //   })
-  //   .catch(error => {
-  //     // Do something with the error
-  //     res.locals.data = {
-  //       Store: {},
-  //     };
-  //
-  //     next();
-  //   });
-
   res.locals.data = {
-    Store: {},
+    searchResults: {},
   };
 
   next();
 }
+
+router
+  .route(`${appConfig.baseUrl}/search`)
+  .get(Search.searchServer);
+
+router
+  .route(appConfig.baseUrl)
+  .get(MainApp);
 
 router
   .route('/')

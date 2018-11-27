@@ -1,0 +1,116 @@
+.nypl-omnisearch-form {
+  // Larger screen collapsed version of search form elements.
+  .nypl-omnisearch {
+    .nypl-omni-fields-text {
+      font-size: 0.9rem;
+      margin-left: 0.15rem;
+      padding-right: 0.25rem;
+      float: left;
+      top: 0.4rem;
+      width: 50%;
+      position: relative;
+      background-color: #fff;
+    }
+  }
+
+  .nypl-text-field {
+    background-color: #fff;
+    border-radius: 0.2rem;
+    box-shadow: none;
+    display: block;
+    margin: 0;
+    padding: 0;
+    position: relative;
+
+    input[type=text] {
+      width: 100%;
+      border: 0;
+      border-radius: 0.25rem;
+      font-size: 1rem;
+      padding: 0.25rem 0;
+      margin: 0 1%;
+      text-indent: 0.5rem;
+      top: 0.1rem;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+
+      &:focus {
+        -webkit-box-shadow: inset 0 0 0 0.125rem #ffb81d;
+        -moz-box-shadow: inset 0 0 0 0.125rem #ffb81d;
+        box-shadow: inset 0 0 0 0.125rem #ffb81d;
+      }
+    }
+  }
+
+  // Button specific CSS for submit
+  .nypl-omnisearch-button {
+    font-weight: 200;
+    background: #1B7FA7;
+    border-left: solid 0.0625rem #080807;
+    border-radius: 0;
+    color: #fff;
+    width: 15%;
+    min-width: 5rem;
+    max-width: 7rem;
+    height: 3rem;
+    float: right;
+    padding-top: 0.6rem;
+    padding-right: 0.8em;
+    text-indent: -1rem;
+
+    .nypl-search-icon {
+      background-color: #1B7FA7;
+      speak: none;
+    }
+  }
+
+  svg {
+    fill: #fff;
+    position: relative;
+    height: 28px;
+    width: 28px;
+    margin-left: 75%;
+  }
+
+
+  // Small screen stacked version of search form elements.
+  @media (max-width: $xtrasmall-breakpoint) {
+    .nypl-omnisearch {
+      display: block;
+      background-color: transparent;
+      border: 0;
+    }
+
+    .nypl-omnisearch-button {
+      border: solid 0.0625rem #080807;
+      border-radius: 0.2rem;
+      width: 6rem;
+    }
+
+    .nypl-text-field {
+      background-color: #fff;
+      border: solid 0.0625rem #080807;
+      border-radius: 0.2rem;
+      height: 3rem;
+      box-shadow: none;
+      margin: 1rem 0;
+
+      .nypl-omni-fields,
+      .nypl-omni-fields-text {
+        background: #fff;
+        border-right: 0;
+        width: 96%;
+      }
+
+      input[type=text] {
+        width: 100%;
+      }
+    }
+  }
+
+  @media (max-width: $mobile-breakpoint) {
+    .nypl-omnisearch {
+      width: 100%;
+    }
+  }
+}
