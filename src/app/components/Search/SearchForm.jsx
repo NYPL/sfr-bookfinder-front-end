@@ -112,7 +112,4 @@ SearchForm.propTypes = {
   sort: PropTypes.object,
 };
 
-export default connect(
-  null,
-  { search },
-)(SearchForm);
+export default SearchForm;

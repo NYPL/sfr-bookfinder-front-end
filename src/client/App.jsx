@@ -7,7 +7,7 @@ import { Router, browserHistory } from 'react-router';
 // import Iso from 'iso';
 import { Provider } from 'react-redux';
 import store from '../app/stores/ReduxStore';
-// import Application from '../app/components/Application/Application';
+import Application from '../app/components/Application/Application';
 
 // import alt from '../app/alt';
 
@@ -27,7 +27,7 @@ window.onload = () => {
 
   ReactDOM.render(
     <Provider store={store}>
-      <Router history={appHistory}>{routes.client}</Router>
+      <Application />
     </Provider>,
     appElement,
   );

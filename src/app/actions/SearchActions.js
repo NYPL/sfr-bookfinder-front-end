@@ -12,3 +12,5 @@ export const search = (query, filter) => {
       };
     });
 };
+
+export default search;

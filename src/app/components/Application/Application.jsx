@@ -2,8 +2,8 @@ import React from 'react';
 
 import { Header, navConfig } from '@nypl/dgx-header-component';
 import Footer from '@nypl/dgx-react-footer';
-import SearchForm from '../Search/SearchForm';
-// import SearchResultsList from '../Search/SearchResultsList';
+// import SearchForm from '../Search/SearchForm';
+import SearchResultsList from '../Search/SearchResultsList';
 
 class Application extends React.Component {
   constructor(props) {
@@ -18,7 +18,7 @@ class Application extends React.Component {
         <Header
           skipNav={{ target: 'mainContent' }}
           navData={navConfig.current}
-          urlType='absolute'
+          urlType="absolute"
         />
         <main id="mainContent">
           {
@@ -27,7 +27,7 @@ class Application extends React.Component {
           }
           <div className="nypl-page-header">
             <div className="breadcrumb">
-              {/* <Breadcrumb /> */}
+              &nbsp;
             </div>
           </div>
           <div className="nypl-full-width-wrapper">
@@ -38,7 +38,6 @@ class Application extends React.Component {
             </div>
             <div className="nypl-row">
               <div className="nypl-column-full">
-                <SearchForm />
                 <div id="tagline">
                   Search the world's research collections and more for digital books you
                   can use right now.
@@ -47,7 +46,7 @@ class Application extends React.Component {
             </div>
             <div className="nypl-row">
               <div className="nypl-column-full">
-                {/* <SearchResultsList store={this.state} /> */}
+                <SearchResultsList />
               </div>
             </div>
           </div>
