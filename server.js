@@ -9,15 +9,13 @@ import { match, RouterContext } from 'react-router';
 import { config as analyticsConfig } from 'dgx-react-ga';
 import webpack from 'webpack';
 
-import Iso from 'iso';
-import alt from './src/app/alt';
+import { Provider } from 'react-redux';
 import apiRoutes from './src/server/ApiRoutes/ApiRoutes';
 import routes from './src/app/routes/routes';
+import store from './src/app/stores/ReduxStore';
 
 import appConfig from './appConfig';
 import webpackConfig from './webpack.config';
-
-// import Application from './src/app/components/Application/Application.jsx';
 
 const ROOT_PATH = __dirname;
 const INDEX_PATH = path.resolve(ROOT_PATH, 'src/client');
@@ -47,8 +45,6 @@ app.use('*/src/client', express.static(INDEX_PATH));
 app.use('/', apiRoutes);
 
 app.get('/*', (req, res) => {
-  alt.bootstrap(JSON.stringify(res.locals.data || {}));
-
   const appRoutes = (req.url).indexOf(appConfig.baseUrl) !== -1 ? routes.client : routes.server;
 
   match({ routes: appRoutes, location: req.url }, (error, redirectLocation, renderProps) => {
@@ -57,14 +53,15 @@ app.get('/*', (req, res) => {
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation);
     } else if (renderProps) {
-      const application = ReactDOMServer.renderToString(<RouterContext {...renderProps} />);
-      // const application = ReactDOMServer.renderToString(<Application />);
-      const iso = new Iso();
+      const application = ReactDOMServer.renderToString(
+        <Provider store={store}>
+          <RouterContext {...renderProps} />
+        </Provider>
+      );
 
-      iso.add(application, alt.flush());
       // First parameter references the ejs filename
       res.render('index', {
-        application: iso.render(),
+        application,
         appTitle: appConfig.appTitle,
         favicon: appConfig.favIconPath,
         gaCode: analyticsConfig.google.code(isProduction),

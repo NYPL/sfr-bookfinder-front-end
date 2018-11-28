@@ -3,8 +3,13 @@ import { Actions } from '../actions/Actions';
 
 export const searchResults = (state = null, action) => {
   switch (action.type) {
-    case Actions.SEARCH:
-      return action.payload.searchResults;
+    case 'search':
+      return {};
+
+    case 'search_load':
+      return {
+        data: action.data,
+      };
       // Store the results returned by ES.
       // return search(state.query, state.filter)
       //   .then((srchResults) => {

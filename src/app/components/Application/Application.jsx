@@ -3,7 +3,7 @@ import React from 'react';
 import { Header, navConfig } from '@nypl/dgx-header-component';
 import Footer from '@nypl/dgx-react-footer';
 import SearchForm from '../Search/SearchForm';
-// import SearchResultsList from '../Search/SearchResultsList';
+import SearchResultsList from '../Search/SearchResultsList';
 
 class Application extends React.Component {
   constructor(props) {
@@ -47,7 +47,7 @@ class Application extends React.Component {
             </div>
             <div className="nypl-row">
               <div className="nypl-column-full">
-                {/* <SearchResultsList store={this.state} /> */}
+                <SearchResultsList />
               </div>
             </div>
           </div>

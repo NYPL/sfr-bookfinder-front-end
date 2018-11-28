@@ -1,14 +1,15 @@
 import performSearch from '../components/Search/SearchQuery';
-import { Actions } from './Actions';
 
-export const search = (query, filter) => {
-  return performSearch(query, filter)
-    .then((results) => {
-      return {
-        type: Actions.SEARCH,
-        payload: {
-          searchResults: results,
-        },
-      };
+export default (query, filter) => {
+  return (dispatch) => {
+    return new Promise((resolve, reject) => {
+      dispatch({ type: 'search' })
+      performSearch(query, filter)
+        .then((results) => {
+          dispatch({ type: 'search_load', data: results });
+          resolve(query);
+        })
+        .catch(error => reject(error));
     });
+  };
 };
