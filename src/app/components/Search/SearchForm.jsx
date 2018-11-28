@@ -1,28 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import reduxStore from '../../stores/ReduxStore';
 import SearchButton from '../Button/SearchButton';
-import { query, filter, sort, searchResults } from '../../stores/Reducers';
-import { searchActions, search } from '../../actions/SearchActions';
+import { search } from '../../actions/SearchActions';
 
 class SearchForm extends React.Component {
   constructor(props) {
     super(props);
 
-    const localStorage = [];
-
-    const initialState = (localStorage['redux-store']) ?
-      JSON.stringify(localStorage['redux-store']) :
-      props;
-
-    const saveState = () => {
-      const state = JSON.stringify(this.state.getState());
-      localStorage['redux-store'] = state;
-    };
-
-    this.state = reduxStore(initialState);
-    this.state.subscribe(saveState);
+    this.state = props;
 
     this.onFilterChange = this.onFilterChange.bind(this);
     this.onQueryChange = this.onQueryChange.bind(this);
@@ -47,33 +33,14 @@ class SearchForm extends React.Component {
 
   submitSearchRequest(event) {
     event.preventDefault();
-    if (!this.state.getState().filter) {
+    if (!this.store.filter) {
       this.setState({ filter: 'q' });
     }
-    const action = {
-      type: searchActions.SEARCH,
-      payload: {
-        query: this.state.getState().query,
-        filter: this.state.getState().filter,
-      },
-    };
-
-    this.state.dispatch({
-      type: searchActions.SEARCH,
-      payload: {
-        searchResults: { hits: 0 },
-        query: this.state.getState().query,
-        filter: this.state.getState().filter,
-        sort: { sortFilter: 'title', sortOrder: 'asc' },
-      },
-    });
-
-    console.log('next state', this.state.getState());
+    // this.props.search(this.props.query, this.props.filter);
   }
 
   render() {
-    const { query, filter } = this.props;
-    console.log('SearchForm state', this.state.getState());
+    const { searchResults, query, filter, allowedFilters, sort } = this.state;
 
     return (
       <div>
@@ -85,15 +52,15 @@ class SearchForm extends React.Component {
                 <select
                   id="search-by-field"
                   onChange={this.onFilterChange}
-                  value={this.state.getState().filter}
+                  value={filter}
                 >
-                  <option value={this.state.getState().allowedFilters.kw} defaultValue>
+                  <option value={allowedFilters.kw} defaultValue>
                     Keyword
                   </option>
-                  <option value={this.state.getState().allowedFilters.ti}>
+                  <option value={allowedFilters.ti}>
                     Title
                   </option>
-                  <option value={this.state.getState().allowedFilters.au}>
+                  <option value={allowedFilters.au}>
                     Author
                   </option>
                 </select>
@@ -105,7 +72,7 @@ class SearchForm extends React.Component {
                   name="query"
                   type="text"
                   aria-labelledby="search-input-field"
-                  value={this.state.getState().query}
+                  value={query}
                   placeholder="Keyword, title, or author"
                   onChange={this.onQueryChange}
                 />
@@ -145,4 +112,7 @@ SearchForm.propTypes = {
   sort: PropTypes.object,
 };
 
-export default SearchForm;
+export default connect(
+  null,
+  { search },
+)(SearchForm);

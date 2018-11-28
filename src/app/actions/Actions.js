@@ -1,18 +1,11 @@
-// ACTIONS
-import alt from '../alt.js';
+// Actions
+export const Actions = {
+  SEARCH: 'SEARCH',
+  SEARCH_BY_KEYWORD: 'SEARCH_BY_KEYWORD',
+  SEARCH_BY_TITLE: 'SEARCH_BY_TITLE',
+  SEARCH_BY_AUTHOR: 'SEARCH_BY_AUTHOR',
+  FILTER_RESULTS: 'FILTER_RESULTS',
+  SORT_RESULTS: 'SORT_RESULTS',
+};
 
-class Actions {
-  searchByKeyword(data) {
-    return data;
-  }
-
-  searchByTitle(data) {
-    return data;
-  }
-
-  searchByAuthor(data) {
-    return data;
-  }
-}
-
-export default alt.createActions(Actions);
+export default Actions;

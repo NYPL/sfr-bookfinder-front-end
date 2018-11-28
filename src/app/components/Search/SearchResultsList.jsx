@@ -1,27 +1,14 @@
 import React from 'react';
-import reduxStore from '../../stores/ReduxStore';
 
 class SearchResultsList extends React.Component {
   constructor(props) {
     super(props);
 
-    const localStorage = [];
-
-    const initialState = (localStorage['redux-store']) ?
-      JSON.stringify(localStorage['redux-store']) :
-      {};
-
-    const saveState = () => {
-      const state = JSON.stringify(this.state.getState());
-      localStorage['redux-store'] = state;
-    };
-
-    this.state = reduxStore(initialState);
-    this.state.subscribe(saveState);
+    this.state = props;
   }
 
   render() {
-    console.log('State read by results', this.state.getState());
+    console.log('State read by results', this.state);
     let resultsList;
     if (this.state.searchResults !== {}) {
       resultsList = 'Your search results';

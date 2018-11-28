@@ -4,13 +4,12 @@ import ReactDOM from 'react-dom';
 // import createBrowserHistory from 'history/lib/createBrowserHistory';
 // import useScroll from 'react-router-scroll';
 import { Router, browserHistory } from 'react-router';
-import Iso from 'iso';
-// import { Provider } from 'react-redux';
-// import { createStore } from 'redux';
-// import { searchResults } from '../app/stores/Reducers';
-// import { Application } from '../app/components/Application/Application';
+// import Iso from 'iso';
+import { Provider } from 'react-redux';
+import store from '../app/stores/ReduxStore';
+// import Application from '../app/components/Application/Application';
 
-import alt from '../app/alt';
+// import alt from '../app/alt';
 
 import './styles/main.scss';
 
@@ -23,23 +22,24 @@ if (loadA11y) {
 window.onload = () => {
   // const store = createStore(searchResults);
   const appHistory = browserHistory;
+  const appElement = document.getElementById('app');
+  console.log(store);
 
-  // ReactDOM.render(
-  //   <Provider store={store}>
-  //     {/* <Router history={appHistory}>{routes.client}</Router> */}
-  //     <Application />
-  //   </Provider>,
-  //   document.getElementById('app'),
-  // );
+  ReactDOM.render(
+    <Provider store={store}>
+      <Router history={appHistory}>{routes.client}</Router>
+    </Provider>,
+    appElement,
+  );
 
   // Render Isomorphically
-  Iso.bootstrap((state, container) => {
-    console.log('Application rendered Isomorphically.');
-    alt.bootstrap(state);
+  // Iso.bootstrap((state, container) => {
+  //   console.log('Application rendered Isomorphically.');
+  //   alt.bootstrap(state);
 
-    ReactDOM.render(
-      <Router history={appHistory}>{routes.client}</Router>,
-      container,
-    );
-  });
+  //   ReactDOM.render(
+  //     <Router history={appHistory}>{routes.client}</Router>,
+  //     container,
+  //   );
+  // });
 };

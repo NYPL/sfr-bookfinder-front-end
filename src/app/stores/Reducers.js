@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import { searchActions } from '../actions/SearchActions';
+import { Actions } from '../actions/Actions';
 
 export const searchResults = (state = null, action) => {
   switch (action.type) {
-    case searchActions.SEARCH:
+    case Actions.SEARCH:
       return action.payload.searchResults;
       // Store the results returned by ES.
       // return search(state.query, state.filter)
