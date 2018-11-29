@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import SearchButton from '../Button/SearchButton';
 import { search } from '../../actions/SearchActions';
 
-class SearchForm extends React.Component {
+export class SearchForm extends React.Component {
   constructor(props) {
     super(props);
 

@@ -8,6 +8,7 @@
     "start": "node index",
     "eb-start": "npm run dist && node index",
     "dist": "NODE_ENV=production ./node_modules/.bin/webpack --config webpack.config.js",
+    "rebuild-modules": "rm -rf node_modules && npm install",
     "postinstall": "npm run dist",
     "test": "mocha --compilers js:babel-core/register",
     "test-file": "mocha -w test/helpers/browser.js",
