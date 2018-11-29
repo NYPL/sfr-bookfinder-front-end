@@ -33,10 +33,11 @@ class SearchForm extends React.Component {
 
   submitSearchRequest(event) {
     event.preventDefault();
-    if (!this.store.filter) {
+    if (!this.state.filter) {
       this.setState({ filter: 'q' });
     }
-    // this.props.search(this.props.query, this.props.filter);
+
+    this.props.search(this.state.query, this.state.filter);
   }
 
   render() {
@@ -102,6 +103,7 @@ SearchForm.defaultProps = {
     sortFilter: 'title',
     sortOrder: 'asc',
   },
+  search: () => {},
 };
 
 SearchForm.propTypes = {
@@ -110,6 +112,15 @@ SearchForm.propTypes = {
   filter: PropTypes.string,
   allowedFilters: PropTypes.object,
   sort: PropTypes.object,
+  search: PropTypes.func,
 };
 
-export default SearchForm;
+const mapDispatchToProps = dispatch => ({
+  search: (query, filter) => dispatch(search(query, filter)),
+});
+
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(SearchForm);

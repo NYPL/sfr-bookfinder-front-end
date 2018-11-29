@@ -6,7 +6,7 @@ import NotFound404 from '../components/Error/NotFound404';
 import appConfig from '../../../appConfig';
 
 const baseUrl = appConfig.baseUrl;
-console.log(baseUrl);
+
 const routes = {
   server: (
     <Route path="/" component={Application}>

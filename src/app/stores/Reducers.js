@@ -4,21 +4,15 @@ import { Actions } from '../actions/Actions';
 export const searchResults = (state = null, action) => {
   switch (action.type) {
     case Actions.SEARCH:
-      return action.payload.searchResults;
-      // Store the results returned by ES.
-      // return search(state.query, state.filter)
-      //   .then((srchResults) => {
-      //     console.log(srchResults);
-      //     let newState = srchResults;
-      //     return newState;
-      //   });
-
+      return {
+        data: action.results,
+      }
     default:
       return state;
   }
 };
 
-export const query = (state = '', action) => (
+export const query = (state = null, action) => (
   (action.payload) ?
     action.payload.query :
     state

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Header, navConfig } from '@nypl/dgx-header-component';
 import Footer from '@nypl/dgx-react-footer';
-// import SearchForm from '../Search/SearchForm';
+import SearchForm from '../Search/SearchForm';
 import SearchResultsList from '../Search/SearchResultsList';
 
 class Application extends React.Component {
@@ -26,9 +26,7 @@ class Application extends React.Component {
             // accessible skip nav from the Header component.
           }
           <div className="nypl-page-header">
-            <div className="breadcrumb">
-              &nbsp;
-            </div>
+            <div className="breadcrumb"></div>
           </div>
           <div className="nypl-full-width-wrapper">
             <div className="nypl-row">
@@ -38,6 +36,7 @@ class Application extends React.Component {
             </div>
             <div className="nypl-row">
               <div className="nypl-column-full">
+                <SearchForm />
                 <div id="tagline">
                   Search the world's research collections and more for digital books you
                   can use right now.
