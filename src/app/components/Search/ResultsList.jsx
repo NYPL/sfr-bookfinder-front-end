@@ -12,15 +12,19 @@ const ResultsList = (results) => {
 
   return (
     <div>
-      <h3>Works</h3>
-      <ul className="results-list">
+      <h2>Works</h2>
+      <ul className="nypl-results-list">
         {
           results.results.map((result, i) => (
-            <li tabIndex={i.toString()} key={i.toString()}>
-              {result['_source'].title}
-              <div className="instances">
+            <li className="nypl-results-item" tabIndex={i.toString()} key={i.toString()}>
+              <h3>
+                <a href={`/work/detail/${result._id}`}>
+                  {result['_source'].title} &ndash; {result['_source'].entities[0].name}
+                </a>
+              </h3>
+              <ul className="nypl-item-list">
                 <Instances instances={result['_source'].instances} />
-              </div>
+              </ul>
             </li>
           ))
         }

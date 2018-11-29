@@ -28,7 +28,7 @@ SearchButton.propTypes = {
 };
 
 SearchButton.defaultProps = {
-  id: 'nypl-omni-button',
+  id: 'nypl-omnisearch-button',
   value: 'Search',
   className: '',
   onClick: () => {},

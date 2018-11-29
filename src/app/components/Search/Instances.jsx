@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
 
 class Instances extends React.Component {
   constructor(props) {
@@ -27,28 +26,31 @@ class Instances extends React.Component {
     const items = this.parseInstances(this.instances);
 
     return (
-      <div className="instances">
-        <h4>Item Details</h4>
+      <ul className="nypl-instances-list">
         {
           items.map((element, key) => (
-            <p tabIndex={key.toString()} key={key.toString()}>
-              <ol>
-                {
-                  element.ebooks.map((ebook, ebookKey) => (
-                    <li className="ebook" key={ebookKey.toString()}>
-                      <strong>eBook Link</strong> <a href={ebook.url}> {ebook.url}</a>
-                    </li>
-                  ))
-                }
-              </ol>
-              <span className="publication-date"><strong>Publication Date</strong> {element.pub_date}</span><br />
-              <span className="publication-place"><strong>Publication Place</strong> {element.pub_place}</span><br />
-              <span className="publisher"><strong>Publisher</strong> {element.publisher}</span><br />
-              <span className="language"><strong>Language</strong> {element.language}</span><br />
-            </p>
+            <li className="nypl-results-item">
+              <div className="nypl-results-description">
+                <p tabIndex={key.toString()} key={key.toString()}>
+                  {
+                    element.ebooks.map((ebook, ebookKey) => (
+                      <div key={ebookKey.toString()}>
+                        <span className="nypl-results-media">
+                          eBook: <a href={ebook.url}> {ebook.url}</a>
+                        </span>
+                      </div>
+                    ))
+                  }
+                  <span className="nypl-results-date">{element.pub_date}</span>
+                  <span className="nypl-results-place">{element.pub_place}</span>
+                  <span className="nypl-results-publisher">{element.publisher}</span>
+                  <span className="nypl-results-info">{element.language}</span>
+                </p>
+              </div>
+            </li>
           ))
         }
-      </div>
+      </ul>
     );
   }
 }

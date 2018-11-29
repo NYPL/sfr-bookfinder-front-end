@@ -45,44 +45,50 @@ class SearchForm extends React.Component {
 
     return (
       <div>
-        <form className="ebook-search" onSubmit={this.handleSubmit} onKeyPress={this.handleSubmit}>
+        <form className="nypl-omnisearch-form" onSubmit={this.handleSubmit} onKeyPress={this.handleSubmit}>
           <div className="ebook-search-form">
-            <fieldset className="nypl-omnisearch">
-              <span className="nypl-omni-fields">
-                <label htmlFor="search-by-field">Search in</label>
-                <select
-                  id="search-by-field"
-                  onChange={this.onFilterChange}
-                  value={filter}
-                >
-                  <option value={allowedFilters.kw} defaultValue>
-                    Keyword
-                  </option>
-                  <option value={allowedFilters.ti}>
-                    Title
-                  </option>
-                  <option value={allowedFilters.au}>
-                    Author
-                  </option>
-                </select>
-              </span>
-              <span className="nypl-omni-fields-text">
-                {/* <label htmlFor="search-input">Search ResearchNow for</label> */}
-                <input
-                  id="search-input"
-                  name="query"
-                  type="text"
-                  aria-labelledby="search-input-field"
-                  value={query}
-                  placeholder="Keyword, title, or author"
-                  onChange={this.onQueryChange}
+            <div className="nypl-omnisearch">
+              <div className="nypl-text-field">
+                <span className="nypl-omni-fields">
+                  <label htmlFor="search-by-field">Search in</label>
+                  <select
+                    id="search-by-field"
+                    onChange={this.onFilterChange}
+                    value={filter}
+                  >
+                    <option value={allowedFilters.kw} defaultValue>
+                      Keyword
+                    </option>
+                    <option value={allowedFilters.ti}>
+                      Title
+                    </option>
+                    <option value={allowedFilters.au}>
+                      Author
+                    </option>
+                  </select>
+                </span>
+              </div>
+              <div className="nypl-text-field">
+                <span className="nypl-omni-fields-text">
+                  {/* <label htmlFor="search-input">Search ResearchNow for</label> */}
+                  <input
+                    id="search-input"
+                    name="query"
+                    type="text"
+                    aria-labelledby="search-input-field"
+                    value={query}
+                    placeholder="Keyword, title, or author"
+                    onChange={this.onQueryChange}
+                  />
+                </span>
+              </div>
+              <div className="nypl-text-field">
+                <SearchButton
+                  className="nypl-omnisearch-button"
+                  onClick={this.submitSearchRequest}
                 />
-              </span>
-              <SearchButton
-                className="nypl-omni-button"
-                onClick={this.submitSearchRequest}
-              />
-            </fieldset>
+              </div>
+            </div>
           </div>
         </form>
       </div>
