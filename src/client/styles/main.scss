@@ -9,6 +9,8 @@ Import style rules from NYPL React module components
 */
 @import "~@nypl/dgx-header-component/dist/styles/main";
 @import '~@nypl/dgx-react-footer/dist/styles/styles';
+@import './components/Search.scss';
+@import './components/Instances.scss';
 
 $nypl-dark-blue: #135772;
 
@@ -22,7 +24,7 @@ $nypl-dark-blue: #135772;
   min-height: 400px;
 }
 
-#sfr-tagline {
+#tagline {
   text-align: center;
   margin: 25px 0;
 }

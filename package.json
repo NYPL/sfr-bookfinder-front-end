@@ -2,11 +2,13 @@
   "name": "rnw-front-end-development",
   "version": "0.0.1",
   "description": "ResearchNow front-end application for NYPL's newest search & retrieval platform.",
+  "author": "NYPL Digital",
   "main": "index.js",
   "scripts": {
     "start": "node index",
     "eb-start": "npm run dist && node index",
     "dist": "NODE_ENV=production ./node_modules/.bin/webpack --config webpack.config.js",
+    "rebuild-modules": "rm -rf node_modules && npm install",
     "postinstall": "npm run dist",
     "test": "mocha --compilers js:babel-core/register",
     "test-file": "mocha -w test/helpers/browser.js",
@@ -32,6 +34,7 @@
     "url": "https://github.com/NYPL/sfr-bookfinder-front-end/issues"
   },
   "devDependencies": {
+    "axios-mock-adapter": "^1.15.0",
     "chai": "3.5.0",
     "enzyme": "2.9.1",
     "esdoc": "0.4.6",
@@ -40,14 +43,17 @@
     "nyc": "11.4.1",
     "react-addons-test-utils": "15.6.2",
     "react-hot-loader": "1.2.8",
-    "sinon": "4.1.3",
+    "react-test-renderer": "^16.6.3",
+    "redux-mock-store": "^1.5.3",
+    "sinon": "^4.1.3",
     "webpack-dev-server": "2.9.7"
   },
   "dependencies": {
-    "@nypl/design-toolkit": "^0.1.36",
+    "@nypl/design-toolkit": "0.1.36",
     "@nypl/dgx-header-component": "2.4.11",
     "@nypl/dgx-react-footer": "0.5.1",
-    "alt": "0.18.6",
+    "@nypl/dgx-svg-icons": "0.3.8",
+    "@nypl/nypl-data-api-client": "1.0.0",
     "axios": "0.17.1",
     "babel-core": "6.26.0",
     "babel-loader": "6.4.1",
@@ -71,20 +77,25 @@
     "eslint-plugin-react": "7.5.1",
     "express": "4.16.2",
     "extract-text-webpack-plugin": "2.1.2",
-    "iso": "5.2.0",
+    "history": "3.3.0",
     "node-sass": "3.8.0",
     "prop-types": "15.6.2",
     "react": "15.5.4",
+    "react-a11y": "1.1.0",
     "react-dom": "15.5.4",
+    "react-redux": "5.1.1",
+    "react-router": "3.0.5",
+    "react-router-scroll": "^0.4.4",
     "redux": "4.0.1",
+    "redux-thunk": "2.3.0",
     "rootpath": "0.1.2",
     "sass-loader": "5.0.0",
     "style-loader": "0.19.1",
+    "underscore": "^1.9.1",
     "webpack": "2.7.0",
     "webpack-merge": "0.8.4"
   },
   "directories": {
     "test": "test"
-  },
-  "author": "NYPL Digital"
+  }
 }

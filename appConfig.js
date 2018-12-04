@@ -1,13 +1,17 @@
 export default {
   appTitle: 'ResearchNow | NYPL',
   appName: 'ResearchNow',
-  favIconPath: '//cdn-www.nypl.org/images/favicon.ico',
+  favIconPath: '//d2znry4lg8s0tq.cloudfront.net/images/favicon.ico',
   port: 3001,
   webpackDevServerPort: 3000,
+  baseUrl: '',
   esUrl: {
-    development: 'sfr-search-api-dev.us-east-1.elasticbeanstalk.com/api/v0.1/works',
+    development: 'http://sfr-search-api-dev.us-east-1.elasticbeanstalk.com/api/v0.1/sfr/works',
   },
   s3Path: {
-    development: 'https://s3.amazonaws.com/simplye-research-epubs',
+    development: 's3.amazonaws.com/simplye-research-epubs',
+  },
+  api: {
+    development: 'dev-platform.nypl.org/api/v0.1/research-now/search-api',
   },
 };

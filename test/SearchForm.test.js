@@ -2,7 +2,7 @@
 import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
-import SearchForm from './../src/app/components/Search/SearchForm';
+import { SearchForm } from './../src/app/components/Search/SearchForm';
 
 describe('SearchForm', () => {
   let component;
@@ -33,5 +33,11 @@ describe('SearchForm', () => {
   it('contains an option for author.', () => {
     const authorOpt = component.find('option');
     expect(authorOpt.nodes[2].props.value).to.equal('filters[author]');
+  });
+
+  it('contains a text field for keyword search with an initial value.', () => {
+    const kwTextField = component.find('input');
+    expect(kwTextField.nodes[0].props.type).to.equal('text');
+    expect(kwTextField.nodes[0].props.placeholder).to.equal('Keyword, title, or author');
   });
 });

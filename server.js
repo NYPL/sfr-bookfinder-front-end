@@ -2,20 +2,18 @@ import path from 'path';
 import express from 'express';
 import compress from 'compression';
 import colors from 'colors';
-
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-
-import Iso from 'iso';
-import alt from './src/app/alt.js';
-
-import appConfig from './appConfig.js';
+import { match, RouterContext } from 'react-router';
 import { config as analyticsConfig } from 'dgx-react-ga';
 import webpack from 'webpack';
-import webpackConfig from './webpack.config.js';
+import { Provider } from 'react-redux';
 
-import Application from './src/app/components/Application/Application.jsx';
-import apiRoutes from './src/server/ApiRoutes/ApiRoutes.js';
+import apiRoutes from './src/server/ApiRoutes/ApiRoutes';
+import routes from './src/app/routes/routes';
+import store from './src/app/stores/ReduxStore';
+import appConfig from './appConfig';
+import webpackConfig from './webpack.config';
 
 const ROOT_PATH = __dirname;
 const INDEX_PATH = path.resolve(ROOT_PATH, 'src/client');
@@ -41,27 +39,38 @@ app.use(express.static(DIST_PATH));
 // For images
 app.use('*/src/client', express.static(INDEX_PATH));
 
-
 app.use('/', apiRoutes);
 
-app.get('/', (req, res) => {
-  alt.bootstrap(JSON.stringify(res.locals.data || {}));
+app.get('/*', (req, res) => {
+  const appRoutes = (req.url).indexOf(appConfig.baseUrl) !== -1 ? routes.client : routes.server;
 
-  const iso = new Iso();
-  const application = ReactDOMServer.renderToString(<Application />);
+  match({ routes: appRoutes, location: req.url }, (error, redirectLocation, renderProps) => {
+    if (error) {
+      res.status(500).send(error.message);
+    } else if (redirectLocation) {
+      res.redirect(302, redirectLocation);
+    } else if (renderProps) {
+      const application = ReactDOMServer.renderToString(
+        <Provider store={store}>
+          <RouterContext {...renderProps} />
+        </Provider>
+      );
 
-  iso.add(application, alt.flush());
-
-  // First parameter references the ejs filename
-  res.render('index', {
-    application: iso.render(),
-    appTitle: appConfig.appTitle,
-    favicon: appConfig.favIconPath,
-    gaCode: analyticsConfig.google.code(isProduction),
-    webpackPort: WEBPACK_DEV_PORT,
-    appEnv: process.env.APP_ENV,
-    apiUrl: res.locals.data.completeApiUrl,
-    isProduction,
+      // First parameter references the ejs filename
+      res.render('index', {
+        application,
+        appTitle: appConfig.appTitle,
+        favicon: appConfig.favIconPath,
+        gaCode: analyticsConfig.google.code(isProduction),
+        webpackPort: WEBPACK_DEV_PORT,
+        appEnv: process.env.APP_ENV,
+        apiUrl: '',
+        isProduction,
+      });
+    } else {
+      console.log(error);
+      res.status(404).send(error);
+    }
   });
 });
 
@@ -73,7 +82,7 @@ const server = app.listen(app.get('port'), (error) => {
   console.log(colors.yellow.underline(appConfig.appName));
   console.log(
     colors.green('Express server is listening at'),
-    colors.cyan(`localhost: ${app.get('port')}`)
+    colors.cyan(`localhost: ${app.get('port')}`),
   );
 });
 
@@ -95,7 +104,6 @@ const gracefulShutdown = () => {
 process.on('SIGTERM', gracefulShutdown);
 // listen for INT signal e.g. Ctrl-C
 process.on('SIGINT', gracefulShutdown);
-
 
 /* Development Environment Configuration
  * -------------------------------------
