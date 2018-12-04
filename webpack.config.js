@@ -71,7 +71,7 @@ if (ENV === 'development') {
       new webpack.HotModuleReplacementPlugin(),
       new webpack.DefinePlugin({
         'process.env': {
-          NODE_ENV: JSON.stringify('development'),
+          APP_ENV: JSON.stringify('development'),
         },
       }),
     ],
@@ -154,6 +154,7 @@ if (ENV === 'production') {
       new webpack.DefinePlugin({
         'process.env': {
           NODE_ENV: JSON.stringify('production'),
+          APP_ENV: JSON.stringify('production'),
         },
       }),
     ],

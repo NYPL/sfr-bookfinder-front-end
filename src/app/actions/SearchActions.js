@@ -13,7 +13,7 @@ export const searchResults = (results) => {
 };
 
 export const search = (query, filter = 'q') => {
-  const appEnv = process.env.NODE_ENV || 'production';
+  const appEnv = process.env.APP_ENV || 'production';
   // Need a parsed query input to use for each filter
   const userQuery = (query) ? encodeURI(query) : '*';
   // Need a client to send the search and receive results
