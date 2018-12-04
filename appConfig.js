@@ -12,6 +12,6 @@ export default {
     development: 's3.amazonaws.com/simplye-research-epubs',
   },
   api: {
-    development: 'dev-platform.nypl.org/api/v0.1/research-now/search-api',
+    development: 'https://dev-platform.nypl.org/api/v0.1/research-now/search-api',
   },
 };

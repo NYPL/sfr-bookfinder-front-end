@@ -18,7 +18,7 @@ export const search = (query, filter = 'q') => {
   const userQuery = (query) ? encodeURI(query) : '*';
   // Need a client to send the search and receive results
   // Need to pass the results to a renderer
-  const apiUrl = appConfig.esUrl[appEnv];
+  const apiUrl = appConfig.api[appEnv];
 
   return (dispatch) => {
     return axios.get(apiUrl, { params: { q: userQuery } })
