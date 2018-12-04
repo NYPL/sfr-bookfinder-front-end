@@ -4,8 +4,7 @@ import {
 } from 'underscore';
 import Instances from './Instances';
 
-const ResultsList = (results) => {
-  console.log(results);
+export const ResultsList = (results) => {
   if (_isEmpty(results.results)) {
     return null;
   }
@@ -16,7 +15,7 @@ const ResultsList = (results) => {
       <ul className="nypl-results-list">
         {
           results.results.map((result, i) => (
-            <li className="nypl-results-item" tabIndex={i.toString()} key={i.toString()}>
+            <li className="nypl-results-item" key={i.toString()}>
               <h3>
                 <a href={`/work/detail/${result._id}`}>
                   {result['_source'].title} &ndash; {result['_source'].entities[0].name}

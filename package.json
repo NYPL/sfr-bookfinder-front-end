@@ -34,6 +34,7 @@
     "url": "https://github.com/NYPL/sfr-bookfinder-front-end/issues"
   },
   "devDependencies": {
+    "axios-mock-adapter": "^1.15.0",
     "chai": "3.5.0",
     "enzyme": "2.9.1",
     "esdoc": "0.4.6",
@@ -42,7 +43,9 @@
     "nyc": "11.4.1",
     "react-addons-test-utils": "15.6.2",
     "react-hot-loader": "1.2.8",
-    "sinon": "4.1.3",
+    "react-test-renderer": "^16.6.3",
+    "redux-mock-store": "^1.5.3",
+    "sinon": "^4.1.3",
     "webpack-dev-server": "2.9.7"
   },
   "dependencies": {
@@ -51,7 +54,6 @@
     "@nypl/dgx-react-footer": "0.5.1",
     "@nypl/dgx-svg-icons": "0.3.8",
     "@nypl/nypl-data-api-client": "1.0.0",
-    "alt": "0.18.6",
     "axios": "0.17.1",
     "babel-core": "6.26.0",
     "babel-loader": "6.4.1",
@@ -76,7 +78,6 @@
     "express": "4.16.2",
     "extract-text-webpack-plugin": "2.1.2",
     "history": "3.3.0",
-    "iso": "5.2.0",
     "node-sass": "3.8.0",
     "prop-types": "15.6.2",
     "react": "15.5.4",

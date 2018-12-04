@@ -6,12 +6,6 @@ import SearchForm from '../Search/SearchForm';
 import SearchResultsList from '../Search/SearchResultsList';
 
 class Application extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = props;
-  }
-
   render() {
     return (
       <div className="app-wrapper">

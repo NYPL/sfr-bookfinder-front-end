@@ -1,6 +1,6 @@
 import express from 'express';
 
-import Search from './Search';
+import { searchServer } from './Search';
 import appConfig from '../../../appConfig';
 
 const router = express.Router();
@@ -15,7 +15,7 @@ function MainApp(req, res, next) {
 
 router
   .route(`${appConfig.baseUrl}/search`)
-  .get(Search.searchServer);
+  .get(searchServer);
 
 router
   .route(appConfig.baseUrl)

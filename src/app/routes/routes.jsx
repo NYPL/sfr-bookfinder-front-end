@@ -10,12 +10,14 @@ const baseUrl = appConfig.baseUrl;
 const routes = {
   server: (
     <Route path="/" component={Application}>
+      <Route path="/search" component={Application} />
       <Route path="/404" component={NotFound404} />
       <Redirect from="*" to="/404" />
     </Route>
   ),
   client: (
     <Route path={`${baseUrl}/`} component={Application}>
+      <Route path={`${baseUrl}/search`} component={Application} />
       <Route path={`${baseUrl}/404`} component={NotFound404} />
       <Redirect from="*" to={`${baseUrl}/404`} />
     </Route>
