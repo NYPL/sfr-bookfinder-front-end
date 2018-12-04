@@ -3,18 +3,18 @@ import {
   isEmpty as _isEmpty,
 } from 'underscore';
 
-export const Instances = (instances) => {
+const Instances = (instances) => {
   if (_isEmpty(instances.instances)) {
     return null;
   }
 
-  const items = instances.instances.map((instance, key) => (
+  const items = instances.instances.map(instance => (
     {
       ebooks: (instance.items) ? instance.items : [],
-      pub_date: (instance.pub_date) ? parseInt(instance.pub_date) : null,
+      pub_date: (instance.pub_date) ? parseInt(instance.pub_date, 4) : null,
       pub_place: (instance.pub_place) ? instance.pub_place : null,
       publisher: (instance.publisher) ? instance.pub_publisher : null,
-      language: (instance.language) ? instance.language : null
+      language: (instance.language) ? instance.language : null,
     }
   ));
 
@@ -24,7 +24,7 @@ export const Instances = (instances) => {
         items.map((element, key) => (
           <li className="nypl-results-item" key={key.toString()}>
             <div className="nypl-results-description">
-              <p key={key.toString()}>
+              <p>
                 {
                   element.ebooks.map((ebook, ebookKey) => (
                     <span key={ebookKey.toString()}>

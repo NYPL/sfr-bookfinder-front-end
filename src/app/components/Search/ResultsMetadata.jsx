@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const ResultsMetadata = (metadata) => {
+const ResultsMetadata = (metadata) => {
   if (metadata.metadata.total === 0) {
     return (
       <div className="nypl-results-summary" aria-live="assertive" aria-atomic="true" role="presentation">

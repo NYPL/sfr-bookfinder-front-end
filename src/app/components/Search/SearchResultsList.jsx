@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { ResultsMetadata } from './ResultsMetadata';
-import { ResultsList } from './ResultsList';
+import ResultsMetadata from './ResultsMetadata';
+import ResultsList from './ResultsList';
 
 class SearchResultsList extends React.Component {
   render () {

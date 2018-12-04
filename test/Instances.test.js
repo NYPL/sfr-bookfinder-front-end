@@ -2,7 +2,7 @@
 import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
-import { Instances } from '../src/app/components/Search/Instances';
+import Instances from '../src/app/components/Search/Instances';
 
 describe('Instances', () => {
   let instances;

@@ -4,7 +4,7 @@ import {
 } from 'underscore';
 import Instances from './Instances';
 
-export const ResultsList = (results) => {
+const ResultsList = (results) => {
   if (_isEmpty(results.results)) {
     return null;
   }

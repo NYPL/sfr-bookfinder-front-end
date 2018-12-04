@@ -37,11 +37,11 @@ export class SearchForm extends React.Component {
       this.setState({ filter: 'q' });
     }
 
-    this.props.search(this.state.query, this.state.filter);
+    this.state.search(this.state.query, this.state.filter);
   }
 
   render() {
-    const { searchResults, query, filter, allowedFilters, sort } = this.state;
+    const { query, filter, allowedFilters } = this.state;
 
     return (
       <div>

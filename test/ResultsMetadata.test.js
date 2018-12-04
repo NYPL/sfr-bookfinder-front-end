@@ -2,7 +2,7 @@
 import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
-import { ResultsMetadata } from '../src/app/components/Search/ResultsMetadata';
+import ResultsMetadata from '../src/app/components/Search/ResultsMetadata';
 
 describe('Results Metadata', () => {
   let component;

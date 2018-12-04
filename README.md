@@ -31,11 +31,8 @@ Then run `npm start` to start the local server at `localhost:3001`.
 
 * ES6 - compiled with Babel and Webpack
 * Redux
-
-### Dev Dependencies
-
-* Webpack-dev-server
 * NYPL Header and Footer npm modules
+* Webpack
 
 ### Usage
 
