@@ -11,7 +11,7 @@
 
 ResearchNow front end application based on NYPL's React boilerplate code.
 
-Provides a "Welcome page" entry point with heading, search box, and tagline. Connects to an ElasticSearch index via an API endpoint (https://dev-platform.nypl.org/research-now/search-api).
+Provides a "Welcome page" entry point with heading, search box, and tagline. Connects to an ElasticSearch index via an API endpoint (https://platform.nypl.org/research-now/search-api).
 Simple keyword searches can be entered in the form and an index response is displayed back to
 the user.
 
