@@ -11,7 +11,7 @@ const Instances = (instances) => {
   const items = instances.instances.map(instance => (
     {
       ebooks: (instance.items) ? instance.items : [],
-      pub_date: (instance.pub_date) ? parseInt(instance.pub_date, 4) : null,
+      pub_date: (instance.pub_date) ? parseInt(instance.pub_date) : null,
       pub_place: (instance.pub_place) ? instance.pub_place : null,
       publisher: (instance.publisher) ? instance.pub_publisher : null,
       language: (instance.language) ? instance.language : null,
