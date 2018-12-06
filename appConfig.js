@@ -7,11 +7,14 @@ export default {
   baseUrl: '',
   esUrl: {
     development: 'http://sfr-search-api-dev.us-east-1.elasticbeanstalk.com/api/v0.1/sfr/works',
+    production: '',
   },
-  s3Path: {
-    development: 's3.amazonaws.com/simplye-research-epubs',
+  ereader: {
+    development: 'http://epub-reader-env.dvgytju99m.us-east-1.elasticbeanstalk.com/reader',
+    production: '',
   },
   api: {
     development: 'https://dev-platform.nypl.org/api/v0.1/research-now/search-api',
+    production: '',
   },
 };
