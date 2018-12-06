@@ -2,8 +2,8 @@
 import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
-import Application from './../src/app/components/Application/Application';
-import appConfig from './../appConfig';
+import Application from '../../src/app/components/Application/Application';
+import appConfig from '../../appConfig';
 
 
 describe('Application', () => {

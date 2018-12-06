@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import SearchButton from '../Button/SearchButton';
 import { search } from '../../actions/SearchActions';
 
@@ -10,15 +11,15 @@ export class SearchForm extends React.Component {
 
     this.state = props;
 
-    this.onFilterChange = this.onFilterChange.bind(this);
+    this.onFieldChange = this.onFieldChange.bind(this);
     this.onQueryChange = this.onQueryChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
   }
 
-  onFilterChange(event) {
-    const filterSelected = event.target.value;
-    this.setState({ filter: filterSelected });
+  onFieldChange(event) {
+    const fieldSelected = event.target.value;
+    this.setState({ field: fieldSelected });
   }
 
   onQueryChange(event) {
@@ -33,15 +34,16 @@ export class SearchForm extends React.Component {
 
   submitSearchRequest(event) {
     event.preventDefault();
-    if (!this.state.filter) {
-      this.setState({ filter: 'q' });
+    if (!this.state.field) {
+      this.setState({ field: 'q' });
     }
+    const terms = this.state.query.trim().replace(/\s+/g, ' ');
 
-    this.state.search(this.state.query, this.state.filter);
+    this.state.search(terms, this.state.field);
   }
 
   render() {
-    const { query, filter, allowedFilters } = this.state;
+    const { query, field, allowedFields } = this.state;
 
     return (
       <div>
@@ -53,16 +55,16 @@ export class SearchForm extends React.Component {
                   <label htmlFor="search-by-field">Search in</label>
                   <select
                     id="search-by-field"
-                    onChange={this.onFilterChange}
-                    value={filter}
+                    onChange={this.onFieldChange}
+                    value={field}
                   >
-                    <option value={allowedFilters.kw} defaultValue>
+                    <option value={allowedFields.kw} defaultValue>
                       Keyword
                     </option>
-                    <option value={allowedFilters.ti}>
+                    <option value={allowedFields.ti}>
                       Title
                     </option>
-                    <option value={allowedFilters.au}>
+                    <option value={allowedFields.au}>
                       Author
                     </option>
                   </select>
@@ -99,14 +101,14 @@ export class SearchForm extends React.Component {
 SearchForm.defaultProps = {
   searchResults: {},
   query: '',
-  filter: '',
-  allowedFilters: {
+  field: '',
+  allowedFields: {
     kw: 'q',
-    ti: 'filters[title]',
-    au: 'filters[author]',
+    ti: 'fields[title]',
+    au: 'fields[author]',
   },
   sort: {
-    sortFilter: 'title',
+    sortField: 'title',
     sortOrder: 'asc',
   },
   search: () => {},
@@ -115,18 +117,18 @@ SearchForm.defaultProps = {
 SearchForm.propTypes = {
   searchResults: PropTypes.object,
   query: PropTypes.string,
-  filter: PropTypes.string,
-  allowedFilters: PropTypes.object,
+  field: PropTypes.string,
+  allowedFields: PropTypes.object,
   sort: PropTypes.object,
   search: PropTypes.func,
 };
 
 const mapDispatchToProps = dispatch => ({
-  search: (query, filter) => dispatch(search(query, filter)),
+  search: (query, field) => dispatch(search(query, field)),
 });
 
 
-export default connect(
+export default withRouter(connect(
   null,
   mapDispatchToProps,
-)(SearchForm);
+)(SearchForm));

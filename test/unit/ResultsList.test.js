@@ -2,7 +2,7 @@
 import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
-import ResultsList from '../src/app/components/Search/ResultsList';
+import ResultsList from '../../src/app/components/Search/ResultsList';
 
 describe('Results List', () => {
   let results;

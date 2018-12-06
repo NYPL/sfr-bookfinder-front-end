@@ -2,7 +2,7 @@
 import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
-import { SearchForm } from './../src/app/components/Search/SearchForm';
+import { SearchForm } from '../../src/app/components/Search/SearchForm';
 
 describe('SearchForm', () => {
   let component;
@@ -27,12 +27,12 @@ describe('SearchForm', () => {
 
   it('contains an option for title.', () => {
     const titleOpt = component.find('option');
-    expect(titleOpt.nodes[1].props.value).to.equal('filters[title]');
+    expect(titleOpt.nodes[1].props.value).to.equal('fields[title]');
   });
 
   it('contains an option for author.', () => {
     const authorOpt = component.find('option');
-    expect(authorOpt.nodes[2].props.value).to.equal('filters[author]');
+    expect(authorOpt.nodes[2].props.value).to.equal('fields[author]');
   });
 
   it('contains a text field for keyword search with an initial value.', () => {

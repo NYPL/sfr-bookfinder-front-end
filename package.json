@@ -10,7 +10,7 @@
     "dist": "NODE_ENV=production ./node_modules/.bin/webpack --config webpack.config.js",
     "rebuild-modules": "rm -rf node_modules && npm install",
     "postinstall": "npm run dist",
-    "test": "mocha --compilers js:babel-core/register",
+    "test": "mocha --compilers js:babel-core/register test/unit",
     "test-file": "mocha -w test/helpers/browser.js",
     "test-with-coverage": "nyc ./node_modules/.bin/mocha test/helpers/browser.js test/*.test.js",
     "coverage": "BABEL_ENV=test node_modules/.bin/nyc --require mocha npm test",
