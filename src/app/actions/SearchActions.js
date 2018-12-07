@@ -12,16 +12,13 @@ export const searchResults = (results) => {
   };
 };
 
-export const search = (query, filter = 'q') => {
-  console.log('process.env', process.env.APP_ENV);
+export const search = (query, field = 'q') => {
   const appEnv = process.env.APP_ENV || 'production';
-  console.log('appENV defined', appEnv);
   // Need a parsed query input to use for each filter
-  const userQuery = (query) ? encodeURI(query) : '*';
+  const userQuery = (query) ? encodeURIComponent(query) : '*';
   // Need a client to send the search and receive results
   // Need to pass the results to a renderer
   const apiUrl = appConfig.api[appEnv];
-  console.log('API URL defined', apiUrl);
 
   return (dispatch) => {
     return axios.get(apiUrl, { params: { q: userQuery } })
@@ -30,9 +27,9 @@ export const search = (query, filter = 'q') => {
           dispatch(searchResults(resp.data));
         }
       })
-      .catch((err) => {
-        console.log('Query error', err);
-        throw new Error('Query error', err);
+      .catch((error) => {
+        console.log('Error communicating with Elasticsearch', apiUrl, error);
+        throw new Error('Error communicating with Elasticsearch', apiUrl, error);
       });
   };
 };

@@ -3,15 +3,15 @@ import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import ResultsList from '../../src/app/components/Search/ResultsList';
+import { results } from '../fixtures/results-list.json';
 
 describe('Results List', () => {
-  let results;
   let component;
 
   describe('No results behavior.', () => {
     before(() => {
-      results = {};
-      component = shallow(<ResultsList results={results} />);
+      const noResults = {};
+      component = shallow(<ResultsList results={noResults} />);
     });
 
     it('should return null when results object given is empty.', () => {
@@ -21,54 +21,6 @@ describe('Results List', () => {
 
   describe('Results behavior.', () => {
     before(() => {
-      results = [
-        {
-          _id: 0,
-          _source: {
-            title: 'Title One',
-            entities: [
-              {
-                name: 'Gallahad',
-              },
-            ],
-            instances: [
-              {
-                title: 'Title One',
-                items: [{
-                  url: 'http://localhost/epubs/epubOne.epub',
-                }],
-                pub_date: '511',
-                pub_place: 'England',
-                publisher: 'Merlin',
-                language: 'enm',
-              },
-            ],
-          },
-        },
-        {
-          _id: 1,
-          _source: {
-            title: 'Title Two',
-            entities: [
-              {
-                name: 'Ivanhoe',
-              },
-            ],
-            instances: [
-              {
-                title: 'Title Two',
-                items: [{
-                  url: 'http://localhost/epubs/epubOne.epub',
-                }],
-                pub_date: '513',
-                pub_place: 'England',
-                publisher: 'Merlin',
-                language: 'enm',
-              },
-            ],
-          },
-        },
-      ];
       component = shallow(<ResultsList results={results} />);
     });
 

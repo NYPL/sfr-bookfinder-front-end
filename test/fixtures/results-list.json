@@ -1,0 +1,47 @@
+{
+  "results": [
+    {
+      "_id": 1,
+      "_source": {
+        "title": "Title One",
+        "entities": [
+          {
+            "name": "Gallahad"
+          }
+        ],
+        "instances": [
+          {
+            "title": "Title One",
+            "items": [{
+              "url": "http://localhost/epubs/epubOne.epub"
+            }],
+            "pub_date": "511",
+            "pub_place": "England",
+            "publisher": "Merlin",
+            "language": "enm"
+          }
+        ]
+      }
+    },
+    {
+      "_id": 2,
+      "_source": {
+        "title": "Title Two",
+        "entities": [
+          {
+            "name": "Ivanhoe"
+          }
+        ],
+        "instances": [
+          {
+            "title": "Title Two",
+            "pub_date": "513",
+            "pub_place": "England",
+            "publisher": "",
+            "language": "enm"
+          }
+        ]
+      }
+    }
+  ]
+}
