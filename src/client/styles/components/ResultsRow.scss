@@ -1,7 +1,7 @@
 ////
 // Styles for docs/discovery-search.html
 ////
-.nypl-instances-list {
+.nypl-rows-list {
 
   margin-left: 2em;
 
@@ -14,7 +14,7 @@
     @include results-item(
       $margin-bottom: 2em,
       $padding-bottom: 2em);
-    //border-bottom: ($general-border-width / 1.25) solid lighten($nypl-light-gray, 15%);
+      border-bottom: ($general-border-width / 1.25) solid lighten($nypl-light-gray, 15%);
 
     h2,
     h3 {

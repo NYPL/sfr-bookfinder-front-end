@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
-import { Actions } from '../actions/Actions';
+import { Actions } from '../actions/SearchActions';
 
 export const searchResults = (state = null, action) => {
   switch (action.type) {
     case Actions.SEARCH:
       return {
         data: action.results,
-      }
+      };
     default:
       return state;
   }

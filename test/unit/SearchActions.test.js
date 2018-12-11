@@ -1,6 +1,6 @@
 /* eslint-env mocha */
 import { expect } from 'chai';
-import { searchResults } from '../src/app/actions/SearchActions';
+import { searchResults } from '../../src/app/actions/SearchActions';
 
 describe('SearchActions', () => {
   let results;

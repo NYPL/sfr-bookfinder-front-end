@@ -5,7 +5,7 @@
 
 ### ResearchNow Search & Retrieval Application
 [![GitHub version](https://badge.fury.io/gh/NYPL%2Fsfr-bookfinder-front-end.svg)](https://badge.fury.io/gh/NYPL%2Fsfr-bookfinder-front-end)
-[![Build Status](https://travis-ci.org/NYPL/sfr-bookfinder-front-end.svg?branch=development)](https://travis-ci.org/NYPL/sfr-bookfinder-front-end)
+[![Build Status](https://travis-ci.com/NYPL/sfr-bookfinder-front-end.svg?branch=development)](https://travis-ci.com/NYPL/sfr-bookfinder-front-end)
 [![Dependencies Status](https://david-dm.org/NYPL/sfr-bookfinder-front-end/status.svg)](https://david-dm.org/NYPL/sfr-bookfinder-front-end)
 [![devDependencies Status](https://david-dm.org/NYPL/sfr-bookfinder-front-end/dev-status.svg)](https://david-dm.org/NYPL/sfr-bookfinder-front-end?type=dev)
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import ResultsMetadata from './ResultsMetadata';
 import ResultsList from './ResultsList';
 

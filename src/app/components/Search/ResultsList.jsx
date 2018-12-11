@@ -2,7 +2,7 @@ import React from 'react';
 import {
   isEmpty as _isEmpty,
 } from 'underscore';
-import Instances from './Instances';
+import ResultsRow from './ResultsRow';
 
 const ResultsList = (results) => {
   if (_isEmpty(results.results)) {
@@ -21,9 +21,7 @@ const ResultsList = (results) => {
                   {result['_source'].title} &ndash; {result['_source'].entities[0].name}
                 </a>
               </h3>
-              <ul className="nypl-item-list">
-                <Instances instances={result['_source'].instances} />
-              </ul>
+              <ResultsRow rows={result['_source'].instances} />
             </li>
           ))
         }
