@@ -128,7 +128,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 
-export default withRouter(connect(
+export default connect(
   null,
   mapDispatchToProps,
-)(SearchForm));
+)(SearchForm);

@@ -22,17 +22,18 @@ const ResultsRow = (rows) => {
   ));
 
   return (
-    <ul className="nypl-rows-list">
+    <ul className="nypl-item-list">
       {
         items.map((element, key) => (
           <li className="nypl-results-item" key={key.toString()}>
             <div className="nypl-results-description">
-              <p>
+              <ul className="nypl-ebooks-list">
                 {
+                  element.ebooks &&
                   element.ebooks.map((ebook, ebookKey) => (
-                    <span className="nypl-results-media" key={ebookKey.toString()}>
+                    <li className="nypl-results-media" key={ebookKey.toString()}>
                       eBook: <a href={`${eReaderUrl}${ebook.url}`}> {ebook.url}</a>
-                    </span>
+                    </li>
                   ))
                 }
                 <br />
@@ -40,7 +41,7 @@ const ResultsRow = (rows) => {
                 <span className="nypl-results-place">{element.pub_place}</span>
                 <span className="nypl-results-publisher">{element.publisher}</span>
                 <span className="nypl-results-info">{element.language}</span>
-              </p>
+              </ul>
             </div>
           </li>
         ))

@@ -17,13 +17,11 @@ const ResultsList = (results) => {
           results.results.map((result, i) => (
             <li className="nypl-results-item" key={i.toString()}>
               <h3>
-                <a href={`/work/${result._id}`}>
+                <a href={`/work/detail/${result._id}`}>
                   {result['_source'].title} &ndash; {result['_source'].entities[0].name}
                 </a>
               </h3>
-              <ul className="nypl-item-list">
-                <ResultsRow rows={result['_source'].instances} />
-              </ul>
+              <ResultsRow rows={result['_source'].instances} />
             </li>
           ))
         }

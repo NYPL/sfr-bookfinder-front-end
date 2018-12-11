@@ -37,7 +37,7 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default withRouter(connect(
+export default connect(
   mapStateToProps,
   null,
-)(SearchResultsList));
+)(SearchResultsList);

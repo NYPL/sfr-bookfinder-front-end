@@ -14,7 +14,7 @@ describe('ResultsRow', () => {
     });
 
     it('should return row or rows of items', () => {
-      expect(component.find('.nypl-rows-list')).to.have.length(1);
+      expect(component.find('.nypl-item-list')).to.have.length(1);
     });
 
     // Ebook item check
@@ -49,7 +49,7 @@ describe('ResultsRow', () => {
     });
 
     it('should return row or rows of items', () => {
-      expect(component.find('.nypl-rows-list')).to.have.length(1);
+      expect(component.find('.nypl-item-list')).to.have.length(1);
     });
 
     // Ebook item check
