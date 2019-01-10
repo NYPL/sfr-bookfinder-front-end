@@ -4,6 +4,8 @@ import { Header, navConfig } from '@nypl/dgx-header-component';
 import Footer from '@nypl/dgx-react-footer';
 import SearchForm from '../Search/SearchForm';
 import SearchResultsList from '../Search/SearchResultsList';
+import SearchPage from '../Search/SearchPage';
+import WorkPage from '../Work/WorkPage';
 
 class Application extends React.Component {
   render() {
@@ -28,20 +30,10 @@ class Application extends React.Component {
                 <h1 className="nypl-heading">ResearchNow</h1>
               </div>
             </div>
-            <div className="nypl-row">
-              <div className="nypl-column-full">
-                <SearchForm />
-                <div id="tagline">
-                  Search the world's research collections and more for digital books you
-                  can use right now.
-                </div>
-              </div>
-            </div>
-            <div className="nypl-row">
-              <div className="nypl-column-full">
-                <SearchResultsList />
-              </div>
-            </div>
+            {/* <SearchPage /> */}
+            <SearchForm />
+            <SearchResultsList />
+            <WorkPage />
           </div>
         </main>
         <Footer />

@@ -1,7 +1,8 @@
 import express from 'express';
 
-import { searchServer } from './Search';
+import { searchServer, getWorkById } from './Search';
 import appConfig from '../../../appConfig';
+import NotFound404 from '../../app/components/Error/NotFound404';
 
 const router = express.Router();
 
@@ -14,12 +15,16 @@ function MainApp(req, res, next) {
 }
 
 router
-  .route(`${appConfig.baseUrl}/search`)
+  .route('/search')
   .get(searchServer);
 
 router
-  .route(appConfig.baseUrl)
-  .get(MainApp);
+  .route('/work')
+  .get(getWorkById);
+
+router
+  .route('/404')
+  .get(NotFound404);
 
 router
   .route('/')

@@ -14,9 +14,11 @@ class SearchResultsList extends React.Component {
       return null;
     } else {
       return (
-        <div>
-          <ResultsMetadata metadata={metadata} />
-          <ResultsList results={hits} />
+        <div className="nypl-row">
+          <div className="nypl-column-full">
+            <ResultsMetadata metadata={metadata} />
+            <ResultsList results={hits} />
+          </div>
         </div>
       );
     }
