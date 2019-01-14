@@ -4,11 +4,18 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import ResultsMetadata from './ResultsMetadata';
 import ResultsList from './ResultsList';
+import WorkPage from '../Work/WorkPage';
 
 class SearchResultsList extends React.Component {
-  render () {
+  constructor(props) {
+    super(props);
+    this.props = props;
+  }
+
+  render() {
     const metadata = this.props.results && this.props.results.hits;
     const hits = this.props.results && this.props.results.hits && this.props.results.hits.hits;
+    console.log('Hits to send to row', hits);
 
     if (!hits) {
       return null;

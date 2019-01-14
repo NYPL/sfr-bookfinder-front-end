@@ -44,7 +44,7 @@ export const search = (query, field = 'q') => {
   };
 };
 
-export const fetchWork = (workId) => {
+export const fetchWork = (workId = 'http://www.gutenberg.org/ebooks/1001') => {
   const appEnv = process.env.APP_ENV || 'production';
   const esDetailPath = appConfig.esUrl.detailPath;
   const esUrl = appConfig.esUrl[appEnv] + esDetailPath;
@@ -65,4 +65,4 @@ export const fetchWork = (workId) => {
   };
 };
 
-export default search;
+export default { search, fetchWork };

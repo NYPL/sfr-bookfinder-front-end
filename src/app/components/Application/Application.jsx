@@ -5,7 +5,6 @@ import Footer from '@nypl/dgx-react-footer';
 import SearchForm from '../Search/SearchForm';
 import SearchResultsList from '../Search/SearchResultsList';
 import SearchPage from '../Search/SearchPage';
-import WorkPage from '../Work/WorkPage';
 
 class Application extends React.Component {
   render() {
@@ -33,7 +32,6 @@ class Application extends React.Component {
             {/* <SearchPage /> */}
             <SearchForm />
             <SearchResultsList />
-            <WorkPage />
           </div>
         </main>
         <Footer />

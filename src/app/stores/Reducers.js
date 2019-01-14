@@ -12,6 +12,17 @@ export const searchResults = (state = null, action) => {
   }
 };
 
+export const workDetail = (state = null, action) => {
+  switch (action.type) {
+    case Actions.FETCH_WORK:
+      return {
+        item: action.item,
+      };
+    default:
+      return state;
+  }
+};
+
 export const query = (state = null, action) => (
   (action.payload) ?
     action.payload.query :
@@ -42,4 +53,5 @@ export default combineReducers({
   filter,
   allowedFilters,
   sort,
+  workDetail,
 });

@@ -6,6 +6,7 @@ import {
   isEmpty as _isEmpty,
 } from 'underscore';
 import ResultsRow from './ResultsRow';
+import { fetchWork } from '../../actions/SearchActions';
 
 class ResultsList extends React.Component {
   constructor(props) {
@@ -15,15 +16,14 @@ class ResultsList extends React.Component {
     this.showWorkDetail = this.showWorkDetail.bind(this);
   }
 
-  showWorkDetail(event) {
+  showWorkDetail(event, workId) {
     event.preventDefault();
-    console.log(this.event);
 
-    this.state.fetchWork(this.location.query.workId);
+    this.state.fetchWork(workId);
   }
 
   render() {
-    if (_isEmpty(this.results.results)) {
+    if (_isEmpty(this.props.results)) {
       return null;
     }
 
@@ -32,10 +32,10 @@ class ResultsList extends React.Component {
         <h2>Works</h2>
         <ul className="nypl-results-list">
           {
-            this.results.results.map((result, i) => (
+            this.props.results.map((result, i) => (
               <li className="nypl-results-item" key={i.toString()}>
                 <h3>
-                  <Link onClick={showWorkDetail(event)} to={{ pathname: '/work', query: { workId: `${result['_source'].ids[0].identifier}` } }}>
+                  <Link onClick={event => this.showWorkDetail(event, result['_source'].ids[0].identifier)} to={{ pathname: '/work', query: { workId: `${result['_source'].ids[0].identifier}` } }}>
                     {result['_source'].title} &ndash; {result['_source'].entities[0].name}
                   </Link>
                 </h3>
@@ -55,7 +55,7 @@ ResultsList.defaultProps = {
 };
 
 ResultsList.propTypes = {
-  results: PropTypes.object,
+  results: PropTypes.array,
   fetchWork: PropTypes.func,
 };
 
