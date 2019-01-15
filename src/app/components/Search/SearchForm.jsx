@@ -1,15 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
 import SearchButton from '../Button/SearchButton';
-import { search } from '../../actions/SearchActions';
 
-export class SearchForm extends React.Component {
+class SearchForm extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = props;
+    this.allowedFields = props;
 
     this.onFieldChange = this.onFieldChange.bind(this);
     this.onQueryChange = this.onQueryChange.bind(this);
@@ -19,11 +16,11 @@ export class SearchForm extends React.Component {
 
   onFieldChange(event) {
     const fieldSelected = event.target.value;
-    this.setState({ field: fieldSelected });
+    this.setState({ searchField: fieldSelected });
   }
 
   onQueryChange(event) {
-    this.setState({ query: event.target.value });
+    this.setState({ searchQuery: event.target.value });
   }
 
   handleSubmit(event) {
@@ -34,17 +31,15 @@ export class SearchForm extends React.Component {
 
   submitSearchRequest(event) {
     event.preventDefault();
-    if (!this.state.field) {
-      this.setState({ field: 'q' });
+    if (!this.state.searchField) {
+      this.setState({ searchField: 'q' });
     }
-    const terms = this.state.query.trim().replace(/\s+/g, ' ');
 
-    this.state.search(terms, this.state.field);
+    const terms = this.state.searchQuery.trim().replace(/\s+/g, ' ');
+    this.props.search(terms, this.state.searchField);
   }
 
   render() {
-    const { query, field, allowedFields } = this.state;
-
     return (
       <div className="nypl-row">
         <div className="nypl-column-full">
@@ -56,16 +51,16 @@ export class SearchForm extends React.Component {
                     <label htmlFor="search-by-field">Search in</label>
                     <select
                       id="search-by-field"
-                      onChange={this.onFieldChange}
-                      value={field}
+                      onChange={this.props.onFieldChange}
+                      value={this.props.searchField}
                     >
-                      <option value={allowedFields.kw} defaultValue>
+                      <option value={this.props.allowedFields.kw} defaultValue>
                         Keyword
                       </option>
-                      <option value={allowedFields.ti}>
+                      <option value={this.props.allowedFields.ti}>
                         Title
                       </option>
-                      <option value={allowedFields.au}>
+                      <option value={this.props.allowedFields.au}>
                         Author
                       </option>
                     </select>
@@ -79,7 +74,7 @@ export class SearchForm extends React.Component {
                       name="query"
                       type="text"
                       aria-labelledby="search-input-field"
-                      value={query}
+                      value={this.searchQuery}
                       placeholder="Keyword, title, or author"
                       onChange={this.onQueryChange}
                     />
@@ -95,7 +90,7 @@ export class SearchForm extends React.Component {
             </div>
           </form>
           <div id="tagline">
-            Search the world's research collections and more for digital books you
+            Search the world&apos;s research collections and more for digital books you
             can use right now.
           </div>
         </div>
@@ -104,37 +99,16 @@ export class SearchForm extends React.Component {
   }
 }
 
+SearchForm.propTypes = {
+  allowedFields: PropTypes.object,
+};
+
 SearchForm.defaultProps = {
-  searchResults: {},
-  query: '',
-  field: '',
   allowedFields: {
     kw: 'q',
     ti: 'fields[title]',
     au: 'fields[author]',
   },
-  sort: {
-    sortField: 'title',
-    sortOrder: 'asc',
-  },
-  search: () => {},
 };
 
-SearchForm.propTypes = {
-  searchResults: PropTypes.object,
-  query: PropTypes.string,
-  field: PropTypes.string,
-  allowedFields: PropTypes.object,
-  sort: PropTypes.object,
-  search: PropTypes.func,
-};
-
-const mapDispatchToProps = dispatch => ({
-  search: (query, field) => dispatch(search(query, field)),
-});
-
-
-export default connect(
-  null,
-  mapDispatchToProps,
-)(SearchForm);
+export default SearchForm;
