@@ -52,7 +52,6 @@ class SearchForm extends React.Component {
                     <select
                       id="search-by-field"
                       onChange={this.props.onFieldChange}
-                      value={this.props.searchField}
                     >
                       <option value={this.props.allowedFields.kw} defaultValue>
                         Keyword

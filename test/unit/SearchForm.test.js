@@ -15,7 +15,7 @@ describe('SearchForm', () => {
     expect(component.find('.nypl-omnisearch')).to.have.length(1);
   });
 
-  it('contains a select three options.', () => {
+  it('contains a select with three options.', () => {
     const options = component.find('option');
     expect(options).to.have.length(3);
   });

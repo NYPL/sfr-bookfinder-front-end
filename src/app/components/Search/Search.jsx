@@ -15,7 +15,6 @@ class Search extends React.Component {
   }
 
   render() {
-    console.log('Props at container level:', this.props);
     return (
       <div className="wrapper">
         <SearchForm
@@ -33,14 +32,12 @@ Search.propTypes = {
   searchResults: PropTypes.object,
   searchQuery: PropTypes.string,
   searchField: PropTypes.string,
-  dispatch: PropTypes.func,
 };
 
 Search.defaultProps = {
   searchResults: {},
   searchQuery: '',
   searchField: 'q',
-  dispatch: () => {},
 };
 
 Search.contextTypes = {
@@ -54,10 +51,6 @@ const mapStateToProps = (state, ownProps) => {
     searchField: state.searchField,
   };
 };
-
-// const mapDispatchToProps = (dispatch) => {
-//   return { actions: bindActionCreators(searchActions, dispatch) };
-// };
 
 export default connect(
   mapStateToProps,

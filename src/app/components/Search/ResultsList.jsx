@@ -17,7 +17,7 @@ const ResultsList = (props) => {
         {props.results.map((result, i) => (
             <li className="nypl-results-item" key={i.toString()}>
               <h3>
-                <Link onClick={event => showWorkDetail(event, result['_source'].ids[0].identifier)} to={{ pathname: '/work', query: { workId: `${result['_source'].ids[0].identifier}` } }}>
+                <Link to={{ pathname: '/work', query: { workId: `${result['_source'].ids[0].identifier}` } }}>
                   {result['_source'].title} &ndash; {result['_source'].entities[0].name}
                 </Link>
               </h3>
