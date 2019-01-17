@@ -1,0 +1,109 @@
+{
+  "detail": {
+    "item":
+    {
+      "title": "The Tragedie of Hamlet, Prince of Denmark\nA Study with the Text of the Folio of 1623",
+      "uuid": "4ce7db74-1e22-4401-b32e-4c25588981a3",
+      "rights_stmt": "Public domain in the USA.",
+      "date_created": "2018-10-31T09:33:35.573113",
+      "date_updated": "2018-10-31T09:33:35.573113",
+      "language": "en",
+      "instances": [
+        {
+          "title": "The Tragedie of Hamlet, Prince of Denmark\nA Study with the Text of the Folio of 1623",
+          "pub_date": 2004,
+          "pub_place": "",
+          "publisher": "Project Gutenberg",
+          "language": "en",
+          "items": [
+            {
+              "url": "http://www.gutenberg.org/ebooks/10606.epub.images",
+              "epub_path": "files/epubs/10606.epub.images",
+              "source": "gutenberg",
+              "size": 251736,
+              "date_modified": "2018-10-06"
+            },
+            {
+              "url": "http://www.gutenberg.org/ebooks/10606.epub.noimages",
+              "epub_path": "files/epubs/10606.epub.noimages",
+              "source": "gutenberg",
+              "size": 251736,
+              "date_modified": "2018-10-06"
+            }
+          ]
+        }
+      ],
+      "entities": [
+        {
+          "name": "Shakespeare, William",
+          "sort_name": "Shakespeare, William",
+          "aliases": "Shakspere, William",
+          "viaf": "96994048",
+          "lcnaf": "23817850",
+          "wikipedia": "http://en.wikipedia.org/wiki/William_Shakespeare",
+          "birth": 1564,
+          "death": 1616,
+          "role": "creator"
+        },
+        {
+          "name": "MacDonald, George",
+          "sort_name": "MacDonald, George",
+          "viaf": "64008667",
+          "lcnaf": "64008667",
+          "wikipedia": "http://en.wikipedia.org/wiki/George_MacDonald",
+          "birth": 1824,
+          "death": 1905,
+          "role": "editor"
+        }
+      ],
+      "subjects": [
+        {
+          "authority": "http://purl.org/dc/terms/LCSH",
+          "subject": "Princes -- Drama"
+        },
+        {
+          "authority": "http://purl.org/dc/terms/LCC",
+          "subject": "PR"
+        },
+        {
+          "authority": "http://purl.org/dc/terms/LCSH",
+          "subject": "Denmark -- Drama"
+        },
+        {
+          "authority": "http://purl.org/dc/terms/LCSH",
+          "subject": "Revenge -- Drama"
+        },
+        {
+          "authority": "http://purl.org/dc/terms/LCSH",
+          "subject": "Murder victims' families -- Drama"
+        },
+        {
+          "authority": "http://purl.org/dc/terms/LCSH",
+          "subject": "Hamlet (Legendary character) -- Drama"
+        },
+        {
+          "authority": "http://purl.org/dc/terms/LCSH",
+          "subject": "Tragedies"
+        },
+        {
+          "authority": "http://purl.org/dc/terms/LCSH",
+          "subject": "Kings and rulers -- Succession -- Drama"
+        },
+        {
+          "authority": "http://purl.org/dc/terms/LCSH",
+          "subject": "Fathers -- Death -- Drama"
+        }
+      ],
+      "ids": [
+        {
+          "type": "gutenberg",
+          "identifier": "http://www.gutenberg.org/ebooks/10606"
+        },
+        {
+          "type": "gutenberg",
+          "identifier": "http://www.gutenberg.org/ebooks/10606"
+        }
+      ]
+    }
+  }
+}

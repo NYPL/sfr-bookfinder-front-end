@@ -6,7 +6,7 @@ class SearchForm extends React.Component {
   constructor(props) {
     super(props);
 
-    this.allowedFields = props;
+    this.state = props;
 
     this.onFieldChange = this.onFieldChange.bind(this);
     this.onQueryChange = this.onQueryChange.bind(this);
@@ -34,9 +34,17 @@ class SearchForm extends React.Component {
     if (!this.state.searchField) {
       this.setState({ searchField: 'q' });
     }
+    if (!this.state.searchQuery) {
+      throw new Error('Please enter a term or terms to search');
+    }
 
     const terms = this.state.searchQuery.trim().replace(/\s+/g, ' ');
-    this.props.search(terms, this.state.searchField);
+
+    if (!this.state.searchField || this.state.searchField === 'q') {
+      this.props.searchGet(terms);
+    } else {
+      this.props.searchPost(terms, this.state.searchField);
+    }
   }
 
   render() {
@@ -51,7 +59,7 @@ class SearchForm extends React.Component {
                     <label htmlFor="search-by-field">Search in</label>
                     <select
                       id="search-by-field"
-                      onChange={this.props.onFieldChange}
+                      onChange={this.onFieldChange}
                     >
                       <option value={this.props.allowedFields.kw} defaultValue>
                         Keyword
@@ -105,8 +113,8 @@ SearchForm.propTypes = {
 SearchForm.defaultProps = {
   allowedFields: {
     kw: 'q',
-    ti: 'fields[title]',
-    au: 'fields[author]',
+    ti: 'title',
+    au: 'entities.name',
   },
 };
 

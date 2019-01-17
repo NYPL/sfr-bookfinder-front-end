@@ -14,7 +14,7 @@ const SearchResults = (props) => {
     <div className="nypl-row">
       <div className="nypl-column-full">
         <ResultsMetadata metadata={metadata} />
-        <ResultsList results={hits} />
+        <ResultsList results={hits} actions={props} />
       </div>
     </div>
   );
