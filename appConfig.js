@@ -6,8 +6,9 @@ export default {
   webpackDevServerPort: 3000,
   baseUrl: '',
   esUrl: {
-    development: 'http://sfr-search-api-dev.us-east-1.elasticbeanstalk.com/api/v0.1/sfr/works',
+    development: 'http://sfr-search-api-dev.us-east-1.elasticbeanstalk.com/api/v0.1/sfr',
     production: '',
+    basePath: '/works',
   },
   ereader: {
     development: 'http://epub-reader-env.dvgytju99m.us-east-1.elasticbeanstalk.com/reader',

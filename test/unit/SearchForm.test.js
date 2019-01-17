@@ -2,7 +2,7 @@
 import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
-import { SearchForm } from '../../src/app/components/Search/SearchForm';
+import SearchForm from '../../src/app/components/SearchForm/SearchForm';
 
 describe('SearchForm', () => {
   let component;
@@ -15,7 +15,7 @@ describe('SearchForm', () => {
     expect(component.find('.nypl-omnisearch')).to.have.length(1);
   });
 
-  it('contains a select three options.', () => {
+  it('contains a select with three options.', () => {
     const options = component.find('option');
     expect(options).to.have.length(3);
   });

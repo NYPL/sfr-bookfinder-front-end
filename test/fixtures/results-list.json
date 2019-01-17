@@ -20,6 +20,11 @@
             "publisher": "Merlin",
             "language": "enm"
           }
+        ],
+        "ids": [
+          {
+            "identifier": "http://localhost/epubs/one"
+          }
         ]
       }
     },
@@ -39,6 +44,11 @@
             "pub_place": "England",
             "publisher": "",
             "language": "enm"
+          }
+        ],
+        "ids": [
+          {
+            "identifier": "http://localhost/epubs/two"
           }
         ]
       }

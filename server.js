@@ -42,7 +42,7 @@ app.use('*/src/client', express.static(INDEX_PATH));
 app.use('/', apiRoutes);
 
 app.get('/*', (req, res) => {
-  const appRoutes = (req.url).indexOf(appConfig.baseUrl) !== -1 ? routes.client : routes.server;
+  const appRoutes = routes.default;
 
   match({ routes: appRoutes, location: req.url }, (error, redirectLocation, renderProps) => {
     if (error) {
@@ -68,7 +68,7 @@ app.get('/*', (req, res) => {
         isProduction,
       });
     } else {
-      console.log(error);
+      console.log('Rendering error', error);
       res.status(404).send(error);
     }
   });
@@ -82,7 +82,7 @@ const server = app.listen(app.get('port'), (error) => {
   console.log(colors.yellow.underline(appConfig.appName));
   console.log(
     colors.green('Express server is listening at'),
-    colors.cyan(`localhost: ${app.get('port')}`),
+    colors.cyan(`localhost:${app.get('port')}`),
   );
 });
 

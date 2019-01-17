@@ -1,11 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router';
 import {
   isEmpty as _isEmpty,
 } from 'underscore';
 import ResultsRow from './ResultsRow';
 
-const ResultsList = (results) => {
-  if (_isEmpty(results.results)) {
+const ResultsList = (props) => {
+  if (_isEmpty(props.results)) {
     return null;
   }
 
@@ -13,18 +14,16 @@ const ResultsList = (results) => {
     <div>
       <h2>Works</h2>
       <ul className="nypl-results-list">
-        {
-          results.results.map((result, i) => (
+        {props.results.map((result, i) => (
             <li className="nypl-results-item" key={i.toString()}>
               <h3>
-                <a href={`/work/detail/${result._id}`}>
+                <Link to={{ pathname: '/work', query: { workId: `${result['_source'].uuid}` } }}>
                   {result['_source'].title} &ndash; {result['_source'].entities[0].name}
-                </a>
+                </Link>
               </h3>
               <ResultsRow rows={result['_source'].instances} />
             </li>
-          ))
-        }
+          ))}
       </ul>
     </div>
   );

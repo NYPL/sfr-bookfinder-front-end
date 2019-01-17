@@ -21,7 +21,7 @@ window.onload = () => {
 
   ReactDOM.render(
     <Provider store={store}>
-      <Router history={appHistory}>{routes.client}</Router>
+      <Router history={appHistory}>{routes.default}</Router>
     </Provider>,
     appElement,
   );

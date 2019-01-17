@@ -2,8 +2,7 @@ import React from 'react';
 
 import { Header, navConfig } from '@nypl/dgx-header-component';
 import Footer from '@nypl/dgx-react-footer';
-import SearchForm from '../Search/SearchForm';
-import SearchResultsList from '../Search/SearchResultsList';
+import SearchContainer from '../SearchContainer/SearchContainer';
 
 class Application extends React.Component {
   render() {
@@ -28,20 +27,7 @@ class Application extends React.Component {
                 <h1 className="nypl-heading">ResearchNow</h1>
               </div>
             </div>
-            <div className="nypl-row">
-              <div className="nypl-column-full">
-                <SearchForm />
-                <div id="tagline">
-                  Search the world's research collections and more for digital books you
-                  can use right now.
-                </div>
-              </div>
-            </div>
-            <div className="nypl-row">
-              <div className="nypl-column-full">
-                <SearchResultsList />
-              </div>
-            </div>
+            <SearchContainer />
           </div>
         </main>
         <Footer />

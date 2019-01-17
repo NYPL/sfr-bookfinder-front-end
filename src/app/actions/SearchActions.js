@@ -28,10 +28,10 @@ export const search = (query, field = 'q') => {
         }
       })
       .catch((error) => {
-        console.log('Error communicating with Elasticsearch', apiUrl, error);
-        throw new Error('Error communicating with Elasticsearch', apiUrl, error);
+        console.log('Error communicating with Elasticsearch', apiUrl, userQuery, error);
+        throw new Error('Error communicating with Elasticsearch', apiUrl, userQuery, error);
       });
   };
 };
 
-export default search;
+export default { search };
