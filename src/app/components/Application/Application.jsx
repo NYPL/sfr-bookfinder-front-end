@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Header, navConfig } from '@nypl/dgx-header-component';
 import Footer from '@nypl/dgx-react-footer';
-import Search from '../Search/Search';
+import SearchContainer from '../SearchContainer/SearchContainer';
 
 class Application extends React.Component {
   render() {
@@ -27,7 +27,7 @@ class Application extends React.Component {
                 <h1 className="nypl-heading">ResearchNow</h1>
               </div>
             </div>
-            <Search />
+            <SearchContainer />
           </div>
         </main>
         <Footer />

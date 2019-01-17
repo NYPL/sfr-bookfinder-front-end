@@ -18,19 +18,18 @@ export const search = (query, field = 'q') => {
   const userQuery = (query) ? encodeURIComponent(query) : '*';
   // Need a client to send the search and receive results
   // Need to pass the results to a renderer
-  const esQueryPath = appConfig.esUrl.basePath;
-  const esUrl = appConfig.esUrl[appEnv] + esQueryPath;
+  const apiUrl = appConfig.api[appEnv];
 
   return (dispatch) => {
-    return axios.get(esUrl, { params: { q: userQuery } })
+    return axios.get(apiUrl, { params: { q: userQuery } })
       .then((resp) => {
         if (resp.data) {
           dispatch(searchResults(resp.data));
         }
       })
       .catch((error) => {
-        console.log('Error communicating with Elasticsearch', esUrl, userQuery, error);
-        throw new Error('Error communicating with Elasticsearch', esUrl, userQuery, error);
+        console.log('Error communicating with Elasticsearch', apiUrl, userQuery, error);
+        throw new Error('Error communicating with Elasticsearch', apiUrl, userQuery, error);
       });
   };
 };

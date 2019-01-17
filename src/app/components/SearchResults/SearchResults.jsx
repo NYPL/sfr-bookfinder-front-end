@@ -2,7 +2,7 @@ import React from 'react';
 import ResultsMetadata from './ResultsMetadata';
 import ResultsList from './ResultsList';
 
-const SearchResultsList = (props) => {
+const SearchResults = (props) => {
   const metadata = props.results && props.results.data && props.results.data.hits;
   const hits = props.results && props.results.data && props.results.data.hits && props.results.data.hits.hits;
 
@@ -20,4 +20,4 @@ const SearchResultsList = (props) => {
   );
 };
 
-export default SearchResultsList;
+export default SearchResults;
