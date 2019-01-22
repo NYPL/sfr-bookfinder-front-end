@@ -42,7 +42,7 @@ const WorkDetail = (props) => {
       <div className="ebook-links">
         {ebooks.map((ebook, i) => (
           <span key={i.toString()}>
-            <Link to={{ pathname: `${ebookUrl}`, query: { url: `${ebook.url}` } }}>{ebook.epub_path.split('/').pop()}</Link><br />
+            <a href={`${ebookUrl}?url=${ebook.url}`}>{ebook.epub_path.split('/').pop()}</a><br />
           </span>
         ))}
       </div>
