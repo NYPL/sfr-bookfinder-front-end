@@ -13,7 +13,7 @@ const ResultsList = (props) => {
   const showWorkDetail = (event, workId) => {
     event.preventDefault();
 
-    props.actions.fetchWork(workId);
+    props.fetchWork(workId);
   };
 
   return (

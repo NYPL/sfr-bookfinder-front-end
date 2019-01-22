@@ -2,9 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {
-  isEmpty as _isEmpty,
-} from 'underscore';
 import SearchForm from '../SearchForm/SearchForm';
 import SearchResults from '../SearchResults/SearchResults';
 import WorkDetail from '../WorkDetail/WorkDetail';
@@ -16,20 +13,28 @@ class SearchContainer extends React.Component {
     const { dispatch } = props;
 
     this.boundActions = bindActionCreators(searchActions, dispatch);
+    this.showingDetails = false;
+  }
+
+  componentDidUpdate() {
+    const updated = true;
+    this.showingDetails = updated;
   }
 
   render() {
     return (
       <div className="wrapper">
+        {!this.showingDetails &&
         <SearchForm
           searchQuery={this.props.searchQuery}
           searchField={this.props.searchField}
           {...this.boundActions}
-        />
+        />}
+        {!this.showingDetails &&
         <SearchResults
           results={this.props.searchResults}
           {...this.boundActions}
-        />
+        />}
         <WorkDetail detail={this.props.workDetail} />
       </div>
     );
@@ -41,6 +46,7 @@ SearchContainer.propTypes = {
   searchQuery: PropTypes.string,
   searchField: PropTypes.string,
   workDetail: PropTypes.object,
+  dispatch: PropTypes.func,
 };
 
 SearchContainer.defaultProps = {
@@ -48,6 +54,7 @@ SearchContainer.defaultProps = {
   searchQuery: '',
   searchField: 'q',
   workDetail: {},
+  dispatch: () => {},
 };
 
 SearchContainer.contextTypes = {

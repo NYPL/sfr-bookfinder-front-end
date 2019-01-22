@@ -18,7 +18,7 @@ const WorkDetail = (props) => {
       <ul>
         {entities.map((entity, i) => (
           <li key={i.toString()}>
-            <Link to={{ pathname: '/', query: { author: `${entity.name}` } }}>{entity.name}, {entity.role}</Link>
+            <Link to={{ pathname: '/search', query: { q: `${entity.name}`, field: 'author' } }}>{entity.name}, {entity.role}</Link>
           </li>
         ))}
       </ul>
@@ -30,7 +30,7 @@ const WorkDetail = (props) => {
       <ul>
         {subjects.map((subject, i) => (
           <li key={i.toString()}>
-            <Link to={{ pathname: '/', query: { subject: `${subject.subject}` } }}>{subject.subject}</Link>
+            <Link to={{ pathname: '/search', query: { q: `${subject.subject}`, field: 'subject' } }}>{subject.subject}</Link>
           </li>
         ))}
       </ul>

@@ -68,8 +68,6 @@ export const fetchWork = (workId) => {
       .then((resp) => {
         if (resp.data) {
           dispatch(workDetail(resp.data));
-          // Do I need to change state of the searchResults here?
-          dispatch(searchResults());
         }
       })
       .catch((error) => {
