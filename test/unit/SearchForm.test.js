@@ -27,12 +27,12 @@ describe('SearchForm', () => {
 
   it('contains an option for title.', () => {
     const titleOpt = component.find('option');
-    expect(titleOpt.nodes[1].props.value).to.equal('fields[title]');
+    expect(titleOpt.nodes[1].props.value).to.equal('title');
   });
 
   it('contains an option for author.', () => {
     const authorOpt = component.find('option');
-    expect(authorOpt.nodes[2].props.value).to.equal('fields[author]');
+    expect(authorOpt.nodes[2].props.value).to.equal('entities.name');
   });
 
   it('contains a text field for keyword search with an initial value.', () => {

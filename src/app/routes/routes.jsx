@@ -8,6 +8,7 @@ const routes = {
   default: (
     <Route path="/" component={Application}>
       <Route path="/search" component={Application} />
+      <Route path="/work" component={Application} />
       <Route path="/404" component={NotFound404} />
       <Redirect from="*" to="/404" />
     </Route>
