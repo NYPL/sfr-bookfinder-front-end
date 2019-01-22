@@ -10,7 +10,7 @@ export const searchServer = (req, res, next) => {
 };
 
 export const getWorkById = (req, res, next) => {
-  const { workId } = req.query.workId;
+  const { workId } = req.query;
 
   console.log('Get this work', workId);
   res.data = fetchWork(workId);
