@@ -63,7 +63,7 @@ const WorkDetail = (props) => {
         <tbody>
           {instances.map((instance, i) => (
             <tr key={i.toString()}>
-              <td>{(instances.items) ? parseEbooks(instance.items) : ''}</td>
+              <td>{(instance.items) ? parseEbooks(instance.items) : ''}</td>
               <td>{instance.pub_date}</td>
               <td>{(instance.pub_place) ? `Place of publication: ${instance.pub_place}` : ''}</td>
               <td>{instance.publisher}</td>
