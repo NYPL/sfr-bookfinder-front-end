@@ -14,6 +14,7 @@ import routes from './src/app/routes/routes';
 import store from './src/app/stores/ReduxStore';
 import appConfig from './appConfig';
 import webpackConfig from './webpack.config';
+import { searchServer } from './src/server/ApiRoutes/Search';
 
 const ROOT_PATH = __dirname;
 const INDEX_PATH = path.resolve(ROOT_PATH, 'src/client');

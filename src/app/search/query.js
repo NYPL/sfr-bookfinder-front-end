@@ -1,8 +1,9 @@
 export const getRequestParams = (query = {}) => {
-  const q = query.q || 'test';
-  const filters = query.filters || {};
+  const { q } = query || '*';
+  const { field } = query || 'title';
+  const { workId } = query || '';
 
-  return { q, filters };
+  return { q, field, workId };
 };
 
 export default getRequestParams;

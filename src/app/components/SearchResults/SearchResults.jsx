@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ResultsMetadata from './ResultsMetadata';
 import ResultsList from './ResultsList';
 
@@ -18,6 +19,10 @@ const SearchResults = (props) => {
       </div>
     </div>
   );
+};
+
+SearchResults.contextType = {
+  router: PropTypes.object,
 };
 
 export default SearchResults;

@@ -1,19 +1,19 @@
-import { searchGet, fetchWork } from '../../app/actions/SearchActions';
+import { serverGet, serverPost, serverFetchWork } from '../../app/actions/SearchActions';
 import { getRequestParams } from '../../app/search/query';
 
 export const searchServer = (req, res, next) => {
-  const { q } = getRequestParams(req.query);
+  const { q, field, workId } = getRequestParams(req.query);
+  if (q && q === '') {
+    next();
+  }
 
-  res.data = searchGet(q);
-
-  next();
-};
-
-export const getWorkById = (req, res, next) => {
-  const { workId } = req.query;
-
-  console.log('Get this work', workId);
-  res.data = fetchWork(workId);
+  if (field) {
+    res.data = serverPost(q, field);
+  } else if (workId) {
+    res.data = serverFetchWork(workId);
+  } else {
+    res.data = serverGet(q);
+  }
 
   next();
 };

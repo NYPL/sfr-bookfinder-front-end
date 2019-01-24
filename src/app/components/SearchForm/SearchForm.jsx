@@ -45,6 +45,7 @@ class SearchForm extends React.Component {
     } else {
       this.props.searchPost(terms, this.state.searchField);
     }
+    this.context.router.push(`/search?q=${terms}`);
   }
 
   render() {
@@ -116,6 +117,10 @@ SearchForm.defaultProps = {
     ti: 'title',
     au: 'entities.name',
   },
+};
+
+SearchForm.contextTypes = {
+  router: PropTypes.object,
 };
 
 export default SearchForm;

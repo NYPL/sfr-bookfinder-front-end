@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { searchServer, getWorkById } from './Search';
+import { searchServer } from './Search';
 import NotFound404 from '../../app/components/Error/NotFound404';
 
 const router = express.Router();
@@ -19,7 +19,7 @@ router
 
 router
   .route('/work')
-  .get(getWorkById);
+  .get(searchServer);
 
 router
   .route('/404')
