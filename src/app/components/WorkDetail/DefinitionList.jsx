@@ -4,9 +4,30 @@ import { Link } from 'react-router';
 import appConfig from '../../../../appConfig';
 
 const ebookUrl = appConfig.ereader[process.env.APP_ENV];
-const elements = ['title', 'entities', 'instances', 'rights_stmt', 'language', 'subjects'];
+const elements = ['title', 'entities', 'instances', 'subjects', 'rights_stmt', 'language'];
+export const labels = {
+  title: 'Title',
+  entities: 'Author, Creator, et al',
+  instances: 'Items',
+  rights_stmt: 'Rights Statement',
+  language: 'Language',
+  subjects: 'Subjects',
+};
 
-const DefinitionList = (data) => {
+/**
+ * Build a definition list of elements from a bibliographic record provided
+ * by Elastisearch.
+ * @param {array} data
+ */
+export const DefinitionList = (data) => {
+
+  /**
+   * Handle elements with array values as definitions. Authorities are linked to
+   * /search as new general searches with URL parameters. Items are mapped to a table
+   * with a row for each edition.
+   * @param {string} type
+   * @param {array} entries
+   */
   const parseEntries = (type, entries) => {
     switch (type) {
       case 'entities':
@@ -60,9 +81,12 @@ const DefinitionList = (data) => {
     }
   };
 
+  /**
+   * Generate an unordered list of links to ebooks (EPUBs) to our reader for locally
+   * stored EPUBs or a download link otherwise.
+   * @param {object} ebooks
+   */
   const parseEbooks = (ebooks) => {
-    const pathArray = ebook.url.split('/');
-    const linkRef = (ebook.url )
     return (
       <ul className="nypl-items-list">
         {ebooks.map((ebook, i) => (
@@ -74,8 +98,11 @@ const DefinitionList = (data) => {
     );
   };
 
+  /**
+   * Wrapper function to handle building the HTML from the object given.
+   * @param {object} details
+   */
   const getDefinitions = (details) => {
-    console.log(details.data);
     const detailsObject = details.data.map(entry => (
       {
         term: entry[0],
@@ -86,7 +113,7 @@ const DefinitionList = (data) => {
     return detailsObject.map((item) => {
       if (elements.includes(item.term)) {
         return ([
-          (<dt>{item.term}</dt>),
+          (<dt>{labels[item.term]}</dt>),
           (<dd>{item.definition}</dd>),
         ]);
       }

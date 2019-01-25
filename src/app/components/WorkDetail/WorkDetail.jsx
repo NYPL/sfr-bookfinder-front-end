@@ -1,8 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import DefinitionList from './DefinitionList';
-import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
+import { DefinitionList } from './DefinitionList';
 
 const WorkDetail = (props) => {
   if (!props.detail) {
@@ -10,16 +9,21 @@ const WorkDetail = (props) => {
   }
   const { detail } = props;
 
+  /**
+   * Convert JSON object to array for parsing detail elements into
+   * a definition list for display.
+   * @param {object} detailObject
+   */
   const itemDetailsObject = (detailObject) => {
-    return Object.entries(detailObject.item);
+    return Object.keys(detailObject.item).map(key => (
+      [key, detailObject.item[key]]
+    ));
   };
 
   return (
     <main id="mainContent">
       <div className="nypl-page-header">
-        <div className="breadcrumb">
-          <Breadcrumbs />
-        </div>
+        <div className="breadcrumb" />
       </div>
       <div className="nypl-full-width-wrapper">
         <div className="nypl-row">

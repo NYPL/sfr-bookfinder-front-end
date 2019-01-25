@@ -6,7 +6,6 @@ import { withRouter } from 'react-router';
 import SearchForm from '../SearchForm/SearchForm';
 import SearchResults from '../SearchResults/SearchResults';
 import * as searchActions from '../../actions/SearchActions';
-import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 
 class SearchContainer extends React.Component {
   constructor(props) {
@@ -26,9 +25,7 @@ class SearchContainer extends React.Component {
     return (
       <main id="mainContent">
         <div className="nypl-page-header">
-          <div className="breadcrumb">
-            <Breadcrumbs />
-          </div>
+          <div className="breadcrumb" />
         </div>
         <div className="nypl-full-width-wrapper">
           <div className="nypl-row">

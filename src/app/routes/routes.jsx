@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Redirect, IndexRoute } from 'react-router';
+import { Route, IndexRoute, Redirect } from 'react-router';
 
 import Application from '../components/Application/Application';
 import SearchContainer from '../components/SearchContainer/SearchContainer';
