@@ -8,8 +8,6 @@ import Footer from '@nypl/dgx-react-footer';
 class Application extends React.Component {
   constructor(props) {
     super(props);
-
-    this.props = props;
   }
 
   render() {

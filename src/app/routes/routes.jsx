@@ -10,7 +10,7 @@ import Home from '../components/Home/Home';
 const routes = {
   default: (
     <Route path="/" component={Application}>
-      <IndexRoute component={Home} />
+      <IndexRoute component={SearchContainer} />
       <Route path="/search" component={SearchContainer} />
       <Route path="/work" component={WorkDetail} />
       <Route path="/404" component={NotFound404} />

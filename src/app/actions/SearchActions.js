@@ -82,7 +82,7 @@ export const serverGet = (query) => {
   if (!userQuery) {
     throw new Error('No search terms were entered. Please enter some terms.');
   }
-  axios.get(searchUrl, { params: { q: userQuery } })
+  return axios.get(searchUrl, { params: { q: userQuery } })
     .then((resp) => {
       searchResults(resp.data);
     })
@@ -95,7 +95,7 @@ export const serverGet = (query) => {
 export const serverPost = (query, field) => {
   // Need a parsed query input to use for each filter
   const userQuery = (query) ? encodeURIComponent(query) : '*';
-  axios.post(searchUrl, { queries: [{ field, value: userQuery }] })
+  return axios.post(searchUrl, { queries: [{ field, value: userQuery }] })
     .then((resp) => {
       searchResults(resp.data);
     })
@@ -106,7 +106,7 @@ export const serverPost = (query, field) => {
 };
 
 export const serverFetchWork = (workId) => {
-  axios.get(recordUrl, { params: { recordID: workId } })
+  return axios.get(recordUrl, { params: { recordID: workId } })
     .then((resp) => {
       workDetail(resp.data);
     })
