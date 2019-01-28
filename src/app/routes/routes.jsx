@@ -5,7 +5,6 @@ import Application from '../components/Application/Application';
 import SearchContainer from '../components/SearchContainer/SearchContainer';
 import NotFound404 from '../components/Error/NotFound404';
 import WorkDetail from '../components/WorkDetail/WorkDetail';
-import Home from '../components/Home/Home';
 
 const routes = {
   default: (
