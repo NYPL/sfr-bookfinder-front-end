@@ -71,7 +71,7 @@ SearchContainer.contextTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  return { 
+  return {
     searchResults: state.searchResults,
     searchQuery: state.searchQuery,
     searchField: state.searchField,

@@ -40,7 +40,7 @@ const WorkDetail = (props) => {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  return { 
+  return {
     detail: state.workDetail,
   };
 };

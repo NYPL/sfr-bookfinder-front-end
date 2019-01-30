@@ -8,12 +8,14 @@ import { match, RouterContext } from 'react-router';
 import { config as analyticsConfig } from 'dgx-react-ga';
 import webpack from 'webpack';
 import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 
 import apiRoutes from './src/server/ApiRoutes/ApiRoutes';
 import routes from './src/app/routes/routes';
-import store from './src/app/stores/ReduxStore';
+// import store from './src/app/stores/ReduxStore';
 import appConfig from './appConfig';
 import webpackConfig from './webpack.config';
+import searchReducer from './src/app/stores/Reducers';
 
 const ROOT_PATH = __dirname;
 const INDEX_PATH = path.resolve(ROOT_PATH, 'src/client');
@@ -50,15 +52,16 @@ app.get('/*', (req, res) => {
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation);
     } else if (renderProps) {
+      const store = createStore(searchReducer, res.data);
       const application = ReactDOMServer.renderToString(
         <Provider store={store}>
           <RouterContext {...renderProps} />
         </Provider>
       );
-
       // First parameter references the ejs filename
       res.render('index', {
         application,
+        appData: JSON.stringify(res.data).replace(/</g, '\\u003c'),
         appTitle: appConfig.appTitle,
         favicon: appConfig.favIconPath,
         gaCode: analyticsConfig.google.code(isProduction),

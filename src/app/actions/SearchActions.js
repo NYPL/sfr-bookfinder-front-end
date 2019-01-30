@@ -108,10 +108,21 @@ export const serverPost = (query, field) => {
 export const serverFetchWork = (workId) => {
   return axios.get(recordUrl, { params: { recordID: workId } })
     .then((resp) => {
-      workDetail(resp.data);
+      return {
+        searchResults: {},
+        query: '',
+        filter: 'q',
+        sort: {
+          sortFilter: 'title',
+          sortOrder: 'asc',
+        },
+        workDetail: {
+          item: resp.data,
+        },
+      };
     })
     .catch((err) => {
-      console.log('error thrown', err);
+      console.log('error thrown', err.message);
     });
 };
 

@@ -22,7 +22,7 @@
     <meta name="twitter:creator" content="@nypl">
     <meta name="twitter:image" content="">
 
-    
+
 <% if (isProduction) { %>
     <!-- Minified Styles -->
     <link rel="stylesheet" type="text/css" href="/styles.css">
@@ -48,5 +48,12 @@
 <% } else { %>
   <script src="http://localhost:3000/bundle.js"></script>
 <% } %>
+
+  <script>
+    // WARNING: See the following for security issues around embedding JSON in HTML:
+    // http://redux.js.org/recipes/ServerRendering.html#security-considerations
+    window.__PRELOADED_STATE__ = <%- appData %>;
+    window.test = "test";
+  </script>
 
 </html>
