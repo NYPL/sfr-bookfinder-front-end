@@ -1,10 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router';
 
 import { Header, navConfig } from '@nypl/dgx-header-component';
 import Footer from '@nypl/dgx-react-footer';
-import SearchContainer from '../SearchContainer/SearchContainer';
 
 class Application extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return (
       <div className="app-wrapper">
@@ -13,27 +18,29 @@ class Application extends React.Component {
           navData={navConfig.current}
           urlType="absolute"
         />
-        <main id="mainContent">
-          {
-            // Replace the following with your code. The #mainContent ID is needed for an
-            // accessible skip nav from the Header component.
-          }
-          <div className="nypl-page-header">
-            <div className="breadcrumb"></div>
-          </div>
-          <div className="nypl-full-width-wrapper">
-            <div className="nypl-row">
-              <div className="nypl-column-full">
-                <h1 className="nypl-heading">ResearchNow</h1>
-              </div>
-            </div>
-            <SearchContainer />
-          </div>
-        </main>
+        {React.cloneElement(this.props.children, this.props)}
         <Footer />
       </div>
     );
   }
 }
 
-export default Application;
+Application.propTypes = {
+  match: PropTypes.object,
+  location: PropTypes.object,
+  history: PropTypes.object,
+  children: PropTypes.object,
+};
+
+Application.defaultProps = {
+  match: {},
+  location: {},
+  history: {},
+  children: {},
+};
+
+Application.contextType = {
+  router: PropTypes.object,
+};
+
+export default withRouter(Application);

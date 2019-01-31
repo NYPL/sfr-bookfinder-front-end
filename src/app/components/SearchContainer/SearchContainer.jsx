@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router';
 import SearchForm from '../SearchForm/SearchForm';
 import SearchResults from '../SearchResults/SearchResults';
-import WorkDetail from '../WorkDetail/WorkDetail';
 import * as searchActions from '../../actions/SearchActions';
 
 class SearchContainer extends React.Component {
@@ -23,20 +23,29 @@ class SearchContainer extends React.Component {
 
   render() {
     return (
-      <div className="wrapper">
-        {!this.showingDetails &&
-        <SearchForm
-          searchQuery={this.props.searchQuery}
-          searchField={this.props.searchField}
-          {...this.boundActions}
-        />}
-        {!this.showingDetails &&
-        <SearchResults
-          results={this.props.searchResults}
-          {...this.boundActions}
-        />}
-        <WorkDetail detail={this.props.workDetail} />
-      </div>
+      <main id="mainContent">
+        <div className="nypl-page-header">
+          <div className="breadcrumb" />
+        </div>
+        <div className="nypl-full-width-wrapper">
+          <div className="nypl-row">
+            <div className="nypl-column-full">
+              <h1 className="nypl-heading">ResearchNow</h1>
+            </div>
+          </div>
+          <div className="wrapper">
+            <SearchForm
+              searchQuery={this.props.searchQuery}
+              searchField={this.props.searchField}
+              {...this.boundActions}
+            />
+            <SearchResults
+              results={this.props.searchResults}
+              {...this.boundActions}
+            />
+          </div>
+        </div>
+      </main>
     );
   }
 }
@@ -73,4 +82,4 @@ const mapStateToProps = (state, ownProps) => {
 export default connect(
   mapStateToProps,
   null,
-)(SearchContainer);
+)(withRouter(SearchContainer));
