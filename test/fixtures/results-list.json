@@ -13,7 +13,8 @@
           {
             "title": "Title One",
             "items": [{
-              "url": "http://localhost/epubs/epubOne.epub"
+              "url": "http://localhost/epubs/epubOne.epub",
+              "epub_path": "nypl.org/ebook/100.no.images"
             }],
             "pub_date": "511",
             "pub_place": "England",

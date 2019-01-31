@@ -4,6 +4,7 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import ResultsRow from '../../src/app/components/SearchResults/ResultsRow';
 import { results } from '../fixtures/results-list.json';
+import EBookList from '../../src/app/components/List/EBookList';
 
 describe('ResultsRow', () => {
   let component;
@@ -14,12 +15,7 @@ describe('ResultsRow', () => {
     });
 
     it('should return row or rows of items', () => {
-      expect(component.find('.nypl-item-list')).to.have.length(1);
-    });
-
-    // Ebook item check
-    it('should contain ebook links', () => {
-      expect(component.find('.nypl-results-media').text()).to.equal('eBook: http://localhost/epubs/epubOne.epub');
+      expect(component.find('.nypl-items-list')).to.have.length(1);
     });
 
     // Publication date check
@@ -36,11 +32,6 @@ describe('ResultsRow', () => {
     it('should contain a publisher', () => {
       expect(component.find('.nypl-results-publisher').text()).to.equal('Merlin');
     });
-
-    // Language check
-    it('should contain a language', () => {
-      expect(component.find('.nypl-results-info').text()).to.equal('enm');
-    });
   });
 
   describe('Rows with partial item should render', () => {
@@ -49,12 +40,7 @@ describe('ResultsRow', () => {
     });
 
     it('should return row or rows of items', () => {
-      expect(component.find('.nypl-item-list')).to.have.length(1);
-    });
-
-    // Ebook item check
-    it('should not contain ebook links when not provided', () => {
-      expect(component.find('.nypl-results-media')).to.have.length(0);
+      expect(component.find('.nypl-items-list')).to.have.length(1);
     });
 
     // Publication date check
@@ -71,10 +57,17 @@ describe('ResultsRow', () => {
     it('should contain markup only when not provided', () => {
       expect(component.find('.nypl-results-publisher').text()).to.equal('');
     });
+  });
 
-    // Language check
-    it('should contain a language', () => {
-      expect(component.find('.nypl-results-info').text()).to.equal('enm');
+  describe('EBookList', () => {
+    before(() => {
+      const ebooks = results[0]['_source'].instances[0].items;
+      component = shallow(<EBookList ebooks={ebooks} />);
+    });
+    it('should have a list with a single line item with a single anchor tag', () => {
+      expect(component.find('.nypl-items-list')).to.have.length(1);
+      expect(component.find('.nypl-items-list li')).to.have.length(1);
+      expect(component.find('.nypl-items-list li a')).to.have.length(1);
     });
   });
 });

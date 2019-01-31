@@ -2,9 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { isEmpty as _isEmpty } from 'underscore';
-import appConfig from '../../../../appConfig';
+import EBookList from '../List/EBookList';
 
-const ebookUrl = appConfig.ereader[process.env.APP_ENV];
 const elements = ['title', 'entities', 'instances', 'subjects', 'rights_stmt', 'language'];
 export const labels = {
   title: 'Title',
@@ -67,7 +66,7 @@ export const DefinitionList = (data) => {
             <tbody>
               {entries.map((instance, i) => (
                 <tr key={i.toString()}>
-                  <td>{(instance.items) ? parseEbooks(instance.items) : ''}</td>
+                  <td>{(instance.items) ? <EBookList ebooks={instance.items} /> : ''}</td>
                   <td>{instance.pub_date}</td>
                   <td>{(instance.pub_place) ? `Place of publication: ${instance.pub_place}` : ''}</td>
                   <td>{instance.publisher}</td>
@@ -80,23 +79,6 @@ export const DefinitionList = (data) => {
       default:
         return null;
     }
-  };
-
-  /**
-   * Generate an unordered list of links to ebooks (EPUBs) to our reader for locally
-   * stored EPUBs or a download link otherwise.
-   * @param {object} ebooks
-   */
-  const parseEbooks = (ebooks) => {
-    return (
-      <ul className="nypl-items-list">
-        {ebooks.map((ebook, i) => (
-            <li key={i.toString()}>
-            <a href={`${ebookUrl}?url=${ebook.url}`}>Read Online</a> [{ebook.epub_path.split('/').pop()}]<br />
-          </li>
-        ))}
-      </ul>
-    );
   };
 
   /**
