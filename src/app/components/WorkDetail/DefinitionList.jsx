@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
+import { isEmpty as _isEmpty } from 'underscore';
 import appConfig from '../../../../appConfig';
 
 const ebookUrl = appConfig.ereader[process.env.APP_ENV];
@@ -103,6 +104,10 @@ export const DefinitionList = (data) => {
    * @param {object} details
    */
   const getDefinitions = (details) => {
+    if (!details.data || _isEmpty(details.data)) {
+      return null;
+    }
+
     const detailsObject = details.data.map(entry => (
       {
         term: entry[0],
