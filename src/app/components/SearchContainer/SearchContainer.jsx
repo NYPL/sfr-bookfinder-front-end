@@ -8,18 +8,21 @@ import SearchResults from '../SearchResults/SearchResults';
 import * as searchActions from '../../actions/SearchActions';
 
 class SearchContainer extends React.Component {
-  constructor(props) {
+  constructor(props, context) {
     super(props);
     const { dispatch } = props;
 
     this.boundActions = bindActionCreators(searchActions, dispatch);
     this.showingDetails = false;
+    this.context = context;
+    this.setState = (props, context);
   }
 
   componentDidUpdate() {
     const updated = true;
     this.showingDetails = updated;
   }
+
 
   render() {
     return (
@@ -41,6 +44,7 @@ class SearchContainer extends React.Component {
             />
             <SearchResults
               results={this.props.searchResults}
+              eReaderUrl={this.props.eReaderUrl}
               {...this.boundActions}
             />
           </div>
@@ -56,6 +60,7 @@ SearchContainer.propTypes = {
   searchField: PropTypes.string,
   workDetail: PropTypes.object,
   dispatch: PropTypes.func,
+  eReaderUrl: PropTypes.string,
 };
 
 SearchContainer.defaultProps = {
@@ -64,6 +69,7 @@ SearchContainer.defaultProps = {
   searchField: 'q',
   workDetail: {},
   dispatch: () => {},
+  eReaderUrl: PropTypes.string,
 };
 
 SearchContainer.contextTypes = {

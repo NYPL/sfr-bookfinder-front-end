@@ -1,15 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   isEmpty as _isEmpty,
 } from 'underscore';
 import EBookList from '../List/EBookList';
 
-const ResultsRow = (rows) => {
-  if (_isEmpty(rows.rows)) {
+const ResultsRow = (props) => {
+  if (_isEmpty(props.rows)) {
     return null;
   }
 
-  const items = rows.rows.map(item => (
+  const items = props.rows.map(item => (
     {
       ebooks: (item.items) ? item.items : [],
       pub_date: (item.pub_date) ? parseInt(item.pub_date) : null,
@@ -24,7 +25,7 @@ const ResultsRow = (rows) => {
         items.map((element, key) => (
           <li className="nypl-results-item" key={key.toString()}>
             <div className="nypl-results-description">
-              <EBookList ebooks={element.ebooks} />
+              {(element.ebooks) ? <EBookList ebooks={element.ebooks} eReaderUrl={props.eReaderUrl} /> : ''}
               <span className="nypl-results-date">{element.pub_date}</span>
               <span className="nypl-results-place">{element.pub_place}</span>
               <span className="nypl-results-publisher">{element.publisher}</span>
@@ -35,6 +36,10 @@ const ResultsRow = (rows) => {
       }
     </ul>
   );
+};
+
+ResultsRow.contextTypes = {
+  router: PropTypes.object,
 };
 
 export default ResultsRow;

@@ -17,9 +17,9 @@ export const labels = {
 /**
  * Build a definition list of elements from a bibliographic record provided
  * by Elastisearch.
- * @param {array} data
+ * @param {object} props
  */
-export const DefinitionList = (data) => {
+export const DefinitionList = (props) => {
 
   /**
    * Handle elements with array values as definitions. Authorities are linked to
@@ -66,7 +66,7 @@ export const DefinitionList = (data) => {
             <tbody>
               {entries.map((instance, i) => (
                 <tr key={i.toString()}>
-                  <td>{(instance.items) ? <EBookList ebooks={instance.items} /> : ''}</td>
+                  <td>{(instance.items) ? <EBookList ebooks={instance.items} eReaderUrl={props.eReaderUrl} /> : ''}</td>
                   <td>{instance.pub_date}</td>
                   <td>{(instance.pub_place) ? `Place of publication: ${instance.pub_place}` : ''}</td>
                   <td>{instance.publisher}</td>
@@ -83,14 +83,14 @@ export const DefinitionList = (data) => {
 
   /**
    * Wrapper function to handle building the HTML from the object given.
-   * @param {object} details
+   * @param {array} data
    */
-  const getDefinitions = (details) => {
-    if (!details.data || _isEmpty(details.data)) {
+  const getDefinitions = (data) => {
+    if (!data || _isEmpty(data)) {
       return null;
     }
 
-    const detailsObject = details.data.map(entry => (
+    const detailsObject = data.map(entry => (
       {
         term: entry[0],
         definition: (Array.isArray(entry[1])) ? parseEntries(entry[0], entry[1]) : entry[1],
@@ -107,11 +107,12 @@ export const DefinitionList = (data) => {
     });
   };
 
-  return (<dl>{getDefinitions(data)}</dl>);
+  return (<dl>{getDefinitions(props.data)}</dl>);
 };
 
 DefinitionList.propTypes = {
   data: PropTypes.array,
+  eReaderUrl: PropTypes.string,
 };
 
 export default DefinitionList;

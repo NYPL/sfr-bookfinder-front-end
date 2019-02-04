@@ -1,10 +1,10 @@
 import React from 'react';
 
-const ResultsMetadata = (metadata) => {
+const ResultsMetadata = (props) => {
   let message = 'Your search yielded no results. Please try again.';
 
-  if (metadata.metadata.total > 0) {
-    message = `Displaying 1 - ${metadata.metadata.total < 10 ? metadata.metadata.total : 10} of ${metadata.metadata.total} ; Relevancy score: ${metadata.metadata.max_score}`;
+  if (props.metadata.total > 0) {
+    message = `Displaying 1 - ${props.metadata.total < 10 ? props.metadata.total : 10} of ${props.metadata.total} ; Relevancy score: ${props.metadata.max_score}`;
   }
 
   return (
