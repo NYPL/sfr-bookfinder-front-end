@@ -25,8 +25,4 @@ SearchResults.propTypes = {
   eReaderUrl: PropTypes.string,
 }
 
-SearchResults.contextType = {
-  router: PropTypes.object,
-};
-
 export default SearchResults;

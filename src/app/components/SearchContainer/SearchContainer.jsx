@@ -8,14 +8,12 @@ import SearchResults from '../SearchResults/SearchResults';
 import * as searchActions from '../../actions/SearchActions';
 
 class SearchContainer extends React.Component {
-  constructor(props, context) {
+  constructor(props) {
     super(props);
     const { dispatch } = props;
 
     this.boundActions = bindActionCreators(searchActions, dispatch);
     this.showingDetails = false;
-    this.context = context;
-    this.setState = (props, context);
   }
 
   componentDidUpdate() {

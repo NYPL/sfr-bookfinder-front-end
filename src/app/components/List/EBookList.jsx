@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 /**
  * Create a link defaulting to an ebook "download" unless
@@ -36,10 +35,6 @@ const EBookList = (props) => {
       ))}
     </ul>
   );
-};
-
-EBookList.contextTypes = {
-  eReaderUrl: PropTypes.string,
 };
 
 export default EBookList;

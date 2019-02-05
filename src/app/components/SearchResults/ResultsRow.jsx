@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
   isEmpty as _isEmpty,
 } from 'underscore';
@@ -36,10 +35,6 @@ const ResultsRow = (props) => {
       }
     </ul>
   );
-};
-
-ResultsRow.contextTypes = {
-  router: PropTypes.object,
 };
 
 export default ResultsRow;

@@ -49,8 +49,4 @@ ResultsList.propTypes = {
   eReaderUrl: PropTypes.string,
 }
 
-ResultsList.contextTypes = {
-  router: PropTypes.object,
-};
-
 export default ResultsList;
