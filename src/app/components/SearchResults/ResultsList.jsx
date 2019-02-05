@@ -23,7 +23,6 @@ class ResultsList extends React.Component {
       this.props.fetchWork(workId);
       this.context.router.push(`/work?workId=${workId}`);
     };
-    console.log(this.props.results);
 
     return (
       <div>
@@ -47,6 +46,14 @@ class ResultsList extends React.Component {
 
 ResultsList.propTypes = {
   eReaderUrl: PropTypes.string,
-}
+};
+
+ResultsList.defaultProps = {
+  eReaderUrl: '',
+};
+
+ResultsList.contextTypes = {
+  router: PropTypes.object,
+};
 
 export default ResultsList;

@@ -67,7 +67,7 @@ SearchContainer.defaultProps = {
   searchField: 'q',
   workDetail: {},
   dispatch: () => {},
-  eReaderUrl: PropTypes.string,
+  eReaderUrl: '',
 };
 
 SearchContainer.contextTypes = {

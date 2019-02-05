@@ -115,4 +115,9 @@ DefinitionList.propTypes = {
   eReaderUrl: PropTypes.string,
 };
 
+DefinitionList.defaultProps = {
+  data: [],
+  eReaderUrl: '',
+};
+
 export default DefinitionList;

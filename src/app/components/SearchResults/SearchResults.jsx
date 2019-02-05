@@ -23,6 +23,10 @@ const SearchResults = (props) => {
 
 SearchResults.propTypes = {
   eReaderUrl: PropTypes.string,
-}
+};
+
+SearchResults.defaultProps = {
+  eReaderUrl: '',
+};
 
 export default SearchResults;
