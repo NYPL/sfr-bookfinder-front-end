@@ -3,6 +3,7 @@ import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import { DefinitionList, labels } from '../../src/app/components/WorkDetail/DefinitionList';
+import EBookList from '../../src/app/components/List/EBookList';
 import { detail } from '../fixtures/work-detail.json';
 
 describe('DefinitionList', () => {
@@ -38,11 +39,23 @@ describe('DefinitionList', () => {
 
   it('should have a list of Subjects', () => {
     const subjects = component.find('ul');
-    expect(subjects.nodes[2].props.children).to.have.length(9);
+    expect(subjects.nodes[1].props.children).to.have.length(9);
   });
 
   it('should have a list of Authors', () => {
     const authors = component.find('ul');
-    expect(authors.nodes[1].props.children).to.have.length(2);
+    expect(authors.nodes[0].props.children).to.have.length(2);
+  });
+
+  describe('EBookList', () => {
+    before(() => {
+      const ebooks = detail.item.instances[0].items;
+      component = shallow(<EBookList ebooks={ebooks} />);
+    });
+    it('should have a list of two links', () => {
+      expect(component.find('ul')).to.have.length(1);
+      expect(component.find('li')).to.have.length(2);
+      expect(component.find('li a')).to.have.length(2);
+    });
   });
 });

@@ -21,6 +21,7 @@ class SearchContainer extends React.Component {
     this.showingDetails = updated;
   }
 
+
   render() {
     return (
       <main id="mainContent">
@@ -41,6 +42,7 @@ class SearchContainer extends React.Component {
             />
             <SearchResults
               results={this.props.searchResults}
+              eReaderUrl={this.props.eReaderUrl}
               {...this.boundActions}
             />
           </div>
@@ -56,6 +58,7 @@ SearchContainer.propTypes = {
   searchField: PropTypes.string,
   workDetail: PropTypes.object,
   dispatch: PropTypes.func,
+  eReaderUrl: PropTypes.string,
 };
 
 SearchContainer.defaultProps = {
@@ -64,6 +67,7 @@ SearchContainer.defaultProps = {
   searchField: 'q',
   workDetail: {},
   dispatch: () => {},
+  eReaderUrl: '',
 };
 
 SearchContainer.contextTypes = {

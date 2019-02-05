@@ -26,7 +26,7 @@ describe('Results List', () => {
 
     it('should display a grouped list of works and their instances.', () => {
       expect(component.find('h2')).to.have.length(1);
-      expect(component.find('h2').text()).to.equal('Works');
+      expect(component.find('h2').text()).to.equal('Search Results');
       expect(component.find('.nypl-results-list')).to.have.length(1);
       expect(component.find('li')).to.have.length(2);
     });
