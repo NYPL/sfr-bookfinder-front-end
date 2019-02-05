@@ -25,7 +25,11 @@ the user.
 ### Installation
 Clone the repo and run `npm install`.
 
-Then run `npm start` to start the local server at `localhost:3001`.
+For local development, run `npm run dev-start` to start the local server at `localhost:3001` with
+default environment variables.
+
+Configurations are environment specific with different values per environment so it's necessary
+to set the appropriate environment when starting the application.
 
 ### Dependencies
 

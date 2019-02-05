@@ -7,6 +7,7 @@
   "scripts": {
     "start": "node index",
     "eb-start": "npm run dist && node index",
+    "dev-start": "APP_ENV=development npm start",
     "dist": "NODE_ENV=production ./node_modules/.bin/webpack --config webpack.config.js",
     "rebuild-modules": "rm -rf node_modules && npm install",
     "postinstall": "npm run dist",
