@@ -68,7 +68,7 @@ export const DefinitionList = (props) => {
                 <tr key={i.toString()}>
                   <td>{(instance.items) ? <EBookList ebooks={instance.items} eReaderUrl={props.eReaderUrl} /> : ''}</td>
                   <td>{instance.pub_date}</td>
-                  <td>{(instance.pub_place) ? `Place of publication: ${instance.pub_place}` : ''}</td>
+                  <td>{(instance.pub_place) ? `${instance.pub_place}` : ''}</td>
                   <td>{instance.publisher}</td>
                 </tr>
               ))}

@@ -1,4 +1,4 @@
-import { serverGet, serverPost, serverFetchWork } from '../../app/actions/SearchActions';
+import { serverPost, serverFetchWork } from '../../app/actions/SearchActions';
 import { getRequestParams } from '../../app/search/query';
 
 export const searchServer = (req, res, next) => {
@@ -7,15 +7,21 @@ export const searchServer = (req, res, next) => {
     next();
   }
 
-  if (field) {
-    res.data = serverPost(q, field);
-  } else if (workId) {
-    res.data = serverFetchWork(workId);
+  if (workId) {
+    serverFetchWork(workId)
+      .then((data) => {
+        res.data = data;
+        next();
+      })
+      .catch((err) => console.log('serverFetchWork failed', err.message));
   } else {
-    res.data = serverGet(q);
+    serverPost(q, field)
+      .then((data) => {
+        res.data = data;
+        next();
+      })
+      .catch((err) => console.log('serverPost failed', err.message));
   }
-
-  next();
 };
 
 export default { searchServer };

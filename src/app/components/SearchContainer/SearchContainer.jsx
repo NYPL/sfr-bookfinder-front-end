@@ -21,8 +21,8 @@ class SearchContainer extends React.Component {
     this.showingDetails = updated;
   }
 
-
   render() {
+    const params = this.props.location.query;
     return (
       <main id="mainContent">
         <div className="nypl-page-header">
@@ -36,8 +36,8 @@ class SearchContainer extends React.Component {
           </div>
           <div className="wrapper">
             <SearchForm
-              searchQuery={this.props.searchQuery}
-              searchField={this.props.searchField}
+              searchQuery={params.q || this.props.searchQuery}
+              searchField={params.field || this.props.searchField}
               {...this.boundActions}
             />
             <SearchResults
@@ -64,7 +64,7 @@ SearchContainer.propTypes = {
 SearchContainer.defaultProps = {
   searchResults: {},
   searchQuery: '',
-  searchField: 'q',
+  searchField: '',
   workDetail: {},
   dispatch: () => {},
   eReaderUrl: '',
@@ -75,11 +75,10 @@ SearchContainer.contextTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  return { 
+  return {
     searchResults: state.searchResults,
-    searchQuery: state.searchQuery,
-    searchField: state.searchField,
-    workDetail: state.workDetail,
+    searchQuery: state.searchQuery || ownProps.q,
+    searchField: state.searchField || ownProps.field,
   };
 };
 

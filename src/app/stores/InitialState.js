@@ -1,11 +1,12 @@
 const initialState = {
   searchResults: {},
-  query: '',
-  filter: 'q',
+  query: '*',
+  field: 'keyword',
   sort: {
     sortFilter: 'title',
     sortOrder: 'asc',
   },
+  workDetail: {},
 };
 
 export default initialState;

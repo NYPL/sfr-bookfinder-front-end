@@ -32,7 +32,7 @@ class SearchForm extends React.Component {
   submitSearchRequest(event) {
     event.preventDefault();
     if (!this.state.searchField) {
-      this.setState({ searchField: 'q' });
+      this.setState({ searchField: 'keyword' });
     }
     if (!this.state.searchQuery) {
       throw new Error('Please enter a term or terms to search');
@@ -40,11 +40,7 @@ class SearchForm extends React.Component {
 
     const terms = this.state.searchQuery.trim().replace(/\s+/g, ' ');
 
-    if (!this.state.searchField || this.state.searchField === 'q') {
-      this.props.searchGet(terms);
-    } else {
-      this.props.searchPost(terms, this.state.searchField);
-    }
+    this.props.searchPost(terms, this.state.searchField);
     this.context.router.push(`/search?q=${terms}`);
   }
 
@@ -61,6 +57,7 @@ class SearchForm extends React.Component {
                     <select
                       id="search-by-field"
                       onChange={this.onFieldChange}
+                      value={this.state.searchField}
                     >
                       <option value={this.props.allowedFields.kw} defaultValue>
                         Keyword
@@ -82,7 +79,7 @@ class SearchForm extends React.Component {
                       name="query"
                       type="text"
                       aria-labelledby="search-input-field"
-                      value={this.searchQuery}
+                      value={this.state.searchQuery}
                       placeholder="Keyword, title, or author"
                       onChange={this.onQueryChange}
                     />
@@ -109,14 +106,18 @@ class SearchForm extends React.Component {
 
 SearchForm.propTypes = {
   allowedFields: PropTypes.object,
+  searchQuery: PropTypes.string,
+  searchField: PropTypes.string,
 };
 
 SearchForm.defaultProps = {
   allowedFields: {
-    kw: 'q',
+    kw: 'keyword',
     ti: 'title',
-    au: 'entities.name',
+    au: 'author',
   },
+  searchQuery: '',
+  searchField: '',
 };
 
 SearchForm.contextTypes = {

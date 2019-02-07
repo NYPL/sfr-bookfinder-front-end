@@ -5,12 +5,6 @@ import { connect } from 'react-redux';
 import { DefinitionList } from './DefinitionList';
 
 class WorkDetail extends React.Component {
-  constructor(props, context) {
-    super(props);
-    this.props = props;
-    this.context = context;
-  }
-
   /**
    * Convert JSON object to array for parsing detail elements into
    * a definition list for display.
@@ -57,7 +51,7 @@ WorkDetail.defaultProps = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  return { 
+  return {
     detail: state.workDetail,
   };
 };
