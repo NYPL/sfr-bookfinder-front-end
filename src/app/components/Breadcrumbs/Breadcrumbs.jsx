@@ -2,9 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
-const Breadcrumbs = ((props) => {
-
-  const { query, field, type } = props;
+const Breadcrumbs = ((query, type) => {
+  const onClick = pageTitle => tracker('Breadcrumbs', pageTitle);
 
   const homeLink = (
     <li key="home">
@@ -16,23 +15,23 @@ const Breadcrumbs = ((props) => {
   const crumbTrail = () => {
     const crumbs = [homeLink];
 
-    if (type === 'search') {
+    if (type === 'results') {
       crumbs.push(<li key="results">Search Results</li>);
     }
 
     crumbs.push(
-      <li key="search">
-        <Link to={`/search?q=${query}`} onClick={() => onClick('Search Results')}>
+      <li key="results">
+        <Link to={`/search?q=${query.q}`} onClick={() => onClick('Search Results')}>
           Search Results
         </Link>
       </li>);
 
-    if (type === 'work') {
+    if (type === 'details') {
       crumbs.push(<li key="details">Work Details</li>);
     }
     crumbs.push(
-      <li key="work">
-        <Link to={`/work?workId=${query}`} onClick={() => onClick('Work Details')}>Work Details</Link>
+      <li key="details">
+        <Link to={`/work?workId=${query.q}`} onClick={() => onClick('Work Details')}>Work Details</Link>
       </li>);
 
     return crumbs;

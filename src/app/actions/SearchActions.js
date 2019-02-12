@@ -1,6 +1,7 @@
 import axios from 'axios';
 import appConfig from '../../../appConfig';
 import searchFields from '../constants/fields';
+import serverState from '../stores/InitialState';
 
 export const Actions = {
   SEARCH: 'SEARCH',
@@ -68,18 +69,8 @@ export const serverPost = (query, field) => {
 
   return axios.post(searchUrl, { queries: [{ field: selectedField, value: userQuery }] })
     .then((resp) => {
-      return {
-        searchResults: {
-          data: resp.data,
-        },
-        query: userQuery,
-        filter: field,
-        sort: {
-          sortFilter: 'title',
-          sortOrder: 'asc',
-        },
-        workDetail: {},
-      };
+      serverState.searchResults = { data: resp.data };
+      return serverState;
     })
     .catch((error) => {
       console.log('An error occurred during serverPost', error.message);
@@ -90,18 +81,8 @@ export const serverPost = (query, field) => {
 export const serverFetchWork = (workId) => {
   return axios.get(recordUrl, { params: { recordID: workId } })
     .then((resp) => {
-      return {
-        searchResults: {},
-        query: '',
-        filter: 'q',
-        sort: {
-          sortFilter: 'title',
-          sortOrder: 'asc',
-        },
-        workDetail: {
-          item: resp.data,
-        },
-      };
+      serverState.workDetail = { item: resp.data };
+      return serverState;
     })
     .catch((error) => {
       console.log('An error occurred during serverFetchWork', error.message);

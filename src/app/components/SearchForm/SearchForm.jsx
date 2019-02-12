@@ -76,7 +76,7 @@ class SearchForm extends React.Component {
                     {/* <label htmlFor="search-input">Search ResearchNow for</label> */}
                     <input
                       id="search-input"
-                      name="query"
+                      name="q"
                       type="text"
                       aria-labelledby="search-input-field"
                       value={this.state.searchQuery}
@@ -94,10 +94,6 @@ class SearchForm extends React.Component {
               </div>
             </div>
           </form>
-          <div id="tagline">
-            Search the world&apos;s research collections and more for digital books you
-            can use right now.
-          </div>
         </div>
       </div>
     );

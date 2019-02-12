@@ -6,6 +6,14 @@ import {
 } from 'underscore';
 import ResultsRow from './ResultsRow';
 
+/**
+ * ResultsList presents search results as a "grouped" list of books
+ * with their associated editions provided by the ResultsRow component.
+ * Each result displays a title and author element linked to its companion
+ * detailed view.
+ *
+ * @returns {string|null}
+ */
 class ResultsList extends React.Component {
   constructor(props) {
     super(props);
@@ -25,8 +33,10 @@ class ResultsList extends React.Component {
     };
 
     return (
-      <div>
-        <h2>Search Results</h2>
+      <div className="nypl-results">
+        <div className="nypl-results-header">
+          <h2>Search Results</h2>
+        </div>
         <ul className="nypl-results-list">
           {this.props.results.map((result, i) => (
               <li className="nypl-results-item" key={i.toString()}>

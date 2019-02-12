@@ -7,37 +7,45 @@ import SearchForm from '../SearchForm/SearchForm';
 import SearchResults from '../SearchResults/SearchResults';
 import * as searchActions from '../../actions/SearchActions';
 
+/**
+ * Container class providing the Redux action creators
+ * to its child components. State data is passed along
+ * including params set in location.
+ *
+ * Accessibility Note: Creates the <main> element for all
+ * search pages with the corresponding <h1>.
+ */
 class SearchContainer extends React.Component {
   constructor(props) {
     super(props);
     const { dispatch } = props;
 
     this.boundActions = bindActionCreators(searchActions, dispatch);
-    this.showingDetails = false;
-  }
-
-  componentDidUpdate() {
-    const updated = true;
-    this.showingDetails = updated;
   }
 
   render() {
-    const params = this.props.location.query;
+    const { query } = (this.props.location) ? this.props.location : '';
+    const userQuery = (query && query.q) ? query.q : this.props.searchQuery;
+    const selectedField = (query && query.field) ? query.field : this.props.searchField;
     return (
       <main id="mainContent">
         <div className="nypl-page-header">
-          <div className="breadcrumb" />
+          Breadcrumb Trail
         </div>
-        <div className="nypl-full-width-wrapper">
+        <div className="nypl-full-width-wrapper" role="search" aria-label="ResearchNow">
           <div className="nypl-row">
             <div className="nypl-column-full">
               <h1 className="nypl-heading">ResearchNow</h1>
+              <div id="tagline">
+                Search the world&apos;s research collections and more for digital books you
+                can use right now.
+              </div>
             </div>
           </div>
           <div className="wrapper">
             <SearchForm
-              searchQuery={params.q || this.props.searchQuery}
-              searchField={params.field || this.props.searchField}
+              searchQuery={userQuery}
+              searchField={selectedField}
               {...this.boundActions}
             />
             <SearchResults

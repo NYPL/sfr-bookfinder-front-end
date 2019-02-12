@@ -1,0 +1,1350 @@
+{
+  "took": 25,
+  "timed_out": false,
+  "_shards": {
+    "total": 5,
+    "successful": 5,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": 4,
+    "max_score": 7.4448366,
+    "hits": [
+      {
+        "_index": "sfr",
+        "_type": "doc",
+        "_id": "1",
+        "_score": 7.4448366,
+        "_source": {
+          "title": "The Declaration of Independence of the United States of America",
+          "uuid": "52639e41-1744-4534-83e7-dc16e14eb4d1",
+          "rights_stmt": "Public domain in the USA.",
+          "date_created": "2018-10-31T09:02:19.839449",
+          "date_updated": "2018-10-31T09:02:19.839449",
+          "language": "en",
+          "instances": [
+            {
+              "title": "The Declaration of Independence of the United States of America",
+              "pub_date": 1971,
+              "pub_place": "",
+              "publisher": "Project Gutenberg",
+              "items": [
+                {
+                  "url": "http://localhost:3001/1.epub.noimages/OEBPS/content.opf",
+                  "epub_path": "files/epubs/1.epub.noimages",
+                  "source": "gutenberg",
+                  "size": 54395,
+                  "date_modified": "2018-10-01",
+                  "archive_url": "http://localhost:3001/epub_test/1.epub.noimages",
+                  "reports": [
+                    {
+                      "score": 8.3125,
+                      "ace_version": "1.0.1",
+                      "timestamp": "2018-11-21T17:29:34",
+                      "critical_errs": 0,
+                      "serious_errs": 3,
+                      "moderate_errs": 15,
+                      "minor_errs": 0
+                    },
+                    {
+                      "score": 8.3125,
+                      "ace_version": "1.0.1",
+                      "timestamp": "2018-11-21T17:49:48",
+                      "critical_errs": 0,
+                      "serious_errs": 3,
+                      "moderate_errs": 15,
+                      "minor_errs": 0
+                    }
+                  ]
+                },
+                {
+                  "url": "http://localhost:3001/1.epub.images/OEBPS/content.opf",
+                  "epub_path": "files/epubs/1.epub.images",
+                  "source": "gutenberg",
+                  "size": 544408,
+                  "date_modified": "2018-10-01",
+                  "archive_url": "http://localhost:3001/epub_test/1.epub.images",
+                  "reports": [
+                    {
+                      "score": 8.3125,
+                      "ace_version": "1.0.1",
+                      "timestamp": "2018-11-21T17:29:39",
+                      "critical_errs": 0,
+                      "serious_errs": 3,
+                      "moderate_errs": 15,
+                      "minor_errs": 0
+                    },
+                    {
+                      "score": 8.3125,
+                      "ace_version": "1.0.1",
+                      "timestamp": "2018-11-21T17:49:49",
+                      "critical_errs": 0,
+                      "serious_errs": 3,
+                      "moderate_errs": 15,
+                      "minor_errs": 0
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "entities": [
+            {
+              "name": "Jefferson, Thomas",
+              "sort_name": "Jefferson, Thomas",
+              "viaf": "41866059",
+              "lcnaf": "n79089957",
+              "wikipedia": "http://en.wikipedia.org/wiki/Thomas_Jefferson",
+              "birth": 1743,
+              "death": 1826,
+              "role": "creator"
+            }
+          ],
+          "subjects": [
+            {
+              "authority": "http://purl.org/dc/terms/LCC",
+              "subject": "E201"
+            },
+            {
+              "authority": "http://purl.org/dc/terms/LCC",
+              "subject": "JK"
+            },
+            {
+              "authority": "http://purl.org/dc/terms/LCSH",
+              "subject": "United States -- History -- Revolution, 1775-1783 -- Sources"
+            },
+            {
+              "authority": "http://purl.org/dc/terms/LCSH",
+              "subject": "United States. Declaration of Independence"
+            }
+          ],
+          "ids": [
+            {
+              "type": "gutenberg",
+              "identifier": "http://www.gutenberg.org/ebooks/19785"
+            },
+            {
+              "type": "gutenberg",
+              "identifier": "http://www.gutenberg.org/ebooks/1"
+            }
+          ]
+        }
+      },
+      {
+        "_index": "sfr",
+        "_type": "doc",
+        "_id": "936",
+        "_score": 6.599826,
+        "_source": {
+          "title": "A Compilation of the Messages and Papers of the Presidents\r\nVolume 1, part 3: Thomas Jefferson",
+          "uuid": "cb6ca6e9-86cc-444f-899a-79e33b915c55",
+          "rights_stmt": "Public domain in the USA.",
+          "date_created": "2018-10-31T09:56:19.042350",
+          "date_updated": "2018-10-31T09:56:19.042350",
+          "language": "en",
+          "instances": [
+            {
+              "title": "A Compilation of the Messages and Papers of the Presidents\r\nVolume 1, part 3: Thomas Jefferson",
+              "pub_date": 2004,
+              "pub_place": "",
+              "publisher": "Project Gutenberg",
+              "language": "en",
+              "items": [
+                {
+                  "url": "http://www.gutenberg.org/ebooks/10893.epub.noimages",
+                  "epub_path": "files/epubs/10893.epub.noimages",
+                  "source": "gutenberg",
+                  "size": 150837,
+                  "date_modified": "2018-10-06"
+                },
+                {
+                  "url": "http://www.gutenberg.org/ebooks/10893.epub.images",
+                  "epub_path": "files/epubs/10893.epub.images",
+                  "source": "gutenberg",
+                  "size": 150836,
+                  "date_modified": "2018-10-06"
+                }
+              ]
+            }
+          ],
+          "entities": [
+            {
+              "name": "Richardson, James D. (James Daniel)",
+              "sort_name": "Richardson, James D. (James Daniel)",
+              "birth": 1843,
+              "death": 1914,
+              "role": "editor"
+            }
+          ],
+          "subjects": [
+            {
+              "authority": "http://purl.org/dc/terms/LCSH",
+              "subject": "Presidents -- United States"
+            },
+            {
+              "authority": "http://purl.org/dc/terms/LCC",
+              "subject": "J"
+            },
+            {
+              "authority": "http://purl.org/dc/terms/LCSH",
+              "subject": "United States -- History -- Sources"
+            },
+            {
+              "authority": "http://purl.org/dc/terms/LCSH",
+              "subject": "United States -- Politics and government"
+            },
+            {
+              "authority": "http://purl.org/dc/terms/LCSH",
+              "subject": "Jefferson, Thomas, 1743-1826"
+            }
+          ],
+          "ids": [
+            {
+              "type": "gutenberg",
+              "identifier": "http://www.gutenberg.org/ebooks/10893"
+            },
+            {
+              "type": "gutenberg",
+              "identifier": "http://www.gutenberg.org/ebooks/10893"
+            }
+          ]
+        }
+      },
+      {
+        "_index": "sfr",
+        "_type": "doc",
+        "_id": "1623",
+        "_score": 3.3952327,
+        "_source": {
+          "title": "Calvert of Strathore",
+          "uuid": "072db549-a94f-4e82-8b34-a2ae976c82a0",
+          "rights_stmt": "Public domain in the USA.",
+          "date_created": "2018-10-31T10:51:49.568317",
+          "date_updated": "2018-10-31T10:51:49.568317",
+          "language": "en",
+          "instances": [
+            {
+              "title": "Calvert of Strathore",
+              "pub_date": 2004,
+              "pub_place": "",
+              "publisher": "Project Gutenberg",
+              "language": "en",
+              "items": [
+                {
+                  "url": "http://www.gutenberg.org/ebooks/11690.epub.images",
+                  "epub_path": "files/epubs/11690.epub.images",
+                  "source": "gutenberg",
+                  "size": 242822,
+                  "date_modified": "2018-10-06"
+                },
+                {
+                  "url": "http://www.gutenberg.org/ebooks/11690.epub.noimages",
+                  "epub_path": "files/epubs/11690.epub.noimages",
+                  "source": "gutenberg",
+                  "size": 242822,
+                  "date_modified": "2018-10-06"
+                }
+              ]
+            }
+          ],
+          "entities": [
+            {
+              "name": "Goodloe, Abbe Carter",
+              "sort_name": "Goodloe, Abbe Carter",
+              "viaf": "23492354",
+              "lcnaf": "n82128971",
+              "birth": 1867,
+              "role": "creator"
+            }
+          ],
+          "subjects": [
+            {
+              "authority": "http://purl.org/dc/terms/LCSH",
+              "subject": "Historical fiction"
+            },
+            {
+              "authority": "http://purl.org/dc/terms/LCSH",
+              "subject": "Americans -- France -- Fiction"
+            },
+            {
+              "authority": "http://purl.org/dc/terms/LCSH",
+              "subject": "Paris (France) -- Fiction"
+            },
+            {
+              "authority": "http://purl.org/dc/terms/LCSH",
+              "subject": "France -- History -- Revolution, 1789-1799 -- Fiction"
+            },
+            {
+              "authority": "http://purl.org/dc/terms/LCSH",
+              "subject": "Jefferson, Thomas, 1743-1826 -- Fiction"
+            },
+            {
+              "authority": "http://purl.org/dc/terms/LCC",
+              "subject": "PS"
+            }
+          ],
+          "ids": [
+            {
+              "type": "gutenberg",
+              "identifier": "http://www.gutenberg.org/ebooks/11690"
+            },
+            {
+              "type": "gutenberg",
+              "identifier": "http://www.gutenberg.org/ebooks/11690"
+            }
+          ]
+        }
+      },
+      {
+        "_index": "sfr",
+        "_type": "doc",
+        "_id": "795",
+        "_score": 2.4617898,
+        "_source": {
+          "title": "Boule de suif et autres contes normands,",
+          "uuid": "d3b72760-f633-4e89-819f-a3cdaf5a4b42",
+          "rights_stmt": "Public domain in the USA.",
+          "date_created": "2018-10-31T09:47:49.671254",
+          "date_updated": "2018-10-31T09:47:49.671254",
+          "language": "fr",
+          "instances": [
+            {
+              "title": "Boule de Suif",
+              "pub_date": 2004,
+              "pub_place": "",
+              "publisher": "Project Gutenberg",
+              "language": "en",
+              "items": [
+                {
+                  "url": "http://www.gutenberg.org/ebooks/10746.epub.noimages",
+                  "epub_path": "files/epubs/10746.epub.noimages",
+                  "source": "gutenberg",
+                  "size": 108775,
+                  "date_modified": "2018-10-06"
+                },
+                {
+                  "url": "http://www.gutenberg.org/ebooks/10746.epub.images",
+                  "epub_path": "files/epubs/10746.epub.images",
+                  "source": "gutenberg",
+                  "size": 185608,
+                  "date_modified": "2018-10-06"
+                }
+              ]
+            },
+            {
+              "title": "Boule de suif. Correspondence. Étude de Pol Neveux",
+              "pub_date": 1908,
+              "pub_place": "Paris",
+              "publisher": "L. Conrad",
+              "language": "fr",
+              "ids": [
+                {
+                  "type": "oclc",
+                  "identifier": "30704332"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "2313742"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "611671667"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "697901147"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "3428801"
+                }
+              ]
+            },
+            {
+              "title": "Boule de suif /",
+              "pub_date": 1999,
+              "pub_place": "Paris",
+              "publisher": "Gallimard",
+              "language": "fr",
+              "ids": [
+                {
+                  "type": "isbn",
+                  "identifier": "2070394026"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "2035881099"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "9782070345182"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "2070458199"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "2253009636"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "9782070394029"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "2070345181"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "9782253009634"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "2070411192"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "9782070458196"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "9782035881090"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "9782070411191"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "270649466"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "137220685"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "887516927"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "43490957"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "36125294"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "43506050"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "470959146"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "49868629"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "406967215"
+                }
+              ]
+            },
+            {
+              "title": "Bola de sebo y otros cuentos /",
+              "pub_date": 1993,
+              "pub_place": "Santiago de Chile",
+              "publisher": "Editorial Andres Bello",
+              "language": "sp",
+              "ids": [
+                {
+                  "type": "isbn",
+                  "identifier": "9561310961"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "9789561310964"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "33181921"
+                }
+              ]
+            },
+            {
+              "title": "Boule de suif /",
+              "pub_date": 2012,
+              "pub_place": "Groningen",
+              "publisher": "Noordhoff",
+              "language": "fr",
+              "ids": [
+                {
+                  "type": "isbn",
+                  "identifier": "9789001815042"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "9001815049"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "9789001815028"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "9001815022"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "812506610"
+                }
+              ]
+            },
+            {
+              "title": "Boule de Suif /",
+              "pub_date": 1902,
+              "pub_place": "Paris",
+              "publisher": "Societe d'Editions Litteraires et Artistiques",
+              "language": "fr",
+              "ids": [
+                {
+                  "type": "oclc",
+                  "identifier": "646902384"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "704348214"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "13999907"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "28643766"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "20945146"
+                }
+              ]
+            },
+            {
+              "title": "Boule-de-Suif /",
+              "pub_date": 2006,
+              "pub_place": "Paris",
+              "publisher": "Hachette éducation",
+              "language": "fr",
+              "ids": [
+                {
+                  "type": "isbn",
+                  "identifier": "2011691915"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "9782011691910"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "470346978"
+                }
+              ]
+            },
+            {
+              "title": "Boule de suif /",
+              "pub_date": 1968,
+              "pub_place": "Paris",
+              "publisher": "A. Michel",
+              "language": "fr",
+              "ids": [
+                {
+                  "type": "oclc",
+                  "identifier": "10880064"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "12873608"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "4206752"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "18327836"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "254305"
+                }
+              ]
+            },
+            {
+              "title": "Boule de suif et autres contes normands",
+              "pub_date": 1971,
+              "pub_place": "Paris",
+              "publisher": "Garnier",
+              "language": "fr",
+              "ids": [
+                {
+                  "type": "isbn",
+                  "identifier": "9782737002656"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "2737000661"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "2737002656"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "9782737000669"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "181584"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "489950519"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "463207891"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "225015842"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "420260224"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "15704469"
+                }
+              ]
+            },
+            {
+              "title": "Boule de Suif",
+              "pub_date": 1933,
+              "pub_place": "Paris",
+              "publisher": "E. Flammarion",
+              "language": "fr",
+              "ids": [
+                {
+                  "type": "isbn",
+                  "identifier": "9782081205475"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "2081205475"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "2868164"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "9115084"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "470663723"
+                }
+              ]
+            },
+            {
+              "title": "Boule de suif /",
+              "pub_date": 1995,
+              "pub_place": "London",
+              "publisher": "Penguin Books",
+              "language": "en",
+              "ids": [
+                {
+                  "type": "isbn",
+                  "identifier": "0146001435"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "9780146001437"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "49673620"
+                }
+              ]
+            },
+            {
+              "title": "Bola de sebo y otros cuentos /",
+              "pub_date": 2012,
+              "pub_place": "Barcelona",
+              "publisher": "Castalia Prima",
+              "language": "sp",
+              "ids": [
+                {
+                  "type": "isbn",
+                  "identifier": "9781781605240"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "1781605246"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "9788497404563"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "8497404564"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "847594070"
+                }
+              ]
+            },
+            {
+              "title": "Boule-de-Suif /",
+              "pub_date": 2016,
+              "pub_place": "Paris",
+              "publisher": "Éditions Gallimard",
+              "language": "fr",
+              "ids": [
+                {
+                  "type": "isbn",
+                  "identifier": "2070793168"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "9782070793167"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "957665150"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "10693871"
+                }
+              ]
+            },
+            {
+              "title": "Boule de Suif et autres nouvelles : nouvelles /",
+              "pub_date": 2007,
+              "pub_place": "Paris",
+              "publisher": "Larousse",
+              "language": "fr",
+              "ids": [
+                {
+                  "type": "isbn",
+                  "identifier": "9782035834232"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "2035834236"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "9782038712780"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "2038712786"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "470735045"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "262479045"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "319944247"
+                }
+              ]
+            },
+            {
+              "title": "Bola de sebo y otros cuentos /",
+              "pub_date": 1904,
+              "language": "sp",
+              "ids": [
+                {
+                  "type": "oclc",
+                  "identifier": "913144862"
+                }
+              ]
+            },
+            {
+              "title": "Bola de sebo /",
+              "pub_date": 2004,
+              "pub_place": "Santa Fe, Argentina",
+              "publisher": "El Cid Editor",
+              "language": "sp",
+              "ids": [
+                {
+                  "type": "isbn",
+                  "identifier": "9781429444699"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "142944469X"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "83979558"
+                }
+              ]
+            },
+            {
+              "title": "Boule de suif",
+              "pub_date": 2015,
+              "pub_place": "Cork",
+              "publisher": "Primento Digital Publishing",
+              "language": "fr",
+              "ids": [
+                {
+                  "type": "isbn",
+                  "identifier": "9782335005264"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "233500526X"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "914153051"
+                }
+              ]
+            },
+            {
+              "title": "Boule de suif ; Correspondance ; Étude de Pol Neveux",
+              "pub_date": 1926,
+              "pub_place": "Paris",
+              "publisher": "L. Conard, Libraire-Éditeur",
+              "language": "fr",
+              "ids": [
+                {
+                  "type": "oclc",
+                  "identifier": "29376069"
+                }
+              ]
+            },
+            {
+              "title": "Boule de suif /",
+              "pub_date": 2005,
+              "pub_place": "Port Jefferson Station, N.Y",
+              "publisher": "Chatterley Press International",
+              "language": "fr",
+              "ids": [
+                {
+                  "type": "isbn",
+                  "identifier": "0971336369"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "9780971336360"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "61361798"
+                }
+              ]
+            },
+            {
+              "title": "Zhi fang qiu /",
+              "pub_date": 2009,
+              "pub_place": "Tai bei xian shen keng xiang",
+              "publisher": "Li cun wen hua",
+              "language": "ch",
+              "ids": [
+                {
+                  "type": "isbn",
+                  "identifier": "9789868549272"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "9789868549272"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "9868549272"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "748298574"
+                }
+              ]
+            },
+            {
+              "title": "Tombalak öyküler /",
+              "pub_date": 2001,
+              "pub_place": "Turkey",
+              "publisher": "Cumhuriyet",
+              "language": "tu",
+              "ids": [
+                {
+                  "type": "oclc",
+                  "identifier": "47640218"
+                }
+              ]
+            },
+            {
+              "title": "Boule de suif /",
+              "pub_date": 1966,
+              "pub_place": "Amsterdam",
+              "publisher": "Meulenhoff Educatief",
+              "language": "fr",
+              "ids": [
+                {
+                  "type": "isbn",
+                  "identifier": "9789028048508"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "9028061517"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "9028048502"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "9789028061514"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "63377068"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "64101404"
+                }
+              ]
+            },
+            {
+              "title": "Boule de suif",
+              "pub_date": 1984,
+              "pub_place": "Paris",
+              "publisher": "Librairie Generale Francais",
+              "language": "fr",
+              "ids": [
+                {
+                  "type": "oclc",
+                  "identifier": "58960351"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "862768439"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "39231000"
+                }
+              ]
+            },
+            {
+              "title": "Boule de Suif /",
+              "pub_date": 2009,
+              "pub_place": "Paris",
+              "publisher": "Delcourt",
+              "language": "fr",
+              "ids": [
+                {
+                  "type": "isbn",
+                  "identifier": "275601379X"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "9782756013794"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "717821091"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "470691012"
+                }
+              ]
+            },
+            {
+              "title": "Boule de suif",
+              "pub_date": 1957,
+              "publisher": "A. Michel",
+              "language": "fr",
+              "ids": [
+                {
+                  "type": "oclc",
+                  "identifier": "343516"
+                }
+              ]
+            },
+            {
+              "title": "Boule de Suif",
+              "pub_date": 1904,
+              "pub_place": "Paris",
+              "publisher": "Paul Ollendorff",
+              "language": "fr",
+              "ids": [
+                {
+                  "type": "oclc",
+                  "identifier": "5925338"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "682507516"
+                }
+              ]
+            },
+            {
+              "title": "Boule de Suif",
+              "pub_date": 2012,
+              "pub_place": "Brussels",
+              "publisher": "Primento Digital",
+              "language": "fr",
+              "ids": [
+                {
+                  "type": "isbn",
+                  "identifier": "9782806240040"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "2806240042"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "897071278"
+                }
+              ]
+            },
+            {
+              "title": "Boule de suif et autres nouvelles /",
+              "pub_date": 1994,
+              "pub_place": "Paris",
+              "publisher": "Librio",
+              "language": "fr",
+              "ids": [
+                {
+                  "type": "isbn",
+                  "identifier": "9782277300274"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "2277300276"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "39018539"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "12122413"
+                }
+              ]
+            },
+            {
+              "title": "Boule de suif = Boule de suif /",
+              "pub_date": 2000,
+              "pub_place": "Torino",
+              "publisher": "Einaudi",
+              "language": "it",
+              "ids": [
+                {
+                  "type": "isbn",
+                  "identifier": "8806152440"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "9788806152444"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "797721807"
+                }
+              ]
+            },
+            {
+              "title": "Zhi fang qiu /",
+              "pub_date": 2002,
+              "pub_place": "Tai bei shi",
+              "publisher": "Xiao zhi tang fa xing",
+              "language": "ch",
+              "ids": [
+                {
+                  "type": "isbn",
+                  "identifier": "9574500489"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "9789574500482"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "9574500489"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "816193436"
+                }
+              ]
+            },
+            {
+              "title": "Boule de Suif. /",
+              "pub_date": 1901,
+              "pub_place": "Paris",
+              "publisher": "P. Ollendorff",
+              "language": "fr",
+              "ids": [
+                {
+                  "type": "oclc",
+                  "identifier": "18720807"
+                }
+              ]
+            },
+            {
+              "title": "Boule De Suif /",
+              "pub_date": 2013,
+              "pub_place": "Place of publication not identified",
+              "publisher": "George Lakon",
+              "language": "en",
+              "ids": [
+                {
+                  "type": "isbn",
+                  "identifier": "9781489515711"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "1489515712"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "963727549"
+                }
+              ]
+            },
+            {
+              "title": "Boule de suif nouvelle /",
+              "pub_date": 1994,
+              "pub_place": "Stuttgart",
+              "publisher": "Reclam",
+              "language": "ge",
+              "ids": [
+                {
+                  "type": "isbn",
+                  "identifier": "3150090113"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "9783150090114"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "75542547"
+                }
+              ]
+            },
+            {
+              "title": "Boule de suif /",
+              "pub_date": 1994,
+              "pub_place": "Vienne",
+              "publisher": "Manz",
+              "language": "fr",
+              "ids": [
+                {
+                  "type": "isbn",
+                  "identifier": "2070369048"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "9782070369041"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "48057752"
+                }
+              ]
+            },
+            {
+              "title": "Bola de sebo y otros cuentos /",
+              "pub_date": 2000,
+              "pub_place": "Madrid",
+              "publisher": "Editorial EDAF",
+              "language": "sp",
+              "ids": [
+                {
+                  "type": "isbn",
+                  "identifier": "8441407045"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "9788441407046"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "50073223"
+                }
+              ]
+            },
+            {
+              "title": "Boule de suif",
+              "pub_date": 1982,
+              "pub_place": "S.l",
+              "language": "un",
+              "ids": [
+                {
+                  "type": "oclc",
+                  "identifier": "881459549"
+                }
+              ]
+            },
+            {
+              "title": "Fettklösschen Novellen /",
+              "pub_date": 1965,
+              "pub_place": "Berlin",
+              "publisher": "Aufbau-Verl",
+              "language": "ge",
+              "ids": [
+                {
+                  "type": "oclc",
+                  "identifier": "73580314"
+                }
+              ]
+            },
+            {
+              "title": "Bola de sebo /",
+              "pub_date": 2002,
+              "pub_place": "México, D.F",
+              "publisher": "Grupo Editorial Tomo",
+              "language": "sp",
+              "ids": [
+                {
+                  "type": "isbn",
+                  "identifier": "970666646X"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "9789706666468"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "52897778"
+                }
+              ]
+            },
+            {
+              "title": "Boule de Suif /",
+              "pub_date": 2002,
+              "pub_place": "Paris",
+              "publisher": "Albin Michel",
+              "language": "fr",
+              "ids": [
+                {
+                  "type": "oclc",
+                  "identifier": "425155"
+                }
+              ]
+            },
+            {
+              "title": "Boule de suif /",
+              "pub_date": 2010,
+              "pub_place": "Ottawa",
+              "publisher": "EBooksLib",
+              "language": "fr",
+              "ids": [
+                {
+                  "type": "isbn",
+                  "identifier": "9781412181525"
+                },
+                {
+                  "type": "isbn",
+                  "identifier": "1412181526"
+                },
+                {
+                  "type": "oclc",
+                  "identifier": "657124781"
+                }
+              ]
+            }
+          ],
+          "entities": [
+            {
+              "name": "Maupassant, Guy de",
+              "sort_name": "Maupassant, Guy de",
+              "viaf": "29537765",
+              "lcnaf": "n79069916",
+              "wikipedia": "http://fr.wikipedia.org/wiki/Guy_de_Maupassant",
+              "birth": 1850,
+              "death": 1893,
+              "role": "creator"
+            },
+            {
+              "name": "Sempère, Emmanuelle [Editor]",
+              "sort_name": "Sempère, Emmanuelle [Editor]",
+              "viaf": "74013475",
+              "lcnaf": "no2004057116",
+              "role": "author"
+            },
+            {
+              "name": "Maupassant, Guy de",
+              "sort_name": "Maupassant, Guy de",
+              "viaf": "29537765",
+              "lcnaf": "n79069916",
+              "wikipedia": "http://fr.wikipedia.org/wiki/Guy_de_Maupassant",
+              "birth": 1850,
+              "death": 1893,
+              "role": "author"
+            },
+            {
+              "name": "Bancquart, Marie-Claire [Editor; Author of introduction; Other]",
+              "sort_name": "Bancquart, Marie-Claire [Editor; Author of introduction; Other]",
+              "viaf": "46756905",
+              "lcnaf": "n50017016",
+              "role": "author"
+            },
+            {
+              "name": "Forestier, Louis [Author; Editor; Author of introduction]",
+              "sort_name": "Forestier, Louis [Author; Editor; Author of introduction]",
+              "viaf": "51689543",
+              "lcnaf": "n50024851",
+              "role": "author"
+            }
+          ],
+          "subjects": [
+            {
+              "authority": "http://purl.org/dc/terms/LCSH",
+              "subject": "Short stories, French"
+            },
+            {
+              "authority": "http://purl.org/dc/terms/LCC",
+              "subject": "PQ"
+            }
+          ],
+          "ids": [
+            {
+              "type": "gutenberg",
+              "identifier": "http://www.feedbooks.com/book/495"
+            },
+            {
+              "type": "gutenberg",
+              "identifier": "http://www.gutenberg.org/ebooks/10746"
+            },
+            {
+              "type": "owi",
+              "identifier": "2908621754"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

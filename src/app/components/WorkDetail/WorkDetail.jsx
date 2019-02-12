@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { DefinitionList } from './DefinitionList';
+import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 
 class WorkDetail extends React.Component {
   /**
    * Convert JSON object to array for parsing detail elements into
    * a definition list for display.
    * @param {object} detailObject
+   * @return {string|null}
    */
   itemDetailsObject(detailObject) {
     return Object.keys(detailObject.item).map(key => (
@@ -21,11 +23,12 @@ class WorkDetail extends React.Component {
       return null;
     }
     const { detail } = this.props;
+    const query = this.props.location.query;
 
     return (
       <main id="mainContent">
         <div className="nypl-page-header">
-          <div className="breadcrumb" />
+          Breadcrumb Trail
         </div>
         <div className="nypl-full-width-wrapper">
           <div className="nypl-row">
