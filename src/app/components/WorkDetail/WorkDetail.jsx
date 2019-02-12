@@ -28,14 +28,17 @@ class WorkDetail extends React.Component {
     return (
       <main id="mainContent">
         <div className="nypl-page-header">
-          Breadcrumb Trail
+          <nav aria-label="Breadcrumbs" className="nypl-breadcrumbs" />
         </div>
         <div className="nypl-full-width-wrapper">
           <div className="nypl-row">
             <div className="nypl-column-full">
               <h2>Work Detail</h2>
               <div id="nypl-item-details">
-                <DefinitionList data={this.itemDetailsObject(detail)} eReaderUrl={this.props.eReaderUrl} />
+                <DefinitionList
+                  data={this.itemDetailsObject(detail)}
+                  eReaderUrl={this.props.eReaderUrl}
+                />
               </div>
             </div>
           </div>

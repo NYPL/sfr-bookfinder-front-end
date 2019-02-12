@@ -30,7 +30,7 @@ class SearchContainer extends React.Component {
     return (
       <main id="mainContent">
         <div className="nypl-page-header">
-          Breadcrumb Trail
+          <nav aria-label="Breadcrumbs" className="nypl-breadcrumbs" />
         </div>
         <div className="nypl-full-width-wrapper" role="search" aria-label="ResearchNow">
           <div className="nypl-row">
