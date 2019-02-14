@@ -40,15 +40,17 @@ class SearchForm extends React.Component {
 
     const terms = this.state.searchQuery.trim().replace(/\s+/g, ' ');
 
-    this.props.searchPost(terms, this.state.searchField);
-    this.context.router.push(`/search?q=${terms}`);
+    this.props.searchPost(terms, this.state.searchField)
+      .then(() => {
+        this.context.router.push(`/search?q=${terms}`);
+      });
   }
 
   render() {
     return (
       <div className="nypl-row">
         <div className="nypl-column-full">
-          <form className="nypl-omnisearch-form" onSubmit={this.handleSubmit} onKeyPress={this.handleSubmit}>
+          <form className="nypl-omnisearch-form" action="/search" method="get" onSubmit={this.handleSubmit} onKeyPress={this.handleSubmit}>
             <div className="ebook-search-form">
               <div className="nypl-omnisearch">
                 <div className="nypl-text-field">

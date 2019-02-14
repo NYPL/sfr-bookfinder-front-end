@@ -8,7 +8,7 @@ import searchReducer from './Reducers';
  * applications. We can introduce middlware that provides
  * logging, debugging, async processing, caching, etc.
  *
- * @param {object} preloadedState 
+ * @param {object} preloadedState
  * @return {object}
  */
 export default function configureStore(preloadedState) {

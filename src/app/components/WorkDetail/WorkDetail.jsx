@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
+import { isEmpty as _isEmpty } from 'underscore';
 import { DefinitionList } from './DefinitionList';
-import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 
 class WorkDetail extends React.Component {
+
   /**
    * Convert JSON object to array for parsing detail elements into
    * a definition list for display.
@@ -19,11 +20,10 @@ class WorkDetail extends React.Component {
   };
 
   render() {
-    if (!this.props.detail) {
-      return null;
+    if (!this.props.detail && _isEmpty(this.props.detail)) {
+      throw new Error('Detail element in props is missing or empty');
     }
     const { detail } = this.props;
-    const query = this.props.location.query;
 
     return (
       <main id="mainContent">

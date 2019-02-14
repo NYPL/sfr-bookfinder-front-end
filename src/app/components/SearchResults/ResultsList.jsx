@@ -18,19 +18,23 @@ class ResultsList extends React.Component {
   constructor(props) {
     super(props);
     this.props = props;
+
+    this.showWorkDetail = this.showWorkDetail.bind(this);
+  }
+
+  showWorkDetail(event, workId) {
+    event.preventDefault();
+
+    this.props.fetchWork(workId)
+      .then(() => {
+        this.context.router.push(`/work?workId=${workId}`);
+      });
   }
 
   render() {
     if (_isEmpty(this.props.results)) {
       return null;
     }
-
-    const showWorkDetail = (event, workId) => {
-      event.preventDefault();
-
-      this.props.fetchWork(workId);
-      this.context.router.push(`/work?workId=${workId}`);
-    };
 
     return (
       <div className="nypl-results">
@@ -41,7 +45,7 @@ class ResultsList extends React.Component {
           {this.props.results.map((result, i) => (
               <li className="nypl-results-item" key={i.toString()}>
                 <h3>
-                  <Link onClick={event => showWorkDetail(event, result['_source'].uuid)} to={{ pathname: '/work', query: { workId: `${result['_source'].uuid}` } }}>
+                  <Link onClick={event => this.showWorkDetail(event, result['_source'].uuid)} to={{ pathname: '/work', query: { workId: `${result['_source'].uuid}` } }}>
                     {result['_source'].title}{(result['_source'].entities && Array.isArray(result['_source'].entities)) ? ` – ${result['_source'].entities[0].name}` : ''}
                   </Link>
                 </h3>
