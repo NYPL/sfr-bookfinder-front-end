@@ -42,7 +42,7 @@ class SearchForm extends React.Component {
 
     this.props.searchPost(terms, this.state.searchField)
       .then(() => {
-        this.context.router.push(`/search?q=${terms}`);
+        this.context.router.push(`/search?q=${terms}&field=${this.state.searchField}`);
       });
   }
 

@@ -2,6 +2,7 @@ import axios from 'axios';
 import appConfig from '../../../appConfig';
 import searchFields from '../constants/fields';
 import serverState from '../stores/InitialState';
+import { buildQueryBody } from '../search/query';
 
 export const Actions = {
   SEARCH: 'SEARCH',
@@ -30,11 +31,12 @@ const recordUrl = apiUrl + recordPath;
 
 export const searchPost = (query, field) => {
   // Need a parsed query input to use for each filter
-  const userQuery = (query) ? encodeURIComponent(query) : '*';
+  const userQuery = query || '*';
   const selectedField = (field && searchFields[field]) ? searchFields[field] : 'keyword';
+  const queryBody = buildQueryBody({ query_string: { field: selectedField, userQuery } });
 
   return (dispatch) => {
-    return axios.post(searchUrl, { queries: [{ field: selectedField, value: userQuery }] })
+    return axios.post(searchUrl, queryBody)
       .then((resp) => {
         if (resp.data) {
           dispatch(searchResults(resp.data));
@@ -64,10 +66,11 @@ export const fetchWork = (workId) => {
 
 export const serverPost = (query, field) => {
   // Need a parsed query input to use for each filter
-  const userQuery = (query) ? encodeURIComponent(query) : '*';
+  const userQuery = query || '*';
   const selectedField = (field && searchFields[field]) ? searchFields[field] : 'keyword';
+  const queryBody = buildQueryBody({ query_string: { field: selectedField, userQuery } });
 
-  return axios.post(searchUrl, { queries: [{ field: selectedField, value: userQuery }] })
+  return axios.post(searchUrl, queryBody)
     .then((resp) => {
       serverState.searchResults = { data: resp.data };
       return serverState;
