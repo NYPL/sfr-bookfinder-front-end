@@ -9,20 +9,19 @@
     <link rel="icon" type="image/png" href="<%- favicon %>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <meta property="og:title" content="ResearchNow | The New York Public Library">
+    <meta property="og:title" content="<%- appTitle %>">
     <meta property="og:description" content="Search the world's research collections and more for digital books you can use right now.">
     <meta property="og:type" content="website">
     <meta property="og:image" content="">
-    <meta property="og:site_name" content="ResearchNow | The New York Public Library">
+    <meta property="og:site_name" content="<%- appTitle %>">
     <meta property="og:url" content="http://www.nypl.org/">
-    <meta name="twitter:title" content="ResearchNow | The New York Public Library">
+    <meta name="twitter:title" content="<%- appTitle %>">
     <meta name="twitter:description" content="">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@nypl">
     <meta name="twitter:creator" content="@nypl">
     <meta name="twitter:image" content="">
 
-    
 <% if (isProduction) { %>
     <!-- Minified Styles -->
     <link rel="stylesheet" type="text/css" href="/styles.css">
@@ -48,5 +47,11 @@
 <% } else { %>
   <script src="http://localhost:3000/bundle.js"></script>
 <% } %>
+
+<script>
+  // WARNING: See the following for security issues around embedding JSON in HTML:
+  // http://redux.js.org/recipes/ServerRendering.html#security-considerations
+  window.__PRELOADED_STATE__ = <%- appData %>;
+</script>
 
 </html>

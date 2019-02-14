@@ -11,7 +11,7 @@ import { Provider } from 'react-redux';
 
 import apiRoutes from './src/server/ApiRoutes/ApiRoutes';
 import routes from './src/app/routes/routes';
-import store from './src/app/stores/ReduxStore';
+import configureStore from './src/app/stores/configureStore';
 import appConfig from './appConfig';
 import webpackConfig from './webpack.config';
 
@@ -50,6 +50,11 @@ app.get('/*', (req, res) => {
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation);
     } else if (renderProps) {
+      if (!res.data) {
+        res.data = {};
+      }
+      const store = configureStore(res.data);
+
       const application = ReactDOMServer.renderToString(
         <Provider store={store}>
           <RouterContext {...renderProps} />
@@ -59,6 +64,7 @@ app.get('/*', (req, res) => {
       // First parameter references the ejs filename
       res.render('index', {
         application,
+        appData: JSON.stringify(res.data).replace(/</g, '\\u003c'),
         appTitle: appConfig.appTitle,
         favicon: appConfig.favIconPath,
         gaCode: analyticsConfig.google.code(isProduction),

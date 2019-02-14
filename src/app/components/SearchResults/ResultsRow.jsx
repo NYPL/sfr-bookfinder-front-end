@@ -4,6 +4,17 @@ import {
 } from 'underscore';
 import EBookList from '../List/EBookList';
 
+/**
+ * Search results rows which display a list of editions of
+ * a grouped bibliographic set of works under a single, uniform
+ * title in ResultsList. Each row contains basic metadata about that
+ * editions including links to eBooks.
+ *
+ * NOTE: No sorting logic has been applied after retrieval from ElasticSearch.
+ *
+ * @param {object} props
+ * @return {string|null}
+ */
 const ResultsRow = (props) => {
   if (_isEmpty(props.rows)) {
     return null;

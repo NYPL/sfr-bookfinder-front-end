@@ -20,13 +20,13 @@ export const labels = {
  * @param {object} props
  */
 export const DefinitionList = (props) => {
-
   /**
    * Handle elements with array values as definitions. Authorities are linked to
    * /search as new general searches with URL parameters. Items are mapped to a table
    * with a row for each edition.
    * @param {string} type
    * @param {array} entries
+   * @return {string|null}
    */
   const parseEntries = (type, entries) => {
     switch (type) {
@@ -68,7 +68,7 @@ export const DefinitionList = (props) => {
                 <tr key={i.toString()}>
                   <td>{(instance.items) ? <EBookList ebooks={instance.items} eReaderUrl={props.eReaderUrl} /> : ''}</td>
                   <td>{instance.pub_date}</td>
-                  <td>{(instance.pub_place) ? `Place of publication: ${instance.pub_place}` : ''}</td>
+                  <td>{(instance.pub_place) ? `${instance.pub_place}` : ''}</td>
                   <td>{instance.publisher}</td>
                 </tr>
               ))}
@@ -84,6 +84,7 @@ export const DefinitionList = (props) => {
   /**
    * Wrapper function to handle building the HTML from the object given.
    * @param {array} data
+   * @return {string}
    */
   const getDefinitions = (data) => {
     if (!data || _isEmpty(data)) {

@@ -29,9 +29,9 @@ export const query = (state = null, action) => (
     state
 );
 
-export const filter = (state = null, action) => (
+export const field = (state = null, action) => (
   (action.payload) ?
-    action.payload.filter :
+    action.payload.field :
     state
 );
 
@@ -50,7 +50,7 @@ export const sort = (state = null, action) => (
 export default combineReducers({
   searchResults,
   query,
-  filter,
+  field,
   allowedFilters,
   sort,
   workDetail,

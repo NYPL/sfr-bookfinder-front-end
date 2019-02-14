@@ -1,5 +1,7 @@
 import axios from 'axios';
 import appConfig from '../../../appConfig';
+import searchFields from '../constants/fields';
+import serverState from '../stores/InitialState';
 
 export const Actions = {
   SEARCH: 'SEARCH',
@@ -26,37 +28,21 @@ const { searchPath, recordPath } = appConfig.api;
 const searchUrl = apiUrl + searchPath;
 const recordUrl = apiUrl + recordPath;
 
-export const searchGet = (query) => {
-  // Need a parsed query input to use for each filter
-  const userQuery = (query) ? encodeURIComponent(query) : '*';
-  return (dispatch) => {
-    return axios.get(searchUrl, { params: { q: userQuery } })
-      .then((resp) => {
-        if (resp.data) {
-          dispatch(searchResults(resp.data));
-        }
-      })
-      .catch((error) => {
-        console.log('An error occurred during searchGet', error);
-        throw new Error('An error occurred during searchGet', error);
-      });
-  };
-};
-
 export const searchPost = (query, field) => {
   // Need a parsed query input to use for each filter
   const userQuery = (query) ? encodeURIComponent(query) : '*';
+  const selectedField = (field && searchFields[field]) ? searchFields[field] : 'keyword';
 
   return (dispatch) => {
-    return axios.post(searchUrl, { queries: [{ field, value: userQuery }] })
+    return axios.post(searchUrl, { queries: [{ field: selectedField, value: userQuery }] })
       .then((resp) => {
         if (resp.data) {
           dispatch(searchResults(resp.data));
         }
       })
       .catch((error) => {
-        console.log('An error occurred during searchPost', error);
-        throw new Error('An error occurred during searchPost', error);
+        console.log('An error occurred during searchPost', error.message);
+        throw new Error('An error occurred during searchPost', error.message);
       });
   };
 };
@@ -70,54 +56,43 @@ export const fetchWork = (workId) => {
         }
       })
       .catch((error) => {
-        console.log('An error occurred during fetchWork', error);
-        throw new Error('An error occurred during fetchWork', error);
+        console.log('An error occurred during fetchWork', error.message);
+        throw new Error('An error occurred during fetchWork', error.message);
       });
   };
-};
-
-export const serverGet = (query) => {
-  // Need a parsed query input to use for each filter
-  const userQuery = (query) ? encodeURIComponent(query) : '*';
-  if (!userQuery) {
-    throw new Error('No search terms were entered. Please enter some terms.');
-  }
-  return axios.get(searchUrl, { params: { q: userQuery } })
-    .then((resp) => {
-      searchResults(resp.data);
-    })
-    .catch((error) => {
-      console.log('An error occurred during searchGet', error);
-      throw new Error('An error occurred during searchGet', error);
-    });
 };
 
 export const serverPost = (query, field) => {
   // Need a parsed query input to use for each filter
   const userQuery = (query) ? encodeURIComponent(query) : '*';
-  return axios.post(searchUrl, { queries: [{ field, value: userQuery }] })
+  const selectedField = (field && searchFields[field]) ? searchFields[field] : 'keyword';
+
+  return axios.post(searchUrl, { queries: [{ field: selectedField, value: userQuery }] })
     .then((resp) => {
-      searchResults(resp.data);
+      serverState.searchResults = { data: resp.data };
+      return serverState;
     })
     .catch((error) => {
-      console.log('An error occurred during searchPost', error);
-      throw new Error('An error occurred during searchPost', error);
+      console.log('An error occurred during serverPost', error.message);
+      throw new Error('An error occurred during serverPost', error.message);
     });
 };
 
 export const serverFetchWork = (workId) => {
   return axios.get(recordUrl, { params: { recordID: workId } })
     .then((resp) => {
-      workDetail(resp.data);
+      serverState.workDetail = { item: resp.data };
+      return serverState;
     })
-    .catch((err) => {
-      console.log('error thrown', err);
+    .catch((error) => {
+      console.log('An error occurred during serverFetchWork', error.message);
+      throw new Error('An error occurred during serverFetchWork', error.message);
     });
 };
 
 export default {
-  searchGet,
   searchPost,
   fetchWork,
+  serverPost,
   serverFetchWork,
 };

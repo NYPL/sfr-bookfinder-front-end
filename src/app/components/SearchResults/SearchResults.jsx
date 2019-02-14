@@ -3,6 +3,12 @@ import PropTypes from 'prop-types';
 import ResultsMetadata from './ResultsMetadata';
 import ResultsList from './ResultsList';
 
+/**
+ * Wrapper component for results lists which can contain a number of components
+ * including search results, pagination, sorting/filtering components, etc.
+ * @param {object} props 
+ * @return {string|null}
+ */
 const SearchResults = (props) => {
   const metadata = props.results && props.results.data && props.results.data.hits;
   const hits = props.results && props.results.data && props.results.data.hits && props.results.data.hits.hits;

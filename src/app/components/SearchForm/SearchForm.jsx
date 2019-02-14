@@ -32,7 +32,7 @@ class SearchForm extends React.Component {
   submitSearchRequest(event) {
     event.preventDefault();
     if (!this.state.searchField) {
-      this.setState({ searchField: 'q' });
+      this.setState({ searchField: 'keyword' });
     }
     if (!this.state.searchQuery) {
       throw new Error('Please enter a term or terms to search');
@@ -40,19 +40,17 @@ class SearchForm extends React.Component {
 
     const terms = this.state.searchQuery.trim().replace(/\s+/g, ' ');
 
-    if (!this.state.searchField || this.state.searchField === 'q') {
-      this.props.searchGet(terms);
-    } else {
-      this.props.searchPost(terms, this.state.searchField);
-    }
-    this.context.router.push(`/search?q=${terms}`);
+    this.props.searchPost(terms, this.state.searchField)
+      .then(() => {
+        this.context.router.push(`/search?q=${terms}`);
+      });
   }
 
   render() {
     return (
       <div className="nypl-row">
         <div className="nypl-column-full">
-          <form className="nypl-omnisearch-form" onSubmit={this.handleSubmit} onKeyPress={this.handleSubmit}>
+          <form className="nypl-omnisearch-form" action="/search" method="get" onSubmit={this.handleSubmit} onKeyPress={this.handleSubmit}>
             <div className="ebook-search-form">
               <div className="nypl-omnisearch">
                 <div className="nypl-text-field">
@@ -61,6 +59,7 @@ class SearchForm extends React.Component {
                     <select
                       id="search-by-field"
                       onChange={this.onFieldChange}
+                      value={this.state.searchField}
                     >
                       <option value={this.props.allowedFields.kw} defaultValue>
                         Keyword
@@ -79,10 +78,10 @@ class SearchForm extends React.Component {
                     {/* <label htmlFor="search-input">Search ResearchNow for</label> */}
                     <input
                       id="search-input"
-                      name="query"
+                      name="q"
                       type="text"
                       aria-labelledby="search-input-field"
-                      value={this.searchQuery}
+                      value={this.state.searchQuery}
                       placeholder="Keyword, title, or author"
                       onChange={this.onQueryChange}
                     />
@@ -97,10 +96,6 @@ class SearchForm extends React.Component {
               </div>
             </div>
           </form>
-          <div id="tagline">
-            Search the world&apos;s research collections and more for digital books you
-            can use right now.
-          </div>
         </div>
       </div>
     );
@@ -109,14 +104,18 @@ class SearchForm extends React.Component {
 
 SearchForm.propTypes = {
   allowedFields: PropTypes.object,
+  searchQuery: PropTypes.string,
+  searchField: PropTypes.string,
 };
 
 SearchForm.defaultProps = {
   allowedFields: {
-    kw: 'q',
+    kw: 'keyword',
     ti: 'title',
-    au: 'entities.name',
+    au: 'author',
   },
+  searchQuery: '',
+  searchField: '',
 };
 
 SearchForm.contextTypes = {

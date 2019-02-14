@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 // import useScroll from 'react-router-scroll';
 import { Router, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
-import store from '../app/stores/ReduxStore';
+import configureStore from '../app/stores/configureStore';
 
 import './styles/main.scss';
 
@@ -18,6 +18,11 @@ if (loadA11y) {
 window.onload = () => {
   const appHistory = browserHistory;
   const appElement = document.getElementById('app');
+  const preloadedState = window.__PRELOADED_STATE__;
+
+  delete window.__PRELOADED_STATE__;
+
+  const store = configureStore(preloadedState);
 
   ReactDOM.render(
     <Provider store={store}>
