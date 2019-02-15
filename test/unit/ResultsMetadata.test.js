@@ -31,7 +31,7 @@ describe('Results Metadata', () => {
       component = shallow(<ResultsMetadata metadata={metadata} />);
     });
 
-    it('should have a message stating no results found.', () => {
+    it('should have a message displaying all 5 results found.', () => {
       expect(component.find('div')).to.have.length(1);
       expect(component.find('div').text()).to.equal('Displaying 1 - 5 of 5 ; Relevancy score: 1.332332');
     });
@@ -46,7 +46,7 @@ describe('Results Metadata', () => {
       component = shallow(<ResultsMetadata metadata={metadata} />);
     });
 
-    it('should have a message stating no results found.', () => {
+    it('should have a message displaying 10 of 15 results found.', () => {
       expect(component.find('div')).to.have.length(1);
       expect(component.find('div').text()).to.equal('Displaying 1 - 10 of 15 ; Relevancy score: 1.332332');
     });

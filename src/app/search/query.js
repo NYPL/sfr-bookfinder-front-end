@@ -1,4 +1,3 @@
-
 export const getRequestParams = (query = {}) => {
   const { q = '*' } = query;
   const { field = 'keyword' } = query;
@@ -18,6 +17,9 @@ export const getRequestParams = (query = {}) => {
  * @returns {string}
  */
 const addFieldQuery = (queryString, field = 'keyword') => {
+  if (!queryString) {
+    throw new Error('A valid query string must be passed');
+  }
   let fieldQuery = [];
   // Strip punctuation and process spaces as plus signs for final split.
   const queryArr = queryString.replace(/[.,\/#!$%\^&;:{}=\-_`~()]/g, '').trim().replace(/\s+/g, '+').split('+');
@@ -32,7 +34,7 @@ const addFieldQuery = (queryString, field = 'keyword') => {
 
 /**
  * Uses a special format as provided by the ResearchNow Search API.
- * Default format:
+ * Format with possible values:
  * {
  *   queries:
  *   [{
@@ -60,8 +62,8 @@ const addFieldQuery = (queryString, field = 'keyword') => {
  */
 export const buildQueryBody = (queryObj = {}) => {
   let queryBody = {};
-  if (queryObj.query_string) {
-    const { userQuery, field } = queryObj.query_string;
+  if (queryObj.query) {
+    const { userQuery, field } = queryObj.query;
     queryBody.queries = addFieldQuery(userQuery, field);
   }
 

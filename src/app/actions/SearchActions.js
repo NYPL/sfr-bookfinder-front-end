@@ -33,7 +33,7 @@ export const searchPost = (query, field) => {
   // Need a parsed query input to use for each filter
   const userQuery = query || '*';
   const selectedField = (field && searchFields[field]) ? searchFields[field] : 'keyword';
-  const queryBody = buildQueryBody({ query_string: { field: selectedField, userQuery } });
+  const queryBody = buildQueryBody({ query: { field: selectedField, userQuery } });
 
   return (dispatch) => {
     return axios.post(searchUrl, queryBody)
@@ -68,7 +68,7 @@ export const serverPost = (query, field) => {
   // Need a parsed query input to use for each filter
   const userQuery = query || '*';
   const selectedField = (field && searchFields[field]) ? searchFields[field] : 'keyword';
-  const queryBody = buildQueryBody({ query_string: { field: selectedField, userQuery } });
+  const queryBody = buildQueryBody({ query: { field: selectedField, userQuery } });
 
   return axios.post(searchUrl, queryBody)
     .then((resp) => {
