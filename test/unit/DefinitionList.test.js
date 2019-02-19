@@ -8,8 +8,8 @@ import { detail } from '../fixtures/work-detail.json';
 
 describe('DefinitionList', () => {
   let component;
-  const detailArray = Object.keys(detail.item).map(key => (
-    [key, detail.item[key]]
+  const detailArray = Object.keys(detail.work).map(key => (
+    [key, detail.work[key]]
   ));
 
   before(() => {
@@ -49,7 +49,7 @@ describe('DefinitionList', () => {
 
   describe('EBookList', () => {
     before(() => {
-      const ebooks = detail.item.instances[0].items;
+      const ebooks = detail.work.instances[0].items;
       component = shallow(<EBookList ebooks={ebooks} />);
     });
     it('should have a list of two links', () => {
