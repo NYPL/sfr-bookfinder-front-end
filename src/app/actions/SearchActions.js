@@ -16,10 +16,10 @@ export const searchResults = (results) => {
   };
 };
 
-export const workDetail = (item) => {
+export const workDetail = (work) => {
   return {
     type: Actions.FETCH_WORK,
-    item,
+    work,
   };
 };
 
@@ -30,7 +30,6 @@ const searchUrl = apiUrl + searchPath;
 const recordUrl = apiUrl + recordPath;
 
 export const searchPost = (query, field) => {
-  // Need a parsed query input to use for each filter
   const userQuery = query || '*';
   const selectedField = (field && searchFields[field]) ? searchFields[field] : 'keyword';
   const queryBody = buildQueryBody({ query: { field: selectedField, userQuery } });
@@ -84,7 +83,7 @@ export const serverPost = (query, field) => {
 export const serverFetchWork = (workId) => {
   return axios.get(recordUrl, { params: { recordID: workId } })
     .then((resp) => {
-      serverState.workDetail = { item: resp.data };
+      serverState.workDetail = { work: resp.data };
       return serverState;
     })
     .catch((error) => {

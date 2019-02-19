@@ -22,12 +22,17 @@ const addFieldQuery = (queryString, field = 'keyword') => {
   }
   let fieldQuery = [];
   // Strip punctuation and process spaces as plus signs for final split.
-  const queryArr = queryString.replace(/[.,\/#!$%\^&;:{}=\-_`~()]/g, '').trim().replace(/\s+/g, '+').split('+');
+  const queryArr = queryString.replace(/[.\/#!$%\^&;{}=\-_`~()]/g, '').trim().replace(/\s+/g, '+').split('+');
+  /**
+   * Reformat the string.
+   * For multiple strings in a query, add the plus operator to AND terms together;
+   * otherwise, return a single string.
+   */
+  const esQuery = (queryArr.length > 1) ? queryArr.join(' +') : queryArr.join('');
 
-  // For each string in queryArr, add a field query object.
-  queryArr.map(query => (
-    fieldQuery.push({ field, value: encodeURIComponent(query) })
-  ));
+  // TODO: add an additional check on empty queries after the terms are processed.
+
+  fieldQuery.push({ field, value: encodeURIComponent(esQuery) });
 
   return fieldQuery;
 };

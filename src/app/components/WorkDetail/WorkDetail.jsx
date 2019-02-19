@@ -10,20 +10,20 @@ class WorkDetail extends React.Component {
   /**
    * Convert JSON object to array for parsing detail elements into
    * a definition list for display.
-   * @param {object} detailObject
+   * @param {object} work
    * @return {string|null}
    */
-  itemDetailsObject(detailObject) {
-    return Object.keys(detailObject.item).map(key => (
-      [key, detailObject.item[key]]
+  workDetailsObject(work) {
+    return Object.keys(work).map(key => (
+      [key, work[key]]
     ));
   };
 
   render() {
-    if (!this.props.detail && _isEmpty(this.props.detail)) {
-      throw new Error('Detail element in props is missing or empty');
+    if (!this.props.work && _isEmpty(this.props.work)) {
+      throw new Error('Work prop is missing or empty');
     }
-    const { detail } = this.props;
+    const { work } = this.props;
 
     return (
       <main id="mainContent">
@@ -36,7 +36,7 @@ class WorkDetail extends React.Component {
               <h2>Work Detail</h2>
               <div id="nypl-item-details">
                 <DefinitionList
-                  data={this.itemDetailsObject(detail)}
+                  data={this.workDetailsObject(work)}
                   eReaderUrl={this.props.eReaderUrl}
                 />
               </div>
@@ -49,16 +49,18 @@ class WorkDetail extends React.Component {
 }
 
 WorkDetail.propTypes = {
+  work: PropTypes.object,
   eReaderUrl: PropTypes.string,
 };
 
 WorkDetail.defaultProps = {
+  work: {},
   eReaderUrl: '',
 };
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    detail: state.workDetail,
+    work: state.workDetail && state.workDetail.work,
   };
 };
 

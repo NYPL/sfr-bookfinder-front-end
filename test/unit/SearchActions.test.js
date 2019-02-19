@@ -26,18 +26,15 @@ describe('SearchActions', () => {
   describe('workDetail Action', () => {
     it('should return an object with type and workDetail', () => {
       details = {
-        detail: {
-          item:
-          {
-            title: 'The Tragedie of Hamlet, Prince of Denmark\nA Study with the Text of the Folio of 1623',
-            rights_stmt: 'Public domain in the USA.',
-          },
+        work: {
+          title: 'The Tragedie of Hamlet, Prince of Denmark\nA Study with the Text of the Folio of 1623',
+          rights_stmt: 'Public domain in the USA.',
         },
       };
       workDetailAction = workDetail(details);
 
       expect(workDetailAction.type).to.equal('FETCH_WORK');
-      expect(JSON.stringify(workDetailAction.item)).to.equal(JSON.stringify(details));
+      expect(JSON.stringify(workDetailAction.work)).to.equal(JSON.stringify(details));
     });
   });
 });

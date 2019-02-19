@@ -16,7 +16,7 @@ export const workDetail = (state = null, action) => {
   switch (action.type) {
     case Actions.FETCH_WORK:
       return {
-        item: action.item,
+        work: action.work,
       };
     default:
       return state;
