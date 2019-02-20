@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { isEmpty as _isEmpty } from 'underscore';
 import EBookList from '../List/EBookList';
+import { searchPost } from '../../actions/SearchActions';
 
 const elements = ['title', 'entities', 'instances', 'subjects', 'rights_stmt', 'language'];
 export const labels = {
@@ -17,13 +18,31 @@ export const labels = {
 /**
  * Build a definition list of elements from a bibliographic record provided
  * by Elastisearch.
+ *
  * @param {object} props
  */
 export const DefinitionList = (props) => {
   /**
+   * onClick handler for browse searches.
+   *
+   * @param {object} event
+   * @param {string} query
+   * @param {string} field
+   */
+  const newSearchRequest = (event, query, field) => {
+    event.preventDefault();
+
+    props.dispatch(searchPost(query, field))
+      .then(() => {
+        props.context.router.push(`/search?q=${query}&field=${field}`);
+      });
+  };
+
+  /**
    * Handle elements with array values as definitions. Authorities are linked to
    * /search as new general searches with URL parameters. Items are mapped to a table
    * with a row for each edition.
+   *
    * @param {string} type
    * @param {array} entries
    * @return {string|null}
@@ -35,7 +54,10 @@ export const DefinitionList = (props) => {
           <ul>
             {entries.map((entity, i) => (
               <li key={i.toString()}>
-                <Link to={{ pathname: '/search', query: { q: `${entity.name}`, field: 'author' } }}>{entity.name}, {entity.role}</Link>
+                <Link
+                  onClick={event => newSearchRequest(event, entity.name, 'author')}
+                  to={{ pathname: '/search', query: { q: `${entity.name}`, field: 'author' } }}>{entity.name}, {entity.role}
+                </Link>
               </li>
             ))}
           </ul>
@@ -46,7 +68,10 @@ export const DefinitionList = (props) => {
           <ul>
             {entries.map((subject, i) => (
               <li key={i.toString()}>
-                <Link to={{ pathname: '/search', query: { q: `${subject.subject}`, field: 'subject' } }}>{subject.subject}</Link>
+                <Link
+                  onClick={event => newSearchRequest(event, subject.subject, 'subject')}
+                  to={{ pathname: '/search', query: { q: `${subject.subject}`, field: 'subject' } }}>{subject.subject}
+                </Link>
               </li>
             ))}
           </ul>
@@ -83,6 +108,7 @@ export const DefinitionList = (props) => {
 
   /**
    * Wrapper function to handle building the HTML from the object given.
+   *
    * @param {array} data
    * @return {string}
    */

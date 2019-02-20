@@ -10,6 +10,7 @@ class WorkDetail extends React.Component {
   /**
    * Convert JSON object to array for parsing detail elements into
    * a definition list for display.
+   *
    * @param {object} work
    * @return {string|null}
    */
@@ -38,6 +39,8 @@ class WorkDetail extends React.Component {
                 <DefinitionList
                   data={this.workDetailsObject(work)}
                   eReaderUrl={this.props.eReaderUrl}
+                  dispatch={this.props.dispatch}
+                  context={this.context}
                 />
               </div>
             </div>
@@ -56,6 +59,10 @@ WorkDetail.propTypes = {
 WorkDetail.defaultProps = {
   work: {},
   eReaderUrl: '',
+};
+
+WorkDetail.contextTypes = {
+  router: PropTypes.object,
 };
 
 const mapStateToProps = (state, ownProps) => {
