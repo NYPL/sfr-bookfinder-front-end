@@ -1,7 +1,7 @@
 const fields = {
   author: 'entities.name',
   title: 'title',
-  subject: 'subject',
+  subject: 'subjects.subject',
   publDate: 'publicationDate',
   publisher: 'publisher',
 };
