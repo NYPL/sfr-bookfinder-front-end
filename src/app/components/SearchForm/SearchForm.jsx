@@ -43,7 +43,8 @@ class SearchForm extends React.Component {
 
     this.props.searchPost(terms, this.state.searchField)
       .then(() => {
-        this.context.router.push(`/search?q=${terms}&field=${this.state.searchField}`);
+        const encodedUserInput = encodeURIComponent(terms);
+        this.context.router.push(`/search?q=${encodedUserInput}&field=${this.state.searchField}`);
       });
   }
 
@@ -62,10 +63,10 @@ class SearchForm extends React.Component {
                       onChange={this.onFieldChange}
                       value={this.state.searchField}
                     >
-                      {this.props.allowedFields.map((element, key) => {
+                      {this.props.allowedFields.map((field, key) => {
                         return (
-                          <option value={element} key={key.toString()}>
-                            {titleCase(element)}
+                          <option value={field} key={key.toString()}>
+                            {titleCase(field)}
                           </option>
                         );
                       })}
@@ -81,7 +82,7 @@ class SearchForm extends React.Component {
                       type="text"
                       aria-labelledby="search-input-field"
                       value={this.state.searchQuery}
-                      placeholder="Keyword, title, author or subject"
+                      placeholder="Keyword, title, author, or subject"
                       onChange={this.onQueryChange}
                     />
                   </span>
