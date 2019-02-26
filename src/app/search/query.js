@@ -21,18 +21,17 @@ const addFieldQuery = (queryString, field = 'keyword') => {
     throw new Error('A valid query string must be passed');
   }
   let fieldQuery = [];
-  // Strip punctuation and process spaces as plus signs for final split.
-  const queryArr = queryString.replace(/[.\/#!$%\^&;{}=\-_`~()]/g, '').trim().replace(/\s+/g, '+').split('+');
   /**
-   * Reformat the string.
-   * For multiple strings in a query, add the plus operator to AND terms together;
-   * otherwise, return a single string.
+   * Strip punctuation and process spaces as plus signs for final split.
+   * ES characters to escape before sending: + - = && || > < ! ( ) { } [ ] ^ " ~ * ? : \ /
+   * For multiple strings in a query, join with a space.
    */
-  const esQuery = (queryArr.length > 1) ? queryArr.join(' +') : queryArr.join('');
+  const queryArr = queryString.replace(/[=(&&)(||)><!(){}\[\]^"~\*\?:\/-]/g, '\$&').trim().replace(/\s+/g, '+').split('+');
+  const esQuery = (queryArr.length > 1) ? queryArr.join(' ') : queryArr.join('');
 
   // TODO: add an additional check on empty queries after the terms are processed.
 
-  fieldQuery.push({ field, value: encodeURIComponent(esQuery) });
+  fieldQuery.push({ field, value: esQuery });
 
   return fieldQuery;
 };
@@ -64,6 +63,9 @@ const addFieldQuery = (queryString, field = 'keyword') => {
  *   per_page: 10,
  *   page: 0
  * }
+ * 
+ * @param {object} queryObj
+ * @return {object}
  */
 export const buildQueryBody = (queryObj = {}) => {
   let queryBody = {};
