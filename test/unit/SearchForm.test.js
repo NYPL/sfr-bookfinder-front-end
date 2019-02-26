@@ -44,11 +44,7 @@ describe('SearchForm', () => {
     it('contains a text field for keyword search with an initial value.', () => {
       const kwTextField = component.find('input');
       expect(kwTextField.nodes[0].type).to.equal('text');
-<<<<<<< HEAD
       expect(kwTextField.nodes[0].placeholder).to.equal('Keyword, title, author, or subject');
-=======
-      expect(kwTextField.nodes[0].placeholder).to.equal('Keyword, title, author or subject');
->>>>>>> bc08aa6e8290752d4ad3e41e002d1dca9a7f0847
     });
   });
 

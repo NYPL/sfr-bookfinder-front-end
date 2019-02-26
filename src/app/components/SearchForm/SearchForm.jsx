@@ -63,17 +63,10 @@ class SearchForm extends React.Component {
                       onChange={this.onFieldChange}
                       value={this.state.searchField}
                     >
-<<<<<<< HEAD
                       {this.props.allowedFields.map((field, key) => {
                         return (
                           <option value={field} key={key.toString()}>
                             {titleCase(field)}
-=======
-                      {this.props.allowedFields.map((element, key) => {
-                        return (
-                          <option value={element} key={key.toString()}>
-                            {titleCase(element)}
->>>>>>> bc08aa6e8290752d4ad3e41e002d1dca9a7f0847
                           </option>
                         );
                       })}
@@ -89,11 +82,7 @@ class SearchForm extends React.Component {
                       type="text"
                       aria-labelledby="search-input-field"
                       value={this.state.searchQuery}
-<<<<<<< HEAD
                       placeholder="Keyword, title, author, or subject"
-=======
-                      placeholder="Keyword, title, author or subject"
->>>>>>> bc08aa6e8290752d4ad3e41e002d1dca9a7f0847
                       onChange={this.onQueryChange}
                     />
                   </span>
