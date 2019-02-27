@@ -24,14 +24,12 @@ const addFieldQuery = (queryString, field = 'keyword') => {
   /**
    * Strip punctuation and process spaces as plus signs for final split.
    * ES characters to escape before sending: + - = && || > < ! ( ) { } [ ] ^ " ~ * ? : \ /
-   * For multiple strings in a query, join with a space.
    */
   const queryArr = queryString.replace(/[=(&&)(||)><!(){}\[\]^"~\*\?:\/-]/g, '\$&').trim().replace(/\s+/g, '+').split('+');
-  const esQuery = (queryArr.length > 1) ? queryArr.join(' ') : queryArr.join('');
 
   // TODO: add an additional check on empty queries after the terms are processed.
 
-  fieldQuery.push({ field, value: esQuery });
+  fieldQuery.push({ field, value: queryArr.join(' ') });
 
   return fieldQuery;
 };

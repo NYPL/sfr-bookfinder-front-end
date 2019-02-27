@@ -18,7 +18,7 @@ describe('SearchForm', () => {
 
     it('contains a select with three options.', () => {
       const options = component.find('option');
-      expect(options).to.have.length(3);
+      expect(options).to.have.length(4);
     });
 
     it('contains an option for keyword.', () => {
@@ -36,10 +36,15 @@ describe('SearchForm', () => {
       expect(authorOpt.nodes[2].value).to.equal('author');
     });
 
+    it('contains an option for subject.', () => {
+      const authorOpt = component.find('option');
+      expect(authorOpt.nodes[3].value).to.equal('subject');
+    });
+
     it('contains a text field for keyword search with an initial value.', () => {
       const kwTextField = component.find('input');
       expect(kwTextField.nodes[0].type).to.equal('text');
-      expect(kwTextField.nodes[0].placeholder).to.equal('Keyword, title, or author');
+      expect(kwTextField.nodes[0].placeholder).to.equal('Keyword, title, author, or subject');
     });
   });
 

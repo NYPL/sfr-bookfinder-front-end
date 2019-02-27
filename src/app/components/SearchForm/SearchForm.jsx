@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { titleCase } from 'change-case';
 import SearchButton from '../Button/SearchButton';
 
 class SearchForm extends React.Component {
@@ -42,7 +43,8 @@ class SearchForm extends React.Component {
 
     this.props.searchPost(terms, this.state.searchField)
       .then(() => {
-        this.context.router.push(`/search?q=${terms}&field=${this.state.searchField}`);
+        const encodedUserInput = encodeURIComponent(terms);
+        this.context.router.push(`/search?q=${encodedUserInput}&field=${this.state.searchField}`);
       });
   }
 
@@ -61,15 +63,13 @@ class SearchForm extends React.Component {
                       onChange={this.onFieldChange}
                       value={this.state.searchField}
                     >
-                      <option value={this.props.allowedFields.kw} defaultValue>
-                        Keyword
-                      </option>
-                      <option value={this.props.allowedFields.ti}>
-                        Title
-                      </option>
-                      <option value={this.props.allowedFields.au}>
-                        Author
-                      </option>
+                      {this.props.allowedFields.map((field, key) => {
+                        return (
+                          <option value={field} key={key.toString()}>
+                            {titleCase(field)}
+                          </option>
+                        );
+                      })}
                     </select>
                   </span>
                 </div>
@@ -82,7 +82,7 @@ class SearchForm extends React.Component {
                       type="text"
                       aria-labelledby="search-input-field"
                       value={this.state.searchQuery}
-                      placeholder="Keyword, title, or author"
+                      placeholder="Keyword, title, author, or subject"
                       onChange={this.onQueryChange}
                     />
                   </span>
@@ -103,17 +103,18 @@ class SearchForm extends React.Component {
 }
 
 SearchForm.propTypes = {
-  allowedFields: PropTypes.object,
+  allowedFields: PropTypes.array,
   searchQuery: PropTypes.string,
   searchField: PropTypes.string,
 };
 
 SearchForm.defaultProps = {
-  allowedFields: {
-    kw: 'keyword',
-    ti: 'title',
-    au: 'author',
-  },
+  allowedFields: [
+    'keyword',
+    'title',
+    'author',
+    'subject',
+  ],
   searchQuery: '',
   searchField: '',
 };
