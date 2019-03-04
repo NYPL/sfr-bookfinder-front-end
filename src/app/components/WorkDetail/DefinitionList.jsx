@@ -55,8 +55,8 @@ export const DefinitionList = (props) => {
             {entries.map((entity, i) => (
               <li key={i.toString()}>
                 <Link
-                  onClick={event => newSearchRequest(event, entity.name, 'author')}
-                  to={{ pathname: '/search', query: { q: `${entity.name}`, field: 'author' } }}>{entity.name}, {entity.role}
+                  onClick={event => newSearchRequest(event, `\"${entity.name}\"`, 'author')}
+                  to={{ pathname: '/search', query: { q: `\"${entity.name}\"`, field: 'author' } }}>{entity.name}, {entity.role}
                 </Link>
               </li>
             ))}
@@ -69,8 +69,8 @@ export const DefinitionList = (props) => {
             {entries.map((subject, i) => (
               <li key={i.toString()}>
                 <Link
-                  onClick={event => newSearchRequest(event, subject.subject, 'subject')}
-                  to={{ pathname: '/search', query: { q: `${subject.subject}`, field: 'subject' } }}>{subject.subject}
+                  onClick={event => newSearchRequest(event, `\"${subject.subject}\"`, 'subject')}
+                  to={{ pathname: '/search', query: { q: `\"${subject.subject}\"`, field: 'subject' } }}>{subject.subject}
                 </Link>
               </li>
             ))}
