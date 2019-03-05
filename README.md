@@ -44,7 +44,17 @@ Currently takes in a query string to pass along to the ResearchNow Search API wh
 
 The server route `/search` should also take a `q` query string parameter and perform the same keyword search via the ResearchNow Search API.
 
-Future functionality will take a title and author field for more preceise searching.
+Search via keyword, author, title, subject have been implemented against v1 of the ResearchNow Search API. Terms use the AND boolean operator by default. Search terms can also use the OR boolean operator and search terms can be quoted for phrase searching. Combinations of these can be used as well for more complex searching using the basic search input.
+
+Term combinations
+* One term: jefferson
+* Multiple terms: world war
+* Phrase: "English Literature"
+* Single term and phrase: james AND "English Literature"
+
+These types of combinations can be used with any available field selection.
+
+Advanced search to introduce multiple form inputs including field select.
 
 ### Test
 
