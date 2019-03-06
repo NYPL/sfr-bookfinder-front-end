@@ -43,6 +43,10 @@ export const DefinitionList = (props) => {
    * /search as new general searches with URL parameters. Items are mapped to a table
    * with a row for each edition.
    *
+   * Links to author and subject searches have their query terms wrapped in quotes to
+   * enforce phrase searching to perform an exact match. This may change when we
+   * introduce identifiers for authors (viaf) and subjects.
+   *
    * @param {string} type
    * @param {array} entries
    * @return {string|null}
