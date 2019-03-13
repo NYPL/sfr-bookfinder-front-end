@@ -3,9 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
+import queryString from 'query-string';
+import { isEmpty as _isEmpty } from 'underscore';
 import SearchForm from '../SearchForm/SearchForm';
 import SearchResults from '../SearchResults/SearchResults';
 import * as searchActions from '../../actions/SearchActions';
+import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 
 /**
  * Container class providing the Redux action creators
@@ -24,35 +27,39 @@ class SearchContainer extends React.Component {
   }
 
   render() {
-    const { query } = (this.props.location) ? this.props.location : '';
-    const userQuery = (query && query.q) ? query.q : this.props.searchQuery;
+    const { query } = (this.props.location) ? queryString.stringify(queryString.parse(this.props.location)) : '';
+    const userQuery = (query && query.q) ? query.q : '';
     const selectedField = (query && query.field) ? query.field : this.props.searchField;
+    const pageType = (_isEmpty(this.props.searchResults)) ? 'home' : 'results';
+
     return (
       <main id="mainContent">
-        <div className="nypl-page-header">
-          <nav aria-label="Breadcrumbs" className="nypl-breadcrumbs" />
-        </div>
-        <div className="nypl-full-width-wrapper" role="search" aria-label="ResearchNow">
-          <div className="nypl-row">
-            <div className="nypl-column-full">
-              <h1 className="nypl-heading">ResearchNow</h1>
-              <div id="tagline">
-                Search the world&apos;s research collections and more for digital books you
-                can use right now.
+        <div className="nypl-full-width-wrapper">
+          <div className="nypl-page-header">
+            <Breadcrumbs query={userQuery} type={pageType} />
+          </div>
+          <div role="search" aria-label="ResearchNow">
+            <div className="nypl-row">
+              <div className="nypl-column-full">
+                <h1 className="nypl-heading">ResearchNow</h1>
+                <div id="tagline">
+                  Search the world&apos;s research collections and more for digital books you
+                  can use right now.
+                </div>
               </div>
             </div>
-          </div>
-          <div className="wrapper">
-            <SearchForm
-              searchQuery={userQuery}
-              searchField={selectedField}
-              {...this.boundActions}
-            />
-            <SearchResults
-              results={this.props.searchResults}
-              eReaderUrl={this.props.eReaderUrl}
-              {...this.boundActions}
-            />
+            <div className="wrapper">
+              <SearchForm
+                searchQuery={userQuery}
+                searchField={selectedField}
+                {...this.boundActions}
+              />
+              <SearchResults
+                results={this.props.searchResults}
+                eReaderUrl={this.props.eReaderUrl}
+                {...this.boundActions}
+              />
+            </div>
           </div>
         </div>
       </main>

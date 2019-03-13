@@ -41,6 +41,8 @@ class SearchForm extends React.Component {
 
     const terms = this.state.searchQuery.trim().replace(/\s+/g, ' ');
 
+    this.props.setQuery(terms);
+    this.props.setField(this.state.searchField);
     this.props.searchPost(terms, this.state.searchField)
       .then(() => {
         const encodedUserInput = encodeURIComponent(terms);

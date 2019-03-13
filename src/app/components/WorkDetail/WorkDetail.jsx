@@ -4,6 +4,7 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { isEmpty as _isEmpty } from 'underscore';
 import { DefinitionList } from './DefinitionList';
+import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 
 class WorkDetail extends React.Component {
 
@@ -25,13 +26,16 @@ class WorkDetail extends React.Component {
       throw new Error('Work prop is missing or empty');
     }
     const { work } = this.props;
+    // Rewind to previous results page query and parse for Breadcrumbs.
+    const resultsQuery = this.props.location.history.query;
+    console.log('History?', resultsQuery);
 
     return (
       <main id="mainContent">
-        <div className="nypl-page-header">
-          <nav aria-label="Breadcrumbs" className="nypl-breadcrumbs" />
-        </div>
         <div className="nypl-full-width-wrapper">
+          <div className="nypl-page-header">
+            <Breadcrumbs query={resultsQuery} type="details" />
+          </div>
           <div className="nypl-row">
             <div className="nypl-column-full">
               <h2>Work Detail</h2>
@@ -53,11 +57,13 @@ class WorkDetail extends React.Component {
 
 WorkDetail.propTypes = {
   work: PropTypes.object,
+  query: PropTypes.string,
   eReaderUrl: PropTypes.string,
 };
 
 WorkDetail.defaultProps = {
   work: {},
+  query: '',
   eReaderUrl: '',
 };
 
@@ -66,8 +72,10 @@ WorkDetail.contextTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
+  console.log('state in detail', state);
   return {
     work: state.workDetail && state.workDetail.work,
+    query: state.setQuery,
   };
 };
 
