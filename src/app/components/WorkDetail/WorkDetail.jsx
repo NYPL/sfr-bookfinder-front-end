@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
@@ -7,6 +8,10 @@ import { DefinitionList } from './DefinitionList';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 
 class WorkDetail extends React.Component {
+
+  componentDidMount() {
+    ReactDOM.findDOMNode(this).scrollIntoView();
+  }
 
   /**
    * Convert JSON object to array for parsing detail elements into
@@ -26,15 +31,12 @@ class WorkDetail extends React.Component {
       throw new Error('Work prop is missing or empty');
     }
     const { work } = this.props;
-    // Rewind to previous results page query and parse for Breadcrumbs.
-    const resultsQuery = this.props.location.history.query;
-    console.log('History?', resultsQuery);
-
+    console.log('detail props', this.props);
     return (
       <main id="mainContent">
         <div className="nypl-full-width-wrapper">
           <div className="nypl-page-header">
-            <Breadcrumbs query={resultsQuery} type="details" />
+            <Breadcrumbs query={this.props.searchQuery} field={this.props.searchField} type="details" />
           </div>
           <div className="nypl-row">
             <div className="nypl-column-full">
@@ -57,25 +59,29 @@ class WorkDetail extends React.Component {
 
 WorkDetail.propTypes = {
   work: PropTypes.object,
-  query: PropTypes.string,
+  searchQuery: PropTypes.string,
+  searchField: PropTypes.string,
   eReaderUrl: PropTypes.string,
 };
 
 WorkDetail.defaultProps = {
   work: {},
-  query: '',
+  searchQuery: '',
+  searchField: '',
   eReaderUrl: '',
 };
 
 WorkDetail.contextTypes = {
   router: PropTypes.object,
+  history: PropTypes.object,
 };
 
 const mapStateToProps = (state, ownProps) => {
   console.log('state in detail', state);
   return {
     work: state.workDetail && state.workDetail.work,
-    query: state.setQuery,
+    searchQuery: state.userQuery,
+    searchField: state.selectedField,
   };
 };
 

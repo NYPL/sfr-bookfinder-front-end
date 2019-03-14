@@ -7,12 +7,12 @@ import Breadcrumbs from '../../src/app/components/Breadcrumbs/Breadcrumbs';
 describe('Breadcrumbs', () => {
   describe('On render all crumbs', () => {
     let component;
-    const query = 'q=journey';
-    const workUrl = 'workId=some-uuid-value';
+    const query = 'journey';
+    const field = 'keyword';
     const type = 'details';
 
     before(() => {
-      component = shallow(<Breadcrumbs query={query} type={type} workUrl={workUrl} />);
+      component = shallow(<Breadcrumbs query={query} field={field} type={type} />);
     });
 
     it('should render a nav and ol element', () => {
@@ -29,10 +29,11 @@ describe('Breadcrumbs', () => {
   describe('On the home page', () => {
     let component;
     const query = '';
+    const field = 'keyword';
     const type = 'home';
 
     before(() => {
-      component = shallow(<Breadcrumbs query={query} type={type} />);
+      component = shallow(<Breadcrumbs query={query} field={field} type={type} />);
     });
 
     it('should display no breadcrumb nav element', () => {
@@ -42,11 +43,12 @@ describe('Breadcrumbs', () => {
 
   describe('On the results page', () => {
     let component;
-    const query = 'q=journey&field=keyword';
+    const query = 'journey';
+    const field = 'keyword';
     const type = 'results';
 
     before(() => {
-      component = shallow(<Breadcrumbs query={query} type={type} />);
+      component = shallow(<Breadcrumbs query={query} field={field} type={type} />);
     });
 
     it('should display a link back to the home page', () => {
@@ -63,11 +65,11 @@ describe('Breadcrumbs', () => {
   describe('On the details page', () => {
     let component;
     const query = 'journey';
-    const workUrl = 'workId=some-uuid-value';
+    const field = 'title';
     const type = 'details';
 
     before(() => {
-      component = shallow(<Breadcrumbs query={query} type={type} workUrl={workUrl} />);
+      component = shallow(<Breadcrumbs query={query} field={field} type={type} />);
     });
 
     it('should display a link back to the results page and home page', () => {
@@ -76,7 +78,7 @@ describe('Breadcrumbs', () => {
       expect(detailLinks.at(0).children().text()).to.equal('ResearchNow');
       expect(detailLinks.at(0).prop('to')).to.equal('/');
       expect(detailLinks.at(1).children().text()).to.equal('Search Results');
-      expect(detailLinks.at(1).prop('to')).to.equal('/search?q=journey');
+      expect(detailLinks.at(1).prop('to')).to.equal('/search?q=journey&field=title');
     });
 
     it('should display a crumb for the details page without being a link', () => {

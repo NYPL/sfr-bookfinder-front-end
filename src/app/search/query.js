@@ -68,8 +68,8 @@ const addFieldQuery = (queryString, field = 'keyword') => {
 export const buildQueryBody = (queryObj = {}) => {
   let queryBody = {};
   if (queryObj.query) {
-    const { userQuery, field } = queryObj.query;
-    queryBody.queries = addFieldQuery(userQuery, field);
+    const { selectQuery, selectField } = queryObj.query;
+    queryBody.queries = addFieldQuery(selectQuery, selectField);
   }
 
   return queryBody;

@@ -83,6 +83,7 @@
     "history": "3.3.0",
     "node-sass": "3.8.0",
     "prop-types": "15.6.2",
+    "query-string": "6.4.0",
     "react": "15.5.4",
     "react-a11y": "1.1.0",
     "react-dom": "15.5.4",

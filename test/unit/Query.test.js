@@ -6,7 +6,7 @@ describe('Query Body Building', () => {
   let query;
 
   beforeEach(() => {
-    query = { query: { userQuery: "$shakespeare's, 1632-1635 +hamlet gh:ost; select * && delete * || drop *", field: 'title' } };
+    query = { query: { selectQuery: "$shakespeare's, 1632-1635 +hamlet gh:ost; select * && delete * || drop *", selectField: 'title' } };
   });
 
   it('should not contain certain punctuation', () => {
@@ -24,7 +24,7 @@ describe('Query Body Building', () => {
   });
 
   it('should return field query object with a single string value.', () => {
-    query = { query: { userQuery: 'shakespeare', field: 'title' } };
+    query = { query: { selectQuery: 'shakespeare', selectField: 'title' } };
     const queryBody = buildQueryBody(query);
     expect(queryBody.queries.length).to.equal(1);
     const queryString = queryBody.queries[0].value;
@@ -39,7 +39,7 @@ describe('Query Body Building', () => {
   });
 
   it('should return default field when the default query string is given', () => {
-    const emptyQuery = { query: { userQuery: '*' } };
+    const emptyQuery = { query: { selectQuery: '*' } };
     const defaultQueryBody = buildQueryBody(emptyQuery);
 
     expect(defaultQueryBody).to.not.equal({});

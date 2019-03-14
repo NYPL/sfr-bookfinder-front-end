@@ -23,34 +23,34 @@ export const workDetail = (state = null, action) => {
   }
 };
 
-export const query = (state = null, action) => (
-  (action.payload) ?
-    action.payload.query :
+export const userQuery = (state = null, action) => (
+  (action.userQuery) ?
+    action.userQuery :
     state
 );
 
-export const field = (state = null, action) => (
-  (action.payload) ?
-    action.payload.field :
+export const selectedField = (state = null, action) => (
+  (action.selectedField) ?
+    action.selectedField :
     state
 );
 
 export const allowedFilters = (state = null, action) => (
-  (action.payload) ?
-    action.payload.allowedFilters :
+  (action.allowedFilters) ?
+    action.allowedFilters :
     state
 );
 
 export const sort = (state = null, action) => (
-  (action.payload) ?
-    action.payload.sort :
+  (action.sort) ?
+    action.sort :
     state
 );
 
 export default combineReducers({
   searchResults,
-  query,
-  field,
+  userQuery,
+  selectedField,
   allowedFilters,
   sort,
   workDetail,

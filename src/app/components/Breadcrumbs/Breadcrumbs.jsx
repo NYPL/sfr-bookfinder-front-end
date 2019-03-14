@@ -8,7 +8,7 @@ import { Link } from 'react-router';
  * @param {object} props
  * @returns {array}
  */
-const Breadcrumbs = (({ query = '', type, workUrl }) => {
+const Breadcrumbs = (({ query = '', field = '', type }) => {
   if (type === 'home') {
     return null;
   }
@@ -17,7 +17,7 @@ const Breadcrumbs = (({ query = '', type, workUrl }) => {
 
   const homeLink = (
     <li key="home">
-      <Link to={'/'} onClick={() => onClick('ResarchNow')}>
+      <Link to={'/'}>
         ResearchNow
       </Link>
     </li>);
@@ -32,7 +32,7 @@ const Breadcrumbs = (({ query = '', type, workUrl }) => {
 
     crumbs.push(
       <li key="results">
-        <Link to={`/search?q=${query}`} onClick={() => onClick('Search Results')}>
+        <Link to={`/search?q=${query}&field=${field}`}>
           Search Results
         </Link>
       </li>);
@@ -44,7 +44,7 @@ const Breadcrumbs = (({ query = '', type, workUrl }) => {
 
     crumbs.push(
       <li key="details">
-        <Link to={`/work`} onClick={() => onClick('Work Details')}>Work Details</Link>
+        <Link to={`/work`}>Work Details</Link>
       </li>);
 
     return crumbs;
@@ -64,6 +64,7 @@ const Breadcrumbs = (({ query = '', type, workUrl }) => {
 
 Breadcrumbs.propTypes = {
   query: PropTypes.string,
+  field: PropTypes.string,
   type: PropTypes.string,
 };
 

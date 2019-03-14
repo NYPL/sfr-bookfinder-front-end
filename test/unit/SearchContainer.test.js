@@ -23,7 +23,7 @@ describe('Search Container interactions', () => {
   it('contains an initialized <SearchForm /> component', () => {
     expect(wrapper.find(SearchForm)).to.have.length(1);
     expect(wrapper.find(SearchForm).prop('searchQuery')).to.equal('');
-    expect(wrapper.find(SearchForm).prop('searchField')).to.equal('');
+    expect(wrapper.find(SearchForm).prop('searchField')).to.equal('keyword');
   });
   it('contains a <SearchResults /> component', () => {
     expect(wrapper.find(SearchResults)).to.have.length(1);

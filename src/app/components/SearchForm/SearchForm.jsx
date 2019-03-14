@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isEmpty as _isEmpty } from 'underscore';
 import { titleCase } from 'change-case';
 import SearchButton from '../Button/SearchButton';
 
@@ -32,17 +33,14 @@ class SearchForm extends React.Component {
 
   submitSearchRequest(event) {
     event.preventDefault();
-    if (!this.state.searchField) {
-      this.setState({ searchField: 'keyword' });
-    }
     if (!this.state.searchQuery) {
       throw new Error('Please enter a term or terms to search');
     }
 
     const terms = this.state.searchQuery.trim().replace(/\s+/g, ' ');
 
-    this.props.setQuery(terms);
-    this.props.setField(this.state.searchField);
+    this.props.userQuery(terms);
+    this.props.selectedField(this.state.searchField);
     this.props.searchPost(terms, this.state.searchField)
       .then(() => {
         const encodedUserInput = encodeURIComponent(terms);
@@ -63,7 +61,7 @@ class SearchForm extends React.Component {
                     <select
                       id="search-by-field"
                       onChange={this.onFieldChange}
-                      value={this.state.searchField}
+                      value={this.props.searchField}
                     >
                       {this.props.allowedFields.map((field, key) => {
                         return (
@@ -118,11 +116,12 @@ SearchForm.defaultProps = {
     'subject',
   ],
   searchQuery: '',
-  searchField: '',
+  searchField: 'keyword',
 };
 
 SearchForm.contextTypes = {
   router: PropTypes.object,
+  history: PropTypes.object,
 };
 
 export default SearchForm;

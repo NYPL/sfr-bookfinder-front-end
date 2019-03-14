@@ -7,6 +7,22 @@ import { buildQueryBody } from '../search/query';
 export const Actions = {
   SEARCH: 'SEARCH',
   FETCH_WORK: 'FETCH_WORK',
+  SET_QUERY: 'SET_QUERY',
+  SET_FIELD: 'SET_FIELD',
+};
+
+export const userQuery = (query) => {
+  return {
+    type: Actions.SET_QUERY,
+    userQuery: query,
+  };
+};
+
+export const selectedField = (field) => {
+  return {
+    type: Actions.SET_FIELD,
+    selectedField: field,
+  };
 };
 
 export const searchResults = (results) => {
@@ -30,9 +46,9 @@ const searchUrl = apiUrl + searchPath;
 const recordUrl = apiUrl + recordPath;
 
 export const searchPost = (query, field) => {
-  const userQuery = query || '*';
-  const selectedField = (field && searchFields[field]) ? searchFields[field] : 'keyword';
-  const queryBody = buildQueryBody({ query: { field: selectedField, userQuery } });
+  const selectQuery = query || '*';
+  const selectField = (field && searchFields[field]) ? searchFields[field] : 'keyword';
+  const queryBody = buildQueryBody({ query: { field: selectField, selectQuery } });
 
   return (dispatch) => {
     return axios.post(searchUrl, queryBody)
@@ -65,9 +81,9 @@ export const fetchWork = (workId) => {
 
 export const serverPost = (query, field) => {
   // Need a parsed query input to use for each filter
-  const userQuery = query || '*';
-  const selectedField = (field && searchFields[field]) ? searchFields[field] : 'keyword';
-  const queryBody = buildQueryBody({ query: { field: selectedField, userQuery } });
+  const selectQuery = query || '*';
+  const selectField = (field && searchFields[field]) ? searchFields[field] : 'keyword';
+  const queryBody = buildQueryBody({ query: { field: selectField, selectQuery } });
 
   return axios.post(searchUrl, queryBody)
     .then((resp) => {
@@ -97,4 +113,6 @@ export default {
   fetchWork,
   serverPost,
   serverFetchWork,
+  userQuery,
+  selectedField,
 };

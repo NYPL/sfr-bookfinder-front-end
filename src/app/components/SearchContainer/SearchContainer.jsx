@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -25,10 +26,13 @@ class SearchContainer extends React.Component {
 
     this.boundActions = bindActionCreators(searchActions, dispatch);
   }
+  componentDidUpdate() {
+    ReactDOM.findDOMNode(this).scrollIntoView();
+  }
 
   render() {
     const { query } = (this.props.location) ? queryString.stringify(queryString.parse(this.props.location)) : '';
-    const userQuery = (query && query.q) ? query.q : '';
+    const searchQuery = (query && query.q) ? query.q : this.props.searchQuery;
     const selectedField = (query && query.field) ? query.field : this.props.searchField;
     const pageType = (_isEmpty(this.props.searchResults)) ? 'home' : 'results';
 
@@ -36,7 +40,7 @@ class SearchContainer extends React.Component {
       <main id="mainContent">
         <div className="nypl-full-width-wrapper">
           <div className="nypl-page-header">
-            <Breadcrumbs query={userQuery} type={pageType} />
+            <Breadcrumbs query={this.props.searchQuery} type={pageType} />
           </div>
           <div role="search" aria-label="ResearchNow">
             <div className="nypl-row">
@@ -50,8 +54,9 @@ class SearchContainer extends React.Component {
             </div>
             <div className="wrapper">
               <SearchForm
-                searchQuery={userQuery}
+                searchQuery={searchQuery}
                 searchField={selectedField}
+                history={this.context.history}
                 {...this.boundActions}
               />
               <SearchResults
@@ -79,7 +84,7 @@ SearchContainer.propTypes = {
 SearchContainer.defaultProps = {
   searchResults: {},
   searchQuery: '',
-  searchField: '',
+  searchField: 'keyword',
   workDetail: {},
   dispatch: () => {},
   eReaderUrl: '',
@@ -87,13 +92,14 @@ SearchContainer.defaultProps = {
 
 SearchContainer.contextTypes = {
   router: PropTypes.object,
+  history: PropTypes.object,
 };
 
 const mapStateToProps = (state, ownProps) => {
   return {
     searchResults: state.searchResults,
-    searchQuery: state.searchQuery || ownProps.q,
-    searchField: state.searchField || ownProps.field,
+    searchQuery: state.userQuery || ownProps.q,
+    searchField: state.selectedField || ownProps.field,
   };
 };
 

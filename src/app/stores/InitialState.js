@@ -1,7 +1,7 @@
 const initialState = {
   searchResults: {},
-  query: '*',
-  field: 'keyword',
+  userQuery: '',
+  selectedField: '',
   sort: {
     sortFilter: 'title',
     sortOrder: 'asc',
