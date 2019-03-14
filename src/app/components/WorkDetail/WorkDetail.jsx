@@ -31,12 +31,16 @@ class WorkDetail extends React.Component {
       throw new Error('Work prop is missing or empty');
     }
     const { work } = this.props;
-    console.log('detail props', this.props);
+
     return (
       <main id="mainContent">
         <div className="nypl-full-width-wrapper">
           <div className="nypl-page-header">
-            <Breadcrumbs query={this.props.searchQuery} field={this.props.searchField} type="details" />
+            <Breadcrumbs
+              query={this.props.searchQuery}
+              field={this.props.searchField}
+              type="details"
+            />
           </div>
           <div className="nypl-row">
             <div className="nypl-column-full">
@@ -76,14 +80,13 @@ WorkDetail.contextTypes = {
   history: PropTypes.object,
 };
 
-const mapStateToProps = (state, ownProps) => {
-  console.log('state in detail', state);
-  return {
+const mapStateToProps = (state, ownProps) => (
+  {
     work: state.workDetail && state.workDetail.work,
-    searchQuery: state.userQuery,
-    searchField: state.selectedField,
-  };
-};
+    searchQuery: state.userQuery || ownProps.searchQuery,
+    searchField: state.selectedField || ownProps.searchField,
+  }
+);
 
 export default connect(
   mapStateToProps,

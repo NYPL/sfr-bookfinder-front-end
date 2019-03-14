@@ -1,7 +1,7 @@
 /* eslint-env mocha */
 import React from 'react';
 import { expect } from 'chai';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 
 import SearchContainer from '../../src/app/components/SearchContainer/SearchContainer';
 import SearchForm from '../../src/app/components/SearchForm/SearchForm';

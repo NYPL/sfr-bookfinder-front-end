@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
-import queryString from 'query-string';
 import { isEmpty as _isEmpty } from 'underscore';
 import SearchForm from '../SearchForm/SearchForm';
 import SearchResults from '../SearchResults/SearchResults';
@@ -31,7 +30,7 @@ class SearchContainer extends React.Component {
   }
 
   render() {
-    const { query } = (this.props.location) ? queryString.stringify(queryString.parse(this.props.location)) : '';
+    const { query } = this.props.location;
     const searchQuery = (query && query.q) ? query.q : this.props.searchQuery;
     const selectedField = (query && query.field) ? query.field : this.props.searchField;
     const pageType = (_isEmpty(this.props.searchResults)) ? 'home' : 'results';
@@ -79,6 +78,7 @@ SearchContainer.propTypes = {
   workDetail: PropTypes.object,
   dispatch: PropTypes.func,
   eReaderUrl: PropTypes.string,
+  location: PropTypes.object,
 };
 
 SearchContainer.defaultProps = {
@@ -88,6 +88,7 @@ SearchContainer.defaultProps = {
   workDetail: {},
   dispatch: () => {},
   eReaderUrl: '',
+  location: {},
 };
 
 SearchContainer.contextTypes = {
@@ -95,13 +96,13 @@ SearchContainer.contextTypes = {
   history: PropTypes.object,
 };
 
-const mapStateToProps = (state, ownProps) => {
-  return {
+const mapStateToProps = (state, ownProps) => (
+  {
     searchResults: state.searchResults,
     searchQuery: state.userQuery || ownProps.q,
     searchField: state.selectedField || ownProps.field,
-  };
-};
+  }
+);
 
 export default connect(
   mapStateToProps,
