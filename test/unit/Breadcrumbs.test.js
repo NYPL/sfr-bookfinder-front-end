@@ -9,10 +9,10 @@ describe('Breadcrumbs', () => {
     let component;
     const query = 'journey';
     const field = 'keyword';
-    const type = 'details';
+    const pageType = 'details';
 
     before(() => {
-      component = shallow(<Breadcrumbs query={query} field={field} type={type} />);
+      component = shallow(<Breadcrumbs query={query} field={field} pageType={pageType} />);
     });
 
     it('should render a nav and ol element', () => {
@@ -30,10 +30,10 @@ describe('Breadcrumbs', () => {
     let component;
     const query = '';
     const field = 'keyword';
-    const type = 'home';
+    const pageType = 'home';
 
     before(() => {
-      component = shallow(<Breadcrumbs query={query} field={field} type={type} />);
+      component = shallow(<Breadcrumbs query={query} field={field} pageType={pageType} />);
     });
 
     it('should display no breadcrumb nav element', () => {
@@ -45,10 +45,10 @@ describe('Breadcrumbs', () => {
     let component;
     const query = 'journey';
     const field = 'keyword';
-    const type = 'results';
+    const pageType = 'results';
 
     before(() => {
-      component = shallow(<Breadcrumbs query={query} field={field} type={type} />);
+      component = shallow(<Breadcrumbs query={query} field={field} pageType={pageType} />);
     });
 
     it('should display a link back to the home page', () => {
@@ -66,10 +66,10 @@ describe('Breadcrumbs', () => {
     let component;
     const query = 'journey';
     const field = 'title';
-    const type = 'details';
+    const pageType = 'details';
 
     before(() => {
-      component = shallow(<Breadcrumbs query={query} field={field} type={type} />);
+      component = shallow(<Breadcrumbs query={query} field={field} pageType={pageType} />);
     });
 
     it('should display a link back to the results page and home page', () => {
