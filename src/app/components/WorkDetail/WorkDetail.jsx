@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { isEmpty as _isEmpty } from 'underscore';
 import { DefinitionList } from './DefinitionList';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
+import * as searchActions from '../../actions/SearchActions';
 
 class WorkDetail extends React.Component {
 
@@ -26,6 +27,19 @@ class WorkDetail extends React.Component {
     ));
   };
 
+
+  /**
+   * onClick handler for resetting state for the request back to the home page
+   * to return the user to a new search.
+   *
+   * @param {object} event
+   */
+  handleReset(event) {
+    searchActions.userQuery('');
+    searchActions.selectedField('');
+    searchActions.searchResults('');
+  }
+
   render() {
     if (!this.props.work && _isEmpty(this.props.work)) {
       throw new Error('Work prop is missing or empty');
@@ -39,7 +53,8 @@ class WorkDetail extends React.Component {
             <Breadcrumbs
               query={this.props.searchQuery}
               field={this.props.searchField}
-              type="details"
+              pageType="details"
+              handleReset={this.handleReset}
             />
           </div>
           <div className="nypl-row">

@@ -8,8 +8,8 @@ import { Link } from 'react-router';
  * @param {object} props
  * @returns {array}
  */
-const Breadcrumbs = (({ query = '', field = '', type }) => {
-  if (type === 'home') {
+const Breadcrumbs = (({ query = '', field = '', pageType, handleReset }) => {
+  if (pageType === 'home') {
     return null;
   }
 
@@ -17,7 +17,7 @@ const Breadcrumbs = (({ query = '', field = '', type }) => {
 
   const homeLink = (
     <li key="home">
-      <Link to={'/'}>
+      <Link to={'/'} onClick={event => handleReset(event)}>
         ResearchNow
       </Link>
     </li>);
@@ -25,7 +25,7 @@ const Breadcrumbs = (({ query = '', field = '', type }) => {
   const crumbTrail = () => {
     const crumbs = [homeLink];
 
-    if (type === 'results') {
+    if (pageType === 'results') {
       crumbs.push(<li key="results">Search Results</li>);
       return crumbs;
     }
@@ -37,7 +37,7 @@ const Breadcrumbs = (({ query = '', field = '', type }) => {
         </Link>
       </li>);
 
-    if (type === 'details') {
+    if (pageType === 'details') {
       crumbs.push(<li key="details">Work Detail</li>);
       return crumbs;
     }
@@ -65,7 +65,15 @@ const Breadcrumbs = (({ query = '', field = '', type }) => {
 Breadcrumbs.propTypes = {
   query: PropTypes.string,
   field: PropTypes.string,
-  type: PropTypes.string,
+  pageType: PropTypes.string,
+  handleReset: PropTypes.func,
+};
+
+Breadcrumbs.defaultTypes = {
+  query: '',
+  field: '',
+  pageType: 'home',
+  handleReset: () => {},
 };
 
 export default Breadcrumbs;

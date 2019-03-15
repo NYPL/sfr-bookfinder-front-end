@@ -25,6 +25,7 @@ class SearchContainer extends React.Component {
 
     this.boundActions = bindActionCreators(searchActions, dispatch);
   }
+
   componentDidUpdate() {
     ReactDOM.findDOMNode(this).scrollIntoView();
   }
@@ -39,7 +40,7 @@ class SearchContainer extends React.Component {
       <main id="mainContent">
         <div className="nypl-full-width-wrapper">
           <div className="nypl-page-header">
-            <Breadcrumbs query={this.props.searchQuery} type={pageType} />
+            <Breadcrumbs query={this.props.searchQuery} pageType={pageType} />
           </div>
           <div role="search" aria-label="ResearchNow">
             <div className="nypl-row">

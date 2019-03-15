@@ -87,6 +87,8 @@ export const serverPost = (query, field) => {
 
   return axios.post(searchUrl, queryBody)
     .then((resp) => {
+      serverState.userQuery = query;
+      serverState.selectedField = field;
       serverState.searchResults = { data: resp.data };
       return serverState;
     })
