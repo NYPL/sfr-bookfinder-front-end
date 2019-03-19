@@ -9,6 +9,7 @@ export const Actions = {
   FETCH_WORK: 'FETCH_WORK',
   SET_QUERY: 'SET_QUERY',
   SET_FIELD: 'SET_FIELD',
+  RESET_SEARCH: 'RESET_SEARCH',
 };
 
 export const userQuery = (query) => {
@@ -36,6 +37,13 @@ export const workDetail = (work) => {
   return {
     type: Actions.FETCH_WORK,
     work,
+  };
+};
+
+export const resetSearch = () => {
+  return {
+    type: Actions.RESET_SEARCH,
+    reset: true,
   };
 };
 
@@ -117,4 +125,5 @@ export default {
   serverFetchWork,
   userQuery,
   selectedField,
+  resetSearch,
 };

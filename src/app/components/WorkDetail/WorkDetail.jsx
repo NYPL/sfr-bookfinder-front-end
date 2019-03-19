@@ -27,7 +27,6 @@ class WorkDetail extends React.Component {
     ));
   };
 
-
   /**
    * onClick handler for resetting state for the request back to the home page
    * to return the user to a new search.
@@ -35,9 +34,10 @@ class WorkDetail extends React.Component {
    * @param {object} event
    */
   handleReset(event) {
-    searchActions.userQuery('');
-    searchActions.selectedField('');
-    searchActions.searchResults('');
+    event.preventDefault();
+
+    searchActions.resetSearch();
+    this.context.router.push('/');
   }
 
   render() {
@@ -51,10 +51,18 @@ class WorkDetail extends React.Component {
         <div className="nypl-full-width-wrapper">
           <div className="nypl-page-header">
             <Breadcrumbs
-              query={this.props.searchQuery}
-              field={this.props.searchField}
+              links={[
+                {
+                  href: `/search?q=${this.props.searchQuery}&field=${this.props.searchField}`,
+                  text: 'Search Results',
+                },
+                {
+                  href: `/work?workId=${work.uuid}`,
+                  text: 'Work Details',
+                },
+              ]}
               pageType="details"
-              handleReset={this.handleReset}
+              onClickHandler={this.handleReset.bind(this)}
             />
           </div>
           <div className="nypl-row">

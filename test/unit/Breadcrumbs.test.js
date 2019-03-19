@@ -7,12 +7,18 @@ import Breadcrumbs from '../../src/app/components/Breadcrumbs/Breadcrumbs';
 describe('Breadcrumbs', () => {
   describe('On render all crumbs', () => {
     let component;
-    const query = 'journey';
-    const field = 'keyword';
+    const links = [{
+      href: '/search?q=journey&field=keyword',
+      text: 'Search Results',
+    },
+    {
+      href: '/work?workId=foobar',
+      text: 'Work Details',
+    }];
     const pageType = 'details';
 
     before(() => {
-      component = shallow(<Breadcrumbs query={query} field={field} pageType={pageType} />);
+      component = shallow(<Breadcrumbs links={links} pageType={pageType} />);
     });
 
     it('should render a nav and ol element', () => {
@@ -28,12 +34,11 @@ describe('Breadcrumbs', () => {
 
   describe('On the home page', () => {
     let component;
-    const query = '';
-    const field = 'keyword';
+    const links = [{ href: '', text: '' }];
     const pageType = 'home';
 
     before(() => {
-      component = shallow(<Breadcrumbs query={query} field={field} pageType={pageType} />);
+      component = shallow(<Breadcrumbs links={links} pageType={pageType} />);
     });
 
     it('should display no breadcrumb nav element', () => {
@@ -43,12 +48,14 @@ describe('Breadcrumbs', () => {
 
   describe('On the results page', () => {
     let component;
-    const query = 'journey';
-    const field = 'keyword';
+    const links = [{
+      href: '/search?q=journey&field=keyword',
+      text: 'Search Results',
+    }];
     const pageType = 'results';
 
     before(() => {
-      component = shallow(<Breadcrumbs query={query} field={field} pageType={pageType} />);
+      component = shallow(<Breadcrumbs links={links} pageType={pageType} />);
     });
 
     it('should display a link back to the home page', () => {
@@ -64,12 +71,18 @@ describe('Breadcrumbs', () => {
 
   describe('On the details page', () => {
     let component;
-    const query = 'journey';
-    const field = 'title';
+    const links = [{
+      href: '/search?q=journey&field=title',
+      text: 'Search Results',
+    },
+    {
+      href: '/work?workId=foobar',
+      text: 'Work Details',
+    }];
     const pageType = 'details';
 
     before(() => {
-      component = shallow(<Breadcrumbs query={query} field={field} pageType={pageType} />);
+      component = shallow(<Breadcrumbs links={links} pageType={pageType} />);
     });
 
     it('should display a link back to the results page and home page', () => {
@@ -82,7 +95,7 @@ describe('Breadcrumbs', () => {
     });
 
     it('should display a crumb for the details page without being a link', () => {
-      expect(component.find('li').at(2).text()).to.equal('Work Detail');
+      expect(component.find('li').at(2).text()).to.equal('Work Details');
     });
   });
 });

@@ -30,6 +30,19 @@ class SearchContainer extends React.Component {
     ReactDOM.findDOMNode(this).scrollIntoView();
   }
 
+  /**
+   * onClick handler for resetting state for the request back to the home page
+   * to return the user to a new search.
+   *
+   * @param {object} event
+   */
+  handleReset(event) {
+    event.preventDefault();
+
+    searchActions.resetSearch();
+    this.context.router.push('/');
+  }
+
   render() {
     const { query } = this.props.location;
     const searchQuery = (query && query.q) ? query.q : this.props.searchQuery;
@@ -40,7 +53,14 @@ class SearchContainer extends React.Component {
       <main id="mainContent">
         <div className="nypl-full-width-wrapper">
           <div className="nypl-page-header">
-            <Breadcrumbs query={this.props.searchQuery} pageType={pageType} />
+            <Breadcrumbs
+              links={[{
+                href: `/search?q=${searchQuery}&field=${selectedField}`,
+                text: 'Search Results',
+              }]}
+              pageType={pageType}
+              onClickHandler={this.handleReset.bind(this)}
+            />
           </div>
           <div role="search" aria-label="ResearchNow">
             <div className="nypl-row">
@@ -100,8 +120,8 @@ SearchContainer.contextTypes = {
 const mapStateToProps = (state, ownProps) => (
   {
     searchResults: state.searchResults,
-    searchQuery: state.userQuery || ownProps.q,
-    searchField: state.selectedField || ownProps.field,
+    searchQuery: state.userQuery || ownProps.searchQuery,
+    searchField: state.selectedField || ownProps.searchField,
   }
 );
 

@@ -8,7 +8,7 @@ import { Link } from 'react-router';
  * @param {object} props
  * @returns {array}
  */
-const Breadcrumbs = (({ query = '', field = '', pageType, handleReset }) => {
+const Breadcrumbs = (({ links, pageType, onClickHandler }) => {
   if (pageType === 'home') {
     return null;
   }
@@ -17,7 +17,7 @@ const Breadcrumbs = (({ query = '', field = '', pageType, handleReset }) => {
 
   const homeLink = (
     <li key="home">
-      <Link to={'/'} onClick={event => handleReset(event)}>
+      <Link to="/" onClick={event => onClickHandler(event)}>
         ResearchNow
       </Link>
     </li>);
@@ -25,27 +25,20 @@ const Breadcrumbs = (({ query = '', field = '', pageType, handleReset }) => {
   const crumbTrail = () => {
     const crumbs = [homeLink];
 
-    if (pageType === 'results') {
-      crumbs.push(<li key="results">Search Results</li>);
-      return crumbs;
+    if (links && Array.isArray(links)) {
+      links.map((link, iterator) => {
+        if (iterator < links.length-1) {
+          crumbs.push(
+            <li key={iterator}>
+              <Link to={link.href}>
+                {link.text}
+              </Link>
+            </li>);
+        } else {
+          crumbs.push(<li key={iterator}>{link.text}</li>);
+        }
+      });
     }
-
-    crumbs.push(
-      <li key="results">
-        <Link to={`/search?q=${query}&field=${field}`}>
-          Search Results
-        </Link>
-      </li>);
-
-    if (pageType === 'details') {
-      crumbs.push(<li key="details">Work Detail</li>);
-      return crumbs;
-    }
-
-    crumbs.push(
-      <li key="details">
-        <Link to={`/work`}>Work Details</Link>
-      </li>);
 
     return crumbs;
   };
@@ -63,17 +56,15 @@ const Breadcrumbs = (({ query = '', field = '', pageType, handleReset }) => {
 });
 
 Breadcrumbs.propTypes = {
-  query: PropTypes.string,
-  field: PropTypes.string,
+  links: PropTypes.array,
   pageType: PropTypes.string,
-  handleReset: PropTypes.func,
+  onClickHandler: PropTypes.func,
 };
 
-Breadcrumbs.defaultTypes = {
-  query: '',
-  field: '',
+Breadcrumbs.defaultProps = {
+  links: [],
   pageType: 'home',
-  handleReset: () => {},
+  onClickHandler: () => {},
 };
 
 export default Breadcrumbs;

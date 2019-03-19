@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { Actions } from '../actions/SearchActions';
+import initialState from './InitialState';
 
 export const searchResults = (state = null, action) => {
   switch (action.type) {
@@ -47,6 +48,12 @@ export const sort = (state = null, action) => (
     state
 );
 
+export const resetSearch = (state = null, action) => (
+  (action.reset) ?
+    initialState :
+    state
+);
+
 export default combineReducers({
   searchResults,
   userQuery,
@@ -54,4 +61,5 @@ export default combineReducers({
   allowedFilters,
   sort,
   workDetail,
+  resetSearch,
 });
