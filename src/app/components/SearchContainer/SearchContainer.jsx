@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -27,7 +26,7 @@ class SearchContainer extends React.Component {
   }
 
   componentDidUpdate() {
-    ReactDOM.findDOMNode(this).scrollIntoView();
+    window.scrollTo(0, 0);
   }
 
   /**
@@ -39,7 +38,7 @@ class SearchContainer extends React.Component {
   handleReset(event) {
     event.preventDefault();
 
-    searchActions.resetSearch();
+    this.boundActions.resetSearch();
     this.context.router.push('/');
   }
 
@@ -119,9 +118,9 @@ SearchContainer.contextTypes = {
 
 const mapStateToProps = (state, ownProps) => (
   {
-    searchResults: state.searchResults,
-    searchQuery: state.userQuery || ownProps.searchQuery,
-    searchField: state.selectedField || ownProps.searchField,
+    searchResults: state.searchResults || ownProps.searchResults,
+    searchQuery: state.searchQuery || ownProps.searchQuery,
+    searchField: state.searchField || ownProps.searchField,
   }
 );
 

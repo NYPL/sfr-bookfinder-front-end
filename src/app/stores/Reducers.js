@@ -24,23 +24,21 @@ export const workDetail = (state = null, action) => {
   }
 };
 
-export const userQuery = (state = null, action) => (
-  (action.userQuery) ?
-    action.userQuery :
-    state
-);
+export const searchQuery = (state = null, action) => {
+  if (action.type === Actions.SET_QUERY) {
+    return action.searchQuery;
+  }
 
-export const selectedField = (state = null, action) => (
-  (action.selectedField) ?
-    action.selectedField :
-    state
-);
+  return state;
+};
 
-export const allowedFilters = (state = null, action) => (
-  (action.allowedFilters) ?
-    action.allowedFilters :
-    state
-);
+export const searchField = (state = null, action) => {
+  if (action.type === Actions.SET_FIELD) {
+    return action.searchField;
+  }
+
+  return state;
+};
 
 export const sort = (state = null, action) => (
   (action.sort) ?
@@ -48,18 +46,28 @@ export const sort = (state = null, action) => (
     state
 );
 
-export const resetSearch = (state = null, action) => (
-  (action.reset) ?
-    initialState :
-    state
-);
+// export const resetSearch = (state = null, action) => {
+//   if (action.type === Actions.RESET_SEARCH) {
+//     return initialState;
+//   }
 
-export default combineReducers({
+//   return state;
+// };
+
+const appReducer = combineReducers({
   searchResults,
-  userQuery,
-  selectedField,
-  allowedFilters,
+  searchQuery,
+  searchField,
   sort,
   workDetail,
-  resetSearch,
 });
+
+export const rootReducer = (state, action) => {
+  if (action.type === Actions.RESET_SEARCH) {
+    state = initialState;
+  }
+
+  return appReducer(state, action);
+};
+
+export default rootReducer;

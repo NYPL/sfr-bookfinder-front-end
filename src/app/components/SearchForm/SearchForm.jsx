@@ -61,7 +61,7 @@ class SearchForm extends React.Component {
                     <select
                       id="search-by-field"
                       onChange={this.onFieldChange}
-                      value={this.props.searchField}
+                      value={this.state.searchField}
                     >
                       {this.props.allowedFields.map((field, key) => {
                         return (

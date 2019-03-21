@@ -1,17 +1,23 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { isEmpty as _isEmpty } from 'underscore';
 import { DefinitionList } from './DefinitionList';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import * as searchActions from '../../actions/SearchActions';
 
 class WorkDetail extends React.Component {
+  constructor(props) {
+    super(props);
+    const { dispatch } = props;
+
+    this.boundActions = bindActionCreators(searchActions, dispatch);
+  }
 
   componentDidMount() {
-    ReactDOM.findDOMNode(this).scrollIntoView();
+    window.scrollTo(0, 0);
   }
 
   /**
@@ -36,7 +42,7 @@ class WorkDetail extends React.Component {
   handleReset(event) {
     event.preventDefault();
 
-    searchActions.resetSearch();
+    this.boundActions.resetSearch();
     this.context.router.push('/');
   }
 
@@ -89,6 +95,7 @@ WorkDetail.propTypes = {
   searchQuery: PropTypes.string,
   searchField: PropTypes.string,
   eReaderUrl: PropTypes.string,
+  dispatch: PropTypes.func,
 };
 
 WorkDetail.defaultProps = {
@@ -96,6 +103,7 @@ WorkDetail.defaultProps = {
   searchQuery: '',
   searchField: '',
   eReaderUrl: '',
+  dispatch: () => {},
 };
 
 WorkDetail.contextTypes = {
@@ -106,8 +114,8 @@ WorkDetail.contextTypes = {
 const mapStateToProps = (state, ownProps) => (
   {
     work: state.workDetail && state.workDetail.work,
-    searchQuery: state.userQuery || ownProps.searchQuery,
-    searchField: state.selectedField || ownProps.searchField,
+    searchQuery: state.searchQuery || ownProps.searchQuery,
+    searchField: state.searchField || ownProps.searchField,
   }
 );
 
