@@ -56,7 +56,7 @@ const commonSettings = {
 // module correctly.
 if (ENV === 'development') {
   module.exports = merge(commonSettings, {
-    devtool: 'eval',
+    devtool: 'inline-source-map',
     entry: {
       app: [
         'webpack-dev-server/client?http://localhost:3000',
