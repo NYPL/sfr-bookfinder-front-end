@@ -16,6 +16,10 @@ class SearchForm extends React.Component {
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   /**
    * Used to update the downstream props updated by the
    * parent component, SearchContainer.

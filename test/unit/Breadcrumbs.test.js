@@ -91,7 +91,7 @@ describe('Breadcrumbs', () => {
       expect(detailLinks.at(0).children().text()).to.equal('ResearchNow');
       expect(detailLinks.at(0).prop('to')).to.equal('/');
       expect(detailLinks.at(1).children().text()).to.equal('Search Results');
-      expect(detailLinks.at(1).prop('to')).to.equal('/search?q=journey&field=title');
+      expect(detailLinks.at(1).prop('href')).to.equal('/search?q=journey&field=title');
     });
 
     it('should display a crumb for the details page without being a link', () => {

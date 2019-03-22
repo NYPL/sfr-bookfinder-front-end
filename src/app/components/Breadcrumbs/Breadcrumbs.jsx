@@ -25,17 +25,13 @@ const Breadcrumbs = (({ links, pageType, onClickHandler }) => {
   const crumbTrail = () => {
     const crumbs = [homeLink];
 
-    if (links && Array.isArray(links)) {
-      links.map((link, iterator) => {
-        if (iterator < links.length-1) {
-          crumbs.push(
-            <li key={iterator}>
-              <Link to={link.href}>
-                {link.text}
-              </Link>
-            </li>);
+    if (links && links.length) {
+      links.forEach((link, iterator) => {
+        const linkKey = `links-${iterator}`;
+        if (iterator < links.length - 1) {
+          crumbs.push(<li key={linkKey}><Link href={link.href}>{link.text}</Link></li>);
         } else {
-          crumbs.push(<li key={iterator}>{link.text}</li>);
+          crumbs.push(<li key={linkKey}>{link.text}</li>);
         }
       });
     }

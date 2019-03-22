@@ -46,14 +46,6 @@ export const sort = (state = null, action) => (
     state
 );
 
-// export const resetSearch = (state = null, action) => {
-//   if (action.type === Actions.RESET_SEARCH) {
-//     return initialState;
-//   }
-
-//   return state;
-// };
-
 const appReducer = combineReducers({
   searchResults,
   searchQuery,
@@ -64,7 +56,7 @@ const appReducer = combineReducers({
 
 export const rootReducer = (state, action) => {
   if (action.type === Actions.RESET_SEARCH) {
-    state = initialState;
+    return initialState;
   }
 
   return appReducer(state, action);

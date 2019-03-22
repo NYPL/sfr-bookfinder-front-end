@@ -31,7 +31,7 @@ class WorkDetail extends React.Component {
     return Object.keys(work).map(key => (
       [key, work[key]]
     ));
-  };
+  }
 
   /**
    * onClick handler for resetting state for the request back to the home page

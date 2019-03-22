@@ -13,14 +13,14 @@ export const searchServer = (req, res, next) => {
         res.data = data;
         next();
       })
-      .catch((err) => console.log('serverFetchWork failed', err.message));
+      .catch(err => console.log('serverFetchWork failed', err.message));
   } else {
     serverPost(q, field)
       .then((data) => {
         res.data = data;
         next();
       })
-      .catch((err) => console.log('serverPost failed', err.message));
+      .catch(err => console.log('serverPost failed', err.message));
   }
 };
 
