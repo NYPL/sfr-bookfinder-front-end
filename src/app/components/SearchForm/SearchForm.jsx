@@ -16,6 +16,21 @@ class SearchForm extends React.Component {
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
   }
 
+  /**
+   * Used to update the downstream props updated by the
+   * parent component, SearchContainer.
+   *
+   * @param {object} nextProps
+   */
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.searchQuery !== this.props.searchQuery) {
+      this.setState({ searchQuery: nextProps.searchQuery });
+    }
+    if (nextProps.searchField !== this.props.searchField) {
+      this.setState({ searchField: nextProps.searchField });
+    }
+  }
+
   onFieldChange(event) {
     const fieldSelected = event.target.value;
     this.setState({ searchField: fieldSelected });
@@ -27,6 +42,8 @@ class SearchForm extends React.Component {
 
   handleSubmit(event) {
     if (event && event.charCode === 13) {
+      this.props.selectedField(this.state.searchField);
+      this.props.userQuery(this.state.searchQuery);
       this.submitSearchRequest(event);
     }
   }
@@ -39,8 +56,6 @@ class SearchForm extends React.Component {
 
     const terms = this.state.searchQuery.trim().replace(/\s+/g, ' ');
 
-    this.props.userQuery(terms);
-    this.props.selectedField(this.state.searchField);
     this.props.searchPost(terms, this.state.searchField)
       .then(() => {
         const encodedUserInput = encodeURIComponent(terms);
