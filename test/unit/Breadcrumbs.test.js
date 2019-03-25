@@ -26,9 +26,12 @@ describe('Breadcrumbs', () => {
       expect(component.find('ol').length).to.equal(1);
     });
 
-    it('should have three list items and two links', () => {
+    it('should have three list items having two links and one string', () => {
       expect(component.find('li').length).to.equal(3);
       expect(component.find('Link').length).to.equal(2);
+      const linkObjects = component.find('Link');
+      expect(linkObjects.at(0).prop('to')).to.equal('/');
+      expect(linkObjects.at(1).prop('to')).to.equal('/search?q=journey&field=keyword');
     });
   });
 
@@ -66,6 +69,7 @@ describe('Breadcrumbs', () => {
 
     it('should display a crumb for the results page without being a link', () => {
       expect(component.find('li').at(1).text()).to.equal('Search Results');
+      expect(component.find('li').at(1).find('Link').length).to.equal(0);
     });
   });
 
@@ -91,11 +95,12 @@ describe('Breadcrumbs', () => {
       expect(detailLinks.at(0).children().text()).to.equal('ResearchNow');
       expect(detailLinks.at(0).prop('to')).to.equal('/');
       expect(detailLinks.at(1).children().text()).to.equal('Search Results');
-      expect(detailLinks.at(1).prop('href')).to.equal('/search?q=journey&field=title');
+      expect(detailLinks.at(1).prop('to')).to.equal('/search?q=journey&field=title');
     });
 
     it('should display a crumb for the details page without being a link', () => {
       expect(component.find('li').at(2).text()).to.equal('Work Details');
+      expect(component.find('li').at(2).find('Link').length).to.equal(0);
     });
   });
 });

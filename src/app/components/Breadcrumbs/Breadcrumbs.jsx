@@ -29,7 +29,7 @@ const Breadcrumbs = (({ links, pageType, onClickHandler }) => {
       links.forEach((link, iterator) => {
         const linkKey = `links-${iterator}`;
         if (iterator < links.length - 1) {
-          crumbs.push(<li key={linkKey}><Link href={link.href}>{link.text}</Link></li>);
+          crumbs.push(<li key={linkKey}><Link to={link.href}>{link.text}</Link></li>);
         } else {
           crumbs.push(<li key={linkKey}>{link.text}</li>);
         }
