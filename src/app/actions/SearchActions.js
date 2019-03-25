@@ -26,19 +26,15 @@ export const selectedField = (field) => {
   };
 };
 
-export const searchResults = (results) => {
-  return {
-    type: Actions.SEARCH,
-    results,
-  };
-};
+export const searchResults = results => ({
+  type: Actions.SEARCH,
+  results,
+});
 
-export const workDetail = (work) => {
-  return {
-    type: Actions.FETCH_WORK,
-    work,
-  };
-};
+export const workDetail = work => ({
+  type: Actions.FETCH_WORK,
+  work,
+});
 
 export const resetSearch = () => {
   return {
@@ -54,44 +50,39 @@ const searchUrl = apiUrl + searchPath;
 const recordUrl = apiUrl + recordPath;
 
 export const searchPost = (query, field) => {
-  const selectQuery = query || '*';
-  const selectField = (field && selectFields[field]) ? selectFields[field] : 'keyword';
-  const queryBody = buildQueryBody({ query: { selectField, selectQuery } });
+  const userQuery = query || '*';
+  const selectedField = (field && searchFields[field]) ? searchFields[field] : 'keyword';
+  const queryBody = buildQueryBody(userQuery, selectedField);
 
-  return (dispatch) => {
-    return axios.post(searchUrl, queryBody)
-      .then((resp) => {
-        if (resp.data) {
-          dispatch(searchResults(resp.data));
-        }
-      })
-      .catch((error) => {
-        console.log('An error occurred during searchPost', error.message);
-        throw new Error('An error occurred during searchPost', error.message);
-      });
-  };
+  return dispatch => axios.post(searchUrl, queryBody)
+    .then((resp) => {
+      if (resp.data) {
+        dispatch(searchResults(resp.data));
+      }
+    })
+    .catch((error) => {
+      console.log('An error occurred during searchPost', error.message);
+      throw new Error('An error occurred during searchPost', error.message);
+    });
 };
 
-export const fetchWork = (workId) => {
-  return (dispatch) => {
-    return axios.get(recordUrl, { params: { recordID: workId } })
-      .then((resp) => {
-        if (resp.data) {
-          dispatch(workDetail(resp.data));
-        }
-      })
-      .catch((error) => {
-        console.log('An error occurred during fetchWork', error.message);
-        throw new Error('An error occurred during fetchWork', error.message);
-      });
-  };
-};
+export const fetchWork = workId => dispatch =>
+  axios.get(recordUrl, { params: { identifier: workId } })
+    .then((resp) => {
+      if (resp.data) {
+        dispatch(workDetail(resp.data));
+      }
+    })
+    .catch((error) => {
+      console.log('An error occurred during fetchWork', error.message);
+      throw new Error('An error occurred during fetchWork', error.message);
+    });
 
 export const serverPost = (query, field) => {
   // Need a parsed query input to use for each filter
-  const selectQuery = query || '*';
-  const selectField = (field && selectFields[field]) ? selectFields[field] : 'keyword';
-  const queryBody = buildQueryBody({ query: { selectField, selectQuery } });
+  const userQuery = query || '*';
+  const selectedField = (field && searchFields[field]) ? searchFields[field] : 'keyword';
+  const queryBody = buildQueryBody(userQuery, selectedField);
 
   return axios.post(searchUrl, queryBody)
     .then((resp) => {
@@ -106,17 +97,15 @@ export const serverPost = (query, field) => {
     });
 };
 
-export const serverFetchWork = (workId) => {
-  return axios.get(recordUrl, { params: { recordID: workId } })
-    .then((resp) => {
-      serverState.workDetail = { work: resp.data };
-      return serverState;
-    })
-    .catch((error) => {
-      console.log('An error occurred during serverFetchWork', error.message);
-      throw new Error('An error occurred during serverFetchWork', error.message);
-    });
-};
+export const serverFetchWork = workId => axios.get(recordUrl, { params: { identifier: workId } })
+  .then((resp) => {
+    serverState.workDetail = { work: resp.data };
+    return serverState;
+  })
+  .catch((error) => {
+    console.log('An error occurred during serverFetchWork', error.message);
+    throw new Error('An error occurred during serverFetchWork', error.message);
+  });
 
 export default {
   searchPost,

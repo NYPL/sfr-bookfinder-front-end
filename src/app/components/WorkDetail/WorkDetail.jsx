@@ -50,7 +50,6 @@ class WorkDetail extends React.Component {
     if (!this.props.work && _isEmpty(this.props.work)) {
       throw new Error('Work prop is missing or empty');
     }
-    const { work } = this.props;
 
     return (
       <main id="mainContent">
@@ -76,7 +75,7 @@ class WorkDetail extends React.Component {
               <h2>Work Detail</h2>
               <div id="nypl-item-details">
                 <DefinitionList
-                  data={this.workDetailsObject(work)}
+                  data={this.workDetailsObject()}
                   eReaderUrl={this.props.eReaderUrl}
                   dispatch={this.props.dispatch}
                   context={this.context}

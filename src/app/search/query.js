@@ -1,3 +1,5 @@
+import { isArray as _isArray } from 'underscore';
+
 export const getRequestParams = (query = {}) => {
   const { q = '*' } = query;
   const { field = 'keyword' } = query;
@@ -15,7 +17,6 @@ export const getRequestParams = (query = {}) => {
  * @param {string} field
  *
  * @returns {string}
- */
 const addFieldQuery = (queryString, field = 'keyword') => {
   if (!queryString) {
     throw new Error('A valid query string must be passed');
@@ -25,7 +26,9 @@ const addFieldQuery = (queryString, field = 'keyword') => {
    * Strip punctuation and process spaces as plus signs for final split.
    * ES characters to escape before sending: + - = && || > < ! ( ) { } [ ] ^ " ~ * ? : \ /
    */
-  const queryArr = queryString.replace(/[=(&&)(||)><!(){}\[\]^"~\*\?:\/-]/g, '\$&').trim().replace(/\s+/g, '+').split('+');
+  /**
+  const queryArr = queryString.replace(/[=(&&)(||)><!(){}\[\]^"~\*\?:\/-]/g, '\$&').trim()
+  .replace(/\s+/g, '+').split('+');
 
   // TODO: add an additional check on empty queries after the terms are processed.
 
@@ -33,46 +36,54 @@ const addFieldQuery = (queryString, field = 'keyword') => {
 
   return fieldQuery;
 };
+ */
+
+
+/**
+   * Strip punctuation and process spaces as plus signs for final split.
+   * ES characters to escape before sending: + - = && || > < ! ( ) { } [ ] ^ " ~ * ? : \ /
+ * @param {string} queryString
+ *
+ * @returns {string}
+   */
+const parseQuery = (queryString) => {
+  const queryArr = queryString.replace(/[=(&&)(||)><!(){}\[\]^"~\*\?:\/-]/g, '\$&')
+    .trim()
+    .replace(/\s+/g, ' ');
+  return queryArr;
+};
 
 /**
  * Uses a special format as provided by the ResearchNow Search API.
  * Format with possible values:
- * {
- *   queries:
- *   [{
- *        field: 'keyword',
- *        value: 'branch'
- *   }],
- *   filters:
- *   [{
- *        field: 'language',
- *        value: 'fr'
- *   }],
- *   sort:
- *   [{
- *        field: 'title.keyword',
- *        dir: 'asc'
- *   }],
- *   aggregations:
- *   [{
- *        type: 'terms',
- *        field: 'title.keyword'
- *   }],
- *   per_page: 10,
- *   page: 0
- * }
- *
+{
+  "field": "keyword|title|author|subject",
+  "query": "\"Personal Anecodotes\" OR narrative",
+  "filters": [{
+    "field": "language",
+    "value": "it"
+  }],
+  "sort": [{
+    "field": "title.keyword",
+    "dir": "asc"
+  }],
+  "aggregations": [{
+    "type": "terms",
+    "field": "entities.name.keyword"
+  }],
+  "per_page": 10,
+  "page": 0
+}
  * @param {object} queryObj
  * @return {object}
  */
-export const buildQueryBody = (queryObj = {}) => {
-  const queryBody = {};
-  if (queryObj.query) {
-    const { selectQuery, selectField } = queryObj.query;
-    queryBody.queries = addFieldQuery(selectQuery, selectField);
+export const buildQueryBody = (query, field) => {
+  let queryField = field;
+  if (_isArray(field)) {
+    queryField = field.join('|');
   }
-
-  return queryBody;
+  const parsedQuery = parseQuery(query);
+  return { query: parsedQuery, field: queryField };
 };
 
 export default {

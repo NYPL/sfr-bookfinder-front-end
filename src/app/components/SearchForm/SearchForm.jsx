@@ -71,7 +71,13 @@ class SearchForm extends React.Component {
     return (
       <div className="nypl-row">
         <div className="nypl-column-full">
-          <form className="nypl-omnisearch-form" action="/search" method="get" onSubmit={this.handleSubmit} onKeyPress={this.handleSubmit}>
+          <form
+            className="nypl-omnisearch-form"
+            action="/search"
+            method="get"
+            onSubmit={this.handleSubmit}
+            onKeyPress={this.handleSubmit}
+          >
             <div className="ebook-search-form">
               <div className="nypl-omnisearch">
                 <div className="nypl-text-field">
@@ -82,13 +88,11 @@ class SearchForm extends React.Component {
                       onChange={this.onFieldChange}
                       value={this.state.searchField}
                     >
-                      {this.props.allowedFields.map((field, key) => {
-                        return (
-                          <option value={field} key={key.toString()}>
-                            {titleCase(field)}
-                          </option>
-                        );
-                      })}
+                      {this.props.allowedFields.map((field, key) => (
+                        <option value={field} key={key.toString()}>
+                          {titleCase(field)}
+                        </option>
+                        ))}
                     </select>
                   </span>
                 </div>
@@ -122,9 +126,8 @@ class SearchForm extends React.Component {
 }
 
 SearchForm.propTypes = {
-  allowedFields: PropTypes.array,
-  searchQuery: PropTypes.string,
-  searchField: PropTypes.string,
+  allowedFields: PropTypes.arrayOf(PropTypes.any),
+  searchPost: PropTypes.func,
 };
 
 SearchForm.defaultProps = {
@@ -136,6 +139,7 @@ SearchForm.defaultProps = {
   ],
   searchQuery: '',
   searchField: 'keyword',
+  searchPost: () => {},
 };
 
 SearchForm.contextTypes = {

@@ -18,8 +18,8 @@ export default function configureStore(preloadedState) {
 
   const enhancers = [middlewareEnhancer];
   /* eslint-disable no-underscore-dangle */
-  const composedEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(...enhancers) :
+  const composedEnhancers = global.window && global.window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
+    global.window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(...enhancers) :
     compose(...enhancers);
   /* eslint-enable */
 
