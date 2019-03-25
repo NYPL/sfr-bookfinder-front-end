@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { Actions } from '../actions/SearchActions';
+import initialState from './InitialState';
 
 export const searchResults = (state = null, action) => {
   switch (action.type) {
@@ -23,35 +24,42 @@ export const workDetail = (state = null, action) => {
   }
 };
 
-export const query = (state = null, action) => (
-  (action.payload) ?
-    action.payload.query :
-    state
-);
+export const searchQuery = (state = null, action) => {
+  if (action.type === Actions.SET_QUERY) {
+    return action.searchQuery;
+  }
 
-export const field = (state = null, action) => (
-  (action.payload) ?
-    action.payload.field :
-    state
-);
+  return state;
+};
 
-export const allowedFilters = (state = null, action) => (
-  (action.payload) ?
-    action.payload.allowedFilters :
-    state
-);
+export const searchField = (state = null, action) => {
+  if (action.type === Actions.SET_FIELD) {
+    return action.searchField;
+  }
+
+  return state;
+};
 
 export const sort = (state = null, action) => (
-  (action.payload) ?
-    action.payload.sort :
+  (action.sort) ?
+    action.sort :
     state
 );
 
-export default combineReducers({
+const appReducer = combineReducers({
   searchResults,
-  query,
-  field,
-  allowedFilters,
+  searchQuery,
+  searchField,
   sort,
   workDetail,
 });
+
+export const rootReducer = (state, action) => {
+  if (action.type === Actions.RESET_SEARCH) {
+    return initialState;
+  }
+
+  return appReducer(state, action);
+};
+
+export default rootReducer;

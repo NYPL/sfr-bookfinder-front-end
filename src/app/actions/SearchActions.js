@@ -1,12 +1,29 @@
 import axios from 'axios';
 import appConfig from '../../../appConfig';
-import searchFields from '../constants/fields';
+import selectFields from '../constants/fields';
 import serverState from '../stores/InitialState';
 import { buildQueryBody } from '../search/query';
 
 export const Actions = {
   SEARCH: 'SEARCH',
   FETCH_WORK: 'FETCH_WORK',
+  SET_QUERY: 'SET_QUERY',
+  SET_FIELD: 'SET_FIELD',
+  RESET_SEARCH: 'RESET_SEARCH',
+};
+
+export const userQuery = (query) => {
+  return {
+    type: Actions.SET_QUERY,
+    searchQuery: query,
+  };
+};
+
+export const selectedField = (field) => {
+  return {
+    type: Actions.SET_FIELD,
+    searchField: field,
+  };
 };
 
 export const searchResults = (results) => {
@@ -23,6 +40,13 @@ export const workDetail = (work) => {
   };
 };
 
+export const resetSearch = () => {
+  return {
+    type: Actions.RESET_SEARCH,
+    reset: true,
+  };
+};
+
 const appEnv = process.env.APP_ENV || 'production';
 const apiUrl = appConfig.api[appEnv];
 const { searchPath, recordPath } = appConfig.api;
@@ -30,9 +54,9 @@ const searchUrl = apiUrl + searchPath;
 const recordUrl = apiUrl + recordPath;
 
 export const searchPost = (query, field) => {
-  const userQuery = query || '*';
-  const selectedField = (field && searchFields[field]) ? searchFields[field] : 'keyword';
-  const queryBody = buildQueryBody({ query: { field: selectedField, userQuery } });
+  const selectQuery = query || '*';
+  const selectField = (field && selectFields[field]) ? selectFields[field] : 'keyword';
+  const queryBody = buildQueryBody({ query: { selectField, selectQuery } });
 
   return (dispatch) => {
     return axios.post(searchUrl, queryBody)
@@ -65,12 +89,14 @@ export const fetchWork = (workId) => {
 
 export const serverPost = (query, field) => {
   // Need a parsed query input to use for each filter
-  const userQuery = query || '*';
-  const selectedField = (field && searchFields[field]) ? searchFields[field] : 'keyword';
-  const queryBody = buildQueryBody({ query: { field: selectedField, userQuery } });
+  const selectQuery = query || '*';
+  const selectField = (field && selectFields[field]) ? selectFields[field] : 'keyword';
+  const queryBody = buildQueryBody({ query: { selectField, selectQuery } });
 
   return axios.post(searchUrl, queryBody)
     .then((resp) => {
+      serverState.searchQuery = query;
+      serverState.searchField = field;
       serverState.searchResults = { data: resp.data };
       return serverState;
     })
@@ -97,4 +123,7 @@ export default {
   fetchWork,
   serverPost,
   serverFetchWork,
+  userQuery,
+  selectedField,
+  resetSearch,
 };

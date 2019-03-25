@@ -1,7 +1,7 @@
 /* eslint-env mocha */
 import React from 'react';
 import { expect } from 'chai';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 
 import SearchContainer from '../../src/app/components/SearchContainer/SearchContainer';
 import SearchForm from '../../src/app/components/SearchForm/SearchForm';
@@ -23,7 +23,7 @@ describe('Search Container interactions', () => {
   it('contains an initialized <SearchForm /> component', () => {
     expect(wrapper.find(SearchForm)).to.have.length(1);
     expect(wrapper.find(SearchForm).prop('searchQuery')).to.equal('');
-    expect(wrapper.find(SearchForm).prop('searchField')).to.equal('');
+    expect(wrapper.find(SearchForm).prop('searchField')).to.equal('keyword');
   });
   it('contains a <SearchResults /> component', () => {
     expect(wrapper.find(SearchResults)).to.have.length(1);

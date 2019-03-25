@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { isEmpty as _isEmpty } from 'underscore';
 import EBookList from '../List/EBookList';
-import { searchPost } from '../../actions/SearchActions';
+import { searchPost, userQuery, selectedField } from '../../actions/SearchActions';
 
 const elements = ['title', 'entities', 'instances', 'subjects', 'rights_stmt', 'language'];
 export const labels = {
@@ -32,6 +32,8 @@ export const DefinitionList = (props) => {
   const newSearchRequest = (event, query, field) => {
     event.preventDefault();
 
+    props.dispatch(userQuery(query));
+    props.dispatch(selectedField(field));
     props.dispatch(searchPost(query, field))
       .then(() => {
         props.context.router.push(`/search?q=${query}&field=${field}`);

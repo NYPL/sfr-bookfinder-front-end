@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isEmpty as _isEmpty } from 'underscore';
 import { titleCase } from 'change-case';
 import SearchButton from '../Button/SearchButton';
 
@@ -15,6 +16,25 @@ class SearchForm extends React.Component {
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
+  /**
+   * Used to update the downstream props updated by the
+   * parent component, SearchContainer.
+   *
+   * @param {object} nextProps
+   */
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.searchQuery !== this.props.searchQuery) {
+      this.setState({ searchQuery: nextProps.searchQuery });
+    }
+    if (nextProps.searchField !== this.props.searchField) {
+      this.setState({ searchField: nextProps.searchField });
+    }
+  }
+
   onFieldChange(event) {
     const fieldSelected = event.target.value;
     this.setState({ searchField: fieldSelected });
@@ -26,15 +46,14 @@ class SearchForm extends React.Component {
 
   handleSubmit(event) {
     if (event && event.charCode === 13) {
+      this.props.selectedField(this.state.searchField);
+      this.props.userQuery(this.state.searchQuery);
       this.submitSearchRequest(event);
     }
   }
 
   submitSearchRequest(event) {
     event.preventDefault();
-    if (!this.state.searchField) {
-      this.setState({ searchField: 'keyword' });
-    }
     if (!this.state.searchQuery) {
       throw new Error('Please enter a term or terms to search');
     }
@@ -116,11 +135,12 @@ SearchForm.defaultProps = {
     'subject',
   ],
   searchQuery: '',
-  searchField: '',
+  searchField: 'keyword',
 };
 
 SearchForm.contextTypes = {
   router: PropTypes.object,
+  history: PropTypes.object,
 };
 
 export default SearchForm;

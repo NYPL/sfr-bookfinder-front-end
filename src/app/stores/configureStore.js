@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import searchReducer from './Reducers';
+import { rootReducer } from './Reducers';
 
 /**
  * Provides a configurable store object that uses enhancers
@@ -18,7 +18,7 @@ export default function configureStore(preloadedState) {
   const enhancers = [middlewareEnhancer];
   const composedEnhancers = compose(...enhancers);
 
-  const store = createStore(searchReducer, preloadedState, composedEnhancers);
+  const store = createStore(rootReducer, preloadedState, composedEnhancers);
 
   return store;
 }

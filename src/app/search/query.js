@@ -20,7 +20,7 @@ const addFieldQuery = (queryString, field = 'keyword') => {
   if (!queryString) {
     throw new Error('A valid query string must be passed');
   }
-  let fieldQuery = [];
+  const fieldQuery = [];
   /**
    * Strip punctuation and process spaces as plus signs for final split.
    * ES characters to escape before sending: + - = && || > < ! ( ) { } [ ] ^ " ~ * ? : \ /
@@ -61,15 +61,15 @@ const addFieldQuery = (queryString, field = 'keyword') => {
  *   per_page: 10,
  *   page: 0
  * }
- * 
+ *
  * @param {object} queryObj
  * @return {object}
  */
 export const buildQueryBody = (queryObj = {}) => {
-  let queryBody = {};
+  const queryBody = {};
   if (queryObj.query) {
-    const { userQuery, field } = queryObj.query;
-    queryBody.queries = addFieldQuery(userQuery, field);
+    const { selectQuery, selectField } = queryObj.query;
+    queryBody.queries = addFieldQuery(selectQuery, selectField);
   }
 
   return queryBody;
