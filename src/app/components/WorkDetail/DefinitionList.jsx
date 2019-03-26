@@ -34,9 +34,9 @@ export const DefinitionList = ({
   const newSearchRequest = (event, query, field) => {
     event.preventDefault();
 
-    props.dispatch(userQuery(query));
-    props.dispatch(selectedField(field));
-    props.dispatch(searchPost(query, field))
+    dispatch(userQuery(query));
+    dispatch(selectedField(field));
+    dispatch(searchPost(query, field))
       .then(() => {
         context.router.push(`/search?q=${query}&field=${field}`);
       });

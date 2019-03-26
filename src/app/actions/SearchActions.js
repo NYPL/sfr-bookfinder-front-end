@@ -12,19 +12,15 @@ export const Actions = {
   RESET_SEARCH: 'RESET_SEARCH',
 };
 
-export const userQuery = (query) => {
-  return {
-    type: Actions.SET_QUERY,
-    searchQuery: query,
-  };
-};
+export const userQuery = query => ({
+  type: Actions.SET_QUERY,
+  searchQuery: query,
+});
 
-export const selectedField = (field) => {
-  return {
-    type: Actions.SET_FIELD,
-    searchField: field,
-  };
-};
+export const selectedField = field => ({
+  type: Actions.SET_FIELD,
+  searchField: field,
+});
 
 export const searchResults = results => ({
   type: Actions.SEARCH,
@@ -36,12 +32,10 @@ export const workDetail = work => ({
   work,
 });
 
-export const resetSearch = () => {
-  return {
-    type: Actions.RESET_SEARCH,
-    reset: true,
-  };
-};
+export const resetSearch = () => ({
+  type: Actions.RESET_SEARCH,
+  reset: true,
+});
 
 const appEnv = process.env.APP_ENV || 'production';
 const apiUrl = appConfig.api[appEnv];
@@ -50,9 +44,9 @@ const searchUrl = apiUrl + searchPath;
 const recordUrl = apiUrl + recordPath;
 
 export const searchPost = (query, field) => {
-  const userQuery = query || '*';
-  const selectedField = (field && searchFields[field]) ? searchFields[field] : 'keyword';
-  const queryBody = buildQueryBody(userQuery, selectedField);
+  const uQuery = query || '*';
+  const sField = (field && selectFields[field]) ? selectFields[field] : 'keyword';
+  const queryBody = buildQueryBody(uQuery, sField);
 
   return dispatch => axios.post(searchUrl, queryBody)
     .then((resp) => {
@@ -80,9 +74,9 @@ export const fetchWork = workId => dispatch =>
 
 export const serverPost = (query, field) => {
   // Need a parsed query input to use for each filter
-  const userQuery = query || '*';
-  const selectedField = (field && searchFields[field]) ? searchFields[field] : 'keyword';
-  const queryBody = buildQueryBody(userQuery, selectedField);
+  const uQuery = query || '*';
+  const sField = (field && selectFields[field]) ? selectFields[field] : 'keyword';
+  const queryBody = buildQueryBody(uQuery, sField);
 
   return axios.post(searchUrl, queryBody)
     .then((resp) => {

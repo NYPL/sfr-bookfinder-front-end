@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isEmpty as _isEmpty } from 'underscore';
 import { titleCase } from 'change-case';
 import SearchButton from '../Button/SearchButton';
 
@@ -17,7 +16,7 @@ class SearchForm extends React.Component {
   }
 
   componentDidMount() {
-    window.scrollTo(0, 0);
+    global.window.scrollTo(0, 0);
   }
 
   /**
@@ -128,6 +127,10 @@ class SearchForm extends React.Component {
 SearchForm.propTypes = {
   allowedFields: PropTypes.arrayOf(PropTypes.any),
   searchPost: PropTypes.func,
+  searchQuery: PropTypes.string,
+  searchField: PropTypes.string,
+  selectedField: PropTypes.func,
+  userQuery: PropTypes.func,
 };
 
 SearchForm.defaultProps = {
@@ -140,6 +143,8 @@ SearchForm.defaultProps = {
   searchQuery: '',
   searchField: 'keyword',
   searchPost: () => {},
+  selectedField: () => {},
+  userQuery: () => {},
 };
 
 SearchForm.contextTypes = {

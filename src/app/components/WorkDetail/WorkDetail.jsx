@@ -17,7 +17,7 @@ class WorkDetail extends React.Component {
   }
 
   componentDidMount() {
-    window.scrollTo(0, 0);
+    global.window.scrollTo(0, 0);
   }
 
   /**
@@ -27,29 +27,32 @@ class WorkDetail extends React.Component {
    * @param {object} work
    * @return {string|null}
    */
-  workDetailsObject(work) {
+  workDetailsObject() {
+    const { work } = this.props;
     return Object.keys(work).map(key => (
       [key, work[key]]
     ));
   }
 
-  /**
-   * onClick handler for resetting state for the request back to the home page
-   * to return the user to a new search.
-   *
-   * @param {object} event
-   */
-  handleReset(event) {
-    event.preventDefault();
-
-    this.boundActions.resetSearch();
-    this.context.router.push('/');
-  }
 
   render() {
     if (!this.props.work && _isEmpty(this.props.work)) {
       throw new Error('Work prop is missing or empty');
     }
+    const { work } = this.props;
+
+    /**
+   * onClick handler for resetting state for the request back to the home page
+   * to return the user to a new search.
+   *
+   * @param {object} event
+   */
+    const handleReset = (event) => {
+      event.preventDefault();
+
+      this.boundActions.resetSearch();
+      this.context.router.push('/');
+    };
 
     return (
       <main id="mainContent">
@@ -67,7 +70,7 @@ class WorkDetail extends React.Component {
                 },
               ]}
               pageType="details"
-              onClickHandler={this.handleReset.bind(this)}
+              onClickHandler={handleReset}
             />
           </div>
           <div className="nypl-row">
@@ -90,7 +93,7 @@ class WorkDetail extends React.Component {
 }
 
 WorkDetail.propTypes = {
-  work: PropTypes.object,
+  work: PropTypes.objectOf(PropTypes.any),
   searchQuery: PropTypes.string,
   searchField: PropTypes.string,
   eReaderUrl: PropTypes.string,
