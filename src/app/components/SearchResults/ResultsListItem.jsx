@@ -1,4 +1,5 @@
 import React from 'react';
+import { isArray as _isArray } from 'underscore';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import ResultsRow from './ResultsRow';
@@ -34,7 +35,7 @@ class ResultsListItem extends React.Component {
       <li className="nypl-results-item">
         <h3>
           <Link onClick={event => this.showWorkDetail(event, result.uuid)} to={{ pathname: '/work', query: { workId: `${result.uuid}` } }}>
-            {result.title}{(result.entities && Array.isArray(result.entities)) ? ` – ${result.entities[0].name}` : ''}
+            {result.title}{(result.entities && _isArray(result.entities)) ? ` – ${result.entities[0].name}` : ''}
           </Link>
         </h3>
         <ResultsRow rows={result.instances} eReaderUrl={this.props.eReaderUrl} />

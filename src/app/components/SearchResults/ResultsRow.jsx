@@ -35,25 +35,25 @@ const ResultsRow = (props) => {
   return (
     <ul className="nypl-items-list">
       {
-        items.map((element, key) => {
-          const isValid = (element.ebooks && element.ebooks.length > 0) ||
-          element.pub_date || element.pub_place || element.publisher || element.language;
+        items.map((item, key) => {
+          const isValid = (item.ebooks && item.ebooks.length > 0) ||
+          item.pub_date || item.pub_place || item.publisher || item.language;
           if (!isValid) { return null; }
           return (
             <li className="nypl-results-item" key={key.toString()}>
               <div className="nypl-results-description">
-                {(element.ebooks) ? <EBookList ebooks={element.ebooks} eReaderUrl={props.eReaderUrl} /> : ''}
-                { element.pub_date &&
-                  <span className="nypl-results-date">{element.pub_date}</span>
+                {(item.ebooks) ? <EBookList ebooks={item.ebooks} eReaderUrl={props.eReaderUrl} /> : ''}
+                { item.pub_date &&
+                  <span className="nypl-results-date">{item.pub_date}</span>
                 }
-                { element.pub_place &&
-                  <span className="nypl-results-place">{element.pub_place}</span>
+                { item.pub_place &&
+                  <span className="nypl-results-place">{item.pub_place}</span>
                 }
-                { element.publisher &&
-                  <span className="nypl-results-publisher">{element.publisher}</span>
+                { item.publisher &&
+                  <span className="nypl-results-publisher">{item.publisher}</span>
                 }
-                { element.language &&
-                  <span className="nypl-results-info">{element.language}</span>
+                { item.language &&
+                  <span className="nypl-results-info">{item.language}</span>
                 }
               </div>
             </li>
