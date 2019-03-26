@@ -49,7 +49,9 @@ const addFieldQuery = (queryString, field = 'keyword') => {
 const parseQuery = (queryString) => {
   const queryArr = queryString.replace(/[=(&&)(||)><!(){}\[\]^"~\*\?:\/-]/g, '\$&')
     .trim()
-    .replace(/\s+/g, ' ');
+    .replace(/\s+/g, '+')
+    .split('+')
+    .join(' ');
   return queryArr;
 };
 
@@ -77,7 +79,11 @@ const parseQuery = (queryString) => {
  * @param {object} queryObj
  * @return {object}
  */
-export const buildQueryBody = (query, field) => {
+export const buildQueryBody = (query, field = 'keyword') => {
+  if (!query) {
+    throw new Error('A valid query string must be passed');
+  }
+
   let queryField = field;
   if (_isArray(field)) {
     queryField = field.join('|');

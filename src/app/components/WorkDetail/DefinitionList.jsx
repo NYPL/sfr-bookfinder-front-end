@@ -5,12 +5,12 @@ import { isEmpty as _isEmpty } from 'underscore';
 import EBookList from '../List/EBookList';
 import { searchPost, userQuery, selectedField } from '../../actions/SearchActions';
 
-const elements = ['title', 'entities', 'instances', 'subjects', 'rights_stmt', 'language'];
+const elements = ['title', 'agents', 'instances', 'subjects', 'language'];
+const sorting = ['title', 'language', 'agents', 'subjects', 'instances'];
 export const labels = {
   title: 'Title',
-  entities: 'Author, Creator, et al',
+  agents: 'Author, Creator, et al',
   instances: 'Items',
-  rights_stmt: 'Rights Statement',
   language: 'Language',
   subjects: 'Subjects',
 };
@@ -24,6 +24,7 @@ export const labels = {
 export const DefinitionList = ({
   dispatch, eReaderUrl, data, context,
 }) => {
+  data.sort((a, b) => sorting.indexOf(a[0]) - sorting.indexOf(b[0]));
   /**
    * onClick handler for browse searches.
    *
@@ -65,7 +66,17 @@ export const DefinitionList = ({
       });
     }
     switch (type) {
-      case 'entities':
+      case 'language':
+        return (
+          <ul>
+            {list.map((entity, i) => (
+              <li key={i.toString()}>
+                {entity.language}
+              </li>
+            ))}
+          </ul>
+        );
+      case 'agents':
         return (
           <ul>
             {list.map((entity, i) => (
@@ -73,7 +84,7 @@ export const DefinitionList = ({
                 <Link
                   onClick={event => newSearchRequest(event, `\"${entity.name}\"`, 'author')}
                   to={{ pathname: '/search', query: { q: `\"${entity.name}\"`, field: 'author' } }}
-                >{entity.name}, {entity.role}
+                >{entity.name}, {entity.roles.map(role => role)}
                 </Link>
               </li>
             ))}

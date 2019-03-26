@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-filename-extension */
 /* eslint-env mocha */
 import React from 'react';
 import { expect } from 'chai';
@@ -17,7 +18,7 @@ describe('Search Container interactions', () => {
   before(() => {
     const store = configureStore(initialState);
     store.dispatch(searchResults(results));
-    wrapper = mount(<SearchContainer store={store}/>);
+    wrapper = mount(<SearchContainer store={store} />);
   });
 
   it('contains an initialized <SearchForm /> component', () => {
