@@ -4,14 +4,6 @@ import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import ResultsRow from './ResultsRow';
 
-/**
- * ResultsList presents search results as a "grouped" list of books
- * with their associated editions provided by the ResultsRow component.
- * Each result displays a title and author element linked to its companion
- * detailed view.
- *
- * @returns {string|null}
- */
 class ResultsListItem extends React.Component {
   constructor(props) {
     super(props);

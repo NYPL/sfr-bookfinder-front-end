@@ -52,7 +52,7 @@ describe('DefinitionList', () => {
       const ebooks = detail.instances[8].items;
       component = shallow(<EBookList ebooks={ebooks} />);
     });
-    it('should have a list of two links', () => {
+    it('should have a list of four links', () => {
       expect(component.find('ul')).to.have.length(1);
       expect(component.find('li')).to.have.length(4);
       expect(component.find('li a')).to.have.length(4);

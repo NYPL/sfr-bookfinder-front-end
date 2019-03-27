@@ -69,7 +69,7 @@ describe('ResultsRow', () => {
       const ebooks = instances[0].items;
       component = shallow(<EBookList ebooks={ebooks} />);
     });
-    it('should have a list with lines with a single anchor tag', () => {
+    it('should have a list two anchor tags', () => {
       expect(component.find('.nypl-items-list')).to.have.length(1);
       expect(component.find('.nypl-items-list li')).to.have.length(2);
       expect(component.find('.nypl-items-list li a')).to.have.length(2);
