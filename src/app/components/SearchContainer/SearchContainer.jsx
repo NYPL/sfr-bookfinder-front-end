@@ -26,27 +26,27 @@ class SearchContainer extends React.Component {
   }
 
   componentDidUpdate() {
-    window.scrollTo(0, 0);
+    global.window.scrollTo(0, 0);
   }
 
-  /**
-   * onClick handler for resetting state for the request back to the home page
-   * to return the user to a new search.
-   *
-   * @param {object} event
-   */
-  handleReset(event) {
-    event.preventDefault();
-
-    this.boundActions.resetSearch();
-    this.context.router.push('/');
-  }
 
   render() {
     const { query } = this.props.location;
     const searchQuery = (query && query.q) ? query.q : this.props.searchQuery;
     const selectedField = (query && query.field) ? query.field : this.props.searchField;
     const pageType = (_isEmpty(this.props.searchResults)) ? 'home' : 'results';
+    /**
+   * onClick handler for resetting state for the request back to the home page
+   * to return the user to a new search.
+   *
+   * @param {object} event
+   */
+    const handleReset = (event) => {
+      event.preventDefault();
+
+      this.boundActions.resetSearch();
+      this.context.router.push('/');
+    };
 
     return (
       <main id="mainContent">
@@ -58,7 +58,7 @@ class SearchContainer extends React.Component {
                 text: 'Search Results',
               }]}
               pageType={pageType}
-              onClickHandler={this.handleReset.bind(this)}
+              onClickHandler={handleReset}
             />
           </div>
           <div role="search" aria-label="ResearchNow">
@@ -92,13 +92,13 @@ class SearchContainer extends React.Component {
 }
 
 SearchContainer.propTypes = {
-  searchResults: PropTypes.object,
+  searchResults: PropTypes.objectOf(PropTypes.any),
   searchQuery: PropTypes.string,
   searchField: PropTypes.string,
-  workDetail: PropTypes.object,
+  workDetail: PropTypes.objectOf(PropTypes.any),
   dispatch: PropTypes.func,
   eReaderUrl: PropTypes.string,
-  location: PropTypes.object,
+  location: PropTypes.objectOf(PropTypes.any),
 };
 
 SearchContainer.defaultProps = {

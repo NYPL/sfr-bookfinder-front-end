@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 /**
  * Create a link defaulting to an ebook "download" unless
@@ -11,9 +12,9 @@ import React from 'react';
  * @param {string} url
  * @return {string}
  */
-const generateLink = (url, eReaderUrl) => {
+const generateLink = (url, eReaderUrl, urlName) => {
   let link = `${url}`;
-  let linkText = 'Download';
+  let linkText = urlName || 'Download';
 
   if (url && url.includes('simplye')) {
     link = `${eReaderUrl}?url=${url}`;
@@ -25,16 +26,24 @@ const generateLink = (url, eReaderUrl) => {
   );
 };
 
-const EBookList = (props) => {
-  return (
-    <ul className="nypl-items-list">
-      {props.ebooks.map((ebook, ebookKey) => (
-        <li key={ebookKey.toString()}>
-          {generateLink(ebook.url, props.eReaderUrl)} {(ebook.epub_path) ? [ebook.epub_path.split('/').pop()] : ''}
-        </li>
-      ))}
-    </ul>
-  );
+const EBookList = ({ ebooks, eReaderUrl }) => (
+  <ul className="nypl-items-list">
+    {ebooks.map((item, ebookKey) => item.links.map((link, linkKey) => (
+      <li key={`${ebookKey.toString()}-${linkKey.toString()}`}>
+        {generateLink(link.url, eReaderUrl, link.rel_type)}
+      </li>
+      )))}
+  </ul>
+);
+
+EBookList.propTypes = {
+  ebooks: PropTypes.arrayOf(PropTypes.any),
+  eReaderUrl: PropTypes.string,
+};
+
+EBookList.defaultProps = {
+  ebooks: [],
+  eReaderUrl: '',
 };
 
 export default EBookList;

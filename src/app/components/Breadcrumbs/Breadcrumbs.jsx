@@ -52,7 +52,7 @@ const Breadcrumbs = (({ links, pageType, onClickHandler }) => {
 });
 
 Breadcrumbs.propTypes = {
-  links: PropTypes.array,
+  links: PropTypes.arrayOf(PropTypes.any),
   pageType: PropTypes.string,
   onClickHandler: PropTypes.func,
 };

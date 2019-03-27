@@ -1,9 +1,7 @@
 const fields = {
-  author: 'entities.name',
+  author: 'author',
   title: 'title',
-  subject: 'subjects.subject',
-  publDate: 'publicationDate',
-  publisher: 'publisher',
+  subject: 'subject',
 };
 
 export default fields;

@@ -1,3 +1,5 @@
+import { isArray as _isArray } from 'underscore';
+
 export const getRequestParams = (query = {}) => {
   const { q = '*' } = query;
   const { field = 'keyword' } = query;
@@ -7,72 +9,36 @@ export const getRequestParams = (query = {}) => {
 };
 
 /**
- * Format a single field query or field queries based on string sent. Strings
- * are broken up by word to AND them together by adding a separate field/value
- * object for each word given.
- *
+ * Strip punctuation and process spaces as plus signs for final split.
+ * ES characters to escape before sending: + - = && || > < ! ( ) { } [ ] ^ " ~ * ? : \ /
  * @param {string} queryString
- * @param {string} field
  *
  * @returns {string}
- */
-const addFieldQuery = (queryString, field = 'keyword') => {
-  if (!queryString) {
-    throw new Error('A valid query string must be passed');
-  }
-  const fieldQuery = [];
-  /**
-   * Strip punctuation and process spaces as plus signs for final split.
-   * ES characters to escape before sending: + - = && || > < ! ( ) { } [ ] ^ " ~ * ? : \ /
-   */
-  const queryArr = queryString.replace(/[=(&&)(||)><!(){}\[\]^"~\*\?:\/-]/g, '\$&').trim().replace(/\s+/g, '+').split('+');
-
-  // TODO: add an additional check on empty queries after the terms are processed.
-
-  fieldQuery.push({ field, value: queryArr.join(' ') });
-
-  return fieldQuery;
+*/
+const parseQuery = (queryString) => {
+  const queryArr = queryString.replace(/[=(&&)(||)><!(){}\[\]^"~\*\?:\/-]/g, '\$&')
+    .trim()
+    .replace(/\s+/g, '+')
+    .split('+')
+    .join(' ');
+  return queryArr;
 };
 
 /**
- * Uses a special format as provided by the ResearchNow Search API.
- * Format with possible values:
- * {
- *   queries:
- *   [{
- *        field: 'keyword',
- *        value: 'branch'
- *   }],
- *   filters:
- *   [{
- *        field: 'language',
- *        value: 'fr'
- *   }],
- *   sort:
- *   [{
- *        field: 'title.keyword',
- *        dir: 'asc'
- *   }],
- *   aggregations:
- *   [{
- *        type: 'terms',
- *        field: 'title.keyword'
- *   }],
- *   per_page: 10,
- *   page: 0
- * }
- *
- * @param {object} queryObj
+ * @param {string} query, {string} field
  * @return {object}
- */
-export const buildQueryBody = (queryObj = {}) => {
-  const queryBody = {};
-  if (queryObj.query) {
-    const { selectQuery, selectField } = queryObj.query;
-    queryBody.queries = addFieldQuery(selectQuery, selectField);
+*/
+export const buildQueryBody = (query, field = 'keyword') => {
+  if (!query) {
+    throw new Error('A valid query string must be passed');
   }
 
-  return queryBody;
+  let queryField = field;
+  if (_isArray(field)) {
+    queryField = field.join('|');
+  }
+  const parsedQuery = parseQuery(query);
+  return { query: parsedQuery, field: queryField };
 };
 
 export default {

@@ -1,11 +1,10 @@
+/* eslint-disable no-underscore-dangle */
 import React from 'react';
-import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import {
   isEmpty as _isEmpty,
 } from 'underscore';
-import ResultsRow from './ResultsRow';
-
+import ResultsListItem from './ResultsListItem';
 /**
  * ResultsList presents search results as a "grouped" list of books
  * with their associated editions provided by the ResultsRow component.
@@ -18,17 +17,6 @@ class ResultsList extends React.Component {
   constructor(props) {
     super(props);
     this.props = props;
-
-    this.showWorkDetail = this.showWorkDetail.bind(this);
-  }
-
-  showWorkDetail(event, workId) {
-    event.preventDefault();
-
-    this.props.fetchWork(workId)
-      .then(() => {
-        this.context.router.push(`/work?workId=${workId}`);
-      });
   }
 
   render() {
@@ -42,15 +30,13 @@ class ResultsList extends React.Component {
           <h2>Search Results</h2>
         </div>
         <ul className="nypl-results-list">
-          {this.props.results.map((result, i) => (
-              <li className="nypl-results-item" key={i.toString()}>
-                <h3>
-                  <Link onClick={event => this.showWorkDetail(event, result['_source'].uuid)} to={{ pathname: '/work', query: { workId: `${result['_source'].uuid}` } }}>
-                    {result['_source'].title}{(result['_source'].entities && Array.isArray(result['_source'].entities)) ? ` – ${result['_source'].entities[0].name}` : ''}
-                  </Link>
-                </h3>
-                <ResultsRow rows={result['_source'].instances} eReaderUrl={this.props.eReaderUrl} />
-              </li>
+          {this.props.results.map(result => (
+            <ResultsListItem
+              eReaderUrl={this.props.eReaderUrl}
+              item={result._source}
+              fetchWork={this.props.fetchWork}
+              key={result._source.uuid}
+            />
             ))}
         </ul>
       </div>
@@ -60,10 +46,14 @@ class ResultsList extends React.Component {
 
 ResultsList.propTypes = {
   eReaderUrl: PropTypes.string,
+  results: PropTypes.arrayOf(PropTypes.any),
+  fetchWork: PropTypes.func,
 };
 
 ResultsList.defaultProps = {
   eReaderUrl: '',
+  results: [],
+  fetchWork: () => {},
 };
 
 ResultsList.contextTypes = {

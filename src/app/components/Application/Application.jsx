@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
@@ -28,10 +29,10 @@ class Application extends React.Component {
 }
 
 Application.propTypes = {
-  match: PropTypes.object,
-  location: PropTypes.object,
-  history: PropTypes.object,
-  children: PropTypes.object,
+  match: PropTypes.objectOf(PropTypes.any),
+  location: PropTypes.objectOf(PropTypes.any),
+  history: PropTypes.objectOf(PropTypes.any),
+  children: PropTypes.objectOf(PropTypes.any),
   eReaderUrl: PropTypes.string,
 };
 

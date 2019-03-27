@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 /**
  * Present basic search metadata about the curren search or a "no results"
  * statement.
- * @param {object} props 
+ * @param {object} props
  * @return {string}
  */
 const ResultsMetadata = (props) => {
@@ -23,6 +24,14 @@ const ResultsMetadata = (props) => {
       {message}
     </div>
   );
+};
+
+ResultsMetadata.propTypes = {
+  metadata: PropTypes.objectOf(PropTypes.any),
+};
+
+ResultsMetadata.defaultProps = {
+  metadata: {},
 };
 
 export default ResultsMetadata;

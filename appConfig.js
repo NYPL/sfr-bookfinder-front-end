@@ -10,8 +10,8 @@ export default {
     production: 'http://epub-reader-env.dvgytju99m.us-east-1.elasticbeanstalk.com/reader',
   },
   api: {
-    development: 'https://dev-platform.nypl.org/api/v0.1/research-now',
-    production: 'https://dev-platform.nypl.org/api/v0.1/research-now',
+    development: 'https://dev-platform.nypl.org/api/v0.1/research-now/v2',
+    production: 'https://dev-platform.nypl.org/api/v0.1/research-now/v2',
     searchPath: '/search-api',
     recordPath: '/work',
   },

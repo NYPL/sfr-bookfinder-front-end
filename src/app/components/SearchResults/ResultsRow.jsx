@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   isEmpty as _isEmpty,
 } from 'underscore';
@@ -20,32 +21,57 @@ const ResultsRow = (props) => {
     return null;
   }
 
-  const items = props.rows.map(item => (
-    {
+  const items = props.rows.map((item) => {
+    let publisher = item && item.agents && item.agents.find(i => i.roles.indexOf('publisher') > -1);
+    publisher = publisher && publisher.name;
+    return {
       ebooks: (item.items) ? item.items : [],
-      pub_date: (item.pub_date) ? parseInt(item.pub_date) : null,
+      pub_date: (item.pub_date_display) ? item.pub_date_display : null,
       pub_place: (item.pub_place) ? item.pub_place : null,
-      publisher: (item.publisher) ? item.publisher : null,
-    }
-  ));
+      publisher,
+    };
+  });
 
   return (
     <ul className="nypl-items-list">
       {
-        items.map((element, key) => (
-          <li className="nypl-results-item" key={key.toString()}>
-            <div className="nypl-results-description">
-              {(element.ebooks) ? <EBookList ebooks={element.ebooks} eReaderUrl={props.eReaderUrl} /> : ''}
-              <span className="nypl-results-date">{element.pub_date}</span>
-              <span className="nypl-results-place">{element.pub_place}</span>
-              <span className="nypl-results-publisher">{element.publisher}</span>
-              <span className="nypl-results-info">{element.language}</span>
-            </div>
-          </li>
-        ))
+        items.map((item, key) => {
+          const isValid = (item.ebooks && item.ebooks.length > 0) ||
+            item.pub_date || item.pub_place || item.publisher || item.language;
+          if (!isValid) { return null; }
+          return (
+            <li className="nypl-results-item" key={key.toString()}>
+              <div className="nypl-results-description">
+                {(item.ebooks) ? <EBookList ebooks={item.ebooks} eReaderUrl={props.eReaderUrl} /> : ''}
+                { item.pub_date &&
+                  <span className="nypl-results-date">{item.pub_date}</span>
+                }
+                { item.pub_place &&
+                  <span className="nypl-results-place">{item.pub_place}</span>
+                }
+                { item.publisher &&
+                  <span className="nypl-results-publisher">{item.publisher}</span>
+                }
+                { item.language &&
+                  <span className="nypl-results-info">{item.language}</span>
+                }
+              </div>
+            </li>
+        );
+})
       }
     </ul>
   );
+};
+
+ResultsRow.propTypes = {
+  rows: PropTypes.arrayOf(PropTypes.object),
+  eReaderUrl: PropTypes.string,
+};
+
+ResultsRow.defaultProps = {
+  rows: [],
+  eReaderUrl: '',
 };
 
 export default ResultsRow;

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isEmpty as _isEmpty } from 'underscore';
 import { titleCase } from 'change-case';
 import SearchButton from '../Button/SearchButton';
 
@@ -17,7 +16,7 @@ class SearchForm extends React.Component {
   }
 
   componentDidMount() {
-    window.scrollTo(0, 0);
+    global.window.scrollTo(0, 0);
   }
 
   /**
@@ -71,7 +70,13 @@ class SearchForm extends React.Component {
     return (
       <div className="nypl-row">
         <div className="nypl-column-full">
-          <form className="nypl-omnisearch-form" action="/search" method="get" onSubmit={this.handleSubmit} onKeyPress={this.handleSubmit}>
+          <form
+            className="nypl-omnisearch-form"
+            action="/search"
+            method="get"
+            onSubmit={this.handleSubmit}
+            onKeyPress={this.handleSubmit}
+          >
             <div className="ebook-search-form">
               <div className="nypl-omnisearch">
                 <div className="nypl-text-field">
@@ -82,13 +87,11 @@ class SearchForm extends React.Component {
                       onChange={this.onFieldChange}
                       value={this.state.searchField}
                     >
-                      {this.props.allowedFields.map((field, key) => {
-                        return (
-                          <option value={field} key={key.toString()}>
-                            {titleCase(field)}
-                          </option>
-                        );
-                      })}
+                      {this.props.allowedFields.map((field, key) => (
+                        <option value={field} key={key.toString()}>
+                          {titleCase(field)}
+                        </option>
+                        ))}
                     </select>
                   </span>
                 </div>
@@ -122,9 +125,12 @@ class SearchForm extends React.Component {
 }
 
 SearchForm.propTypes = {
-  allowedFields: PropTypes.array,
+  allowedFields: PropTypes.arrayOf(PropTypes.any),
+  searchPost: PropTypes.func,
   searchQuery: PropTypes.string,
   searchField: PropTypes.string,
+  selectedField: PropTypes.func,
+  userQuery: PropTypes.func,
 };
 
 SearchForm.defaultProps = {
@@ -136,6 +142,9 @@ SearchForm.defaultProps = {
   ],
   searchQuery: '',
   searchField: 'keyword',
+  searchPost: () => {},
+  selectedField: () => {},
+  userQuery: () => {},
 };
 
 SearchForm.contextTypes = {

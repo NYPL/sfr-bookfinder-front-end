@@ -6,12 +6,13 @@ import ResultsList from './ResultsList';
 /**
  * Wrapper component for results lists which can contain a number of components
  * including search results, pagination, sorting/filtering components, etc.
- * @param {object} props 
+ * @param {object} props
  * @return {string|null}
  */
 const SearchResults = (props) => {
   const metadata = props.results && props.results.data && props.results.data.hits;
-  const hits = props.results && props.results.data && props.results.data.hits && props.results.data.hits.hits;
+  const hits = props.results && props.results.data &&
+    props.results.data.hits && props.results.data.hits.hits;
 
   if (!hits) {
     return null;
@@ -29,10 +30,14 @@ const SearchResults = (props) => {
 
 SearchResults.propTypes = {
   eReaderUrl: PropTypes.string,
+  results: PropTypes.objectOf(PropTypes.any),
+  fetchWork: PropTypes.func,
 };
 
 SearchResults.defaultProps = {
   eReaderUrl: '',
+  results: [],
+  fetchWork: () => {},
 };
 
 export default SearchResults;

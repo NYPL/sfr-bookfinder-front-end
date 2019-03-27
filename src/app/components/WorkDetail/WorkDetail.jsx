@@ -17,33 +17,7 @@ class WorkDetail extends React.Component {
   }
 
   componentDidMount() {
-    window.scrollTo(0, 0);
-  }
-
-  /**
-   * Convert JSON object to array for parsing detail elements into
-   * a definition list for display.
-   *
-   * @param {object} work
-   * @return {string|null}
-   */
-  workDetailsObject(work) {
-    return Object.keys(work).map(key => (
-      [key, work[key]]
-    ));
-  }
-
-  /**
-   * onClick handler for resetting state for the request back to the home page
-   * to return the user to a new search.
-   *
-   * @param {object} event
-   */
-  handleReset(event) {
-    event.preventDefault();
-
-    this.boundActions.resetSearch();
-    this.context.router.push('/');
+    global.window.scrollTo(0, 0);
   }
 
   render() {
@@ -51,6 +25,28 @@ class WorkDetail extends React.Component {
       throw new Error('Work prop is missing or empty');
     }
     const { work } = this.props;
+
+    /**
+     * onClick handler for resetting state for the request back to the home page
+     * to return the user to a new search.
+     *
+     * @param {object} event
+     */
+    const handleReset = (event) => {
+      event.preventDefault();
+
+      this.boundActions.resetSearch();
+      this.context.router.push('/');
+    };
+
+    /**
+     * Convert JSON object to array for parsing detail elements into
+     * a definition list for display.
+     *
+     * @param {object} work
+     * @return {string|null}
+     */
+    const workDetailsObject = workObj => Object.keys(workObj).map(key => [key, work[key]]);
 
     return (
       <main id="mainContent">
@@ -68,7 +64,7 @@ class WorkDetail extends React.Component {
                 },
               ]}
               pageType="details"
-              onClickHandler={this.handleReset.bind(this)}
+              onClickHandler={handleReset}
             />
           </div>
           <div className="nypl-row">
@@ -76,7 +72,7 @@ class WorkDetail extends React.Component {
               <h2>Work Detail</h2>
               <div id="nypl-item-details">
                 <DefinitionList
-                  data={this.workDetailsObject(work)}
+                  data={workDetailsObject(work)}
                   eReaderUrl={this.props.eReaderUrl}
                   dispatch={this.props.dispatch}
                   context={this.context}
@@ -91,7 +87,7 @@ class WorkDetail extends React.Component {
 }
 
 WorkDetail.propTypes = {
-  work: PropTypes.object,
+  work: PropTypes.objectOf(PropTypes.any),
   searchQuery: PropTypes.string,
   searchField: PropTypes.string,
   eReaderUrl: PropTypes.string,
@@ -111,13 +107,11 @@ WorkDetail.contextTypes = {
   history: PropTypes.object,
 };
 
-const mapStateToProps = (state, ownProps) => (
-  {
-    work: state.workDetail && state.workDetail.work,
-    searchQuery: state.searchQuery || ownProps.searchQuery,
-    searchField: state.searchField || ownProps.searchField,
-  }
-);
+const mapStateToProps = (state, ownProps) => ({
+  work: state.workDetail && state.workDetail.work,
+  searchQuery: state.searchQuery || ownProps.searchQuery,
+  searchField: state.searchField || ownProps.searchField,
+});
 
 export default connect(
   mapStateToProps,

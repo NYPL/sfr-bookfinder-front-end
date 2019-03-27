@@ -1,58 +1,285 @@
 {
-  "results": [
-    {
-      "_id": 1,
+  "took": 160,
+  "timed_out": false,
+  "_shards": {
+    "total": 5,
+    "successful": 5,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": 1,
+    "max_score": 40.325024,
+    "hits": [{
+      "_index": "sfr_test",
+      "_type": "doc",
+      "_id": "9561dfa9-2cac-4780-bc73-8ac99c412098",
+      "_score": 40.325024,
       "_source": {
-        "title": "Title One",
-        "entities": [
+        "date_modified": "2019-03-21T15:10:39.725420",
+        "title": "Chicago theatre diagrams / The Drake Hotel Company.",
+        "uuid": "9561dfa9-2cac-4780-bc73-8ac99c412098",
+        "alt_titles": [
+          "Chicago theatre diagrams"
+        ],
+        "subjects": [{
+            "authority": "fast",
+            "uri": "1149370",
+            "subject": "Theaters"
+          },
           {
-            "name": "Gallahad"
+            "authority": "fast",
+            "uri": "1204048",
+            "subject": "Illinois--Chicago"
+          },
+          {
+            "authority": "fast",
+            "uri": "(OCoLC)fst01149370",
+            "subject": "Theaters."
+          },
+          {
+            "authority": "lcsh",
+            "subject": "Chicago (Ill.) -- Directories. -- Theaters"
+          },
+          {
+            "authority": "fast",
+            "uri": "(OCoLC)fst01204048",
+            "subject": "Illinois -- Chicago."
+          },
+          {
+            "authority": "fast",
+            "uri": "(OCoLC)fst01423796",
+            "subject": "Directories."
           }
         ],
-        "instances": [
+        "agents": [{
+          "name": "Drake Hotel Company, Chicago",
+          "sort_name": "Drake Hotel Company, Chicago",
+          "roles": [
+            "author"
+          ]
+        }],
+        "identifiers": [{
+            "id_type": "hathi",
+            "identifier": "102560811"
+          },
           {
-            "title": "Title One",
-            "items": [{
-              "url": "http://localhost/epubs/epubOne.epub",
-              "epub_path": "nypl.org/ebook/100.no.images"
+            "id_type": "hathi",
+            "identifier": "uiuo.ark:/13960/t3hx8t99x"
+          },
+          {
+            "id_type": "generic",
+            "identifier": "2940740"
+          },
+          {
+            "id_type": "oclc",
+            "identifier": "3818869"
+          },
+          {
+            "id_type": "owi",
+            "identifier": "12772854"
+          }
+        ],
+        "measurements": [{
+            "quantity": "government_document",
+            "value": 0,
+            "weight": 1,
+            "taken_at": "2019-03-21T06:16:49"
+          },
+          {
+            "quantity": "editions",
+            "value": 2,
+            "weight": 1,
+            "taken_at": "2019-03-21T06:06:18"
+          },
+          {
+            "quantity": "holdings",
+            "value": 7,
+            "weight": 1,
+            "taken_at": "2019-03-21T06:06:18"
+          },
+          {
+            "quantity": "eholdings",
+            "value": 0,
+            "weight": 1,
+            "taken_at": "2019-03-21T06:06:18"
+          }
+        ],
+        "instances": [{
+            "extent": "33 pages :; illustrations, diagrams ;; 29 cm",
+            "language": [{
+              "iso_2": "en",
+              "iso_3": "eng",
+              "language": "English"
             }],
-            "pub_date": "511",
-            "pub_place": "England",
-            "publisher": "Merlin",
-            "language": "enm"
-          }
-        ],
-        "ids": [
+            "pub_place": "Chicago :",
+            "title": "Chicago theatre diagrams /",
+            "volume": "",
+            "pub_date": {
+              "gte": "1922-03-21",
+              "lte": null
+            },
+            "pub_date_display": "1922.",
+            "identifiers": [{
+                "id_type": "hathi",
+                "identifier": "102560811"
+              },
+              {
+                "id_type": "hathi",
+                "identifier": "uiuo.ark:/13960/t3hx8t99x"
+              },
+              {
+                "id_type": "generic",
+                "identifier": "2940740"
+              },
+              {
+                "id_type": "oclc",
+                "identifier": "3818869"
+              },
+              {
+                "id_type": "lcc",
+                "identifier": "PN2277.C4"
+              }
+            ],
+            "agents": [{
+                "name": "The Drake Hotel Company",
+                "sort_name": "The Drake Hotel Company",
+                "roles": [
+                  "publisher"
+                ]
+              },
+              {
+                "name": "Drake Hotel Co",
+                "sort_name": "Drake Hotel Co",
+                "roles": [
+                  "publisher"
+                ]
+              }
+            ],
+            "measurements": [{
+                "quantity": "holdings",
+                "taken_at": "2019-03-21T06:06:18",
+                "value": 6,
+                "weight": 1
+              },
+              {
+                "quantity": "digitalHoldings",
+                "taken_at": "2019-03-21T06:06:18",
+                "value": 0,
+                "weight": 1
+              }
+            ],
+            "items": [{
+              "content_type": "ebook",
+              "modified": "2019-03-21T06:16:49",
+              "source": "hathitrust",
+              "identifiers": [{
+                "id_type": "hathi",
+                "identifier": "uiuo.ark:/13960/t3hx8t99x"
+              }],
+              "agents": [{
+                  "name": "UIU",
+                  "sort_name": "UIU",
+                  "roles": [
+                    "repository"
+                  ]
+                },
+                {
+                  "name": "University of Illinois at Urbana-Champaign",
+                  "sort_name": "University of Illinois at Urbana-Champaign",
+                  "roles": [
+                    "responsible_organization"
+                  ]
+                },
+                {
+                  "name": "Internet Archive",
+                  "sort_name": "Internet Archive",
+                  "roles": [
+                    "digitizer"
+                  ]
+                }
+              ],
+              "links": [{
+                  "media_type": "text/html",
+                  "rel_type": "external_view",
+                  "url": "https://babel.hathitrust.org/cgi/pt?id=uiuo.ark:/13960/t3hx8t99x"
+                },
+                {
+                  "media_type": "application/pdf",
+                  "rel_type": "pdf_download",
+                  "url": "https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=uiuo.ark:/13960/t3hx8t99x"
+                }
+              ],
+              "rights": [{
+                "license": "public_domain",
+                "rights_reason": "bibliographically-dervied by automatic processes",
+                "rights_statement": "Public Domain",
+                "source": "hathi_trust",
+                "copyright_date": {
+                  "gte": "1922-01-01",
+                  "lte": "1922-12-31"
+                },
+                "copyright_date_display": "1922"
+              }]
+            }],
+            "rights": [{
+              "license": "public_domain",
+              "rights_reason": "bibliographically-dervied by automatic processes",
+              "rights_statement": "Public Domain",
+              "source": "hathi_trust",
+              "copyright_date": {
+                "gte": "1922-01-01",
+                "lte": "1922-12-31"
+              },
+              "copyright_date_display": "1922"
+            }]
+          },
           {
-            "identifier": "http://localhost/epubs/one"
+            "extent": "36 pages :; illustrations, diagrams ;; 27 cm",
+            "language": [{
+              "iso_2": "en",
+              "iso_3": "eng",
+              "language": "English"
+            }],
+            "pub_place": "Chicago, Ill. :",
+            "title": "Chicago theatre diagrams /",
+            "pub_date": {
+              "gte": "1929-03-21",
+              "lte": null
+            },
+            "pub_date_display": "1929.",
+            "identifiers": [{
+                "id_type": "oclc",
+                "identifier": "22348237"
+              },
+              {
+                "id_type": "lcc",
+                "identifier": "PN2277.C4"
+              }
+            ],
+            "agents": [{
+              "name": "Drake Hotel Co",
+              "sort_name": "Drake Hotel Co",
+              "roles": [
+                "publisher"
+              ]
+            }],
+            "measurements": [{
+                "quantity": "holdings",
+                "taken_at": "2019-03-21T06:06:18",
+                "value": 1,
+                "weight": 1
+              },
+              {
+                "quantity": "digitalHoldings",
+                "taken_at": "2019-03-21T06:06:18",
+                "value": 0,
+                "weight": 1
+              }
+            ]
           }
         ]
       }
-    },
-    {
-      "_id": 2,
-      "_source": {
-        "title": "Title Two",
-        "entities": [
-          {
-            "name": "Ivanhoe"
-          }
-        ],
-        "instances": [
-          {
-            "title": "Title Two",
-            "pub_date": "513",
-            "pub_place": "England",
-            "publisher": "",
-            "language": "enm"
-          }
-        ],
-        "ids": [
-          {
-            "identifier": "http://localhost/epubs/two"
-          }
-        ]
-      }
-    }
-  ]
+    }]
+  }
 }

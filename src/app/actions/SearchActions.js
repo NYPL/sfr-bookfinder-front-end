@@ -12,40 +12,30 @@ export const Actions = {
   RESET_SEARCH: 'RESET_SEARCH',
 };
 
-export const userQuery = (query) => {
-  return {
-    type: Actions.SET_QUERY,
-    searchQuery: query,
-  };
-};
+export const userQuery = query => ({
+  type: Actions.SET_QUERY,
+  searchQuery: query,
+});
 
-export const selectedField = (field) => {
-  return {
-    type: Actions.SET_FIELD,
-    searchField: field,
-  };
-};
+export const selectedField = field => ({
+  type: Actions.SET_FIELD,
+  searchField: field,
+});
 
-export const searchResults = (results) => {
-  return {
-    type: Actions.SEARCH,
-    results,
-  };
-};
+export const searchResults = results => ({
+  type: Actions.SEARCH,
+  results,
+});
 
-export const workDetail = (work) => {
-  return {
-    type: Actions.FETCH_WORK,
-    work,
-  };
-};
+export const workDetail = work => ({
+  type: Actions.FETCH_WORK,
+  work,
+});
 
-export const resetSearch = () => {
-  return {
-    type: Actions.RESET_SEARCH,
-    reset: true,
-  };
-};
+export const resetSearch = () => ({
+  type: Actions.RESET_SEARCH,
+  reset: true,
+});
 
 const appEnv = process.env.APP_ENV || 'production';
 const apiUrl = appConfig.api[appEnv];
@@ -54,44 +44,39 @@ const searchUrl = apiUrl + searchPath;
 const recordUrl = apiUrl + recordPath;
 
 export const searchPost = (query, field) => {
-  const selectQuery = query || '*';
-  const selectField = (field && selectFields[field]) ? selectFields[field] : 'keyword';
-  const queryBody = buildQueryBody({ query: { selectField, selectQuery } });
+  const uQuery = query || '*';
+  const sField = (field && selectFields[field]) ? selectFields[field] : 'keyword';
+  const queryBody = buildQueryBody(uQuery, sField);
 
-  return (dispatch) => {
-    return axios.post(searchUrl, queryBody)
-      .then((resp) => {
-        if (resp.data) {
-          dispatch(searchResults(resp.data));
-        }
-      })
-      .catch((error) => {
-        console.log('An error occurred during searchPost', error.message);
-        throw new Error('An error occurred during searchPost', error.message);
-      });
-  };
+  return dispatch => axios.post(searchUrl, queryBody)
+    .then((resp) => {
+      if (resp.data) {
+        dispatch(searchResults(resp.data));
+      }
+    })
+    .catch((error) => {
+      console.log('An error occurred during searchPost', error.message);
+      throw new Error('An error occurred during searchPost', error.message);
+    });
 };
 
-export const fetchWork = (workId) => {
-  return (dispatch) => {
-    return axios.get(recordUrl, { params: { recordID: workId } })
-      .then((resp) => {
-        if (resp.data) {
-          dispatch(workDetail(resp.data));
-        }
-      })
-      .catch((error) => {
-        console.log('An error occurred during fetchWork', error.message);
-        throw new Error('An error occurred during fetchWork', error.message);
-      });
-  };
-};
+export const fetchWork = workId => dispatch =>
+  axios.get(recordUrl, { params: { identifier: workId } })
+    .then((resp) => {
+      if (resp.data) {
+        dispatch(workDetail(resp.data));
+      }
+    })
+    .catch((error) => {
+      console.log('An error occurred during fetchWork', error.message);
+      throw new Error('An error occurred during fetchWork', error.message);
+    });
 
 export const serverPost = (query, field) => {
   // Need a parsed query input to use for each filter
-  const selectQuery = query || '*';
-  const selectField = (field && selectFields[field]) ? selectFields[field] : 'keyword';
-  const queryBody = buildQueryBody({ query: { selectField, selectQuery } });
+  const uQuery = query || '*';
+  const sField = (field && selectFields[field]) ? selectFields[field] : 'keyword';
+  const queryBody = buildQueryBody(uQuery, sField);
 
   return axios.post(searchUrl, queryBody)
     .then((resp) => {
@@ -106,17 +91,15 @@ export const serverPost = (query, field) => {
     });
 };
 
-export const serverFetchWork = (workId) => {
-  return axios.get(recordUrl, { params: { recordID: workId } })
-    .then((resp) => {
-      serverState.workDetail = { work: resp.data };
-      return serverState;
-    })
-    .catch((error) => {
-      console.log('An error occurred during serverFetchWork', error.message);
-      throw new Error('An error occurred during serverFetchWork', error.message);
-    });
-};
+export const serverFetchWork = workId => axios.get(recordUrl, { params: { identifier: workId } })
+  .then((resp) => {
+    serverState.workDetail = { work: resp.data };
+    return serverState;
+  })
+  .catch((error) => {
+    console.log('An error occurred during serverFetchWork', error.message);
+    throw new Error('An error occurred during serverFetchWork', error.message);
+  });
 
 export default {
   searchPost,
