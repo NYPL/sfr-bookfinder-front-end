@@ -20,21 +20,6 @@ class WorkDetail extends React.Component {
     global.window.scrollTo(0, 0);
   }
 
-  /**
-   * Convert JSON object to array for parsing detail elements into
-   * a definition list for display.
-   *
-   * @param {object} work
-   * @return {string|null}
-   */
-  workDetailsObject() {
-    const { work } = this.props;
-    return Object.keys(work).map(key => (
-      [key, work[key]]
-    ));
-  }
-
-
   render() {
     if (!this.props.work && _isEmpty(this.props.work)) {
       throw new Error('Work prop is missing or empty');
@@ -42,17 +27,26 @@ class WorkDetail extends React.Component {
     const { work } = this.props;
 
     /**
-   * onClick handler for resetting state for the request back to the home page
-   * to return the user to a new search.
-   *
-   * @param {object} event
-   */
+     * onClick handler for resetting state for the request back to the home page
+     * to return the user to a new search.
+     *
+     * @param {object} event
+     */
     const handleReset = (event) => {
       event.preventDefault();
 
       this.boundActions.resetSearch();
       this.context.router.push('/');
     };
+
+    /**
+     * Convert JSON object to array for parsing detail elements into
+     * a definition list for display.
+     *
+     * @param {object} work
+     * @return {string|null}
+     */
+    const workDetailsObject = workObj => Object.keys(workObj).map(key => [key, work[key]]);
 
     return (
       <main id="mainContent">
@@ -78,7 +72,7 @@ class WorkDetail extends React.Component {
               <h2>Work Detail</h2>
               <div id="nypl-item-details">
                 <DefinitionList
-                  data={this.workDetailsObject()}
+                  data={workDetailsObject(work)}
                   eReaderUrl={this.props.eReaderUrl}
                   dispatch={this.props.dispatch}
                   context={this.context}
@@ -113,13 +107,11 @@ WorkDetail.contextTypes = {
   history: PropTypes.object,
 };
 
-const mapStateToProps = (state, ownProps) => (
-  {
-    work: state.workDetail && state.workDetail.work,
-    searchQuery: state.searchQuery || ownProps.searchQuery,
-    searchField: state.searchField || ownProps.searchField,
-  }
-);
+const mapStateToProps = (state, ownProps) => ({
+  work: state.workDetail && state.workDetail.work,
+  searchQuery: state.searchQuery || ownProps.searchQuery,
+  searchField: state.searchField || ownProps.searchField,
+});
 
 export default connect(
   mapStateToProps,

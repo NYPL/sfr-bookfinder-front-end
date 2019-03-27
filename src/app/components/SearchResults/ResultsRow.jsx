@@ -37,7 +37,7 @@ const ResultsRow = (props) => {
       {
         items.map((item, key) => {
           const isValid = (item.ebooks && item.ebooks.length > 0) ||
-          item.pub_date || item.pub_place || item.publisher || item.language;
+            item.pub_date || item.pub_place || item.publisher || item.language;
           if (!isValid) { return null; }
           return (
             <li className="nypl-results-item" key={key.toString()}>

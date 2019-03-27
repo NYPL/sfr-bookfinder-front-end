@@ -84,7 +84,7 @@ export const DefinitionList = ({
                 <Link
                   onClick={event => newSearchRequest(event, `\"${entity.name}\"`, 'author')}
                   to={{ pathname: '/search', query: { q: `\"${entity.name}\"`, field: 'author' } }}
-                >{entity.name}, {entity.roles.map(role => role)}
+                >{entity.name}, {entity.roles.join(', ')}
                 </Link>
               </li>
             ))}
