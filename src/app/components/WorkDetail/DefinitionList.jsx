@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Html5Entities } from 'html-entities';
 import { Link } from 'react-router';
 import { isEmpty as _isEmpty } from 'underscore';
 import EBookList from '../List/EBookList';
-import { searchPost, userQuery, selectedField } from '../../actions/SearchActions';
 
+const htmlEntities = new Html5Entities();
 const elements = ['title', 'agents', 'instances', 'subjects', 'language'];
 const sorting = ['title', 'language', 'agents', 'subjects', 'instances'];
 export const labels = {
@@ -22,26 +23,9 @@ export const labels = {
  * @param {object} props
  */
 export const DefinitionList = ({
-  dispatch, eReaderUrl, data, context,
+  eReaderUrl, data,
 }) => {
   data.sort((a, b) => sorting.indexOf(a[0]) - sorting.indexOf(b[0]));
-  /**
-   * onClick handler for browse searches.
-   *
-   * @param {object} event
-   * @param {string} query
-   * @param {string} field
-   */
-  const newSearchRequest = (event, query, field) => {
-    event.preventDefault();
-
-    dispatch(userQuery(query));
-    dispatch(selectedField(field));
-    dispatch(searchPost(query, field))
-      .then(() => {
-        context.router.push(`/search?q=${query}&field=${field}`);
-      });
-  };
 
   /**
    * Handle elements with array values as definitions. Authorities are linked to
@@ -60,7 +44,8 @@ export const DefinitionList = ({
     let list = [...entries];
     if (type === 'instances') {
       list = list.map((item) => {
-        let publisher = item && item.agents && item.agents.find(i => i.roles.indexOf('publisher') > -1);
+        let publisher =
+          item && item.agents && item.agents.find(i => i.roles.indexOf('publisher') > -1);
         publisher = publisher && publisher.name;
         return Object.assign({}, item, { publisher });
       });
@@ -70,9 +55,7 @@ export const DefinitionList = ({
         return (
           <ul>
             {list.map((entity, i) => (
-              <li key={i.toString()}>
-                {entity.language}
-              </li>
+              <li key={i.toString()}>{entity.language}</li>
             ))}
           </ul>
         );
@@ -82,9 +65,9 @@ export const DefinitionList = ({
             {list.map((entity, i) => (
               <li key={i.toString()}>
                 <Link
-                  onClick={event => newSearchRequest(event, `\"${entity.name}\"`, 'author')}
                   to={{ pathname: '/search', query: { q: `\"${entity.name}\"`, field: 'author' } }}
-                >{entity.name}, {entity.roles.join(', ')}
+                >
+                  {htmlEntities.decode(entity.name)}, {entity.roles.join(', ')}
                 </Link>
               </li>
             ))}
@@ -97,9 +80,12 @@ export const DefinitionList = ({
             {list.map((subject, i) => (
               <li key={i.toString()}>
                 <Link
-                  onClick={event => newSearchRequest(event, `\"${subject.subject}\"`, 'subject')}
-                  to={{ pathname: '/search', query: { q: `\"${subject.subject}\"`, field: 'subject' } }}
-                >{subject.subject}
+                  to={{
+                    pathname: '/search',
+                    query: { q: `\"${subject.subject}\"`, field: 'subject' },
+                  }}
+                >
+                  {Html5Entities.decode(subject.subject)}
                 </Link>
               </li>
             ))}
@@ -119,22 +105,25 @@ export const DefinitionList = ({
             </thead>
             <tbody>
               {list.map((instance, i) => {
-                const isValid = (instance.items && instance.items.length > 0) ||
-                (instance.pub_date && instance.pub_date_display) || instance.pub_place
-                || instance.publisher;
+                const isValid =
+                  (instance.items && instance.items.length > 0) ||
+                  (instance.pub_date && instance.pub_date_display) ||
+                  instance.pub_place ||
+                  instance.publisher;
                 if (!isValid) {
                   return null;
                 }
                 return (
                   <tr key={i.toString()}>
-                    <td>{(instance.items) ?
-                      <EBookList
-                        ebooks={instance.items}
-                        eReaderUrl={eReaderUrl}
-                      /> : ''}
+                    <td>
+                      {instance.items ? (
+                        <EBookList ebooks={instance.items} eReaderUrl={eReaderUrl} />
+                      ) : (
+                        ''
+                      )}
                     </td>
                     <td>{instance.pub_date ? instance.pub_date_display : ''} </td>
-                    <td>{(instance.pub_place) ? `${instance.pub_place}` : ''}</td>
+                    <td>{instance.pub_place ? `${instance.pub_place}` : ''}</td>
                     <td>{instance.publisher}</td>
                   </tr>
                 );
@@ -159,35 +148,28 @@ export const DefinitionList = ({
       return null;
     }
 
-    const detailsObject = defsData.map(entry => (
-      {
-        term: entry[0],
-        definition: (Array.isArray(entry[1])) ? parseEntries(entry[0], entry[1]) : entry[1],
-      }
-    ));
+    const detailsObject = defsData.map(entry => ({
+      term: entry[0],
+      definition: Array.isArray(entry[1]) ? parseEntries(entry[0], entry[1]) : entry[1],
+    }));
 
     return detailsObject.map(item =>
-      ((elements.includes(item.term)) ? ([
-        (<dt>{labels[item.term]}</dt>),
-        (<dd>{item.definition}</dd>),
-      ]) : null));
+      (elements.includes(item.term)
+        ? [<dt>{labels[item.term]}</dt>, <dd>{item.definition}</dd>]
+        : null));
   };
 
-  return (<dl>{getDefinitions(data)}</dl>);
+  return <dl>{getDefinitions(data)}</dl>;
 };
 
 DefinitionList.propTypes = {
   data: PropTypes.arrayOf(PropTypes.any),
   eReaderUrl: PropTypes.string,
-  dispatch: PropTypes.func,
-  context: PropTypes.objectOf(PropTypes.any),
 };
 
 DefinitionList.defaultProps = {
   data: [],
   eReaderUrl: '',
-  dispatch: () => {},
-  context: {},
 };
 
 export default DefinitionList;

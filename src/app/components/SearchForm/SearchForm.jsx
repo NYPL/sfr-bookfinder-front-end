@@ -58,12 +58,9 @@ class SearchForm extends React.Component {
     }
 
     const terms = this.state.searchQuery.trim().replace(/\s+/g, ' ');
-
-    this.props.searchPost(terms, this.state.searchField)
-      .then(() => {
-        const encodedUserInput = encodeURIComponent(terms);
-        this.context.router.push(`/search?q=${encodedUserInput}&field=${this.state.searchField}`);
-      });
+    const encodedUserInput = encodeURIComponent(terms);
+    const path = `/search?q=${encodedUserInput}&field=${this.state.searchField}`;
+    this.context.router.push(path);
   }
 
   render() {
@@ -91,7 +88,7 @@ class SearchForm extends React.Component {
                         <option value={field} key={key.toString()}>
                           {titleCase(field)}
                         </option>
-                        ))}
+                      ))}
                     </select>
                   </span>
                 </div>
@@ -126,7 +123,6 @@ class SearchForm extends React.Component {
 
 SearchForm.propTypes = {
   allowedFields: PropTypes.arrayOf(PropTypes.any),
-  searchPost: PropTypes.func,
   searchQuery: PropTypes.string,
   searchField: PropTypes.string,
   selectedField: PropTypes.func,
@@ -134,15 +130,9 @@ SearchForm.propTypes = {
 };
 
 SearchForm.defaultProps = {
-  allowedFields: [
-    'keyword',
-    'title',
-    'author',
-    'subject',
-  ],
+  allowedFields: ['keyword', 'title', 'author', 'subject'],
   searchQuery: '',
   searchField: 'keyword',
-  searchPost: () => {},
   selectedField: () => {},
   userQuery: () => {},
 };
