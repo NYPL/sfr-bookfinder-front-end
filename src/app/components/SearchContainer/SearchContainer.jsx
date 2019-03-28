@@ -49,8 +49,19 @@ class SearchContainer extends React.Component {
 
   render() {
     const { query } = this.props.location;
-    const searchQuery = query && query.q ? query.q : this.props.searchQuery;
-    const selectedField = query && query.field ? query.field : this.props.searchField;
+    let { searchQuery } = this.props;
+    if (query && query.showQuery) {
+      searchQuery = query.showQuery;
+    } else if (query && query.q) {
+      searchQuery = query.q;
+    }
+    let selectedField = this.props.searchField;
+    if (query && query.showField) {
+      selectedField = query.showField;
+    } else if (query && query.field) {
+      selectedField = query.field;
+    }
+
     const pageType = _isEmpty(this.props.searchResults) ? 'home' : 'results';
     /**
      * onClick handler for resetting state for the request back to the home page

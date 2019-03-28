@@ -22,11 +22,26 @@ export const labels = {
  *
  * @param {object} props
  */
-export const DefinitionList = ({
-  eReaderUrl, data,
-}) => {
+export const DefinitionList = ({ eReaderUrl, data }) => {
   data.sort((a, b) => sorting.indexOf(a[0]) - sorting.indexOf(b[0]));
-
+  const linkToAuthor = (author) => {
+    if (author.viaf) {
+      return {
+        q: author.viaf,
+        field: 'viaf',
+        showQuery: `\"${author.name}\"`,
+        showField: 'author',
+      };
+    } else if (author.lcnaf) {
+      return {
+        q: author.lcnaf,
+        field: 'lcnaf',
+        showQuery: `\"${author.name}\"`,
+        showField: 'author',
+      };
+    }
+    return { q: `\"${author.name}\"`, field: 'author' };
+  };
   /**
    * Handle elements with array values as definitions. Authorities are linked to
    * /search as new general searches with URL parameters. Items are mapped to a table
@@ -64,11 +79,31 @@ export const DefinitionList = ({
           <ul>
             {list.map((entity, i) => (
               <li key={i.toString()}>
-                <Link
-                  to={{ pathname: '/search', query: { q: `\"${entity.name}\"`, field: 'author' } }}
-                >
+                <Link to={{ pathname: '/search', query: linkToAuthor(entity) }}>
                   {htmlEntities.decode(entity.name)}, {entity.roles.join(', ')}
                 </Link>
+                {(entity.birth_date_display || entity.death_date_display) && <span> (</span>}
+                {entity.birth_date_display && <span>{entity.birth_date_display}</span>}
+                {entity.death_date_display && <span> -- {entity.death_date_display}</span>}
+                {(entity.birth_date_display || entity.death_date_display) && <span>) </span>}
+                {entity.viaf && (
+                  <a
+                    target="_blank"
+                    href={`https://viaf.org/viaf/${entity.viaf}`}
+                    rel="noopener noreferrer"
+                  >
+                    (viaf)
+                  </a>
+                )}
+                {entity.lcnaf && (
+                  <a
+                    target="_blank"
+                    href={`http://id.loc.gov/authorities/names/${entity.lcnaf}.html`}
+                    rel="noopener noreferrer"
+                  >
+                    (lcnaf)
+                  </a>
+                )}
               </li>
             ))}
           </ul>

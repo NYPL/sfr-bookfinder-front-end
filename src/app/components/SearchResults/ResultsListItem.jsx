@@ -7,12 +7,22 @@ import ResultsRow from './ResultsRow';
 
 const htmlEntities = new Html5Entities();
 
+const getAuthor = (item) => {
+  if (item.agents && _isArray(item.agents) && item.agents.length > 0) {
+    const agent = item.agents.find(i => i.roles.indexOf('author') > -1);
+    if (agent) {
+      return ` – ${agent.name}`;
+    }
+  }
+  return '';
+};
+
 const ResultsListItem = ({ item, eReaderUrl }) => (
   <li className="nypl-results-item">
     <h3>
       <Link to={{ pathname: '/work', query: { workId: `${item.uuid}` } }}>
         {htmlEntities.decode(item.title)}
-        {item.entities && _isArray(item.entities) ? ` – ${item.entities[0].name}` : ''}
+        {getAuthor(item)}
       </Link>
     </h3>
     <ResultsRow rows={item.instances} eReaderUrl={eReaderUrl} />
