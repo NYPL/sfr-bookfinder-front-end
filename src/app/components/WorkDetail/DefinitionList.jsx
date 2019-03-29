@@ -31,6 +31,14 @@ export const DefinitionList = ({ eReaderUrl, data }) => {
     showQuery: `"${author.name}"`,
     showField: 'author',
   });
+  const birthDate = entity => (
+    <span>
+      {(entity.birth_date_display || entity.death_date_display) && <span> (</span>}
+      {entity.birth_date_display && <span>{entity.birth_date_display}</span>}
+      {entity.death_date_display && <span> -- {entity.death_date_display}</span>}
+      {(entity.birth_date_display || entity.death_date_display) && <span>) </span>}
+    </span>
+  );
   /**
    * Handle elements with array values as definitions. Authorities are linked to
    * /search as new general searches with URL parameters. Items are mapped to a table
@@ -71,10 +79,7 @@ export const DefinitionList = ({ eReaderUrl, data }) => {
                 <Link to={{ pathname: '/search', query: linkToAuthor(entity) }}>
                   {htmlEntities.decode(entity.name)}, {entity.roles.join(', ')}
                 </Link>
-                {(entity.birth_date_display || entity.death_date_display) && <span> (</span>}
-                {entity.birth_date_display && <span>{entity.birth_date_display}</span>}
-                {entity.death_date_display && <span> -- {entity.death_date_display}</span>}
-                {(entity.birth_date_display || entity.death_date_display) && <span>) </span>}
+                {birthDate(entity)}
                 {entity.viaf && (
                   <a
                     target="_blank"
