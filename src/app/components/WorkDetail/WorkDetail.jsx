@@ -7,6 +7,7 @@ import { isEmpty as _isEmpty } from 'underscore';
 import { DefinitionList } from './DefinitionList';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import * as searchActions from '../../actions/SearchActions';
+import WorkHeader from './WorkHeader';
 
 class WorkDetail extends React.Component {
   constructor(props) {
@@ -40,7 +41,6 @@ class WorkDetail extends React.Component {
     if (!this.props.work && _isEmpty(this.props.work)) {
       return null;
     }
-    const { work } = this.props;
 
     /**
      * onClick handler for resetting state for the request back to the home page
@@ -85,7 +85,12 @@ class WorkDetail extends React.Component {
           </div>
           <div className="nypl-row">
             <div className="nypl-column-full">
-              <h2>Work Detail</h2>
+              <div className="nypl-item-header">
+                <WorkHeader
+                  data={work}
+                />
+              </div>
+
               <div id="nypl-item-details">
                 <DefinitionList
                   data={workDetailsObject(work)}

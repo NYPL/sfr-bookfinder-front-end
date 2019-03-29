@@ -1,0 +1,29 @@
+.nypl-item-header {
+  .nypl-item-header-image {
+    float: left;
+    width: 125px;
+  }
+
+  .nypl-item-header-column {
+    float: left;
+    .nypl-item-header-title {
+      font-weight: bold;
+    }
+    .nypl-item-header-author {
+      ul {
+        list-style: none;
+        margin: 0;
+        display: inline-block;
+        li {
+          margin: 0;
+          display: inline-block;
+        }
+      }
+    }
+  }
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
