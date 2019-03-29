@@ -9,9 +9,7 @@ import detail from '../fixtures/work-detail.json';
 
 describe('DefinitionList', () => {
   let component;
-  const detailArray = Object.keys(detail).map(key => (
-    [key, detail[key]]
-  ));
+  const detailArray = Object.keys(detail).map(key => [key, detail[key]]);
 
   before(() => {
     component = shallow(<DefinitionList data={detailArray} />);
@@ -44,7 +42,7 @@ describe('DefinitionList', () => {
 
   it('should have a list of Authors', () => {
     const authors = component.find('ul');
-    expect(authors.nodes[0].props.children).to.have.length(1);
+    expect(authors.nodes[1].props.children).to.have.length(5);
   });
 
   describe('EBookList', () => {

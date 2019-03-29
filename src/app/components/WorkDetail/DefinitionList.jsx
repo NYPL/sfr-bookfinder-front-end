@@ -24,24 +24,13 @@ export const labels = {
  */
 export const DefinitionList = ({ eReaderUrl, data }) => {
   data.sort((a, b) => sorting.indexOf(a[0]) - sorting.indexOf(b[0]));
-  const linkToAuthor = (author) => {
-    if (author.viaf) {
-      return {
-        q: author.viaf,
-        field: 'viaf',
-        showQuery: `\"${author.name}\"`,
-        showField: 'author',
-      };
-    } else if (author.lcnaf) {
-      return {
-        q: author.lcnaf,
-        field: 'lcnaf',
-        showQuery: `\"${author.name}\"`,
-        showField: 'author',
-      };
-    }
-    return { q: `\"${author.name}\"`, field: 'author' };
-  };
+  const getIdentifier = author => (author.viaf && 'viaf') || (author.lcnaf && 'lcnaf') || 'name';
+  const linkToAuthor = author => ({
+    q: author[getIdentifier(author)],
+    field: getIdentifier(author),
+    showQuery: `"${author.name}"`,
+    showField: 'author',
+  });
   /**
    * Handle elements with array values as definitions. Authorities are linked to
    * /search as new general searches with URL parameters. Items are mapped to a table
@@ -117,7 +106,7 @@ export const DefinitionList = ({ eReaderUrl, data }) => {
                 <Link
                   to={{
                     pathname: '/search',
-                    query: { q: `\"${subject.subject}\"`, field: 'subject' },
+                    query: { q: `"${subject.subject}"`, field: 'subject' },
                   }}
                 >
                   {Html5Entities.decode(subject.subject)}
