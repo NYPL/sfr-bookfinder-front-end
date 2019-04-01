@@ -1,0 +1,29 @@
+.nypl-editions-table {
+  width: 100%;
+  margin: 20px 0;
+  tr {
+    border-bottom: 1px solid #5b616b;
+    td,
+    th {
+      height: 63px;
+      text-align: left;
+    }
+    td {
+      border-right: 1px solid #5b616b;
+      // line-height: 64px;
+      padding-left: 20px;
+      padding-right: 20px;
+      &:first-child {
+        width: 182px;
+      }
+      &:last-child {
+        border-right: none;
+        white-space: nowrap;
+      }
+    }
+    th {
+      padding: 10px 20px;
+      vertical-align: bottom;
+    }
+  }
+}

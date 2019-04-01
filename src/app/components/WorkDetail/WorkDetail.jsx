@@ -8,6 +8,7 @@ import { DefinitionList } from './DefinitionList';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import * as searchActions from '../../actions/SearchActions';
 import WorkHeader from './WorkHeader';
+import EditionsList from './EditionsList';
 
 class WorkDetail extends React.Component {
   constructor(props) {
@@ -86,17 +87,21 @@ class WorkDetail extends React.Component {
           <div className="nypl-row">
             <div className="nypl-column-full">
               <div className="nypl-item-header">
-                <WorkHeader
-                  data={work}
-                />
+                <WorkHeader data={work} />
               </div>
 
               <div id="nypl-item-details">
+                <EditionsList eReaderUrl={this.props.eReaderUrl} list={work.instances} alone />
                 <DefinitionList
                   data={workDetailsObject(work)}
                   eReaderUrl={this.props.eReaderUrl}
                   dispatch={this.props.dispatch}
                   context={this.context}
+                />
+                <EditionsList
+                  eReaderUrl={this.props.eReaderUrl}
+                  list={work.instances}
+                  alone={false}
                 />
               </div>
             </div>
