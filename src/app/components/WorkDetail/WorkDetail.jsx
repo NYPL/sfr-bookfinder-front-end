@@ -38,7 +38,7 @@ class WorkDetail extends React.Component {
   }
   render() {
     if (!this.props.work && _isEmpty(this.props.work)) {
-      return <div />;
+      return null;
     }
     const { work } = this.props;
 
