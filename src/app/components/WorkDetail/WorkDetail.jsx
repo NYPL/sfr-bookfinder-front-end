@@ -18,11 +18,27 @@ class WorkDetail extends React.Component {
 
   componentDidMount() {
     global.window.scrollTo(0, 0);
+    this.loadWork();
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.location !== prevProps.location) {
+      global.window.scrollTo(0, 0);
+      this.loadWork();
+    }
+  }
+
+  loadWork() {
+    const { query } = this.props.location;
+    const workId = query && query.workId;
+
+    if (workId) {
+      this.props.dispatch(searchActions.fetchWork(workId));
+    }
+  }
   render() {
     if (!this.props.work && _isEmpty(this.props.work)) {
-      throw new Error('Work prop is missing or empty');
+      return null;
     }
     const { work } = this.props;
 
@@ -92,6 +108,7 @@ WorkDetail.propTypes = {
   searchField: PropTypes.string,
   eReaderUrl: PropTypes.string,
   dispatch: PropTypes.func,
+  location: PropTypes.objectOf(PropTypes.any),
 };
 
 WorkDetail.defaultProps = {
@@ -100,6 +117,7 @@ WorkDetail.defaultProps = {
   searchField: '',
   eReaderUrl: '',
   dispatch: () => {},
+  location: {},
 };
 
 WorkDetail.contextTypes = {

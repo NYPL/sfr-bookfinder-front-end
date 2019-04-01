@@ -25,22 +25,50 @@ class SearchContainer extends React.Component {
     this.boundActions = bindActionCreators(searchActions, dispatch);
   }
 
-  componentDidUpdate() {
-    global.window.scrollTo(0, 0);
+  componentDidMount() {
+    this.loadSearch();
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.location !== prevProps.location) {
+      global.window.scrollTo(0, 0);
+      this.loadSearch();
+    }
+  }
+
+  loadSearch() {
+    const { query } = this.props.location;
+    const searchQuery = query && query.q ? query.q : this.props.searchQuery;
+    const selectedField = query && query.field ? query.field : this.props.searchField;
+    if (searchQuery) {
+      this.props.dispatch(searchActions.userQuery(searchQuery));
+      this.props.dispatch(searchActions.selectedField(selectedField));
+      this.props.dispatch(searchActions.searchPost(searchQuery, selectedField));
+    }
+  }
 
   render() {
     const { query } = this.props.location;
-    const searchQuery = (query && query.q) ? query.q : this.props.searchQuery;
-    const selectedField = (query && query.field) ? query.field : this.props.searchField;
-    const pageType = (_isEmpty(this.props.searchResults)) ? 'home' : 'results';
+    let { searchQuery } = this.props;
+    if (query && query.showQuery) {
+      searchQuery = query.showQuery;
+    } else if (query && query.q) {
+      searchQuery = query.q;
+    }
+    let selectedField = this.props.searchField;
+    if (query && query.showField) {
+      selectedField = query.showField;
+    } else if (query && query.field) {
+      selectedField = query.field;
+    }
+
+    const pageType = _isEmpty(this.props.searchResults) ? 'home' : 'results';
     /**
-   * onClick handler for resetting state for the request back to the home page
-   * to return the user to a new search.
-   *
-   * @param {object} event
-   */
+     * onClick handler for resetting state for the request back to the home page
+     * to return the user to a new search.
+     *
+     * @param {object} event
+     */
     const handleReset = (event) => {
       event.preventDefault();
 
@@ -53,10 +81,12 @@ class SearchContainer extends React.Component {
         <div className="nypl-full-width-wrapper">
           <div className="nypl-page-header">
             <Breadcrumbs
-              links={[{
-                href: `/search?q=${searchQuery}&field=${selectedField}`,
-                text: 'Search Results',
-              }]}
+              links={[
+                {
+                  href: `/search?q=${searchQuery}&field=${selectedField}`,
+                  text: 'Search Results',
+                },
+              ]}
               pageType={pageType}
               onClickHandler={handleReset}
             />
@@ -66,8 +96,8 @@ class SearchContainer extends React.Component {
               <div className="nypl-column-full">
                 <h1 className="nypl-heading">ResearchNow</h1>
                 <div id="tagline">
-                  Search the world&apos;s research collections and more for digital books you
-                  can use right now.
+                  Search the world&apos;s research collections and more for digital books you can
+                  use right now.
                 </div>
               </div>
             </div>
@@ -116,13 +146,11 @@ SearchContainer.contextTypes = {
   history: PropTypes.object,
 };
 
-const mapStateToProps = (state, ownProps) => (
-  {
-    searchResults: state.searchResults || ownProps.searchResults,
-    searchQuery: state.searchQuery || ownProps.searchQuery,
-    searchField: state.searchField || ownProps.searchField,
-  }
-);
+const mapStateToProps = (state, ownProps) => ({
+  searchResults: state.searchResults || ownProps.searchResults,
+  searchQuery: state.searchQuery || ownProps.searchQuery,
+  searchField: state.searchField || ownProps.searchField,
+});
 
 export default connect(
   mapStateToProps,

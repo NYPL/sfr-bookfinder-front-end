@@ -1,3 +1,5 @@
+/* eslint-disable global-require */
+/* eslint-disable react/jsx-filename-extension */
 import path from 'path';
 import express from 'express';
 import compress from 'compression';
@@ -55,11 +57,8 @@ app.get('/*', (req, res) => {
       }
       const store = configureStore(res.data);
 
-      const application = ReactDOMServer.renderToString(
-        <Provider store={store}>
-          <RouterContext {...renderProps} />
-        </Provider>
-      );
+      const application = ReactDOMServer
+        .renderToString(<Provider store={store}><RouterContext {...renderProps} /></Provider>);
 
       // First parameter references the ejs filename
       res.render('index', {
