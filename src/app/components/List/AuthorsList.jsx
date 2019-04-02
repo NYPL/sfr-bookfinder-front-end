@@ -5,7 +5,6 @@ import { Link } from 'react-router';
 
 const htmlEntities = new Html5Entities();
 
-
 const getIdentifier = author => (author.viaf && 'viaf') || (author.lcnaf && 'lcnaf') || 'name';
 
 const linkToAuthor = author => ({
@@ -26,7 +25,7 @@ const birthDate = entity => (
 const AuthorsList = ({ agents }) => (
   <ul>
     {agents.map((entity, i) => (
-      <li key={i.toString()}>
+      <li key={`agents${i.toString()}`}>
         <Link to={{ pathname: '/search', query: linkToAuthor(entity) }}>
           {htmlEntities.decode(entity.name)}, {entity.roles.join(', ')}
         </Link>
@@ -49,6 +48,7 @@ const AuthorsList = ({ agents }) => (
             (lcnaf)
           </a>
         )}
+        <span>, </span>
       </li>
     ))}
   </ul>

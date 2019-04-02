@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AuthorsList from './AuthorsList';
+import AuthorsList from '../List/AuthorsList';
 
 const WorkHeader = ({ data }) => (
   <div className="nypl-item-header">

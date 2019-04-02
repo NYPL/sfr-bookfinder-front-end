@@ -8,7 +8,7 @@ import { DefinitionList } from './DefinitionList';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import * as searchActions from '../../actions/SearchActions';
 import WorkHeader from './WorkHeader';
-import EditionsList from './EditionsList';
+import EditionsList from '../List/EditionsList';
 
 class WorkDetail extends React.Component {
   constructor(props) {
@@ -94,7 +94,6 @@ class WorkDetail extends React.Component {
                 <EditionsList eReaderUrl={this.props.eReaderUrl} list={work.instances} alone />
                 <DefinitionList
                   data={workDetailsObject(work)}
-                  eReaderUrl={this.props.eReaderUrl}
                   dispatch={this.props.dispatch}
                   context={this.context}
                 />

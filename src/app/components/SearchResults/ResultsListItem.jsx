@@ -4,6 +4,8 @@ import { isArray as _isArray } from 'underscore';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import ResultsRow from './ResultsRow';
+import EditionsList from '../List/EditionsList';
+import AuthorsList from '../List/AuthorsList';
 
 const htmlEntities = new Html5Entities();
 
@@ -22,10 +24,14 @@ const ResultsListItem = ({ item, eReaderUrl }) => (
     <h3>
       <Link to={{ pathname: '/work', query: { workId: `${item.uuid}` } }}>
         {htmlEntities.decode(item.title)}
-        {getAuthor(item)}
       </Link>
     </h3>
-    <ResultsRow rows={item.instances} eReaderUrl={eReaderUrl} />
+    <span className="nypl-results-item-author">
+      By
+      <AuthorsList agents={item.agents} />
+    </span>
+
+    <EditionsList eReaderUrl={eReaderUrl} list={item.instances} alone />
   </li>
 );
 

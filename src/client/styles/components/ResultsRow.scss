@@ -2,7 +2,6 @@
 // Styles for docs/discovery-search.html
 ////
 .nypl-rows-list {
-
   margin-left: 2em;
 
   // override the default spacing between items here:
@@ -11,10 +10,8 @@
   }
 
   .nypl-results-item {
-    @include results-item(
-      $margin-bottom: 2em,
-      $padding-bottom: 2em);
-      border-bottom: ($general-border-width / 1.25) solid lighten($nypl-light-gray, 15%);
+    @include results-item($margin-bottom: 2em, $padding-bottom: 2em);
+    border-bottom: ($general-border-width / 1.25) solid lighten($nypl-light-gray, 15%);
 
     h2,
     h3 {
@@ -34,11 +31,12 @@
       @include results-media(
         $color: $nypl-dark-gray,
         //$font-size: 0.85rem,
-        $font-weight: 400);
+          $font-weight: 400
+      );
 
-        // &::before {
-        //   content: 'Format: ';
-        // }
+      // &::before {
+      //   content: 'Format: ';
+      // }
     } // /.nypl-results-media
 
     //
@@ -58,4 +56,14 @@
       margin-right: 0.25rem;
     }
   } // /.nypl-results-item
+}
+
+.nypl-results-item-author {
+  ul {
+    list-style: none;
+    display: inline;
+    li {
+      display: inline;
+    }
+  }
 }

@@ -6,6 +6,7 @@
 
   .nypl-item-header-column {
     float: left;
+    width: 900px;
     .nypl-item-header-title {
       font-weight: bold;
     }
@@ -13,7 +14,7 @@
       ul {
         list-style: none;
         margin: 0;
-        display: inline-block;
+        display: inline;
         li {
           margin: 0;
           display: inline-block;
