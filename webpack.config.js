@@ -6,7 +6,7 @@ const merge = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const sassPaths = require('@nypl/design-toolkit')
-  .includePaths.map((sassPath) => sassPath)
+  .includePaths.map(sassPath => sassPath)
   .join('&');
 
 // References the applications root path
@@ -124,33 +124,13 @@ if (ENV === 'production') {
           use: 'babel-loader',
         },
         {
-          test: /\.scss$/,
+          test: /\.scss?$/,
+          use: ['style-loader', 'css-loader', `sass-loader?includePaths=${sassPaths}`],
           include: path.resolve(ROOT_PATH, 'src'),
-          // use: ExtractTextPlugin.extract({
-          //   fallback: 'style-loader',
-          //   use: loaders,
-          // }),
-          use: [
-            // fallback to style-loader in development
-            process.env.NODE_ENV !== 'production' ? 'style-loader' : MiniCssExtractPlugin.loader,
-            'css-loader',
-            'sass-loader',
-          ],
         },
       ],
     },
     plugins: [
-      // new webpack.optimize.UglifyJsPlugin({
-      //   compress: {
-      //     warnings: false,
-      //   },
-      // }),
-      new MiniCssExtractPlugin({
-        // Options similar to the same options in webpackOptions.output
-        // both options are optional
-        filename: '[name].css',
-        chunkFilename: '[id].css',
-      }),
       new webpack.DefinePlugin({
         'process.env': {
           NODE_ENV: JSON.stringify('production'),
