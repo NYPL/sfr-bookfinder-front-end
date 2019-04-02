@@ -1,8 +1,8 @@
 /*
 Import style rules from NYPL Design Toolkit
 */
-@import '~@nypl/design-toolkit/sass/_normalize.scss';
-@import '~@nypl/design-toolkit/sass/_toolkit.scss';
+@import 'nypl-normalize';
+@import 'toolkit';
 
 /*
 Import style rules from NYPL React module components

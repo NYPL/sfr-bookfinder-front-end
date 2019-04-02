@@ -6,7 +6,7 @@ const merge = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const sassPaths = require('@nypl/design-toolkit')
-  .includePaths.map(sassPath => sassPath)
+  .includePaths.map((sassPath) => sassPath)
   .join('&');
 
 // References the applications root path
@@ -113,21 +113,6 @@ if (ENV === 'development') {
  *
  */
 if (ENV === 'production') {
-  const loaders = [
-    {
-      loader: 'css-loader',
-      options: {
-        sourceMap: true,
-      },
-    },
-    {
-      loader: 'sass-loader',
-      options: {
-        sourceMap: true,
-        includePaths: sassPaths,
-      },
-    },
-  ];
   module.exports = merge(commonSettings, {
     mode: 'production',
     devtool: 'source-map',
