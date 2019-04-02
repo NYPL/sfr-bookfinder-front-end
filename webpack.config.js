@@ -1,10 +1,13 @@
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const CleanBuild = require('clean-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const sassPaths = require('@nypl/design-toolkit').includePaths
-  .map(sassPath => sassPath).join('&');
+// const CleanBuild = require('clean-webpack-plugin');
+// const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+const sassPaths = require('@nypl/design-toolkit')
+  .includePaths.map(sassPath => sassPath)
+  .join('&');
 
 // References the applications root path
 const ROOT_PATH = path.resolve(__dirname);
@@ -35,8 +38,12 @@ const commonSettings = {
     // Cleans the Dist folder after every build.
     // Alternately, we can run rm -rf dist/ as
     // part of the package.json scripts.
-    new CleanBuild(['dist']),
-    new ExtractTextPlugin('styles.css'),
+    // new CleanBuild(['dist']),
+    // new ExtractTextPlugin('styles.css'),
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      chunkFilename: '[id].css',
+    }),
     new webpack.DefinePlugin({
       loadA11y: process.env.loadA11y || false,
       appEnv: JSON.stringify(appEnv),
@@ -56,6 +63,7 @@ const commonSettings = {
 // module correctly.
 if (ENV === 'development') {
   module.exports = merge(commonSettings, {
+    mode: 'development',
     devtool: 'inline-source-map',
     entry: {
       app: [
@@ -76,9 +84,7 @@ if (ENV === 'development') {
       }),
     ],
     resolve: {
-      modules: [
-        'node_modules',
-      ],
+      modules: ['node_modules'],
       extensions: ['.js', '.jsx', '.scss'],
     },
     module: {
@@ -90,11 +96,7 @@ if (ENV === 'development') {
         },
         {
           test: /\.scss?$/,
-          use: [
-            'style-loader',
-            'css-loader',
-            `sass-loader?includePaths=${sassPaths}`,
-          ],
+          use: ['style-loader', 'css-loader', `sass-loader?includePaths=${sassPaths}`],
           include: path.resolve(ROOT_PATH, 'src'),
         },
       ],
@@ -127,6 +129,7 @@ if (ENV === 'production') {
     },
   ];
   module.exports = merge(commonSettings, {
+    mode: 'production',
     devtool: 'source-map',
     module: {
       rules: [
@@ -138,18 +141,30 @@ if (ENV === 'production') {
         {
           test: /\.scss$/,
           include: path.resolve(ROOT_PATH, 'src'),
-          use: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: loaders,
-          }),
+          // use: ExtractTextPlugin.extract({
+          //   fallback: 'style-loader',
+          //   use: loaders,
+          // }),
+          use: [
+            // fallback to style-loader in development
+            process.env.NODE_ENV !== 'production' ? 'style-loader' : MiniCssExtractPlugin.loader,
+            'css-loader',
+            'sass-loader',
+          ],
         },
       ],
     },
     plugins: [
-      new webpack.optimize.UglifyJsPlugin({
-        compress: {
-          warnings: false,
-        },
+      // new webpack.optimize.UglifyJsPlugin({
+      //   compress: {
+      //     warnings: false,
+      //   },
+      // }),
+      new MiniCssExtractPlugin({
+        // Options similar to the same options in webpackOptions.output
+        // both options are optional
+        filename: '[name].css',
+        chunkFilename: '[id].css',
       }),
       new webpack.DefinePlugin({
         'process.env': {

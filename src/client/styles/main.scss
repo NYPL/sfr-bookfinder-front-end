@@ -1,13 +1,13 @@
 /*
 Import style rules from NYPL Design Toolkit
 */
-@import "nypl-normalize";
-@import "toolkit";
+@import '~@nypl/design-toolkit/sass/_normalize.scss';
+@import '~@nypl/design-toolkit/sass/_toolkit.scss';
 
 /*
 Import style rules from NYPL React module components
 */
-@import "~@nypl/dgx-header-component/dist/styles/main";
+@import '~@nypl/dgx-header-component/dist/styles/main';
 @import '~@nypl/dgx-react-footer/dist/styles/styles';
 @import './components/Search.scss';
 @import './components/ResultsRow.scss';
