@@ -1,10 +1,17 @@
 require('@babel/register')();
 
-const jsdom = require('jsdom').jsdom;
+const jsdom = require('jsdom');
+const { JSDOM } = jsdom;
 
+const virtualConsole = new jsdom.VirtualConsole();
 const exposedProperties = ['window', 'navigator', 'document'];
 
-global.document = jsdom('');
+const { document } = (new JSDOM('', {
+  url: 'http://localhost',
+  virtualConsole,
+})).window;
+virtualConsole.sendTo(console, { omitJSDOMErrors: true });
+global.document = document;
 global.window = document.defaultView;
 Object.keys(document.defaultView).forEach((property) => {
   if (typeof global[property] === 'undefined') {

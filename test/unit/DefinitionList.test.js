@@ -3,6 +3,11 @@
 import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
+import { configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-15';
+
+configure({ adapter: new Adapter() });
+
 import { DefinitionList, labels } from '../../src/app/components/WorkDetail/DefinitionList';
 import EBookList from '../../src/app/components/List/EBookList';
 import detail from '../fixtures/work-detail.json';
@@ -20,11 +25,11 @@ describe('DefinitionList', () => {
     expect(component.find('dt')).to.have.length(5);
     expect(component.find('dd')).to.have.length(5);
     const terms = component.find('dt');
-    expect(terms.nodes[0].props.children).to.equal(labels.title);
-    expect(terms.nodes[1].props.children).to.equal(labels.language);
-    expect(terms.nodes[2].props.children).to.equal(labels.agents);
-    expect(terms.nodes[3].props.children).to.equal(labels.subjects);
-    expect(terms.nodes[4].props.children).to.equal(labels.instances);
+    expect(terms.getElements()[0].props.children).to.equal(labels.title);
+    expect(terms.getElements()[1].props.children).to.equal(labels.language);
+    expect(terms.getElements()[2].props.children).to.equal(labels.agents);
+    expect(terms.getElements()[3].props.children).to.equal(labels.subjects);
+    expect(terms.getElements()[4].props.children).to.equal(labels.instances);
   });
 
   it('should have a table of Items', () => {
@@ -37,12 +42,12 @@ describe('DefinitionList', () => {
 
   it('should have a list of Subjects', () => {
     const subjects = component.find('ul');
-    expect(subjects.nodes[2].props.children).to.have.length(92);
+    expect(subjects.getElements()[2].props.children).to.have.length(92);
   });
 
   it('should have a list of Authors', () => {
     const authors = component.find('ul');
-    expect(authors.nodes[1].props.children).to.have.length(5);
+    expect(authors.getElements()[1].props.children).to.have.length(5);
   });
 
   describe('EBookList', () => {

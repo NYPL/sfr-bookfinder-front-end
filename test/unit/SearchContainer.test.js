@@ -3,6 +3,10 @@
 import React from 'react';
 import { expect } from 'chai';
 import { mount } from 'enzyme';
+import { configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-15';
+
+configure({ adapter: new Adapter() });
 
 import SearchContainer from '../../src/app/components/SearchContainer/SearchContainer';
 import SearchForm from '../../src/app/components/SearchForm/SearchForm';

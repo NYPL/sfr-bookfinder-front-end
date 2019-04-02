@@ -2,6 +2,11 @@
 import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
+import { configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-15';
+
+configure({ adapter: new Adapter() });
+
 import Breadcrumbs from '../../src/app/components/Breadcrumbs/Breadcrumbs';
 
 describe('Breadcrumbs', () => {
@@ -45,7 +50,7 @@ describe('Breadcrumbs', () => {
     });
 
     it('should display no breadcrumb nav element', () => {
-      expect(component).to.be.unrendered;
+      expect(component).to.be.empty;
     });
   });
 
