@@ -28,8 +28,15 @@ const elements = Object.keys(labels);
  *
  * @param {object} props
  */
-export const DefinitionList = ({ data }) => {
-  data.sort((a, b) => elements.indexOf(a[0]) - elements.indexOf(b[0]));
+export const DefinitionList = ({ work }) => {
+  /**
+   * Convert JSON object to array for parsing detail elements into
+   * a definition list for display.
+   *
+   * @param {object} work
+   * @return {string|null}
+   */
+  const workDetailsObject = workObj => Object.keys(workObj).map(key => [key, workObj[key]]);
 
   /**
    * Handle elements with array values as definitions. Authorities are linked to
@@ -44,7 +51,7 @@ export const DefinitionList = ({ data }) => {
    * @param {array} entries
    * @return {string|null}
    */
-  const parseEntries = (type, entries) => {
+  const parseEntries = (type, entries, workObj) => {
     const list = [...entries];
     switch (type) {
       case 'language':
@@ -95,6 +102,13 @@ export const DefinitionList = ({ data }) => {
             ))}
           </ul>
         );
+      case 'series':
+        return (
+          <span>
+            {entries}
+            {workObj.series_position && ` ${workObj.series_position}`}
+          </span>
+        );
       default:
         return _isArray(entries) ? entries.join(' ,') : entries;
     }
@@ -106,7 +120,9 @@ export const DefinitionList = ({ data }) => {
    * @param {array} data
    * @return {string}
    */
-  const getDefinitions = (defsData) => {
+  const getDefinitions = (workObj) => {
+    const defsData = workDetailsObject(workObj);
+    defsData.sort((a, b) => elements.indexOf(a[0]) - elements.indexOf(b[0]));
     if (!defsData || _isEmpty(defsData)) {
       return null;
     }
@@ -118,7 +134,7 @@ export const DefinitionList = ({ data }) => {
               elements.includes(entry[0]) && (
                 <tr key={`entry${i.toString()}`}>
                   <td>{labels[entry[0]]}</td>
-                  <td>{parseEntries(entry[0], entry[1])}</td>
+                  <td>{parseEntries(entry[0], entry[1], workObj)}</td>
                 </tr>
               ))}
         </tbody>
@@ -129,17 +145,17 @@ export const DefinitionList = ({ data }) => {
   return (
     <div>
       <h2>Details</h2>
-      {getDefinitions(data)}
+      {getDefinitions(work)}
     </div>
   );
 };
 
 DefinitionList.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.any),
+  work: PropTypes.objectOf(PropTypes.any),
 };
 
 DefinitionList.defaultProps = {
-  data: [],
+  work: {},
 };
 
 export default DefinitionList;

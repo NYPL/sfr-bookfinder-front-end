@@ -22,7 +22,7 @@
     padding: 0;
     position: relative;
 
-    input[type=text] {
+    input[type='text'] {
       width: 100%;
       border: 0;
       border-radius: 0.25rem;
@@ -45,7 +45,7 @@
   // Button specific CSS for submit
   .nypl-omnisearch-button {
     font-weight: 200;
-    background: #1B7FA7;
+    background: #1b7fa7;
     border-left: solid 0.0625rem #080807;
     border-radius: 0;
     color: #fff;
@@ -59,7 +59,7 @@
     text-indent: -1rem;
 
     .nypl-search-icon {
-      background-color: #1B7FA7;
+      background-color: #1b7fa7;
       speak: none;
     }
   }
@@ -71,7 +71,6 @@
     width: 28px;
     margin-left: 75%;
   }
-
 
   // Small screen stacked version of search form elements.
   @media (max-width: $xtrasmall-breakpoint) {
@@ -110,7 +109,7 @@
         width: 96%;
       }
 
-      input[type=text] {
+      input[type='text'] {
         width: 100%;
       }
     }
@@ -121,4 +120,36 @@
       width: 100%;
     }
   }
+}
+
+.nypl-results-container {
+  .nypl-results-column {
+    float: left;
+    max-width: 327px;
+    width: 25%;
+  }
+  .nypl-results-main {
+    float: left;
+    max-width: 1000px;
+    width: 74.5%;
+    border-left: 1px solid black;
+    h3 {
+      margin: 0;
+    }
+  }
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+.nypl-results-summary {
+  border-left: 1px solid black;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  width: 100%;
+  padding: 10px 10px 10px 20px;
+  box-sizing: border-box;
+  font-weight: bold;
 }

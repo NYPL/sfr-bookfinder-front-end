@@ -28,10 +28,13 @@ $nypl-dark-blue: #135772;
 }
 
 #tagline {
-  text-align: center;
+  text-align: left;
   margin: 25px 0;
 }
 
 .nypl-page-header {
   background-color: white;
+}
+.nypl-full-width-wrapper {
+  max-width: 1332px;
 }

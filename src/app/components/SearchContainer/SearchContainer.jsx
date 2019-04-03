@@ -37,7 +37,9 @@ class SearchContainer extends React.Component {
   }
 
   loadSearch() {
-    const { query } = this.props.location;
+    const {
+      location: { query },
+    } = this.props;
     const searchQuery = query && query.q ? query.q : this.props.searchQuery;
     const selectedField = query && query.field ? query.field : this.props.searchField;
     if (searchQuery) {
@@ -92,15 +94,17 @@ class SearchContainer extends React.Component {
             />
           </div>
           <div role="search" aria-label="ResearchNow">
-            <div className="nypl-row">
-              <div className="nypl-column-full">
-                <h1 className="nypl-heading">ResearchNow</h1>
-                <div id="tagline">
-                  Search the world&apos;s research collections and more for digital books you can
-                  use right now.
+            {(!this.props.searchResults || _isEmpty(this.props.searchResults)) && (
+              <div className="nypl-row">
+                <div className="nypl-column-full">
+                  <h1 className="nypl-heading">ResearchNow</h1>
+                  <div id="tagline">
+                    Search the world&apos;s research collections and more for digital books you can
+                    use right now.
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
             <div className="wrapper">
               <SearchForm
                 searchQuery={searchQuery}

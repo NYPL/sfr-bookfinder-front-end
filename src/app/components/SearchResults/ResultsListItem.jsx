@@ -1,35 +1,30 @@
 import React from 'react';
 import { Html5Entities } from 'html-entities';
-import { isArray as _isArray } from 'underscore';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
-import ResultsRow from './ResultsRow';
 import EditionsList from '../List/EditionsList';
 import AuthorsList from '../List/AuthorsList';
 
 const htmlEntities = new Html5Entities();
 
-const getAuthor = (item) => {
-  if (item.agents && _isArray(item.agents) && item.agents.length > 0) {
-    const agent = item.agents.find(i => i.roles.indexOf('author') > -1);
-    if (agent) {
-      return ` – ${agent.name}`;
-    }
-  }
-  return '';
-};
-
 const ResultsListItem = ({ item, eReaderUrl }) => (
   <li className="nypl-results-item">
-    <h3>
-      <Link to={{ pathname: '/work', query: { workId: `${item.uuid}` } }}>
-        {htmlEntities.decode(item.title)}
-      </Link>
-    </h3>
-    <span className="nypl-results-item-author">
-      By
-      <AuthorsList agents={item.agents} />
-    </span>
+    <div className="nypl-results-item-header">
+      <div className="nypl-results-item-header-image">image</div>
+      <div className="nypl-results-item-header-column">
+        <h3>
+          <Link to={{ pathname: '/work', query: { workId: `${item.uuid}` } }}>
+            {htmlEntities.decode(item.title)}
+          </Link>
+        </h3>
+        {item.agents && item.agents.length > 0 && (
+          <span className="nypl-results-item-author">
+            By
+            <AuthorsList agents={item.agents} />
+          </span>
+        )}
+      </div>
+    </div>
 
     <EditionsList eReaderUrl={eReaderUrl} list={item.instances} alone />
   </li>

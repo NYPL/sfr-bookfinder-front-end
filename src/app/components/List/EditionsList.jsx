@@ -3,7 +3,22 @@ import PropTypes from 'prop-types';
 import EBookList from './EBookList';
 
 const EditionsList = ({ list, eReaderUrl, alone }) => {
-  let counter = 0;
+  const getPublisher = (instance) => {
+    let publisher =
+      instance &&
+      instance.agents &&
+      instance.agents.find(agent => agent.roles.indexOf('publisher') > -1);
+    publisher = publisher ? publisher.name : null;
+    return publisher;
+  };
+  const getIsValid = instance =>
+    (instance.items && instance.items.length > 0) ||
+    (instance.pub_date && instance.pub_date_display) ||
+    instance.pub_place ||
+    getPublisher(instance);
+
+  const filterValid = instances => instances.filter(l => getIsValid(l));
+
   return (
     <div>
       <table className="nypl-editions-table">
@@ -18,25 +33,12 @@ const EditionsList = ({ list, eReaderUrl, alone }) => {
           </tr>
         </thead>
         <tbody>
-          {list.map((instance, i) => {
-            let publisher =
-              instance &&
-              instance.agents &&
-              instance.agents.find(agent => agent.roles.indexOf('publisher') > -1);
-            publisher = publisher ? publisher.name : '';
+          {filterValid(list).map((instance, i) => {
+            const publisher = getPublisher(instance);
 
-            const isValid =
-              (instance.items && instance.items.length > 0) ||
-              (instance.pub_date && instance.pub_date_display) ||
-              instance.pub_place ||
-              publisher;
-            if (!isValid) {
+            if (alone && i > 0) {
               return null;
             }
-            if (alone && counter > 0) {
-              return null;
-            }
-            counter += 1;
 
             return (
               <tr key={i.toString()}>
@@ -61,7 +63,9 @@ const EditionsList = ({ list, eReaderUrl, alone }) => {
           })}
         </tbody>
       </table>
-      {alone && <div>View All {list.length} Editions</div>}
+      {alone && (
+        <div className="nypl-editions-view-all">View All {filterValid(list).length} Editions</div>
+      )}
     </div>
   );
 };

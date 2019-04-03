@@ -11,8 +11,8 @@ import ResultsList from './ResultsList';
  */
 const SearchResults = (props) => {
   const metadata = props.results && props.results.data && props.results.data.hits;
-  const hits = props.results && props.results.data &&
-    props.results.data.hits && props.results.data.hits.hits;
+  const hits =
+    props.results && props.results.data && props.results.data.hits && props.results.data.hits.hits;
 
   if (!hits) {
     return null;
@@ -21,8 +21,15 @@ const SearchResults = (props) => {
   return (
     <div className="nypl-row">
       <div className="nypl-column-full">
-        <ResultsMetadata metadata={metadata} />
-        <ResultsList results={hits} fetchWork={props.fetchWork} eReaderUrl={props.eReaderUrl} />
+        <div className="nypl-results-container">
+          <div className="nypl-results-column">
+            <ResultsMetadata metadata={metadata} />
+            <div>Filters</div>
+          </div>
+          <div className="nypl-results-main">
+            <ResultsList results={hits} fetchWork={props.fetchWork} eReaderUrl={props.eReaderUrl} />
+          </div>
+        </div>
       </div>
     </div>
   );

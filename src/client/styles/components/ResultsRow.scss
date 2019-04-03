@@ -10,7 +10,7 @@
   }
 
   .nypl-results-item {
-    @include results-item($margin-bottom: 2em, $padding-bottom: 2em);
+    @include results-item($margin-bottom: 2em, $padding-bottom: 1px);
     border-bottom: ($general-border-width / 1.25) solid lighten($nypl-light-gray, 15%);
 
     h2,
@@ -65,5 +65,36 @@
     li {
       display: inline;
     }
+  }
+}
+.nypl-results-item-header {
+  margin-top: 2em;
+  .nypl-results-item-header-image {
+    float: left;
+    max-width: 125px;
+    width: 12.5%;
+  }
+  .nypl-results-item-header-column {
+    float: left;
+    max-width: 875px;
+    width: 87.5%;
+    h3 {
+      margin: 0;
+    }
+  }
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+h1.nypl-heading {
+  font-weight: 300;
+}
+.nypl-results-list {
+  .nypl-results-item {
+    padding: 0;
+    margin: 0;
+    border-bottom: 1px solid black;
   }
 }

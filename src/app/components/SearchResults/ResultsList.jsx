@@ -1,9 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  isEmpty as _isEmpty,
-} from 'underscore';
+import { isEmpty as _isEmpty } from 'underscore';
 import ResultsListItem from './ResultsListItem';
 /**
  * ResultsList presents search results as a "grouped" list of books
@@ -26,9 +24,6 @@ class ResultsList extends React.Component {
 
     return (
       <div className="nypl-results">
-        <div className="nypl-results-header">
-          <h2>Search Results</h2>
-        </div>
         <ul className="nypl-results-list">
           {this.props.results.map(result => (
             <ResultsListItem
@@ -37,7 +32,7 @@ class ResultsList extends React.Component {
               fetchWork={this.props.fetchWork}
               key={result._source.uuid}
             />
-            ))}
+          ))}
         </ul>
       </div>
     );

@@ -39,7 +39,8 @@ class WorkDetail extends React.Component {
     }
   }
   render() {
-    if (!this.props.work && _isEmpty(this.props.work)) {
+    const { work } = this.props;
+    if (!work && _isEmpty(work)) {
       return null;
     }
 
@@ -55,15 +56,6 @@ class WorkDetail extends React.Component {
       this.boundActions.resetSearch();
       this.context.router.push('/');
     };
-
-    /**
-     * Convert JSON object to array for parsing detail elements into
-     * a definition list for display.
-     *
-     * @param {object} work
-     * @return {string|null}
-     */
-    const workDetailsObject = workObj => Object.keys(workObj).map(key => [key, work[key]]);
 
     return (
       <main id="mainContent">
@@ -92,11 +84,7 @@ class WorkDetail extends React.Component {
 
               <div id="nypl-item-details">
                 <EditionsList eReaderUrl={this.props.eReaderUrl} list={work.instances} alone />
-                <DefinitionList
-                  data={workDetailsObject(work)}
-                  dispatch={this.props.dispatch}
-                  context={this.context}
-                />
+                <DefinitionList work={work} dispatch={this.props.dispatch} context={this.context} />
                 <EditionsList
                   eReaderUrl={this.props.eReaderUrl}
                   list={work.instances}
