@@ -1,8 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-// const CleanBuild = require('clean-webpack-plugin');
-// const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const sassPaths = require('@nypl/design-toolkit')
@@ -38,8 +37,7 @@ const commonSettings = {
     // Cleans the Dist folder after every build.
     // Alternately, we can run rm -rf dist/ as
     // part of the package.json scripts.
-    // new CleanBuild(['dist']),
-    // new ExtractTextPlugin('styles.css'),
+    new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: '[name].css',
       chunkFilename: '[id].css',

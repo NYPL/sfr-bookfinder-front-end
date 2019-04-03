@@ -2,6 +2,11 @@
 import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
+import { configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-15';
+
+configure({ adapter: new Adapter() });
+
 import SearchButton from '../../src/app/components/Button/SearchButton';
 
 describe('SearchButton', () => {
