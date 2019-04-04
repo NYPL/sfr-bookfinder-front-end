@@ -14,6 +14,7 @@ Import style rules from NYPL React module components
 @import './components/WorkHeader.scss';
 @import './components/WorkDetail.scss';
 @import './components/EBookList.scss';
+@import './components/SearchHeader.scss';
 
 $nypl-dark-blue: #135772;
 
@@ -22,7 +23,7 @@ $nypl-dark-blue: #135772;
 }
 
 #mainContent {
-  margin: 0 auto;
+  margin: 0 auto 60px;
   width: 100%;
   min-height: 400px;
 }
@@ -37,4 +38,9 @@ $nypl-dark-blue: #135772;
 }
 .nypl-full-width-wrapper {
   max-width: 1332px;
+  padding: 0;
+}
+
+a:link {
+  color: #0071ce;
 }

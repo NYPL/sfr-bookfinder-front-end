@@ -63,7 +63,7 @@ const EditionsList = ({ list, eReaderUrl, alone }) => {
           })}
         </tbody>
       </table>
-      {alone && (
+      {alone && filterValid(list).length > 1 && (
         <div className="nypl-editions-view-all">View All {filterValid(list).length} Editions</div>
       )}
     </div>

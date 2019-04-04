@@ -17,6 +17,8 @@ const ResultsListItem = ({ item, eReaderUrl }) => (
             {htmlEntities.decode(item.title)}
           </Link>
         </h3>
+        {item.subtitle && <div>{item.subtitle}</div>}
+
         {item.agents && item.agents.length > 0 && (
           <span className="nypl-results-item-author">
             By

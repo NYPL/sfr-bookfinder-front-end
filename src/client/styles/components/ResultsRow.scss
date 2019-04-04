@@ -73,6 +73,8 @@
     float: left;
     max-width: 125px;
     width: 12.5%;
+    padding: 10px;
+    box-sizing: border-box;
   }
   .nypl-results-item-header-column {
     float: left;
@@ -95,6 +97,11 @@ h1.nypl-heading {
   .nypl-results-item {
     padding: 0;
     margin: 0;
-    border-bottom: 1px solid black;
+    border-bottom: none;
+    h3 {
+      a:link {
+        text-decoration: underline;
+      }
+    }
   }
 }

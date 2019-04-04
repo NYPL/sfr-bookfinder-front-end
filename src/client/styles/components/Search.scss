@@ -123,15 +123,19 @@
 }
 
 .nypl-results-container {
+  margin-top: 20px;
   .nypl-results-column {
     float: left;
     max-width: 327px;
     width: 25%;
   }
-  .nypl-results-main {
+  .nypl-results-main,
+  .nypl-results-search-header {
     float: left;
     max-width: 1000px;
     width: 74.5%;
+  }
+  .nypl-results-main {
     border-left: 1px solid black;
     h3 {
       margin: 0;
@@ -149,7 +153,10 @@
   border-top: 1px solid black;
   border-bottom: 1px solid black;
   width: 100%;
-  padding: 10px 10px 10px 20px;
+  padding-left: 10px;
   box-sizing: border-box;
   font-weight: bold;
+  height: 42px;
+  margin-top: 26px;
+  line-height: 42px;
 }

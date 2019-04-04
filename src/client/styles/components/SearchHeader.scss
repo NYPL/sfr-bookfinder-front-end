@@ -1,0 +1,30 @@
+.search-header-table {
+  width: 100%;
+  thead {
+    tr {
+      border-bottom: 1px solid black;
+    }
+    th {
+      font-weight: normal;
+      text-align: left;
+    }
+  }
+  tbody {
+    tr {
+      border-bottom: 1px solid black;
+      border-left: 1px solid black;
+      td {
+        border-right: 1px solid black;
+        height: 40px;
+        font-weight: bold;
+        select {
+          width: 100%;
+          border-radius: 0;
+          height: 40px;
+          border: none;
+          background: white;
+        }
+      }
+    }
+  }
+}
