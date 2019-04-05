@@ -4,7 +4,7 @@ import AuthorsList from '../List/AuthorsList';
 
 const WorkHeader = ({ data }) => (
   <div className="nypl-item-header">
-    <div className="nypl-item-header-image">image</div>
+    <div className="nypl-item-header-image" />
     <div className="nypl-item-header-column">
       <div className="nypl-item-header-title">{data.title}</div>
       {data.subtitle && <div>{data.subtitle}</div>}

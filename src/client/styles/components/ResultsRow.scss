@@ -69,17 +69,24 @@
 }
 .nypl-results-item-header {
   margin-top: 2em;
+  min-height: 150px;
   .nypl-results-item-header-image {
-    float: left;
+    position: absolute;
     max-width: 125px;
-    width: 12.5%;
     padding: 10px;
     box-sizing: border-box;
+
+    width: 104px;
+    margin: 10px;
+    background: aliceblue;
+    box-shadow: 0px 0px 54px inset #bbbbbf;
+    height: 150px;
+    border: 1px solid black;
   }
   .nypl-results-item-header-column {
     float: left;
     max-width: 875px;
-    width: 87.5%;
+    margin-left: 125px;
     h3 {
       margin: 0;
     }
@@ -101,6 +108,7 @@ h1.nypl-heading {
     h3 {
       a:link {
         text-decoration: underline;
+        font-weight: bold;
       }
     }
   }

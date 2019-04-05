@@ -1,0 +1,48 @@
+.nypl-details-table {
+  width: 100%;
+  margin: 0 0 40px 0;
+  tbody {
+    border-top: 1px solid black;
+  }
+  tr {
+    border-bottom: 1px solid #5b616b;
+    td,
+    th {
+      height: 24px;
+      text-align: left;
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
+    th {
+      padding-left: 20px;
+    }
+    td {
+      border-right: 1px solid #5b616b;
+      padding-left: 20px;
+      padding-right: 20px;
+      vertical-align: top;
+      &:first-child {
+        width: 182px;
+      }
+      &:last-child {
+        border-right: none;
+        white-space: nowrap;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        li {
+          margin-left: 0;
+        }
+        &.inline-list {
+          display: inline;
+          white-space: normal;
+          li {
+            display: inline;
+          }
+        }
+      }
+    }
+  }
+}

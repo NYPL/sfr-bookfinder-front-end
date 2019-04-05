@@ -10,7 +10,7 @@ const htmlEntities = new Html5Entities();
 const ResultsListItem = ({ item, eReaderUrl }) => (
   <li className="nypl-results-item">
     <div className="nypl-results-item-header">
-      <div className="nypl-results-item-header-image">image</div>
+      <div className="nypl-results-item-header-image" />
       <div className="nypl-results-item-header-column">
         <h3>
           <Link to={{ pathname: '/work', query: { workId: `${item.uuid}` } }}>
@@ -28,7 +28,7 @@ const ResultsListItem = ({ item, eReaderUrl }) => (
       </div>
     </div>
 
-    <EditionsList eReaderUrl={eReaderUrl} list={item.instances} alone />
+    <EditionsList eReaderUrl={eReaderUrl} work={item} max={3} />
   </li>
 );
 

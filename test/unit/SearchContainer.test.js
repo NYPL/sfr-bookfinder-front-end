@@ -13,15 +13,12 @@ import SearchForm from '../../src/app/components/SearchForm/SearchForm';
 import SearchResults from '../../src/app/components/SearchResults/SearchResults';
 import configureStore from '../../src/app/stores/configureStore';
 import initialState from '../../src/app/stores/InitialState';
-import { searchResults } from '../../src/app/actions/SearchActions';
-import results from '../fixtures/results-list-full.json';
 
 describe('Search Container interactions', () => {
   let wrapper;
 
   before(() => {
     const store = configureStore(initialState);
-    store.dispatch(searchResults(results));
     wrapper = mount(<SearchContainer store={store} />);
   });
 
@@ -33,12 +30,12 @@ describe('Search Container interactions', () => {
   it('contains a <SearchResults /> component', () => {
     expect(wrapper.find(SearchResults)).to.have.length(1);
   });
-  it('contains an <h1>', () => {
+  it('contains an <h1> when Search is empty', () => {
     expect(wrapper.find('h1')).to.have.length(1);
     expect(wrapper.find('h1').text()).to.equal('ResearchNow');
   });
-  it('contains a tagline element', () => {
+  it('contains a tagline element when search is empty', () => {
     expect(wrapper.find('#tagline')).to.have.length(1);
-    expect(wrapper.find('#tagline').text()).to.equal('Search the world\'s research collections and more for digital books you can use right now.');
+    expect(wrapper.find('#tagline').text()).to.equal("Search the world's research collections and more for digital books you can use right now.");
   });
 });

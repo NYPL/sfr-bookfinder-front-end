@@ -23,7 +23,7 @@ const birthDate = entity => (
 );
 
 const AuthorsList = ({ agents }) => (
-  <ul>
+  <ul className="authors-list">
     {agents.map((entity, i) => (
       <li key={`agents${i.toString()}`}>
         <Link to={{ pathname: '/search', query: linkToAuthor(entity) }}>

@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 import EBookList from './EBookList';
 
-const EditionsList = ({ list, eReaderUrl, alone }) => {
+const EditionsList = ({ work, eReaderUrl, max }) => {
+  const list = work.instances;
   const getPublisher = (instance) => {
     let publisher =
       instance &&
@@ -36,7 +38,7 @@ const EditionsList = ({ list, eReaderUrl, alone }) => {
           {filterValid(list).map((instance, i) => {
             const publisher = getPublisher(instance);
 
-            if (alone && i > 0) {
+            if (max && i >= max) {
               return null;
             }
 
@@ -63,22 +65,28 @@ const EditionsList = ({ list, eReaderUrl, alone }) => {
           })}
         </tbody>
       </table>
-      {alone && filterValid(list).length > 1 && (
-        <div className="nypl-editions-view-all">View All {filterValid(list).length} Editions</div>
+      {!!max && filterValid(list).length > max && (
+        <div className="nypl-editions-view-all">
+          <Link
+            to={{ pathname: '/work', query: { workId: `${work.uuid}` }, hash: '#all-editions' }}
+          >
+            View All {filterValid(list).length} Editions
+          </Link>
+        </div>
       )}
     </div>
   );
 };
 
 EditionsList.propTypes = {
-  list: PropTypes.arrayOf(PropTypes.any),
+  work: PropTypes.objectOf(PropTypes.any),
   eReaderUrl: PropTypes.string,
-  alone: PropTypes.bool,
+  max: PropTypes.number,
 };
 EditionsList.defaultProps = {
-  list: [],
+  work: {},
   eReaderUrl: '',
-  alone: true,
+  max: 0,
 };
 
 export default EditionsList;

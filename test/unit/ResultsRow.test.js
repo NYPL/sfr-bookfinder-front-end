@@ -14,7 +14,6 @@ import ResultsRow from '../../src/app/components/SearchResults/ResultsRow';
 import results from '../fixtures/results-list.json';
 import EBookList from '../../src/app/components/List/EBookList';
 
-
 describe('ResultsRow', () => {
   let component;
   const instances = results.hits.hits[0]._source.instances;
@@ -30,17 +29,26 @@ describe('ResultsRow', () => {
 
     // Publication date check
     it('should contain a publication date', () => {
-      expect(component.find('.nypl-results-date').first().text()).to.equal('1922.');
+      expect(component
+        .find('.nypl-results-date')
+        .first()
+        .text()).to.equal('1922.');
     });
 
     // Publication place check
     it('should contain a publication place', () => {
-      expect(component.find('.nypl-results-place').first().text()).to.equal('Chicago :');
+      expect(component
+        .find('.nypl-results-place')
+        .first()
+        .text()).to.equal('Chicago :');
     });
 
     // Publisher check
     it('should contain a publisher', () => {
-      expect(component.find('.nypl-results-publisher').first().text()).to.equal('The Drake Hotel Company');
+      expect(component
+        .find('.nypl-results-publisher')
+        .first()
+        .text()).to.equal('The Drake Hotel Company');
     });
   });
 
@@ -55,29 +63,39 @@ describe('ResultsRow', () => {
 
     // Publication date check
     it('should contain a publication date', () => {
-      expect(component.find('.nypl-results-date').first().text()).to.equal('1922.');
+      expect(component
+        .find('.nypl-results-date')
+        .first()
+        .text()).to.equal('1922.');
     });
 
     // Publication place check
     it('should contain a publication place', () => {
-      expect(component.find('.nypl-results-place').first().text()).to.equal('Chicago :');
+      expect(component
+        .find('.nypl-results-place')
+        .first()
+        .text()).to.equal('Chicago :');
     });
 
     // Publisher check
     it('should contain markup only when not provided', () => {
-      expect(component.find('.nypl-results-publisher').first().text()).to.equal('The Drake Hotel Company');
+      expect(component
+        .find('.nypl-results-publisher')
+        .first()
+        .text()).to.equal('The Drake Hotel Company');
     });
   });
 
   describe('EBookList', () => {
     before(() => {
       const ebooks = instances[0].items;
+      console.log(ebooks);
       component = shallow(<EBookList ebooks={ebooks} />);
     });
     it('should have a list two anchor tags', () => {
-      expect(component.find('.nypl-items-list')).to.have.length(1);
-      expect(component.find('.nypl-items-list li')).to.have.length(2);
-      expect(component.find('.nypl-items-list li a')).to.have.length(2);
+      expect(component.find('ul')).to.have.length(1);
+      expect(component.find('ul li')).to.have.length(2);
+      expect(component.find('ul li a')).to.have.length(2);
     });
   });
 });

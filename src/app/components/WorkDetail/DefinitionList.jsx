@@ -88,6 +88,7 @@ export const DefinitionList = ({ work }) => {
             {list.map((identifier, i) => (
               <li key={`identifiers${i.toString()}`}>
                 {identifier.id_type}: {identifier.identifier}
+                {'; '}
               </li>
             ))}
           </ul>
@@ -98,6 +99,7 @@ export const DefinitionList = ({ work }) => {
             {list.map((measurement, i) => (
               <li key={`measurements${i.toString()}`}>
                 {measurement.quantity}: {measurement.value}
+                {'; '}
               </li>
             ))}
           </ul>
@@ -128,7 +130,7 @@ export const DefinitionList = ({ work }) => {
     }
 
     return (
-      <table className="nypl-editions-table">
+      <table className="nypl-details-table">
         <tbody>
           {defsData.map((entry, i) =>
               elements.includes(entry[0]) && (
@@ -144,7 +146,7 @@ export const DefinitionList = ({ work }) => {
 
   return (
     <div>
-      <h2>Details</h2>
+      <h3 className="bold">Details</h3>
       {getDefinitions(work)}
     </div>
   );
