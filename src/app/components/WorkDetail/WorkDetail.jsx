@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { isEmpty as _isEmpty } from 'underscore';
+import { isEmpty as _isEmpty, isEqual as _isEqual } from 'underscore';
 import { DefinitionList } from './DefinitionList';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import * as searchActions from '../../actions/SearchActions';
@@ -38,9 +38,10 @@ class WorkDetail extends React.Component {
       this.props.dispatch(searchActions.fetchWork(workId));
     }
   }
+
   render() {
     const { work } = this.props;
-    if (!work && _isEmpty(work)) {
+    if (!work || _isEmpty(work) || _isEqual(work, WorkDetail.defaultProps.work)) {
       return null;
     }
 
@@ -108,7 +109,7 @@ WorkDetail.propTypes = {
 };
 
 WorkDetail.defaultProps = {
-  work: {},
+  work: { instances: [] },
   searchQuery: '',
   searchField: '',
   eReaderUrl: '',
@@ -117,8 +118,8 @@ WorkDetail.defaultProps = {
 };
 
 WorkDetail.contextTypes = {
-  router: PropTypes.object,
-  history: PropTypes.object,
+  router: PropTypes.objectOf(PropTypes.any),
+  history: PropTypes.objectOf(PropTypes.any),
 };
 
 const mapStateToProps = (state, ownProps) => ({

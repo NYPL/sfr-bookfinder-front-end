@@ -2,14 +2,12 @@
 /* eslint-env mocha */
 import React from 'react';
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
-import { configure } from 'enzyme';
+import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
-
-configure({ adapter: new Adapter() });
-
 import ResultsList from '../../src/app/components/SearchResults/ResultsList';
 import results from '../fixtures/results-list.json';
+
+configure({ adapter: new Adapter() });
 
 describe('Results List', () => {
   let component;

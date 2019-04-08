@@ -11,18 +11,11 @@ const ResultsMetadata = (props) => {
   let message = 'Your search yielded no results. Please try again.';
 
   if (props.metadata.total > 0) {
-    message = `Viewing 1 - ${props.metadata.total < 10 ? props.metadata.total : 10} of ${
-      props.metadata.total
-    } items`;
+    message = `Viewing 1 - ${props.metadata.total < 10 ? props.metadata.total : 10} of ${props.metadata.total} items`;
   }
 
   return (
-    <div
-      className="nypl-results-summary"
-      aria-live="assertive"
-      aria-atomic="true"
-      role="presentation"
-    >
+    <div className="nypl-results-summary" aria-live="assertive" aria-atomic="true" role="presentation">
       {message}
     </div>
   );

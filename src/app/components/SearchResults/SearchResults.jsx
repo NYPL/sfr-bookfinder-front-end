@@ -12,8 +12,7 @@ import ResultsList from './ResultsList';
  */
 const SearchResults = (props) => {
   const metadata = props.results && props.results.data && props.results.data.hits;
-  const hits =
-    props.results && props.results.data && props.results.data.hits && props.results.data.hits.hits;
+  const hits = props.results && props.results.data && props.results.data.hits && props.results.data.hits.hits;
 
   if (!hits) {
     return null;
@@ -26,9 +25,7 @@ const SearchResults = (props) => {
           <div className="nypl-results-column">
             <ResultsMetadata metadata={metadata} />
           </div>
-          <div className="nypl-results-search-header">
-            {/* <SearchHeader metadata={metadata} /> */}
-          </div>
+          <div className="nypl-results-search-header">{/* <SearchHeader metadata={metadata} /> */}</div>
         </div>
         <div className="nypl-results-container">
           <div className="nypl-results-column">

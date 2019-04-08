@@ -40,11 +40,7 @@ export const searchField = (state = null, action) => {
   return state;
 };
 
-export const sort = (state = null, action) => (
-  (action.sort) ?
-    action.sort :
-    state
-);
+export const sort = (state = null, action) => (action.sort ? action.sort : state);
 
 const appReducer = combineReducers({
   searchResults,

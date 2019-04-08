@@ -2,17 +2,15 @@
 /* eslint-env mocha */
 import React from 'react';
 import { expect } from 'chai';
-import { mount } from 'enzyme';
-import { configure } from 'enzyme';
+import { mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
-
-configure({ adapter: new Adapter() });
-
 import SearchContainer from '../../src/app/components/SearchContainer/SearchContainer';
 import SearchForm from '../../src/app/components/SearchForm/SearchForm';
 import SearchResults from '../../src/app/components/SearchResults/SearchResults';
 import configureStore from '../../src/app/stores/configureStore';
 import initialState from '../../src/app/stores/InitialState';
+
+configure({ adapter: new Adapter() });
 
 describe('Search Container interactions', () => {
   let wrapper;
@@ -36,6 +34,8 @@ describe('Search Container interactions', () => {
   });
   it('contains a tagline element when search is empty', () => {
     expect(wrapper.find('#tagline')).to.have.length(1);
-    expect(wrapper.find('#tagline').text()).to.equal("Search the world's research collections and more for digital books you can use right now.");
+    expect(wrapper.find('#tagline').text()).to.equal(
+      "Search the world's research collections and more for digital books you can use right now.",
+    );
   });
 });

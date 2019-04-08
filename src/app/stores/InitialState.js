@@ -6,7 +6,7 @@ const initialState = {
     sortFilter: 'title',
     sortOrder: 'asc',
   },
-  workDetail: {},
+  workDetail: { instances: [] },
 };
 
 export default initialState;

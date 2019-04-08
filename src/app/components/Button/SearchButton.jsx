@@ -3,18 +3,9 @@ import PropTypes from 'prop-types';
 import { SearchIcon } from '@nypl/dgx-svg-icons';
 
 const SearchButton = ({
-  id,
-  className,
-  onClick,
-  value,
+  id, className, onClick, value,
 }) => (
-  <button
-    id={id}
-    className={`${className}`}
-    onClick={onClick}
-    type="submit"
-    aria-controls="results-description"
-  >
+  <button id={id} className={`${className}`} onClick={onClick} type="submit" aria-controls="results-description">
     {value}
     <SearchIcon />
   </button>

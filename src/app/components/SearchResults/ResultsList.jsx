@@ -5,7 +5,7 @@ import { isEmpty as _isEmpty } from 'underscore';
 import ResultsListItem from './ResultsListItem';
 /**
  * ResultsList presents search results as a "grouped" list of books
- * with their associated editions provided by the ResultsRow component.
+ * with their associated editions provided by the EditionsList component.
  * Each result displays a title and author element linked to its companion
  * detailed view.
  *
@@ -52,7 +52,7 @@ ResultsList.defaultProps = {
 };
 
 ResultsList.contextTypes = {
-  router: PropTypes.object,
+  router: PropTypes.objectOf(PropTypes.any),
 };
 
 export default ResultsList;

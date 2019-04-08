@@ -2,13 +2,11 @@
 /* eslint-env mocha */
 import React from 'react';
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
-import { configure } from 'enzyme';
+import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
+import ResultsMetadata from '../../src/app/components/SearchResults/ResultsMetadata';
 
 configure({ adapter: new Adapter() });
-
-import ResultsMetadata from '../../src/app/components/SearchResults/ResultsMetadata';
 
 describe('Results Metadata', () => {
   let component;
@@ -24,7 +22,9 @@ describe('Results Metadata', () => {
 
     it('should have a message stating no results found.', () => {
       expect(component.find('div')).to.have.length(1);
-      expect(component.find('div').text()).to.equal('Your search yielded no results. Please try again.');
+      expect(component.find('div').text()).to.equal(
+        'Your search yielded no results. Please try again.',
+      );
     });
   });
 

@@ -13,9 +13,7 @@ const ResultsListItem = ({ item, eReaderUrl }) => (
       <div className="nypl-results-item-header-image" />
       <div className="nypl-results-item-header-column">
         <h3>
-          <Link to={{ pathname: '/work', query: { workId: `${item.uuid}` } }}>
-            {htmlEntities.decode(item.title)}
-          </Link>
+          <Link to={{ pathname: '/work', query: { workId: `${item.uuid}` } }}>{htmlEntities.decode(item.title)}</Link>
         </h3>
         {item.subtitle && <div>{item.subtitle}</div>}
 
@@ -39,11 +37,11 @@ ResultsListItem.propTypes = {
 
 ResultsListItem.defaultProps = {
   eReaderUrl: '',
-  item: null,
+  item: { instances: [] },
 };
 
 ResultsListItem.contextTypes = {
-  router: PropTypes.object,
+  router: PropTypes.objectOf(PropTypes.any),
 };
 
 export default ResultsListItem;

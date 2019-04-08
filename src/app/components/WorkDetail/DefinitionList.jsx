@@ -87,7 +87,9 @@ export const DefinitionList = ({ work }) => {
           <ul className="inline-list">
             {list.map((identifier, i) => (
               <li key={`identifiers${i.toString()}`}>
-                {identifier.id_type}: {identifier.identifier}
+                {identifier.id_type}
+:
+                {identifier.identifier}
                 {'; '}
               </li>
             ))}
@@ -98,7 +100,9 @@ export const DefinitionList = ({ work }) => {
           <ul className="inline-list">
             {list.map((measurement, i) => (
               <li key={`measurements${i.toString()}`}>
-                {measurement.quantity}: {measurement.value}
+                {measurement.quantity}
+:
+                {measurement.value}
                 {'; '}
               </li>
             ))}
@@ -132,13 +136,14 @@ export const DefinitionList = ({ work }) => {
     return (
       <table className="nypl-details-table">
         <tbody>
-          {defsData.map((entry, i) =>
-              elements.includes(entry[0]) && (
-                <tr key={`entry${i.toString()}`}>
-                  <td>{labels[entry[0]]}</td>
-                  <td>{parseEntries(entry[0], entry[1], workObj)}</td>
-                </tr>
-              ))}
+          {defsData.map(
+            (entry, i) => elements.includes(entry[0]) && (
+            <tr key={`entry${i.toString()}`}>
+              <td>{labels[entry[0]]}</td>
+              <td>{parseEntries(entry[0], entry[1], workObj)}</td>
+            </tr>
+            ),
+          )}
         </tbody>
       </table>
     );

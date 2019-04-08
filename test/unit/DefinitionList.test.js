@@ -2,16 +2,14 @@
 /* eslint-env mocha */
 import React from 'react';
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
-import { configure } from 'enzyme';
+import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
-
-configure({ adapter: new Adapter() });
-
 import { DefinitionList, labels } from '../../src/app/components/WorkDetail/DefinitionList';
 import AuthorsList from '../../src/app/components/List/AuthorsList';
 import EBookList from '../../src/app/components/List/EBookList';
 import detail from '../fixtures/work-detail.json';
+
+configure({ adapter: new Adapter() });
 
 describe('DefinitionList', () => {
   let component;
@@ -25,10 +23,10 @@ describe('DefinitionList', () => {
     expect(component.find('tr')).to.have.length(6);
     expect(component.find('td')).to.have.length(12);
     const terms = component.find('td');
-    expect(terms.nodes[0].props.children).to.equal(labels.agents);
-    expect(terms.nodes[4].props.children).to.equal(labels.issued_display);
-    expect(terms.nodes[6].props.children).to.equal(labels.language);
-    expect(terms.nodes[8].props.children).to.equal(labels.measurements);
+    expect(terms.getElements()[0].props.children).to.equal(labels.agents);
+    expect(terms.getElements()[4].props.children).to.equal(labels.issued_display);
+    expect(terms.getElements()[6].props.children).to.equal(labels.language);
+    expect(terms.getElements()[8].props.children).to.equal(labels.measurements);
   });
 
   it('should have a table of Items', () => {
@@ -40,7 +38,7 @@ describe('DefinitionList', () => {
 
   it('should have a list of Subjects', () => {
     const subjects = component.find('ul');
-    expect(subjects.nodes[2].props.children).to.have.length(138);
+    expect(subjects.getElements()[2].props.children).to.have.length(138);
   });
 
   describe('AuthorsList', () => {
@@ -50,7 +48,7 @@ describe('DefinitionList', () => {
 
     it('should have a list of 5 Authors', () => {
       const authors = component.find('ul');
-      expect(authors.nodes[0].props.children).to.have.length(5);
+      expect(authors.getElements()[0].props.children).to.have.length(5);
     });
   });
 

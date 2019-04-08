@@ -1,9 +1,12 @@
 {
   "extends": "airbnb",
-  "rules":{
+  "rules": {
     "jsx-a11y/anchor-is-valid": "false",
     "no-useless-escape": 1,
     "jsx-a11y/no-noninteractive-element-interactions": "false",
-    "jsx-a11y/label-has-for": 1
+    "jsx-a11y/label-has-for": 1,
+    "react/destructuring-assignment": "false",
+    "prefer-destructuring": 0,
+    "max-len": ["error", { "code": 140 }]
   }
 }

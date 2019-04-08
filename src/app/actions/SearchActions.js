@@ -45,10 +45,11 @@ const recordUrl = apiUrl + recordPath;
 
 export const searchPost = (query, field) => {
   const uQuery = query || '*';
-  const sField = (field && selectFields[field]) ? selectFields[field] : 'keyword';
+  const sField = field && selectFields[field] ? selectFields[field] : 'keyword';
   const queryBody = buildQueryBody(uQuery, sField);
 
-  return dispatch => axios.post(searchUrl, queryBody)
+  return dispatch => axios
+    .post(searchUrl, queryBody)
     .then((resp) => {
       if (resp.data) {
         dispatch(searchResults(resp.data));
@@ -60,25 +61,26 @@ export const searchPost = (query, field) => {
     });
 };
 
-export const fetchWork = workId => dispatch =>
-  axios.get(recordUrl, { params: { identifier: workId } })
-    .then((resp) => {
-      if (resp.data) {
-        dispatch(workDetail(resp.data));
-      }
-    })
-    .catch((error) => {
-      console.log('An error occurred during fetchWork', error.message);
-      throw new Error('An error occurred during fetchWork', error.message);
-    });
+export const fetchWork = workId => dispatch => axios
+  .get(recordUrl, { params: { identifier: workId } })
+  .then((resp) => {
+    if (resp.data) {
+      dispatch(workDetail(resp.data));
+    }
+  })
+  .catch((error) => {
+    console.log('An error occurred during fetchWork', error.message);
+    throw new Error('An error occurred during fetchWork', error.message);
+  });
 
 export const serverPost = (query, field) => {
   // Need a parsed query input to use for each filter
   const uQuery = query || '*';
-  const sField = (field && selectFields[field]) ? selectFields[field] : 'keyword';
+  const sField = field && selectFields[field] ? selectFields[field] : 'keyword';
   const queryBody = buildQueryBody(uQuery, sField);
 
-  return axios.post(searchUrl, queryBody)
+  return axios
+    .post(searchUrl, queryBody)
     .then((resp) => {
       serverState.searchQuery = query;
       serverState.searchField = field;
@@ -91,7 +93,8 @@ export const serverPost = (query, field) => {
     });
 };
 
-export const serverFetchWork = workId => axios.get(recordUrl, { params: { identifier: workId } })
+export const serverFetchWork = workId => axios
+  .get(recordUrl, { params: { identifier: workId } })
   .then((resp) => {
     serverState.workDetail = { work: resp.data };
     return serverState;

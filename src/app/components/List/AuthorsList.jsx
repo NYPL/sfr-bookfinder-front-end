@@ -17,7 +17,13 @@ const birthDate = entity => (
   <span>
     {(entity.birth_date_display || entity.death_date_display) && <span> (</span>}
     {entity.birth_date_display && <span>{entity.birth_date_display}</span>}
-    {entity.death_date_display && <span> -- {entity.death_date_display}</span>}
+    {entity.death_date_display && (
+      <span>
+        {' '}
+        --
+        {entity.death_date_display}
+      </span>
+    )}
     {(entity.birth_date_display || entity.death_date_display) && <span>) </span>}
   </span>
 );
@@ -27,24 +33,18 @@ const AuthorsList = ({ agents }) => (
     {agents.map((entity, i) => (
       <li key={`agents${i.toString()}`}>
         <Link to={{ pathname: '/search', query: linkToAuthor(entity) }}>
-          {htmlEntities.decode(entity.name)}, {entity.roles.join(', ')}
+          {htmlEntities.decode(entity.name)}
+,
+          {entity.roles.join(', ')}
         </Link>
         {birthDate(entity)}
         {entity.viaf && (
-          <a
-            target="_blank"
-            href={`https://viaf.org/viaf/${entity.viaf}`}
-            rel="noopener noreferrer"
-          >
+          <a target="_blank" href={`https://viaf.org/viaf/${entity.viaf}`} rel="noopener noreferrer">
             (viaf)
           </a>
         )}
         {entity.lcnaf && (
-          <a
-            target="_blank"
-            href={`http://id.loc.gov/authorities/names/${entity.lcnaf}.html`}
-            rel="noopener noreferrer"
-          >
+          <a target="_blank" href={`http://id.loc.gov/authorities/names/${entity.lcnaf}.html`} rel="noopener noreferrer">
             (lcnaf)
           </a>
         )}
