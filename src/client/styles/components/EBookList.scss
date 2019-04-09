@@ -5,17 +5,19 @@ ul.nypl-ebooks-list {
   white-space: nowrap;
   color: #0071bb;
   li {
-    border: 2px solid #0071bb;
-    border-radius: 5px;
-    padding: 10px;
     display: inline-block;
-    margin: 10px;
-    width: 110px;
-    height: 20px;
-    line-height: 20px;
     text-align: center;
-    font-weight: bold;
     a {
+      border: 2px solid #0071bb;
+      border-radius: 5px;
+      padding: 10px;
+      display: inline-block;
+      margin: 10px;
+      width: 110px;
+      height: 20px;
+      line-height: 20px;
+      text-align: center;
+      font-weight: bold;
       text-decoration: none;
     }
   }
