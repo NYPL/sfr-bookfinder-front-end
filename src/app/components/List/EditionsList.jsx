@@ -46,7 +46,7 @@ const EditionsList = ({ work, eReaderUrl, max }) => {
               <tr key={i.toString()}>
                 <td>{publisher}</td>
                 <td>{instance.pub_place ? `${instance.pub_place}` : ''}</td>
-                <td>{instance.pub_date ? `${instance.pub_date_display} ` : ' '}</td>
+                <td>{instance.pub_date ? `${instance.pub_date_display}` : ''}</td>
                 <td className="nypl-editions-table-downloads">
                   {instance.items ? <EBookList ebooks={instance.items} eReaderUrl={eReaderUrl} /> : ''}
                 </td>

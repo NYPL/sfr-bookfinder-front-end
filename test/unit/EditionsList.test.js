@@ -27,7 +27,7 @@ describe('EditionsList', () => {
 
     // Publication date check
     it('should contain a publication date', () => {
-      expect(component.find('table tr td').getElements()[2].props.children[0]).to.equal('1922.');
+      expect(component.find('table tr td').getElements()[2].props.children).to.equal('1922.');
     });
 
     // Publication place check
@@ -57,7 +57,7 @@ describe('EditionsList', () => {
 
     // Publication date check
     it('should contain a publication date', () => {
-      expect(component.find('table tr td').getElements()[2].props.children[0]).to.equal('1922.');
+      expect(component.find('table tr td').getElements()[2].props.children).to.equal('1922.');
     });
 
     // Publication place check
