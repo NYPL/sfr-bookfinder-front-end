@@ -36,7 +36,7 @@ export const DefinitionList = ({ work }) => {
    * @param {object} work
    * @return {string|null}
    */
-  const workDetailsObject = workObj => Object.entries(workObj);
+  const workDetailsObject = workObj => Object.keys(workObj).map(key => [key, workObj[key]]);
 
   /**
    * Handle elements with array values as definitions. Authorities are linked to
