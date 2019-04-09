@@ -19,7 +19,7 @@ const EditionsList = ({ work, eReaderUrl, max }) => {
     || instance.pub_place
     || getPublisher(instance);
 
-  const filterValid = instances => instances.filter(l => getIsValid(l));
+  const filterValid = instances => instances.filter(instance => getIsValid(instance));
 
   return (
     <div>
@@ -46,10 +46,7 @@ const EditionsList = ({ work, eReaderUrl, max }) => {
               <tr key={i.toString()}>
                 <td>{publisher}</td>
                 <td>{instance.pub_place ? `${instance.pub_place}` : ''}</td>
-                <td>
-                  {instance.pub_date ? instance.pub_date_display : ''}
-                  {' '}
-                </td>
+                <td>{instance.pub_date ? `${instance.pub_date_display} ` : ' '}</td>
                 <td className="nypl-editions-table-downloads">
                   {instance.items ? <EBookList ebooks={instance.items} eReaderUrl={eReaderUrl} /> : ''}
                 </td>
@@ -63,11 +60,9 @@ const EditionsList = ({ work, eReaderUrl, max }) => {
       {!!max && filterValid(list).length > max && (
         <div className="nypl-editions-view-all">
           <Link to={{ pathname: '/work', query: { workId: `${work.uuid}` }, hash: '#all-editions' }}>
-            View All
-            {' '}
+            View All&nbsp;
             {filterValid(list).length}
-            {' '}
-Editions
+            &nbsp;Editions
           </Link>
         </div>
       )}

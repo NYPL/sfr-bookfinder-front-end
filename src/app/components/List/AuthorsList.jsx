@@ -17,13 +17,7 @@ const birthDate = entity => (
   <span>
     {(entity.birth_date_display || entity.death_date_display) && <span> (</span>}
     {entity.birth_date_display && <span>{entity.birth_date_display}</span>}
-    {entity.death_date_display && (
-      <span>
-        {' '}
-        --
-        {entity.death_date_display}
-      </span>
-    )}
+    {entity.death_date_display && <span>{` --${entity.death_date_display}`}</span>}
     {(entity.birth_date_display || entity.death_date_display) && <span>) </span>}
   </span>
 );

@@ -12,10 +12,9 @@ const NotFound404 = () => (
           <p>We&apos;re sorry...</p>
           <p>The page you were looking for doesn&apos;t exist.</p>
           <p>
-            Search
-            {' '}
+            Search&nbsp;
             <Link to={`${appConfig.baseUrl}/`}>ResearchNow</Link>
-.
+            {'.'}
           </p>
         </div>
       </div>

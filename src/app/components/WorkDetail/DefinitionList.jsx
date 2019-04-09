@@ -36,7 +36,7 @@ export const DefinitionList = ({ work }) => {
    * @param {object} work
    * @return {string|null}
    */
-  const workDetailsObject = workObj => Object.keys(workObj).map(key => [key, workObj[key]]);
+  const workDetailsObject = workObj => Object.entries(workObj);
 
   /**
    * Handle elements with array values as definitions. Authorities are linked to
@@ -86,12 +86,7 @@ export const DefinitionList = ({ work }) => {
         return (
           <ul className="inline-list">
             {list.map((identifier, i) => (
-              <li key={`identifiers${i.toString()}`}>
-                {identifier.id_type}
-:
-                {identifier.identifier}
-                {'; '}
-              </li>
+              <li key={`identifiers${i.toString()}`}>{`${identifier.id_type}:${identifier.identifier}: `}</li>
             ))}
           </ul>
         );
@@ -99,12 +94,7 @@ export const DefinitionList = ({ work }) => {
         return (
           <ul className="inline-list">
             {list.map((measurement, i) => (
-              <li key={`measurements${i.toString()}`}>
-                {measurement.quantity}
-:
-                {measurement.value}
-                {'; '}
-              </li>
+              <li key={`measurements${i.toString()}`}>{`${measurement.quantity}:${measurement.value}; `}</li>
             ))}
           </ul>
         );

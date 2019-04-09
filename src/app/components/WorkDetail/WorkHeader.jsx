@@ -8,11 +8,9 @@ const WorkHeader = ({ data }) => (
     <div className="nypl-item-header-column">
       <div className="nypl-item-header-title">{data.title}</div>
       {data.subtitle && <div>{data.subtitle}</div>}
-
       {data.agents && data.agents.length > 0 && (
         <div className="nypl-item-header-author">
-          By
-          {' '}
+          By&nbsp;
           <AuthorsList agents={data.agents} />
         </div>
       )}

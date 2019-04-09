@@ -55,15 +55,18 @@ class SearchContainer extends React.Component {
 
   render() {
     const {
+      searchQuery,
+      searchField,
+      searchResults,
+      eReaderUrl,
       location: { query },
     } = this.props;
-    let { searchQuery } = this.props;
-    const { searchField, searchResults, eReaderUrl } = this.props;
     const { router, history } = this.context;
+    let selectedQuery = searchQuery;
     if (query && query.showQuery) {
-      searchQuery = query.showQuery;
+      selectedQuery = query.showQuery;
     } else if (query && query.q) {
-      searchQuery = query.q;
+      selectedQuery = query.q;
     }
     let selectedField = searchField;
     if (query && query.showField) {
@@ -93,7 +96,7 @@ class SearchContainer extends React.Component {
             <Breadcrumbs
               links={[
                 {
-                  href: `/search?q=${searchQuery}&field=${selectedField}`,
+                  href: `/search?q=${selectedQuery}&field=${selectedField}`,
                   text: 'Search Results',
                 },
               ]}
@@ -106,25 +109,13 @@ class SearchContainer extends React.Component {
               <div className="nypl-row">
                 <div className="nypl-column-full">
                   <h1 className="nypl-heading">ResearchNow</h1>
-                  <div id="tagline">
-                    Search the world&apos;s research collections and more for digital books you can
-                    use right now.
-                  </div>
+                  <div id="tagline">Search the world&apos;s research collections and more for digital books you can use right now.</div>
                 </div>
               </div>
             )}
             <div className="wrapper">
-              <SearchForm
-                searchQuery={searchQuery}
-                searchField={selectedField}
-                history={history}
-                {...this.boundActions}
-              />
-              <SearchResults
-                results={searchResults}
-                eReaderUrl={eReaderUrl}
-                {...this.boundActions}
-              />
+              <SearchForm searchQuery={selectedQuery} searchField={selectedField} history={history} {...this.boundActions} />
+              <SearchResults results={searchResults} eReaderUrl={eReaderUrl} {...this.boundActions} />
             </div>
           </div>
         </div>
