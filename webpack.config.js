@@ -8,7 +8,7 @@ const sassPaths = require('@nypl/design-toolkit')
   .includePaths.map(sassPath => sassPath)
   .join('&');
 
-// References the applications root path
+// References the application's root path
 const ROOT_PATH = path.resolve(__dirname);
 
 // Sets the variable as either development or production
@@ -38,10 +38,6 @@ const commonSettings = {
     // Alternately, we can run rm -rf dist/ as
     // part of the package.json scripts.
     new CleanWebpackPlugin(),
-    new MiniCssExtractPlugin({
-      filename: '[name].css',
-      chunkFilename: '[id].css',
-    }),
     new webpack.DefinePlugin({
       loadA11y: process.env.loadA11y || false,
       appEnv: JSON.stringify(appEnv),
@@ -74,6 +70,9 @@ if (ENV === 'development') {
       publicPath: 'http://localhost:3000/',
     },
     plugins: [
+      new MiniCssExtractPlugin({
+        filename: 'styles.css',
+      }),
       new webpack.HotModuleReplacementPlugin(),
       new webpack.DefinePlugin({
         'process.env': {
@@ -113,7 +112,17 @@ if (ENV === 'development') {
 if (ENV === 'production') {
   module.exports = merge(commonSettings, {
     mode: 'production',
-    devtool: 'source-map',
+    plugins: [
+      new MiniCssExtractPlugin({
+        filename: 'styles.css',
+      }),
+      new webpack.DefinePlugin({
+        'process.env': {
+          NODE_ENV: JSON.stringify('production'),
+          APP_ENV: JSON.stringify(appEnv),
+        },
+      }),
+    ],
     module: {
       rules: [
         {
@@ -123,18 +132,10 @@ if (ENV === 'production') {
         },
         {
           test: /\.scss?$/,
-          use: ['style-loader', 'css-loader', `sass-loader?includePaths=${sassPaths}`],
+          use: [MiniCssExtractPlugin.loader, 'css-loader', `sass-loader?includePaths=${sassPaths}`],
           include: path.resolve(ROOT_PATH, 'src'),
         },
       ],
     },
-    plugins: [
-      new webpack.DefinePlugin({
-        'process.env': {
-          NODE_ENV: JSON.stringify('production'),
-          APP_ENV: JSON.stringify(appEnv),
-        },
-      }),
-    ],
   });
 }
