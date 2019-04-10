@@ -15,7 +15,7 @@ import apiRoutes from './src/server/ApiRoutes/ApiRoutes';
 import routes from './src/app/routes/routes';
 import configureStore from './src/app/stores/configureStore';
 import appConfig from './appConfig';
-import webpackConfig from './webpack.config';
+import webpackConfig from './webpack.config.babel';
 
 const ROOT_PATH = __dirname;
 const INDEX_PATH = path.resolve(ROOT_PATH, 'src/client');
@@ -57,8 +57,11 @@ app.get('/*', (req, res) => {
       }
       const store = configureStore(res.data);
 
-      const application = ReactDOMServer
-        .renderToString(<Provider store={store}><RouterContext {...renderProps} /></Provider>);
+      const application = ReactDOMServer.renderToString(
+        <Provider store={store}>
+          <RouterContext {...renderProps} />
+        </Provider>,
+      );
 
       // First parameter references the ejs filename
       res.render('index', {
@@ -113,7 +116,7 @@ process.on('SIGINT', gracefulShutdown);
 /* Development Environment Configuration
  * -------------------------------------
  * - Using Webpack Dev Server
-*/
+ */
 if (!isProduction) {
   const WebpackDevServer = require('webpack-dev-server');
 

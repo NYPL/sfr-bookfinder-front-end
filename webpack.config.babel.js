@@ -1,8 +1,15 @@
-const path = require('path');
-const webpack = require('webpack');
-const merge = require('webpack-merge');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+import { config as analyticsConfig } from 'dgx-react-ga';
+
+import path from 'path';
+
+import webpack from 'webpack';
+import merge from 'webpack-merge';
+import CleanWebpackPlugin from 'clean-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import TerserJSPlugin from 'terser-webpack-plugin';
+import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import appConfig from './appConfig';
 
 const sassPaths = require('@nypl/design-toolkit')
   .includePaths.map(sassPath => sassPath)
@@ -13,6 +20,7 @@ const ROOT_PATH = path.resolve(__dirname);
 
 // Sets the variable as either development or production
 const ENV = process.env.NODE_ENV || 'development';
+const isProduction = process.env.NODE_ENV === 'production';
 
 // Sets appEnv so the the header component will point to the search app on either Dev or Prod
 const appEnv = process.env.APP_ENV ? process.env.APP_ENV : 'production';
@@ -38,9 +46,25 @@ const commonSettings = {
     // Alternately, we can run rm -rf dist/ as
     // part of the package.json scripts.
     new CleanWebpackPlugin(),
+    new MiniCssExtractPlugin({
+      filename: 'styles.css',
+    }),
     new webpack.DefinePlugin({
       loadA11y: process.env.loadA11y || false,
       appEnv: JSON.stringify(appEnv),
+    }),
+    new HtmlWebpackPlugin({
+      template: 'src/views/index.ejs',
+      templateParameters: {
+        appTitle: appConfig.appTitle,
+        appEnv: process.env.APP_ENV,
+        apiUrl: '',
+        favicon: appConfig.favIconPath,
+        gaCode: analyticsConfig.google.code(isProduction),
+        isProduction,
+        application: '',
+        appData: JSON.stringify({}).replace(/</g, '\\u003c'),
+      },
     }),
   ],
 };
@@ -123,6 +147,9 @@ if (ENV === 'production') {
         },
       }),
     ],
+    optimization: {
+      minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
+    },
     module: {
       rules: [
         {
