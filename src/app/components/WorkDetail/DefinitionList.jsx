@@ -84,7 +84,7 @@ export const DefinitionList = ({ work }) => {
         );
       case 'identifiers':
         return (
-          <ul className="inline-list">
+          <ul className="sfr-inline-list">
             {list.map((identifier, i) => (
               <li key={`identifiers${i.toString()}`}>{`${identifier.id_type}:${identifier.identifier}: `}</li>
             ))}
@@ -92,7 +92,7 @@ export const DefinitionList = ({ work }) => {
         );
       case 'measurements':
         return (
-          <ul className="inline-list">
+          <ul className="sfr-inline-list">
             {list.map((measurement, i) => (
               <li key={`measurements${i.toString()}`}>{`${measurement.quantity}:${measurement.value}; `}</li>
             ))}
@@ -106,7 +106,7 @@ export const DefinitionList = ({ work }) => {
           </span>
         );
       default:
-        return _isArray(entries) ? entries.join(' ,') : entries;
+        return _isArray(entries) ? entries.join(', ') : entries;
     }
   };
 
