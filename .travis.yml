@@ -12,7 +12,7 @@ deploy:
   secret_access_key: "$AWS_SECRET_ACCESS_KEY_DEVELOPMENT"
   region: us-east-1
   app: sfr-front-end
-  env: rnw-frontend-development
+  env: sfr-front-end-development
   bucket_name: elasticbeanstalk-us-east-1-224280085904
   bucket_path: rnw-front-end-development
   on:
