@@ -18,7 +18,9 @@ const ResultsListItem = ({ item, eReaderUrl }) => (
       </div>
       <div className="nypl-results-item-header-column">
         <h3>
-          <Link to={{ pathname: '/work', query: { workId: `${item.uuid}` } }}>{htmlEntities.decode(chunk(item.title, 150))}</Link>
+          <Link to={{ pathname: '/work', query: { workId: `${item.uuid}` } }} title={htmlEntities.decode(item.title)}>
+            {htmlEntities.decode(chunk(item.title, 150))}
+          </Link>
         </h3>
         {item.subtitle && <div>{item.subtitle}</div>}
 
