@@ -2,7 +2,13 @@
 import React from 'react';
 
 const BookSvg = () => (
-  <svg width="100" height="119" viewBox="0 0 100 119" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    width="100"
+    height="119"
+    viewBox="0 0 100 119"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <path
       fillRule="evenodd"
       clipRule="evenodd"
@@ -15,8 +21,20 @@ const BookSvg = () => (
       d="M32.5704 85.8398C31.5092 85.8398 30.6133 86.6532 30.6133 87.7105C30.6133 88.7678 31.5092 89.6625 32.5704 89.6625H57.4684C58.448 89.6625 59.3459 88.7678 59.3459 87.7105C59.3459 86.6532 58.448 85.8398 57.4684 85.8398H32.5704Z"
       fill="black"
     />
-    <mask id="mask0" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="119">
-      <path fillRule="evenodd" clipRule="evenodd" d="M0 0.0336914H99.51V118.29H0V0.0336914Z" fill="white" />
+    <mask
+      id="mask0"
+      maskUnits="userSpaceOnUse"
+      x="0"
+      y="0"
+      width="100"
+      height="119"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M0 0.0336914H99.51V118.29H0V0.0336914Z"
+        fill="white"
+      />
     </mask>
     <g mask="url(#mask0)">
       <path

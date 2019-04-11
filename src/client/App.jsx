@@ -38,7 +38,10 @@ global.window.onload = () => {
 
   ReactDOM.render(
     <Provider store={store}>
-      <Router history={browserHistory} onUpdate={hashLinkScroll}>
+      <Router
+        history={browserHistory}
+        onUpdate={hashLinkScroll}
+      >
         {routes.default}
       </Router>
     </Provider>,

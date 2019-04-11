@@ -17,7 +17,10 @@ const Breadcrumbs = ({ links, pageType, onClickHandler }) => {
 
   const homeLink = (
     <li key="home">
-      <Link to="/" onClick={event => onClickHandler(event)}>
+      <Link
+        to="/"
+        onClick={event => onClickHandler(event)}
+      >
         ResearchNow
       </Link>
     </li>
@@ -47,7 +50,10 @@ const Breadcrumbs = ({ links, pageType, onClickHandler }) => {
   const crumbs = crumbTrail();
 
   return (
-    <nav aria-label="Breadcrumbs" className="nypl-breadcrumbs">
+    <nav
+      aria-label="Breadcrumbs"
+      className="nypl-breadcrumbs"
+    >
       <span className="nypl-screenreader-only">You are here:</span>
       <ol>{crumbs}</ol>
     </nav>

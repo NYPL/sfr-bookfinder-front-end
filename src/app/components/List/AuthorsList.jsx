@@ -35,12 +35,20 @@ const AuthorsList = ({ agents, max, roleFilter }) => (
         </Link>
         {birthDate(entity)}
         {entity.viaf && (
-          <a target="_blank" href={`https://viaf.org/viaf/${entity.viaf}`} rel="noopener noreferrer">
+          <a
+            target="_blank"
+            href={`https://viaf.org/viaf/${entity.viaf}`}
+            rel="noopener noreferrer"
+          >
             (viaf)
           </a>
         )}
         {entity.lcnaf && (
-          <a target="_blank" href={`http://id.loc.gov/authorities/names/${entity.lcnaf}.html`} rel="noopener noreferrer">
+          <a
+            target="_blank"
+            href={`http://id.loc.gov/authorities/names/${entity.lcnaf}.html`}
+            rel="noopener noreferrer"
+          >
             (lcnaf)
           </a>
         )}

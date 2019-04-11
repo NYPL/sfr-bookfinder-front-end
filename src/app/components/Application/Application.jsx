@@ -16,7 +16,11 @@ class Application extends React.Component {
   render() {
     return (
       <div className="app-wrapper">
-        <Header skipNav={{ target: 'mainContent' }} navData={navConfig.current} urlType="absolute" />
+        <Header
+          skipNav={{ target: 'mainContent' }}
+          navData={navConfig.current}
+          urlType="absolute"
+        />
         {React.cloneElement(this.props.children, this.props)}
         <Footer />
       </div>

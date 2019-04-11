@@ -104,7 +104,10 @@ class SearchContainer extends React.Component {
               onClickHandler={handleReset}
             />
           </div>
-          <div role="search" aria-label="ResearchNow">
+          <div
+            role="search"
+            aria-label="ResearchNow"
+          >
             {(!searchResults || _isEmpty(searchResults)) && (
               <div className="nypl-row">
                 <div className="nypl-column-full">
@@ -114,8 +117,17 @@ class SearchContainer extends React.Component {
               </div>
             )}
             <div className="wrapper">
-              <SearchForm searchQuery={selectedQuery} searchField={selectedField} history={history} {...this.boundActions} />
-              <SearchResults results={searchResults} eReaderUrl={eReaderUrl} {...this.boundActions} />
+              <SearchForm
+                searchQuery={selectedQuery}
+                searchField={selectedField}
+                history={history}
+                {...this.boundActions}
+              />
+              <SearchResults
+                results={searchResults}
+                eReaderUrl={eReaderUrl}
+                {...this.boundActions}
+              />
             </div>
           </div>
         </div>

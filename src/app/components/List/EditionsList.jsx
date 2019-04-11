@@ -48,7 +48,12 @@ const EditionsList = ({ work, eReaderUrl, max }) => {
                 <td>{instance.pub_place ? `${instance.pub_place}` : ''}</td>
                 <td>{instance.pub_date ? `${instance.pub_date_display}` : ''}</td>
                 <td className="nypl-editions-table-downloads">
-                  {instance.items ? <EBookList ebooks={instance.items} eReaderUrl={eReaderUrl} /> : ''}
+                  {instance.items ? (
+                    <EBookList
+                      ebooks={instance.items}
+                      eReaderUrl={eReaderUrl}
+                    />
+                  ) : ''}
                 </td>
                 <td>{instance.language && instance.language.length > 0 && instance.language.map(lang => lang.language).join(' ,')}</td>
                 <td>View Detail</td>

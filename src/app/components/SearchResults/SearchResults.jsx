@@ -32,7 +32,11 @@ const SearchResults = (props) => {
             <div> Filters </div>
           </div>
           <div className="nypl-results-main">
-            <ResultsList results={hits} fetchWork={props.fetchWork} eReaderUrl={props.eReaderUrl} />
+            <ResultsList
+              results={hits}
+              fetchWork={props.fetchWork}
+              eReaderUrl={props.eReaderUrl}
+            />
           </div>
         </div>
       </div>

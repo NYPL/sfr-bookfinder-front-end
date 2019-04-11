@@ -4,7 +4,10 @@ import { Link } from 'react-router';
 import appConfig from '../../../../appConfig';
 
 const NotFound404 = () => (
-  <main id="mainContent" className="not-found-404">
+  <main
+    id="mainContent"
+    className="not-found-404"
+  >
     <div className="nypl-full-width-wrapper">
       <div className="nypl-row">
         <div className="nypl-column-three-quarters">

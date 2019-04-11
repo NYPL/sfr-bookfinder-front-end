@@ -69,15 +69,28 @@ class SearchForm extends React.Component {
     return (
       <div className="nypl-row">
         <div className="nypl-column-full">
-          <form className="nypl-omnisearch-form" action="/search" method="get" onSubmit={this.handleSubmit} onKeyPress={this.handleSubmit}>
+          <form
+            className="nypl-omnisearch-form"
+            action="/search"
+            method="get"
+            onSubmit={this.handleSubmit}
+            onKeyPress={this.handleSubmit}
+          >
             <div className="ebook-search-form">
               <div className="nypl-omnisearch">
                 <div className="nypl-text-field">
                   <span className="nypl-omni-fields">
                     <label htmlFor="search-by-field">Search in</label>
-                    <select id="search-by-field" onChange={this.onFieldChange} value={this.state.searchField}>
+                    <select
+                      id="search-by-field"
+                      onChange={this.onFieldChange}
+                      value={this.state.searchField}
+                    >
                       {this.props.allowedFields.map((field, key) => (
-                        <option value={field} key={key.toString()}>
+                        <option
+                          value={field}
+                          key={key.toString()}
+                        >
                           {titleCase(field)}
                         </option>
                       ))}
@@ -99,7 +112,10 @@ class SearchForm extends React.Component {
                   </span>
                 </div>
                 <div className="nypl-text-field">
-                  <SearchButton className="nypl-omnisearch-button" onClick={this.submitSearchRequest} />
+                  <SearchButton
+                    className="nypl-omnisearch-button"
+                    onClick={this.submitSearchRequest}
+                  />
                 </div>
               </div>
             </div>

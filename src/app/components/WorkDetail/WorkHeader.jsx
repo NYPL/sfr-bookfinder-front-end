@@ -14,7 +14,10 @@ const WorkHeader = ({ data }) => (
       {data.agents && data.agents.length > 0 && (
         <div className="nypl-item-header-author">
           By&nbsp;
-          <AuthorsList agents={data.agents} max={1} />
+          <AuthorsList
+            agents={data.agents}
+            max={1}
+          />
         </div>
       )}
     </div>

@@ -84,12 +84,24 @@ class WorkDetail extends React.Component {
               </div>
 
               <div id="nypl-item-details">
-                <EditionsList eReaderUrl={this.props.eReaderUrl} work={work} max={1} />
-                <DefinitionList work={work} dispatch={this.props.dispatch} context={this.context} />
+                <EditionsList
+                  eReaderUrl={this.props.eReaderUrl}
+                  work={work}
+                  max={1}
+                />
+                <DefinitionList
+                  work={work}
+                  dispatch={this.props.dispatch}
+                  context={this.context}
+                />
                 <h3 className="all-editions-tag bold">
                   <a id="all-editions">All Editions</a>
                 </h3>
-                <EditionsList eReaderUrl={this.props.eReaderUrl} work={work} max={0} />
+                <EditionsList
+                  eReaderUrl={this.props.eReaderUrl}
+                  work={work}
+                  max={0}
+                />
               </div>
             </div>
           </div>
