@@ -22,14 +22,16 @@ const birthDate = entity => (
   </span>
 );
 
-const AuthorsList = ({ agents }) => (
+const filterAgents = (agents, max, roleFilter) => agents //
+  .slice(0, max || agents.length)
+  .filter(agent => !roleFilter || agent.roles.indexOf(roleFilter) > -1);
+
+const AuthorsList = ({ agents, max, roleFilter }) => (
   <ul className="authors-list">
-    {agents.map((entity, i) => (
-      <li key={`agents${i.toString()}`}>
+    {filterAgents(agents, max, roleFilter).map((entity, index, filteredAgents) => (
+      <li key={`agents${index.toString()}`}>
         <Link to={{ pathname: '/search', query: linkToAuthor(entity) }}>
-          {htmlEntities.decode(entity.name)}
-,
-          {entity.roles.join(', ')}
+          {`${htmlEntities.decode(entity.name)}, ${entity.roles.join(', ')}`}
         </Link>
         {birthDate(entity)}
         {entity.viaf && (
@@ -42,7 +44,7 @@ const AuthorsList = ({ agents }) => (
             (lcnaf)
           </a>
         )}
-        <span>, </span>
+        {index + 1 < filteredAgents.length && <span>, </span>}
       </li>
     ))}
   </ul>
@@ -50,9 +52,13 @@ const AuthorsList = ({ agents }) => (
 
 AuthorsList.propTypes = {
   agents: PropTypes.arrayOf(PropTypes.any),
+  max: PropTypes.number,
+  roleFilter: PropTypes.string,
 };
 AuthorsList.defaultProps = {
   agents: [],
+  max: 0,
+  roleFilter: null,
 };
 
 export default AuthorsList;

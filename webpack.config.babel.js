@@ -120,6 +120,11 @@ if (ENV === 'development') {
           use: ['style-loader', 'css-loader', `sass-loader?includePaths=${sassPaths}`],
           include: path.resolve(ROOT_PATH, 'src'),
         },
+        {
+          test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
+          use: 'file-loader?name=assets/[name].[ext]',
+          include: [path.resolve(__dirname, 'src/assets')],
+        },
       ],
     },
   });
@@ -161,6 +166,11 @@ if (ENV === 'production') {
           test: /\.scss?$/,
           use: [MiniCssExtractPlugin.loader, 'css-loader', `sass-loader?includePaths=${sassPaths}`],
           include: path.resolve(ROOT_PATH, 'src'),
+        },
+        {
+          test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
+          use: 'file-loader?name=assets/[name].[ext]',
+          include: [path.resolve(__dirname, 'src/assets')],
         },
       ],
     },
