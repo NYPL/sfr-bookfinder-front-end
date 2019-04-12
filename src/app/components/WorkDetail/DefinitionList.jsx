@@ -141,7 +141,9 @@ export const DefinitionList = ({ work }) => {
 
   return (
     <div>
-      <h3 className="bold">Details</h3>
+      <h3 className="work-details-tag bold">
+        <a id="work-details">Details</a>
+      </h3>
       {getDefinitions(work)}
     </div>
   );

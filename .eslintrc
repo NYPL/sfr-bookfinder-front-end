@@ -1,9 +1,9 @@
 {
-  "extends": "airbnb",
+  "extends": ["airbnb", "plugin:jsx-a11y/strict"],
   "rules": {
-    "jsx-a11y/anchor-is-valid": "false",
+    "jsx-a11y/anchor-is-valid": 0,
     "no-useless-escape": 1,
-    "jsx-a11y/no-noninteractive-element-interactions": "false",
+    "jsx-a11y/no-noninteractive-element-interactions": 0,
     "jsx-a11y/label-has-for": 1,
     "react/destructuring-assignment": "false",
     "prefer-destructuring": 0,
@@ -15,5 +15,6 @@
         "maximum": 1
       }
     ]
-  }
+  },
+  "plugins": ["jsx-a11y"]
 }

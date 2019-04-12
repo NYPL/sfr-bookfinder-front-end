@@ -83,6 +83,7 @@ class SearchForm extends React.Component {
                     <label htmlFor="search-by-field">Search in</label>
                     <select
                       id="search-by-field"
+                      onBlur={this.onFieldChange}
                       onChange={this.onFieldChange}
                       value={this.state.searchField}
                     >
