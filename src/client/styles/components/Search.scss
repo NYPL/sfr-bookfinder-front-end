@@ -74,7 +74,7 @@
 
 
   // Small screen stacked version of search form elements.
-  @media (max-width: $xtrasmall-breakpoint) {
+  @media (max-width: $small-screen) {
     .nypl-omnisearch {
       display: block;
       background-color: transparent;
@@ -115,10 +115,22 @@
       }
     }
   }
+}
 
-  @media (max-width: $mobile-breakpoint) {
-    .nypl-omnisearch {
-      width: 100%;
+.nypl-search-bar {
+  display: inline;
+
+  .nypl-search-input {
+    width: 50%;
+    display: inline;
+    margin: 0;
+    padding: 0;
+    position: relative;
+  }
+
+  @media (max-width: $small-screen) {
+    .nypl-search-bar {
+      display: block;
     }
   }
 }

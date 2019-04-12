@@ -1,14 +1,18 @@
-/*
-Import style rules from NYPL Design Toolkit
-*/
-@import '~@nypl/design-toolkit/sass/nypl-normalize';
-@import '~@nypl/design-toolkit/sass/toolkit';
-
-/*
-Import style rules from NYPL React module components
-*/
+/**
+ * Import style rules from NYPL React module components
+ */
 @import '~@nypl/dgx-header-component/dist/styles/main';
 @import '~@nypl/dgx-react-footer/dist/styles/styles';
+
+/**
+ * Import style rules for US.gov Web Design System.
+ */
+@import './core/rnw_variables';
+@import '~uswds/src/stylesheets/all';
+
+/**
+ * Import custom rules for this project.
+ */
 @import './components/Search.scss';
 @import './components/ResultsRow.scss';
 

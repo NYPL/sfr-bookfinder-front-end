@@ -151,9 +151,15 @@ export const DefinitionList = ({ eReaderUrl, data }) => {
                         ''
                       )}
                     </td>
-                    <td>{instance.pub_date ? instance.pub_date_display : ''} </td>
-                    <td>{instance.pub_place ? `${instance.pub_place}` : ''}</td>
-                    <td>{instance.publisher}</td>
+                    <td>
+                      {instance.pub_date ? instance.pub_date_display : ''}
+                    </td>
+                    <td>
+                      {instance.pub_place ? `${instance.pub_place}` : ''}
+                    </td>
+                    <td>
+                      {instance.publisher}
+                    </td>
                   </tr>
                 );
               })}

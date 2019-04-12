@@ -78,8 +78,8 @@ class SearchContainer extends React.Component {
 
     return (
       <main id="mainContent">
-        <div className="nypl-full-width-wrapper">
-          <div className="nypl-page-header">
+        <div className="usa-grid">
+          <div className="usa-width-one-whole">
             <Breadcrumbs
               links={[
                 {
@@ -90,30 +90,22 @@ class SearchContainer extends React.Component {
               pageType={pageType}
               onClickHandler={handleReset}
             />
-          </div>
-          <div role="search" aria-label="ResearchNow">
-            <div className="nypl-row">
-              <div className="nypl-column-full">
-                <h1 className="nypl-heading">ResearchNow</h1>
-                <div id="tagline">
-                  Search the world&apos;s research collections and more for digital books you can
-                  use right now.
-                </div>
-              </div>
+            <h1 className="nypl-heading">ResearchNow</h1>
+            <div id="nypl-tagline">
+              Search the world&apos;s research collections and more for digital books you can
+              use right now.
             </div>
-            <div className="wrapper">
-              <SearchForm
-                searchQuery={searchQuery}
-                searchField={selectedField}
-                history={this.context.history}
-                {...this.boundActions}
-              />
-              <SearchResults
-                results={this.props.searchResults}
-                eReaderUrl={this.props.eReaderUrl}
-                {...this.boundActions}
-              />
-            </div>
+            <SearchForm
+              searchQuery={searchQuery}
+              searchField={selectedField}
+              history={this.context.history}
+              {...this.boundActions}
+            />
+            <SearchResults
+              results={this.props.searchResults}
+              eReaderUrl={this.props.eReaderUrl}
+              {...this.boundActions}
+            />
           </div>
         </div>
       </main>

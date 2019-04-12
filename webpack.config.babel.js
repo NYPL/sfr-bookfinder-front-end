@@ -120,6 +120,28 @@ if (ENV === 'development') {
           use: ['style-loader', 'css-loader', `sass-loader?includePaths=${sassPaths}`],
           include: path.resolve(ROOT_PATH, 'src'),
         },
+        {
+          test: /\.(gif|png|jpe?g|svg)$/i,
+          use: [
+            'file-loader',
+            {
+              loader: 'image-webpack-loader',
+              options: {
+                disable: true, // webpack@2.x and newer
+              },
+            },
+          ],
+        },
+        {
+          test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+          use: [{
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'src/client/styles/fonts/',
+            },
+          }],
+        },
       ],
     },
   });
@@ -161,6 +183,27 @@ if (ENV === 'production') {
           test: /\.scss?$/,
           use: [MiniCssExtractPlugin.loader, 'css-loader', `sass-loader?includePaths=${sassPaths}`],
           include: path.resolve(ROOT_PATH, 'src'),
+        },
+        {
+          test: /\.(gif|png|jpe?g|svg)$/i,
+          use: [
+            'file-loader',
+            {
+              loader: 'image-webpack-loader',
+              options: {
+                disable: true, // webpack@2.x and newer
+              },
+            },
+          ],
+        },
+        {
+          test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+          use: [{
+            loader: 'file-loader',
+            options: {
+              outputPath: 'src/client/styles/fonts/',
+            },
+          }],
         },
       ],
     },

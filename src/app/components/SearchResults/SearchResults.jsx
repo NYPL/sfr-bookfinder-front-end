@@ -21,8 +21,14 @@ const SearchResults = (props) => {
   return (
     <div className="nypl-row">
       <div className="nypl-column-full">
-        <ResultsMetadata metadata={metadata} />
-        <ResultsList results={hits} fetchWork={props.fetchWork} eReaderUrl={props.eReaderUrl} />
+        <ResultsMetadata
+          metadata={metadata}
+        />
+        <ResultsList
+          results={hits}
+          fetchWork={props.fetchWork}
+          eReaderUrl={props.eReaderUrl}
+        />
       </div>
     </div>
   );

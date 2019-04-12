@@ -6,15 +6,15 @@
   margin-left: 2em;
 
   // override the default spacing between items here:
-  .nypl-results-item-description {
-    @include results-item-description($item-margin-bottom: 0.25rem);
-  }
+  // .nypl-results-item-description {
+  //   @include results-item-description($item-margin-bottom: 0.25rem);
+  // }
 
   .nypl-results-item {
-    @include results-item(
-      $margin-bottom: 2em,
-      $padding-bottom: 2em);
-      border-bottom: ($general-border-width / 1.25) solid lighten($nypl-light-gray, 15%);
+    // @include results-item(
+    //   $margin-bottom: 2em,
+    //   $padding-bottom: 2em);
+//      border-bottom: ($general-border-width / 1.25) solid lighten($nypl-light-gray, 15%);
 
     h2,
     h3 {
@@ -30,28 +30,23 @@
       margin-bottom: 3.25rem;
     }
 
-    .nypl-results-media {
-      @include results-media(
-        $color: $nypl-dark-gray,
-        //$font-size: 0.85rem,
-        $font-weight: 400);
-
-        // &::before {
-        //   content: 'Format: ';
-        // }
-    } // /.nypl-results-media
+    // .nypl-results-media {
+      // @include results-media(
+      //   $color: $nypl-dark-gray,
+      //   $font-weight: 400);
+    // }
 
     //
     // TODO: find a more elegant way of writing this:
     // Posibly a for/in thing...
 
-    .nypl-results-room,
-    .nypl-results-place,
-    .nypl-results-publisher,
-    .nypl-results-date,
-    .nypl-results-info {
+    // .nypl-results-room,
+    // .nypl-results-place,
+    // .nypl-results-publisher,
+    // .nypl-results-date,
+    // .nypl-results-info {
       //font-size: 0.85rem;
-    } // /.nypl-results-room
+    // } // /.nypl-results-room
 
     // Special case where we need the the publisher & published date closer to one another:
     .nypl-results-publisher {

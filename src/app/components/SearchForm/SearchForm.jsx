@@ -65,58 +65,50 @@ class SearchForm extends React.Component {
 
   render() {
     return (
-      <div className="nypl-row">
-        <div className="nypl-column-full">
-          <form
-            className="nypl-omnisearch-form"
-            action="/search"
-            method="get"
-            onSubmit={this.handleSubmit}
-            onKeyPress={this.handleSubmit}
-          >
-            <div className="ebook-search-form">
-              <div className="nypl-omnisearch">
-                <div className="nypl-text-field">
-                  <span className="nypl-omni-fields">
-                    <label htmlFor="search-by-field">Search in</label>
-                    <select
-                      id="search-by-field"
-                      onChange={this.onFieldChange}
-                      value={this.state.searchField}
-                    >
-                      {this.props.allowedFields.map((field, key) => (
-                        <option value={field} key={key.toString()}>
-                          {titleCase(field)}
-                        </option>
-                      ))}
-                    </select>
-                  </span>
-                </div>
-                <div className="nypl-text-field">
-                  <span className="nypl-omni-fields-text">
-                    {/* <label htmlFor="search-input">Search ResearchNow for</label> */}
-                    <input
-                      id="search-input"
-                      name="q"
-                      type="text"
-                      aria-labelledby="search-input-field"
-                      value={this.state.searchQuery}
-                      placeholder="Keyword, title, author, or subject"
-                      onChange={this.onQueryChange}
-                    />
-                  </span>
-                </div>
-                <div className="nypl-text-field">
-                  <SearchButton
-                    className="nypl-omnisearch-button"
-                    onClick={this.submitSearchRequest}
-                  />
-                </div>
-              </div>
+      <form
+        className="usa-search"
+        action="/search"
+        method="get"
+        onSubmit={this.handleSubmit}
+        onKeyPress={this.handleSubmit}
+      >
+        <div role="search">
+          <div className="nypl-search-bar">
+            <div className="nypl-search-input">
+              <label htmlFor="search-by-field" className="usa-sr-only">Search in</label>
+              <select
+                id="search-by-field"
+                className="usa-input nypl-search-input"
+                onChange={this.onFieldChange}
+                value={this.state.searchField}
+              >
+                {this.props.allowedFields.map((field, key) => (
+                  <option value={field} key={key.toString()}>
+                    {titleCase(field)}
+                  </option>
+                ))}
+              </select>
             </div>
-          </form>
+            <div className="nypl-search-input">
+              <label htmlFor="search-input" className="usa-sr-only">Search ResearchNow for</label>
+              <input
+                id="search-input"
+                name="q"
+                type="text"
+                aria-labelledby="search-input-field"
+                value={this.state.searchQuery}
+                className="usa-input"
+                placeholder="Keyword, title, author, or subject"
+                onChange={this.onQueryChange}
+              />
+            </div>
+            <SearchButton
+              className="usa-button nypl-search-input"
+              onClick={this.submitSearchRequest}
+            />
+          </div>
         </div>
-      </div>
+      </form>
     );
   }
 }
