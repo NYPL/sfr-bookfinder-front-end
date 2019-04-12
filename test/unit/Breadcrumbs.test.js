@@ -1,25 +1,27 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable react/jsx-filename-extension */
 /* eslint-env mocha */
 import React from 'react';
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
-import { configure } from 'enzyme';
+import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
+import Breadcrumbs from '../../src/app/components/Breadcrumbs/Breadcrumbs';
 
 configure({ adapter: new Adapter() });
-
-import Breadcrumbs from '../../src/app/components/Breadcrumbs/Breadcrumbs';
 
 describe('Breadcrumbs', () => {
   describe('On render all crumbs', () => {
     let component;
-    const links = [{
-      href: '/search?q=journey&field=keyword',
-      text: 'Search Results',
-    },
-    {
-      href: '/work?workId=foobar',
-      text: 'Work Details',
-    }];
+    const links = [
+      {
+        href: '/search?q=journey&field=keyword',
+        text: 'Search Results',
+      },
+      {
+        href: '/work?workId=foobar',
+        text: 'Work Details',
+      },
+    ];
     const pageType = 'details';
 
     before(() => {
@@ -56,10 +58,12 @@ describe('Breadcrumbs', () => {
 
   describe('On the results page', () => {
     let component;
-    const links = [{
-      href: '/search?q=journey&field=keyword',
-      text: 'Search Results',
-    }];
+    const links = [
+      {
+        href: '/search?q=journey&field=keyword',
+        text: 'Search Results',
+      },
+    ];
     const pageType = 'results';
 
     before(() => {
@@ -69,25 +73,42 @@ describe('Breadcrumbs', () => {
     it('should display a link back to the home page', () => {
       const resultsLinks = component.find('Link');
       expect(resultsLinks.length).to.equal(1);
-      expect(resultsLinks.at(0).children().text()).to.equal('ResearchNow');
+      expect(
+        resultsLinks
+          .at(0)
+          .children()
+          .text(),
+      ).to.equal('ResearchNow');
     });
 
     it('should display a crumb for the results page without being a link', () => {
-      expect(component.find('li').at(1).text()).to.equal('Search Results');
-      expect(component.find('li').at(1).find('Link').length).to.equal(0);
+      expect(
+        component
+          .find('li')
+          .at(1)
+          .text(),
+      ).to.equal('Search Results');
+      expect(
+        component
+          .find('li')
+          .at(1)
+          .find('Link').length,
+      ).to.equal(0);
     });
   });
 
   describe('On the details page', () => {
     let component;
-    const links = [{
-      href: '/search?q=journey&field=title',
-      text: 'Search Results',
-    },
-    {
-      href: '/work?workId=foobar',
-      text: 'Work Details',
-    }];
+    const links = [
+      {
+        href: '/search?q=journey&field=title',
+        text: 'Search Results',
+      },
+      {
+        href: '/work?workId=foobar',
+        text: 'Work Details',
+      },
+    ];
     const pageType = 'details';
 
     before(() => {
@@ -97,15 +118,35 @@ describe('Breadcrumbs', () => {
     it('should display a link back to the results page and home page', () => {
       const detailLinks = component.find('Link');
       expect(detailLinks.length).to.equal(2);
-      expect(detailLinks.at(0).children().text()).to.equal('ResearchNow');
+      expect(
+        detailLinks
+          .at(0)
+          .children()
+          .text(),
+      ).to.equal('ResearchNow');
       expect(detailLinks.at(0).prop('to')).to.equal('/');
-      expect(detailLinks.at(1).children().text()).to.equal('Search Results');
+      expect(
+        detailLinks
+          .at(1)
+          .children()
+          .text(),
+      ).to.equal('Search Results');
       expect(detailLinks.at(1).prop('to')).to.equal('/search?q=journey&field=title');
     });
 
     it('should display a crumb for the details page without being a link', () => {
-      expect(component.find('li').at(2).text()).to.equal('Work Details');
-      expect(component.find('li').at(2).find('Link').length).to.equal(0);
+      expect(
+        component
+          .find('li')
+          .at(2)
+          .text(),
+      ).to.equal('Work Details');
+      expect(
+        component
+          .find('li')
+          .at(2)
+          .find('Link').length,
+      ).to.equal(0);
     });
   });
 });

@@ -22,7 +22,7 @@
     padding: 0;
     position: relative;
 
-    input[type=text] {
+    input[type='text'] {
       width: 100%;
       border: 0;
       border-radius: 0.25rem;
@@ -45,7 +45,7 @@
   // Button specific CSS for submit
   .nypl-omnisearch-button {
     font-weight: 200;
-    background: #1B7FA7;
+    background: #1b7fa7;
     border-left: solid 0.0625rem #080807;
     border-radius: 0;
     color: #fff;
@@ -59,7 +59,7 @@
     text-indent: -1rem;
 
     .nypl-search-icon {
-      background-color: #1B7FA7;
+      background-color: #1b7fa7;
       speak: none;
     }
   }
@@ -71,7 +71,6 @@
     width: 28px;
     margin-left: 75%;
   }
-
 
   // Small screen stacked version of search form elements.
   @media (max-width: $xtrasmall-breakpoint) {
@@ -110,7 +109,7 @@
         width: 96%;
       }
 
-      input[type=text] {
+      input[type='text'] {
         width: 100%;
       }
     }
@@ -119,6 +118,99 @@
   @media (max-width: $mobile-breakpoint) {
     .nypl-omnisearch {
       width: 100%;
+    }
+  }
+}
+
+.nypl-results-container {
+  .nypl-results-column {
+    float: left;
+    max-width: 327px;
+    width: 25%;
+  }
+  .nypl-results-main,
+  .nypl-results-search-header {
+    float: left;
+    max-width: 1000px;
+    width: 74.5%;
+  }
+  .nypl-results-main {
+    border-left: 1px solid black;
+    h3 {
+      margin: 0;
+    }
+  }
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+.nypl-results-summary {
+  border-left: 1px solid black;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  width: 100%;
+  padding-left: 10px;
+  box-sizing: border-box;
+  font-weight: bold;
+  height: 42px;
+  margin-top: 26px;
+  line-height: 42px;
+}
+
+.nypl-results-item-author {
+  ul {
+    list-style: none;
+    display: inline;
+    li {
+      display: inline;
+    }
+  }
+}
+.nypl-results-item-header {
+  margin-top: 2em;
+  min-height: 150px;
+  .nypl-results-item-header-image {
+    position: absolute;
+    width: 125px;
+    padding: 10px;
+    // box-sizing: border-box;
+
+    margin: 10px;
+    // background: aliceblue;
+    // box-shadow: 0px 0px 54px inset #bbbbbf;
+    height: 150px;
+    // border: 1px solid black;
+  }
+  .nypl-results-item-header-column {
+    float: left;
+    max-width: 875px;
+    margin-left: 135px;
+    h3 {
+      margin: 0;
+    }
+  }
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+h1.nypl-heading {
+  font-weight: 300;
+}
+.nypl-results-list {
+  .nypl-results-item {
+    padding: 0;
+    margin: 0;
+    border-bottom: none;
+    h3 {
+      a:link {
+        text-decoration: underline;
+        font-weight: bold;
+      }
     }
   }
 }

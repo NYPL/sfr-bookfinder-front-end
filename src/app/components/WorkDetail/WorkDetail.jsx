@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { isEmpty as _isEmpty } from 'underscore';
+import { isEmpty as _isEmpty, isEqual as _isEqual } from 'underscore';
 import { DefinitionList } from './DefinitionList';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import * as searchActions from '../../actions/SearchActions';
+import WorkHeader from './WorkHeader';
+import EditionsList from '../List/EditionsList';
 
 class WorkDetail extends React.Component {
   constructor(props) {
@@ -36,11 +38,12 @@ class WorkDetail extends React.Component {
       this.props.dispatch(searchActions.fetchWork(workId));
     }
   }
+
   render() {
-    if (!this.props.work && _isEmpty(this.props.work)) {
+    const { work } = this.props;
+    if (!work || _isEmpty(work) || _isEqual(work, WorkDetail.defaultProps.work)) {
       return null;
     }
-    const { work } = this.props;
 
     /**
      * onClick handler for resetting state for the request back to the home page
@@ -54,15 +57,6 @@ class WorkDetail extends React.Component {
       this.boundActions.resetSearch();
       this.context.router.push('/');
     };
-
-    /**
-     * Convert JSON object to array for parsing detail elements into
-     * a definition list for display.
-     *
-     * @param {object} work
-     * @return {string|null}
-     */
-    const workDetailsObject = workObj => Object.keys(workObj).map(key => [key, work[key]]);
 
     return (
       <main id="mainContent">
@@ -85,13 +79,28 @@ class WorkDetail extends React.Component {
           </div>
           <div className="nypl-row">
             <div className="nypl-column-full">
-              <h2>Work Detail</h2>
+              <div className="nypl-item-header">
+                <WorkHeader data={work} />
+              </div>
+
               <div id="nypl-item-details">
-                <DefinitionList
-                  data={workDetailsObject(work)}
+                <EditionsList
                   eReaderUrl={this.props.eReaderUrl}
+                  work={work}
+                  max={1}
+                />
+                <DefinitionList
+                  work={work}
                   dispatch={this.props.dispatch}
                   context={this.context}
+                />
+                <h3 className="all-editions-tag bold">
+                  <a id="all-editions">All Editions</a>
+                </h3>
+                <EditionsList
+                  eReaderUrl={this.props.eReaderUrl}
+                  work={work}
+                  max={0}
                 />
               </div>
             </div>
@@ -112,7 +121,7 @@ WorkDetail.propTypes = {
 };
 
 WorkDetail.defaultProps = {
-  work: {},
+  work: { instances: [] },
   searchQuery: '',
   searchField: '',
   eReaderUrl: '',
@@ -121,8 +130,8 @@ WorkDetail.defaultProps = {
 };
 
 WorkDetail.contextTypes = {
-  router: PropTypes.object,
-  history: PropTypes.object,
+  router: PropTypes.objectOf(PropTypes.any),
+  history: PropTypes.objectOf(PropTypes.any),
 };
 
 const mapStateToProps = (state, ownProps) => ({

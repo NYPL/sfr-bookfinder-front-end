@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ResultsMetadata from './ResultsMetadata';
 import ResultsList from './ResultsList';
+// import SearchHeader from './SearchHeader';
 
 /**
  * Wrapper component for results lists which can contain a number of components
@@ -11,8 +12,7 @@ import ResultsList from './ResultsList';
  */
 const SearchResults = (props) => {
   const metadata = props.results && props.results.data && props.results.data.hits;
-  const hits = props.results && props.results.data &&
-    props.results.data.hits && props.results.data.hits.hits;
+  const hits = props.results && props.results.data && props.results.data.hits && props.results.data.hits.hits;
 
   if (!hits) {
     return null;
@@ -21,8 +21,24 @@ const SearchResults = (props) => {
   return (
     <div className="nypl-row">
       <div className="nypl-column-full">
-        <ResultsMetadata metadata={metadata} />
-        <ResultsList results={hits} fetchWork={props.fetchWork} eReaderUrl={props.eReaderUrl} />
+        <div className="nypl-results-container">
+          <div className="nypl-results-column">
+            <ResultsMetadata metadata={metadata} />
+          </div>
+          <div className="nypl-results-search-header">{/* <SearchHeader metadata={metadata} /> */}</div>
+        </div>
+        <div className="nypl-results-container">
+          <div className="nypl-results-column">
+            <div> Filters </div>
+          </div>
+          <div className="nypl-results-main">
+            <ResultsList
+              results={hits}
+              fetchWork={props.fetchWork}
+              eReaderUrl={props.eReaderUrl}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

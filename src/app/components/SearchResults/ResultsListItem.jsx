@@ -1,31 +1,50 @@
 import React from 'react';
 import { Html5Entities } from 'html-entities';
-import { isArray as _isArray } from 'underscore';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
-import ResultsRow from './ResultsRow';
+import EditionsList from '../List/EditionsList';
+import AuthorsList from '../List/AuthorsList';
+import BookSvg from '../Svgs/BookSvg';
 
 const htmlEntities = new Html5Entities();
 
-const getAuthor = (item) => {
-  if (item.agents && _isArray(item.agents) && item.agents.length > 0) {
-    const agent = item.agents.find(i => i.roles.indexOf('author') > -1);
-    if (agent) {
-      return ` – ${agent.name}`;
-    }
-  }
-  return '';
-};
+const chunk = (string, max) => (string.length > max ? `${string.slice(0, max)}&hellip;` : string);
 
 const ResultsListItem = ({ item, eReaderUrl }) => (
   <li className="nypl-results-item">
-    <h3>
-      <Link to={{ pathname: '/work', query: { workId: `${item.uuid}` } }}>
-        {htmlEntities.decode(item.title)}
-        {getAuthor(item)}
-      </Link>
-    </h3>
-    <ResultsRow rows={item.instances} eReaderUrl={eReaderUrl} />
+    <div className="nypl-results-item-header">
+      <div className="nypl-results-item-header-image">
+        <BookSvg />
+      </div>
+      <div className="nypl-results-item-header-column">
+        <h3>
+          <Link
+            to={{ pathname: '/work', query: { workId: `${item.uuid}` } }}
+            title={htmlEntities.decode(item.title)}
+          >
+            {htmlEntities.decode(chunk(item.title, 150))}
+          </Link>
+        </h3>
+        {item.subtitle && <div>{item.subtitle}</div>}
+
+        {item.agents && item.agents.length > 0 && (
+          <span className="nypl-results-item-author">
+            By
+            <AuthorsList
+              agents={item.agents}
+              max={1}
+              roleFilter="author"
+            />
+          </span>
+        )}
+      </div>
+    </div>
+
+    <EditionsList
+      eReaderUrl={eReaderUrl}
+      work={item}
+      max={3}
+    />
   </li>
 );
 
@@ -36,11 +55,11 @@ ResultsListItem.propTypes = {
 
 ResultsListItem.defaultProps = {
   eReaderUrl: '',
-  item: null,
+  item: { instances: [] },
 };
 
 ResultsListItem.contextTypes = {
-  router: PropTypes.object,
+  router: PropTypes.objectOf(PropTypes.any),
 };
 
 export default ResultsListItem;

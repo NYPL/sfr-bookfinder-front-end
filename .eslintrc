@@ -1,9 +1,20 @@
 {
-  "extends": "airbnb",
-  "rules":{
-    "jsx-a11y/anchor-is-valid": "false",
+  "extends": ["airbnb", "plugin:jsx-a11y/strict"],
+  "rules": {
+    "jsx-a11y/anchor-is-valid": 0,
     "no-useless-escape": 1,
-    "jsx-a11y/no-noninteractive-element-interactions": "false",
-    "jsx-a11y/label-has-for": 1
-  }
+    "jsx-a11y/no-noninteractive-element-interactions": 0,
+    "jsx-a11y/label-has-for": 1,
+    "react/destructuring-assignment": "false",
+    "prefer-destructuring": 0,
+    "max-len": ["error", { "code": 140 }],
+    "react/jsx-first-prop-new-line": [1, "multiline"],
+    "react/jsx-max-props-per-line": [
+      1,
+      {
+        "maximum": 1
+      }
+    ]
+  },
+  "plugins": ["jsx-a11y"]
 }

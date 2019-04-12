@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable jsx-a11y/label-has-for */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { titleCase } from 'change-case';
@@ -81,11 +83,15 @@ class SearchForm extends React.Component {
                     <label htmlFor="search-by-field">Search in</label>
                     <select
                       id="search-by-field"
+                      onBlur={this.onFieldChange}
                       onChange={this.onFieldChange}
                       value={this.state.searchField}
                     >
                       {this.props.allowedFields.map((field, key) => (
-                        <option value={field} key={key.toString()}>
+                        <option
+                          value={field}
+                          key={key.toString()}
+                        >
                           {titleCase(field)}
                         </option>
                       ))}
@@ -138,8 +144,8 @@ SearchForm.defaultProps = {
 };
 
 SearchForm.contextTypes = {
-  router: PropTypes.object,
-  history: PropTypes.object,
+  router: PropTypes.objectOf(PropTypes.any),
+  history: PropTypes.objectOf(PropTypes.any),
 };
 
 export default SearchForm;

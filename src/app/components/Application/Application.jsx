@@ -45,7 +45,7 @@ Application.defaultProps = {
 };
 
 Application.contextTypes = {
-  router: PropTypes.object,
+  router: PropTypes.objectOf(PropTypes.any),
 };
 
 export default withRouter(Application);

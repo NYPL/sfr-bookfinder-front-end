@@ -1,13 +1,12 @@
+/* eslint-disable react/jsx-filename-extension */
 /* eslint-env mocha */
 import React from 'react';
 import { expect } from 'chai';
-import { mount } from 'enzyme';
-import { configure } from 'enzyme';
+import { mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
+import SearchForm from '../../src/app/components/SearchForm/SearchForm';
 
 configure({ adapter: new Adapter() });
-
-import SearchForm from '../../src/app/components/SearchForm/SearchForm';
 
 describe('SearchForm', () => {
   describe('Default rendering', () => {
@@ -49,7 +48,9 @@ describe('SearchForm', () => {
     it('contains a text field for keyword search with an initial value.', () => {
       const kwTextField = component.find('input');
       expect(kwTextField.getElements()[0].props.type).to.equal('text');
-      expect(kwTextField.getElements()[0].props.placeholder).to.equal('Keyword, title, author, or subject');
+      expect(kwTextField.getElements()[0].props.placeholder).to.equal(
+        'Keyword, title, author, or subject',
+      );
     });
   });
 
@@ -61,12 +62,12 @@ describe('SearchForm', () => {
     });
 
     it('should updated state values based on passed props for select', () => {
-      component.find('select').simulate('change', { target: { value: 'author' }});
+      component.find('select').simulate('change', { target: { value: 'author' } });
       expect(component.state('searchField')).to.equal('author');
     });
 
     it('should updated state values based on passed props for text input', () => {
-      component.find('input').simulate('change', { target: { value: 'jefferson' }});
+      component.find('input').simulate('change', { target: { value: 'jefferson' } });
       expect(component.state('searchQuery')).to.equal('jefferson');
     });
 
@@ -79,7 +80,10 @@ describe('SearchForm', () => {
 
     it('should update state when the button is clicked', () => {
       component.find('input').props.value = 'jackson';
-      component.find('input').at(0).simulate('change', { target: { value: 'johnson' } });
+      component
+        .find('input')
+        .at(0)
+        .simulate('change', { target: { value: 'johnson' } });
 
       expect(component.state('searchQuery')).to.equal('johnson');
     });

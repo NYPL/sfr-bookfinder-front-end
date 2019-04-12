@@ -2,19 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Html5Entities } from 'html-entities';
 import { Link } from 'react-router';
-import { isEmpty as _isEmpty } from 'underscore';
-import EBookList from '../List/EBookList';
+import { isEmpty as _isEmpty, isArray as _isArray } from 'underscore';
+import AuthorsList from '../List/AuthorsList';
 
 const htmlEntities = new Html5Entities();
-const elements = ['title', 'agents', 'instances', 'subjects', 'language'];
-const sorting = ['title', 'language', 'agents', 'subjects', 'instances'];
+
 export const labels = {
-  title: 'Title',
-  agents: 'Author, Creator, et al',
-  instances: 'Items',
+  // also provides sort
+  summary: 'Summary',
+  series: 'Series',
+  agents: 'Author',
+  subjects: 'Subject',
+  date_created: 'Desta Created',
+  issued_display: 'Date Issued',
   language: 'Language',
-  subjects: 'Subjects',
+  rights: 'Rights',
+  measurements: 'Measurements',
+  identifiers: 'Identifiers',
 };
+const elements = Object.keys(labels);
 
 /**
  * Build a definition list of elements from a bibliographic record provided
@@ -22,23 +28,16 @@ export const labels = {
  *
  * @param {object} props
  */
-export const DefinitionList = ({ eReaderUrl, data }) => {
-  data.sort((a, b) => sorting.indexOf(a[0]) - sorting.indexOf(b[0]));
-  const getIdentifier = author => (author.viaf && 'viaf') || (author.lcnaf && 'lcnaf') || 'name';
-  const linkToAuthor = author => ({
-    q: author[getIdentifier(author)],
-    field: getIdentifier(author),
-    showQuery: `"${author.name}"`,
-    showField: 'author',
-  });
-  const birthDate = entity => (
-    <span>
-      {(entity.birth_date_display || entity.death_date_display) && <span> (</span>}
-      {entity.birth_date_display && <span>{entity.birth_date_display}</span>}
-      {entity.death_date_display && <span> -- {entity.death_date_display}</span>}
-      {(entity.birth_date_display || entity.death_date_display) && <span>) </span>}
-    </span>
-  );
+export const DefinitionList = ({ work }) => {
+  /**
+   * Convert JSON object to array for parsing detail elements into
+   * a definition list for display.
+   *
+   * @param {object} work
+   * @return {string|null}
+   */
+  const workDetailsObject = workObj => Object.keys(workObj).map(key => [key, workObj[key]]);
+
   /**
    * Handle elements with array values as definitions. Authorities are linked to
    * /search as new general searches with URL parameters. Items are mapped to a table
@@ -52,117 +51,62 @@ export const DefinitionList = ({ eReaderUrl, data }) => {
    * @param {array} entries
    * @return {string|null}
    */
-  const parseEntries = (type, entries) => {
-    let list = [...entries];
-    if (type === 'instances') {
-      list = list.map((item) => {
-        let publisher =
-          item && item.agents && item.agents.find(i => i.roles.indexOf('publisher') > -1);
-        publisher = publisher && publisher.name;
-        return Object.assign({}, item, { publisher });
-      });
-    }
+  const parseEntries = (type, entries, workObj) => {
+    const list = [...entries];
     switch (type) {
       case 'language':
         return (
           <ul>
             {list.map((entity, i) => (
-              <li key={i.toString()}>{entity.language}</li>
+              <li key={`language${i.toString()}`}>{entity.language}</li>
             ))}
           </ul>
         );
       case 'agents':
-        return (
-          <ul>
-            {list.map((entity, i) => (
-              <li key={i.toString()}>
-                <Link to={{ pathname: '/search', query: linkToAuthor(entity) }}>
-                  {htmlEntities.decode(entity.name)}, {entity.roles.join(', ')}
-                </Link>
-                {birthDate(entity)}
-                {entity.viaf && (
-                  <a
-                    target="_blank"
-                    href={`https://viaf.org/viaf/${entity.viaf}`}
-                    rel="noopener noreferrer"
-                  >
-                    (viaf)
-                  </a>
-                )}
-                {entity.lcnaf && (
-                  <a
-                    target="_blank"
-                    href={`http://id.loc.gov/authorities/names/${entity.lcnaf}.html`}
-                    rel="noopener noreferrer"
-                  >
-                    (lcnaf)
-                  </a>
-                )}
-              </li>
-            ))}
-          </ul>
-        );
+        return <AuthorsList agents={list} />;
 
       case 'subjects':
         return (
           <ul>
             {list.map((subject, i) => (
-              <li key={i.toString()}>
+              <li key={`subject${i.toString()}`}>
                 <Link
                   to={{
                     pathname: '/search',
                     query: { q: `"${subject.subject}"`, field: 'subject' },
                   }}
                 >
-                  {Html5Entities.decode(subject.subject)}
+                  {htmlEntities.decode(subject.subject)}
                 </Link>
               </li>
             ))}
           </ul>
         );
-
-      case 'instances':
+      case 'identifiers':
         return (
-          <table className="nypl-basic-table">
-            <thead>
-              <tr>
-                <th>eBooks</th>
-                <th>Date of Publication</th>
-                <th>Place of Publication</th>
-                <th>Publisher</th>
-              </tr>
-            </thead>
-            <tbody>
-              {list.map((instance, i) => {
-                const isValid =
-                  (instance.items && instance.items.length > 0) ||
-                  (instance.pub_date && instance.pub_date_display) ||
-                  instance.pub_place ||
-                  instance.publisher;
-                if (!isValid) {
-                  return null;
-                }
-                return (
-                  <tr key={i.toString()}>
-                    <td>
-                      {instance.items ? (
-                        <EBookList ebooks={instance.items} eReaderUrl={eReaderUrl} />
-                      ) : (
-                        ''
-                      )}
-                    </td>
-                    <td>{instance.pub_date ? instance.pub_date_display : ''} </td>
-                    <td>{instance.pub_place ? `${instance.pub_place}` : ''}</td>
-                    <td>{instance.publisher}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+          <ul className="sfr-inline-list">
+            {list.map((identifier, i) => (
+              <li key={`identifiers${i.toString()}`}>{`${identifier.id_type}:${identifier.identifier}: `}</li>
+            ))}
+          </ul>
         );
-
+      case 'measurements':
+        return (
+          <ul className="sfr-inline-list">
+            {list.map((measurement, i) => (
+              <li key={`measurements${i.toString()}`}>{`${measurement.quantity}:${measurement.value}; `}</li>
+            ))}
+          </ul>
+        );
+      case 'series':
+        return (
+          <span>
+            {entries}
+            {workObj.series_position && ` ${workObj.series_position}`}
+          </span>
+        );
       default:
-        return null;
+        return _isArray(entries) ? entries.join(', ') : entries;
     }
   };
 
@@ -172,33 +116,45 @@ export const DefinitionList = ({ eReaderUrl, data }) => {
    * @param {array} data
    * @return {string}
    */
-  const getDefinitions = (defsData) => {
+  const getDefinitions = (workObj) => {
+    const defsData = workDetailsObject(workObj);
+    defsData.sort((a, b) => elements.indexOf(a[0]) - elements.indexOf(b[0]));
     if (!defsData || _isEmpty(defsData)) {
       return null;
     }
 
-    const detailsObject = defsData.map(entry => ({
-      term: entry[0],
-      definition: Array.isArray(entry[1]) ? parseEntries(entry[0], entry[1]) : entry[1],
-    }));
-
-    return detailsObject.map(item =>
-      (elements.includes(item.term)
-        ? [<dt>{labels[item.term]}</dt>, <dd>{item.definition}</dd>]
-        : null));
+    return (
+      <table className="nypl-details-table">
+        <tbody>
+          {defsData.map(
+            (entry, i) => elements.includes(entry[0]) && (
+            <tr key={`entry${i.toString()}`}>
+              <td>{labels[entry[0]]}</td>
+              <td>{parseEntries(entry[0], entry[1], workObj)}</td>
+            </tr>
+            ),
+          )}
+        </tbody>
+      </table>
+    );
   };
 
-  return <dl>{getDefinitions(data)}</dl>;
+  return (
+    <div>
+      <h3 className="work-details-tag bold">
+        <a id="work-details">Details</a>
+      </h3>
+      {getDefinitions(work)}
+    </div>
+  );
 };
 
 DefinitionList.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.any),
-  eReaderUrl: PropTypes.string,
+  work: PropTypes.objectOf(PropTypes.any),
 };
 
 DefinitionList.defaultProps = {
-  data: [],
-  eReaderUrl: '',
+  work: {},
 };
 
 export default DefinitionList;
