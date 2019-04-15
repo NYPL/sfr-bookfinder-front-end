@@ -15,7 +15,8 @@ export const definitionLabels = {
   links: 'Links',
 };
 
-export const allWorkLabels = { // for reference, not currently used
+export const allWorkLabels = {
+  // for reference, not currently used
   title: 'Title',
   sub_title: 'Subtitle',
   alt_titles: 'Alternative Titles',
