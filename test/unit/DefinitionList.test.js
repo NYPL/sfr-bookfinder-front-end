@@ -2,52 +2,54 @@
 /* eslint-env mocha */
 import React from 'react';
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
-import { configure } from 'enzyme';
+import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
-
-configure({ adapter: new Adapter() });
-
 import { DefinitionList, labels } from '../../src/app/components/WorkDetail/DefinitionList';
+import AuthorsList from '../../src/app/components/List/AuthorsList';
 import EBookList from '../../src/app/components/List/EBookList';
 import detail from '../fixtures/work-detail.json';
 
+configure({ adapter: new Adapter() });
+
 describe('DefinitionList', () => {
   let component;
-  const detailArray = Object.keys(detail).map(key => [key, detail[key]]);
 
   before(() => {
-    component = shallow(<DefinitionList data={detailArray} />);
+    component = shallow(<DefinitionList work={detail} />);
   });
 
   it('should display a definition list of detail elements', () => {
-    expect(component.find('dl')).to.have.length(1);
-    expect(component.find('dt')).to.have.length(5);
-    expect(component.find('dd')).to.have.length(5);
-    const terms = component.find('dt');
-    expect(terms.getElements()[0].props.children).to.equal(labels.title);
-    expect(terms.getElements()[1].props.children).to.equal(labels.language);
-    expect(terms.getElements()[2].props.children).to.equal(labels.agents);
-    expect(terms.getElements()[3].props.children).to.equal(labels.subjects);
-    expect(terms.getElements()[4].props.children).to.equal(labels.instances);
+    expect(component.find('table')).to.have.length(1);
+    expect(component.find('tr')).to.have.length(6);
+    expect(component.find('td')).to.have.length(12);
+    const terms = component.find('td');
+    expect(terms.getElements()[0].props.children).to.equal(labels.agents);
+    expect(terms.getElements()[4].props.children).to.equal(labels.issued_display);
+    expect(terms.getElements()[6].props.children).to.equal(labels.language);
+    expect(terms.getElements()[8].props.children).to.equal(labels.measurements);
   });
 
   it('should have a table of Items', () => {
     expect(component.find('table')).to.have.length(1);
-    expect(component.find('thead')).to.have.length(1);
     expect(component.find('tbody')).to.have.length(1);
-    expect(component.find('tbody tr')).to.have.length(182);
-    expect(component.find('tbody tr td')).to.have.length(728);
+    expect(component.find('tbody tr')).to.have.length(6);
+    expect(component.find('tbody tr td')).to.have.length(12);
   });
 
   it('should have a list of Subjects', () => {
     const subjects = component.find('ul');
-    expect(subjects.getElements()[2].props.children).to.have.length(92);
+    expect(subjects.getElements()[2].props.children).to.have.length(138);
   });
 
-  it('should have a list of Authors', () => {
-    const authors = component.find('ul');
-    expect(authors.getElements()[1].props.children).to.have.length(5);
+  describe('AuthorsList', () => {
+    before(() => {
+      component = shallow(<AuthorsList agents={detail.agents} />);
+    });
+
+    it('should have a list of 5 Authors', () => {
+      const authors = component.find('ul');
+      expect(authors.getElements()[0].props.children).to.have.length(5);
+    });
   });
 
   describe('EBookList', () => {

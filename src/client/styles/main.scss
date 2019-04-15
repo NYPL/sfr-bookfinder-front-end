@@ -14,7 +14,11 @@
  * Import custom rules for this project.
  */
 @import './components/Search.scss';
-@import './components/ResultsRow.scss';
+@import './components/WorkHeader.scss';
+@import './components/WorkDetail.scss';
+@import './components/EBookList.scss';
+@import './components/DefinitionList.scss';
+@import './components/EditionsList.scss';
 
 $nypl-dark-blue: #135772;
 
@@ -23,16 +27,36 @@ $nypl-dark-blue: #135772;
 }
 
 #mainContent {
-  margin: 0 auto;
+  margin: 0 auto 60px;
   width: 100%;
   min-height: 400px;
 }
 
 #tagline {
-  text-align: center;
+  text-align: left;
   margin: 25px 0;
 }
 
 .nypl-page-header {
   background-color: white;
+}
+.nypl-full-width-wrapper {
+  max-width: 1332px;
+  padding: 0 40px;
+  margin: 0 auto;
+}
+
+a:link {
+  color: #0071ce;
+}
+.bold {
+  font-weight: bold;
+}
+
+.footer {
+  .footerLinks {
+    a {
+      color: #fff;
+    }
+  }
 }

@@ -2,10 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const SearchButton = ({
-  id,
-  className,
-  onClick,
-  value,
+  id, className, onClick, value,
 }) => (
   <button
     id={id}

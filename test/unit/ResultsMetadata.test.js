@@ -1,13 +1,12 @@
+/* eslint-disable react/jsx-filename-extension */
 /* eslint-env mocha */
 import React from 'react';
 import { expect } from 'chai';
-import { shallow } from 'enzyme';
-import { configure } from 'enzyme';
+import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
+import ResultsMetadata from '../../src/app/components/SearchResults/ResultsMetadata';
 
 configure({ adapter: new Adapter() });
-
-import ResultsMetadata from '../../src/app/components/SearchResults/ResultsMetadata';
 
 describe('Results Metadata', () => {
   let component;
@@ -23,7 +22,9 @@ describe('Results Metadata', () => {
 
     it('should have a message stating no results found.', () => {
       expect(component.find('div')).to.have.length(1);
-      expect(component.find('div').text()).to.equal('Your search yielded no results. Please try again.');
+      expect(component.find('div').text()).to.equal(
+        'Your search yielded no results. Please try again.',
+      );
     });
   });
 
@@ -38,7 +39,7 @@ describe('Results Metadata', () => {
 
     it('should have a message displaying all 5 results found.', () => {
       expect(component.find('div')).to.have.length(1);
-      expect(component.find('div').text()).to.equal('Displaying 1 - 5 of 5 ; Relevancy score: 1.332332');
+      expect(component.find('div').text()).to.equal('Viewing 1 - 5 of 5 items');
     });
   });
 
@@ -53,7 +54,7 @@ describe('Results Metadata', () => {
 
     it('should have a message displaying 10 of 15 results found.', () => {
       expect(component.find('div')).to.have.length(1);
-      expect(component.find('div').text()).to.equal('Displaying 1 - 10 of 15 ; Relevancy score: 1.332332');
+      expect(component.find('div').text()).to.equal('Viewing 1 - 10 of 15 items');
     });
   });
 });

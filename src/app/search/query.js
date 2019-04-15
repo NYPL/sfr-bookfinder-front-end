@@ -14,9 +14,10 @@ export const getRequestParams = (query = {}) => {
  * @param {string} queryString
  *
  * @returns {string}
-*/
+ */
 const parseQuery = (queryString) => {
-  const queryArr = queryString.replace(/[=(&&)(||)><!(){}\[\]^"~\*\?:\/-]/g, '\$&')
+  const queryArr = queryString
+    .replace(/[=(&&)(||)><!(){}\[\]^"~\*\?:\/-]/g, '$&')
     .trim()
     .replace(/\s+/g, '+')
     .split('+')
@@ -27,7 +28,7 @@ const parseQuery = (queryString) => {
 /**
  * @param {string} query, {string} field
  * @return {object}
-*/
+ */
 export const buildQueryBody = (query, field = 'keyword') => {
   if (!query) {
     throw new Error('A valid query string must be passed');

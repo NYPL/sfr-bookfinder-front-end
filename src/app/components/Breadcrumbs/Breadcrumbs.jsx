@@ -8,7 +8,7 @@ import { Link } from 'react-router';
  * @param {object} props
  * @returns {array}
  */
-const Breadcrumbs = (({ links, pageType, onClickHandler }) => {
+const Breadcrumbs = ({ links, pageType, onClickHandler }) => {
   if (pageType === 'home') {
     return null;
   }
@@ -17,10 +17,14 @@ const Breadcrumbs = (({ links, pageType, onClickHandler }) => {
 
   const homeLink = (
     <li key="home">
-      <Link to="/" onClick={event => onClickHandler(event)}>
+      <Link
+        to="/"
+        onClick={event => onClickHandler(event)}
+      >
         ResearchNow
       </Link>
-    </li>);
+    </li>
+  );
 
   const crumbTrail = () => {
     const crumbs = [homeLink];
@@ -29,7 +33,11 @@ const Breadcrumbs = (({ links, pageType, onClickHandler }) => {
       links.forEach((link, iterator) => {
         const linkKey = `links-${iterator}`;
         if (iterator < links.length - 1) {
-          crumbs.push(<li key={linkKey}><Link to={link.href}>{link.text}</Link></li>);
+          crumbs.push(
+            <li key={linkKey}>
+              <Link to={link.href}>{link.text}</Link>
+            </li>,
+          );
         } else {
           crumbs.push(<li key={linkKey}>{link.text}</li>);
         }
@@ -42,14 +50,15 @@ const Breadcrumbs = (({ links, pageType, onClickHandler }) => {
   const crumbs = crumbTrail();
 
   return (
-    <nav aria-label="Breadcrumbs" className="nypl-breadcrumbs">
+    <nav
+      aria-label="Breadcrumbs"
+      className="nypl-breadcrumbs"
+    >
       <span className="nypl-screenreader-only">You are here:</span>
-      <ol>
-        {crumbs}
-      </ol>
+      <ol>{crumbs}</ol>
     </nav>
   );
-});
+};
 
 Breadcrumbs.propTypes = {
   links: PropTypes.arrayOf(PropTypes.any),

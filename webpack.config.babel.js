@@ -11,9 +11,7 @@ import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import appConfig from './appConfig';
 
-const sassPaths = require('@nypl/design-toolkit')
-  .includePaths.map(sassPath => sassPath)
-  .join('&');
+const sassPaths = ['node_modules'];
 
 // References the application's root path
 const ROOT_PATH = path.resolve(__dirname);
@@ -121,24 +119,22 @@ if (ENV === 'development') {
           include: path.resolve(ROOT_PATH, 'src'),
         },
         {
-          test: /\.(gif|png|jpe?g|svg)$/i,
-          use: [
-            'file-loader',
-            {
-              loader: 'image-webpack-loader',
-              options: {
-                disable: true, // webpack@2.x and newer
-              },
-            },
-          ],
-        },
-        {
-          test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+          test: /\.(gif|png|jp?g|svg)(\?v=\d+\.\d+\.\d+)?$/,
           use: [{
             loader: 'file-loader',
             options: {
               name: '[name].[ext]',
-              outputPath: 'src/client/styles/fonts/',
+              outputPath: 'img/',
+            },
+          }],
+        },
+        {
+          test: /\.(ttf|eot|woff(2)?)(\?v=\d+\.\d+\.\d+)?$/,
+          use: [{
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'fonts/',
             },
           }],
         },
@@ -185,23 +181,22 @@ if (ENV === 'production') {
           include: path.resolve(ROOT_PATH, 'src'),
         },
         {
-          test: /\.(gif|png|jpe?g|svg)$/i,
-          use: [
-            'file-loader',
-            {
-              loader: 'image-webpack-loader',
-              options: {
-                disable: true, // webpack@2.x and newer
-              },
-            },
-          ],
-        },
-        {
-          test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+          test: /\.(gif|png|jp?g|svg)(\?v=\d+\.\d+\.\d+)?$/,
           use: [{
             loader: 'file-loader',
             options: {
-              outputPath: 'src/client/styles/fonts/',
+              name: '[name].[ext]',
+              outputPath: 'img/',
+            },
+          }],
+        },
+        {
+          test: /\.(ttf|eot|woff(2)?)(\?v=\d+\.\d+\.\d+)?$/,
+          use: [{
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'fonts/',
             },
           }],
         },

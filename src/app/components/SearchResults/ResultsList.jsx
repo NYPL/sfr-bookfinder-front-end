@@ -1,13 +1,11 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  isEmpty as _isEmpty,
-} from 'underscore';
+import { isEmpty as _isEmpty } from 'underscore';
 import ResultsListItem from './ResultsListItem';
 /**
  * ResultsList presents search results as a "grouped" list of books
- * with their associated editions provided by the ResultsRow component.
+ * with their associated editions provided by the EditionsList component.
  * Each result displays a title and author element linked to its companion
  * detailed view.
  *
@@ -26,9 +24,6 @@ class ResultsList extends React.Component {
 
     return (
       <div className="nypl-results">
-        <div className="nypl-results-header">
-          <h2>Search Results</h2>
-        </div>
         <ul className="nypl-results-list">
           {this.props.results.map(result => (
             <ResultsListItem
@@ -37,7 +32,7 @@ class ResultsList extends React.Component {
               fetchWork={this.props.fetchWork}
               key={result._source.uuid}
             />
-            ))}
+          ))}
         </ul>
       </div>
     );
@@ -57,7 +52,7 @@ ResultsList.defaultProps = {
 };
 
 ResultsList.contextTypes = {
-  router: PropTypes.object,
+  router: PropTypes.objectOf(PropTypes.any),
 };
 
 export default ResultsList;

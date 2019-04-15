@@ -30,39 +30,52 @@ class SearchContainer extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.location !== prevProps.location) {
+    const { location } = this.props;
+    if (location !== prevProps.location) {
       global.window.scrollTo(0, 0);
       this.loadSearch();
     }
   }
 
   loadSearch() {
-    const { query } = this.props.location;
-    const searchQuery = query && query.q ? query.q : this.props.searchQuery;
-    const selectedField = query && query.field ? query.field : this.props.searchField;
+    let { searchQuery } = this.props;
+    const {
+      location: { query },
+      dispatch,
+      searchField,
+    } = this.props;
+    searchQuery = query && query.q ? query.q : searchQuery;
+    const selectedField = query && query.field ? query.field : searchField;
     if (searchQuery) {
-      this.props.dispatch(searchActions.userQuery(searchQuery));
-      this.props.dispatch(searchActions.selectedField(selectedField));
-      this.props.dispatch(searchActions.searchPost(searchQuery, selectedField));
+      dispatch(searchActions.userQuery(searchQuery));
+      dispatch(searchActions.selectedField(selectedField));
+      dispatch(searchActions.searchPost(searchQuery, selectedField));
     }
   }
 
   render() {
-    const { query } = this.props.location;
-    let { searchQuery } = this.props;
+    const {
+      searchQuery,
+      searchField,
+      searchResults,
+      eReaderUrl,
+      location: { query },
+    } = this.props;
+    const { router, history } = this.context;
+    let selectedQuery = searchQuery;
     if (query && query.showQuery) {
-      searchQuery = query.showQuery;
+      selectedQuery = query.showQuery;
     } else if (query && query.q) {
-      searchQuery = query.q;
+      selectedQuery = query.q;
     }
-    let selectedField = this.props.searchField;
+    let selectedField = searchField;
     if (query && query.showField) {
       selectedField = query.showField;
     } else if (query && query.field) {
       selectedField = query.field;
     }
 
-    const pageType = _isEmpty(this.props.searchResults) ? 'home' : 'results';
+    const pageType = _isEmpty(searchResults) ? 'home' : 'results';
     /**
      * onClick handler for resetting state for the request back to the home page
      * to return the user to a new search.
@@ -73,7 +86,7 @@ class SearchContainer extends React.Component {
       event.preventDefault();
 
       this.boundActions.resetSearch();
-      this.context.router.push('/');
+      router.push('/');
     };
 
     return (
@@ -83,29 +96,39 @@ class SearchContainer extends React.Component {
             <Breadcrumbs
               links={[
                 {
-                  href: `/search?q=${searchQuery}&field=${selectedField}`,
+                  href: `/search?q=${selectedQuery}&field=${selectedField}`,
                   text: 'Search Results',
                 },
               ]}
               pageType={pageType}
               onClickHandler={handleReset}
             />
-            <h1 className="nypl-heading">ResearchNow</h1>
-            <div id="nypl-tagline">
-              Search the world&apos;s research collections and more for digital books you can
-              use right now.
+          </div>
+          <div
+            role="search"
+            aria-label="ResearchNow"
+          >
+            {(!searchResults || _isEmpty(searchResults)) && (
+              <div className="nypl-row">
+                <div className="nypl-column-full">
+                  <h1 className="nypl-heading">ResearchNow</h1>
+                  <div id="tagline">Search the world&apos;s research collections and more for digital books you can use right now.</div>
+                </div>
+              </div>
+            )}
+            <div className="wrapper">
+              <SearchForm
+                searchQuery={selectedQuery}
+                searchField={selectedField}
+                history={history}
+                {...this.boundActions}
+              />
+              <SearchResults
+                results={searchResults}
+                eReaderUrl={eReaderUrl}
+                {...this.boundActions}
+              />
             </div>
-            <SearchForm
-              searchQuery={searchQuery}
-              searchField={selectedField}
-              history={this.context.history}
-              {...this.boundActions}
-            />
-            <SearchResults
-              results={this.props.searchResults}
-              eReaderUrl={this.props.eReaderUrl}
-              {...this.boundActions}
-            />
           </div>
         </div>
       </main>
@@ -134,8 +157,8 @@ SearchContainer.defaultProps = {
 };
 
 SearchContainer.contextTypes = {
-  router: PropTypes.object,
-  history: PropTypes.object,
+  router: PropTypes.objectOf(PropTypes.any),
+  history: PropTypes.objectOf(PropTypes.any),
 };
 
 const mapStateToProps = (state, ownProps) => ({

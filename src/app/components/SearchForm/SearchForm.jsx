@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable jsx-a11y/label-has-for */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { titleCase } from 'change-case';
@@ -130,8 +132,8 @@ SearchForm.defaultProps = {
 };
 
 SearchForm.contextTypes = {
-  router: PropTypes.object,
-  history: PropTypes.object,
+  router: PropTypes.objectOf(PropTypes.any),
+  history: PropTypes.objectOf(PropTypes.any),
 };
 
 export default SearchForm;
