@@ -15,6 +15,7 @@ Import style rules from NYPL React module components
 @import './components/EBookList.scss';
 @import './components/DefinitionList.scss';
 @import './components/EditionsList.scss';
+@import './components/Breadcrumbs.scss';
 
 $nypl-dark-blue: #135772;
 
@@ -42,8 +43,14 @@ $nypl-dark-blue: #135772;
   margin: 0 auto;
 }
 
-a:link {
+a:link,
+a:visited,
+a {
   color: #0071ce;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 .bold {
   font-weight: bold;
@@ -55,4 +62,9 @@ a:link {
       color: #fff;
     }
   }
+}
+.search-wrapper {
+  max-width: 840px;
+  width: 100%;
+  margin: 0 auto;
 }

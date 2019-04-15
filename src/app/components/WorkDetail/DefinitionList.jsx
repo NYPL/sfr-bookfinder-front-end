@@ -14,15 +14,16 @@ const htmlEntities = new Html5Entities();
 const elements = Object.keys(definitionLabels);
 
 // extract unique language array from instances of a work item
-const addLanguagestoWorkItem = work => (work && work.instances
-  ? _uniq(
+const addLanguagestoWorkItem = work => work
+  && work.instances
+  && _uniq(
     _flatten(
-      work.instances //
-        .map(instance => instance.language //
-          .map(language => language.language)),
+      work.instances.map(instance => (
+        instance.language
+          && instance.language.map(language => language.language)
+      )),
     ),
-  )
-  : null);
+  );
 /**
  * Build a definition list of elements from a bibliographic record provided
  * by Elastisearch.
