@@ -16,12 +16,11 @@ const elements = Object.keys(detailDefinitionLabels);
 // extract unique language array from instances of a work item
 const addLanguagestoWorkItem = work => work
   && work.instances
-  && _uniq( //
-    _flatten( //
-      work.instances.map(instance => ( //
-        instance.language //
-          && instance.language.map(language => language.language)
-      )),
+  && _uniq(
+    _flatten(
+      work.instances.map(
+        instance => instance.language && instance.language.map(language => language.language), //
+      ),
     ),
   );
 /**
