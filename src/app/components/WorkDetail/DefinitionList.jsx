@@ -6,20 +6,20 @@ import {
   isEmpty as _isEmpty, isArray as _isArray, flatten as _flatten, uniq as _uniq,
 } from 'underscore';
 import AuthorsList from '../List/AuthorsList';
-import { definitionLabels } from '../../constants/labels';
+import { detailDefinitionLabels } from '../../constants/labels';
 
 const htmlEntities = new Html5Entities();
 
 // provide the work item as an array
-const elements = Object.keys(definitionLabels);
+const elements = Object.keys(detailDefinitionLabels);
 
 // extract unique language array from instances of a work item
 const addLanguagestoWorkItem = work => work
   && work.instances
-  && _uniq(
-    _flatten(
-      work.instances.map(instance => (
-        instance.language
+  && _uniq( //
+    _flatten( //
+      work.instances.map(instance => ( //
+        instance.language //
           && instance.language.map(language => language.language)
       )),
     ),
@@ -131,7 +131,7 @@ export const DefinitionList = ({ work }) => {
           {defsData.map(
             (entry, i) => elements.includes(entry[0]) && (
             <tr key={`entry${i.toString()}`}>
-              <td>{definitionLabels[entry[0]]}</td>
+              <td>{detailDefinitionLabels[entry[0]]}</td>
               <td>{parseEntries(entry[0], entry[1], workObj)}</td>
             </tr>
             ),

@@ -1,4 +1,4 @@
-export const definitionLabels = {
+export const detailDefinitionLabels = {
   // also provides sort for DefinitionList
   alt_titles: 'Alternative Titles',
   medium: 'Medium',
