@@ -63,23 +63,21 @@ class WorkDetail extends React.Component {
     return (
       <main id="mainContent">
         <div className="nypl-full-width-wrapper">
-          <div className="header-wrapper">
-            <div className="nypl-page-header">
-              <Breadcrumbs
-                links={[
-                  {
-                    href: `/search?q=${this.props.searchQuery}&field=${this.props.searchField}`,
-                    text: 'Search Results',
-                  },
-                  {
-                    href: `/work?workId=${work.uuid}`,
-                    text: 'Work Details',
-                  },
-                ]}
-                pageType="details"
-                onClickHandler={handleReset}
-              />
-            </div>
+          <div className="sfr-header-wrapper">
+            <Breadcrumbs
+              links={[
+                {
+                  href: `/search?q=${this.props.searchQuery}&field=${this.props.searchField}`,
+                  text: 'Search Results',
+                },
+                {
+                  href: `/work?workId=${work.uuid}`,
+                  text: 'Work Details',
+                },
+              ]}
+              pageType="details"
+              onClickHandler={handleReset}
+            />
             <SearchForm
               history={history}
               {...this.boundActions}
