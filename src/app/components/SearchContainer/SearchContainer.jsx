@@ -93,7 +93,7 @@ class SearchContainer extends React.Component {
       <main id="mainContent">
         <div className="nypl-full-width-wrapper">
           <div className="nypl-page-header">
-            <div className="search-wrapper">
+            <div className="header-wrapper">
               <Breadcrumbs
                 links={[
                   {
@@ -111,13 +111,13 @@ class SearchContainer extends React.Component {
             aria-label="ResearchNow"
           >
             {(!searchResults || _isEmpty(searchResults)) && (
-              <div className="nypl-row search-wrapper">
+              <div className="nypl-row header-wrapper">
                 <h1 className="nypl-heading">ResearchNow</h1>
                 <div id="tagline">Search the world&apos;s research collections and more for digital books you can use right now.</div>
               </div>
             )}
             <div className="wrapper">
-              <div className="search-wrapper">
+              <div className="header-wrapper">
                 <SearchForm
                   searchQuery={selectedQuery}
                   searchField={selectedField}
