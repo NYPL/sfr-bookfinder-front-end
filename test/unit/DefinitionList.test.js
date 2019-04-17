@@ -4,7 +4,8 @@ import React from 'react';
 import { expect } from 'chai';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
-import { DefinitionList, labels } from '../../src/app/components/WorkDetail/DefinitionList';
+import { DefinitionList } from '../../src/app/components/WorkDetail/DefinitionList';
+import { detailDefinitionLabels } from '../../src/app/constants/labels';
 import AuthorsList from '../../src/app/components/List/AuthorsList';
 import EBookList from '../../src/app/components/List/EBookList';
 import detail from '../fixtures/work-detail.json';
@@ -20,20 +21,20 @@ describe('DefinitionList', () => {
 
   it('should display a definition list of detail elements', () => {
     expect(component.find('table')).to.have.length(1);
-    expect(component.find('tr')).to.have.length(6);
-    expect(component.find('td')).to.have.length(12);
+    expect(component.find('tr')).to.have.length(7);
+    expect(component.find('td')).to.have.length(14);
     const terms = component.find('td');
-    expect(terms.getElements()[0].props.children).to.equal(labels.agents);
-    expect(terms.getElements()[4].props.children).to.equal(labels.issued_display);
-    expect(terms.getElements()[6].props.children).to.equal(labels.language);
-    expect(terms.getElements()[8].props.children).to.equal(labels.measurements);
+    expect(terms.getElements()[2].props.children).to.equal(detailDefinitionLabels.agents);
+    expect(terms.getElements()[4].props.children).to.equal(detailDefinitionLabels.subjects);
+    expect(terms.getElements()[6].props.children).to.equal(detailDefinitionLabels.issued_display);
+    expect(terms.getElements()[8].props.children).to.equal(detailDefinitionLabels.language);
   });
 
   it('should have a table of Items', () => {
     expect(component.find('table')).to.have.length(1);
     expect(component.find('tbody')).to.have.length(1);
-    expect(component.find('tbody tr')).to.have.length(6);
-    expect(component.find('tbody tr td')).to.have.length(12);
+    expect(component.find('tbody tr')).to.have.length(7);
+    expect(component.find('tbody tr td')).to.have.length(14);
   });
 
   it('should have a list of Subjects', () => {

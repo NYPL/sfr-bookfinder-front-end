@@ -1,20 +1,20 @@
 .nypl-item-header {
-  min-height: 175px;
+  min-height: 160px;
   .nypl-item-header-image {
     position: absolute;
-    width: 125px;
+    width: 100px;
 
-    padding: 10px;
+    padding: 0 10px 10px;
     margin: 10px;
     // background: aliceblue;
     // box-shadow: 0px 0px 54px inset #bbbbbf;
-    height: 150px;
+    height: 125px;
     // border: 1px solid black;
   }
 
   .nypl-item-header-column {
     float: left;
-    margin-left: 150px;
+    margin-left: 140px;
     .nypl-item-header-title {
       font-weight: bold;
     }

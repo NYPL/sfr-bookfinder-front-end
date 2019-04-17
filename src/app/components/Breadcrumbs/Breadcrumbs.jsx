@@ -9,12 +9,6 @@ import { Link } from 'react-router';
  * @returns {array}
  */
 const Breadcrumbs = ({ links, pageType, onClickHandler }) => {
-  if (pageType === 'home') {
-    return null;
-  }
-
-  // const onClick = pageTitle => tracker('Breadcrumbs', pageTitle);
-
   const homeLink = (
     <li key="home">
       <Link
@@ -29,7 +23,7 @@ const Breadcrumbs = ({ links, pageType, onClickHandler }) => {
   const crumbTrail = () => {
     const crumbs = [homeLink];
 
-    if (links && links.length) {
+    if (links && links.length && pageType !== 'home') {
       links.forEach((link, iterator) => {
         const linkKey = `links-${iterator}`;
         if (iterator < links.length - 1) {

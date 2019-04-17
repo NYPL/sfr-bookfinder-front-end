@@ -26,7 +26,6 @@
       }
       &:last-child {
         border-right: none;
-        white-space: nowrap;
       }
       ul {
         list-style: none;
@@ -50,5 +49,6 @@
   margin: 0;
   a {
     text-decoration: none;
+    color: black;
   }
 }

@@ -93,36 +93,38 @@ class SearchContainer extends React.Component {
       <main id="mainContent">
         <div className="nypl-full-width-wrapper">
           <div className="nypl-page-header">
-            <Breadcrumbs
-              links={[
-                {
-                  href: `/search?q=${selectedQuery}&field=${selectedField}`,
-                  text: 'Search Results',
-                },
-              ]}
-              pageType={pageType}
-              onClickHandler={handleReset}
-            />
+            <div className="sfr-header-wrapper">
+              <Breadcrumbs
+                links={[
+                  {
+                    href: `/search?q=${selectedQuery}&field=${selectedField}`,
+                    text: 'Search Results',
+                  },
+                ]}
+                pageType={pageType}
+                onClickHandler={handleReset}
+              />
+            </div>
           </div>
           <div
             role="search"
             aria-label="ResearchNow"
           >
             {(!searchResults || _isEmpty(searchResults)) && (
-              <div className="nypl-row">
-                <div className="nypl-column-full">
-                  <h1 className="nypl-heading">ResearchNow</h1>
-                  <div id="tagline">Search the world&apos;s research collections and more for digital books you can use right now.</div>
-                </div>
+              <div className="nypl-row sfr-header-wrapper">
+                <h1 className="nypl-heading">ResearchNow</h1>
+                <div id="tagline">Search the world&apos;s research collections and more for digital books you can use right now.</div>
               </div>
             )}
             <div className="wrapper">
-              <SearchForm
-                searchQuery={selectedQuery}
-                searchField={selectedField}
-                history={history}
-                {...this.boundActions}
-              />
+              <div className="sfr-header-wrapper">
+                <SearchForm
+                  searchQuery={selectedQuery}
+                  searchField={selectedField}
+                  history={history}
+                  {...this.boundActions}
+                />
+              </div>
               <SearchResults
                 results={searchResults}
                 eReaderUrl={eReaderUrl}

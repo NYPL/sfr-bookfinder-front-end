@@ -1,0 +1,15 @@
+.nypl-breadcrumbs {
+  color: #0071bb;
+  li {
+    a,
+    a:visited {
+      color: #0071bb;
+      &:hover {
+        background: initial;
+      }
+    }
+    &::before {
+      content: ' / ';
+    }
+  }
+}

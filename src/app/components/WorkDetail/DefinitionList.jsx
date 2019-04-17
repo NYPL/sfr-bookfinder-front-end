@@ -2,26 +2,27 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Html5Entities } from 'html-entities';
 import { Link } from 'react-router';
-import { isEmpty as _isEmpty, isArray as _isArray } from 'underscore';
+import {
+  isEmpty as _isEmpty, isArray as _isArray, flatten as _flatten, uniq as _uniq,
+} from 'underscore';
 import AuthorsList from '../List/AuthorsList';
+import { detailDefinitionLabels } from '../../constants/labels';
 
 const htmlEntities = new Html5Entities();
 
-export const labels = {
-  // also provides sort
-  summary: 'Summary',
-  series: 'Series',
-  agents: 'Author',
-  subjects: 'Subject',
-  date_created: 'Desta Created',
-  issued_display: 'Date Issued',
-  language: 'Language',
-  rights: 'Rights',
-  measurements: 'Measurements',
-  identifiers: 'Identifiers',
-};
-const elements = Object.keys(labels);
+// provide the work item as an array
+const elements = Object.keys(detailDefinitionLabels);
 
+// extract unique language array from instances of a work item
+const addLanguagestoWorkItem = work => work
+  && work.instances
+  && _uniq(
+    _flatten(
+      work.instances.map(
+        instance => instance.language && instance.language.map(language => language.language), //
+      ),
+    ),
+  );
 /**
  * Build a definition list of elements from a bibliographic record provided
  * by Elastisearch.
@@ -57,8 +58,8 @@ export const DefinitionList = ({ work }) => {
       case 'language':
         return (
           <ul>
-            {list.map((entity, i) => (
-              <li key={`language${i.toString()}`}>{entity.language}</li>
+            {list.map((language, i) => (
+              <li key={`language${i.toString()}`}>{language}</li>
             ))}
           </ul>
         );
@@ -106,7 +107,7 @@ export const DefinitionList = ({ work }) => {
           </span>
         );
       default:
-        return _isArray(entries) ? entries.join(', ') : entries;
+        return _isArray(entries) ? entries.map(entry => htmlEntities.decode(entry)).join(', ') : htmlEntities.decode(entries);
     }
   };
 
@@ -117,7 +118,7 @@ export const DefinitionList = ({ work }) => {
    * @return {string}
    */
   const getDefinitions = (workObj) => {
-    const defsData = workDetailsObject(workObj);
+    const defsData = workDetailsObject({ ...workObj, ...{ language: addLanguagestoWorkItem(workObj) } });
     defsData.sort((a, b) => elements.indexOf(a[0]) - elements.indexOf(b[0]));
     if (!defsData || _isEmpty(defsData)) {
       return null;
@@ -129,7 +130,7 @@ export const DefinitionList = ({ work }) => {
           {defsData.map(
             (entry, i) => elements.includes(entry[0]) && (
             <tr key={`entry${i.toString()}`}>
-              <td>{labels[entry[0]]}</td>
+              <td>{detailDefinitionLabels[entry[0]]}</td>
               <td>{parseEntries(entry[0], entry[1], workObj)}</td>
             </tr>
             ),

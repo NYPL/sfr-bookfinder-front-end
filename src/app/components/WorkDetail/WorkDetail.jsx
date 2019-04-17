@@ -9,6 +9,7 @@ import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import * as searchActions from '../../actions/SearchActions';
 import WorkHeader from './WorkHeader';
 import EditionsList from '../List/EditionsList';
+import SearchForm from '../SearchForm/SearchForm';
 
 class WorkDetail extends React.Component {
   constructor(props) {
@@ -44,6 +45,7 @@ class WorkDetail extends React.Component {
     if (!work || _isEmpty(work) || _isEqual(work, WorkDetail.defaultProps.work)) {
       return null;
     }
+    const { history } = this.context;
 
     /**
      * onClick handler for resetting state for the request back to the home page
@@ -61,7 +63,7 @@ class WorkDetail extends React.Component {
     return (
       <main id="mainContent">
         <div className="nypl-full-width-wrapper">
-          <div className="nypl-page-header">
+          <div className="sfr-header-wrapper">
             <Breadcrumbs
               links={[
                 {
@@ -75,6 +77,10 @@ class WorkDetail extends React.Component {
               ]}
               pageType="details"
               onClickHandler={handleReset}
+            />
+            <SearchForm
+              history={history}
+              {...this.boundActions}
             />
           </div>
           <div className="nypl-row">
