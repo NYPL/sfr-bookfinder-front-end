@@ -26,7 +26,6 @@
   "keywords": [
     "react",
     "webpack",
-    "boilerplate",
     "sass",
     "hot",
     "reload"
@@ -60,8 +59,6 @@
     "@babel/preset-env": "^7.3.4",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.4.0",
-    "@nypl/design-toolkit": "0.1.36",
-    "@nypl/dgx-header-component": "2.5.2",
     "@nypl/dgx-react-footer": "0.5.2",
     "@nypl/dgx-svg-icons": "0.3.9",
     "@nypl/nypl-data-api-client": "1.0.0",
