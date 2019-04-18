@@ -18,7 +18,7 @@ class TextInput extends React.Component {
           {this.props.label}
         </label>
         <input
-          inputClass={this.props.inputClass}
+          className={this.props.inputClass}
           id={this.props.id}
           type={this.props.type}
           name={this.props.name}
