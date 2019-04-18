@@ -11,18 +11,21 @@ class TextInput extends React.Component {
   render() {
     return (
       <div className={this.props.className}>
-        <label className={this.props.textInputlabelClass} htmlFor={this.props.textInputId}>
-          {this.props.textInputLabel}
+        <label
+          className={this.props.labelClass}
+          htmlFor={this.props.id}
+        >
+          {this.props.label}
         </label>
         <input
-          className={this.props.textInputClass}
-          id={this.props.textInputId}
-          type={this.props.textInputType}
-          name={this.props.textInputName}
+          inputClass={this.props.inputClass}
+          id={this.props.id}
+          type={this.props.type}
+          name={this.props.name}
           aria-labelledby={this.props.ariaLabel}
-          value={this.props.textInputValue}
+          value={this.props.value}
           placeholder={this.props.placeholder}
-          onChange={this.props.onChangeHandler}
+          onChange={this.props.onChange}
         />
       </div>
     );
@@ -31,30 +34,30 @@ class TextInput extends React.Component {
 
 TextInput.propTypes = {
   className: PropTypes.string,
-  textInputLabel: PropTypes.string,
-  textInputlabelClass: PropTypes.string,
-  textInputId: PropTypes.string,
-  textInputClass: PropTypes.string,
-  textInputType: PropTypes.string,
-  textInputName: PropTypes.string,
-  textInputValue: PropTypes.string,
+  label: PropTypes.string,
+  labelClass: PropTypes.string,
+  id: PropTypes.string,
+  inputClass: PropTypes.string,
+  type: PropTypes.string,
+  name: PropTypes.string,
+  value: PropTypes.string,
   ariaLabel: PropTypes.string,
   placeholder: PropTypes.string,
-  onChangeHandler: PropTypes.func,
+  onChange: PropTypes.func,
 };
 
 TextInput.defaultProps = {
-  textInputLabel: '',
-  textInputlabelClass: 'usa-sr-only',
+  label: '',
+  labelClass: 'usa-sr-only',
   className: 'nypl-searchbar',
-  textInputId: '',
-  textInputType: '',
-  textInputClass: 'search-field-big',
-  textInputName: '',
-  textInputValue: '',
+  id: '',
+  type: '',
+  inputClass: 'search-field-big',
+  name: '',
+  value: '',
   ariaLabel: '',
   placeholder: '',
-  onChangeHandler: () => {},
+  onChange: () => {},
 };
 
 export default TextInput;

@@ -16,7 +16,7 @@ class SearchBar extends React.Component {
         <TextInput
           label={this.props.inputLabel}
           labelClass={this.props.inputLabelClass}
-          class={this.props.inputClass}
+          inputClass={this.props.inputClass}
           id={this.props.inputId}
           type={this.props.inputType}
           name={this.props.inputName}
@@ -27,7 +27,7 @@ class SearchBar extends React.Component {
         />
         <SearchButton
           id={this.props.buttonId}
-          class={this.props.buttonClass}
+          className={this.props.buttonClass}
           value={this.props.buttonValue}
           onClick={this.props.onClickHandler}
         />
