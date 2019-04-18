@@ -2,8 +2,8 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { titleCase } from 'change-case';
-import SearchButton from '../Button/SearchButton';
+import Select from '../Form/Select';
+import SearchBar from './SearchBar';
 
 class SearchForm extends React.Component {
   constructor(props) {
@@ -68,45 +68,37 @@ class SearchForm extends React.Component {
   render() {
     return (
       <form
-        className="usa-search"
+        className="usa-search usa-search-big"
         action="/search"
         method="get"
         onSubmit={this.handleSubmit}
         onKeyPress={this.handleSubmit}
       >
         <div role="search">
-          <div className="nypl-search-bar">
-            <div className="nypl-search-input">
-              <label htmlFor="search-by-field" className="usa-sr-only">Search in</label>
-              <select
-                id="search-by-field"
-                className="usa-input nypl-search-input"
-                onChange={this.onFieldChange}
-                value={this.state.searchField}
-              >
-                {this.props.allowedFields.map((field, key) => (
-                  <option value={field} key={key.toString()}>
-                    {titleCase(field)}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="nypl-search-input">
-              <label htmlFor="search-input" className="usa-sr-only">Search ResearchNow for</label>
-              <input
-                id="search-input"
-                name="q"
-                type="text"
-                aria-labelledby="search-input-field"
-                value={this.state.searchQuery}
-                className="usa-input"
-                placeholder="Keyword, title, author, or subject"
-                onChange={this.onQueryChange}
-              />
-            </div>
-            <SearchButton
-              className="usa-button nypl-search-input"
-              onClick={this.submitSearchRequest}
+          <div className="nypl-search">
+            <Select
+              label="Search in"
+              id="search-by-field"
+              class="nypl-select-input"
+              options={this.props.allowedFields}
+              onChange={this.onFieldChange}
+              value={this.state.searchField}
+            />
+            <SearchBar
+              className="usa-width-two-thirds nypl-searchbar"
+              inputLabel="Search ResearchNow for"
+              inputId="search-input"
+              inputClass="search-field-big nypl-search-input"
+              inputName="q"
+              inputValue={this.state.searchQuery}
+              inputType="text"
+              placeholder="Keyword, title, author, or subject"
+              ariaLabel="search-input-field"
+              onChangeHandler={this.onQueryChange}
+              buttonId="search-button"
+              buttonClass="usa-width-one-third nypl-search-button"
+              buttonValue="Search"
+              onClickHandler={this.submitSearchRequest}
             />
           </div>
         </div>

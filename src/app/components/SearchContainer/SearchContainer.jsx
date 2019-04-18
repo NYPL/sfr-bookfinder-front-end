@@ -90,7 +90,7 @@ class SearchContainer extends React.Component {
     };
 
     return (
-      <main id="mainContent">
+      <main id="mainContent" className="main-content">
         <div className="usa-grid">
           <div className="usa-width-one-whole">
             <Breadcrumbs
@@ -116,7 +116,7 @@ class SearchContainer extends React.Component {
                 </div>
               </div>
             )}
-            <div className="wrapper">
+            <div className="usa-content">
               <SearchForm
                 searchQuery={selectedQuery}
                 searchField={selectedField}

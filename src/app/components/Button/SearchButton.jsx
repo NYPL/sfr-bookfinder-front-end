@@ -6,7 +6,7 @@ const SearchButton = ({
 }) => (
   <button
     id={id}
-    className={`${className}`}
+    className={className}
     onClick={onClick}
     type="submit"
     aria-controls="results-description"
