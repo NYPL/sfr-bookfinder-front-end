@@ -90,6 +90,7 @@ class SearchContainer extends React.Component {
     };
 
     return (
+<<<<<<< HEAD
       <main id="mainContent">
         <div className="nypl-full-width-wrapper">
           <div className="nypl-page-header">
@@ -105,6 +106,21 @@ class SearchContainer extends React.Component {
                 onClickHandler={handleReset}
               />
             </div>
+=======
+      <main id="mainContent" className="main-content">
+        <div className="usa-grid">
+          <div className="usa-width-one-whole">
+            <Breadcrumbs
+              links={[
+                {
+                  href: `/search?q=${selectedQuery}&field=${selectedField}`,
+                  text: 'Search Results',
+                },
+              ]}
+              pageType={pageType}
+              onClickHandler={handleReset}
+            />
+>>>>>>> uswds-integration
           </div>
           <div
             role="search"
@@ -116,6 +132,7 @@ class SearchContainer extends React.Component {
                 <div id="tagline">Search the world&apos;s research collections and more for digital books you can use right now.</div>
               </div>
             )}
+<<<<<<< HEAD
             <div className="wrapper">
               <div className="sfr-header-wrapper">
                 <SearchForm
@@ -125,6 +142,15 @@ class SearchContainer extends React.Component {
                   {...this.boundActions}
                 />
               </div>
+=======
+            <div className="usa-content">
+              <SearchForm
+                searchQuery={selectedQuery}
+                searchField={selectedField}
+                history={history}
+                {...this.boundActions}
+              />
+>>>>>>> uswds-integration
               <SearchResults
                 results={searchResults}
                 eReaderUrl={eReaderUrl}

@@ -13,7 +13,7 @@
     "rebuild-modules": "rm -rf node_modules && npm install",
     "postinstall": "npm run dist",
     "test": "mocha test/helpers/browser.js test/unit",
-    "test-unit": "mocha --compilers js:babel-core/register test/unit",
+    "test-unit": "mocha --require babel-core/register test/unit",
     "test-with-coverage": "nyc ./node_modules/.bin/mocha test/helpers/browser.js test/*.test.js",
     "coverage": "BABEL_ENV=test node_modules/.bin/nyc --require mocha npm test",
     "coverage-report": "BABEL_ENV=test node_modules/.bin/nyc report --reporter=lcov",
@@ -26,7 +26,6 @@
   "keywords": [
     "react",
     "webpack",
-    "boilerplate",
     "sass",
     "hot",
     "reload"
@@ -52,7 +51,7 @@
     "redux-mock-store": "^1.5.3",
     "sinon": "^7.2.7",
     "webpack-cli": "^3.3.0",
-    "webpack-dev-server": "^3.2.1"
+    "webpack-dev-server": "^3.3.1"
   },
   "dependencies": {
     "@babel/core": "^7.3.4",
@@ -60,8 +59,6 @@
     "@babel/preset-env": "^7.3.4",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.4.0",
-    "@nypl/design-toolkit": "0.1.36",
-    "@nypl/dgx-header-component": "2.5.2",
     "@nypl/dgx-react-footer": "0.5.2",
     "@nypl/dgx-svg-icons": "0.3.9",
     "@nypl/nypl-data-api-client": "1.0.0",
@@ -87,6 +84,7 @@
     "history": "3.3.0",
     "html-entities": "^1.2.1",
     "html-webpack-plugin": "^3.2.0",
+    "image-webpack-loader": "^4.6.0",
     "mini-css-extract-plugin": "^0.5.0",
     "node-sass": "^4.11.0",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
@@ -104,6 +102,7 @@
     "style-loader": "0.23.1",
     "terser-webpack-plugin": "^1.2.3",
     "underscore": "^1.9.1",
+    "uswds": "^2.0.1",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",
     "webpack-merge": "4.2.1"

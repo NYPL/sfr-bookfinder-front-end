@@ -1,19 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { SearchIcon } from '@nypl/dgx-svg-icons';
 
 const SearchButton = ({
   id, className, onClick, value,
 }) => (
   <button
     id={id}
-    className={`${className}`}
+    className={className}
     onClick={onClick}
     type="submit"
     aria-controls="results-description"
   >
-    {value}
-    <SearchIcon />
+    <span className="usa-search-submit-text">
+      {value}
+    </span>
   </button>
 );
 
@@ -25,7 +25,7 @@ SearchButton.propTypes = {
 };
 
 SearchButton.defaultProps = {
-  id: 'nypl-omnisearch-button',
+  id: 'search-button',
   value: 'Search',
   className: '',
   onClick: () => {},

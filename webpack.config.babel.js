@@ -7,9 +7,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import TerserJSPlugin from 'terser-webpack-plugin';
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 
-const sassPaths = require('@nypl/design-toolkit')
-  .includePaths.map(sassPath => sassPath)
-  .join('&');
+const sassPaths = ['node_modules'];
 
 // References the application's root path
 const ROOT_PATH = path.resolve(__dirname);
@@ -103,9 +101,24 @@ if (ENV === 'development') {
           include: path.resolve(ROOT_PATH, 'src'),
         },
         {
-          test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
-          use: 'file-loader?name=assets/[name].[ext]',
-          include: [path.resolve(__dirname, 'src/assets')],
+          test: /\.(gif|png|jp?g|svg)(\?v=\d+\.\d+\.\d+)?$/,
+          use: [{
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'img/',
+            },
+          }],
+        },
+        {
+          test: /\.(ttf|eot|woff(2)?)(\?v=\d+\.\d+\.\d+)?$/,
+          use: [{
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'fonts/',
+            },
+          }],
         },
       ],
     },
@@ -150,9 +163,24 @@ if (ENV === 'production') {
           include: path.resolve(ROOT_PATH, 'src'),
         },
         {
-          test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
-          use: 'file-loader?name=assets/[name].[ext]',
-          include: [path.resolve(__dirname, 'src/assets')],
+          test: /\.(gif|png|jp?g|svg)(\?v=\d+\.\d+\.\d+)?$/,
+          use: [{
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'img/',
+            },
+          }],
+        },
+        {
+          test: /\.(ttf|eot|woff(2)?)(\?v=\d+\.\d+\.\d+)?$/,
+          use: [{
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'fonts/',
+            },
+          }],
         },
       ],
     },

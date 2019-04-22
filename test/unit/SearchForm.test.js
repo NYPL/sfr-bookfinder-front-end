@@ -16,8 +16,8 @@ describe('SearchForm', () => {
       component = mount(<SearchForm />);
     });
 
-    it('has a form fieldset .nypl-omnisearch', () => {
-      expect(component.find('.nypl-omnisearch')).to.have.length(1);
+    it('has a form fieldset .nypl-search', () => {
+      expect(component.find('.nypl-search')).to.have.length(1);
     });
 
     it('contains a select with three options.', () => {

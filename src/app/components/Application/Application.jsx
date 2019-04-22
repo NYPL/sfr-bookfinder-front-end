@@ -3,7 +3,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 
-import { Header, navConfig } from '@nypl/dgx-header-component';
 import Footer from '@nypl/dgx-react-footer';
 import appConfig from '../../../../appConfig';
 
@@ -16,11 +15,6 @@ class Application extends React.Component {
   render() {
     return (
       <div className="app-wrapper">
-        <Header
-          skipNav={{ target: 'mainContent' }}
-          navData={navConfig.current}
-          urlType="absolute"
-        />
         {React.cloneElement(this.props.children, this.props)}
         <Footer />
       </div>
