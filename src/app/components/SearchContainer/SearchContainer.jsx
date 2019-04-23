@@ -113,7 +113,7 @@ class SearchContainer extends React.Component {
             className="grid-col-12"
           >
             {(!searchResults || _isEmpty(searchResults)) && (
-              <div className="nypl-row sfr-header-wrapper">
+              <div className="nypl-row sfr-header-wrapper grid-col-10">
                 <h1 className="nypl-heading">ResearchNow</h1>
                 <div id="tagline">Search the world&apos;s research collections and more for digital books you can use right now.</div>
               </div>
