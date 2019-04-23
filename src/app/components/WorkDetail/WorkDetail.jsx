@@ -63,7 +63,7 @@ class WorkDetail extends React.Component {
     return (
       <main id="mainContent">
         <div className="nypl-full-width-wrapper grid-row">
-          <div className="sfr-header-wrapper">
+          <div className="sfr-header-wrapper grid-col-12">
             <Breadcrumbs
               links={[
                 {
