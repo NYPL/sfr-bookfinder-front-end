@@ -3,7 +3,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Select from '../Form/Select';
-import SearchBar from './SearchBar';
+import SearchButton from '../Button/SearchButton';
+import TextInput from '../Form/TextInput';
 
 class SearchForm extends React.Component {
   constructor(props) {
@@ -67,42 +68,51 @@ class SearchForm extends React.Component {
 
   render() {
     return (
-      <form
-        className="usa-search usa-search-big"
-        action="/search"
-        method="get"
-        onSubmit={this.handleSubmit}
-        onKeyPress={this.handleSubmit}
-      >
-        <div role="search">
-          <div className="nypl-search">
+      <div className="grid-row">
+        <div className="grid-col-1" />
+        <form
+          className="grid-col-10 usa-search usa-search--big"
+          action="/search"
+          method="get"
+          onSubmit={this.handleSubmit}
+          onKeyPress={this.handleSubmit}
+        >
+          <div
+            role="search"
+            className="nypl-search grid-row"
+          >
             <Select
-              label="Search in"
               id="search-by-field"
-              class="nypl-select-input"
+              class="nypl-select-input usa-select"
               options={this.props.allowedFields}
               onChange={this.onFieldChange}
               value={this.state.searchField}
+              label=""
+              labelClass="usa-label"
             />
-            <SearchBar
-              className="usa-width-two-thirds nypl-searchbar"
-              inputLabel="Search ResearchNow for"
-              inputId="search-input"
-              inputClass="search-field-big nypl-search-input"
-              inputName="q"
-              inputValue={this.state.searchQuery}
-              inputType="text"
+            <TextInput
+              label=""
+              labelClass=""
+              inputClass="usa-input search-field-big nypl-search-input"
+              id="search-input"
+              type="text"
+              name="q"
+              ariaLabel=""
+              value={this.state.searchQuery}
               placeholder="Keyword, title, author, or subject"
-              ariaLabel="search-input-field"
-              onChangeHandler={this.onQueryChange}
-              buttonId="search-button"
-              buttonClass="usa-width-one-third nypl-search-button"
-              buttonValue="Search"
-              onClickHandler={this.submitSearchRequest}
+              onChange={this.onQueryChange}
+              className="grid-col-4"
+            />
+            <SearchButton
+              id="search-button"
+              className="grid-col-1"
+              buttonClassName="usa-button sfr-search-button"
+              value="Search"
+              onClick={this.submitSearchRequest}
             />
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
     );
   }
 }

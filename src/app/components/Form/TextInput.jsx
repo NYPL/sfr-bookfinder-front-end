@@ -48,8 +48,8 @@ TextInput.propTypes = {
 
 TextInput.defaultProps = {
   label: '',
-  labelClass: 'usa-sr-only',
-  className: 'nypl-searchbar',
+  labelClass: '',
+  className: '',
   id: '',
   type: '',
   inputClass: 'search-field-big',

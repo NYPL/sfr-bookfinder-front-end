@@ -13,8 +13,11 @@ class Select extends React.Component {
   render() {
     return (
       // Place some standard HTML here.
-      <div className="usa-width-one-third nypl-search-input">
-        <label htmlFor={this.props.id} className={this.props.labelClass}>
+      <div className="grid-col-4 nypl-search-input">
+        <label
+          htmlFor={this.props.id}
+          className={this.props.labelClass}
+        >
           {this.props.label}
         </label>
         <select
@@ -25,12 +28,23 @@ class Select extends React.Component {
           onChange={this.props.onChange}
           onBlur={this.props.onBlur}
         >
-          {!_isEmpty(this.props.options)
-            ? this.props.options.map((opt, key) => (
-              <option key={key.toString()} value={opt}>{titleCase(opt)}</option>
+          {!_isEmpty(this.props.options) ? (
+            this.props.options.map((opt, key) => (
+              <option
+                key={key.toString()}
+                value={opt}
+              >
+                {titleCase(opt)}
+              </option>
             ))
-            : <option key="default" value="">-- Select --</option>
-          }
+          ) : (
+            <option
+              key="default"
+              value=""
+            >
+              -- Select --
+            </option>
+          )}
         </select>
       </div>
     );
@@ -50,7 +64,7 @@ Select.propTypes = {
 
 Select.defaultProps = {
   label: 'Choice List',
-  labelClass: 'usa-sr-only',
+  labelClass: '',
   id: 'nypl-select-field',
   class: '',
   options: [],

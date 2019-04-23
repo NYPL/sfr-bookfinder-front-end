@@ -90,26 +90,12 @@ class SearchContainer extends React.Component {
     };
 
     return (
-<<<<<<< HEAD
-      <main id="mainContent">
-        <div className="nypl-full-width-wrapper">
-          <div className="nypl-page-header">
-            <div className="sfr-header-wrapper">
-              <Breadcrumbs
-                links={[
-                  {
-                    href: `/search?q=${selectedQuery}&field=${selectedField}`,
-                    text: 'Search Results',
-                  },
-                ]}
-                pageType={pageType}
-                onClickHandler={handleReset}
-              />
-            </div>
-=======
-      <main id="mainContent" className="main-content">
-        <div className="usa-grid">
-          <div className="usa-width-one-whole">
+      <main
+        id="mainContent"
+        className="main-content"
+      >
+        <div className="grid-row sfr-main">
+          <div className="grid-col-12">
             <Breadcrumbs
               links={[
                 {
@@ -120,11 +106,11 @@ class SearchContainer extends React.Component {
               pageType={pageType}
               onClickHandler={handleReset}
             />
->>>>>>> uswds-integration
           </div>
           <div
             role="search"
             aria-label="ResearchNow"
+            className="grid-col-12"
           >
             {(!searchResults || _isEmpty(searchResults)) && (
               <div className="nypl-row sfr-header-wrapper">
@@ -132,17 +118,6 @@ class SearchContainer extends React.Component {
                 <div id="tagline">Search the world&apos;s research collections and more for digital books you can use right now.</div>
               </div>
             )}
-<<<<<<< HEAD
-            <div className="wrapper">
-              <div className="sfr-header-wrapper">
-                <SearchForm
-                  searchQuery={selectedQuery}
-                  searchField={selectedField}
-                  history={history}
-                  {...this.boundActions}
-                />
-              </div>
-=======
             <div className="usa-content">
               <SearchForm
                 searchQuery={selectedQuery}
@@ -150,7 +125,6 @@ class SearchContainer extends React.Component {
                 history={history}
                 {...this.boundActions}
               />
->>>>>>> uswds-integration
               <SearchResults
                 results={searchResults}
                 eReaderUrl={eReaderUrl}

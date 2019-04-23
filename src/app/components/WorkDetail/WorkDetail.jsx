@@ -62,56 +62,55 @@ class WorkDetail extends React.Component {
 
     return (
       <main id="mainContent">
-        <div className="nypl-full-width-wrapper">
-          <div className="sfr-header-wrapper">
-            <Breadcrumbs
-              links={[
-                {
-                  href: `/search?q=${this.props.searchQuery}&field=${this.props.searchField}`,
-                  text: 'Search Results',
-                },
-                {
-                  href: `/work?workId=${work.uuid}`,
-                  text: 'Work Details',
-                },
-              ]}
-              pageType="details"
-              onClickHandler={handleReset}
-            />
-            <SearchForm
-              history={history}
-              {...this.boundActions}
-            />
-          </div>
-          <div className="nypl-row">
-            <div className="nypl-column-full">
-              <div className="nypl-item-header">
-                <WorkHeader data={work} />
-              </div>
-
-              <div id="nypl-item-details">
-                <EditionsList
-                  eReaderUrl={this.props.eReaderUrl}
-                  work={work}
-                  max={1}
-                />
-                <DefinitionList
-                  work={work}
-                  dispatch={this.props.dispatch}
-                  context={this.context}
-                />
-                <h3 className="all-editions-tag bold">
-                  <a id="all-editions">All Editions</a>
-                </h3>
-                <EditionsList
-                  eReaderUrl={this.props.eReaderUrl}
-                  work={work}
-                  max={0}
-                />
-              </div>
+        <div className="nypl-full-width-wrapper grid-row">
+        <div className="sfr-header-wrapper">
+        <Breadcrumbs
+          links={[
+            {
+              href: `/search?q=${this.props.searchQuery}&field=${this.props.searchField}`,
+              text: 'Search Results',
+            },
+            {
+              href: `/work?workId=${work.uuid}`,
+              text: 'Work Details',
+            },
+          ]}
+          pageType="details"
+          onClickHandler={handleReset}
+        />
+        <SearchForm
+          history={history}
+          {...this.boundActions}
+        />
+      </div>
+    <div className="grid-col-1" />
+          <div className="grid-col-10">
+            <div className="nypl-item-header">
+              <WorkHeader data={work} />
+            </div>
+            <div id="nypl-item-details">
+              <EditionsList
+                eReaderUrl={this.props.eReaderUrl}
+                work={work}
+                max={1}
+              />
+              <DefinitionList
+                work={work}
+                dispatch={this.props.dispatch}
+                context={this.context}
+              />
+              <h3 className="all-editions-tag bold">
+                <a id="all-editions">All Editions</a>
+              </h3>
+              <EditionsList
+                eReaderUrl={this.props.eReaderUrl}
+                work={work}
+                max={0}
+              />
             </div>
           </div>
         </div>
+        <div className="grid-col-1" />
       </main>
     );
   }

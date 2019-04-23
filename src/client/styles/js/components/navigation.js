@@ -71,71 +71,73 @@ const hideActiveNavDropdown = () => {
   navActive = null;
 };
 
+navigation = behavior(
+  {
+    [CLICK]: {
+      [NAV_CONTROL]() {
+        // If another nav is open, close it
+        if (navActive && navActive !== this) {
+          hideActiveNavDropdown();
+        }
+        // store a reference to the last clicked nav link element, so we
+        // can hide the dropdown if another element on the page is clicked
+        if (navActive) {
+          hideActiveNavDropdown();
+        } else {
+          navActive = this;
+          toggle(navActive, true);
+        }
 
-navigation = behavior({
-  [CLICK]: {
-    [NAV_CONTROL]() {
-      // If another nav is open, close it
-      if (navActive && navActive !== this) {
-        hideActiveNavDropdown();
-      }
-      // store a reference to the last clicked nav link element, so we
-      // can hide the dropdown if another element on the page is clicked
-      if (navActive) {
-        hideActiveNavDropdown();
-      } else {
-        navActive = this;
-        toggle(navActive, true)
-      }
+        // Do this so the event handler on the body doesn't fire
+        return false;
+      },
+      [BODY]() {
+        if (navActive) {
+          hideActiveNavDropdown();
+        }
+      },
+      [OPENERS]: toggleNav,
+      [CLOSERS]: toggleNav,
+      [NAV_LINKS]() {
+        // A navigation link has been clicked! We want to collapse any
+        // hierarchical navigation UI it's a part of, so that the user
+        // can focus on whatever they've just selected.
 
-      // Do this so the event handler on the body doesn't fire
-      return false;
-    },
-    [BODY]() {
-      if (navActive) {
-        hideActiveNavDropdown();
-      }
-    },
-    [OPENERS]: toggleNav,
-    [CLOSERS]: toggleNav,
-    [NAV_LINKS]() {
-      // A navigation link has been clicked! We want to collapse any
-      // hierarchical navigation UI it's a part of, so that the user
-      // can focus on whatever they've just selected.
+        // Some navigation links are inside accordions; when they're
+        // clicked, we want to collapse those accordions.
+        const acc = this.closest(accordion.ACCORDION);
 
-      // Some navigation links are inside accordions; when they're
-      // clicked, we want to collapse those accordions.
-      const acc = this.closest(accordion.ACCORDION);
+        if (acc) {
+          accordion.getButtons(acc).forEach(btn => accordion.hide(btn));
+        }
 
-      if (acc) {
-        accordion.getButtons(acc).forEach(btn => accordion.hide(btn));
-      }
-
-      // If the mobile navigation menu is active, we want to hide it.
-      if (isActive()) {
-        navigation.toggleNav.call(navigation, false);
-      }
+        // If the mobile navigation menu is active, we want to hide it.
+        if (isActive()) {
+          navigation.toggleNav.call(navigation, false);
+        }
+      },
     },
   },
-}, {
-  init(root) {
-    const trapContainer = root.querySelector(NAV);
+  {
+    init(root) {
+      const trapContainer = root.querySelector(NAV);
 
-    if (trapContainer) {
-      navigation.focusTrap = FocusTrap(trapContainer, {
-        Escape: onMenuClose,
-      });
-    }
+      if (trapContainer) {
+        navigation.focusTrap = FocusTrap(trapContainer, {
+          Escape: onMenuClose,
+        });
+      }
 
-    resize();
-    window.addEventListener('resize', resize, false);
+      resize();
+      window.addEventListener('resize', resize, false);
+    },
+    teardown() {
+      window.removeEventListener('resize', resize, false);
+      navActive = false;
+    },
+    focusTrap: null,
+    toggleNav,
   },
-  teardown() {
-    window.removeEventListener('resize', resize, false);
-    navActive = false;
-  },
-  focusTrap: null,
-  toggleNav,
-});
+);
 
 module.exports = navigation;

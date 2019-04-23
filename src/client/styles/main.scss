@@ -12,6 +12,8 @@
 /**
  * Import custom rules for this project.
  */
+
+@import './mixins/Mixins.scss';
 @import './components/Search.scss';
 @import './components/WorkHeader.scss';
 @import './components/WorkDetail.scss';
@@ -19,17 +21,28 @@
 @import './components/DefinitionList.scss';
 @import './components/EditionsList.scss';
 @import './components/Breadcrumbs.scss';
+@import './core/fonts.scss';
 
 $nypl-dark-blue: #135772;
 
+html {
+  font-family: 'Kievit-Medium', Source Sans Pro Web, Helvetica Neue, Helvetica, Roboto, Arial, sans-serif;
+}
+body {
+  line-height: 1.5rem;
+}
 #app {
   margin: 0;
 }
 
-#mainContent {
+.main-content {
   margin: 0 auto 60px;
   width: 100%;
   min-height: 400px;
+  max-width: 1332px;
+  .sfr-main {
+    max-width: 1332px;
+  }
 }
 
 #tagline {
@@ -44,6 +57,13 @@ $nypl-dark-blue: #135772;
   max-width: 1332px;
   padding: 0 40px;
   margin: 0 auto;
+}
+
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+  max-width: initial !important;
 }
 
 a:link,
@@ -67,7 +87,7 @@ a {
   }
 }
 .sfr-header-wrapper {
-  max-width: 840px;
+  // max-width: 840px;
   width: 100%;
-  margin: 0 auto;
+  margin: 0 auto 20px;
 }

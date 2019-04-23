@@ -38,6 +38,7 @@
 
 .nypl-results-item-author {
   ul {
+    margin-left: 5px;
     list-style: none;
     display: inline;
     li {
@@ -65,7 +66,7 @@
     max-width: 875px;
     margin-left: 140px;
     h3 {
-      margin: 0;
+      margin: 0 0 10px;
     }
   }
   &:after {
@@ -78,6 +79,8 @@ h1.nypl-heading {
   font-weight: 300;
 }
 .nypl-results-list {
+  list-style: none;
+  padding: 0;
   .nypl-results-item {
     padding: 0;
     margin: 0;
@@ -92,6 +95,7 @@ h1.nypl-heading {
 }
 
 .nypl-search {
+  width: 100%;
   .nypl-select-input {
     position: relative;
     -webkit-appearance: none;
@@ -103,9 +107,9 @@ h1.nypl-heading {
     overflow: hidden;
     margin-right: 0;
   }
-  
+
   .nypl-search-input {
-    width: 100%;
+    // width: 100%;
     margin-right: 0;
     -webkit-box-shadow: none;
     box-shadow: none;
@@ -118,5 +122,30 @@ h1.nypl-heading {
     margin: 0;
     padding: 0;
   }
+}
+.usa-label {
+  display: none;
+}
 
+.usa-button.sfr-search-button {
+  height: 2.5rem;
+  margin-top: 0.5rem;
+  background: #0071ce;
+}
+.usa-fieldset,
+.usa-input,
+.usa-textarea,
+.usa-select,
+.usa-range,
+.usa-hint,
+.usa-button {
+  font-family: 'Kievit-Medium', Source Sans Pro Web, Helvetica Neue, Helvetica, Roboto, Arial, sans-serif;
+}
+.usa-search--big [type='submit'],
+.usa-search--big .usa-search__submit {
+  font-size: 1rem;
+}
+
+.nypl-screenreader-only {
+  @include screenreader-only;
 }

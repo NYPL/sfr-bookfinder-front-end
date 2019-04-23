@@ -56,10 +56,10 @@ SearchBar.propTypes = {
 
 SearchBar.defaultProps = {
   inputLabel: '',
-  inputLabelClass: 'usa-sr-only',
+  inputLabelClass: '',
   inputId: 'searchbar',
   className: 'nypl-search-bar',
-  inputClass: 'usa-width-one-third',
+  inputClass: 'grid-col-4',
   inputType: '',
   inputName: '',
   inputValue: '',
@@ -67,7 +67,7 @@ SearchBar.defaultProps = {
   placeholder: '',
   onChangeHandler: () => {},
   buttonId: '',
-  buttonClass: 'usa-width-one-third',
+  buttonClass: 'grid-col-4',
   buttonValue: 'Search',
   onClickHandler: () => {},
 };
