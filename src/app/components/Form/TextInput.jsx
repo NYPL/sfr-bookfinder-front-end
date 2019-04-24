@@ -24,7 +24,6 @@ class TextInput extends React.Component {
           name={this.props.name}
           aria-labelledby={this.props.ariaLabel}
           value={this.props.value}
-          placeholder={this.props.placeholder}
           onChange={this.props.onChange}
         />
       </div>
@@ -42,7 +41,6 @@ TextInput.propTypes = {
   name: PropTypes.string,
   value: PropTypes.string,
   ariaLabel: PropTypes.string,
-  placeholder: PropTypes.string,
   onChange: PropTypes.func,
 };
 
@@ -56,7 +54,6 @@ TextInput.defaultProps = {
   name: '',
   value: '',
   ariaLabel: '',
-  placeholder: '',
   onChange: () => {},
 };
 
