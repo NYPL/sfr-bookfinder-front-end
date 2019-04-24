@@ -6,7 +6,7 @@ import appConfig from '../../../../appConfig';
 const NotFound404 = () => (
   <main
     id="mainContent"
-    className="not-found-404"
+    className="main-content not-found-404"
   >
     <div className="nypl-full-width-wrapper">
       <div className="nypl-row">

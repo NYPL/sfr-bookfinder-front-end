@@ -45,10 +45,9 @@ const Breadcrumbs = ({ links, pageType, onClickHandler }) => {
 
   return (
     <div className="grid-row">
-      <div className="grid-col-1" />
       <nav
         aria-label="Breadcrumbs"
-        className="grid-col-10 nypl-breadcrumbs"
+        className="grid-col-10 sfr-center nypl-breadcrumbs"
       >
         <span className="nypl-screenreader-only">You are here:</span>
         <ol>{crumbs}</ol>

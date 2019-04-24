@@ -92,10 +92,10 @@ class SearchContainer extends React.Component {
     return (
       <main
         id="mainContent"
-        className="main-content"
+        className="main-content grid-container"
       >
-        <div className="grid-row sfr-main">
-          <div className="grid-col-12">
+        <div className="grid-row">
+          <div className="sfr-header-wrapper tablet:grid-col-12">
             <Breadcrumbs
               links={[
                 {
@@ -118,19 +118,17 @@ class SearchContainer extends React.Component {
                 <div id="tagline">Search the world&apos;s research collections and more for digital books you can use right now.</div>
               </div>
             )}
-            <div className="usa-content">
-              <SearchForm
-                searchQuery={selectedQuery}
-                searchField={selectedField}
-                history={history}
-                {...this.boundActions}
-              />
-              <SearchResults
-                results={searchResults}
-                eReaderUrl={eReaderUrl}
-                {...this.boundActions}
-              />
-            </div>
+            <SearchForm
+              searchQuery={selectedQuery}
+              searchField={selectedField}
+              history={history}
+              {...this.boundActions}
+            />
+            <SearchResults
+              results={searchResults}
+              eReaderUrl={eReaderUrl}
+              {...this.boundActions}
+            />
           </div>
         </div>
       </main>

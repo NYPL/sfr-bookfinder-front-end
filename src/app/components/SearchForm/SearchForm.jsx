@@ -69,9 +69,8 @@ class SearchForm extends React.Component {
   render() {
     return (
       <div className="grid-row">
-        <div className="grid-col-1" />
         <form
-          className="grid-col-10 usa-search usa-search--big"
+          className="tablet:grid-col-10 sfr-center usa-search usa-search--big"
           action="/search"
           method="get"
           onSubmit={this.handleSubmit}

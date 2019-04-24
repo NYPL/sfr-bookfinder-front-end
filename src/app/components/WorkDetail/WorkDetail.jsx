@@ -61,9 +61,12 @@ class WorkDetail extends React.Component {
     };
 
     return (
-      <main id="mainContent">
-        <div className="nypl-full-width-wrapper grid-row">
-          <div className="sfr-header-wrapper grid-col-12">
+      <main
+        id="mainContent"
+        className="main-content grid-container"
+      >
+        <div className="grid-row">
+          <div className="sfr-header-wrapper tablet:grid-col-12">
             <Breadcrumbs
               links={[
                 {
@@ -83,8 +86,7 @@ class WorkDetail extends React.Component {
               {...this.boundActions}
             />
           </div>
-          <div className="grid-col-1" />
-          <div className="grid-col-10">
+          <div className="tablet:grid-col-10 sfr-center">
             <div className="nypl-item-header">
               <WorkHeader data={work} />
             </div>
@@ -110,7 +112,6 @@ class WorkDetail extends React.Component {
             </div>
           </div>
         </div>
-        <div className="grid-col-1" />
       </main>
     );
   }

@@ -15,6 +15,10 @@
       &.nypl-editions-table-downloads {
         padding: 0;
       }
+      &:first-child {
+        width: 182px;
+      }
+
       &:last-child {
         border-right: none;
         white-space: nowrap;
