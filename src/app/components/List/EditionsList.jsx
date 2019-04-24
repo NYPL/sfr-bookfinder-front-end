@@ -23,7 +23,7 @@ const EditionsList = ({ work, eReaderUrl, max }) => {
 
   return (
     <div>
-      <table className="nypl-editions-table">
+      <table className="usa-table usa-table--borderless nypl-editions-table">
         <thead>
           <tr>
             <th>Publisher</th>

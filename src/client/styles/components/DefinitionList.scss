@@ -46,9 +46,11 @@
   }
 }
 .work-details-tag {
-  margin: 0;
   a {
     text-decoration: none;
     color: black;
+    &:hover {
+      text-decoration: none;
+    }
   }
 }

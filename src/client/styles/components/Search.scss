@@ -1,15 +1,4 @@
 .nypl-results-container {
-  .nypl-results-column {
-    float: left;
-    max-width: 327px;
-    width: 25%;
-  }
-  .nypl-results-main,
-  .nypl-results-search-header {
-    float: left;
-    max-width: 1000px;
-    width: 74.5%;
-  }
   .nypl-results-main {
     border-left: 1px solid black;
     h3 {
@@ -53,13 +42,9 @@
     position: absolute;
     width: 100px;
     padding: 0 10px 10px;
-    // box-sizing: border-box;
 
     margin: 10px;
-    // background: aliceblue;
-    // box-shadow: 0px 0px 54px inset #bbbbbf;
     height: 125px;
-    // border: 1px solid black;
   }
   .nypl-results-item-header-column {
     float: left;
@@ -114,7 +99,6 @@ h1.nypl-heading {
   }
 
   .nypl-search-input {
-    // width: 100%;
     margin-right: 0;
     -webkit-box-shadow: none;
     box-shadow: none;

@@ -50,8 +50,7 @@
     "react-test-renderer": "15.6.2",
     "redux-mock-store": "^1.5.3",
     "sinon": "^7.2.7",
-    "webpack-cli": "^3.3.0",
-    "webpack-dev-server": "^3.3.1"
+    "webpack-cli": "^3.3.0"
   },
   "dependencies": {
     "@babel/core": "^7.3.4",
@@ -104,6 +103,7 @@
     "underscore": "^1.9.1",
     "uswds": "^2.0.1",
     "webpack": "^4.29.6",
+    "webpack-dev-server": "^3.3.1",
     "webpack-cli": "^3.3.0",
     "webpack-merge": "4.2.1"
   },

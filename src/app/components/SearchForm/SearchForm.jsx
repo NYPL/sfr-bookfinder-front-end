@@ -83,7 +83,8 @@ class SearchForm extends React.Component {
           >
             <Select
               id="search-by-field"
-              class="nypl-select-input usa-select"
+              selectClass="nypl-select-input usa-select"
+              className="grid-col-4 nypl-search-input"
               options={this.props.allowedFields}
               onChange={this.onFieldChange}
               value={this.state.searchField}
