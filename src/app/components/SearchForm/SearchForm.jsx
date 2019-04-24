@@ -99,7 +99,6 @@ class SearchForm extends React.Component {
               name="q"
               ariaLabel=""
               value={this.state.searchQuery}
-              placeholder="Keyword, title, author, or subject"
               onChange={this.onQueryChange}
               className="nypl-searchbar-input grid-col-4"
             />

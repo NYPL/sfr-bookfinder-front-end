@@ -45,12 +45,10 @@ describe('SearchForm', () => {
       expect(authorOpt.getElements()[3].props.value).to.equal('subject');
     });
 
-    it('contains a text field for keyword search with an initial value.', () => {
+    it('should not contain placeholder text.', () => {
       const kwTextField = component.find('input');
       expect(kwTextField.getElements()[0].props.type).to.equal('text');
-      expect(kwTextField.getElements()[0].props.placeholder).to.equal(
-        'Keyword, title, author, or subject',
-      );
+      expect(kwTextField.getElements()[0].props.placeholder).to.equal(undefined);
     });
   });
 
