@@ -100,6 +100,11 @@ h1.nypl-heading {
     position: relative;
     -webkit-appearance: none;
     -moz-appearance: none;
+
+    @media screen and (max-width: 480px) {
+      display: block;
+      width: 280%;
+    }
   }
 
   .nypl-searchbar {
@@ -123,6 +128,14 @@ h1.nypl-heading {
     padding: 0;
   }
 }
+
+.nypl-searchbar-input {
+  @media screen and (max-width: 480px) {
+    display: block;
+    width: 80%;
+  }
+}
+
 .usa-label {
   display: none;
 }
@@ -130,7 +143,7 @@ h1.nypl-heading {
 .usa-button.sfr-search-button {
   height: 2.5rem;
   margin-top: 0.5rem;
-  background: #0071ce;
+  background-color: #0071ce;
 }
 .usa-fieldset,
 .usa-input,

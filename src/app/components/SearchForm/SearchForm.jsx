@@ -93,15 +93,14 @@ class SearchForm extends React.Component {
             <TextInput
               label=""
               labelClass=""
-              inputClass="usa-input search-field-big nypl-search-input"
-              id="search-input"
+              inputClass="usa-input nypl-search-input"
+              id="search-field-big"
               type="text"
               name="q"
               ariaLabel=""
               value={this.state.searchQuery}
-              placeholder="Keyword, title, author, or subject"
               onChange={this.onQueryChange}
-              className="grid-col-4"
+              className="nypl-searchbar-input grid-col-4"
             />
             <SearchButton
               id="search-button"
