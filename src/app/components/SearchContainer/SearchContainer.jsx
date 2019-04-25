@@ -92,7 +92,7 @@ class SearchContainer extends React.Component {
     return (
       <main
         id="mainContent"
-        className="main-content grid-container"
+        className="main-content grid-container padding-0"
       >
         <div className="grid-row">
           <div className="sfr-header-wrapper tablet:grid-col-12">

@@ -1,4 +1,4 @@
-.nypl-results-container {
+.sfr-results-container {
   .nypl-results-main {
     border-left: 1px solid black;
     h3 {
@@ -20,8 +20,8 @@
   padding-left: 10px;
   box-sizing: border-box;
   font-weight: bold;
-  height: 42px;
-  margin-top: 26px;
+  height: 40px;
+  margin-top: 40px;
   line-height: 42px;
 }
 
@@ -145,4 +145,8 @@ h1.nypl-heading {
 
 .nypl-screenreader-only {
   @include screenreader-only;
+}
+
+.sfr-results-wrapper {
+  margin-top: 40px;
 }

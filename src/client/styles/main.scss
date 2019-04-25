@@ -21,6 +21,7 @@
 @import './components/DefinitionList.scss';
 @import './components/EditionsList.scss';
 @import './components/Breadcrumbs.scss';
+@import './components/SearchHeader.scss';
 @import './core/fonts.scss';
 
 $nypl-dark-blue: #135772;
@@ -88,9 +89,10 @@ a {
 .sfr-header-wrapper {
   // max-width: 840px;
   // width: 100%;
-  margin: 0 auto 20px;
+  margin: 0 auto;
 }
 
 .sfr-center {
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
 }

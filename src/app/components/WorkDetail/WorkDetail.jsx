@@ -63,7 +63,7 @@ class WorkDetail extends React.Component {
     return (
       <main
         id="mainContent"
-        className="main-content grid-container"
+        className="main-content grid-container padding-0"
       >
         <div className="grid-row">
           <div className="sfr-header-wrapper tablet:grid-col-12">
@@ -86,7 +86,7 @@ class WorkDetail extends React.Component {
               {...this.boundActions}
             />
           </div>
-          <div className="tablet:grid-col-10 sfr-center">
+          <div className="tablet:grid-col-10 sfr-center margin-top-3">
             <div className="nypl-item-header">
               <WorkHeader data={work} />
             </div>
