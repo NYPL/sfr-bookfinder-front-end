@@ -36,6 +36,25 @@ body {
   margin: 0;
 }
 
+.nypl-header-img {
+  background: url('./img/header.png') no-repeat center;
+  border-bottom: 2px solid #d0343a;
+
+  @media screen and (min-width: 1024px) {
+    min-height: 230px;
+  }
+
+  @media screen and (max-width: 1024px) {
+    background: url('./img/header-md.png') no-repeat center;
+    min-height: 180px;
+  }
+
+  @media screen and (max-width: 520px) {
+    background: url('./img/header-sm.png') no-repeat center;
+    min-height: 70px;
+  }
+}
+
 .main-content {
   margin: 0 auto 60px;
   width: 100%;
