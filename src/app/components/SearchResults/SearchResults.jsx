@@ -19,14 +19,14 @@ const SearchResults = (props) => {
   }
 
   return (
-    <div className="nypl-column-full">
-      <div className="grid-row nypl-results-container">
+    <div className="margin-top-3">
+      <div className="grid-row sfr-results-container">
         <div className="grid-col-3 nypl-results-column">
           <ResultsMetadata metadata={metadata} />
         </div>
         <div className="grid-col-9 nypl-results-search-header">{/* <SearchHeader metadata={metadata} /> */}</div>
       </div>
-      <div className="grid-row nypl-results-container">
+      <div className="grid-row sfr-results-container">
         <div className="grid-col-3 nypl-results-column">
           <div> Filters </div>
         </div>
