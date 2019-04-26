@@ -14,7 +14,7 @@ describe('Breadcrumbs', () => {
     let component;
     const links = [
       {
-        href: '/search?q=journey&field=keyword',
+        href: '/search?query=journey&field=keyword',
         text: 'Search Results',
       },
       {
@@ -25,7 +25,10 @@ describe('Breadcrumbs', () => {
     const pageType = 'details';
 
     before(() => {
-      component = shallow(<Breadcrumbs links={links} pageType={pageType} />);
+      component = shallow(<Breadcrumbs
+        links={links}
+        pageType={pageType}
+      />);
     });
 
     it('should render a nav and ol element', () => {
@@ -38,7 +41,7 @@ describe('Breadcrumbs', () => {
       expect(component.find('Link').length).to.equal(2);
       const linkObjects = component.find('Link');
       expect(linkObjects.at(0).prop('to')).to.equal('/');
-      expect(linkObjects.at(1).prop('to')).to.equal('/search?q=journey&field=keyword');
+      expect(linkObjects.at(1).prop('to')).to.equal('/search?query=journey&field=keyword');
     });
   });
 
@@ -48,7 +51,10 @@ describe('Breadcrumbs', () => {
     const pageType = 'home';
 
     before(() => {
-      component = shallow(<Breadcrumbs links={links} pageType={pageType} />);
+      component = shallow(<Breadcrumbs
+        links={links}
+        pageType={pageType}
+      />);
     });
 
     it('should display no breadcrumb nav element', () => {
@@ -60,14 +66,17 @@ describe('Breadcrumbs', () => {
     let component;
     const links = [
       {
-        href: '/search?q=journey&field=keyword',
+        href: '/search?query=journey&field=keyword',
         text: 'Search Results',
       },
     ];
     const pageType = 'results';
 
     before(() => {
-      component = shallow(<Breadcrumbs links={links} pageType={pageType} />);
+      component = shallow(<Breadcrumbs
+        links={links}
+        pageType={pageType}
+      />);
     });
 
     it('should display a link back to the home page', () => {
@@ -101,7 +110,7 @@ describe('Breadcrumbs', () => {
     let component;
     const links = [
       {
-        href: '/search?q=journey&field=title',
+        href: '/search?query=journey&field=title',
         text: 'Search Results',
       },
       {
@@ -112,7 +121,10 @@ describe('Breadcrumbs', () => {
     const pageType = 'details';
 
     before(() => {
-      component = shallow(<Breadcrumbs links={links} pageType={pageType} />);
+      component = shallow(<Breadcrumbs
+        links={links}
+        pageType={pageType}
+      />);
     });
 
     it('should display a link back to the results page and home page', () => {
@@ -131,7 +143,7 @@ describe('Breadcrumbs', () => {
           .children()
           .text(),
       ).to.equal('Search Results');
-      expect(detailLinks.at(1).prop('to')).to.equal('/search?q=journey&field=title');
+      expect(detailLinks.at(1).prop('to')).to.equal('/search?query=journey&field=title');
     });
 
     it('should display a crumb for the details page without being a link', () => {

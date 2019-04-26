@@ -10,6 +10,7 @@ import * as searchActions from '../../actions/SearchActions';
 import WorkHeader from './WorkHeader';
 import EditionsList from '../List/EditionsList';
 import SearchForm from '../SearchForm/SearchForm';
+import { getQueryString } from '../../search/query';
 
 class WorkDetail extends React.Component {
   constructor(props) {
@@ -70,7 +71,7 @@ class WorkDetail extends React.Component {
             <Breadcrumbs
               links={[
                 {
-                  href: `/search?q=${this.props.searchQuery}&field=${this.props.searchField}`,
+                  href: `/search?${getQueryString(this.props.searchQuery)}`,
                   text: 'Search Results',
                 },
                 {
@@ -119,8 +120,7 @@ class WorkDetail extends React.Component {
 
 WorkDetail.propTypes = {
   work: PropTypes.objectOf(PropTypes.any),
-  searchQuery: PropTypes.string,
-  searchField: PropTypes.string,
+  searchQuery: PropTypes.objectOf(PropTypes.any),
   eReaderUrl: PropTypes.string,
   dispatch: PropTypes.func,
   location: PropTypes.objectOf(PropTypes.any),
@@ -128,8 +128,7 @@ WorkDetail.propTypes = {
 
 WorkDetail.defaultProps = {
   work: { instances: [] },
-  searchQuery: '',
-  searchField: '',
+  searchQuery: {},
   eReaderUrl: '',
   dispatch: () => {},
   location: {},
@@ -143,7 +142,6 @@ WorkDetail.contextTypes = {
 const mapStateToProps = (state, ownProps) => ({
   work: state.workDetail && state.workDetail.work,
   searchQuery: state.searchQuery || ownProps.searchQuery,
-  searchField: state.searchField || ownProps.searchField,
 });
 
 export default connect(

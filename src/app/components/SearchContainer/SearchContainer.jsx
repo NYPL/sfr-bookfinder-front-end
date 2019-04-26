@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
-import { isEmpty as _isEmpty } from 'underscore';
+import { isEmpty as _isEmpty, isEqual as _isEqual } from 'underscore';
 import SearchForm from '../SearchForm/SearchForm';
 import SearchResults from '../SearchResults/SearchResults';
 import * as searchActions from '../../actions/SearchActions';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
-
+import { getQueryString } from '../../search/query';
+import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
 /**
  * Container class providing the Redux action creators
  * to its child components. State data is passed along
@@ -31,49 +32,30 @@ class SearchContainer extends React.Component {
 
   componentDidUpdate(prevProps) {
     const { location } = this.props;
-    if (location !== prevProps.location) {
+    if (!_isEqual(location, prevProps.location)) {
       global.window.scrollTo(0, 0);
       this.loadSearch();
     }
   }
 
   loadSearch() {
-    let { searchQuery } = this.props;
+    const { searchQuery } = this.props;
     const {
       location: { query },
       dispatch,
-      searchField,
     } = this.props;
-    searchQuery = query && query.q ? query.q : searchQuery;
-    const selectedField = query && query.field ? query.field : searchField;
-    if (searchQuery) {
-      dispatch(searchActions.userQuery(searchQuery));
-      dispatch(searchActions.selectedField(selectedField));
-      dispatch(searchActions.searchPost(searchQuery, selectedField));
+    const selectedQuery = query && query.query ? query.query : searchQuery.query;
+    const selectedField = query && query.field ? query.field : searchQuery.field;
+    if (selectedQuery) {
+      dispatch(searchActions.userQuery(Object.assign({}, query, { query: selectedQuery, field: selectedField })));
+      // dispatch(searchActions.selectedField(selectedField));
+      dispatch(searchActions.searchPost(Object.assign({}, query, { query: selectedQuery, field: selectedField })));
     }
   }
 
   render() {
-    const {
-      searchQuery,
-      searchField,
-      searchResults,
-      eReaderUrl,
-      location: { query },
-    } = this.props;
+    const { searchQuery, searchResults, eReaderUrl } = this.props;
     const { router, history } = this.context;
-    let selectedQuery = searchQuery;
-    if (query && query.showQuery) {
-      selectedQuery = query.showQuery;
-    } else if (query && query.q) {
-      selectedQuery = query.q;
-    }
-    let selectedField = searchField;
-    if (query && query.showField) {
-      selectedField = query.showField;
-    } else if (query && query.field) {
-      selectedField = query.field;
-    }
 
     const pageType = _isEmpty(searchResults) ? 'home' : 'results';
     /**
@@ -99,7 +81,7 @@ class SearchContainer extends React.Component {
             <Breadcrumbs
               links={[
                 {
-                  href: `/search?q=${selectedQuery}&field=${selectedField}`,
+                  href: `/search?${getQueryString(searchQuery)}`,
                   text: 'Search Results',
                 },
               ]}
@@ -108,6 +90,8 @@ class SearchContainer extends React.Component {
             />
           </div>
           <div
+            role="search"
+            aria-label="ResearchNow"
             className="grid-col-12"
           >
             {(!searchResults || _isEmpty(searchResults)) && (
@@ -117,15 +101,17 @@ class SearchContainer extends React.Component {
               </div>
             )}
             <SearchForm
-              searchQuery={selectedQuery}
-              searchField={selectedField}
+              searchQuery={searchQuery}
               history={history}
               {...this.boundActions}
             />
             <SearchResults
+              searchQuery={searchQuery}
               results={searchResults}
               eReaderUrl={eReaderUrl}
               {...this.boundActions}
+              history={history}
+              router={router}
             />
           </div>
         </div>
@@ -136,8 +122,7 @@ class SearchContainer extends React.Component {
 
 SearchContainer.propTypes = {
   searchResults: PropTypes.objectOf(PropTypes.any),
-  searchQuery: PropTypes.string,
-  searchField: PropTypes.string,
+  searchQuery: searchQueryPropTypes,
   workDetail: PropTypes.objectOf(PropTypes.any),
   dispatch: PropTypes.func,
   eReaderUrl: PropTypes.string,
@@ -146,8 +131,7 @@ SearchContainer.propTypes = {
 
 SearchContainer.defaultProps = {
   searchResults: {},
-  searchQuery: '',
-  searchField: 'keyword',
+  searchQuery: initialSearchQuery,
   workDetail: {},
   dispatch: () => {},
   eReaderUrl: '',
@@ -162,7 +146,6 @@ SearchContainer.contextTypes = {
 const mapStateToProps = (state, ownProps) => ({
   searchResults: state.searchResults || ownProps.searchResults,
   searchQuery: state.searchQuery || ownProps.searchQuery,
-  searchField: state.searchField || ownProps.searchField,
 });
 
 export default connect(

@@ -79,7 +79,7 @@ describe('SearchForm', () => {
 
     it('should updated state values based on passed props for select', () => {
       component.find('select').simulate('change', { target: { value: 'author' } });
-      expect(component.state('searchField')).to.equal('author');
+      expect(component.state('searchQuery.field')).to.equal('author');
     });
 
     it('should updated state values based on passed props for text input', () => {

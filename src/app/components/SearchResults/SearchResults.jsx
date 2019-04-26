@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ResultsMetadata from './ResultsMetadata';
 import ResultsList from './ResultsList';
-// import SearchHeader from './SearchHeader';
+import SearchHeader from './SearchHeader';
 
 /**
  * Wrapper component for results lists which can contain a number of components
@@ -22,9 +22,19 @@ const SearchResults = (props) => {
     <div className="margin-top-3">
       <div className="grid-row sfr-results-container">
         <div className="grid-col-3 nypl-results-column">
-          <ResultsMetadata metadata={metadata} />
+          <ResultsMetadata
+            metadata={metadata}
+            {...props}
+          />
         </div>
-        <div className="grid-col-9 nypl-results-search-header">{/* <SearchHeader metadata={metadata} /> */}</div>
+        <div className="grid-col-9 sfr-results-search-header">
+          <SearchHeader
+            metadata={metadata}
+            results={hits}
+            fetchWork={props.fetchWork}
+            {...props}
+          />
+        </div>
       </div>
       <div className="grid-row sfr-results-container">
         <div className="grid-col-3 nypl-results-column">

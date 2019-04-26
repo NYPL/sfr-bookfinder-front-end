@@ -32,20 +32,11 @@ export const searchQuery = (state = null, action) => {
   return state;
 };
 
-export const searchField = (state = null, action) => {
-  if (action.type === Actions.SET_FIELD) {
-    return action.searchField;
-  }
-
-  return state;
-};
-
 export const sort = (state = null, action) => (action.sort ? action.sort : state);
 
 const appReducer = combineReducers({
   searchResults,
   searchQuery,
-  searchField,
   sort,
   workDetail,
 });

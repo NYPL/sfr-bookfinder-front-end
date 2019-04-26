@@ -8,7 +8,7 @@ const htmlEntities = new Html5Entities();
 const getIdentifier = author => (author.viaf && 'viaf') || (author.lcnaf && 'lcnaf') || 'name';
 
 const linkToAuthor = author => ({
-  q: author[getIdentifier(author)],
+  query: author[getIdentifier(author)],
   field: getIdentifier(author),
   showQuery: `"${author.name}"`,
   showField: 'author',

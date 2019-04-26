@@ -8,18 +8,12 @@ export const Actions = {
   SEARCH: 'SEARCH',
   FETCH_WORK: 'FETCH_WORK',
   SET_QUERY: 'SET_QUERY',
-  SET_FIELD: 'SET_FIELD',
   RESET_SEARCH: 'RESET_SEARCH',
 };
 
 export const userQuery = query => ({
   type: Actions.SET_QUERY,
   searchQuery: query,
-});
-
-export const selectedField = field => ({
-  type: Actions.SET_FIELD,
-  searchField: field,
 });
 
 export const searchResults = results => ({
@@ -43,10 +37,10 @@ const { searchPath, recordPath } = appConfig.api;
 const searchUrl = apiUrl + searchPath;
 const recordUrl = apiUrl + recordPath;
 
-export const searchPost = (query, field) => {
-  const uQuery = query || '*';
-  const sField = field && selectFields[field] ? selectFields[field] : 'keyword';
-  const queryBody = buildQueryBody(uQuery, sField);
+export const searchPost = (query) => {
+  const uQuery = query.query || '*';
+  const sField = query.field && selectFields[query.field] ? selectFields[query.field] : 'keyword';
+  const queryBody = buildQueryBody(Object.assign({}, query, { query: uQuery, field: sField }));
 
   return dispatch => axios
     .post(searchUrl, queryBody)
@@ -73,17 +67,16 @@ export const fetchWork = workId => dispatch => axios
     throw new Error('An error occurred during fetchWork', error.message);
   });
 
-export const serverPost = (query, field) => {
+export const serverPost = (query) => {
   // Need a parsed query input to use for each filter
-  const uQuery = query || '*';
-  const sField = field && selectFields[field] ? selectFields[field] : 'keyword';
-  const queryBody = buildQueryBody(uQuery, sField);
+  const uQuery = query.query || '*';
+  const sField = query.field && selectFields[query.field] ? selectFields[query.field] : 'keyword';
+  const queryBody = buildQueryBody(Object.assign({}, query, { query: uQuery, field: sField }));
 
   return axios
     .post(searchUrl, queryBody)
     .then((resp) => {
       serverState.searchQuery = query;
-      serverState.searchField = field;
       serverState.searchResults = { data: resp.data };
       return serverState;
     })
@@ -110,6 +103,5 @@ export default {
   serverPost,
   serverFetchWork,
   userQuery,
-  selectedField,
   resetSearch,
 };

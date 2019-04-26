@@ -1,11 +1,10 @@
 import { isArray as _isArray } from 'underscore';
 
 export const getRequestParams = (query = {}) => {
-  const { q = '*' } = query;
-  const { field = 'keyword' } = query;
-  const { workId = '' } = query;
+  const { field = 'keyword', workId = '' } = query;
+  const q = query.query || '*';
 
-  return { q, field, workId };
+  return Object.assign({}, query, { query: q, field, workId });
 };
 
 /**
@@ -29,18 +28,24 @@ const parseQuery = (queryString) => {
  * @param {string} query, {string} field
  * @return {object}
  */
-export const buildQueryBody = (query, field = 'keyword') => {
-  if (!query) {
+export const buildQueryBody = (query) => {
+  if (!query.query) {
     throw new Error('A valid query string must be passed');
   }
 
-  let queryField = field;
-  if (_isArray(field)) {
-    queryField = field.join('|');
+  let queryField = query.field;
+  if (_isArray(query.field)) {
+    queryField = query.field.join('|');
   }
-  const parsedQuery = parseQuery(query);
-  return { query: parsedQuery, field: queryField };
+  const parsedQuery = parseQuery(query.query);
+  return Object.assign({}, query, { query: parsedQuery, field: queryField });
 };
+
+export const getQueryString = query => new URLSearchParams(query).toString();
+
+// export const getQueryString = query => Object.keys(query)
+//   .map(key => [key, query[key]].map(encodeURIComponent).join('='))
+//   .join('&');
 
 export default {
   getRequestParams,
