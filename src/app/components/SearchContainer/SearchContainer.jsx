@@ -108,8 +108,6 @@ class SearchContainer extends React.Component {
             />
           </div>
           <div
-            role="search"
-            aria-label="ResearchNow"
             className="grid-col-12"
           >
             {(!searchResults || _isEmpty(searchResults)) && (

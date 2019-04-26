@@ -14,7 +14,7 @@ describe('Results List', () => {
 
   describe('No results behavior.', () => {
     before(() => {
-      const noResults = {};
+      const noResults = [];
       component = shallow(<ResultsList results={noResults} />);
     });
 
