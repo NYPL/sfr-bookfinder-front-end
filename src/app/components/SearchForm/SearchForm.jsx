@@ -79,25 +79,25 @@ class SearchForm extends React.Component {
           <div
             role="search"
             className="nypl-search grid-row"
+            aria-label="ResearchNow"
           >
             <Select
+              label="Search in"
+              labelClass="usa-sr-only usa-label"
               id="search-by-field"
               selectClass="nypl-select-input usa-select"
               className="grid-col-4 nypl-search-input"
               options={this.props.allowedFields}
               onChange={this.onFieldChange}
               value={this.state.searchField}
-              label=""
-              labelClass="usa-label"
             />
             <TextInput
-              label=""
-              labelClass=""
-              inputClass="usa-input nypl-search-input"
+              label="Search for keyword, author, title, or subject"
+              labelClass="usa-sr-only usa-label"
               id="search-field-big"
               type="text"
               name="q"
-              ariaLabel=""
+              inputClass="usa-input nypl-search-input"
               value={this.state.searchQuery}
               onChange={this.onQueryChange}
               className="nypl-searchbar-input grid-col-4"
