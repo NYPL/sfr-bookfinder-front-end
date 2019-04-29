@@ -6,7 +6,7 @@ export const initialSearchQuery = {
   showQuery: '',
   showField: '',
   per_page: 10,
-  page: 1,
+  page: 0,
 };
 
 export const searchQueryPropTypes = PropTypes.shape({
@@ -14,8 +14,8 @@ export const searchQueryPropTypes = PropTypes.shape({
   field: PropTypes.string,
   showQuery: PropTypes.string,
   showField: PropTypes.string,
-  per_page: PropTypes.number || PropTypes.string,
-  page: PropTypes.number || PropTypes.string,
+  per_page: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  page: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 });
 
 const initialState = {

@@ -49,7 +49,7 @@ Select.propTypes = {
   className: PropTypes.string,
   selectClass: PropTypes.string,
   options: PropTypes.arrayOf(PropTypes.any),
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onChange: PropTypes.func,
   onBlur: PropTypes.func,
 };

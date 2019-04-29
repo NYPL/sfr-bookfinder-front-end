@@ -14,9 +14,10 @@ const ResultsMetadata = (props) => {
     searchQuery,
     metadata: { total },
   } = props;
-  const firstElement = searchQuery.per_page * searchQuery.page || 1;
-  let lastElement = searchQuery.per_page * (searchQuery.page + 1) || 10;
-  if (lastElement < total) {
+  const totalPages = Math.floor(total / (Number(searchQuery.per_page) || 10)) + 1;
+  const firstElement = (Number(searchQuery.per_page || 10) * Number(searchQuery.page || 0) || 0) + 1;
+  let lastElement = Number(searchQuery.per_page || 10) * (Number(searchQuery.page || 0) + 1) || 10;
+  if (searchQuery.page >= totalPages - 1 && lastElement > total) {
     lastElement = total;
   }
   if (total > 0) {

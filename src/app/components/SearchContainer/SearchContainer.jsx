@@ -32,7 +32,7 @@ class SearchContainer extends React.Component {
 
   componentDidUpdate(prevProps) {
     const { location } = this.props;
-    if (!_isEqual(location, prevProps.location)) {
+    if (!_isEqual(location.query, prevProps.location.query)) {
       global.window.scrollTo(0, 0);
       this.loadSearch();
     }
@@ -47,9 +47,9 @@ class SearchContainer extends React.Component {
     const selectedQuery = query && query.query ? query.query : searchQuery.query;
     const selectedField = query && query.field ? query.field : searchQuery.field;
     if (selectedQuery) {
-      dispatch(searchActions.userQuery(Object.assign({}, query, { query: selectedQuery, field: selectedField })));
+      dispatch(searchActions.userQuery(Object.assign({}, initialSearchQuery, query, { query: selectedQuery, field: selectedField })));
       // dispatch(searchActions.selectedField(selectedField));
-      dispatch(searchActions.searchPost(Object.assign({}, query, { query: selectedQuery, field: selectedField })));
+      dispatch(searchActions.searchPost(Object.assign({}, initialSearchQuery, query, { query: selectedQuery, field: selectedField })));
     }
   }
 

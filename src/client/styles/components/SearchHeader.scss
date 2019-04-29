@@ -50,6 +50,9 @@
       &:last-child {
         border-right: 1px solid black;
       }
+      a {
+        cursor: pointer;
+      }
     }
   }
 }
