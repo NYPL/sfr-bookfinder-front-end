@@ -61,9 +61,12 @@ class WorkDetail extends React.Component {
     };
 
     return (
-      <main id="mainContent">
-        <div className="nypl-full-width-wrapper">
-          <div className="sfr-header-wrapper">
+      <main
+        id="mainContent"
+        className="main-content grid-container padding-0"
+      >
+        <div className="grid-row">
+          <div className="sfr-header-wrapper tablet:grid-col-12">
             <Breadcrumbs
               links={[
                 {
@@ -83,32 +86,29 @@ class WorkDetail extends React.Component {
               {...this.boundActions}
             />
           </div>
-          <div className="nypl-row">
-            <div className="nypl-column-full">
-              <div className="nypl-item-header">
-                <WorkHeader data={work} />
-              </div>
-
-              <div id="nypl-item-details">
-                <EditionsList
-                  eReaderUrl={this.props.eReaderUrl}
-                  work={work}
-                  max={1}
-                />
-                <DefinitionList
-                  work={work}
-                  dispatch={this.props.dispatch}
-                  context={this.context}
-                />
-                <h3 className="all-editions-tag bold">
-                  <a id="all-editions">All Editions</a>
-                </h3>
-                <EditionsList
-                  eReaderUrl={this.props.eReaderUrl}
-                  work={work}
-                  max={0}
-                />
-              </div>
+          <div className="tablet:grid-col-10 sfr-center margin-top-3">
+            <div className="nypl-item-header">
+              <WorkHeader data={work} />
+            </div>
+            <div id="nypl-item-details">
+              <EditionsList
+                eReaderUrl={this.props.eReaderUrl}
+                work={work}
+                max={1}
+              />
+              <DefinitionList
+                work={work}
+                dispatch={this.props.dispatch}
+                context={this.context}
+              />
+              <h3 className="all-editions-tag bold">
+                <a id="all-editions">All Editions</a>
+              </h3>
+              <EditionsList
+                eReaderUrl={this.props.eReaderUrl}
+                work={work}
+                max={0}
+              />
             </div>
           </div>
         </div>

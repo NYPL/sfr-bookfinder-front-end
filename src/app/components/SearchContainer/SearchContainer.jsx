@@ -90,47 +90,43 @@ class SearchContainer extends React.Component {
     };
 
     return (
-      <main id="mainContent">
-        <div className="nypl-full-width-wrapper">
-          <div className="nypl-page-header">
-            <div className="sfr-header-wrapper">
-              <Breadcrumbs
-                links={[
-                  {
-                    href: `/search?q=${selectedQuery}&field=${selectedField}`,
-                    text: 'Search Results',
-                  },
-                ]}
-                pageType={pageType}
-                onClickHandler={handleReset}
-              />
-            </div>
+      <main
+        id="mainContent"
+        className="main-content grid-container padding-0"
+      >
+        <div className="grid-row">
+          <div className="sfr-header-wrapper tablet:grid-col-12">
+            <Breadcrumbs
+              links={[
+                {
+                  href: `/search?q=${selectedQuery}&field=${selectedField}`,
+                  text: 'Search Results',
+                },
+              ]}
+              pageType={pageType}
+              onClickHandler={handleReset}
+            />
           </div>
           <div
-            role="search"
-            aria-label="ResearchNow"
+            className="grid-col-12"
           >
             {(!searchResults || _isEmpty(searchResults)) && (
-              <div className="nypl-row sfr-header-wrapper">
+              <div className="nypl-row sfr-header-wrapper grid-col-10">
                 <h1 className="nypl-heading">ResearchNow</h1>
                 <div id="tagline">Search the world&apos;s research collections and more for digital books you can use right now.</div>
               </div>
             )}
-            <div className="wrapper">
-              <div className="sfr-header-wrapper">
-                <SearchForm
-                  searchQuery={selectedQuery}
-                  searchField={selectedField}
-                  history={history}
-                  {...this.boundActions}
-                />
-              </div>
-              <SearchResults
-                results={searchResults}
-                eReaderUrl={eReaderUrl}
-                {...this.boundActions}
-              />
-            </div>
+            <SearchForm
+              searchQuery={selectedQuery}
+              searchField={selectedField}
+              history={history}
+              {...this.boundActions}
+            />
+            <SearchResults
+              results={searchResults}
+              eReaderUrl={eReaderUrl}
+              {...this.boundActions}
+            />
           </div>
         </div>
       </main>

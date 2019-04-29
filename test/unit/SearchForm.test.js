@@ -16,8 +16,8 @@ describe('SearchForm', () => {
       component = mount(<SearchForm />);
     });
 
-    it('has a form fieldset .nypl-omnisearch', () => {
-      expect(component.find('.nypl-omnisearch')).to.have.length(1);
+    it('has a form fieldset .nypl-search', () => {
+      expect(component.find('.nypl-search')).to.have.length(1);
     });
 
     it('contains a select with three options.', () => {
@@ -45,12 +45,28 @@ describe('SearchForm', () => {
       expect(authorOpt.getElements()[3].props.value).to.equal('subject');
     });
 
-    it('contains a text field for keyword search with an initial value.', () => {
+    it('should contain a div with role and aria-label', () => {
+      const divWrapper = component.find('div.nypl-search');
+      expect(divWrapper.getElements()[0].props.role).to.equal('search');
+      expect(divWrapper.getElements()[0].props['aria-label']).to.equal('ResearchNow');
+    });
+
+    it('should not contain placeholder prop in text input.', () => {
       const kwTextField = component.find('input');
       expect(kwTextField.getElements()[0].props.type).to.equal('text');
-      expect(kwTextField.getElements()[0].props.placeholder).to.equal(
-        'Keyword, title, author, or subject',
-      );
+      expect(kwTextField.getElements()[0].props.placeholder).to.equal(undefined);
+    });
+
+    it('should contain a label for the select input.', () => {
+      const selectLabel = component.find('label');
+      expect(selectLabel.getElements()[0].props.children).to.equal('Search in');
+      expect(selectLabel.getElements()[0].props.className).to.equal('usa-sr-only usa-label');
+    });
+
+    it('should contain a label for the text input.', () => {
+      const textInputLabel = component.find('label');
+      expect(textInputLabel.getElements()[1].props.children).to.equal('Search for keyword, author, title, or subject');
+      expect(textInputLabel.getElements()[1].props.className).to.equal('usa-sr-only usa-label');
     });
   });
 

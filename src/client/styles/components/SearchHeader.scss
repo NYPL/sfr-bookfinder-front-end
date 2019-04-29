@@ -1,0 +1,55 @@
+.search-header-table {
+  width: 100%;
+  thead {
+    tr {
+      border-bottom: 1px solid black;
+      height: 26px;
+    }
+    th {
+      font-weight: normal;
+      text-align: left;
+    }
+  }
+  tbody {
+    tr {
+      border-bottom: 1px solid black;
+      border-left: 1px solid black;
+      td {
+        border-right: 1px solid black;
+        height: 40px;
+        font-weight: bold;
+        select {
+          width: 100%;
+          border-radius: 0;
+          height: 40px;
+          border: none;
+          background: white;
+        }
+      }
+    }
+  }
+}
+.sfr-results-search-header {
+  padding-top: 11px;
+  .sfr-select-input {
+    position: relative;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+  .search-header {
+    .usa-select {
+      border-right: 0;
+    }
+    .sfr-header-border {
+      border-bottom: 1px solid black;
+      border-top: 1px solid black;
+      border-left: 1px solid black;
+      margin-top: 8px;
+      line-height: 2.25rem;
+      padding-left: 10px;
+      &:last-child {
+        border-right: 1px solid black;
+      }
+    }
+  }
+}

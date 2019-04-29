@@ -1,6 +1,7 @@
 .nypl-breadcrumbs {
   color: #0071bb;
   li {
+    display: inline;
     a,
     a:visited {
       color: #0071bb;
@@ -10,6 +11,11 @@
     }
     &::before {
       content: ' / ';
+    }
+    &:first-child {
+      &::before {
+        content: '';
+      }
     }
   }
 }

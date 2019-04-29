@@ -1,14 +1,19 @@
-/*
-Import style rules from NYPL Design Toolkit
-*/
-@import '~@nypl/design-toolkit/sass/nypl-normalize';
-@import '~@nypl/design-toolkit/sass/toolkit';
-
-/*
-Import style rules from NYPL React module components
-*/
-@import '~@nypl/dgx-header-component/dist/styles/main';
+/**
+ * Import style from NYPL's global footer.
+ */
 @import '~@nypl/dgx-react-footer/dist/styles/styles';
+
+/**
+ * Import style rules for US.gov Web Design System.
+ */
+@import './core/rnw_variables';
+@import '~uswds/src/stylesheets/uswds';
+
+/**
+ * Import custom rules for this project.
+ */
+
+@import './mixins/Mixins.scss';
 @import './components/Search.scss';
 @import './components/WorkHeader.scss';
 @import './components/WorkDetail.scss';
@@ -16,17 +21,48 @@ Import style rules from NYPL React module components
 @import './components/DefinitionList.scss';
 @import './components/EditionsList.scss';
 @import './components/Breadcrumbs.scss';
+@import './components/SearchHeader.scss';
+@import './core/fonts.scss';
 
 $nypl-dark-blue: #135772;
 
+html {
+  font-family: 'Kievit-Medium', Source Sans Pro Web, Helvetica Neue, Helvetica, Roboto, Arial, sans-serif;
+}
+body {
+  line-height: 1.5rem;
+}
 #app {
   margin: 0;
 }
 
-#mainContent {
+.nypl-header-img {
+  background: url('./img/header.png') no-repeat center;
+  border-bottom: 2px solid #d0343a;
+
+  @media screen and (min-width: 1024px) {
+    min-height: 230px;
+  }
+
+  @media screen and (max-width: 1024px) {
+    background: url('./img/header-md.png') no-repeat center;
+    min-height: 180px;
+  }
+
+  @media screen and (max-width: 520px) {
+    background: url('./img/header-sm.png') no-repeat center;
+    min-height: 70px;
+  }
+}
+
+.main-content {
   margin: 0 auto 60px;
   width: 100%;
   min-height: 400px;
+  max-width: 1332px;
+  .sfr-main {
+    max-width: 1332px;
+  }
 }
 
 #tagline {
@@ -39,8 +75,14 @@ $nypl-dark-blue: #135772;
 }
 .nypl-full-width-wrapper {
   max-width: 1332px;
-  padding: 0 40px;
   margin: 0 auto;
+}
+
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+  max-width: initial !important;
 }
 
 a:link,
@@ -64,7 +106,12 @@ a {
   }
 }
 .sfr-header-wrapper {
-  max-width: 840px;
-  width: 100%;
+  // max-width: 840px;
+  // width: 100%;
   margin: 0 auto;
+}
+
+.sfr-center {
+  margin-left: auto;
+  margin-right: auto;
 }

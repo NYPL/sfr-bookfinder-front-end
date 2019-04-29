@@ -1,139 +1,4 @@
-.nypl-omnisearch-form {
-  // Larger screen collapsed version of search form elements.
-  .nypl-omnisearch {
-    .nypl-omni-fields-text {
-      font-size: 0.9rem;
-      margin-left: 0.15rem;
-      padding-right: 0.25rem;
-      float: left;
-      top: 0.4rem;
-      width: 50%;
-      position: relative;
-      background-color: #fff;
-    }
-  }
-
-  .nypl-text-field {
-    background-color: #fff;
-    border-radius: 0.2rem;
-    box-shadow: none;
-    display: block;
-    margin: 0;
-    padding: 0;
-    position: relative;
-
-    input[type='text'] {
-      width: 100%;
-      border: 0;
-      border-radius: 0.25rem;
-      font-size: 1rem;
-      padding: 0.25rem 0;
-      margin: 0 1%;
-      text-indent: 0.5rem;
-      top: 0.1rem;
-      -webkit-box-shadow: none;
-      box-shadow: none;
-
-      &:focus {
-        -webkit-box-shadow: inset 0 0 0 0.125rem #ffb81d;
-        -moz-box-shadow: inset 0 0 0 0.125rem #ffb81d;
-        box-shadow: inset 0 0 0 0.125rem #ffb81d;
-      }
-    }
-  }
-
-  // Button specific CSS for submit
-  .nypl-omnisearch-button {
-    font-weight: 200;
-    background: #1b7fa7;
-    border-left: solid 0.0625rem #080807;
-    border-radius: 0;
-    color: #fff;
-    width: 15%;
-    min-width: 5rem;
-    max-width: 7rem;
-    height: 3rem;
-    float: right;
-    padding-top: 0.6rem;
-    padding-right: 0.8em;
-    text-indent: -1rem;
-
-    .nypl-search-icon {
-      background-color: #1b7fa7;
-      speak: none;
-    }
-  }
-
-  svg {
-    fill: #fff;
-    position: relative;
-    height: 28px;
-    width: 28px;
-    margin-left: 75%;
-  }
-
-  // Small screen stacked version of search form elements.
-  @media (max-width: $xtrasmall-breakpoint) {
-    .nypl-omnisearch {
-      display: block;
-      background-color: transparent;
-      border: 0;
-    }
-
-    .nypl-omnisearch-button {
-      border: solid 0.0625rem #080807;
-      border-radius: 0.2rem;
-      width: 100%;
-      min-width: 100%;
-      max-width: 100%;
-      padding-left: 10px;
-    }
-
-    svg {
-      margin-left: 58%;
-      margin-right: 55%;
-    }
-
-    .nypl-text-field {
-      background-color: #fff;
-      border: solid 0.0625rem #080807;
-      border-radius: 0.2rem;
-      height: 3rem;
-      box-shadow: none;
-      margin: 1rem 0;
-
-      .nypl-omni-fields,
-      .nypl-omni-fields-text {
-        background: #fff;
-        border-right: 0;
-        width: 96%;
-      }
-
-      input[type='text'] {
-        width: 100%;
-      }
-    }
-  }
-
-  @media (max-width: $mobile-breakpoint) {
-    .nypl-omnisearch {
-      width: 100%;
-    }
-  }
-}
-
-.nypl-results-container {
-  .nypl-results-column {
-    float: left;
-    max-width: 327px;
-    width: 25%;
-  }
-  .nypl-results-main,
-  .nypl-results-search-header {
-    float: left;
-    max-width: 1000px;
-    width: 74.5%;
-  }
+.sfr-results-container {
   .nypl-results-main {
     border-left: 1px solid black;
     h3 {
@@ -155,13 +20,14 @@
   padding-left: 10px;
   box-sizing: border-box;
   font-weight: bold;
-  height: 42px;
-  margin-top: 26px;
+  height: 40px;
+  margin-top: 40px;
   line-height: 42px;
 }
 
 .nypl-results-item-author {
   ul {
+    margin-left: 5px;
     list-style: none;
     display: inline;
     li {
@@ -176,20 +42,16 @@
     position: absolute;
     width: 100px;
     padding: 0 10px 10px;
-    // box-sizing: border-box;
 
     margin: 10px;
-    // background: aliceblue;
-    // box-shadow: 0px 0px 54px inset #bbbbbf;
     height: 125px;
-    // border: 1px solid black;
   }
   .nypl-results-item-header-column {
     float: left;
     max-width: 875px;
     margin-left: 140px;
     h3 {
-      margin: 0;
+      margin: 0 0 10px;
     }
   }
   &:after {
@@ -202,6 +64,8 @@ h1.nypl-heading {
   font-weight: 300;
 }
 .nypl-results-list {
+  list-style: none;
+  padding: 0;
   .nypl-results-item {
     padding: 0;
     margin: 0;
@@ -213,4 +77,76 @@ h1.nypl-heading {
       }
     }
   }
+}
+
+.nypl-search {
+  width: 100%;
+  .nypl-select-input {
+    position: relative;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    @media screen and (max-width: 480px) {
+      display: block;
+      width: 280%;
+    }
+  }
+
+  .nypl-searchbar {
+    position: relative;
+    overflow: hidden;
+    margin-right: 0;
+  }
+
+  .nypl-search-input {
+    margin-right: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+
+  .nypl-search-button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.nypl-searchbar-input {
+  @media screen and (max-width: 480px) {
+    display: block;
+    width: 80%;
+  }
+}
+
+.usa-label {
+  display: none;
+}
+
+.usa-button.sfr-search-button {
+  height: 2.5rem;
+  margin-top: 0.5rem;
+  background-color: #0071ce;
+}
+.usa-fieldset,
+.usa-input,
+.usa-textarea,
+.usa-select,
+.usa-range,
+.usa-hint,
+.usa-button {
+  font-family: 'Kievit-Medium', Source Sans Pro Web, Helvetica Neue, Helvetica, Roboto, Arial, sans-serif;
+}
+.usa-search--big [type='submit'],
+.usa-search--big .usa-search__submit {
+  font-size: 1rem;
+}
+
+.nypl-screenreader-only {
+  @include screenreader-only;
+}
+
+.sfr-results-wrapper {
+  margin-top: 40px;
 }

@@ -44,13 +44,15 @@ const Breadcrumbs = ({ links, pageType, onClickHandler }) => {
   const crumbs = crumbTrail();
 
   return (
-    <nav
-      aria-label="Breadcrumbs"
-      className="nypl-breadcrumbs"
-    >
-      <span className="nypl-screenreader-only">You are here:</span>
-      <ol>{crumbs}</ol>
-    </nav>
+    <div className="grid-row">
+      <nav
+        aria-label="Breadcrumbs"
+        className="grid-col-10 sfr-center nypl-breadcrumbs"
+      >
+        <span className="nypl-screenreader-only">You are here:</span>
+        <ol>{crumbs}</ol>
+      </nav>
+    </div>
   );
 };
 

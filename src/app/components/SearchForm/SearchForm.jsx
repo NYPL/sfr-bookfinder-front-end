@@ -2,8 +2,9 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { titleCase } from 'change-case';
+import Select from '../Form/Select';
 import SearchButton from '../Button/SearchButton';
+import TextInput from '../Form/TextInput';
 
 class SearchForm extends React.Component {
   constructor(props) {
@@ -67,61 +68,49 @@ class SearchForm extends React.Component {
 
   render() {
     return (
-      <div className="nypl-row">
-        <div className="nypl-column-full">
-          <form
-            className="nypl-omnisearch-form"
-            action="/search"
-            method="get"
-            onSubmit={this.handleSubmit}
-            onKeyPress={this.handleSubmit}
+      <div className="grid-row">
+        <form
+          className="tablet:grid-col-10 sfr-center usa-search usa-search--big"
+          action="/search"
+          method="get"
+          onSubmit={this.handleSubmit}
+          onKeyPress={this.handleSubmit}
+        >
+          <div
+            role="search"
+            className="nypl-search grid-row"
+            aria-label="ResearchNow"
           >
-            <div className="ebook-search-form">
-              <div className="nypl-omnisearch">
-                <div className="nypl-text-field">
-                  <span className="nypl-omni-fields">
-                    <label htmlFor="search-by-field">Search in</label>
-                    <select
-                      id="search-by-field"
-                      onBlur={this.onFieldChange}
-                      onChange={this.onFieldChange}
-                      value={this.state.searchField}
-                    >
-                      {this.props.allowedFields.map((field, key) => (
-                        <option
-                          value={field}
-                          key={key.toString()}
-                        >
-                          {titleCase(field)}
-                        </option>
-                      ))}
-                    </select>
-                  </span>
-                </div>
-                <div className="nypl-text-field">
-                  <span className="nypl-omni-fields-text">
-                    {/* <label htmlFor="search-input">Search ResearchNow for</label> */}
-                    <input
-                      id="search-input"
-                      name="q"
-                      type="text"
-                      aria-labelledby="search-input-field"
-                      value={this.state.searchQuery}
-                      placeholder="Keyword, title, author, or subject"
-                      onChange={this.onQueryChange}
-                    />
-                  </span>
-                </div>
-                <div className="nypl-text-field">
-                  <SearchButton
-                    className="nypl-omnisearch-button"
-                    onClick={this.submitSearchRequest}
-                  />
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
+            <Select
+              label="Search in"
+              labelClass="usa-sr-only usa-label"
+              id="search-by-field"
+              selectClass="nypl-select-input usa-select"
+              className="grid-col-4 nypl-search-input"
+              options={this.props.allowedFields}
+              onChange={this.onFieldChange}
+              value={this.state.searchField}
+            />
+            <TextInput
+              label="Search for keyword, author, title, or subject"
+              labelClass="usa-sr-only usa-label"
+              id="search-field-big"
+              type="text"
+              name="q"
+              inputClass="usa-input nypl-search-input"
+              value={this.state.searchQuery}
+              onChange={this.onQueryChange}
+              className="nypl-searchbar-input grid-col-4"
+            />
+            <SearchButton
+              id="search-button"
+              className="grid-col-1"
+              buttonClassName="usa-button sfr-search-button"
+              value="Search"
+              onClick={this.submitSearchRequest}
+            />
+          </div>
+        </form>
       </div>
     );
   }
