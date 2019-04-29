@@ -8,12 +8,8 @@ import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialSt
  * @param {object} props
  * @return {string}
  */
-const ResultsMetadata = (props) => {
+const ResultsMetadata = ({ searchQuery, metadata: { total } }) => {
   let message = 'Your search yielded no results. Please try again.';
-  const {
-    searchQuery,
-    metadata: { total },
-  } = props;
   const totalPages = Math.floor(total / (Number(searchQuery.per_page) || 10)) + 1;
   const firstElement = (Number(searchQuery.per_page || 10) * Number(searchQuery.page || 0) || 0) + 1;
   let lastElement = Number(searchQuery.per_page || 10) * (Number(searchQuery.page || 0) + 1) || 10;
