@@ -1,4 +1,5 @@
 import { isArray as _isArray } from 'underscore';
+import { initialSearchQuery } from '../stores/InitialState';
 
 export const getRequestParams = (query = {}) => {
   const { field = 'keyword', workId = '' } = query;
@@ -33,12 +34,12 @@ export const buildQueryBody = (query) => {
     throw new Error('A valid query string must be passed');
   }
 
-  let queryField = query.field;
+  let queryField = query.field || initialSearchQuery.field;
   if (_isArray(query.field)) {
     queryField = query.field.join('|');
   }
   const parsedQuery = parseQuery(query.query);
-  return Object.assign({}, query, { query: parsedQuery, field: queryField });
+  return Object.assign({}, initialSearchQuery, query, { query: parsedQuery, field: queryField });
 };
 
 export const getQueryString = query => new URLSearchParams(query).toString();

@@ -8,7 +8,7 @@ const SearchHeader = ({
   metadata, searchQuery, userQuery, router,
 }) => {
   // page for query is -1 page shown
-  const totalPages = Math.floor(Number(metadata.total) / Number(searchQuery.per_page || 10)) + 1;
+  const totalPages = Math.floor((Number(metadata.total) - 1) / Number(searchQuery.per_page || 10)) + 1;
   // return list of pages till total pages
   const pageList = [];
   for (let i = 1; i <= totalPages; i += 1) {
@@ -25,7 +25,7 @@ const SearchHeader = ({
   const goToPage = (pageNumber) => {
     const newPage = Number(pageNumber) - 1;
     const perPage = searchQuery.per_page;
-    const newQuery = Object.assign({}, searchQuery, { page: newPage, per_page: perPage });
+    const newQuery = Object.assign({}, searchQuery, { page: newPage, per_page: perPage, total: metadata.total });
     userQuery(newQuery);
     submit(newQuery);
   };
@@ -54,7 +54,7 @@ const SearchHeader = ({
     const newPage = 0;
     const newPerPage = e.target.value;
     if (newPerPage !== searchQuery.per_page) {
-      const newQuery = Object.assign({}, searchQuery, { page: newPage, per_page: newPerPage });
+      const newQuery = Object.assign({}, searchQuery, { page: newPage, per_page: newPerPage, total: metadata.total });
       userQuery(newQuery);
       submit(newQuery);
     }
