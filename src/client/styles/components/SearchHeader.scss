@@ -30,7 +30,10 @@
   }
 }
 .sfr-results-search-header {
-  padding-top: 0.65rem;
+  padding-top: 0.5rem;
+  .grid-row {
+    min-height: 1.5rem;
+  }
   .sfr-select-input {
     position: relative;
     -webkit-appearance: none;
