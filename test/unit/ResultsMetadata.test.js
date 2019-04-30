@@ -22,9 +22,7 @@ describe('Results Metadata', () => {
 
     it('should have a message stating no results found.', () => {
       expect(component.find('div')).to.have.length(1);
-      expect(component.find('div').text()).to.equal(
-        'Your search yielded no results. Please try again.',
-      );
+      expect(component.find('div').text()).to.equal('Viewing 0 items');
     });
   });
 
