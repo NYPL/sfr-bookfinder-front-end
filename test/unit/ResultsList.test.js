@@ -19,7 +19,7 @@ describe('Results List', () => {
     });
 
     it('should return null when results object given is empty.', () => {
-      expect(component.type()).to.equal(null);
+      expect(component.find('h3').text()).to.equal('We are sorry!');
     });
   });
 
