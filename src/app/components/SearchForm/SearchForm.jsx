@@ -65,7 +65,7 @@ class SearchForm extends React.Component {
   }
 
   render() {
-    const selectedQuery = this.state.searchQuery.showQuery || this.state.searchQuery.query || this.state.searchQuery.query;
+    const selectedQuery = this.state.searchQuery.showQuery || this.state.searchQuery.query;
     const selectedField = this.state.searchQuery.showField || this.state.searchQuery.field;
 
     return (

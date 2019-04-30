@@ -42,8 +42,6 @@ export const buildQueryBody = (query) => {
   return Object.assign({}, initialSearchQuery, query, { query: parsedQuery, field: queryField });
 };
 
-// export const getQueryString = query => new URLSearchParams(query).toString(); // not supported
-
 export const getQueryString = query => Object.keys(query)
   .map(key => [key, query[key]].map(encodeURIComponent).join('='))
   .join('&');
