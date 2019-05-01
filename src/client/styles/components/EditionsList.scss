@@ -39,3 +39,11 @@
 .usa-table--borderless th:first-child {
   padding-left: 20px;
 }
+.rights-trim {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 8rem;
+  vertical-align: bottom;
+}
