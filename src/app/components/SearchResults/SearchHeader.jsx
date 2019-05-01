@@ -63,10 +63,16 @@ const SearchHeader = ({
   return (
     <form className="usa-form grid-container padding-0 search-header">
       <div className="grid-row">
-        <div className="grid-col">Items per page</div>
-        <div className="grid-col">Sort By</div>
+        <div className="grid-col">
+          <label htmlFor="items-by-page">Items per page</label>
+        </div>
+        <div className="grid-col">
+          <label htmlFor="sort-by">Sort By</label>
+        </div>
         <div className="grid-col">&nbsp;</div>
-        <div className="grid-col">Page</div>
+        <div className="grid-col">
+          <label htmlFor="page-select">Page</label>
+        </div>
         <div className="grid-col">&nbsp;</div>
       </div>
       <div className="grid-row">
@@ -75,7 +81,7 @@ const SearchHeader = ({
           selectClass="sfr-select-input usa-select"
           className="grid-col nypl-search-input"
           options={[10, 20, 50, 100]}
-          label="Items per page"
+          label=""
           labelClass="usa-label usa-sr-only"
           value={searchQuery.per_page}
           onChange={onChangePerPage}
@@ -86,7 +92,7 @@ const SearchHeader = ({
           selectClass="sfr-select-input usa-select"
           className="grid-col nypl-search-input"
           options={['Relevance', 'Alphabetically']}
-          label="Sort By"
+          label=""
           labelClass="usa-label usa-sr-only"
         />
         <div className="grid-col sfr-header-border text-right">
@@ -114,7 +120,7 @@ const SearchHeader = ({
           selectClass="sfr-select-input usa-select"
           className="grid-col nypl-search-input"
           options={pageList}
-          label="Page"
+          label=""
           labelClass="usa-label usa-sr-only"
           value={Number(searchQuery.page) + 1}
           onChange={onChangePage}

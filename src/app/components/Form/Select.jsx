@@ -7,12 +7,14 @@ const Select = ({
   className, id, labelClass, label, selectClass, value, onChange, onBlur, options,
 }) => (
   <div className={className}>
-    <label
-      htmlFor={id}
-      className={labelClass}
-    >
-      {label}
-    </label>
+    {label && (
+      <label
+        htmlFor={id}
+        className={labelClass}
+      >
+        {label}
+      </label>
+    )}
     <select
       className={selectClass}
       name="options"
