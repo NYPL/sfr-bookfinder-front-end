@@ -30,10 +30,16 @@ const generateLink = (url, eReaderUrl, relType) => {
 };
 
 const EBookList = ({ ebooks, eReaderUrl }) => (
-  <ul className="nypl-ebooks-list">
-    {ebooks.map((item, ebookKey) => item.links.map((link, linkKey) => (
-      <li key={`${ebookKey.toString()}-${linkKey.toString()}`}>{generateLink(link.url, eReaderUrl, link.rel_type)}</li>
-    )))}
+  <ul>
+    {ebooks.map((item, ebookKey) => (
+      <li key={`${ebookKey.toString()}`}>
+        <ul className="nypl-ebooks-list">
+          {item.links.map((link, linkKey) => (
+            <li key={`${ebookKey.toString()}-${linkKey.toString()}`}>{generateLink(link.url, eReaderUrl, link.rel_type)}</li>
+          ))}
+        </ul>
+      </li>
+    ))}
   </ul>
 );
 
