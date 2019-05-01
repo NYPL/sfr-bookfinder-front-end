@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const SearchButton = ({
-  id, className, onClick, value, buttonClassName,
+  id, className, onClick, value, buttonClassName, ariaLabel,
 }) => (
   <div className={className}>
     <button
@@ -10,7 +10,7 @@ const SearchButton = ({
       className={buttonClassName}
       onClick={onClick}
       type="submit"
-      aria-controls="results-description"
+      aria-label={ariaLabel}
     >
       <span className="usa-search__submit-text">{value}</span>
     </button>
@@ -23,6 +23,7 @@ SearchButton.propTypes = {
   className: PropTypes.string,
   buttonClassName: PropTypes.string,
   onClick: PropTypes.func,
+  ariaLabel: PropTypes.string,
 };
 
 SearchButton.defaultProps = {
@@ -30,6 +31,7 @@ SearchButton.defaultProps = {
   value: 'Search',
   className: '',
   buttonClassName: '',
+  ariaLabel: '',
   onClick: () => {},
 };
 

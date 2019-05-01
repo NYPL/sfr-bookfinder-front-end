@@ -1,35 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class TextInput extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.props = props;
-  }
-
-  render() {
-    return (
-      <div className={this.props.className}>
-        <label
-          className={this.props.labelClass}
-          htmlFor={this.props.id}
-        >
-          {this.props.label}
-        </label>
-        <input
-          className={this.props.inputClass}
-          id={this.props.id}
-          type={this.props.type}
-          name={this.props.name}
-          aria-labelledby={this.props.ariaLabel}
-          value={this.props.value}
-          onChange={this.props.onChange}
-        />
-      </div>
-    );
-  }
-}
+const TextInput = ({
+  className, label, labelClass, id, inputClass, type, name, ariaLabel, value, onChange,
+}) => (
+  <div className={className}>
+    {label && (
+      <label
+        className={labelClass}
+        htmlFor={id}
+      >
+        {label}
+      </label>
+    )}
+    <input
+      className={inputClass}
+      id={id}
+      type={type}
+      name={name}
+      aria-labelledby={label && id}
+      aria-label={ariaLabel}
+      value={value}
+      onChange={onChange}
+    />
+  </div>
+);
 
 TextInput.propTypes = {
   className: PropTypes.string,

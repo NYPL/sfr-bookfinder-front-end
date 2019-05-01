@@ -83,8 +83,9 @@ class SearchForm extends React.Component {
             aria-label="ResearchNow"
           >
             <Select
-              label="Search in"
-              labelClass="usa-sr-only usa-label"
+              label=""
+              ariaLabel="Search"
+              labelClass="visuallyhidden usa-label"
               id="search-by-field"
               selectClass="nypl-select-input usa-select"
               className="grid-col-3 nypl-search-input"
@@ -93,13 +94,12 @@ class SearchForm extends React.Component {
               value={selectedField}
             />
             <TextInput
-              label="Search for keyword, author, title, or subject"
-              labelClass="usa-sr-only usa-label"
+              ariaLabel="Search for keyword, author, title, or subject"
+              labelClass="visuallyhidden usa-label"
               id="search-field-big"
               type="text"
               inputClass="usa-input nypl-search-input"
               name="query"
-              ariaLabel=""
               value={selectedQuery}
               onChange={this.onQueryChange}
               className="nypl-searchbar-input grid-col-3"
@@ -110,6 +110,7 @@ class SearchForm extends React.Component {
               buttonClassName="usa-button sfr-search-button"
               value="Search"
               onClick={this.submitSearchRequest}
+              ariaLabel="Search"
             />
             <div className="grid-col-3" />
           </div>
