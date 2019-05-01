@@ -9,7 +9,7 @@ const SearchHeader = ({
   metadata, searchQuery, userQuery, router,
 }) => {
   // page for query is -1 page shown
-  const totalPages = Math.floor((Number(metadata.total) - 1) / Number(searchQuery.per_page || 10)) + 1;
+  const totalPages = Math.floor((Number(metadata.total) - 1) / Number(searchQuery.per_page || 10)) + 1 || 1;
   // return list of pages till total pages
   const pageList = [];
   for (let i = 1; i <= totalPages; i += 1) {
@@ -97,24 +97,28 @@ const SearchHeader = ({
           labelClass="usa-label usa-sr-only"
         />
         <div className="grid-col sfr-header-border text-right">
-          <a
-            onClick={e => navigateToPage(e, 1)}
-            onKeyPress={e => navigateToPage(e, 1)}
-            role="link"
-            tabIndex={0}
-            className="margin-x-2"
-          >
-            First
-          </a>
-          <a
-            onClick={e => navigateToPage(e, Number(searchQuery.page))}
-            onKeyPress={e => navigateToPage(e, Number(searchQuery.page))}
-            role="link"
-            tabIndex={0}
-            className="margin-x-2"
-          >
-            Previous
-          </a>
+          {totalPages > 1 && (
+            <a
+              onClick={e => navigateToPage(e, 1)}
+              onKeyPress={e => navigateToPage(e, 1)}
+              role="link"
+              tabIndex={0}
+              className="margin-x-2"
+            >
+              First
+            </a>
+          )}
+          {totalPages > 1 && (
+            <a
+              onClick={e => navigateToPage(e, Number(searchQuery.page))}
+              onKeyPress={e => navigateToPage(e, Number(searchQuery.page))}
+              role="link"
+              tabIndex={0}
+              className="margin-x-2"
+            >
+              Previous
+            </a>
+          )}
         </div>
         <Select
           id="page-select"
@@ -129,24 +133,28 @@ const SearchHeader = ({
         />
 
         <div className="grid-col sfr-header-border text-left">
-          <a
-            onClick={e => navigateToPage(e, Number(searchQuery.page) + 2)}
-            onKeyPress={e => navigateToPage(e, Number(searchQuery.page) + 2)}
-            role="link"
-            tabIndex={0}
-            className="margin-x-2"
-          >
-            Next
-          </a>
-          <a
-            onClick={e => navigateToPage(e, totalPages)}
-            onKeyPress={e => navigateToPage(e, totalPages)}
-            role="link"
-            tabIndex={0}
-            className="margin-x-2"
-          >
-            Last
-          </a>
+          {totalPages > 1 && (
+            <a
+              onClick={e => navigateToPage(e, Number(searchQuery.page) + 2)}
+              onKeyPress={e => navigateToPage(e, Number(searchQuery.page) + 2)}
+              role="link"
+              tabIndex={0}
+              className="margin-x-2"
+            >
+              Next
+            </a>
+          )}
+          {totalPages > 1 && (
+            <a
+              onClick={e => navigateToPage(e, totalPages)}
+              onKeyPress={e => navigateToPage(e, totalPages)}
+              role="link"
+              tabIndex={0}
+              className="margin-x-2"
+            >
+              Last
+            </a>
+          )}
         </div>
       </div>
     </form>
