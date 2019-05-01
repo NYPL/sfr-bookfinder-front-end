@@ -57,16 +57,16 @@ describe('SearchForm', () => {
       expect(kwTextField.getElements()[0].props.placeholder).to.equal(undefined);
     });
 
-    it('should contain a label for the select input.', () => {
-      const selectLabel = component.find('label');
-      expect(selectLabel.getElements()[0].props.children).to.equal('Search in');
-      expect(selectLabel.getElements()[0].props.className).to.equal('usa-sr-only usa-label');
+    it('should contain a aria label for the select input.', () => {
+      const selectLabel = component.find('select');
+      expect(selectLabel.getElements()[0].props['aria-label']).to.equal('Search');
+      expect(selectLabel.getElements()[0].props.className).to.equal('nypl-select-input usa-select');
     });
 
-    it('should contain a label for the text input.', () => {
-      const textInputLabel = component.find('label');
-      expect(textInputLabel.getElements()[1].props.children).to.equal('Search for keyword, author, title, or subject');
-      expect(textInputLabel.getElements()[1].props.className).to.equal('usa-sr-only usa-label');
+    it('should contain a aria label for the text input.', () => {
+      const textInputLabel = component.find('input');
+      expect(textInputLabel.getElements()[0].props['aria-label']).to.equal('Search for keyword, author, title, or subject');
+      expect(textInputLabel.getElements()[0].props.className).to.equal('usa-input nypl-search-input');
     });
   });
 

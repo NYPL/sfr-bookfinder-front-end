@@ -82,8 +82,8 @@ describe('EditionsList', () => {
       component = shallow(<EBookList ebooks={ebooks} />);
     });
     it('should have a list of two anchor tags', () => {
-      expect(component.find('ul')).to.have.length(1);
-      expect(component.find('ul li')).to.have.length(2);
+      expect(component.find('ul')).to.have.length(2);
+      expect(component.find('ul li')).to.have.length(3);
       expect(component.find('ul li a')).to.have.length(2);
     });
   });
