@@ -26,7 +26,7 @@ const routes = {
         component={NotFound404}
       />
       <Redirect
-        from="*"
+        from="**"
         to="/404"
       />
     </Route>

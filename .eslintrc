@@ -4,7 +4,14 @@
     "jsx-a11y/anchor-is-valid": 0,
     "no-useless-escape": 1,
     "jsx-a11y/no-noninteractive-element-interactions": 0,
-    "jsx-a11y/label-has-for": 1,
+    "jsx-a11y/label-has-for": [
+      2,
+      {
+        "required": {
+          "some": ["id"]
+        }
+      }
+    ],
     "react/destructuring-assignment": "false",
     "prefer-destructuring": 0,
     "max-len": ["error", { "code": 140 }],

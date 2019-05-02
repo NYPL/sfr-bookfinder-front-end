@@ -30,7 +30,10 @@
   }
 }
 .sfr-results-search-header {
-  padding-top: 11px;
+  padding-top: 0.5rem;
+  .grid-row {
+    min-height: 1.5rem;
+  }
   .sfr-select-input {
     position: relative;
     -webkit-appearance: none;
@@ -44,11 +47,14 @@
       border-bottom: 1px solid black;
       border-top: 1px solid black;
       border-left: 1px solid black;
-      margin-top: 8px;
+      margin-top: 0.5rem;
       line-height: 2.25rem;
-      padding-left: 10px;
+      padding-left: 0.5rem;
       &:last-child {
         border-right: 1px solid black;
+      }
+      a {
+        cursor: pointer;
       }
     }
   }

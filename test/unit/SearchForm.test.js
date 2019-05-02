@@ -57,16 +57,16 @@ describe('SearchForm', () => {
       expect(kwTextField.getElements()[0].props.placeholder).to.equal(undefined);
     });
 
-    it('should contain a label for the select input.', () => {
-      const selectLabel = component.find('label');
-      expect(selectLabel.getElements()[0].props.children).to.equal('Search in');
-      expect(selectLabel.getElements()[0].props.className).to.equal('usa-sr-only usa-label');
+    it('should contain a aria label for the select input.', () => {
+      const selectLabel = component.find('select');
+      expect(selectLabel.getElements()[0].props['aria-label']).to.equal('Search');
+      expect(selectLabel.getElements()[0].props.className).to.equal('nypl-select-input usa-select');
     });
 
-    it('should contain a label for the text input.', () => {
-      const textInputLabel = component.find('label');
-      expect(textInputLabel.getElements()[1].props.children).to.equal('Search for keyword, author, title, or subject');
-      expect(textInputLabel.getElements()[1].props.className).to.equal('usa-sr-only usa-label');
+    it('should contain a aria label for the text input.', () => {
+      const textInputLabel = component.find('input');
+      expect(textInputLabel.getElements()[0].props['aria-label']).to.equal('Search for keyword, author, title, or subject');
+      expect(textInputLabel.getElements()[0].props.className).to.equal('usa-input nypl-search-input');
     });
   });
 
@@ -79,19 +79,19 @@ describe('SearchForm', () => {
 
     it('should updated state values based on passed props for select', () => {
       component.find('select').simulate('change', { target: { value: 'author' } });
-      expect(component.state('searchField')).to.equal('author');
+      expect(component.state('searchQuery').field).to.equal('author');
     });
 
     it('should updated state values based on passed props for text input', () => {
       component.find('input').simulate('change', { target: { value: 'jefferson' } });
-      expect(component.state('searchQuery')).to.equal('jefferson');
+      expect(component.state('searchQuery').query).to.equal('jefferson');
     });
 
     it('should update state when the enter key is pressed', () => {
       component.find('input').props.value = 'jefferson';
       component.find('input').simulate('change', { target: { value: 'jackson' } });
 
-      expect(component.state('searchQuery')).to.equal('jackson');
+      expect(component.state('searchQuery').query).to.equal('jackson');
     });
 
     it('should update state when the button is clicked', () => {
@@ -101,7 +101,7 @@ describe('SearchForm', () => {
         .at(0)
         .simulate('change', { target: { value: 'johnson' } });
 
-      expect(component.state('searchQuery')).to.equal('johnson');
+      expect(component.state('searchQuery').query).to.equal('johnson');
     });
   });
 });

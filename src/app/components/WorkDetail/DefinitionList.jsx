@@ -74,7 +74,7 @@ export const DefinitionList = ({ work }) => {
                 <Link
                   to={{
                     pathname: '/search',
-                    query: { q: `"${subject.subject}"`, field: 'subject' },
+                    query: { query: `"${subject.subject}"`, field: 'subject' },
                   }}
                 >
                   {htmlEntities.decode(subject.subject)}

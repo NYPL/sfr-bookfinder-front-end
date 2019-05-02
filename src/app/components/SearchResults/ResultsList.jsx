@@ -3,6 +3,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty as _isEmpty } from 'underscore';
 import ResultsListItem from './ResultsListItem';
+import EmptySearchSvg from '../Svgs/EmptySearchSvg';
+
 /**
  * ResultsList presents search results as a "grouped" list of books
  * with their associated editions provided by the EditionsList component.
@@ -19,7 +21,15 @@ class ResultsList extends React.Component {
 
   render() {
     if (_isEmpty(this.props.results)) {
-      return null;
+      return (
+        <div className="grid-row margin-3">
+          <EmptySearchSvg className="grid-col-1" />
+          <div className="grid-col-9 margin-x-3 margin-y-2">
+            <h3>We are sorry!</h3>
+            <div className="margin-top-2">No results were found. Try different keyword or removing some of the filters applied.</div>
+          </div>
+        </div>
+      );
     }
 
     return (

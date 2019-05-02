@@ -88,10 +88,7 @@ const server = app.listen(app.get('port'), (error) => {
   }
 
   console.log(colors.yellow.underline(appConfig.appName));
-  console.log(
-    colors.green('Express server is listening at'),
-    colors.cyan(`localhost:${app.get('port')}`),
-  );
+  console.log(colors.green('Express server is listening at'), colors.cyan(`localhost:${app.get('port')}`));
 });
 
 // This function is called when you want the server to die gracefully
@@ -122,6 +119,7 @@ if (!isProduction) {
 
   new WebpackDevServer(webpack(webpackConfig), {
     publicPath: webpackConfig.output.publicPath,
+    port: 3000,
     hot: true,
     stats: false,
     historyApiFallback: true,

@@ -27,7 +27,7 @@
 $nypl-dark-blue: #135772;
 
 html {
-  font-family: 'Kievit-Medium', Source Sans Pro Web, Helvetica Neue, Helvetica, Roboto, Arial, sans-serif;
+  font-family: 'Kievit-Book', Source Sans Pro Web, Helvetica Neue, Helvetica, Roboto, Arial, sans-serif;
 }
 body {
   line-height: 1.5rem;
@@ -114,4 +114,15 @@ a {
 .sfr-center {
   margin-left: auto;
   margin-right: auto;
+}
+
+.visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
 }

@@ -17,12 +17,13 @@
   border-top: 1px solid black;
   border-bottom: 1px solid black;
   width: 100%;
-  padding-left: 10px;
+  padding-left: 0.5rem;
   box-sizing: border-box;
   font-weight: bold;
-  height: 40px;
-  margin-top: 40px;
-  line-height: 42px;
+  height: 2.5rem;
+  margin-top: 2.5rem;
+  line-height: 2.5rem;
+  overflow: hidden;
 }
 
 .nypl-results-item-author {
@@ -81,6 +82,7 @@ h1.nypl-heading {
 
 .nypl-search {
   width: 100%;
+  justify-content: center;
   .nypl-select-input {
     position: relative;
     -webkit-appearance: none;
@@ -118,10 +120,6 @@ h1.nypl-heading {
     display: block;
     width: 80%;
   }
-}
-
-.usa-label {
-  display: none;
 }
 
 .usa-button.sfr-search-button {

@@ -14,7 +14,7 @@ class Application extends React.Component {
 
   render() {
     return (
-      <div className="app-wrapper">
+      <div className="app-wrapper add-list-reset">
         {React.cloneElement(this.props.children, this.props)}
         <Footer />
       </div>

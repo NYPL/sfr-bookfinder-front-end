@@ -59,8 +59,8 @@ describe('DefinitionList', () => {
       component = shallow(<EBookList ebooks={ebooks} />);
     });
     it('should have a list of four links', () => {
-      expect(component.find('ul')).to.have.length(1);
-      expect(component.find('li')).to.have.length(4);
+      expect(component.find('ul')).to.have.length(3);
+      expect(component.find('li')).to.have.length(6);
       expect(component.find('li a')).to.have.length(4);
     });
   });
