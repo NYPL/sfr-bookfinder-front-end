@@ -95,6 +95,7 @@ const SearchHeader = ({
           options={['Relevance']}
           label=""
           labelClass="usa-label usa-sr-only"
+          disabled
         />
         <div className="grid-col sfr-header-border text-right">
           {totalPages > 1 && (

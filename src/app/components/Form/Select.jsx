@@ -4,7 +4,7 @@ import { isEmpty as _isEmpty } from 'underscore';
 import { titleCase } from 'change-case';
 
 const Select = ({
-  className, id, labelClass, label, selectClass, value, onChange, onBlur, options, ariaLabel,
+  className, id, labelClass, label, selectClass, value, onChange, onBlur, options, ariaLabel, disabled,
 }) => (
   <div className={className}>
     {label && (
@@ -23,6 +23,7 @@ const Select = ({
       onChange={onChange}
       onBlur={onBlur}
       aria-label={ariaLabel}
+      disabled={disabled}
     >
       {!_isEmpty(options) ? (
         options.map((opt, key) => (
@@ -56,6 +57,7 @@ Select.propTypes = {
   onChange: PropTypes.func,
   onBlur: PropTypes.func,
   ariaLabel: PropTypes.string,
+  disabled: PropTypes.bool,
 };
 
 Select.defaultProps = {
@@ -69,6 +71,7 @@ Select.defaultProps = {
   onChange: () => {},
   onBlur: () => {},
   ariaLabel: '',
+  disabled: false,
 };
 
 export default Select;
