@@ -92,7 +92,7 @@ const SearchHeader = ({
           id="sort-by"
           selectClass="sfr-select-input usa-select"
           className="grid-col nypl-search-input"
-          options={['Relevance', 'Alphabetically']}
+          options={['Relevance']}
           label=""
           labelClass="usa-label usa-sr-only"
         />
