@@ -21,14 +21,6 @@ const EditionsList = ({ work, eReaderUrl, max }) => {
 
   const filterValid = instances => instances.filter(instance => getIsValid(instance));
 
-  const rights = instance => instance.rights
-    && instance.rights.length > 0 //
-    && instance.rights.map(right => right.rights_statement).join(' ,');
-
-  const language = instance => instance.language
-    && instance.language.length > 0 //
-    && instance.language.map(lang => lang.language).join(' ,');
-
   return (
     <div>
       <table className="usa-table usa-table--borderless nypl-editions-table">
@@ -39,7 +31,7 @@ const EditionsList = ({ work, eReaderUrl, max }) => {
             <th>Year of Publication</th>
             <th>eBooks</th>
             <th>Language</th>
-            <th>Rights</th>
+            <th>Detail</th>
           </tr>
         </thead>
         <tbody>
@@ -63,15 +55,8 @@ const EditionsList = ({ work, eReaderUrl, max }) => {
                     />
                   ) : ''}
                 </td>
-                <td>{language(instance)}</td>
-                <td>
-                  <span
-                    className="rights-trim"
-                    title={rights(instance)}
-                  >
-                    {rights(instance)}
-                  </span>
-                </td>
+                <td>{instance.language && instance.language.length > 0 && instance.language.map(lang => lang.language).join(' ,')}</td>
+                <td>View Detail</td>
               </tr>
             );
           })}
