@@ -37,9 +37,7 @@ const SearchResults = (props) => {
         </div>
       </div>
       <div className="grid-row sfr-results-container">
-        <div className="grid-col-3 nypl-results-column">
-          <div> Filters </div>
-        </div>
+        <div className="grid-col-3 nypl-results-column" />
         <div className="grid-col-9 nypl-results-main">
           <ResultsList
             results={hits}
