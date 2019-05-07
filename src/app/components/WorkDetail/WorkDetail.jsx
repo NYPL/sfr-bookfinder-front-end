@@ -86,6 +86,9 @@ class WorkDetail extends React.Component {
               history={history}
               {...this.boundActions}
             />
+            <div className="grid-col-10 sfr-center margin-y-3">
+              <a href={`/search?${getQueryString(this.props.searchQuery)}`}>Back to Search Results</a>
+            </div>
           </div>
           <div className="tablet:grid-col-10 sfr-center margin-top-3">
             <div className="nypl-item-header">
