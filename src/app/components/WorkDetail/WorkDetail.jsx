@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router';
+import { withRouter, Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { isEmpty as _isEmpty, isEqual as _isEqual } from 'underscore';
@@ -87,7 +87,7 @@ class WorkDetail extends React.Component {
               {...this.boundActions}
             />
             <div className="grid-col-10 sfr-center margin-y-3">
-              <a href={`/search?${getQueryString(this.props.searchQuery)}`}>Back to Search Results</a>
+              <Link to={`/search?${getQueryString(this.props.searchQuery)}`}>Back to Search Results</Link>
             </div>
           </div>
           <div className="tablet:grid-col-10 sfr-center margin-top-3">
