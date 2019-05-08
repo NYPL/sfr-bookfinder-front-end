@@ -19,7 +19,7 @@ describe('Results List', () => {
     });
 
     it('should return null when results object given is empty.', () => {
-      expect(component.find('h3').text()).to.equal('We are sorry!');
+      expect(component.find('span').text()).to.equal('No results were found. Please try a different keyword or fewer filters.');
     });
   });
 
