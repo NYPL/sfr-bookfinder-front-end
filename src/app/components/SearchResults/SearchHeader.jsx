@@ -65,97 +65,93 @@ const SearchHeader = ({
     <form className="usa-form grid-container padding-0 search-header">
       <div className="grid-row">
         <div className="grid-col">
-          <label htmlFor="items-by-page">Items per page</label>
+          <Select
+            id="items-by-page"
+            selectClass="sfr-select-input usa-select"
+            className="nypl-search-input"
+            options={[10, 20, 50, 100]}
+            label="Items per page"
+            labelClass=""
+            value={searchQuery.per_page}
+            onChange={onChangePerPage}
+            onBlur={onChangePerPage}
+          />
         </div>
         <div className="grid-col">
-          <label htmlFor="sort-by">Sort By</label>
+          <Select
+            id="sort-by"
+            selectClass="sfr-select-input usa-select"
+            className="nypl-search-input"
+            options={['Relevance']}
+            label="Sort By"
+            labelClass=""
+            disabled
+          />
         </div>
-        <div className="grid-col">&nbsp;</div>
         <div className="grid-col">
-          <label htmlFor="page-select">Page</label>
+          <div className="sfr-header-border text-right">
+            {totalPages > 1 && (
+              <a
+                onClick={e => navigateToPage(e, 1)}
+                onKeyPress={e => navigateToPage(e, 1)}
+                role="link"
+                tabIndex={0}
+                className="margin-x-2"
+              >
+                First
+              </a>
+            )}
+            {totalPages > 1 && (
+              <a
+                onClick={e => navigateToPage(e, Number(searchQuery.page))}
+                onKeyPress={e => navigateToPage(e, Number(searchQuery.page))}
+                role="link"
+                tabIndex={0}
+                className="margin-x-2"
+              >
+                Previous
+              </a>
+            )}
+          </div>
         </div>
-        <div className="grid-col">&nbsp;</div>
-      </div>
-      <div className="grid-row">
-        <Select
-          id="items-by-page"
-          selectClass="sfr-select-input usa-select"
-          className="grid-col nypl-search-input"
-          options={[10, 20, 50, 100]}
-          label=""
-          labelClass="usa-label usa-sr-only"
-          value={searchQuery.per_page}
-          onChange={onChangePerPage}
-          onBlur={onChangePerPage}
-        />
-        <Select
-          id="sort-by"
-          selectClass="sfr-select-input usa-select"
-          className="grid-col nypl-search-input"
-          options={['Relevance']}
-          label=""
-          labelClass="usa-label usa-sr-only"
-          disabled
-        />
-        <div className="grid-col sfr-header-border text-right">
-          {totalPages > 1 && (
-            <a
-              onClick={e => navigateToPage(e, 1)}
-              onKeyPress={e => navigateToPage(e, 1)}
-              role="link"
-              tabIndex={0}
-              className="margin-x-2"
-            >
-              First
-            </a>
-          )}
-          {totalPages > 1 && (
-            <a
-              onClick={e => navigateToPage(e, Number(searchQuery.page))}
-              onKeyPress={e => navigateToPage(e, Number(searchQuery.page))}
-              role="link"
-              tabIndex={0}
-              className="margin-x-2"
-            >
-              Previous
-            </a>
-          )}
+        <div className="grid-col">
+          <Select
+            id="page-select"
+            selectClass="sfr-select-input usa-select"
+            className="nypl-search-input"
+            options={pageList}
+            label="Page"
+            labelClass=""
+            value={Number(searchQuery.page) + 1}
+            onChange={onChangePage}
+            onBlur={onChangePage}
+          />
         </div>
-        <Select
-          id="page-select"
-          selectClass="sfr-select-input usa-select"
-          className="grid-col nypl-search-input"
-          options={pageList}
-          label=""
-          labelClass="usa-label usa-sr-only"
-          value={Number(searchQuery.page) + 1}
-          onChange={onChangePage}
-          onBlur={onChangePage}
-        />
-
-        <div className="grid-col sfr-header-border text-left">
-          {totalPages > 1 && (
-            <a
-              onClick={e => navigateToPage(e, Number(searchQuery.page) + 2)}
-              onKeyPress={e => navigateToPage(e, Number(searchQuery.page) + 2)}
-              role="link"
-              tabIndex={0}
-              className="margin-x-2"
-            >
-              Next
-            </a>
-          )}
-          {totalPages > 1 && (
-            <a
-              onClick={e => navigateToPage(e, totalPages)}
-              onKeyPress={e => navigateToPage(e, totalPages)}
-              role="link"
-              tabIndex={0}
-              className="margin-x-2"
-            >
-              Last
-            </a>
-          )}
+        <div className="grid-col">
+          <div className="sfr-header-border last text-left">
+            {totalPages > 1 && (
+              <a
+                onClick={e => navigateToPage(e, Number(searchQuery.page) + 2)}
+                onKeyPress={e => navigateToPage(e, Number(searchQuery.page) + 2)}
+                role="link"
+                tabIndex={0}
+                className="margin-x-2"
+              >
+                Next
+              </a>
+            )}
+            {totalPages > 1 && (
+              <a
+                onClick={e => navigateToPage(e, totalPages)}
+                onKeyPress={e => navigateToPage(e, totalPages)}
+                role="link"
+                tabIndex={0}
+                className="margin-x-2"
+              >
+                Last
+              </a>
+            )}
+          </div>
         </div>
       </div>
     </form>
