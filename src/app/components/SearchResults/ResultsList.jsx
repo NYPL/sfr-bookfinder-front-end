@@ -25,8 +25,7 @@ class ResultsList extends React.Component {
         <div className="grid-row margin-3">
           <EmptySearchSvg className="grid-col-1" />
           <div className="grid-col-9 margin-x-3 margin-y-2">
-            <h3>We are sorry!</h3>
-            <div className="margin-top-2">No results were found. Try different keyword or removing some of the filters applied.</div>
+            <span>No results were found. Please try a different keyword or fewer filters.</span>
           </div>
         </div>
       );
