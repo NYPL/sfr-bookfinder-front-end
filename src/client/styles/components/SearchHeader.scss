@@ -40,6 +40,10 @@
     -moz-appearance: none;
   }
   .search-header {
+    label {
+      display: block;
+      height: 1.5rem;
+    }
     .usa-select {
       border-right: 0;
     }
@@ -47,10 +51,11 @@
       border-bottom: 1px solid black;
       border-top: 1px solid black;
       border-left: 1px solid black;
-      margin-top: 0.5rem;
+      margin-top: 2rem;
       line-height: 2.25rem;
+      height: 2.5rem;
       padding-left: 0.5rem;
-      &:last-child {
+      &.last {
         border-right: 1px solid black;
       }
       a {
