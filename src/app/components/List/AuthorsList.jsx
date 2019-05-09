@@ -24,8 +24,8 @@ const birthDate = entity => (
 );
 
 const filterAgents = (agents, max, roleFilter) => agents //
-  .slice(0, max || agents.length)
-  .filter(agent => !roleFilter || agent.roles.indexOf(roleFilter) > -1);
+  .filter(agent => !roleFilter || agent.roles.indexOf(roleFilter) > -1)
+  .slice(0, max || agents.length);
 
 const AuthorsList = ({ agents, max, roleFilter }) => (
   <ul className="authors-list">
