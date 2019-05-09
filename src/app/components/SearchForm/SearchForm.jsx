@@ -39,12 +39,28 @@ class SearchForm extends React.Component {
 
   onFieldChange(event) {
     const fieldSelected = event.target.value;
-    this.setState(preState => ({ searchQuery: Object.assign({}, preState.searchQuery, { field: fieldSelected }) }));
+    this.setState(preState => ({
+      searchQuery: Object.assign(
+        {},
+        preState.searchQuery,
+        { showField: '', showQuery: '' },
+        { query: preState.searchQuery.showQuery ? preState.searchQuery.showQuery : preState.searchQuery.query },
+        { field: fieldSelected },
+      ),
+    }));
   }
 
   onQueryChange(event) {
     const querySelected = event.target.value;
-    this.setState(preState => ({ searchQuery: Object.assign({}, preState.searchQuery, { query: querySelected }) }));
+    this.setState(preState => ({
+      searchQuery: Object.assign(
+        {},
+        preState.searchQuery,
+        { showField: '', showQuery: '' },
+        { field: preState.searchQuery.showField ? preState.searchQuery.showField : preState.searchQuery.field },
+        { query: querySelected },
+      ),
+    }));
   }
 
   handleSubmit(event) {
