@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ResultsMetadata from './ResultsMetadata';
 import ResultsList from './ResultsList';
-import SearchHeader from './SearchHeader';
-import SearchFooter from './SearchFooter';
+import SearchNavigation from './SearchNavigation';
 
 /**
  * Wrapper component for results lists which can contain a number of components
@@ -29,7 +28,7 @@ const SearchResults = (props) => {
           />
         </div>
         <div className="grid-col-9 sfr-results-search-header">
-          <SearchHeader
+          <SearchNavigation
             metadata={metadata}
             results={hits}
             fetchWork={props.fetchWork}
@@ -49,11 +48,12 @@ const SearchResults = (props) => {
       </div>
       <div className="grid-row sfr-results-container">
         <div className="grid-col-12 sfr-results-search-footer">
-          <SearchFooter
+          <SearchNavigation
             metadata={metadata}
             results={hits}
             fetchWork={props.fetchWork}
             {...props}
+            isFooter
           />
         </div>
       </div>
