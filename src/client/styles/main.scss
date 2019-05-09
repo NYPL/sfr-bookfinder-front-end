@@ -22,12 +22,14 @@
 @import './components/EditionsList.scss';
 @import './components/Breadcrumbs.scss';
 @import './components/SearchHeader.scss';
+@import './components/SearchFooter.scss';
 @import './core/fonts.scss';
 
 $nypl-dark-blue: #135772;
+$fontFamily: 'Kievit-Book', Source Sans Pro Web, Helvetica Neue, Helvetica, Roboto, Arial, sans-serif;
 
 html {
-  font-family: 'Kievit-Book', Source Sans Pro Web, Helvetica Neue, Helvetica, Roboto, Arial, sans-serif;
+  font-family: $fontFamily;
 }
 body {
   line-height: 1.5rem;
@@ -56,7 +58,7 @@ body {
 }
 
 .main-content {
-  margin: 0 auto 60px;
+  margin: 0 auto;
   width: 100%;
   min-height: 400px;
   max-width: 1332px;
@@ -125,4 +127,17 @@ a {
   padding: 0;
   position: absolute;
   width: 1px;
+}
+
+.usa-form {
+  a {
+    text-decoration: none;
+    &:hover {
+      color: #005ea2;
+    }
+  }
+}
+
+.usa-table {
+  font-family: $fontFamily;
 }

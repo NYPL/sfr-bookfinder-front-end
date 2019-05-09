@@ -29,9 +29,9 @@ const Select = ({
         options.map((opt, key) => (
           <option
             key={key.toString()}
-            value={opt}
+            value={opt && opt.value ? opt.value : opt}
           >
-            {titleCase(opt)}
+            {opt && opt.label ? opt.label : titleCase(opt)}
           </option>
         ))
       ) : (

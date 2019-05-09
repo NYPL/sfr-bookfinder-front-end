@@ -5,7 +5,7 @@ import Select from '../Form/Select';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
 import { getQueryString } from '../../search/query';
 
-const SearchHeader = ({
+const SearchFooter = ({
   metadata, searchQuery, userQuery, router,
 }) => {
   // page for query is -1 page shown
@@ -50,44 +50,13 @@ const SearchHeader = ({
     goToPage(Number(e.target.value));
   };
 
-  // update per_page in store when select of per_ppage changes
-  const onChangePerPage = (e) => {
-    const newPage = 0;
-    const newPerPage = e.target.value;
-    if (newPerPage !== searchQuery.per_page) {
-      const newQuery = Object.assign({}, searchQuery, { page: newPage, per_page: newPerPage, total: metadata.total });
-      userQuery(newQuery);
-      submit(newQuery);
-    }
-  };
-
   return (
-    <form className="usa-form grid-container padding-0 search-header">
+    <form className="usa-form grid-container padding-0 search-header search-footer">
       <div className="grid-row">
-        <div className="grid-col">
-          <Select
-            id="items-by-page"
-            selectClass="sfr-select-input usa-select"
-            className="nypl-search-input"
-            options={[10, 20, 50, 100]}
-            label="Items per page"
-            labelClass=""
-            value={searchQuery.per_page}
-            onChange={onChangePerPage}
-            onBlur={onChangePerPage}
-          />
+        <div className="grid-col-7">
+          <div className="sfr-header-border text-right" />
         </div>
-        <div className="grid-col">
-          <Select
-            id="sort-by"
-            selectClass="sfr-select-input usa-select"
-            className="nypl-search-input"
-            options={['Relevance']}
-            label="Sort by"
-            labelClass=""
-            disabled
-          />
-        </div>
+
         <div className="grid-col">
           <div className="sfr-header-border text-right">
             {totalPages > 1 && (
@@ -158,18 +127,18 @@ const SearchHeader = ({
   );
 };
 
-SearchHeader.propTypes = {
+SearchFooter.propTypes = {
   metadata: PropTypes.objectOf(PropTypes.any),
   searchQuery: searchQueryPropTypes,
   userQuery: PropTypes.func,
   router: PropTypes.objectOf(PropTypes.any),
 };
 
-SearchHeader.defaultProps = {
+SearchFooter.defaultProps = {
   metadata: {},
   searchQuery: initialSearchQuery,
   userQuery: () => {},
   router: {},
 };
 
-export default SearchHeader;
+export default SearchFooter;

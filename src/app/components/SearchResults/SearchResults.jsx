@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ResultsMetadata from './ResultsMetadata';
 import ResultsList from './ResultsList';
 import SearchHeader from './SearchHeader';
+import SearchFooter from './SearchFooter';
 
 /**
  * Wrapper component for results lists which can contain a number of components
@@ -43,6 +44,16 @@ const SearchResults = (props) => {
             results={hits}
             fetchWork={props.fetchWork}
             eReaderUrl={props.eReaderUrl}
+          />
+        </div>
+      </div>
+      <div className="grid-row sfr-results-container">
+        <div className="grid-col-12 sfr-results-search-footer">
+          <SearchFooter
+            metadata={metadata}
+            results={hits}
+            fetchWork={props.fetchWork}
+            {...props}
           />
         </div>
       </div>
