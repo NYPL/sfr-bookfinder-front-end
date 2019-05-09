@@ -17,6 +17,7 @@ const WorkHeader = ({ data }) => (
           <AuthorsList
             agents={data.agents}
             max={1}
+            roleFilter="author"
           />
         </div>
       )}
