@@ -85,7 +85,7 @@ const SearchNavigation = ({
       disabled
     />
   );
-  const FirstPage = totalPages > 1 && (
+  const FirstPage = totalPages > 1 ? (
     <a
       onClick={e => navigateToPage(e, 1)}
       onKeyPress={e => navigateToPage(e, 1)}
@@ -93,10 +93,12 @@ const SearchNavigation = ({
       tabIndex={0}
       className="margin-x-2"
     >
-      First
+        First
     </a>
+  ) : (
+    <div />
   );
-  const PreviousPage = totalPages > 1 && (
+  const PreviousPage = totalPages > 1 ? (
     <a
       onClick={e => navigateToPage(e, Number(searchQuery.page))}
       onKeyPress={e => navigateToPage(e, Number(searchQuery.page))}
@@ -104,8 +106,10 @@ const SearchNavigation = ({
       tabIndex={0}
       className="margin-x-2"
     >
-      Previous
+        Previous
     </a>
+  ) : (
+    <div />
   );
   const PageSelector = (
     <Select
@@ -120,7 +124,7 @@ const SearchNavigation = ({
       onBlur={onChangePage}
     />
   );
-  const NextPage = totalPages > 1 && (
+  const NextPage = totalPages > 1 ? (
     <a
       onClick={e => navigateToPage(e, Number(searchQuery.page) + 2)}
       onKeyPress={e => navigateToPage(e, Number(searchQuery.page) + 2)}
@@ -128,10 +132,12 @@ const SearchNavigation = ({
       tabIndex={0}
       className="margin-x-2"
     >
-      Next
+        Next
     </a>
+  ) : (
+    <div />
   );
-  const LastPage = totalPages > 1 && (
+  const LastPage = totalPages > 1 ? (
     <a
       onClick={e => navigateToPage(e, totalPages)}
       onKeyPress={e => navigateToPage(e, totalPages)}
@@ -139,8 +145,10 @@ const SearchNavigation = ({
       tabIndex={0}
       className="margin-x-2"
     >
-      Last
+        Last
     </a>
+  ) : (
+    <div />
   );
   if (isFooter) {
     return (
