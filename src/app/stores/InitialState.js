@@ -7,6 +7,7 @@ export const initialSearchQuery = {
   showField: '',
   per_page: 10,
   page: 0,
+  total: 0,
 };
 
 export const searchQueryPropTypes = PropTypes.shape({
