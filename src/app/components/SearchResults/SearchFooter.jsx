@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const SearchHeader = ({
-  ItemsPerPage, SortBy, FirstPage, PreviousPage, PageSelector, NextPage, LastPage,
+const SearchFooter = ({
+  FirstPage, PreviousPage, PageSelector, NextPage, LastPage,
 }) => (
-  <form className="usa-form grid-container padding-0 search-header">
+  <form className="usa-form grid-container padding-0 search-header search-footer">
     <div className="grid-row">
-      <div className="grid-col">{ItemsPerPage}</div>
-      <div className="grid-col">{SortBy}</div>
+      <div className="grid-col-7">
+        <div className="sfr-header-border text-right" />
+      </div>
       <div className="grid-col">
         <div className="sfr-header-border text-right">
           {FirstPage}
@@ -25,9 +26,7 @@ const SearchHeader = ({
   </form>
 );
 
-SearchHeader.propTypes = {
-  ItemsPerPage: PropTypes.element,
-  SortBy: PropTypes.element,
+SearchFooter.propTypes = {
   FirstPage: PropTypes.element,
   PreviousPage: PropTypes.element,
   PageSelector: PropTypes.element,
@@ -35,9 +34,7 @@ SearchHeader.propTypes = {
   LastPage: PropTypes.element,
 };
 
-SearchHeader.defaultProps = {
-  ItemsPerPage: null,
-  SortBy: null,
+SearchFooter.defaultProps = {
   FirstPage: null,
   PreviousPage: null,
   PageSelector: null,
@@ -45,4 +42,4 @@ SearchHeader.defaultProps = {
   LastPage: null,
 };
 
-export default SearchHeader;
+export default SearchFooter;

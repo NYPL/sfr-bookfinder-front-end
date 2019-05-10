@@ -17,7 +17,7 @@ const ResultsMetadata = ({ searchQuery, metadata: { total } }) => {
     lastElement = total;
   }
   if (total > 0) {
-    message = `Viewing ${firstElement} - ${lastElement} of ${total} items`;
+    message = `Viewing ${firstElement.toLocaleString()} - ${lastElement.toLocaleString()} of ${total.toLocaleString()} items`;
   }
 
   return (

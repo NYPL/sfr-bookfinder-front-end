@@ -29,8 +29,8 @@
     }
   }
 }
-.sfr-results-search-header {
-  padding-top: 0.5rem;
+.sfr-results-search-header,
+.sfr-results-search-footer {
   .grid-row {
     min-height: 1.5rem;
   }
@@ -42,10 +42,12 @@
   .search-header {
     label {
       display: block;
-      height: 1.5rem;
+      height: 2rem;
+      line-height: 2rem;
     }
     .usa-select {
       border-right: 0;
+      margin-top: 0;
     }
     .sfr-header-border {
       border-bottom: 1px solid black;
