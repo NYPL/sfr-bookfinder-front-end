@@ -42,7 +42,7 @@ class SearchForm extends React.Component {
     this.setState(preState => ({
       searchQuery: Object.assign(
         {},
-        preState.searchQuery,
+        initialSearchQuery,
         { showField: '', showQuery: '' },
         { query: preState.searchQuery.showQuery ? preState.searchQuery.showQuery : preState.searchQuery.query },
         { field: fieldSelected },
@@ -55,7 +55,7 @@ class SearchForm extends React.Component {
     this.setState(preState => ({
       searchQuery: Object.assign(
         {},
-        preState.searchQuery,
+        initialSearchQuery,
         { showField: '', showQuery: '' },
         { field: preState.searchQuery.showField ? preState.searchQuery.showField : preState.searchQuery.field },
         { query: querySelected },
@@ -65,7 +65,9 @@ class SearchForm extends React.Component {
 
   handleSubmit(event) {
     if (event && event.charCode === 13) {
-      this.props.userQuery({ query: this.state.searchQuery.query, field: this.state.searchQuery.field });
+      this.props.userQuery(
+        Object.assign({}, initialSearchQuery, { query: this.state.searchQuery.query, field: this.state.searchQuery.field }),
+      );
       this.submitSearchRequest(event);
     }
   }
