@@ -1,11 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const downloadLabels = {
-  external_view: 'Read Online',
-  pdf_download: 'Download',
-};
-
 /**
  * Create a link defaulting to an ebook "download" unless
  * the ebook is hosted by us (link has our S3 bucket pattern)
@@ -15,17 +10,15 @@ const downloadLabels = {
  * before you can directly download items. So if no cookie exists,
  * you're directed to their site first which can be confusing.
  * @param {string} url
+ * @param {string} eReaderUrl
+ * @param {boolean} local
+ * @param {boolean} download
+ * @param {boolean} ebook
  * @return {string}
  */
-const generateLink = (url, eReaderUrl, relType) => {
-  let link = `${url}`;
-  let linkText = downloadLabels[relType] || 'Download';
-
-  if (url && url.includes('simplye')) {
-    link = `${eReaderUrl}?url=${url}`;
-    linkText = 'Read Online';
-  }
-
+const generateLink = (url, eReaderUrl, local, download, ebook) => {
+  const link = (local && ebook && !download) ? `${eReaderUrl}?url=${url}` : `${url}`;
+  const linkText = (ebook && !download) ? 'Read Online' : 'Download';
   return <a href={`${link}`}>{`${linkText}`}</a>;
 };
 
@@ -35,7 +28,9 @@ const EBookList = ({ ebooks, eReaderUrl }) => (
       <li key={`${ebookKey.toString()}`}>
         <ul className="nypl-ebooks-list">
           {item.links.map((link, linkKey) => (
-            <li key={`${ebookKey.toString()}-${linkKey.toString()}`}>{generateLink(link.url, eReaderUrl, link.rel_type)}</li>
+            <li key={`${ebookKey.toString()}-${linkKey.toString()}`}>
+              {generateLink(link.url, eReaderUrl, link.local, link.download, link.ebook)}
+            </li>
           ))}
         </ul>
       </li>
