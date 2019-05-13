@@ -11,15 +11,17 @@ const WorkHeader = ({ data }) => (
     <div className="nypl-item-header-column">
       <div className="nypl-item-header-title">{data.title}</div>
       {data.subtitle && <div>{data.subtitle}</div>}
-      {data.agents && data.agents.length > 0 && (
-        <div className="nypl-item-header-author">
-          By&nbsp;
-          <AuthorsList
-            agents={data.agents}
-            max={1}
-            roleFilter="author"
-          />
-        </div>
+      {data.agents
+      && data.agents.length > 0 //
+        && data.agents.filter(agent => agent.roles && agent.roles.indexOf('author') > -1).length > 0 && (
+          <div className="nypl-item-header-author">
+            By&nbsp;
+            <AuthorsList
+              agents={data.agents}
+              max={1}
+              roleFilter="author"
+            />
+          </div>
       )}
     </div>
   </div>
