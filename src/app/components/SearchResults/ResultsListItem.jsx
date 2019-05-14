@@ -26,16 +26,17 @@ const ResultsListItem = ({ item, eReaderUrl }) => (
           </Link>
         </h3>
         {item.subtitle && <div>{item.subtitle}</div>}
-
-        {item.agents && item.agents.length > 0 && (
-          <span className="nypl-results-item-author">
-            By
-            <AuthorsList
-              agents={item.agents}
-              max={1}
-              roleFilter="author"
-            />
-          </span>
+        {item.agents
+        && item.agents.length > 0 //
+          && item.agents.filter(agent => agent.roles && agent.roles.indexOf('author') > -1).length > 0 && (
+            <span className="nypl-results-item-author">
+              By
+              <AuthorsList
+                agents={item.agents}
+                max={1}
+                roleFilter="author"
+              />
+            </span>
         )}
       </div>
     </div>
