@@ -6,20 +6,24 @@ const SearchFooter = ({
 }) => (
   <form className="usa-form grid-container padding-0 search-header search-footer">
     <div className="grid-row">
-      <div className="grid-col-7">
-        <div className="sfr-header-border text-right" />
-      </div>
-      <div className="grid-col">
-        <div className="sfr-header-border text-right">
-          {FirstPage}
-          {PreviousPage}
-        </div>
-      </div>
-      <div className="grid-col">{PageSelector}</div>
-      <div className="grid-col">
-        <div className="sfr-header-border last text-left">
-          {NextPage}
-          {LastPage}
+      <div className="grid-col-3 sfr-header-border" />
+      <div className="grid-col-9">
+        <div className="grid-row">
+          <div className="grid-col sfr-header-border empty" />
+          <div className="grid-col sfr-header-border empty" />
+          <div className="grid-col">
+            <div className="sfr-header-border text-right">
+              {FirstPage}
+              {PreviousPage}
+            </div>
+          </div>
+          <div className="grid-col">{PageSelector}</div>
+          <div className="grid-col">
+            <div className="sfr-header-border last text-left">
+              {NextPage}
+              {LastPage}
+            </div>
+          </div>
         </div>
       </div>
     </div>

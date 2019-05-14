@@ -56,9 +56,11 @@
       margin-top: 2rem;
       line-height: 2.25rem;
       height: 2.5rem;
-      padding-left: 0.5rem;
       &.last {
         border-right: 1px solid black;
+      }
+      &.empty {
+        border-left: none;
       }
       a {
         cursor: pointer;
