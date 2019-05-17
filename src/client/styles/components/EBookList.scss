@@ -5,28 +5,166 @@ ul.nypl-ebooks-list {
   white-space: nowrap;
   color: #0071bb;
   padding: 0;
+  font-size: 1rem;
+  font-family: 'Kievit-Bold';
   li {
     display: inline-block;
     text-align: center;
+    vertical-align: top;
     a {
       border: 2px solid #0071bb;
       border-radius: 5px;
-      padding: 0.5rem;
       display: inline-block;
+      padding: 0.5rem 0.75rem;
       margin: 0.5rem;
-      width: 7rem;
-      height: 2rem;
-      line-height: 0.9rem;
+      width: 8.5rem;
+      height: 2.5rem;
+      line-height: 1.5rem;
       text-align: center;
-      font-weight: bold;
       text-decoration: none;
       &:hover {
         text-decoration: none;
       }
     }
   }
+  select {
+    color: #0071bb;
+    border: 2px solid #0071bb;
+    border-radius: 5px;
+    padding: 0.5rem 0.75rem;
+    margin: 0.5rem;
+    width: 8.5rem;
+    height: 2.5rem;
+    line-height: 1.5rem;
+    text-align: center;
+    text-decoration: none;
+    background-image: url('./img/select-arrow-down.svg'), linear-gradient(transparent, transparent);
+    background-size: 1rem;
+    background-position: right 0.5rem center;
+    font-size: 1rem;
+    font-family: 'Kievit-Bold';
+  }
 }
 .nypl-editions-view-all {
   padding: 20px;
   border-bottom: 1px solid black;
+}
+
+.Dropdown-root {
+  position: relative;
+  margin: 0.5rem;
+
+  .Dropdown-control {
+    position: relative;
+    overflow: hidden;
+    border: 2px solid #0071bb;
+    border-radius: 5px;
+    display: block;
+    padding: 0.5rem 1.5rem 0.5rem 0.5rem;
+    margin: 0;
+    width: 8.5rem;
+    height: 2.5rem;
+    line-height: 1.5rem;
+    text-align: center;
+    text-decoration: none;
+
+    box-sizing: border-box;
+    cursor: default;
+    outline: none;
+    transition: all 200ms ease;
+
+    background-image: url('./img/select-arrow-down.svg'), linear-gradient(transparent, transparent);
+    background-size: 1rem;
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    .Dropdown-placeholder {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .Dropdown-control:hover {
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+  }
+
+  .Dropdown-arrow {
+    // border-color: #999 transparent transparent;
+    // border-style: solid;
+    // border-width: 5px 5px 0;
+    // content: ' ';
+    display: block;
+    height: 0;
+    // margin-top: -ceil(2.5);
+    // position: absolute;
+    // right: 10px;
+    // top: 14px;
+    width: 0;
+  }
+
+  .is-open .Dropdown-arrow {
+    border-color: transparent transparent #999;
+    border-width: 0 5px 5px;
+  }
+
+  .Dropdown-menu {
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+    box-sizing: border-box;
+    margin-top: 0;
+    max-height: 200px;
+    overflow-y: auto;
+    position: absolute;
+    top: 100%;
+    width: 200%;
+    z-index: 1000;
+    -webkit-overflow-scrolling: touch;
+    font-family: $fontFamily;
+  }
+
+  .Dropdown-menu .Dropdown-group > .Dropdown-title {
+    padding: 8px 10px;
+    color: rgba(51, 51, 51, 1);
+    font-weight: bold;
+    text-transform: capitalize;
+  }
+
+  .Dropdown-option {
+    box-sizing: border-box;
+    color: rgba(51, 51, 51, 0.8);
+    cursor: pointer;
+    display: block;
+    padding: 8px 28px 8px 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    &.external {
+      background-image: url('./img/external-link.svg'), linear-gradient(transparent, transparent);
+      background-size: 1rem;
+      background-repeat: no-repeat;
+      background-position: right 0.5rem center;
+    }
+  }
+
+  .Dropdown-option:last-child {
+    border-bottom-right-radius: 2px;
+    border-bottom-left-radius: 2px;
+  }
+
+  .Dropdown-option:hover {
+    background-color: #f2f9fc;
+    color: #333;
+  }
+
+  .Dropdown-option.is-selected {
+    background-color: #f2f9fc;
+    color: #333;
+  }
+
+  .Dropdown-noresults {
+    box-sizing: border-box;
+    color: #ccc;
+    cursor: default;
+    display: block;
+    padding: 8px 10px;
+  }
 }
