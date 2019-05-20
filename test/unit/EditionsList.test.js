@@ -5,7 +5,7 @@
 import React from 'react';
 import { expect } from 'chai';
 import { shallow, configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-15';
+import Adapter from 'enzyme-adapter-react-16';
 import EditionsList from '../../src/app/components/List/EditionsList';
 import results from '../fixtures/results-list.json';
 import EBookList from '../../src/app/components/List/EBookList';
@@ -81,10 +81,9 @@ describe('EditionsList', () => {
       const ebooks = work.instances[0].items;
       component = shallow(<EBookList ebooks={ebooks} />);
     });
-    it('should have a list of two anchor tags', () => {
-      expect(component.find('ul')).to.have.length(2);
-      expect(component.find('ul li')).to.have.length(3);
-      expect(component.find('ul li a')).to.have.length(2);
+    it('should have a list of anchor tags', () => {
+      expect(component.find('ul')).to.have.length(3);
+      expect(component.find('ul li')).to.have.length(2);
     });
   });
 });
