@@ -3,7 +3,7 @@
 import React from 'react';
 import { expect } from 'chai';
 import { shallow, configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-15';
+import Adapter from 'enzyme-adapter-react-16';
 import { DefinitionList } from '../../src/app/components/WorkDetail/DefinitionList';
 import { detailDefinitionLabels } from '../../src/app/constants/labels';
 import AuthorsList from '../../src/app/components/List/AuthorsList';
@@ -58,10 +58,9 @@ describe('DefinitionList', () => {
       const ebooks = detail.instances[8].items;
       component = shallow(<EBookList ebooks={ebooks} />);
     });
-    it('should have a list of four links', () => {
+    it('should have a list of links', () => {
       expect(component.find('ul')).to.have.length(3);
-      expect(component.find('li')).to.have.length(6);
-      expect(component.find('li a')).to.have.length(4);
+      expect(component.find('li')).to.have.length(2);
     });
   });
 });

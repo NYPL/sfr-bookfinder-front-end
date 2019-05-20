@@ -3,7 +3,7 @@
 import React from 'react';
 import { expect } from 'chai';
 import { mount, configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-15';
+import Adapter from 'enzyme-adapter-react-16';
 import SearchForm from '../../src/app/components/SearchForm/SearchForm';
 
 configure({ adapter: new Adapter() });

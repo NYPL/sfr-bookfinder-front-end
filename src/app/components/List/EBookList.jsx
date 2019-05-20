@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { flatten as _flatten } from 'underscore';
-import Dropdown from '../Form/Dropdown';
+import Dropdown from 'react-dropdown-aria';
 
 /**
  * Create a link defaulting to an ebook "download" unless
@@ -24,17 +24,27 @@ const generateLink = (url, eReaderUrl, local, download, ebook) => {
   return <a href={`${link}`}>{`${linkText}`}</a>;
 };
 const generateOption = (link, eReaderUrl) => {
-  const value = link.local && link.ebook && !link.download ? `${eReaderUrl}?url=${link.url}` : `${link.url}`;
+  const url = link.local && link.ebook && !link.download ? `${eReaderUrl}?url=${link.url}` : `${link.url}`;
   const label = link.label;
   let className;
   if (!link.local) {
     className = 'external';
   }
-  return { value, label, className };
+  return {
+    value: label,
+    url,
+    label,
+    title: url,
+    ariaLabel: label,
+    className,
+  };
 };
 
-const onSelectChange = (e) => {
-  global.window.location.href = e.value;
+const onSelectChange = (value, options) => {
+  const match = options.find(option => option.label === value);
+  if (match) {
+    global.window.location.href = match.url;
+  }
 };
 
 const linksArray = ({ ebooks, download }) => _flatten(ebooks.map(item => item.links)).filter(link => link.download === download);
@@ -42,16 +52,17 @@ const linksArray = ({ ebooks, download }) => _flatten(ebooks.map(item => item.li
 const LinksSelector = ({ ebooks, download, eReaderUrl }) => {
   const linksList = linksArray({ ebooks, download });
   const options = linksList.map(link => Object.assign({}, generateOption(link, eReaderUrl)));
-  // options.unshift({ value: '', label: 'Download' });
   return (
     <ul className="nypl-ebooks-list">
       {linksList.length > 1 && (
-        <li>
+        <li className="ebooks-list-dropdown">
           <Dropdown
             options={options}
-            onChange={onSelectChange}
+            setSelected={e => onSelectChange(e, options)}
             placeholder={download ? 'Download' : 'Read Online'}
-            value=""
+            selectedOption=""
+            buttonClassName=""
+            hideArrow
           />
         </li>
       )}
@@ -67,18 +78,6 @@ const EBookList = ({ ebooks, eReaderUrl }) => (
   <ul className="nypl-ebooks-list">
     <li>{LinksSelector({ ebooks, download: true, eReaderUrl })}</li>
     <li>{LinksSelector({ ebooks, download: false, eReaderUrl })}</li>
-    {!eReaderUrl // ///////////
-      && ebooks.map((item, ebookKey) => (
-        <li key={`${ebookKey.toString()}`}>
-          <ul className="nypl-ebooks-list">
-            {item.links.map((link, linkKey) => (
-              <li key={`${ebookKey.toString()}-${linkKey.toString()}`}>
-                {generateLink(link.url, eReaderUrl, link.local, link.download, link.ebook)}
-              </li>
-            ))}
-          </ul>
-        </li>
-      ))}
   </ul>
 );
 
