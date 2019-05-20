@@ -23,6 +23,8 @@ const generateLink = (url, eReaderUrl, local, download, ebook) => {
   const linkText = ebook && !download ? 'Read Online' : 'Download';
   return <a href={`${link}`}>{`${linkText}`}</a>;
 };
+
+// generates an array of options for the dropdown
 const generateOption = (link, eReaderUrl) => {
   const url = link.local && link.ebook && !link.download ? `${eReaderUrl}?url=${link.url}` : `${link.url}`;
   const label = link.label;
@@ -47,8 +49,10 @@ const onSelectChange = (value, options) => {
   }
 };
 
+// gets all links from all ebooks, classified on download true or false
 const linksArray = ({ ebooks, download }) => _flatten(ebooks.map(item => item.links)).filter(link => link.download === download);
 
+// render the dropdown and/or the link to the ebook, classifed by download true or false
 const LinksSelector = ({ ebooks, download, eReaderUrl }) => {
   const linksList = linksArray({ ebooks, download });
   const options = linksList.map(link => Object.assign({}, generateOption(link, eReaderUrl)));
