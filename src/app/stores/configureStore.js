@@ -1,6 +1,7 @@
 /* eslint-env browser */
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
+import persistState from 'redux-sessionstorage';
 import { rootReducer } from './Reducers';
 
 /**
@@ -17,6 +18,9 @@ export default function configureStore(preloadedState) {
   const middlewareEnhancer = applyMiddleware(...middlewares);
 
   const enhancers = [middlewareEnhancer];
+  if (typeof window !== 'undefined') {
+    enhancers.push(persistState());
+  }
   /* eslint-disable no-underscore-dangle */
   const composedEnhancers = global.window && global.window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? global.window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(...enhancers)
