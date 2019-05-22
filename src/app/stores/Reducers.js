@@ -2,6 +2,15 @@ import { combineReducers } from 'redux';
 import { Actions } from '../actions/SearchActions';
 import initialState from './InitialState';
 
+export const loading = (state = null, action) => {
+  switch (action.type) {
+    case Actions.LOADING:
+      return action.loading;
+    default:
+      return state;
+  }
+};
+
 export const searchResults = (state = null, action) => {
   switch (action.type) {
     case Actions.SEARCH:
@@ -39,6 +48,7 @@ const appReducer = combineReducers({
   searchQuery,
   sort,
   workDetail,
+  loading,
 });
 
 export const rootReducer = (state, action) => {

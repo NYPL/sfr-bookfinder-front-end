@@ -5,6 +5,7 @@ import { withRouter } from 'react-router';
 
 import Footer from '@nypl/dgx-react-footer';
 import appConfig from '../../../../appConfig';
+import Loading from './Loading';
 
 class Application extends React.Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class Application extends React.Component {
   render() {
     return (
       <div className="app-wrapper add-list-reset">
+        <Loading />
         {React.cloneElement(this.props.children, this.props)}
         <Footer />
       </div>

@@ -4,34 +4,18 @@ import selectFields from '../constants/fields';
 import serverState from '../stores/InitialState';
 import { buildQueryBody } from '../search/query';
 
-axios.interceptors.request.use(
-  (config) => {
-    console.log('intercept request', config);
-    return config;
-  },
-  (error) => {
-    console.log('intercept request error', error);
-    return Promise.reject(error);
-  },
-);
-
-axios.interceptors.response.use(
-  (response) => {
-    console.log('intercept response', response);
-    return response;
-  },
-  (error) => {
-    console.log('intercept response error', error);
-    return Promise.reject(error);
-  },
-);
-
 export const Actions = {
   SEARCH: 'SEARCH',
   FETCH_WORK: 'FETCH_WORK',
   SET_QUERY: 'SET_QUERY',
   RESET_SEARCH: 'RESET_SEARCH',
+  LOADING: 'LOADING',
 };
+
+export const loadingState = loading => ({
+  type: Actions.LOADING,
+  loading,
+});
 
 export const userQuery = query => ({
   type: Actions.SET_QUERY,
@@ -119,6 +103,8 @@ export const serverFetchWork = workId => axios
     throw new Error('An error occurred during serverFetchWork', error.message);
   });
 
+export const loading = isLoading => dispatch => dispatch(loadingState(isLoading));
+
 export default {
   searchPost,
   fetchWork,
@@ -126,4 +112,5 @@ export default {
   serverFetchWork,
   userQuery,
   resetSearch,
+  loading,
 };
