@@ -61,6 +61,23 @@ class WorkDetail extends React.Component {
       this.context.router.push('/');
     };
 
+    const breadcrumbLinks = (searchQuery, workItem) => {
+      const links = [];
+      if (searchQuery && searchQuery.query) {
+        links.push({
+          href: `/search?${getQueryString(searchQuery)}`,
+          text: 'Search Results',
+        });
+      }
+      if (workItem) {
+        links.push({
+          href: `/work?workId=${workItem.uuid}`,
+          text: 'Work Details',
+        });
+      }
+      return links;
+    };
+
     return (
       <main
         id="mainContent"
@@ -69,16 +86,7 @@ class WorkDetail extends React.Component {
         <div className="grid-row">
           <div className="sfr-header-wrapper tablet:grid-col-12">
             <Breadcrumbs
-              links={[
-                {
-                  href: `/search?${getQueryString(this.props.searchQuery)}`,
-                  text: 'Search Results',
-                },
-                {
-                  href: `/work?workId=${work.uuid}`,
-                  text: 'Work Details',
-                },
-              ]}
+              links={breadcrumbLinks(this.props.searchQuery, work)}
               pageType="details"
               onClickHandler={handleReset}
             />
@@ -87,7 +95,9 @@ class WorkDetail extends React.Component {
               {...this.boundActions}
             />
             <div className="grid-col-10 sfr-center margin-y-3">
-              <Link to={`/search?${getQueryString(this.props.searchQuery)}`}>Back to Search Results</Link>
+              {this.props.searchQuery && this.props.searchQuery.query && (
+                <Link to={`/search?${getQueryString(this.props.searchQuery)}`}>Back to Search Results</Link>
+              )}
             </div>
           </div>
           <div className="tablet:grid-col-10 sfr-center margin-top-3 margin-bottom-6">
