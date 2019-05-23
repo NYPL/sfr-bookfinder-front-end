@@ -61,29 +61,52 @@ ul.nypl-ebooks-list {
   line-height: 1.5rem;
   text-align: center;
   text-decoration: none;
-  background-image: url('./img/select-arrow-down.svg'), linear-gradient(transparent, transparent);
-  background-size: 1rem;
-  background-position: right 0.5rem center;
-  background-repeat: no-repeat;
   font-size: 1rem;
   font-family: 'Kievit-Bold';
   ul {
-    width: 200%;
+    width: 11.5rem;
     white-space: normal;
+    border: 2px solid black;
+    border-radius: 8px;
+    padding: 0;
     button {
       font-family: 'Kievit-Book';
       font-size: 1rem;
-      max-width: 100%;
-      padding-right: 1.75rem;
+      max-width: 10rem;
+      width: 100%;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      border-top: 0.1rem solid black;
+      margin: 0 0.5rem;
+      padding: 0.5rem 1.25rem 0.5rem 0;
+      border-radius: 0;
+      color: black;
+      &:hover {
+        background-color: black;
+        color: white;
+        margin: 0;
+        max-width: 100%;
+        padding: 0.5rem 1.9rem 0.6rem 0.6rem;
+        &.external {
+          background-image: url('./img/external-link-alt-hover.svg'), linear-gradient(transparent, transparent);
+          background-position: right 0.6rem top 0.7rem;
+          // filter: grayscale(100%) brightness(1); // icon in black
+        }
+      }
+      &:first-child {
+        border-top: 0;
+      }
       &.external {
-        background-image: url('./img/external-link.svg'), linear-gradient(transparent, transparent);
+        background-image: url('./img/external-link-black.svg'), linear-gradient(transparent, transparent);
         background-size: 1rem;
         background-repeat: no-repeat;
-        background-position: right 0.5rem center;
+        background-position: right 0 top 0.7rem;
+        filter: grayscale(100%) brightness(1); // icon in black
       }
+    }
+    button:hover + button {
+      border-top: none;
     }
   }
   div {
@@ -103,5 +126,22 @@ ul.nypl-ebooks-list {
     border-right: none;
     border-left: none;
     background: none;
+  }
+  .arrow {
+    width: 1rem;
+    height: 1rem;
+    background-image: url('./img/select-arrow-down.svg'), linear-gradient(transparent, transparent);
+    background-size: 1rem;
+    background-position: center center;
+    background-repeat: no-repeat;
+    transition: 0.3s linear;
+  }
+  .arrow-up {
+    -moz-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    transform: scaleY(-1);
+    filter: FlipV;
+    -ms-filter: 'FlipV';
   }
 }

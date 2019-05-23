@@ -49,6 +49,11 @@ const onSelectChange = (value, options) => {
   }
 };
 
+const arrowRenderer = (open) => {
+  const arrowClass = open ? 'arrow arrow-up' : 'arrow';
+  return <i className={arrowClass} />;
+};
+
 // gets all links from all ebooks, classified on download true or false
 const linksArray = ({ ebooks, download }) => _flatten(ebooks.map(item => item.links)).filter(link => link.download === download);
 
@@ -66,7 +71,7 @@ const LinksSelector = ({ ebooks, download, eReaderUrl }) => {
             placeholder={download ? 'Download' : 'Read Online'}
             selectedOption=""
             buttonClassName=""
-            hideArrow
+            arrowRenderer={arrowRenderer}
           />
         </li>
       )}
