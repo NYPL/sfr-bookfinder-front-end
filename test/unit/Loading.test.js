@@ -3,7 +3,7 @@
 import React from 'react';
 import { expect } from 'chai';
 import { mount, configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-15';
+import Adapter from 'enzyme-adapter-react-16';
 import Loading from '../../src/app/components/Application/Loading';
 import configureStore from '../../src/app/stores/configureStore';
 import initialState from '../../src/app/stores/InitialState';
