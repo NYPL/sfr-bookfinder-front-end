@@ -35,6 +35,16 @@ describe('EditionsList', () => {
       expect(component.find('table tr td').getElements()[1].props.children).to.equal('Chicago :');
     });
 
+    // Rights check
+    it('should contain a rights statement', () => {
+      expect(component.find('table tr td span').getElements()[1].props.children).to.equal('Public Domain');
+    });
+
+    // Language check
+    it('should contain a language', () => {
+      expect(component.find('table tr td span').getElements()[2].props.children).to.equal('English');
+    });
+
     // Publisher check
     it('should contain a publisher', () => {
       expect(
