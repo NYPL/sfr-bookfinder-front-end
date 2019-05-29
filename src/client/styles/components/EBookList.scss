@@ -5,28 +5,143 @@ ul.nypl-ebooks-list {
   white-space: nowrap;
   color: #0071bb;
   padding: 0;
+  font-size: 1rem;
+  font-family: 'Kievit-Bold';
   li {
     display: inline-block;
     text-align: center;
+    vertical-align: top;
     a {
       border: 2px solid #0071bb;
       border-radius: 5px;
-      padding: 0.5rem;
       display: inline-block;
+      padding: 0.5rem 0.75rem;
       margin: 0.5rem;
-      width: 7rem;
-      height: 2rem;
-      line-height: 0.9rem;
+      width: 8.5rem;
+      height: 2.5rem;
+      line-height: 1.5rem;
       text-align: center;
-      font-weight: bold;
       text-decoration: none;
       &:hover {
         text-decoration: none;
+        box-shadow: 0px 1px 3px 2px #d9dadd;
       }
     }
+  }
+  select {
+    color: #0071bb;
+    border: 2px solid #0071bb;
+    border-radius: 5px;
+    padding: 0.5rem 0.75rem;
+    margin: 0.5rem;
+    width: 8.5rem;
+    height: 2.5rem;
+    line-height: 1.5rem;
+    text-align: center;
+    text-decoration: none;
+    background-image: url('./img/select-arrow-down.svg'), linear-gradient(transparent, transparent);
+    background-size: 1rem;
+    background-position: right 0.5rem center;
+    font-size: 1rem;
+    font-family: 'Kievit-Bold';
   }
 }
 .nypl-editions-view-all {
   padding: 20px;
   border-bottom: 1px solid black;
+}
+
+.ebooks-list-dropdown {
+  color: #0071bb;
+  border: 2px solid #0071bb;
+  border-radius: 5px;
+  margin: 0.5rem;
+  width: 8.5rem;
+  height: 2.5rem;
+  line-height: 1.5rem;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1rem;
+  font-family: 'Kievit-Bold';
+  ul {
+    width: 11.5rem;
+    white-space: normal;
+    border: 2px solid black;
+    border-radius: 8px;
+    padding: 0;
+    button {
+      font-family: 'Kievit-Book';
+      font-size: 1rem;
+      max-width: 10rem;
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      border-top: 0.1rem solid black;
+      margin: 0 0.5rem;
+      padding: 0.5rem 1.25rem 0.5rem 0;
+      border-radius: 0;
+      color: black;
+      &:hover {
+        background-color: black;
+        color: white;
+        margin: 0;
+        max-width: 100%;
+        padding: 0.5rem 1.7rem 0.6rem 0.6rem;
+        &.external {
+          background-image: url('./img/external-link-alt-hover.svg'), linear-gradient(transparent, transparent);
+          background-position: right 0.5rem top 0.7rem;
+          // filter: grayscale(100%) brightness(1); // icon in black
+        }
+      }
+      &:first-child {
+        border-top: 0;
+      }
+      &.external {
+        background-image: url('./img/external-link-black.svg'), linear-gradient(transparent, transparent);
+        background-size: 1rem;
+        background-repeat: no-repeat;
+        background-position: right 0 top 0.7rem;
+        filter: grayscale(100%) brightness(1); // icon in black
+      }
+    }
+    button:hover + button {
+      border-top: none;
+    }
+  }
+  div {
+    color: #0071bb;
+    border-bottom: none;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    background: none;
+  }
+  button {
+    color: #0071bb;
+    padding: 0.4rem 0.75rem;
+    border-radius: 5px;
+    border-bottom: none;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    background: none;
+  }
+  .arrow {
+    width: 1rem;
+    height: 1rem;
+    background-image: url('./img/select-arrow-down.svg'), linear-gradient(transparent, transparent);
+    background-size: 1rem;
+    background-position: center center;
+    background-repeat: no-repeat;
+    transition: 0.3s linear;
+  }
+  .arrow-up {
+    -moz-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    transform: scaleY(-1);
+    filter: FlipV;
+    -ms-filter: 'FlipV';
+  }
 }

@@ -36,7 +36,7 @@ global.window.onload = () => {
 
   const store = configureStore(preloadedState);
 
-  ReactDOM.render(
+  ReactDOM.hydrate(
     <Provider store={store}>
       <Router
         history={browserHistory}

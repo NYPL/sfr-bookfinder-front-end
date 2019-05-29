@@ -3,7 +3,7 @@
 import React from 'react';
 import { expect } from 'chai';
 import { shallow, configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-15';
+import Adapter from 'enzyme-adapter-react-16';
 import ResultsList from '../../src/app/components/SearchResults/ResultsList';
 import results from '../fixtures/results-list.json';
 
