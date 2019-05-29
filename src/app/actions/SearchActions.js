@@ -9,7 +9,13 @@ export const Actions = {
   FETCH_WORK: 'FETCH_WORK',
   SET_QUERY: 'SET_QUERY',
   RESET_SEARCH: 'RESET_SEARCH',
+  LOADING: 'LOADING',
 };
+
+export const loadingState = loading => ({
+  type: Actions.LOADING,
+  loading,
+});
 
 export const userQuery = query => ({
   type: Actions.SET_QUERY,
@@ -97,6 +103,8 @@ export const serverFetchWork = workId => axios
     throw new Error('An error occurred during serverFetchWork', error.message);
   });
 
+export const loading = isLoading => dispatch => dispatch(loadingState(isLoading));
+
 export default {
   searchPost,
   fetchWork,
@@ -104,4 +112,5 @@ export default {
   serverFetchWork,
   userQuery,
   resetSearch,
+  loading,
 };

@@ -1,10 +1,9 @@
-/* eslint-disable no-underscore-dangle */
 import React from 'react';
 import a11y from 'react-a11y';
 import ReactDOM from 'react-dom';
 import { Router, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
-import configureStore from '../app/stores/configureStore';
+import store from '../app/stores/Store';
 
 import './styles/main.scss';
 
@@ -28,23 +27,16 @@ const hashLinkScroll = () => {
   }
 };
 
-global.window.onload = () => {
-  const appElement = global.document.getElementById('app');
-  const preloadedState = global.window.__PRELOADED_STATE__;
+const appElement = global.document.getElementById('app');
 
-  delete global.window.__PRELOADED_STATE__;
-
-  const store = configureStore(preloadedState);
-
-  ReactDOM.hydrate(
-    <Provider store={store}>
-      <Router
-        history={browserHistory}
-        onUpdate={hashLinkScroll}
-      >
-        {routes.default}
-      </Router>
-    </Provider>,
-    appElement,
-  );
-};
+ReactDOM.render(
+  <Provider store={store}>
+    <Router
+      history={browserHistory}
+      onUpdate={hashLinkScroll}
+    >
+      {routes.default}
+    </Router>
+  </Provider>,
+  appElement,
+);

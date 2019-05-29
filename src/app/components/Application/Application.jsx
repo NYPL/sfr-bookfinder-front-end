@@ -5,22 +5,15 @@ import { withRouter } from 'react-router';
 
 import Footer from '@nypl/dgx-react-footer';
 import appConfig from '../../../../appConfig';
+import Loading from './Loading';
 
-class Application extends React.Component {
-  constructor(props) {
-    super(props);
-    this.props = props;
-  }
-
-  render() {
-    return (
-      <div className="app-wrapper add-list-reset">
-        {React.cloneElement(this.props.children, this.props)}
-        <Footer />
-      </div>
-    );
-  }
-}
+const Application = props => (
+  <div className="app-wrapper add-list-reset">
+    <Loading />
+    {React.cloneElement(props.children, props)}
+    <Footer />
+  </div>
+);
 
 Application.propTypes = {
   match: PropTypes.objectOf(PropTypes.any),
