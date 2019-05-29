@@ -82,6 +82,7 @@ const SearchNavigation = ({
       options={['Relevance']}
       label="Sort by"
       labelClass=""
+      value="'Relevance'"
       disabled
     />
   );
@@ -100,8 +101,8 @@ const SearchNavigation = ({
   );
   const PreviousPage = totalPages > 1 ? (
     <a
-      onClick={e => navigateToPage(e, Number(searchQuery.page))}
-      onKeyPress={e => navigateToPage(e, Number(searchQuery.page))}
+      onClick={e => navigateToPage(e, Number(searchQuery.page || 0))}
+      onKeyPress={e => navigateToPage(e, Number(searchQuery.page || 0))}
       role="link"
       tabIndex={0}
       className="margin-x-2"
@@ -119,15 +120,15 @@ const SearchNavigation = ({
       options={pageList}
       label="Page"
       labelClass=""
-      value={Number(searchQuery.page) + 1}
+      value={Number(searchQuery.page || 0) + 1}
       onChange={onChangePage}
       onBlur={onChangePage}
     />
   );
   const NextPage = totalPages > 1 ? (
     <a
-      onClick={e => navigateToPage(e, Number(searchQuery.page) + 2)}
-      onKeyPress={e => navigateToPage(e, Number(searchQuery.page) + 2)}
+      onClick={e => navigateToPage(e, Number(searchQuery.page || 0) + 2)}
+      onKeyPress={e => navigateToPage(e, Number(searchQuery.page || 0) + 2)}
       role="link"
       tabIndex={0}
       className="margin-x-2"
