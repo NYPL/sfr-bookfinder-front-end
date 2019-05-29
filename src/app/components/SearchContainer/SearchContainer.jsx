@@ -8,6 +8,7 @@ import SearchForm from '../SearchForm/SearchForm';
 import SearchResults from '../SearchResults/SearchResults';
 import * as searchActions from '../../actions/SearchActions';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
+import { getQueryString } from '../../search/query';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
 /**
  * Container class providing the Redux action creators
@@ -77,7 +78,12 @@ class SearchContainer extends React.Component {
         <div className="grid-row">
           <div className="sfr-header-wrapper tablet:grid-col-12">
             <Breadcrumbs
-              links={[]}
+              links={[
+                {
+                  href: `/search?${getQueryString(searchQuery)}`,
+                  text: 'Search Results',
+                },
+              ]}
               pageType={pageType}
               onClickHandler={handleReset}
             />
