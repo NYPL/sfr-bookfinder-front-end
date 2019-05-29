@@ -63,12 +63,6 @@ class WorkDetail extends React.Component {
 
     const breadcrumbLinks = (searchQuery, workItem) => {
       const links = [];
-      if (searchQuery && searchQuery.query) {
-        links.push({
-          href: `/search?${getQueryString(searchQuery)}`,
-          text: 'Search Results',
-        });
-      }
       if (workItem) {
         links.push({
           href: `/work?workId=${workItem.uuid}`,
