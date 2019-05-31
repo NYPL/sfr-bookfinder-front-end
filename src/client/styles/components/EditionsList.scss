@@ -14,6 +14,17 @@
       border-right: 1px solid #5b616b;
       &.nypl-editions-table-downloads {
         padding: 0;
+        .ebooks-list-dropdown {
+          ul {
+            white-space: normal;
+          }
+        }
+        ul {
+          white-space: nowrap;
+          li {
+            display: inline-block;
+          }
+        }
       }
       &:first-child {
         width: 182px;
@@ -38,4 +49,9 @@
 }
 .usa-table--borderless th:first-child {
   padding-left: 20px;
+}
+.chunked {
+  max-width: 9rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
