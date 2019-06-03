@@ -39,7 +39,7 @@ const SearchResults = (props) => {
       <div className="grid-row sfr-results-container">
         <div className="grid-col-3 nypl-results-column">
           <Filters
-            results={props.results.data}
+            data={props.results.data}
             {...props}
           />
         </div>

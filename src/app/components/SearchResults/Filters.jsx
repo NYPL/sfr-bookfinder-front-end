@@ -1,17 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isArray as _isArray } from 'underscore';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
 import { getQueryString } from '../../search/query';
 
 const filtersLabels = { language: 'Language' };
 
 const Filters = ({
-  results, searchQuery, userQuery, router,
+  data, searchQuery, userQuery, router,
 }) => {
   const filtersArray = [];
 
   // add search filters
-  if (searchQuery && searchQuery.filters) {
+  if (searchQuery && searchQuery.filters && _isArray(searchQuery.filters)) {
     searchQuery.filters.forEach((filter) => {
       filtersArray.push({ field: filter.field, value: filter.value });
     });
@@ -50,7 +51,7 @@ const Filters = ({
     return !!filterFound;
   };
 
-  // join current results filters with filters from previous search
+  // join current data filters with filters from previous search
   const joinFacetsAndsearch = (facets, field) => {
     const missingFacets = [];
     filtersArray.forEach((previousFilter) => {
@@ -82,17 +83,17 @@ const Filters = ({
     })
     .slice(0, 10);
 
-  if (results && results.facets && results.hits && results.hits.hits && results.hits.hits.length > 0) {
+  if (data && data.facets && data.hits && data.hits.hits && data.hits.hits.length > 0) {
     return (
       <form className="filters usa-form">
-        <div className="filters-header">Filter Results</div>
+        <div className="filters-header">Filter data</div>
         {Object.keys(filtersLabels).map(field => (
           <fieldset
             key={field}
             className="filters-box usa-fieldset"
           >
-            {results.facets[field] && <legend className="filters-box-header">{filtersLabels[field]}</legend>}
-            {prepareFilters(results.facets[field], field).map(facet => (
+            {data.facets[field] && <legend className="filters-box-header">{filtersLabels[field]}</legend>}
+            {prepareFilters(data.facets[field], field).map(facet => (
               <div
                 className="usa-checkbox"
                 key={`facet-${field}-${facet.value}`}
@@ -123,14 +124,14 @@ const Filters = ({
 };
 
 Filters.propTypes = {
-  results: PropTypes.objectOf(PropTypes.any),
+  data: PropTypes.objectOf(PropTypes.any),
   searchQuery: searchQueryPropTypes,
   userQuery: PropTypes.func,
   router: PropTypes.objectOf(PropTypes.any),
 };
 
 Filters.defaultProps = {
-  results: {},
+  data: {},
   searchQuery: initialSearchQuery,
   userQuery: () => {},
   router: {},
