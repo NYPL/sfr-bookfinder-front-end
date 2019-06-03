@@ -15,7 +15,7 @@ describe('Filters', () => {
   describe('No results behavior.', () => {
     before(() => {
       const noResults = {};
-      component = shallow(<Filters results={noResults} />);
+      component = shallow(<Filters data={noResults} />);
     });
 
     it('should return null when results object given is empty.', () => {
@@ -25,7 +25,7 @@ describe('Filters', () => {
 
   describe('Filters behavior.', () => {
     before(() => {
-      component = shallow(<Filters results={results} />);
+      component = shallow(<Filters data={results} />);
     });
 
     it('should display a list of fields (currently 1)', () => {
