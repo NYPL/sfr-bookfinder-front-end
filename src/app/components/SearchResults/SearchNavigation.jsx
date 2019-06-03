@@ -114,7 +114,7 @@ const SearchNavigation = ({
   );
   const PageSelector = (
     <Select
-      id="page-select"
+      id={isFooter ? 'page-select-footer' : 'page-select-header'}
       selectClass="sfr-select-input usa-select"
       className="nypl-search-input"
       options={pageList}

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ResultsMetadata from './ResultsMetadata';
 import ResultsList from './ResultsList';
 import SearchNavigation from './SearchNavigation';
-
+import Filters from './Filters';
 /**
  * Wrapper component for results lists which can contain a number of components
  * including search results, pagination, sorting/filtering components, etc.
@@ -37,7 +37,12 @@ const SearchResults = (props) => {
         </div>
       </div>
       <div className="grid-row sfr-results-container">
-        <div className="grid-col-3 nypl-results-column" />
+        <div className="grid-col-3 nypl-results-column">
+          <Filters
+            results={props.results.data}
+            {...props}
+          />
+        </div>
         <div className="grid-col-9 nypl-results-main">
           <ResultsList
             results={hits}

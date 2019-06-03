@@ -10,7 +10,13 @@ export const Actions = {
   SET_QUERY: 'SET_QUERY',
   RESET_SEARCH: 'RESET_SEARCH',
   LOADING: 'LOADING',
+  ERRORMSG: 'ERRORMSG',
 };
+
+export const errorState = errorMsg => ({
+  type: Actions.ERRORMSG,
+  errorMsg,
+});
 
 export const loadingState = loading => ({
   type: Actions.LOADING,
@@ -104,6 +110,7 @@ export const serverFetchWork = workId => axios
   });
 
 export const loading = isLoading => dispatch => dispatch(loadingState(isLoading));
+export const error = errorMsg => dispatch => dispatch(errorState(errorMsg));
 
 export default {
   searchPost,
@@ -113,4 +120,5 @@ export default {
   userQuery,
   resetSearch,
   loading,
+  error,
 };

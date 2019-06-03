@@ -2,6 +2,15 @@ import { combineReducers } from 'redux';
 import { Actions } from '../actions/SearchActions';
 import initialState from './InitialState';
 
+export const errorMsg = (state = null, action) => {
+  switch (action.type) {
+    case Actions.ERRORMSG:
+      return action.errorMsg;
+    default:
+      return state;
+  }
+};
+
 export const loading = (state = null, action) => {
   switch (action.type) {
     case Actions.LOADING:
@@ -49,6 +58,7 @@ const appReducer = combineReducers({
   sort,
   workDetail,
   loading,
+  errorMsg,
 });
 
 export const rootReducer = (state, action) => {
