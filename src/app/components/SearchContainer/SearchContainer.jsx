@@ -46,9 +46,13 @@ class SearchContainer extends React.Component {
     } = this.props;
     const selectedQuery = query && query.query ? query.query : searchQuery.query;
     const selectedField = query && query.field ? query.field : searchQuery.field;
+    let newQuery = Object.assign({}, initialSearchQuery, query, { query: selectedQuery, field: selectedField });
+    if (query && query.filters) {
+      newQuery = Object.assign({}, newQuery, { filters: JSON.parse(query.filters) });
+    }
     if (selectedQuery) {
-      dispatch(searchActions.userQuery(Object.assign({}, initialSearchQuery, query, { query: selectedQuery, field: selectedField })));
-      dispatch(searchActions.searchPost(Object.assign({}, initialSearchQuery, query, { query: selectedQuery, field: selectedField })));
+      dispatch(searchActions.userQuery(newQuery));
+      dispatch(searchActions.searchPost(newQuery));
     }
   }
 

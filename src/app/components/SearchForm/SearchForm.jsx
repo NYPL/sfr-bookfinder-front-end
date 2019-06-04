@@ -13,7 +13,7 @@ class SearchForm extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = props;
+    this.state = { ...props };
 
     this.onFieldChange = this.onFieldChange.bind(this);
     this.onQueryChange = this.onQueryChange.bind(this);

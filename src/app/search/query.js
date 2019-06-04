@@ -39,11 +39,24 @@ export const buildQueryBody = (query) => {
     queryField = query.field.join('|');
   }
   const parsedQuery = parseQuery(query.query);
-  return Object.assign({}, initialSearchQuery, query, { query: parsedQuery, field: queryField });
+  let ret = Object.assign({}, initialSearchQuery, query, { query: parsedQuery, field: queryField });
+  if (query.filters && typeof query.filters === 'string') {
+    const filters = JSON.parse(query.filters);
+    ret = Object.assign({}, ret, { filters });
+  }
+  return ret;
 };
 
 export const getQueryString = query => Object.keys(query)
-  .map(key => [key, query[key]].map(encodeURIComponent).join('='))
+  .map(key => [key, query[key]]
+    .map((o) => {
+      let ret = o;
+      if (typeof o === 'object') {
+        ret = JSON.stringify(o);
+      }
+      return encodeURIComponent(ret);
+    })
+    .join('='))
   .join('&');
 
 export default {
