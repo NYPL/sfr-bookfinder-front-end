@@ -31,7 +31,7 @@ const Filters = ({
     submit(newQuery);
   };
 
-  // on ckech of filter, add it or remove it from list and do the search
+  // on check of filter, add it or remove it from list and do the search
   const onChangeCheckbox = (e, field, value) => {
     const matchIndex = filtersArray.findIndex(filter => filter.field === field && filter.value === value);
     if (e.target.checked && matchIndex === -1) {
