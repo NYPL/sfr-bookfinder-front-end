@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isEmpty as _isEmpty } from 'underscore';
 import { titleCase } from 'change-case';
+import { isEmpty } from '../../util/Util';
 
 const Select = ({
   className, id, labelClass, label, selectClass, value, onChange, onBlur, options, ariaLabel, disabled,
@@ -25,7 +25,7 @@ const Select = ({
       aria-label={ariaLabel}
       disabled={disabled}
     >
-      {!_isEmpty(options) ? (
+      {!isEmpty(options) ? (
         options.map((opt, key) => (
           <option
             key={key.toString()}

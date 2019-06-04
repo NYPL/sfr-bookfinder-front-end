@@ -38,8 +38,18 @@ describe('DefinitionList', () => {
   });
 
   it('should have a list of Subjects', () => {
-    const subjects = component.find('ul');
-    expect(subjects.getElements()[2].props.children).to.have.length(138);
+    const subjects = component.find('.definitions-subjects');
+    expect(subjects.find('Link')).to.have.length(92);
+  });
+
+  it('the list of subjects should be ordered alphabetically', () => {
+    const subjects = component.find('.definitions-subjects');
+    expect(
+      subjects
+        .find('Link')
+        .first()
+        .getElements()[0].props.children,
+    ).to.equal('Avalokiteśvara, (Buddhist deity)');
   });
 
   describe('AuthorsList', () => {

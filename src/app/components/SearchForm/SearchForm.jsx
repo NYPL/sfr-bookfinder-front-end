@@ -2,12 +2,12 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isEqual as _isEqual } from 'underscore';
 import Select from '../Form/Select';
 import SearchButton from '../Button/SearchButton';
 import TextInput from '../Form/TextInput';
 import { getQueryString } from '../../search/query';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
+import { deepEqual } from '../../util/Util';
 
 class SearchForm extends React.Component {
   constructor(props) {
@@ -32,7 +32,7 @@ class SearchForm extends React.Component {
    * @param {object} nextProps
    */
   componentWillReceiveProps(nextProps) {
-    if (!_isEqual(nextProps.searchQuery, this.props.searchQuery)) {
+    if (!deepEqual(nextProps.searchQuery, this.props.searchQuery)) {
       this.setState({ searchQuery: nextProps.searchQuery });
     }
   }

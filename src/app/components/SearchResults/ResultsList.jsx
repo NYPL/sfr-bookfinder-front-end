@@ -1,9 +1,9 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isEmpty as _isEmpty } from 'underscore';
 import ResultsListItem from './ResultsListItem';
 import EmptySearchSvg from '../Svgs/EmptySearchSvg';
+import { isEmpty } from '../../util/Util';
 
 /**
  * ResultsList presents search results as a "grouped" list of books
@@ -20,7 +20,7 @@ class ResultsList extends React.Component {
   }
 
   render() {
-    if (_isEmpty(this.props.results)) {
+    if (isEmpty(this.props.results)) {
       return (
         <div className="grid-row margin-3">
           <EmptySearchSvg className="grid-col-1" />
