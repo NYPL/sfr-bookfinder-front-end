@@ -1,3 +1,7 @@
+// polyfill for Object.entries
+const entriesPolyFill = obj => Object.keys(obj).map(key => [key, obj[key]]);
+if (!Object.entries) Object.entries = entriesPolyFill;
+
 // return unique elements of array
 export const unique = (array, propertyName) => array //
   .filter(
