@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { isEmpty as _isEmpty, isEqual as _isEqual } from 'underscore';
 import { DefinitionList } from './DefinitionList';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import * as searchActions from '../../actions/SearchActions';
@@ -11,6 +10,7 @@ import WorkHeader from './WorkHeader';
 import EditionsList from '../List/EditionsList';
 import SearchForm from '../SearchForm/SearchForm';
 import { getQueryString } from '../../search/query';
+import { deepEqual, isEmpty } from '../../util/Util';
 
 class WorkDetail extends React.Component {
   constructor(props) {
@@ -43,7 +43,7 @@ class WorkDetail extends React.Component {
 
   render() {
     const { work } = this.props;
-    if (!work || _isEmpty(work) || _isEqual(work, WorkDetail.defaultProps.work)) {
+    if (!work || isEmpty(work) || deepEqual(work, WorkDetail.defaultProps.work)) {
       return null;
     }
     const { history } = this.context;
@@ -109,9 +109,11 @@ class WorkDetail extends React.Component {
                 dispatch={this.props.dispatch}
                 context={this.context}
               />
-              <h3 className="all-editions-tag bold">
-                <a id="all-editions">All Editions</a>
-              </h3>
+              {work.instances && (
+                <h3 className="all-editions-tag bold">
+                  <a id="all-editions">All Editions</a>
+                </h3>
+              )}
               <EditionsList
                 eReaderUrl={this.props.eReaderUrl}
                 work={work}

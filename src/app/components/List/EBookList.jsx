@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { flatten as _flatten, uniq as _uniq } from 'underscore';
 import Dropdown from 'react-dropdown-aria';
+import { flattenDeep, unique } from '../../util/Util';
 
 /**
  * Create a link defaulting to an ebook "download" unless
@@ -55,11 +55,12 @@ const arrowRenderer = (open) => {
 };
 
 // gets all links from all ebooks, classified on download true or false
-const linksArray = ({ ebooks, download }) => _uniq(
-  _flatten(ebooks.map(item => item.links)) //
+const linksArray = ({ ebooks, download }) => unique(
+  flattenDeep(ebooks.map(item => item.links)) //
     .filter(link => link.download === download), //
-  (a, b) => a.url === b.url,
+  'url',
 );
+// const linksArray = ({ ebooks, download }) => flattenDeep(ebooks.map(item => item.links)).filter(link => link.download === download);
 
 // render the dropdown and/or the link to the ebook, classifed by download true or false
 const LinksSelector = ({ ebooks, download, eReaderUrl }) => {

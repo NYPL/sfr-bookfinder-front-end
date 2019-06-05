@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
-import { isEmpty as _isEmpty, isEqual as _isEqual } from 'underscore';
 import SearchForm from '../SearchForm/SearchForm';
 import SearchResults from '../SearchResults/SearchResults';
 import * as searchActions from '../../actions/SearchActions';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import { getQueryString } from '../../search/query';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
+import { deepEqual, isEmpty } from '../../util/Util';
+
 /**
  * Container class providing the Redux action creators
  * to its child components. State data is passed along
@@ -32,7 +33,7 @@ class SearchContainer extends React.Component {
 
   componentDidUpdate(prevProps) {
     const { location } = this.props;
-    if (!_isEqual(location.query, prevProps.location.query)) {
+    if (!deepEqual(location.query, prevProps.location.query)) {
       global.window.scrollTo(0, 0);
       this.loadSearch();
     }
@@ -60,7 +61,7 @@ class SearchContainer extends React.Component {
     const { searchQuery, searchResults, eReaderUrl } = this.props;
     const { router, history } = this.context;
 
-    const pageType = _isEmpty(searchResults) ? 'home' : 'results';
+    const pageType = isEmpty(searchResults) ? 'home' : 'results';
     /**
      * onClick handler for resetting state for the request back to the home page
      * to return the user to a new search.
@@ -97,7 +98,7 @@ class SearchContainer extends React.Component {
             aria-label="ResearchNow"
             className="grid-col-12"
           >
-            {(!searchResults || _isEmpty(searchResults)) && (
+            {(!searchResults || isEmpty(searchResults)) && (
               <div className="nypl-row sfr-header-wrapper grid-col-10">
                 <h1 className="nypl-heading">ResearchNow</h1>
                 <div id="tagline">Search the world&apos;s research collections and more for digital books you can use right now.</div>

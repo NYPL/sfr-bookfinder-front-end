@@ -1,4 +1,3 @@
-import { isArray as _isArray } from 'underscore';
 import { initialSearchQuery } from '../stores/InitialState';
 
 export const getRequestParams = (query = {}) => {
@@ -35,7 +34,7 @@ export const buildQueryBody = (query) => {
   }
 
   let queryField = query.field || initialSearchQuery.field;
-  if (_isArray(query.field)) {
+  if (Array.isArray(query.field)) {
     queryField = query.field.join('|');
   }
   const parsedQuery = parseQuery(query.query);

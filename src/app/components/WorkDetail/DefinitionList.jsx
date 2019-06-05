@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Html5Entities } from 'html-entities';
 import { Link } from 'react-router';
-import {
-  isEmpty as _isEmpty, isArray as _isArray, flatten as _flatten, uniq as _uniq,
-} from 'underscore';
 import AuthorsList from '../List/AuthorsList';
 import { detailDefinitionLabels } from '../../constants/labels';
+import {
+  unique, flattenDeep, isEmpty, uniqueAndSortByFrequency,
+} from '../../util/Util';
 
 const htmlEntities = new Html5Entities();
 
@@ -16,8 +16,8 @@ const elements = Object.keys(detailDefinitionLabels);
 // extract unique language array from instances of a work item
 const addLanguagestoWorkItem = work => work
   && work.instances
-  && _uniq(
-    _flatten(
+  && uniqueAndSortByFrequency(
+    flattenDeep(
       work.instances.map(
         instance => instance.language && instance.language.map(language => language.language), //
       ),
@@ -53,7 +53,7 @@ export const DefinitionList = ({ work }) => {
    * @return {string|null}
    */
   const parseEntries = (type, entries, workObj) => {
-    const list = [...entries];
+    const list = entries ? [...entries] : [];
     switch (type) {
       case 'language':
         return (
@@ -68,35 +68,41 @@ export const DefinitionList = ({ work }) => {
 
       case 'subjects':
         return (
-          <ul>
-            {list.map((subject, i) => (
-              <li key={`subject${i.toString()}`}>
-                <Link
-                  to={{
-                    pathname: '/search',
-                    query: { query: `"${subject.subject}"`, field: 'subject' },
-                  }}
-                >
-                  {htmlEntities.decode(subject.subject)}
-                </Link>
-              </li>
-            ))}
+          <ul className="definitions-subjects">
+            {unique(list, 'subject')
+              .sort((a, b) => (a.subject < b.subject ? -1 : 1))
+              .map((subject, i) => (
+                <li key={`subject${i.toString()}`}>
+                  <Link
+                    to={{
+                      pathname: '/search',
+                      query: { query: `"${subject.subject}"`, field: 'subject' },
+                    }}
+                  >
+                    {htmlEntities.decode(subject.subject)}
+                  </Link>
+                </li>
+              ))}
           </ul>
         );
       case 'identifiers':
         return (
           <ul className="sfr-inline-list">
-            {list.map((identifier, i) => (
-              <li key={`identifiers${i.toString()}`}>{`${identifier.id_type}:${identifier.identifier}: `}</li>
-            ))}
+            {list
+              .sort((a, b) => (a.id_type < b.id_type ? -1 : 1))
+              .map((identifier, i) => (
+                <li key={`identifiers${i.toString()}`}>{`${identifier.id_type}: ${identifier.identifier}; `}</li>
+              ))}
           </ul>
         );
       case 'measurements':
         return (
           <ul className="sfr-inline-list">
-            {list.map((measurement, i) => (
-              <li key={`measurements${i.toString()}`}>{`${measurement.quantity}:${measurement.value}; `}</li>
-            ))}
+            {list
+              .sort((a, b) => (a.value < b.value ? 1 : -1))
+              .map((measurement, i) => (
+                <li key={`measurements${i.toString()}`}>{`${measurement.quantity}: ${measurement.value}; `}</li>
+              ))}
           </ul>
         );
       case 'series':
@@ -107,7 +113,7 @@ export const DefinitionList = ({ work }) => {
           </span>
         );
       default:
-        return _isArray(entries) ? entries.map(entry => htmlEntities.decode(entry)).join(', ') : htmlEntities.decode(entries);
+        return Array.isArray(entries) ? entries.map(entry => htmlEntities.decode(entry)).join(', ') : htmlEntities.decode(entries);
     }
   };
 
@@ -118,9 +124,15 @@ export const DefinitionList = ({ work }) => {
    * @return {string}
    */
   const getDefinitions = (workObj) => {
-    const defsData = workDetailsObject({ ...workObj, ...{ language: addLanguagestoWorkItem(workObj) } });
+    let defsData;
+    const languageList = addLanguagestoWorkItem(workObj);
+    if (languageList) {
+      defsData = workDetailsObject({ ...workObj, ...{ language: languageList } });
+    } else {
+      defsData = workDetailsObject({ ...workObj });
+    }
     defsData.sort((a, b) => elements.indexOf(a[0]) - elements.indexOf(b[0]));
-    if (!defsData || _isEmpty(defsData)) {
+    if (!defsData || isEmpty(defsData)) {
       return null;
     }
 
