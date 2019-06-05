@@ -51,6 +51,9 @@ class SearchContainer extends React.Component {
     if (query && query.filters) {
       newQuery = Object.assign({}, newQuery, { filters: JSON.parse(query.filters) });
     }
+    if (query && query.sort) {
+      newQuery = Object.assign({}, newQuery, { sort: JSON.parse(query.sort) });
+    }
     if (selectedQuery) {
       dispatch(searchActions.userQuery(newQuery));
       dispatch(searchActions.searchPost(newQuery));

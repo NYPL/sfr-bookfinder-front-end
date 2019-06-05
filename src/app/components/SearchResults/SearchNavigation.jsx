@@ -6,6 +6,11 @@ import { getQueryString } from '../../search/query';
 import SearchHeader from './SearchHeader';
 import SearchFooter from './SearchFooter';
 
+const sortMap = {};
+sortMap.Relevance = [];
+sortMap['Title A-Z'] = [{ field: 'title', dir: 'asc' }];
+sortMap['Title Z-A'] = [{ field: 'title', dir: 'des' }];
+
 const SearchNavigation = ({
   metadata, searchQuery, userQuery, router, isFooter,
 }) => {
@@ -61,6 +66,24 @@ const SearchNavigation = ({
       submit(newQuery);
     }
   };
+
+  const onChangeSort = (e) => {
+    if (sortMap[e.target.value]) {
+      const newQuery = Object.assign({}, searchQuery, { sort: sortMap[e.target.value] });
+      userQuery(newQuery);
+      submit(newQuery);
+    }
+  };
+  const getValueFromSortObject = (sortObj = {}) => {
+    const ret = Object.keys(sortMap).find(
+      sortMapping => sortMap[sortMapping]
+        && sortMap[sortMapping][0]
+        && sortMap[sortMapping][0].field === sortObj.field
+        && sortMap[sortMapping][0].dir === sortObj.dir,
+    );
+    return ret;
+  };
+
   const ItemsPerPage = (
     <Select
       id="items-by-page"
@@ -79,11 +102,12 @@ const SearchNavigation = ({
       id="sort-by"
       selectClass="sfr-select-input usa-select"
       className="nypl-search-input"
-      options={['Relevance']}
+      options={['Relevance', 'Title A-Z', 'Title Z-A']}
       label="Sort by"
       labelClass=""
-      value="'Relevance'"
-      disabled
+      value={getValueFromSortObject(searchQuery.sort)}
+      onChange={onChangeSort}
+      onBlur={onChangeSort}
     />
   );
   const FirstPage = totalPages > 1 ? (

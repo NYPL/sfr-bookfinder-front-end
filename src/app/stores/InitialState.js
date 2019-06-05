@@ -9,6 +9,7 @@ export const initialSearchQuery = {
   page: 0,
   total: 0,
   filters: [],
+  sort: [],
 };
 
 export const searchQueryPropTypes = PropTypes.shape({
@@ -18,15 +19,14 @@ export const searchQueryPropTypes = PropTypes.shape({
   showField: PropTypes.string,
   per_page: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   page: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  total: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  filters: PropTypes.arrayOf(PropTypes.any),
+  sort: PropTypes.arrayOf(PropTypes.any),
 });
 
 const initialState = {
   searchResults: {},
   searchQuery: initialSearchQuery,
-  sort: {
-    sortFilter: 'title',
-    sortOrder: 'asc',
-  },
   workDetail: { instances: [] },
 };
 
