@@ -8,8 +8,8 @@ import SearchFooter from './SearchFooter';
 
 const sortMap = {};
 sortMap.Relevance = [];
-sortMap['Title A-Z'] = [{ field: 'title', dir: 'asc' }];
-sortMap['Title Z-A'] = [{ field: 'title', dir: 'des' }];
+sortMap['Title A-Z'] = [{ field: 'title', dir: 'ASC' }];
+sortMap['Title Z-A'] = [{ field: 'title', dir: 'DESC' }];
 
 const SearchNavigation = ({
   metadata, searchQuery, userQuery, router, isFooter,
@@ -75,12 +75,13 @@ const SearchNavigation = ({
     }
   };
   const getValueFromSortObject = (sortObj = {}) => {
-    const ret = Object.keys(sortMap).find(
-      sortMapping => sortMap[sortMapping]
+    const ret = Object.keys(sortMap).find(sortMapping => (
+      sortMap[sortMapping]
+        && sortObj[0]
         && sortMap[sortMapping][0]
-        && sortMap[sortMapping][0].field === sortObj.field
-        && sortMap[sortMapping][0].dir === sortObj.dir,
-    );
+        && sortMap[sortMapping][0].field === sortObj[0].field
+        && sortMap[sortMapping][0].dir === sortObj[0].dir
+    ));
     return ret;
   };
 
