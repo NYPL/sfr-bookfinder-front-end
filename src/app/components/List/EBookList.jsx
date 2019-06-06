@@ -90,8 +90,8 @@ const LinksSelector = ({ ebooks, download, eReaderUrl }) => {
 
 const EBookList = ({ ebooks, eReaderUrl }) => (
   <ul className="nypl-ebooks-list">
-    <li>{LinksSelector({ ebooks, download: true, eReaderUrl })}</li>
     <li>{LinksSelector({ ebooks, download: false, eReaderUrl })}</li>
+    <li>{LinksSelector({ ebooks, download: true, eReaderUrl })}</li>
   </ul>
 );
 
