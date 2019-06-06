@@ -5,17 +5,13 @@ import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialSt
 import { getQueryString } from '../../search/query';
 import SearchHeader from './SearchHeader';
 import SearchFooter from './SearchFooter';
-
-const sortMap = {};
-sortMap.Relevance = [];
-sortMap['Title A-Z'] = [{ field: 'title', dir: 'ASC' }];
-sortMap['Title Z-A'] = [{ field: 'title', dir: 'DESC' }];
+import { sortMap, numbersPerPage } from '../../constants/sorts';
 
 const SearchNavigation = ({
   metadata, searchQuery, userQuery, router, isFooter,
 }) => {
   // page for query is -1 page shown
-  const totalPages = Math.floor((Number(metadata.total) - 1) / Number(searchQuery.per_page || 10)) + 1 || 1;
+  const totalPages = Math.floor((Number(metadata.total || 0) - 1) / Number(searchQuery.per_page || 10)) + 1 || 1;
   // return list of pages till total pages
   const pageList = [];
   for (let i = 1; i <= totalPages; i += 1) {
@@ -32,12 +28,12 @@ const SearchNavigation = ({
   const goToPage = (pageNumber) => {
     const newPage = Number(pageNumber) - 1;
     const perPage = searchQuery.per_page;
-    const newQuery = Object.assign({}, searchQuery, { page: newPage, per_page: perPage, total: metadata.total });
+    const newQuery = Object.assign({}, searchQuery, { page: newPage, per_page: perPage, total: metadata.total || 0 });
     userQuery(newQuery);
     submit(newQuery);
   };
 
-  // click and navigate to any page
+  // click and navigate to any page number
   const navigateToPage = (e, pageNumber) => {
     e.preventDefault();
     e.stopPropagation();
@@ -61,41 +57,42 @@ const SearchNavigation = ({
     const newPage = 0;
     const newPerPage = e.target.value;
     if (newPerPage !== searchQuery.per_page) {
-      const newQuery = Object.assign({}, searchQuery, { page: newPage, per_page: newPerPage, total: metadata.total });
+      const newQuery = Object.assign({}, searchQuery, { page: newPage, per_page: newPerPage, total: metadata.total || 0 });
       userQuery(newQuery);
       submit(newQuery);
     }
   };
 
+  // click and navigate with different sort
   const onChangeSort = (e) => {
     if (sortMap[e.target.value]) {
-      const newQuery = Object.assign({}, searchQuery, { sort: sortMap[e.target.value] });
+      const newQuery = Object.assign({}, searchQuery, { sort: sortMap[e.target.value], page: 0 });
       userQuery(newQuery);
       submit(newQuery);
     }
   };
-  const getValueFromSortObject = (sortObj = {}) => {
-    const ret = Object.keys(sortMap).find(sortMapping => (
-      sortMap[sortMapping]
+
+  // used to get the proper value in sort select from searchQuery
+  const getValueFromSortObject = (sortObj = {}) => Object.keys(sortMap).find(
+    sortMapping => sortMap[sortMapping]
         && sortObj[0]
         && sortMap[sortMapping][0]
         && sortMap[sortMapping][0].field === sortObj[0].field
-        && sortMap[sortMapping][0].dir === sortObj[0].dir
-    ));
-    return ret;
-  };
+        && sortMap[sortMapping][0].dir === sortObj[0].dir,
+  );
 
   const ItemsPerPage = (
     <Select
       id="items-by-page"
       selectClass="sfr-select-input usa-select"
       className="nypl-search-input"
-      options={[10, 20, 50, 100]}
+      options={numbersPerPage}
       label="Items per page"
       labelClass=""
       value={searchQuery.per_page}
       onChange={onChangePerPage}
       onBlur={onChangePerPage}
+      dataTest="SearchNavigation-itemsPerPage"
     />
   );
   const SortBy = (
@@ -103,12 +100,13 @@ const SearchNavigation = ({
       id="sort-by"
       selectClass="sfr-select-input usa-select"
       className="nypl-search-input"
-      options={['Relevance', 'Title A-Z', 'Title Z-A']}
+      options={Object.keys(sortMap)}
       label="Sort by"
       labelClass=""
       value={getValueFromSortObject(searchQuery.sort)}
       onChange={onChangeSort}
       onBlur={onChangeSort}
+      dataTest="SearchNavigation-sortBy"
     />
   );
   const FirstPage = totalPages > 1 ? (
@@ -148,6 +146,7 @@ const SearchNavigation = ({
       value={Number(searchQuery.page || 0) + 1}
       onChange={onChangePage}
       onBlur={onChangePage}
+      dataTest={`SearchNavigation-${isFooter ? 'SearchFooter' : 'SearchHeader'}-pageSelector`}
     />
   );
   const NextPage = totalPages > 1 ? (
