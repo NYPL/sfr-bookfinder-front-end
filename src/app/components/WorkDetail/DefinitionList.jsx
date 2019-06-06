@@ -70,7 +70,7 @@ export const DefinitionList = ({ work }) => {
         return (
           <ul className="definitions-subjects">
             {unique(list, 'subject')
-              .sort((a, b) => (a.subject < b.subject ? -1 : 1))
+              .sort((a, b) => (a.subject && b.subject && a.subject.toLowerCase() < b.subject.toLowerCase() ? -1 : 1))
               .map((subject, i) => (
                 <li key={`subject${i.toString()}`}>
                   <Link
