@@ -4,7 +4,7 @@ import { titleCase } from 'change-case';
 import { isEmpty } from '../../util/Util';
 
 const Select = ({
-  className, id, labelClass, label, selectClass, value, onChange, onBlur, options, ariaLabel, disabled, dataTest,
+  className, id, labelClass, label, selectClass, value, onChange, onBlur, options, ariaLabel, disabled,
 }) => (
   <div className={className}>
     {label && (
@@ -24,7 +24,6 @@ const Select = ({
       onBlur={onBlur}
       aria-label={ariaLabel}
       disabled={disabled}
-      data-test={dataTest}
     >
       {!isEmpty(options) ? (
         options.map((opt, key) => (
@@ -59,7 +58,6 @@ Select.propTypes = {
   onBlur: PropTypes.func,
   ariaLabel: PropTypes.string,
   disabled: PropTypes.bool,
-  dataTest: PropTypes.string,
 };
 
 Select.defaultProps = {
@@ -74,7 +72,6 @@ Select.defaultProps = {
   onBlur: () => {},
   ariaLabel: '',
   disabled: false,
-  dataTest: '',
 };
 
 export default Select;

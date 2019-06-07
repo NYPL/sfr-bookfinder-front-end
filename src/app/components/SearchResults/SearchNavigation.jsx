@@ -92,7 +92,6 @@ const SearchNavigation = ({
       value={searchQuery.per_page}
       onChange={onChangePerPage}
       onBlur={onChangePerPage}
-      dataTest="SearchNavigation-itemsPerPage"
     />
   );
   const SortBy = (
@@ -106,7 +105,6 @@ const SearchNavigation = ({
       value={getValueFromSortObject(searchQuery.sort)}
       onChange={onChangeSort}
       onBlur={onChangeSort}
-      dataTest="SearchNavigation-sortBy"
     />
   );
   const FirstPage = totalPages > 1 ? (
@@ -146,7 +144,6 @@ const SearchNavigation = ({
       value={Number(searchQuery.page || 0) + 1}
       onChange={onChangePage}
       onBlur={onChangePage}
-      dataTest={`SearchNavigation-${isFooter ? 'SearchFooter' : 'SearchHeader'}-pageSelector`}
     />
   );
   const NextPage = totalPages > 1 ? (

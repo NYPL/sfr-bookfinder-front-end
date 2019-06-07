@@ -72,11 +72,9 @@ describe('Search Navigation', () => {
       ).to.equal('Last');
     });
     it('should contain a select with list of numbers per page', () => {
-      expect(component.find('[data-test="SearchNavigation-itemsPerPage"]').find('option')).to.have.length(4);
+      expect(component.find('#items-by-page').find('option')).to.have.length(4);
     });
-    it('should contain a select with list of numbers per page', () => {
-      expect(component.find('[data-test="SearchNavigation-itemsPerPage"]').children()).to.have.length(4);
-    });
+
     it('should contain a select with list of numbers per page equal to 10, 20, 50, 100', () => {
       expect(
         component
@@ -86,10 +84,10 @@ describe('Search Navigation', () => {
       ).to.eql(numbersPerPage); // eql used for arrays equality
     });
     it('should contain a select with list of pages', () => {
-      expect(component.find('[data-test="SearchNavigation-SearchHeader-pageSelector"]').children()).to.have.length(219);
+      expect(component.find('#page-select-header').find('option')).to.have.length(219);
     });
     it('should contain a select with sort selections', () => {
-      expect(component.find('[data-test="SearchNavigation-sortBy"]').children()).to.have.length(3);
+      expect(component.find('#sort-by').find('option')).to.have.length(3);
     });
     it('should contain a select with sort selections equal to the sortMap', () => {
       expect(
@@ -97,7 +95,7 @@ describe('Search Navigation', () => {
           .find('Select')
           .at(1)
           .props().options,
-      ).to.eql(Object.keys(sortMap)); // eql used for arrays equality
+      ).to.eql(Object.keys(sortMap).map(sortOption => ({ value: sortOption, label: sortOption }))); // eql used for arrays equality
     });
   });
 
@@ -150,13 +148,13 @@ describe('Search Navigation', () => {
       ).to.equal('Last');
     });
     it('should not contain a select with list of numbers per page', () => {
-      expect(component.find('[data-test="SearchNavigation-itemsPerPage"]')).to.have.length(0);
+      expect(component.find('#items-by-page')).to.have.length(0);
     });
     it('should contain a select with list of pages', () => {
-      expect(component.find('[data-test="SearchNavigation-SearchFooter-pageSelector"]').children()).to.have.length(219);
+      expect(component.find('#page-select-footer').find('option')).to.have.length(219);
     });
     it('should not contain a select with sort selections', () => {
-      expect(component.find('[data-test="SearchNavigation-sortBy"]')).to.have.length(0);
+      expect(component.find('#sort-by')).to.have.length(0);
     });
   });
 });
