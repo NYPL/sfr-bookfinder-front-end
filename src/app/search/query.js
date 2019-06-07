@@ -43,6 +43,10 @@ export const buildQueryBody = (query) => {
     const filters = JSON.parse(query.filters);
     ret = Object.assign({}, ret, { filters });
   }
+  if (query.sort && typeof query.sort === 'string') {
+    const sort = JSON.parse(query.sort);
+    ret = Object.assign({}, ret, { sort });
+  }
   return ret;
 };
 
