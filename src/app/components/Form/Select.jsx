@@ -17,7 +17,6 @@ const Select = ({
     )}
     <select
       className={selectClass}
-      name="options"
       id={id}
       value={value}
       onChange={onChange}

@@ -9,11 +9,14 @@ const Filters = ({
   data, searchQuery, userQuery, router,
 }) => {
   const filtersArray = [];
-
+  let yearsFilter = {};
   // add search filters
   if (searchQuery && searchQuery.filters && Array.isArray(searchQuery.filters)) {
     searchQuery.filters.forEach((filter) => {
       filtersArray.push({ field: filter.field, value: filter.value });
+      if (filter.field === 'years') {
+        yearsFilter = filter;
+      }
     });
   }
 
@@ -82,38 +85,60 @@ const Filters = ({
     })
     .slice(0, 10);
 
+  // beginning to prepare for not-js
+  const onSubmit = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (e.target.elements && (e.target.elements['filters.years.start'] || e.target.elements['filters.years.end'])) {
+      const currentYearsFilter = {
+        field: 'years',
+        value: { start: e.target.elements['filters.years.start'].value, end: e.target.elements['filters.years.end'].value },
+      };
+      const matchIndex = filtersArray.findIndex(filter => filter.field === 'years');
+      if (matchIndex === -1) {
+        filtersArray.push(currentYearsFilter);
+      } else if (matchIndex > -1) {
+        filtersArray[matchIndex] = currentYearsFilter;
+      }
+    }
+    doSearchWithFilters(filtersArray);
+  };
+
   const renderYearsFilter = () => (
     <div className="grid-container padding-0">
       <div className="grid-row">
         <label
           className="usa-label tablet:grid-col padding-right-4"
-          htmlFor="filters-years-start"
+          htmlFor="filters.years.start"
         >
           Start
           <input
             className="usa-input"
-            id="filters-years-start"
-            name="filters-years-start"
+            id="filters.years.start"
+            name="filters.years.start"
             type="number"
+            defaultValue={yearsFilter && yearsFilter.value && yearsFilter.value.start}
           />
         </label>
         <label
           className="usa-label tablet:grid-col padding-right-4"
-          htmlFor="filters-years-end"
+          htmlFor="filters.years.end"
         >
           End
           <input
             className="usa-input"
-            id="filters-years-end"
-            name="filters-years-end"
+            id="filters.years.end"
+            name="filters.years.end"
             type="number"
+            defaultValue={yearsFilter && yearsFilter.value && yearsFilter.value.end}
           />
         </label>
       </div>
       <div className="grid-row">
         <button
           className="usa-button usa-button--outline padding-x-4"
-          type="button"
+          type="submit"
         >
           Update
         </button>
@@ -123,7 +148,21 @@ const Filters = ({
 
   if (data && data.facets && data.hits && data.hits.hits && data.hits.hits.length > 0) {
     return (
-      <form className="filters usa-form">
+      <form
+        className="filters usa-form"
+        action="/search"
+        onSubmit={onSubmit}
+      >
+        <input
+          type="hidden"
+          name="query"
+          value={searchQuery.query}
+        />
+        <input
+          type="hidden"
+          name="field"
+          value={searchQuery.field}
+        />
         <div className="filters-header">Filter data</div>
         {Object.keys(filtersLabels).map(field => (
           <fieldset
@@ -140,15 +179,16 @@ const Filters = ({
                 >
                   <input
                     className="usa-checkbox__input"
-                    id={`facet-${field}-${facet.value}`}
+                    id={`filters-${field}-${facet.value}`}
                     type="checkbox"
-                    name={facet.value}
+                    name={`filters.${field}`}
+                    value={facet.value}
                     onChange={e => onChangeCheckbox(e, field, facet.value)}
                     checked={isFilterChecked(field, facet.value)}
                   />
                   <label
                     className="usa-checkbox__label"
-                    htmlFor={`facet-${field}-${facet.value}`}
+                    htmlFor={`filters-${field}-${facet.value}`}
                   >
                     {facet.value}
                     {facet.count > 0 && ` (${facet.count.toLocaleString()})`}
