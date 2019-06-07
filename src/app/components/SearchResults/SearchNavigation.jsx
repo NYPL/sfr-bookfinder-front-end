@@ -100,7 +100,7 @@ const SearchNavigation = ({
       id="sort-by"
       selectClass="sfr-select-input usa-select"
       className="nypl-search-input"
-      options={Object.keys(sortMap)}
+      options={Object.keys(sortMap).map(sortOption => ({ value: sortOption, label: sortOption }))}
       label="Sort by"
       labelClass=""
       value={getValueFromSortObject(searchQuery.sort)}
