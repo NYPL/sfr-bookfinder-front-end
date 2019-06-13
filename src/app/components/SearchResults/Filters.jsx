@@ -102,15 +102,6 @@ const Filters = ({
     }
   };
 
-  // const yearsValues = {};
-  // Object.keys(yearsType).forEach((yearType) => {
-  //   yearsValues[yearType] = searchQuery && searchQuery.filters && searchQuery.filters.find(filter => filter.field === 'years')
-  //     ? searchQuery.filters.find(filter => filter.field === 'years').value[yearType]
-  //     : '';
-  // });
-  // const startYear = yearsValues.start;
-  // const endYear = yearsValues.end;
-
   if (data && data.facets && data.hits && data.hits.hits && data.hits.hits.length > 0) {
     return (
       <form
