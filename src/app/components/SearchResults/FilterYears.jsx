@@ -1,23 +1,41 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
 
 import { yearsType } from '../../constants/labels';
+
+const getYearsFilter = (searchQuery) => {
+  const yearsValues = {};
+  Object.keys(yearsType).forEach((yearType) => {
+    const yearValue = searchQuery && searchQuery.filters && searchQuery.filters.find(filter => filter.field === 'years');
+    yearsValues[yearType] = yearValue && yearValue.value[yearType] ? Number(yearValue.value[yearType]) : '';
+  });
+  return yearsValues;
+};
 
 class FilterYears extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { start: '', end: '' };
+    this.state = getYearsFilter(props.searchQuery);
     this.onChangeYear = this.onChangeYear.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ start: nextProps.startYear, end: nextProps.endYear });
+    this.setState(getYearsFilter(nextProps.searchQuery));
   }
 
   onChangeYear(e, yearType) {
+    let val = e.target.value && Number(e.target.value);
+    if (yearType === 'start' && this.state.end && val && val > Number(this.state.end)) {
+      val = this.state.end;
+    }
+    if (yearType === 'end' && this.state.start && val && val < Number(this.state.start)) {
+      val = this.state.start;
+    }
     const obj = {};
-    obj[yearType] = e.target.value;
+    obj[yearType] = val;
     this.setState(state => Object.assign({}, state, obj));
+    this.props.onChange({ ...this.state, ...obj });
   }
 
   render() {
@@ -39,6 +57,8 @@ class FilterYears extends React.Component {
                 value={this.state[yearType]}
                 onChange={e => this.onChangeYear(e, yearType)}
                 onBlur={e => this.onChangeYear(e, yearType)}
+                max={yearType === 'start' ? this.state.end : null}
+                min={yearType === 'end' ? this.state.start : null}
               />
             </label>
           ))}
@@ -57,13 +77,13 @@ class FilterYears extends React.Component {
 }
 
 FilterYears.propTypes = {
-  startYear: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  endYear: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  searchQuery: searchQueryPropTypes,
+  onChange: PropTypes.func,
 };
 
 FilterYears.defaultProps = {
-  startYear: '',
-  endYear: '',
+  searchQuery: initialSearchQuery,
+  onChange: () => {},
 };
 
 export default FilterYears;

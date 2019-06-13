@@ -49,5 +49,8 @@ describe('Filters', () => {
           .text(),
       ).to.equal('English (2,148)');
     });
+    it('should contain Years Filter', () => {
+      expect(component.find('FilterYears')).to.have.length(1);
+    });
   });
 });

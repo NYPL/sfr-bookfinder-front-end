@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
 import { getQueryString } from '../../search/query';
 import FilterYears from './FilterYears';
-import { yearsType, filtersLabels } from '../../constants/labels';
+import { filtersLabels } from '../../constants/labels';
 
 const Filters = ({
   data, searchQuery, userQuery, router,
@@ -86,30 +86,31 @@ const Filters = ({
     e.preventDefault();
     e.stopPropagation();
 
-    if (e.target.elements && (e.target.elements['filters.years.start'] || e.target.elements['filters.years.end'])) {
-      const currentYearsFilter = {
-        field: 'years',
-        value: { start: e.target.elements['filters.years.start'].value, end: e.target.elements['filters.years.end'].value },
-      };
-      const matchIndex = filtersArray.findIndex(filter => filter.field === 'years');
-      if (matchIndex === -1) {
-        filtersArray.push(currentYearsFilter);
-      } else if (matchIndex > -1) {
-        filtersArray[matchIndex] = currentYearsFilter;
-      }
-    }
     doSearchWithFilters(filtersArray);
   };
 
-  const yearsValues = {};
-  Object.keys(yearsType).forEach((yearType) => {
-    yearsValues[yearType] = searchQuery && searchQuery.filters && searchQuery.filters.find(filter => filter.field === 'years')
-      ? searchQuery.filters.find(filter => filter.field === 'years').value[yearType]
-      : '';
-  });
-  const startYear = yearsValues.start;
-  const endYear = yearsValues.end;
-  console.log(startYear, endYear);
+  const onChangeYears = (yearsFilter) => {
+    const currentYearsFilter = {
+      field: 'years',
+      value: yearsFilter,
+    };
+    const matchIndex = filtersArray.findIndex(filter => filter.field === 'years');
+    if (matchIndex === -1) {
+      filtersArray.push(currentYearsFilter);
+    } else if (matchIndex > -1) {
+      filtersArray[matchIndex] = currentYearsFilter;
+    }
+  };
+
+  // const yearsValues = {};
+  // Object.keys(yearsType).forEach((yearType) => {
+  //   yearsValues[yearType] = searchQuery && searchQuery.filters && searchQuery.filters.find(filter => filter.field === 'years')
+  //     ? searchQuery.filters.find(filter => filter.field === 'years').value[yearType]
+  //     : '';
+  // });
+  // const startYear = yearsValues.start;
+  // const endYear = yearsValues.end;
+
   if (data && data.facets && data.hits && data.hits.hits && data.hits.hits.length > 0) {
     return (
       <form
@@ -136,8 +137,8 @@ const Filters = ({
             <legend className="filters-box-header">{filtersLabels[field]}</legend>
             {field === 'years' && (
             <FilterYears
-              startYear={startYear}
-              endYear={endYear}
+              searchQuery={searchQuery}
+              onChange={onChangeYears}
             />
             )}
             {field !== 'years'
