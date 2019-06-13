@@ -28,8 +28,8 @@ describe('Filters', () => {
       component = shallow(<Filters data={results} />);
     });
 
-    it('should display a list of fields (currently 1)', () => {
-      expect(component.find('fieldset')).to.have.length(1);
+    it('should display a list of fields (currently 2)', () => {
+      expect(component.find('fieldset')).to.have.length(2);
     });
     it('should display a list of filters inside the field (maximum 10)', () => {
       expect(

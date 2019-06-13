@@ -2,21 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
 import { getQueryString } from '../../search/query';
-
-const filtersLabels = { language: 'Language', years: 'Puplication Year' };
+import FilterYears from './FilterYears';
+import { yearsType, filtersLabels } from '../../constants/labels';
 
 const Filters = ({
   data, searchQuery, userQuery, router,
 }) => {
   const filtersArray = [];
-  let yearsFilter = {};
   // add search filters
   if (searchQuery && searchQuery.filters && Array.isArray(searchQuery.filters)) {
     searchQuery.filters.forEach((filter) => {
       filtersArray.push({ field: filter.field, value: filter.value });
-      if (filter.field === 'years') {
-        yearsFilter = filter;
-      }
     });
   }
 
@@ -105,47 +101,15 @@ const Filters = ({
     doSearchWithFilters(filtersArray);
   };
 
-  const renderYearsFilter = () => (
-    <div className="grid-container padding-0">
-      <div className="grid-row">
-        <label
-          className="usa-label tablet:grid-col padding-right-4"
-          htmlFor="filters.years.start"
-        >
-          Start
-          <input
-            className="usa-input"
-            id="filters.years.start"
-            name="filters.years.start"
-            type="number"
-            defaultValue={yearsFilter && yearsFilter.value && yearsFilter.value.start}
-          />
-        </label>
-        <label
-          className="usa-label tablet:grid-col padding-right-4"
-          htmlFor="filters.years.end"
-        >
-          End
-          <input
-            className="usa-input"
-            id="filters.years.end"
-            name="filters.years.end"
-            type="number"
-            defaultValue={yearsFilter && yearsFilter.value && yearsFilter.value.end}
-          />
-        </label>
-      </div>
-      <div className="grid-row">
-        <button
-          className="usa-button usa-button--outline padding-x-4"
-          type="submit"
-        >
-          Update
-        </button>
-      </div>
-    </div>
-  );
-
+  const yearsValues = {};
+  Object.keys(yearsType).forEach((yearType) => {
+    yearsValues[yearType] = searchQuery && searchQuery.filters && searchQuery.filters.find(filter => filter.field === 'years')
+      ? searchQuery.filters.find(filter => filter.field === 'years').value[yearType]
+      : '';
+  });
+  const startYear = yearsValues.start;
+  const endYear = yearsValues.end;
+  console.log(startYear, endYear);
   if (data && data.facets && data.hits && data.hits.hits && data.hits.hits.length > 0) {
     return (
       <form
@@ -170,7 +134,12 @@ const Filters = ({
             className="filters-box usa-fieldset"
           >
             <legend className="filters-box-header">{filtersLabels[field]}</legend>
-            {field === 'years' && renderYearsFilter()}
+            {field === 'years' && (
+            <FilterYears
+              startYear={startYear}
+              endYear={endYear}
+            />
+            )}
             {field !== 'years'
               && prepareFilters(data.facets[field], field).map(facet => (
                 <div

@@ -39,7 +39,6 @@ const parseQuery = (queryString) => {
  * @return {object}
  */
 export const buildQueryBody = (query) => {
-  console.log('query', query);
   if (!query.query) {
     throw new Error('A valid query string must be passed');
   }
