@@ -25,13 +25,14 @@ class FilterYears extends React.Component {
   }
 
   onChangeYear(e, yearType) {
-    let val = e.target.value && Number(e.target.value);
-    if (yearType === 'start' && this.state.end && val && val > Number(this.state.end)) {
-      val = this.state.end;
-    }
-    if (yearType === 'end' && this.state.start && val && val < Number(this.state.start)) {
-      val = this.state.start;
-    }
+    const val = e.target.value ? Number(e.target.value) : '';
+    // TODO: errors control UI
+    // if (yearType === 'start' && this.state.end && val && val > Number(this.state.end)) {
+    //   val = this.state.end;
+    // }
+    // if (yearType === 'end' && this.state.start && val && val < Number(this.state.start)) {
+    //   val = this.state.start;
+    // }
     const obj = {};
     obj[yearType] = val;
     this.setState(state => Object.assign({}, state, obj));

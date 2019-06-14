@@ -54,7 +54,7 @@ const Filters = ({
     const missingFacets = [];
     filtersArray.forEach((previousFilter) => {
       const filterFound = facets.find(facet => facet.value === previousFilter.value && previousFilter.field === field);
-      if (!filterFound) {
+      if (!filterFound && previousFilter.field === field) {
         missingFacets.push({ value: previousFilter.value, count: 0 });
       }
     });
