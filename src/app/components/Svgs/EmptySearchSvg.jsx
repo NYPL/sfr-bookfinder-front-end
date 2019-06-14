@@ -10,7 +10,10 @@ const EmptySearchSvg = ({ className }) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     className={className}
+    role="img"
+    aria-labelledby="SearchBookIcon"
   >
+    <title id="SearchBookIcon">No Search Results Icon</title>
     <path
       fillRule="evenodd"
       clipRule="evenodd"
