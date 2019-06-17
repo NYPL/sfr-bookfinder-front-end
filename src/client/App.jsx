@@ -1,3 +1,4 @@
+import '@babel/polyfill';
 import React from 'react';
 import a11y from 'react-a11y';
 import ReactDOM from 'react-dom';

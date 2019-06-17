@@ -23,7 +23,7 @@ const commonSettings = {
   // path.resolve - resolves to an absolute path
   // This is the path and file of our top level
   // React App that is to be rendered.
-  entry: path.resolve(ROOT_PATH, 'src/client/App.jsx'),
+  entry: ['@babel/polyfill', path.resolve(ROOT_PATH, 'src/client/App.jsx')],
   resolve: {
     extensions: ['.js', '.jsx'],
   },
@@ -65,6 +65,7 @@ if (ENV === 'development') {
     devtool: 'inline-source-map',
     entry: {
       app: [
+        '@babel/polyfill',
         'webpack-dev-server/client?http://localhost:3000',
         'webpack/hot/only-dev-server',
         path.resolve(ROOT_PATH, 'src/client/App.jsx'),
@@ -102,23 +103,27 @@ if (ENV === 'development') {
         },
         {
           test: /\.(gif|png|jp?g|svg)(\?v=\d+\.\d+\.\d+)?$/,
-          use: [{
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-              outputPath: 'img/',
+          use: [
+            {
+              loader: 'file-loader',
+              options: {
+                name: '[name].[ext]',
+                outputPath: 'img/',
+              },
             },
-          }],
+          ],
         },
         {
           test: /\.(ttf|eot|woff(2)?)(\?v=\d+\.\d+\.\d+)?$/,
-          use: [{
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-              outputPath: 'fonts/',
+          use: [
+            {
+              loader: 'file-loader',
+              options: {
+                name: '[name].[ext]',
+                outputPath: 'fonts/',
+              },
             },
-          }],
+          ],
         },
       ],
     },
@@ -164,23 +169,27 @@ if (ENV === 'production') {
         },
         {
           test: /\.(gif|png|jp?g|svg)(\?v=\d+\.\d+\.\d+)?$/,
-          use: [{
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-              outputPath: 'img/',
+          use: [
+            {
+              loader: 'file-loader',
+              options: {
+                name: '[name].[ext]',
+                outputPath: 'img/',
+              },
             },
-          }],
+          ],
         },
         {
           test: /\.(ttf|eot|woff(2)?)(\?v=\d+\.\d+\.\d+)?$/,
-          use: [{
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-              outputPath: 'fonts/',
+          use: [
+            {
+              loader: 'file-loader',
+              options: {
+                name: '[name].[ext]',
+                outputPath: 'fonts/',
+              },
             },
-          }],
+          ],
         },
       ],
     },
