@@ -30,3 +30,6 @@ export const allWorkLabels = {
   links: 'Links',
   measurements: 'Measurements',
 };
+
+export const yearsType = { start: 'Start', end: 'End' };
+export const filtersLabels = { language: 'Language', years: 'Publication Year' };

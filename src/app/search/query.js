@@ -3,8 +3,18 @@ import { initialSearchQuery } from '../stores/InitialState';
 export const getRequestParams = (query = {}) => {
   const { field = 'keyword', workId = '' } = query;
   const q = query.query || '*';
+  let ret = Object.assign({}, query, { query: q, field, workId });
 
-  return Object.assign({}, query, { query: q, field, workId });
+  if (query.filters && typeof query.filters === 'string') {
+    const filters = JSON.parse(query.filters);
+    ret = Object.assign({}, ret, { filters });
+  }
+  if (query.sort && typeof query.sort === 'string') {
+    const sort = JSON.parse(query.sort);
+    ret = Object.assign({}, ret, { sort });
+  }
+
+  return ret;
 };
 
 /**

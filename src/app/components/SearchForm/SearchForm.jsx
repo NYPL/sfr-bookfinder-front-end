@@ -110,6 +110,7 @@ class SearchForm extends React.Component {
               options={this.props.allowedFields}
               onChange={this.onFieldChange}
               value={selectedField}
+              name="field"
             />
             <TextInput
               ariaLabel="Search for keyword, author, title, or subject"

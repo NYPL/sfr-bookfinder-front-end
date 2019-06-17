@@ -4,7 +4,7 @@ import { titleCase } from 'change-case';
 import { isEmpty } from '../../util/Util';
 
 const Select = ({
-  className, id, labelClass, label, selectClass, value, onChange, onBlur, options, ariaLabel, disabled,
+  className, id, labelClass, label, selectClass, value, onChange, onBlur, options, ariaLabel, disabled, name,
 }) => (
   <div className={className}>
     {label && (
@@ -17,13 +17,13 @@ const Select = ({
     )}
     <select
       className={selectClass}
-      name="options"
       id={id}
       value={value}
       onChange={onChange}
       onBlur={onBlur}
       aria-label={ariaLabel}
       disabled={disabled}
+      name={name}
     >
       {!isEmpty(options) ? (
         options.map((opt, key) => (
@@ -58,6 +58,7 @@ Select.propTypes = {
   onBlur: PropTypes.func,
   ariaLabel: PropTypes.string,
   disabled: PropTypes.bool,
+  name: PropTypes.string,
 };
 
 Select.defaultProps = {
@@ -72,6 +73,7 @@ Select.defaultProps = {
   onBlur: () => {},
   ariaLabel: '',
   disabled: false,
+  name: '',
 };
 
 export default Select;

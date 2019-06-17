@@ -1,18 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isArray as _isArray } from 'underscore';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
 import { getQueryString } from '../../search/query';
-
-const filtersLabels = { language: 'Language' };
+import FilterYears from './FilterYears';
+import { filtersLabels } from '../../constants/labels';
 
 const Filters = ({
   data, searchQuery, userQuery, router,
 }) => {
   const filtersArray = [];
-
   // add search filters
-  if (searchQuery && searchQuery.filters && _isArray(searchQuery.filters)) {
+  if (searchQuery && searchQuery.filters && Array.isArray(searchQuery.filters)) {
     searchQuery.filters.forEach((filter) => {
       filtersArray.push({ field: filter.field, value: filter.value });
     });
@@ -56,7 +54,7 @@ const Filters = ({
     const missingFacets = [];
     filtersArray.forEach((previousFilter) => {
       const filterFound = facets.find(facet => facet.value === previousFilter.value && previousFilter.field === field);
-      if (!filterFound) {
+      if (!filterFound && previousFilter.field === field) {
         missingFacets.push({ value: previousFilter.value, count: 0 });
       }
     });
@@ -83,38 +81,81 @@ const Filters = ({
     })
     .slice(0, 10);
 
+  // beginning to prepare for not-js
+  const onSubmit = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    doSearchWithFilters(filtersArray);
+  };
+
+  const onChangeYears = (yearsFilter) => {
+    const currentYearsFilter = {
+      field: 'years',
+      value: yearsFilter,
+    };
+    const matchIndex = filtersArray.findIndex(filter => filter.field === 'years');
+    if (matchIndex === -1) {
+      filtersArray.push(currentYearsFilter);
+    } else if (matchIndex > -1) {
+      filtersArray[matchIndex] = currentYearsFilter;
+    }
+  };
+
   if (data && data.facets && data.hits && data.hits.hits && data.hits.hits.length > 0) {
     return (
-      <form className="filters usa-form">
+      <form
+        className="filters usa-form"
+        action="/search"
+        onSubmit={onSubmit}
+      >
+        <input
+          type="hidden"
+          name="query"
+          value={searchQuery.query}
+        />
+        <input
+          type="hidden"
+          name="field"
+          value={searchQuery.field}
+        />
         <div className="filters-header">Filter data</div>
         {Object.keys(filtersLabels).map(field => (
           <fieldset
             key={field}
             className="filters-box usa-fieldset"
           >
-            {data.facets[field] && <legend className="filters-box-header">{filtersLabels[field]}</legend>}
-            {prepareFilters(data.facets[field], field).map(facet => (
-              <div
-                className="usa-checkbox"
-                key={`facet-${field}-${facet.value}`}
-              >
-                <input
-                  className="usa-checkbox__input"
-                  id={`facet-${field}-${facet.value}`}
-                  type="checkbox"
-                  name={facet.value}
-                  onChange={e => onChangeCheckbox(e, field, facet.value)}
-                  checked={isFilterChecked(field, facet.value)}
-                />
-                <label
-                  className="usa-checkbox__label"
-                  htmlFor={`facet-${field}-${facet.value}`}
+            <legend className="filters-box-header">{filtersLabels[field]}</legend>
+            {field === 'years' && (
+            <FilterYears
+              searchQuery={searchQuery}
+              onChange={onChangeYears}
+            />
+            )}
+            {field !== 'years'
+              && prepareFilters(data.facets[field], field).map(facet => (
+                <div
+                  className="usa-checkbox"
+                  key={`facet-${field}-${facet.value}`}
                 >
-                  {facet.value}
-                  {facet.count > 0 && ` (${facet.count.toLocaleString()})`}
-                </label>
-              </div>
-            ))}
+                  <input
+                    className="usa-checkbox__input"
+                    id={`filters-${field}-${facet.value}`}
+                    type="checkbox"
+                    name={`filters.${field}`}
+                    value={facet.value}
+                    onChange={e => onChangeCheckbox(e, field, facet.value)}
+                    checked={isFilterChecked(field, facet.value)}
+                  />
+                  <label
+                    className="usa-checkbox__label"
+                    htmlFor={`filters-${field}-${facet.value}`}
+                  >
+                    {facet.value}
+                    {facet.count > 0 && ` (${facet.count.toLocaleString()})`}
+                  </label>
+                </div>
+              ))}
           </fieldset>
         ))}
       </form>
