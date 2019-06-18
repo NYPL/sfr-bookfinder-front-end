@@ -18,7 +18,6 @@ const TextInput = ({
       id={id}
       type={type}
       name={name}
-      aria-labelledby={label && id}
       aria-label={ariaLabel}
       value={value}
       onChange={onChange}
