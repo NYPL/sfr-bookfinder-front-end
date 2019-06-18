@@ -10,7 +10,11 @@ const BookSvg = ({ fill = 'black', className }) => (
     xmlns="http://www.w3.org/2000/svg"
     className={className}
     fill="none"
+    alt=""
+    role="img"
+    aria-labelledby="BookIcon"
   >
+    <title id="BookIcon">Book Icon</title>
     <path
       fillRule="evenodd"
       clipRule="evenodd"
