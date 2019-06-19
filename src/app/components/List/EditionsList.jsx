@@ -80,6 +80,12 @@ const EditionsList = ({ work, eReaderUrl, max }) => {
             View All&nbsp;
             {filterValid(list).length}
             &nbsp;Editions
+            {work.edition_range && (
+              <span className="edition-range">
+                &nbsp;From&nbsp;
+                {work.edition_range}
+              </span>
+            )}
           </Link>
         </div>
       )}
