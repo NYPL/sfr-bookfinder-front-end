@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Dropdown from 'react-dropdown-aria';
+import Dropdown from '../../libraries/react-dropdown-aria';
 import { flattenDeep, unique } from '../../util/Util';
 
 /**
