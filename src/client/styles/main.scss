@@ -149,3 +149,8 @@ select {
   -webkit-appearance: none;
   -moz-appearance: none;
 }
+
+// needed like this for ie 11
+.grid-col {
+  flex: 1;
+}
