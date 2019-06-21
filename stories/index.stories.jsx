@@ -21,23 +21,6 @@ const ebooks = workItem.instances[0].items;
 
 storiesOf('Storybook', module).add('ResearchNow', () => <div>This is the storybook for the components of ResearchNow</div>);
 
-// storiesOf('Button', module)
-//   .add('with text', () => <Button onClick={action('clicked')}>Hello Button</Button>)
-//   .add(
-//     'with some emoji',
-//     () => (
-//       <Button onClick={action('clicked')}>
-//         <span
-//           role="img"
-//           aria-label="so cool"
-//         >
-//           😀 😎 👍 💯
-//         </span>
-//       </Button>
-//     ),
-//     { notes: 'test' },
-//   );
-
 storiesOf('Search', module)
   .add('SearchForm', () => <SearchForm />)
   .add('TextInput', () => (
