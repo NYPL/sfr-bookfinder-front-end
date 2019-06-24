@@ -3,9 +3,7 @@
 import React from 'react';
 
 import { storiesOf } from '@storybook/react';
-import {
-  text, boolean, number, array, object,
-} from '@storybook/addon-knobs';
+import { text, array, object } from '@storybook/addon-knobs';
 // import { action } from '@storybook/addon-actions';
 // import { linkTo } from '@storybook/addon-links';
 
