@@ -21,6 +21,8 @@ const EditionsList = ({ work, eReaderUrl, max }) => {
 
   const filterValid = instances => instances.filter(instance => getIsValid(instance));
 
+  const editionCount = work.edition_count || filterValid(list).length;
+
   const rights = instance => instance.rights
     && instance.rights.length > 0 //
     && instance.rights.map(right => right.rights_statement).join(', ');
@@ -74,11 +76,11 @@ const EditionsList = ({ work, eReaderUrl, max }) => {
           })}
         </tbody>
       </table>
-      {!!max && filterValid(list).length > max && (
+      {!!max && editionCount > max && (
         <div className="nypl-editions-view-all">
           <Link to={{ pathname: '/work', query: { workId: `${work.uuid}` }, hash: '#all-editions' }}>
             View All&nbsp;
-            {filterValid(list).length}
+            {editionCount}
             &nbsp;Editions
             {work.edition_range && (
               <span className="edition-range">
