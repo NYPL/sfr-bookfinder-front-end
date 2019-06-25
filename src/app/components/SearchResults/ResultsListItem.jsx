@@ -29,14 +29,14 @@ const ResultsListItem = ({ item, eReaderUrl }) => (
         {item.agents
         && item.agents.length > 0 //
           && item.agents.filter(agent => agent.roles && agent.roles.indexOf('author') > -1).length > 0 && (
-            <span className="nypl-results-item-author">
+            <div className="nypl-results-item-author">
               By
               <AuthorsList
                 agents={item.agents}
                 max={1}
                 roleFilter="author"
               />
-            </span>
+            </div>
         )}
       </div>
     </div>
