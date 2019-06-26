@@ -142,7 +142,7 @@ export const DefinitionList = ({ work }) => {
           {defsData.map(
             (entry, i) => elements.includes(entry[0]) && (
             <tr key={`entry${i.toString()}`}>
-              <td>{detailDefinitionLabels[entry[0]]}</td>
+              <th scope="row">{detailDefinitionLabels[entry[0]]}</th>
               <td>{parseEntries(entry[0], entry[1], workObj)}</td>
             </tr>
             ),
