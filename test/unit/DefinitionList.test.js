@@ -22,19 +22,19 @@ describe('DefinitionList', () => {
   it('should display a definition list of detail elements', () => {
     expect(component.find('table')).to.have.length(1);
     expect(component.find('tr')).to.have.length(7);
-    expect(component.find('td')).to.have.length(14);
-    const terms = component.find('td');
-    expect(terms.getElements()[2].props.children).to.equal(detailDefinitionLabels.agents);
-    expect(terms.getElements()[4].props.children).to.equal(detailDefinitionLabels.subjects);
-    expect(terms.getElements()[6].props.children).to.equal(detailDefinitionLabels.issued_display);
-    expect(terms.getElements()[8].props.children).to.equal(detailDefinitionLabels.language);
+    expect(component.find('td')).to.have.length(7);
+    const terms = component.find('th');
+    expect(terms.at(1).text()).to.equal(detailDefinitionLabels.agents);
+    expect(terms.at(2).text()).to.equal(detailDefinitionLabels.subjects);
+    expect(terms.at(3).text()).to.equal(detailDefinitionLabels.issued_display);
+    expect(terms.at(4).text()).to.equal(detailDefinitionLabels.language);
   });
 
   it('should have a table of Items', () => {
     expect(component.find('table')).to.have.length(1);
     expect(component.find('tbody')).to.have.length(1);
     expect(component.find('tbody tr')).to.have.length(7);
-    expect(component.find('tbody tr td')).to.have.length(14);
+    expect(component.find('tbody tr td')).to.have.length(7);
   });
 
   it('should have a list of Subjects', () => {
