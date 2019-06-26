@@ -36,12 +36,12 @@ const EditionsList = ({ work, eReaderUrl, max }) => {
       <table className="usa-table usa-table--borderless nypl-editions-table">
         <thead>
           <tr>
-            <th>Publisher</th>
-            <th>Place of Publication</th>
-            <th>Year of Publication</th>
-            <th>eBooks</th>
-            <th>Language</th>
-            <th>Rights</th>
+            <th scope="col">Publisher</th>
+            <th scope="col">Place of Publication</th>
+            <th scope="col">Year of Publication</th>
+            <th scope="col">eBooks</th>
+            <th scope="col">Language</th>
+            <th scope="col">Rights</th>
           </tr>
         </thead>
         <tbody>

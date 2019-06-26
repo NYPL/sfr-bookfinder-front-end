@@ -1,44 +1,51 @@
 .nypl-details-table {
   width: 100%;
   margin: 0 0 40px 0;
+  thead {
+    tr {
+      border-bottom: 1px solid #5b616b;
+    }
+  }
   tbody {
     border-top: 1px solid black;
-  }
-  tr {
-    border-bottom: 1px solid #5b616b;
-    td,
-    th {
-      height: 24px;
-      text-align: left;
-      padding-top: 12px;
-      padding-bottom: 12px;
-    }
-    th {
-      padding-left: 20px;
-    }
-    td {
-      border-right: 1px solid #5b616b;
-      padding-left: 20px;
-      padding-right: 20px;
-      vertical-align: top;
-      &:first-child {
+    tr {
+      border-bottom: 1px solid #5b616b;
+      th {
         width: 182px;
+        height: 24px;
+        text-align: left;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        border-right: 1px solid #5b616b;
+        padding-left: 20px;
+        padding-right: 20px;
+        vertical-align: top;
       }
-      &:last-child {
-        border-right: none;
-      }
-      ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        li {
-          margin-left: 0;
+      td {
+        height: 24px;
+        text-align: left;
+        border-right: 1px solid #5b616b;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        padding-left: 20px;
+        padding-right: 20px;
+        vertical-align: top;
+        &:last-child {
+          border-right: none;
         }
-        &.sfr-inline-list {
-          display: inline;
-          white-space: normal;
+        ul {
+          list-style: none;
+          padding: 0;
+          margin: 0;
           li {
+            margin-left: 0;
+          }
+          &.sfr-inline-list {
             display: inline;
+            white-space: normal;
+            li {
+              display: inline;
+            }
           }
         }
       }
