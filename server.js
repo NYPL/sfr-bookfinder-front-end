@@ -62,12 +62,17 @@ app.get('/*', (req, res) => {
           <RouterContext {...renderProps} />
         </Provider>,
       );
-
+      let appTitle = appConfig.appTitle;
+      if (req.url && req.url.match(/work\?/)) {
+        appTitle = 'Item Details | Research Now | NYPL';
+      } else if (req.url && req.url.match(/search\?/)) {
+        appTitle = 'Search Results | ResearchNow | NYPL';
+      }
       // First parameter references the ejs filename
       res.render('index', {
         application,
         appData: JSON.stringify(res.data).replace(/</g, '\\u003c'),
-        appTitle: appConfig.appTitle,
+        appTitle,
         favicon: appConfig.favIconPath,
         gaCode: analyticsConfig.google.code(isProduction),
         webpackPort: WEBPACK_DEV_PORT,
