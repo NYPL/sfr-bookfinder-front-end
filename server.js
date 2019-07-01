@@ -17,6 +17,8 @@ import configureStore from './src/app/stores/configureStore';
 import appConfig from './appConfig';
 import webpackConfig from './webpack.config.babel';
 
+import { documentTitles } from './src/app/constants/labels';
+
 const ROOT_PATH = __dirname;
 const INDEX_PATH = path.resolve(ROOT_PATH, 'src/client');
 const DIST_PATH = path.resolve(ROOT_PATH, 'dist');
@@ -62,11 +64,11 @@ app.get('/*', (req, res) => {
           <RouterContext {...renderProps} />
         </Provider>,
       );
-      let appTitle = appConfig.appTitle;
+      let appTitle = documentTitles.home || appConfig.appTitle;
       if (req.url && req.url.match(/work\?/)) {
-        appTitle = 'Item Details | Research Now | NYPL';
+        appTitle = documentTitles.workItem;
       } else if (req.url && req.url.match(/search\?/)) {
-        appTitle = 'Search Results | ResearchNow | NYPL';
+        appTitle = documentTitles.search;
       }
       // First parameter references the ejs filename
       res.render('index', {

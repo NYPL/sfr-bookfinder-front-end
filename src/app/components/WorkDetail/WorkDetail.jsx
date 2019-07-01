@@ -23,7 +23,6 @@ class WorkDetail extends React.Component {
   componentDidMount() {
     global.window.scrollTo(0, 0);
     this.loadWork();
-    global.document.title = 'Item Details | Research Now | NYPL';
   }
 
   componentDidUpdate(prevProps) {

@@ -6,14 +6,38 @@ import { withRouter } from 'react-router';
 import Footer from '@nypl/dgx-react-footer';
 import appConfig from '../../../../appConfig';
 import Loading from './Loading';
+import { documentTitles } from '../../constants/labels';
 
-const Application = props => (
-  <div className="app-wrapper add-list-reset">
-    <Loading />
-    {React.cloneElement(props.children, props)}
-    <Footer />
-  </div>
-);
+class Application extends React.Component {
+  componentDidMount() {
+    this.setTitle();
+  }
+
+  componentDidUpdate() {
+    this.setTitle();
+  }
+
+  setTitle() {
+    const { location } = this.props;
+    if (location && location.query && location.query.workId) {
+      global.document.title = documentTitles.workItem;
+    } else if (location && location.query && location.query.query) {
+      global.document.title = documentTitles.search;
+    } else {
+      global.document.title = documentTitles.home;
+    }
+  }
+
+  render() {
+    return (
+      <div className="app-wrapper add-list-reset">
+        <Loading />
+        {React.cloneElement(this.props.children, this.props)}
+        <Footer />
+      </div>
+    );
+  }
+}
 
 Application.propTypes = {
   match: PropTypes.objectOf(PropTypes.any),

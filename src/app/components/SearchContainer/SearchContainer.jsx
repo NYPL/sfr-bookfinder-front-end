@@ -29,7 +29,6 @@ class SearchContainer extends React.Component {
 
   componentDidMount() {
     this.loadSearch();
-    this.setTitle();
   }
 
   componentDidUpdate(prevProps) {
@@ -37,18 +36,6 @@ class SearchContainer extends React.Component {
     if (!deepEqual(location.query, prevProps.location.query)) {
       global.window.scrollTo(0, 0);
       this.loadSearch();
-    }
-    this.setTitle();
-  }
-
-  setTitle() {
-    const {
-      location: { query },
-    } = this.props;
-    if (!query || isEmpty(query)) {
-      global.document.title = 'ResearchNow';
-    } else {
-      global.document.title = 'Search Results | ResearchNow | NYPL';
     }
   }
 
