@@ -45,18 +45,24 @@ class SearchContainer extends React.Component {
       location: { query },
       dispatch,
     } = this.props;
-    const selectedQuery = query && query.query ? query.query : searchQuery.query;
-    const selectedField = query && query.field ? query.field : searchQuery.field;
-    let newQuery = Object.assign({}, initialSearchQuery, query, { query: selectedQuery, field: selectedField });
-    if (query && query.filters) {
-      newQuery = Object.assign({}, newQuery, { filters: JSON.parse(query.filters) });
-    }
-    if (query && query.sort) {
-      newQuery = Object.assign({}, newQuery, { sort: JSON.parse(query.sort) });
-    }
-    if (selectedQuery) {
-      dispatch(searchActions.userQuery(newQuery));
-      dispatch(searchActions.searchPost(newQuery));
+
+    if (!query || isEmpty(query)) {
+      // dispatch(searchActions.userQuery(query));
+      this.boundActions.resetSearch();
+    } else {
+      const selectedQuery = query && query.query ? query.query : searchQuery.query;
+      const selectedField = query && query.field ? query.field : searchQuery.field;
+      let newQuery = Object.assign({}, initialSearchQuery, query, { query: selectedQuery, field: selectedField });
+      if (query && query.filters) {
+        newQuery = Object.assign({}, newQuery, { filters: JSON.parse(query.filters) });
+      }
+      if (query && query.sort) {
+        newQuery = Object.assign({}, newQuery, { sort: JSON.parse(query.sort) });
+      }
+      if (selectedQuery) {
+        dispatch(searchActions.userQuery(newQuery));
+        dispatch(searchActions.searchPost(newQuery));
+      }
     }
   }
 

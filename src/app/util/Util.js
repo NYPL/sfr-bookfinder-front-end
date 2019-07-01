@@ -11,7 +11,7 @@ export const unique = (array, propertyName) => array //
 
 export const flattenDeep = arr => (Array.isArray(arr) ? arr.reduce((a, b) => a.concat(flattenDeep(b)), []) : [arr]);
 
-export const isEmpty = obj => [Object, Array].includes((obj || {}).constructor) && !Object.entries(obj || {}).length;
+export const isEmpty = obj => (typeof obj === 'object' && !Object.entries(obj || {}).length) || !obj;
 
 // compare two objects
 export const deepEqual = (x, y) => (x && y && typeof x === 'object' && typeof x === typeof y

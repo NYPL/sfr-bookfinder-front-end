@@ -31,5 +31,11 @@ export const allWorkLabels = {
   measurements: 'Measurements',
 };
 
+export const documentTitles = {
+  home: 'ResearchNow',
+  search: 'Search Results | ResearchNow | NYPL',
+  workItem: 'Item Details | Research Now | NYPL',
+};
+
 export const yearsType = { start: 'Start', end: 'End' };
 export const filtersLabels = { language: 'Language', years: 'Publication Year' };
