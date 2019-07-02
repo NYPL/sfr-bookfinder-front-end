@@ -114,6 +114,8 @@ class WorkDetail extends React.Component {
               />
               {work.instances && (
                 <h3
+                  // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+                  tabIndex="0"
                   id="all-editions"
                   className="all-editions-tag bold"
                 >

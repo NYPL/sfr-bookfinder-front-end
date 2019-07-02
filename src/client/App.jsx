@@ -23,7 +23,10 @@ const hashLinkScroll = () => {
     setTimeout(() => {
       const id = hash.replace('#', '');
       const element = global.document.getElementById(id);
-      if (element) element.scrollIntoView();
+      if (element) {
+        element.scrollIntoView();
+        element.focus();
+      }
     }, 100);
   }
 };
