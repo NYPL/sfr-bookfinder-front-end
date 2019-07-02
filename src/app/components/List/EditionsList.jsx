@@ -78,10 +78,7 @@ const EditionsList = ({ work, eReaderUrl, max }) => {
       </table>
       {!!max && editionCount > max && (
         <div className="nypl-editions-view-all">
-          <Link
-            to={{ pathname: '/work', query: { workId: `${work.uuid}` }, hash: '#all-editions' }}
-            tabIndex="-1"
-          >
+          <Link to={{ pathname: '/work', query: { workId: `${work.uuid}` }, hash: '#all-editions' }}>
             View All&nbsp;
             {editionCount}
             &nbsp;Editions

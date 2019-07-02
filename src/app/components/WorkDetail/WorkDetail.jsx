@@ -26,7 +26,10 @@ class WorkDetail extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.location !== prevProps.location) {
+    const { query } = this.props.location;
+    const workId = query && query.workId;
+    const prevWorkId = prevProps.location && prevProps.location.query && prevProps.location.query.workId;
+    if (workId && workId !== prevWorkId) {
       global.window.scrollTo(0, 0);
       this.loadWork();
     }
@@ -110,8 +113,11 @@ class WorkDetail extends React.Component {
                 context={this.context}
               />
               {work.instances && (
-                <h3 className="all-editions-tag bold">
-                  <a id="all-editions">All Editions</a>
+                <h3
+                  id="all-editions"
+                  className="all-editions-tag bold"
+                >
+                  All Editions
                 </h3>
               )}
               <EditionsList

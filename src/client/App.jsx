@@ -24,7 +24,7 @@ const hashLinkScroll = () => {
       const id = hash.replace('#', '');
       const element = global.document.getElementById(id);
       if (element) element.scrollIntoView();
-    }, 0);
+    }, 100);
   }
 };
 
