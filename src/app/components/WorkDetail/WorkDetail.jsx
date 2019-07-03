@@ -12,6 +12,17 @@ import SearchForm from '../SearchForm/SearchForm';
 import { getQueryString } from '../../search/query';
 import { deepEqual, isEmpty } from '../../util/Util';
 
+const scrollToHash = (hash) => {
+  const hashtag = hash && hash.replace(/#/, '');
+  if (hashtag) {
+    const element = global.document.getElementById(hashtag);
+    if (element) {
+      element.scrollIntoView();
+      element.focus();
+    }
+  }
+};
+
 class WorkDetail extends React.Component {
   constructor(props) {
     super(props);
@@ -21,24 +32,31 @@ class WorkDetail extends React.Component {
   }
 
   componentDidMount() {
-    global.window.scrollTo(0, 0);
-    this.loadWork();
+    const { query, hash } = this.props.location;
+    const workId = query && query.workId;
+    this.loadWork(workId, hash);
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.location !== prevProps.location) {
-      global.window.scrollTo(0, 0);
-      this.loadWork();
+    const { query, hash } = this.props.location;
+    const workId = query && query.workId;
+    const prevWorkId = prevProps.location && prevProps.location.query && prevProps.location.query.workId;
+    if (workId && workId !== prevWorkId) {
+      this.loadWork(workId, hash);
+    } else if (hash) {
+      scrollToHash(hash);
     }
   }
 
-  loadWork() {
-    const { query } = this.props.location;
-    const workId = query && query.workId;
+  loadWork(workId, hash) {
+    global.window.scrollTo(0, 0);
+    this.fetchWork(workId).then(() => {
+      scrollToHash(hash);
+    });
+  }
 
-    if (workId) {
-      this.props.dispatch(searchActions.fetchWork(workId));
-    }
+  fetchWork(workId) {
+    return this.props.dispatch(searchActions.fetchWork(workId));
   }
 
   render() {
@@ -110,8 +128,12 @@ class WorkDetail extends React.Component {
                 context={this.context}
               />
               {work.instances && (
-                <h3 className="all-editions-tag bold">
-                  <a id="all-editions">All Editions</a>
+                <h3
+                  tabIndex="-1"
+                  id="all-editions"
+                  className="all-editions-tag bold"
+                >
+                  All Editions
                 </h3>
               )}
               <EditionsList
