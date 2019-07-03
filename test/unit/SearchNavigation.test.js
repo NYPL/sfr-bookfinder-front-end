@@ -87,7 +87,7 @@ describe('Search Navigation', () => {
       expect(component.find('#page-select-header').find('option')).to.have.length(219);
     });
     it('should contain a select with sort selections', () => {
-      expect(component.find('#sort-by').find('option')).to.have.length(3);
+      expect(component.find('#sort-by').find('option')).to.have.length(Object.keys(sortMap).length);
     });
     it('should contain a select with sort selections equal to the sortMap', () => {
       expect(

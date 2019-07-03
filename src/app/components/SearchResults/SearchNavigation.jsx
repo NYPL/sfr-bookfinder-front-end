@@ -28,6 +28,9 @@ const SearchNavigation = ({
   const goToPage = (pageNumber) => {
     const newPage = Number(pageNumber) - 1;
     const perPage = searchQuery.per_page;
+    if (Number(searchQuery.page) === newPage) {
+      return;
+    }
     const newQuery = Object.assign({}, searchQuery, { page: newPage, per_page: perPage, total: metadata.total || 0 });
     userQuery(newQuery);
     submit(newQuery);
