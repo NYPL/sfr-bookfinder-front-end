@@ -14,13 +14,13 @@ const linkToAuthor = author => ({
   showField: 'author',
 });
 
-const birthDate = entity => (
-  <span>
-    {(entity.birth_date_display || entity.death_date_display) && <span> (</span>}
-    {entity.birth_date_display && <span>{entity.birth_date_display}</span>}
-    {entity.death_date_display && <span>{` --${entity.death_date_display}`}</span>}
-    {(entity.birth_date_display || entity.death_date_display) && <span>) </span>}
-  </span>
+const birthDate = entity => (entity.birth_date_display || entity.death_date_display) && (
+<span>
+  {' ('}
+  {entity.birth_date_display && entity.birth_date_display}
+  {entity.death_date_display && ` -- ${entity.death_date_display}`}
+  {') '}
+</span>
 );
 
 const filterAgents = (agents, max, roleFilter) => agents //
