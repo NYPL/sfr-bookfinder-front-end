@@ -32,7 +32,7 @@ export const allWorkLabels = {
 };
 
 export const documentTitles = {
-  home: 'ResearchNow',
+  home: 'ResearchNow | NYPL',
   search: 'Search Results | ResearchNow | NYPL',
   workItem: 'Item Details | Research Now | NYPL',
 };
