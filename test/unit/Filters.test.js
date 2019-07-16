@@ -9,17 +9,48 @@ import results from '../fixtures/results-list-full.json';
 
 configure({ adapter: new Adapter() });
 
+const noResults = {
+  took: 93,
+  timed_out: false,
+  _shards: {
+    total: 5,
+    successful: 5,
+    skipped: 0,
+    failed: 0,
+  },
+  hits: {
+    total: 0,
+    max_score: null,
+    hits: [],
+  },
+  facets: {
+    language: [],
+  },
+};
+
 describe('Filters', () => {
   let component;
 
   describe('No results behavior.', () => {
     before(() => {
-      const noResults = {};
       component = shallow(<Filters data={noResults} />);
     });
 
     it('should return null when results object given is empty.', () => {
       expect(component.find('div').exists()).to.equal(false);
+    });
+  });
+  describe('No results behavior with searchQuery.', () => {
+    before(() => {
+      const searchQuery = { filters: [{ field: 'language', value: 'English' }] };
+      component = shallow(<Filters
+        data={noResults}
+        searchQuery={searchQuery}
+      />);
+    });
+
+    it('should not return null when there is no hits and there is a searchQuery.', () => {
+      expect(component.find('div').exists()).to.equal(true);
     });
   });
 

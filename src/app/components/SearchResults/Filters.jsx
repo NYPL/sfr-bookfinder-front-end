@@ -102,7 +102,16 @@ const Filters = ({
     }
   };
 
-  if (data && data.facets && data.hits && data.hits.hits && data.hits.hits.length > 0) {
+  const searchContains = field => searchQuery && searchQuery.filters && searchQuery.filters.find(filter => filter.field === field);
+  const showFields = () => Object.keys(filtersLabels)
+    .map(field => ((data.facets && data.facets[field] && data.facets[field].length > 0)
+        || searchContains(field)
+        || (field === 'years' && (searchContains(field) || (data.hits && data.hits.hits && data.hits.hits.length > 0)))
+      ? field
+      : null))
+    .filter(x => x);
+
+  if (showFields().length > 0) {
     return (
       <form
         className="filters usa-form"
@@ -120,7 +129,7 @@ const Filters = ({
           value={searchQuery.field}
         />
         <div className="filters-header">Filter data</div>
-        {Object.keys(filtersLabels).map(field => (
+        {showFields().map(field => (
           <fieldset
             key={field}
             className="filters-box usa-fieldset"
