@@ -20,11 +20,6 @@ describe('Query Body Building', () => {
     expect(parsedValueOne.indexOf('*')).to.not.equal(-1);
   });
 
-  it('should throw an error if an empty query string is passed', () => {
-    const emptyQuery = '';
-    expect(buildQueryBody.bind(buildQueryBody, emptyQuery)).to.throw('A valid query string must be passed');
-  });
-
   it('should return field query object with a single string value.', () => {
     query = 'shakespeare';
     field = 'title';

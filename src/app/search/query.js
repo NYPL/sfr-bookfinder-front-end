@@ -1,9 +1,11 @@
-import { initialSearchQuery } from '../stores/InitialState';
-
 export const getRequestParams = (query = {}) => {
-  const { field = 'keyword', workId = '' } = query;
-  const q = query.query || '*';
-  let ret = Object.assign({}, query, { query: q, field, workId });
+  let ret = Object.assign({}, query);
+  if (query.query && !query.field) {
+    ret = Object.assign({}, ret, { field: 'keyword' });
+  }
+  if (query.field && !query.query) {
+    ret = Object.assign({}, ret, { query: '*' });
+  }
 
   if (query.filters && typeof query.filters === 'string') {
     const filters = JSON.parse(query.filters);
@@ -12,6 +14,10 @@ export const getRequestParams = (query = {}) => {
   if (query.sort && typeof query.sort === 'string') {
     const sort = JSON.parse(query.sort);
     ret = Object.assign({}, ret, { sort });
+  }
+  if (query.queries && typeof query.queries === 'string') {
+    const queries = JSON.parse(query.queries);
+    ret = Object.assign({}, ret, { queries });
   }
 
   return ret;
@@ -26,11 +32,12 @@ export const getRequestParams = (query = {}) => {
  */
 const parseQuery = (queryString) => {
   const queryArr = queryString
-    .replace(/[=(&&)(||)><!(){}\[\]^"~\*\?:\/-]/g, '$&')
-    .trim()
-    .replace(/\s+/g, '+')
-    .split('+')
-    .join(' ');
+    && queryString
+      .replace(/[=(&&)(||)><!(){}\[\]^"~\*\?:\/-]/g, '$&')
+      .trim()
+      .replace(/\s+/g, '+')
+      .split('+')
+      .join(' ');
   return queryArr;
 };
 
@@ -39,16 +46,20 @@ const parseQuery = (queryString) => {
  * @return {object}
  */
 export const buildQueryBody = (query) => {
-  if (!query.query) {
-    throw new Error('A valid query string must be passed');
-  }
-
-  let queryField = query.field || initialSearchQuery.field;
+  let ret = Object.assign({}, query);
+  let queryField = query.field;
   if (Array.isArray(query.field)) {
     queryField = query.field.join('|');
   }
+  if (queryField) {
+    ret = Object.assign({}, ret, { field: queryField });
+  } else if (query.query) {
+    ret = Object.assign({}, ret, { field: 'keyword' });
+  }
   const parsedQuery = parseQuery(query.query);
-  let ret = Object.assign({}, initialSearchQuery, query, { query: parsedQuery, field: queryField });
+  if (parsedQuery) {
+    ret = Object.assign({}, ret, { query: parsedQuery });
+  }
   if (query.filters && typeof query.filters === 'string') {
     const filters = JSON.parse(query.filters);
     ret = Object.assign({}, ret, { filters });
@@ -56,6 +67,13 @@ export const buildQueryBody = (query) => {
   if (query.sort && typeof query.sort === 'string') {
     const sort = JSON.parse(query.sort);
     ret = Object.assign({}, ret, { sort });
+  }
+  if (query.queries && typeof query.queries === 'string') {
+    const queries = JSON.parse(query.queries);
+    ret = Object.assign({}, ret, { queries });
+  } else if (query.queries) {
+    const queries = query.queries.map(q => ({ query: parseQuery(q.query), field: q.field }));
+    ret = Object.assign({}, ret, { queries });
   }
   return ret;
 };

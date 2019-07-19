@@ -57,6 +57,7 @@ app.get('/*', (req, res) => {
       if (!res.data) {
         res.data = {};
       }
+
       const store = configureStore(res.data);
 
       const application = ReactDOMServer.renderToString(
@@ -64,6 +65,13 @@ app.get('/*', (req, res) => {
           <RouterContext {...renderProps} />
         </Provider>,
       );
+
+      // ////// on development serve only the front-end to allow hot reloading /////
+      // if (!isProduction) {
+      // application = null;
+      // }
+      // /////
+
       let appTitle = documentTitles.home || appConfig.appTitle;
       if (req.url && req.url.match(/work\?/)) {
         appTitle = documentTitles.workItem;

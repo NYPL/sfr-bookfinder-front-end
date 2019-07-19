@@ -99,6 +99,9 @@ const Filters = ({
       filtersArray.push(currentYearsFilter);
     } else if (matchIndex > -1) {
       filtersArray[matchIndex] = currentYearsFilter;
+      if (!yearsFilter.start && !yearsFilter.end) {
+        filtersArray.splice(matchIndex, 1);
+      }
     }
   };
 
@@ -118,16 +121,6 @@ const Filters = ({
         action="/search"
         onSubmit={onSubmit}
       >
-        <input
-          type="hidden"
-          name="query"
-          value={searchQuery.query}
-        />
-        <input
-          type="hidden"
-          name="field"
-          value={searchQuery.field}
-        />
         <div className="filters-header">Filter data</div>
         {showFields().map(field => (
           <fieldset

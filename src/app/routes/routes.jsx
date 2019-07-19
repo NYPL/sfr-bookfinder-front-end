@@ -3,6 +3,7 @@ import { Route, IndexRoute, Redirect } from 'react-router';
 
 import Application from '../components/Application/Application';
 import SearchContainer from '../components/SearchContainer/SearchContainer';
+import AdvancedSearch from '../components/AdvancedSearch/AdvancedSearch';
 import NotFound404 from '../components/Error/NotFound404';
 import WorkDetail from '../components/WorkDetail/WorkDetail';
 
@@ -20,6 +21,10 @@ const routes = {
       <Route
         path="/work"
         component={WorkDetail}
+      />
+      <Route
+        path="/advanced-search"
+        component={AdvancedSearch}
       />
       <Route
         path="/404"

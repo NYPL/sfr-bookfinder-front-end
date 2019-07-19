@@ -9,7 +9,7 @@ const NotFound404 = () => (
     className="main-content not-found-404"
   >
     <div className="nypl-full-width-wrapper">
-      <div className="nypl-row">
+      <div>
         <div className="nypl-column-three-quarters">
           <h1>404 Not Found</h1>
           <p>We&apos;re sorry...</p>

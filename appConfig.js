@@ -14,5 +14,6 @@ export default {
     production: 'https://dev-platform.nypl.org/api/v0.1/research-now/v2',
     searchPath: '/search-api',
     recordPath: '/work',
+    languagesPath: '/utils/languages',
   },
 };

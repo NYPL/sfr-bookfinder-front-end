@@ -1,0 +1,30 @@
+.sub-legend {
+  font-size: 1rem;
+  text-transform: uppercase;
+  font-weight: normal;
+  border-bottom: 1px solid black;
+  display: block;
+  width: 100%;
+  max-width: 30rem;
+  line-height: 2rem;
+}
+
+.nypl-select__menu {
+  @media (min-width: 40em) {
+    margin-right: 1rem;
+  }
+  @media (min-width: 64em) {
+    margin-right: 2rem;
+  }
+}
+.nypl-select {
+  @media (min-width: 40em) {
+    margin-right: 1rem;
+  }
+  @media (min-width: 64em) {
+    margin-right: 2rem;
+  }
+}
+.nypl-select__multi-value {
+  border: 1px dashed #7fb4dc;
+}
