@@ -15,6 +15,12 @@ import { isEmpty } from '../../util/Util';
 import TextInput from '../Form/TextInput';
 import Checkbox from '../Form/Checkbox';
 
+// input type advanced searchs
+const inputTerms = [
+  { key: 1, values: [{ key: 'keyword', label: 'Keyword' }, { key: 'author', label: 'Author' }] },
+  { key: 2, values: [{ key: 'title', label: 'Title' }, { key: 'subject', label: 'Subject' }] },
+];
+
 // style for the languages dropdown
 const customStyles = {
   control: base => ({
@@ -92,23 +98,15 @@ class AdvancedSearch extends React.Component {
     this.loadLanguages();
   }
 
-  onQueryChange(event, type = 'queries') {
+  onQueryChange(event) {
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
-    if (type === 'filters') {
-      this.setState((prevState) => {
-        const filters = prevState.filters;
-        filters[name] = value;
-        return { filters };
-      });
-    } else {
-      this.setState((prevState) => {
-        const queries = prevState.queries;
-        queries[name] = value;
-        return { queries };
-      });
-    }
+    this.setState((prevState) => {
+      const queries = prevState.queries;
+      queries[name] = value;
+      return { queries };
+    });
   }
 
   onLanguageChange(event) {
@@ -151,7 +149,6 @@ class AdvancedSearch extends React.Component {
     const langUrl = apiUrl + languagesPath;
 
     axios.get(langUrl).then((resp) => {
-      console.log(resp);
       this.setState({
         languages:
           resp
@@ -233,11 +230,6 @@ class AdvancedSearch extends React.Component {
       this.boundActions.resetSearch();
       router.push('/');
     };
-
-    const inputTerms = [
-      { key: 1, values: [{ key: 'keyword', label: 'Keyword' }, { key: 'author', label: 'Author' }] },
-      { key: 2, values: [{ key: 'title', label: 'Title' }, { key: 'subject', label: 'Subject' }] },
-    ];
 
     return (
       <main
