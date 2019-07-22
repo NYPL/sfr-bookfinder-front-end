@@ -4,6 +4,7 @@ import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialSt
 import { getQueryString } from '../../search/query';
 import FilterYears from './FilterYears';
 import { filtersLabels } from '../../constants/labels';
+import Checkbox from '../Form/Checkbox';
 
 const Filters = ({
   data, searchQuery, userQuery, router,
@@ -30,9 +31,15 @@ const Filters = ({
   };
 
   // on check of filter, add it or remove it from list and do the search
-  const onChangeCheckbox = (e, field, value) => {
+  const onChangeCheckbox = (e, field, value, negative) => {
     const matchIndex = filtersArray.findIndex(filter => filter.field === field && filter.value === value);
-    if (e.target.checked && matchIndex === -1) {
+    if (negative) {
+      if (!e.target.checked && matchIndex === -1) {
+        filtersArray.push({ field, value });
+      } else if (matchIndex > -1) {
+        filtersArray.splice(matchIndex, 1);
+      }
+    } else if (e.target.checked && matchIndex === -1) {
       filtersArray.push({ field, value });
     } else if (matchIndex > -1) {
       filtersArray.splice(matchIndex, 1);
@@ -110,6 +117,7 @@ const Filters = ({
     .map(field => ((data.facets && data.facets[field] && data.facets[field].length > 0)
         || searchContains(field)
         || (field === 'years' && (searchContains(field) || (data.hits && data.hits.hits && data.hits.hits.length > 0)))
+        || field === 'show_all'
       ? field
       : null))
     .filter(x => x);
@@ -134,7 +142,19 @@ const Filters = ({
               onChange={onChangeYears}
             />
             )}
-            {field !== 'years'
+            {field === 'show_all' && (
+              <Checkbox
+                className="usa-checkbox"
+                labelClass="usa-checkbox__label"
+                inputClass="usa-checkbox__input"
+                id="show_all"
+                isSelected={!isFilterChecked(field, true)}
+                onChange={e => onChangeCheckbox(e, field, true, true)}
+                label="Read Only"
+                name="show_all"
+              />
+            )}
+            {field === 'language'
               && prepareFilters(data.facets[field], field).map(facet => (
                 <div
                   className="usa-checkbox"

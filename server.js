@@ -60,7 +60,7 @@ app.get('/*', (req, res) => {
 
       const store = configureStore(res.data);
 
-      const application = ReactDOMServer.renderToString(
+      let application = ReactDOMServer.renderToString(
         <Provider store={store}>
           <RouterContext {...renderProps} />
         </Provider>,
@@ -68,7 +68,7 @@ app.get('/*', (req, res) => {
 
       // ////// on development serve only the front-end to allow hot reloading /////
       // if (!isProduction) {
-      // application = null;
+      application = null;
       // }
       // /////
 
