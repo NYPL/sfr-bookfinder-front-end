@@ -92,6 +92,7 @@ class AdvancedSearch extends React.Component {
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
     this.onYearChange = this.onYearChange.bind(this);
     this.onFormatChange = this.onFormatChange.bind(this);
+    this.clearForm = this.clearForm.bind(this);
   }
 
   componentDidMount() {
@@ -213,6 +214,10 @@ class AdvancedSearch extends React.Component {
     }
   }
 
+  clearForm() {
+    this.setState({ queries: {}, filters: { format: {}, language: [], years: {} } });
+  }
+
   render() {
     const { searchQuery, searchResults } = this.props;
     const { router } = this.context;
@@ -322,105 +327,108 @@ class AdvancedSearch extends React.Component {
                   <div className="tablet:grid-col-6" />
                 </div>
               </fieldset>
+              <div className="grid-container width-full margin-x-0 padding-x-0">
+                <div className="grid-row margin-top-4 grid-gap">
+                  <div className="tablet:grid-col-6">
+                    <fieldset className="usa-fieldset grid-container width-full margin-x-0 padding-x-0 margin-bottom-2">
+                      <legend className="usa-legend font-sans-lg sub-legend">Publication Year</legend>
 
-              <div className="grid-row margin-top-4 grid-gap">
-                <div className="tablet:grid-col-6">
-                  <fieldset className="usa-fieldset grid-container width-full margin-x-0 padding-x-0 margin-bottom-2">
-                    <legend className="usa-legend font-sans-lg sub-legend">Publication Year</legend>
+                      <div className="grid-row">
+                        <TextInput
+                          className="grid-col-4"
+                          ariaLabel="Search for Start Date"
+                          labelClass="usa-label"
+                          id="start"
+                          type="number"
+                          inputClass="usa-input usa-input--small"
+                          name="start"
+                          onChange={this.onYearChange}
+                          label="Start"
+                          value={this.state.filters.years.start}
+                          max={this.state.filters.years.end}
+                        />
+                        <TextInput
+                          className="grid-col-4"
+                          ariaLabel="Search for End Date"
+                          labelClass="usa-label"
+                          id="end"
+                          type="number"
+                          inputClass="usa-input usa-input--small"
+                          name="end"
+                          onChange={this.onYearChange}
+                          label="End"
+                          value={this.state.filters.years.end}
+                          min={this.state.filters.years.start}
+                        />
+                      </div>
+                    </fieldset>
+                  </div>
 
-                    <div className="grid-row">
-                      <TextInput
-                        className="grid-col-4"
-                        ariaLabel="Search for Start Date"
-                        labelClass="usa-label"
-                        id="start"
-                        type="number"
-                        inputClass="usa-input usa-input--small"
-                        name="start"
-                        onChange={this.onYearChange}
-                        label="Start"
-                        value={this.state.filters.years.start}
-                        max={this.state.filters.years.end}
-                      />
-                      <TextInput
-                        className="grid-col-4"
-                        ariaLabel="Search for End Date"
-                        labelClass="usa-label"
-                        id="end"
-                        type="number"
-                        inputClass="usa-input usa-input--small"
-                        name="end"
-                        onChange={this.onYearChange}
-                        label="End"
-                        value={this.state.filters.years.end}
-                        min={this.state.filters.years.start}
-                      />
-                    </div>
-                  </fieldset>
-                </div>
-
-                <div className="tablet:grid-col-6">
-                  <fieldset className="usa-fieldset grid-container width-full margin-x-0 padding-x-0 margin-bottom-2">
-                    <legend className="usa-legend font-sans-lg sub-legend">Format</legend>
-                    <div className="grid-row usa-label">
-                      <Checkbox
-                        className="usa-checkbox tablet:grid-col-12"
-                        labelClass="usa-checkbox__label"
-                        inputClass="usa-checkbox__input"
-                        id="epub"
-                        isSelected={this.state.filters.format.epub}
-                        onChange={this.onFormatChange}
-                        label="ePub"
-                        name="epub"
-                      />
-                    </div>
-                    <div className="grid-row">
-                      <Checkbox
-                        className="usa-checkbox tablet:grid-col-12"
-                        labelClass="usa-checkbox__label"
-                        inputClass="usa-checkbox__input"
-                        id="pdf"
-                        isSelected={this.state.filters.format.pdf}
-                        onChange={this.onFormatChange}
-                        label="PDF"
-                        name="pdf"
-                      />
-                    </div>
-                    <div className="grid-row">
-                      <Checkbox
-                        className="usa-checkbox tablet:grid-col-12"
-                        labelClass="usa-checkbox__label"
-                        inputClass="usa-checkbox__input"
-                        id="html"
-                        isSelected={this.state.filters.format.html}
-                        onChange={this.onFormatChange}
-                        label="Html"
-                        name="html"
-                      />
-                    </div>
-                  </fieldset>
+                  <div className="tablet:grid-col-6">
+                    <fieldset className="usa-fieldset grid-container width-full margin-x-0 padding-x-0 margin-bottom-2">
+                      <legend className="usa-legend font-sans-lg sub-legend">Format</legend>
+                      <div className="grid-row usa-label">
+                        <Checkbox
+                          className="usa-checkbox tablet:grid-col-12"
+                          labelClass="usa-checkbox__label"
+                          inputClass="usa-checkbox__input"
+                          id="epub"
+                          isSelected={this.state.filters.format.epub}
+                          onChange={this.onFormatChange}
+                          label="ePub"
+                          name="epub"
+                        />
+                      </div>
+                      <div className="grid-row">
+                        <Checkbox
+                          className="usa-checkbox tablet:grid-col-12"
+                          labelClass="usa-checkbox__label"
+                          inputClass="usa-checkbox__input"
+                          id="pdf"
+                          isSelected={this.state.filters.format.pdf}
+                          onChange={this.onFormatChange}
+                          label="PDF"
+                          name="pdf"
+                        />
+                      </div>
+                      <div className="grid-row">
+                        <Checkbox
+                          className="usa-checkbox tablet:grid-col-12"
+                          labelClass="usa-checkbox__label"
+                          inputClass="usa-checkbox__input"
+                          id="html"
+                          isSelected={this.state.filters.format.html}
+                          onChange={this.onFormatChange}
+                          label="Html"
+                          name="html"
+                        />
+                      </div>
+                    </fieldset>
+                  </div>
                 </div>
               </div>
-
-              <div className="grid-row grid-gap">
-                <div className="tablet:grid-col-6">
-                  <div className="grid-row grid-gap">
-                    <div className="tablet:grid-col-6">
-                      <input
-                        className="usa-button width-full usa-label"
-                        type="submit"
-                        value="Search"
-                        readOnly
-                        onClick={this.submitSearchRequest}
-                      />
-                    </div>
-                    <div className="tablet:grid-col-6">
-                      <input
-                        className="usa-button usa-button--outline width-full usa-label"
-                        type="clear"
-                        value="Clear"
-                        readOnly
-                      />
+              <div className="grid-container width-full margin-x-0 padding-x-0">
+                <div className="grid-row grid-gap">
+                  <div className="tablet:grid-col-6">
+                    <div className="grid-row grid-gap">
+                      <div className="tablet:grid-col-6">
+                        <input
+                          className="usa-button width-full usa-label"
+                          type="submit"
+                          value="Search"
+                          readOnly
+                          onClick={this.submitSearchRequest}
+                        />
+                      </div>
+                      <div className="tablet:grid-col-6">
+                        <input
+                          className="usa-button usa-button--outline width-full usa-label"
+                          type="clear"
+                          value="Clear"
+                          onClick={this.clearForm}
+                          readOnly
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
