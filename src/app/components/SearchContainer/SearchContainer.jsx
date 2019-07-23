@@ -40,26 +40,25 @@ class SearchContainer extends React.Component {
   }
 
   loadSearch() {
-    const { searchQuery } = this.props;
     const {
       location: { query },
       dispatch,
     } = this.props;
 
     if (!query || isEmpty(query)) {
-      // dispatch(searchActions.userQuery(query));
       this.boundActions.resetSearch();
     } else {
-      const selectedQuery = query && query.query ? query.query : searchQuery.query;
-      const selectedField = query && query.field ? query.field : searchQuery.field;
-      let newQuery = Object.assign({}, initialSearchQuery, query, { query: selectedQuery, field: selectedField });
+      let newQuery = Object.assign({}, query);
       if (query && query.filters) {
         newQuery = Object.assign({}, newQuery, { filters: JSON.parse(query.filters) });
       }
       if (query && query.sort) {
         newQuery = Object.assign({}, newQuery, { sort: JSON.parse(query.sort) });
       }
-      if (selectedQuery) {
+      if (query && query.queries) {
+        newQuery = Object.assign({}, newQuery, { queries: JSON.parse(query.queries) });
+      }
+      if (query) {
         dispatch(searchActions.userQuery(newQuery));
         dispatch(searchActions.searchPost(newQuery));
       }
@@ -107,7 +106,7 @@ class SearchContainer extends React.Component {
             className="grid-col-12"
           >
             {(!searchResults || isEmpty(searchResults)) && (
-              <div className="nypl-row sfr-header-wrapper grid-col-10">
+              <div className="sfr-header-wrapper grid-col-10">
                 <h1 className="nypl-heading">ResearchNow</h1>
                 <div id="tagline">Search the world&apos;s research collections and more for digital books you can use right now.</div>
               </div>

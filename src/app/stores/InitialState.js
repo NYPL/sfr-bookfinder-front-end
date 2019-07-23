@@ -10,6 +10,7 @@ export const initialSearchQuery = {
   total: 0,
   filters: [],
   sort: [],
+  queries: [],
 };
 
 export const searchQueryPropTypes = PropTypes.shape({
@@ -21,6 +22,7 @@ export const searchQueryPropTypes = PropTypes.shape({
   page: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   total: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   filters: PropTypes.arrayOf(PropTypes.any),
+  queries: PropTypes.arrayOf(PropTypes.any),
   sort: PropTypes.arrayOf(PropTypes.any),
 });
 

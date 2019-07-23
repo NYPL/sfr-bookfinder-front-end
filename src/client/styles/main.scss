@@ -28,6 +28,7 @@ $fontFamily: 'Kievit-Book', Source Sans Pro Web, Helvetica Neue, Helvetica, Robo
 @import './components/SearchFooter.scss';
 @import './components/Loading.scss';
 @import './components/Filters.scss';
+@import './components/AdvancedSearch.scss';
 @import './core/fonts.scss';
 
 html {
@@ -152,4 +153,18 @@ select {
 
 .grid-col {
   flex: 1;
+}
+@-ms-viewport {
+  width: device-width;
+}
+
+.usa-form {
+  @media (min-width: 30em) {
+    max-width: inherit;
+  }
+}
+.usa-select {
+  &.multiple {
+    height: inherit;
+  }
 }

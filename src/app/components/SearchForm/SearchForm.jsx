@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 import Select from '../Form/Select';
 import SearchButton from '../Button/SearchButton';
 import TextInput from '../Form/TextInput';
@@ -57,7 +58,7 @@ class SearchForm extends React.Component {
         {},
         initialSearchQuery,
         { showField: '', showQuery: '' },
-        { field: preState.searchQuery.showField ? preState.searchQuery.showField : preState.searchQuery.field },
+        { field: preState.searchQuery.showField ? preState.searchQuery.showField : preState.searchQuery.field || 'keyword' },
         { query: querySelected },
       ),
     }));
@@ -66,7 +67,7 @@ class SearchForm extends React.Component {
   handleSubmit(event) {
     if (event && event.charCode === 13) {
       this.props.userQuery(
-        Object.assign({}, initialSearchQuery, { query: this.state.searchQuery.query, field: this.state.searchQuery.field }),
+        Object.assign({}, initialSearchQuery, { query: this.state.searchQuery.query, field: this.state.searchQuery.field || 'keyword' }),
       );
       this.submitSearchRequest(event);
     }
@@ -89,7 +90,7 @@ class SearchForm extends React.Component {
     return (
       <div className="grid-row">
         <form
-          className="tablet:grid-col-12 sfr-center usa-search usa-search--big"
+          className="grid-col-10 sfr-center usa-search usa-search--big"
           action="/search"
           method="get"
           onSubmit={this.handleSubmit}
@@ -101,18 +102,19 @@ class SearchForm extends React.Component {
             aria-label="ResearchNow"
           >
             <Select
+              className="tablet:grid-col-4 nypl-search-input"
               label=""
               ariaLabel="Search"
               labelClass="visuallyhidden usa-label"
               id="search-by-field"
               selectClass="nypl-select-input usa-select"
-              className="grid-col-3 nypl-search-input"
               options={this.props.allowedFields}
               onChange={this.onFieldChange}
               value={selectedField}
               name="field"
             />
             <TextInput
+              className="nypl-searchbar-input tablet:grid-col-4"
               ariaLabel="Search for keyword, author, title, or subject"
               labelClass="visuallyhidden usa-label"
               id="search-field-big"
@@ -121,17 +123,23 @@ class SearchForm extends React.Component {
               name="query"
               value={selectedQuery}
               onChange={this.onQueryChange}
-              className="nypl-searchbar-input grid-col-3"
             />
             <SearchButton
+              className="tablet:grid-col-2"
               id="search-button"
-              className="grid-col-1"
               buttonClassName="usa-button sfr-search-button"
               value="Search"
               onClick={this.submitSearchRequest}
               ariaLabel="Search"
             />
-            <div className="grid-col-3" />
+            <div className="tablet:grid-col-2 nypl-advanced-search padding-left-2 text-pre text-center">
+              <Link
+                to="advanced-search"
+                className="text-baseline"
+              >
+                Advanced Search
+              </Link>
+            </div>
           </div>
         </form>
       </div>

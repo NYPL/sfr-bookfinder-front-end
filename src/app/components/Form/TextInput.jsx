@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const TextInput = ({
-  className, label, labelClass, id, inputClass, type, name, ariaLabel, value, onChange,
+  className, label, labelClass, id, inputClass, type, name, ariaLabel, value, onChange, max, min,
 }) => (
   <div className={className}>
     {label && (
@@ -21,6 +21,8 @@ const TextInput = ({
       aria-label={ariaLabel}
       value={value}
       onChange={onChange}
+      max={max}
+      min={min}
     />
   </div>
 );
@@ -36,6 +38,8 @@ TextInput.propTypes = {
   value: PropTypes.string,
   ariaLabel: PropTypes.string,
   onChange: PropTypes.func,
+  max: PropTypes.string,
+  min: PropTypes.string,
 };
 
 TextInput.defaultProps = {
@@ -49,6 +53,8 @@ TextInput.defaultProps = {
   value: '',
   ariaLabel: '',
   onChange: () => {},
+  max: '',
+  min: '',
 };
 
 export default TextInput;

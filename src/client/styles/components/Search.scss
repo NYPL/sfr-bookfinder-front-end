@@ -87,10 +87,10 @@ h1.nypl-heading {
     -webkit-appearance: none;
     -moz-appearance: none;
 
-    @media screen and (max-width: 480px) {
-      display: block;
-      width: 280%;
-    }
+    // @media screen and (max-width: 480px) {
+    //   display: block;
+    //   width: 280%;
+    // }
   }
 
   .nypl-searchbar {
@@ -112,19 +112,24 @@ h1.nypl-heading {
     margin: 0;
     padding: 0;
   }
-}
-
-.nypl-searchbar-input {
-  @media screen and (max-width: 480px) {
-    display: block;
-    width: 80%;
+  .nypl-advanced-search {
+    line-height: 2.5rem;
+    padding-top: 0.5rem;
   }
 }
+
+// .nypl-searchbar-input {
+//   @media screen and (max-width: 480px) {
+//     display: block;
+//     width: 80%;
+//   }
+// }
 
 .usa-button.sfr-search-button {
   height: 2.5rem;
   margin-top: 0.5rem;
   background-color: #0071ce;
+  width: 100%;
 }
 .usa-fieldset,
 .usa-input,

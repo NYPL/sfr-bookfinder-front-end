@@ -25,7 +25,7 @@ class FilterYears extends React.Component {
   }
 
   onChangeYear(e, yearType) {
-    const val = e.target.value ? Number(e.target.value) : '';
+    const val = e.target.value && Number(e.target.value);
     // TODO: errors control UI
     // if (yearType === 'start' && this.state.end && val && val > Number(this.state.end)) {
     //   val = this.state.end;

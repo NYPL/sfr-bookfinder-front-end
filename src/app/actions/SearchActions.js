@@ -50,9 +50,12 @@ const searchUrl = apiUrl + searchPath;
 const recordUrl = apiUrl + recordPath;
 
 export const searchPost = (query) => {
-  const uQuery = query.query || '*';
-  const sField = query.field && selectFields[query.field] ? selectFields[query.field] : 'keyword';
-  const queryBody = buildQueryBody(Object.assign({}, query, { query: uQuery, field: sField }));
+  const sField = query.field && selectFields[query.field];
+  let queryBody;
+  if (sField) {
+    queryBody = buildQueryBody(Object.assign({}, query, { field: sField }));
+  }
+  queryBody = buildQueryBody(Object.assign({}, query));
 
   return dispatch => axios
     .post(searchUrl, queryBody)
@@ -80,10 +83,12 @@ export const fetchWork = workId => dispatch => axios
   });
 
 export const serverPost = (query) => {
-  // Need a parsed query input to use for each filter
-  const uQuery = query.query || '*';
-  const sField = query.field && selectFields[query.field] ? selectFields[query.field] : 'keyword';
-  const queryBody = buildQueryBody(Object.assign({}, query, { query: uQuery, field: sField }));
+  const sField = query.field && selectFields[query.field];
+  let queryBody;
+  if (sField) {
+    queryBody = buildQueryBody(Object.assign({}, query, { field: sField }));
+  }
+  queryBody = buildQueryBody(Object.assign({}, query));
 
   return axios
     .post(searchUrl, queryBody)
