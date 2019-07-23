@@ -36,8 +36,8 @@ describe('Filters', () => {
       component = shallow(<Filters data={noResults} />);
     });
 
-    it('should return null when results object given is empty.', () => {
-      expect(component.find('div').exists()).to.equal(false);
+    it('should return only the filter for read now when results object given is empty.', () => {
+      expect(component.find('fieldset')).to.have.length(1);
     });
   });
   describe('No results behavior with searchQuery.', () => {
@@ -59,22 +59,22 @@ describe('Filters', () => {
       component = shallow(<Filters data={results} />);
     });
 
-    it('should display a list of fields (currently 2)', () => {
-      expect(component.find('fieldset')).to.have.length(2);
+    it('should display a list of fields (currently 3)', () => {
+      expect(component.find('fieldset')).to.have.length(3);
     });
-    it('should display a list of filters inside the field (maximum 10)', () => {
+    it('should display a list of filters inside the language field (maximum 10)', () => {
       expect(
         component
           .find('fieldset')
-          .first()
+          .at(1)
           .find('div'),
       ).to.have.length(10);
     });
-    it('should display the maximum count filter first', () => {
+    it('should display the maximum count of language filter first', () => {
       expect(
         component
           .find('fieldset')
-          .first()
+          .at(1)
           .find('div')
           .first()
           .text(),
@@ -82,6 +82,24 @@ describe('Filters', () => {
     });
     it('should contain Years Filter', () => {
       expect(component.find('FilterYears')).to.have.length(1);
+    });
+    it('should have a Read Now filter', () => {
+      expect(
+        component
+          .find('fieldset')
+          .at(0)
+          .find('Checkbox')
+          .props().id,
+      ).to.equal('show_all');
+    });
+    it('should have a Read Now filter checked by default', () => {
+      expect(
+        component
+          .find('fieldset')
+          .at(0)
+          .find('Checkbox')
+          .props().isSelected,
+      ).to.equal(true);
     });
   });
 });
