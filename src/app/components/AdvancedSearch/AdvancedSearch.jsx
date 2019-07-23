@@ -262,72 +262,72 @@ class AdvancedSearch extends React.Component {
               <h1 className="nypl-heading">ResearchNow</h1>
               <div id="tagline">Search the world&apos;s research collections and more for digital books you can use right now</div>
             </div>
-            <form
-              className="usa-form grid-col-10 margin-bottom-2 margin-x-auto"
-              onSubmit={this.handleSubmit}
-              onKeyPress={this.handleSubmit}
-            >
-              <fieldset className="usa-fieldset grid-container width-full margin-x-0 padding-x-0">
-                <legend className="usa-legend usa-sr-only">Advanced Search</legend>
-                {inputTerms.map(line => (
-                  <div
-                    className="grid-row grid-gap"
-                    key={line.key}
-                  >
-                    {line.values.map(term => (
-                      <TextInput
-                        className="tablet:grid-col-6"
-                        ariaLabel={`Search for ${term.label}`}
-                        labelClass="usa-label"
-                        id={term.key}
-                        type="text"
-                        inputClass="usa-input"
-                        name={term.key}
-                        onChange={this.onQueryChange}
-                        label={term.label}
-                        key={term.key}
-                        value={this.state.queries[term.key]}
-                      />
-                    ))}
-                  </div>
-                ))}
-              </fieldset>
+            <div className="grid-col-10 margin-bottom-2 margin-x-auto">
+              <form
+                className="usa-form grid-container width-full margin-x-0 padding-x-0"
+                onSubmit={this.handleSubmit}
+                onKeyPress={this.handleSubmit}
+              >
+                <fieldset className="usa-fieldset ">
+                  <legend className="usa-legend usa-sr-only">Advanced Search</legend>
+                  {inputTerms.map(line => (
+                    <div
+                      className="grid-row grid-gap"
+                      key={line.key}
+                    >
+                      {line.values.map(term => (
+                        <TextInput
+                          className="tablet:grid-col-6"
+                          ariaLabel={`Search for ${term.label}`}
+                          labelClass="usa-label"
+                          id={term.key}
+                          type="text"
+                          inputClass="usa-input"
+                          name={term.key}
+                          onChange={this.onQueryChange}
+                          label={term.label}
+                          key={term.key}
+                          value={this.state.queries[term.key]}
+                        />
+                      ))}
+                    </div>
+                  ))}
+                </fieldset>
 
-              <fieldset className="usa-fieldset grid-container width-full margin-x-0 padding-x-0">
-                <legend className="usa-legend usa-sr-only">Language Search</legend>
-                <label
-                  htmlFor="language"
-                  className="usa-label width-full margin-bottom-1"
-                >
-                  Language
-                </label>
-                <div className="grid-row nypl-select">
-                  <Select
-                    options={this.state.languages}
-                    className="tablet:grid-col-6 position-relative padding-x-0 margin-x-0"
-                    isMulti
-                    labelClass="usa-label"
-                    selectClass="usa-select multiple"
-                    name="language"
-                    id="language"
-                    label="Languages"
-                    defaultValue={this.state.filters.language}
-                    onChange={this.onLanguageChange}
-                    theme={theme => ({
-                      ...theme,
-                      borderRadius: 0,
-                      colors: {
-                        ...theme.colores,
-                        primary: 'black',
-                      },
-                    })}
-                    styles={customStyles}
-                    classNamePrefix="nypl-select"
-                  />
-                  <div className="tablet:grid-col-6" />
-                </div>
-              </fieldset>
-              <div className="grid-container width-full margin-x-0 padding-x-0">
+                <fieldset className="usa-fieldset">
+                  <legend className="usa-legend usa-sr-only">Language Search</legend>
+                  <label
+                    htmlFor="language"
+                    className="usa-label width-full margin-bottom-1"
+                  >
+                    Language
+                  </label>
+                  <div className="grid-row nypl-select">
+                    <Select
+                      options={this.state.languages}
+                      className="tablet:grid-col-6 position-relative padding-x-0 margin-x-0"
+                      isMulti
+                      labelClass="usa-label"
+                      selectClass="usa-select multiple"
+                      name="language"
+                      id="language"
+                      label="Languages"
+                      defaultValue={this.state.filters.language}
+                      onChange={this.onLanguageChange}
+                      theme={theme => ({
+                        ...theme,
+                        borderRadius: 0,
+                        colors: {
+                          ...theme.colores,
+                          primary: 'black',
+                        },
+                      })}
+                      styles={customStyles}
+                      classNamePrefix="nypl-select"
+                    />
+                    <div className="tablet:grid-col-6" />
+                  </div>
+                </fieldset>
                 <div className="grid-row margin-top-4 grid-gap">
                   <div className="tablet:grid-col-6">
                     <fieldset className="usa-fieldset grid-container width-full margin-x-0 padding-x-0 margin-bottom-2">
@@ -406,8 +406,6 @@ class AdvancedSearch extends React.Component {
                     </fieldset>
                   </div>
                 </div>
-              </div>
-              <div className="grid-container width-full margin-x-0 padding-x-0">
                 <div className="grid-row grid-gap">
                   <div className="tablet:grid-col-6">
                     <div className="grid-row grid-gap">
@@ -432,8 +430,8 @@ class AdvancedSearch extends React.Component {
                     </div>
                   </div>
                 </div>
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
         </div>
       </main>
