@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const TextInput = ({
-  className, label, labelClass, id, inputClass, type, name, ariaLabel, value, onChange, max, min,
+  className, label, labelClass, id, inputClass, type, name, ariaLabel, value, onChange, max, min, errorMessage,
 }) => (
   <div className={className}>
     {label && (
@@ -12,6 +12,15 @@ const TextInput = ({
       >
         {label}
       </label>
+    )}
+    {errorMessage && (
+      <span
+        className="usa-error-message"
+        id={`${id}-input-error-message`}
+        role="alert"
+      >
+        {errorMessage}
+      </span>
     )}
     <input
       className={inputClass}
@@ -40,6 +49,7 @@ TextInput.propTypes = {
   onChange: PropTypes.func,
   max: PropTypes.string,
   min: PropTypes.string,
+  errorMessage: PropTypes.string,
 };
 
 TextInput.defaultProps = {
@@ -55,6 +65,7 @@ TextInput.defaultProps = {
   onChange: () => {},
   max: '',
   min: '',
+  errorMessage: '',
 };
 
 export default TextInput;

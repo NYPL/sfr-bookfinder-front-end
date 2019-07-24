@@ -14,7 +14,7 @@ class SearchForm extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { ...props };
+    this.state = { ...props, ...{ error: false, errorMsg: '' } };
 
     this.onFieldChange = this.onFieldChange.bind(this);
     this.onQueryChange = this.onQueryChange.bind(this);
@@ -34,7 +34,7 @@ class SearchForm extends React.Component {
    */
   componentWillReceiveProps(nextProps) {
     if (!deepEqual(nextProps.searchQuery, this.props.searchQuery)) {
-      this.setState({ searchQuery: nextProps.searchQuery });
+      this.setState({ searchQuery: nextProps.searchQuery, error: false, errorMsg: '' });
     }
   }
 
@@ -62,6 +62,9 @@ class SearchForm extends React.Component {
         { query: querySelected },
       ),
     }));
+    if (querySelected) {
+      this.setState({ error: false, errorMsg: '' });
+    }
   }
 
   handleSubmit(event) {
@@ -75,8 +78,10 @@ class SearchForm extends React.Component {
 
   submitSearchRequest(event) {
     event.preventDefault();
-    if (!this.state.searchQuery.query) {
-      throw new Error('Please enter a term or terms to search');
+    const query = this.state.searchQuery.query.replace(/^\s+/, '').replace(/\s+$/, '');
+    if (!query) {
+      this.setState({ error: true, errorMsg: 'Please enter a term or terms to search' });
+      return;
     }
 
     const path = `/search?${getQueryString(this.state.searchQuery)}`;
@@ -119,10 +124,11 @@ class SearchForm extends React.Component {
               labelClass="visuallyhidden usa-label"
               id="search-field-big"
               type="text"
-              inputClass="usa-input nypl-search-input"
+              inputClass={this.state.error ? 'usa-input nypl-search-input usa-input--error' : 'usa-input nypl-search-input'}
               name="query"
               value={selectedQuery}
               onChange={this.onQueryChange}
+              errorMessage={this.state.error ? this.state.errorMsg : null}
             />
             <SearchButton
               className="tablet:grid-col-2"
