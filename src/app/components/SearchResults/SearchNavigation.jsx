@@ -6,6 +6,7 @@ import { getQueryString } from '../../search/query';
 import SearchHeader from './SearchHeader';
 import SearchFooter from './SearchFooter';
 import { sortMap, numbersPerPage } from '../../constants/sorts';
+import { deepEqual } from '../../util/Util';
 
 const SearchNavigation = ({
   metadata, searchQuery, userQuery, router, isFooter,
@@ -27,7 +28,7 @@ const SearchNavigation = ({
   // update page in store and go to any page
   const goToPage = (pageNumber) => {
     const newPage = Number(pageNumber) - 1;
-    const perPage = searchQuery.per_page;
+    const perPage = searchQuery.per_page || initialSearchQuery.per_page;
     if (Number(searchQuery.page) === newPage) {
       return;
     }
@@ -41,7 +42,7 @@ const SearchNavigation = ({
     e.preventDefault();
     e.stopPropagation();
     let page = pageNumber;
-    if (page < 1) {
+    if (!page || page < 1) {
       page = 1;
     }
     if (page > totalPages) {
@@ -68,7 +69,7 @@ const SearchNavigation = ({
 
   // click and navigate with different sort
   const onChangeSort = (e) => {
-    if (sortMap[e.target.value]) {
+    if (sortMap[e.target.value] && !deepEqual(sortMap[e.target.value], searchQuery.sort)) {
       const newQuery = Object.assign({}, searchQuery, { sort: sortMap[e.target.value], page: 0 });
       userQuery(newQuery);
       submit(newQuery);
@@ -92,7 +93,7 @@ const SearchNavigation = ({
       options={numbersPerPage}
       label="Items per page"
       labelClass=""
-      value={searchQuery.per_page}
+      value={searchQuery.per_page || initialSearchQuery.per_page}
       onChange={onChangePerPage}
       onBlur={onChangePerPage}
     />

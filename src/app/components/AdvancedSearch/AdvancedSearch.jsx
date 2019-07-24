@@ -200,7 +200,7 @@ class AdvancedSearch extends React.Component {
     if ((!queries || queries.length < 1) && (!filters || filters.length < 1)) {
       return null;
     }
-    return Object.assign({}, { queries, filters });
+    return Object.assign({}, { page: '0', per_page: '10', sort: [] }, { queries, filters });
   }
 
   submitSearchRequest(event) {
