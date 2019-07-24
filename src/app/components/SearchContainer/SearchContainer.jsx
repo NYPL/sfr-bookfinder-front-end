@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
 import SearchForm from '../SearchForm/SearchForm';
 import SearchResults from '../SearchResults/SearchResults';
+import AdvancedSearchResults from '../SearchResults/AdvancedSearchResults';
 import * as searchActions from '../../actions/SearchActions';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import { getQueryString } from '../../search/query';
@@ -115,6 +116,11 @@ class SearchContainer extends React.Component {
               searchQuery={searchQuery}
               history={history}
               {...this.boundActions}
+            />
+            <AdvancedSearchResults
+              searchQuery={searchQuery}
+              {...this.boundActions}
+              router={router}
             />
             <SearchResults
               searchQuery={searchQuery}

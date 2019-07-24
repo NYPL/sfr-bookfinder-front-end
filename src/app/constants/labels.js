@@ -38,4 +38,9 @@ export const documentTitles = {
 };
 
 export const yearsType = { start: 'Start', end: 'End' };
-export const filtersLabels = { show_all: 'Available to read now', language: 'Language', years: 'Publication Year' };
+export const filtersLabels = {
+  show_all: 'Available to read now',
+  language: 'Language',
+  format: 'Format',
+  years: 'Publication Year',
+};

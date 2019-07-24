@@ -27,3 +27,22 @@
 .nypl-select__multi-value {
   border: 1px dashed #7fb4dc;
 }
+
+.tag-button {
+  color: black;
+  box-shadow: inset 0 0 0 1px #000;
+  border-radius: 0;
+  position: relative;
+  padding-right: 1.5rem;
+  cursor: pointer;
+
+  &:after {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 0.7rem;
+    content: 'x';
+    padding: 0.5rem 0.5rem;
+  }
+}
