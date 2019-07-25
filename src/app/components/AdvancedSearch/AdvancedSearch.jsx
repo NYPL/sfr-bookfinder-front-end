@@ -16,6 +16,29 @@ import TextInput from '../Form/TextInput';
 import Checkbox from '../Form/Checkbox';
 import { inputTerms } from '../../constants/labels';
 
+const initialState = {
+  error: false,
+  errorMsg: '',
+  languages: [],
+  queries: {
+    keyword: '',
+    title: '',
+    author: '',
+    subject: '',
+  },
+  filters: {
+    format: {
+      epub: false,
+      pdf: false,
+      html: false,
+    },
+    language: [],
+    years: {
+      start: '',
+      end: '',
+    },
+  },
+};
 // style for the languages dropdown
 const customStyles = {
   control: base => ({
@@ -57,29 +80,7 @@ class AdvancedSearch extends React.Component {
   constructor(props) {
     super(props);
     const { dispatch } = props;
-    this.state = {
-      error: false,
-      errorMsg: '',
-      languages: [],
-      queries: {
-        keyword: '',
-        title: '',
-        author: '',
-        subject: '',
-      },
-      filters: {
-        format: {
-          epub: false,
-          pdf: false,
-          html: false,
-        },
-        language: [],
-        years: {
-          start: '',
-          end: '',
-        },
-      },
-    };
+    this.state = initialState;
     this.boundActions = bindActionCreators(searchActions, dispatch);
     this.onQueryChange = this.onQueryChange.bind(this);
     this.onLanguageChange = this.onLanguageChange.bind(this);
@@ -93,6 +94,10 @@ class AdvancedSearch extends React.Component {
 
   componentDidMount() {
     this.loadLanguages();
+  }
+
+  componentWillReceiveProps(props) {
+    this.parseQueryToState(props.searchQuery);
   }
 
   onQueryChange(event) {
@@ -202,6 +207,40 @@ class AdvancedSearch extends React.Component {
     return Object.assign({}, { queries, filters });
   }
 
+  parseQueryToState(searchQuery) {
+    const state = { queries: {}, filters: {} };
+    if (!searchQuery) {
+      return;
+    }
+    if (searchQuery.queries) {
+      searchQuery.queries.forEach((q) => {
+        state.queries[q.field] = q.query;
+      });
+    }
+    if (searchQuery.filters) {
+      searchQuery.filters.forEach((q) => {
+        if (q.field === 'format') {
+          if (!state.filters[q.field]) {
+            state.filters[q.field] = {};
+          }
+          state.filters[q.field][q.value] = true;
+        } else if (q.field === 'language') {
+          if (!state.filters[q.field]) {
+            state.filters[q.field] = [];
+          }
+          state.filters[q.field].push(q.value);
+        } else {
+          state.filters[q.field] = q.value;
+        }
+      });
+    }
+    this.setState((prevState) => {
+      const filters = { ...prevState.filters, ...state.filters };
+      const queries = { ...prevState.queries, ...state.queries };
+      return { filters, queries };
+    });
+  }
+
   submitSearchRequest(event) {
     event.preventDefault();
     event.stopPropagation();
@@ -210,11 +249,9 @@ class AdvancedSearch extends React.Component {
       this.setState({ error: true, errorMsg: 'Please fill some query' });
       return;
     }
-    if (fullQuery) {
-      this.boundActions.userQuery(fullQuery);
-      const path = `/search?${getQueryString(fullQuery)}`;
-      this.context.router.push(path);
-    }
+    this.boundActions.userQuery(fullQuery);
+    const path = `/search?${getQueryString(fullQuery)}`;
+    this.context.router.push(path);
   }
 
   validate() {
@@ -251,7 +288,7 @@ class AdvancedSearch extends React.Component {
       this.boundActions.resetSearch();
       router.push('/');
     };
-
+    const languagesSelected = this.state.languages.filter(language => this.state.filters.language.indexOf(language.value) > -1);
     return (
       <main
         id="mainContent"
@@ -328,7 +365,7 @@ class AdvancedSearch extends React.Component {
                       name="language"
                       id="language"
                       label="Languages"
-                      defaultValue={this.state.filters.language}
+                      value={languagesSelected}
                       onChange={this.onLanguageChange}
                       theme={theme => ({
                         ...theme,
@@ -483,10 +520,7 @@ AdvancedSearch.contextTypes = {
   history: PropTypes.objectOf(PropTypes.any),
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  searchResults: state.searchResults || ownProps.searchResults,
-  searchQuery: state.searchQuery || ownProps.searchQuery,
-});
+const mapStateToProps = state => state;
 
 export default connect(
   mapStateToProps,
