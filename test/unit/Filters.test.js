@@ -6,6 +6,7 @@ import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import Filters from '../../src/app/components/SearchResults/Filters';
 import results from '../fixtures/results-list-full.json';
+import Checkbox from '../../src/app/components/Form/Checkbox';
 
 configure({ adapter: new Adapter() });
 
@@ -59,15 +60,15 @@ describe('Filters', () => {
       component = shallow(<Filters data={results} />);
     });
 
-    it('should display a list of fields (currently 3)', () => {
-      expect(component.find('fieldset')).to.have.length(3);
+    it('should display a list of fields (currently 4)', () => {
+      expect(component.find('fieldset')).to.have.length(4);
     });
     it('should display a list of filters inside the language field (maximum 10)', () => {
       expect(
         component
           .find('fieldset')
           .at(1)
-          .find('div'),
+          .find(Checkbox),
       ).to.have.length(10);
     });
     it('should display the maximum count of language filter first', () => {
@@ -75,9 +76,9 @@ describe('Filters', () => {
         component
           .find('fieldset')
           .at(1)
-          .find('div')
+          .find(Checkbox)
           .first()
-          .text(),
+          .props().label,
       ).to.equal('English (2,148)');
     });
     it('should contain Years Filter', () => {
@@ -88,7 +89,7 @@ describe('Filters', () => {
         component
           .find('fieldset')
           .at(0)
-          .find('Checkbox')
+          .find(Checkbox)
           .props().id,
       ).to.equal('show_all');
     });
@@ -97,7 +98,7 @@ describe('Filters', () => {
         component
           .find('fieldset')
           .at(0)
-          .find('Checkbox')
+          .find(Checkbox)
           .props().isSelected,
       ).to.equal(true);
     });

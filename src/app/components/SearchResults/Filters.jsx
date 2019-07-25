@@ -6,6 +6,8 @@ import FilterYears from './FilterYears';
 import { filtersLabels } from '../../constants/labels';
 import Checkbox from '../Form/Checkbox';
 
+const formatTypes = [{ value: 'pdf', label: 'PDF' }, { value: 'epub', label: 'ePub' }, { value: 'html', label: 'Html' }];
+
 const Filters = ({
   data, searchQuery, userQuery, router,
 }) => {
@@ -118,6 +120,7 @@ const Filters = ({
         || searchContains(field)
         || (field === 'years' && (searchContains(field) || (data.hits && data.hits.hits && data.hits.hits.length > 0)))
         || field === 'show_all'
+        || (field === 'format' && (searchContains(field) || (data.hits && data.hits.hits && data.hits.hits.length > 0)))
       ? field
       : null))
     .filter(x => x);
@@ -156,27 +159,31 @@ const Filters = ({
             )}
             {field === 'language'
               && prepareFilters(data.facets[field], field).map(facet => (
-                <div
+                <Checkbox
                   className="usa-checkbox"
-                  key={`facet-${field}-${facet.value}`}
-                >
-                  <input
-                    className="usa-checkbox__input"
-                    id={`filters-${field}-${facet.value}`}
-                    type="checkbox"
-                    name={`filters.${field}`}
-                    value={facet.value}
-                    onChange={e => onChangeCheckbox(e, field, facet.value)}
-                    checked={isFilterChecked(field, facet.value)}
-                  />
-                  <label
-                    className="usa-checkbox__label"
-                    htmlFor={`filters-${field}-${facet.value}`}
-                  >
-                    {facet.value}
-                    {facet.count > 0 && ` (${facet.count.toLocaleString()})`}
-                  </label>
-                </div>
+                  labelClass="usa-checkbox__label"
+                  inputClass="usa-checkbox__input"
+                  id={`filters-${field}-${facet.value}`}
+                  isSelected={isFilterChecked(field, facet.value)}
+                  onChange={e => onChangeCheckbox(e, field, facet.value)}
+                  label={facet.count > 0 ? `${facet.value} (${facet.count.toLocaleString()})` : `${facet.value}`}
+                  name={`filters.${field}`}
+                  key={`filters-${field}-${facet.value}`}
+                />
+              ))}
+            {field === 'format'
+              && formatTypes.map(formatType => (
+                <Checkbox
+                  className="usa-checkbox tablet:grid-col-12"
+                  labelClass="usa-checkbox__label"
+                  inputClass="usa-checkbox__input"
+                  id={`filters-${field}-${formatType.value}`}
+                  isSelected={isFilterChecked(field, formatType.value)}
+                  onChange={e => onChangeCheckbox(e, field, formatType.value)}
+                  label={formatType.label}
+                  name={`filters.${field}`}
+                  key={`facet-${field}-${formatType.value}`}
+                />
               ))}
           </fieldset>
         ))}
