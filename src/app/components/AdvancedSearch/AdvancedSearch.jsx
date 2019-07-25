@@ -14,12 +14,7 @@ import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialSt
 import { isEmpty } from '../../util/Util';
 import TextInput from '../Form/TextInput';
 import Checkbox from '../Form/Checkbox';
-
-// input type advanced searchs
-const inputTerms = [
-  { key: 1, values: [{ key: 'keyword', label: 'Keyword' }, { key: 'author', label: 'Author' }] },
-  { key: 2, values: [{ key: 'title', label: 'Title' }, { key: 'subject', label: 'Subject' }] },
-];
+import { inputTerms } from '../../constants/labels';
 
 // style for the languages dropdown
 const customStyles = {
@@ -63,9 +58,10 @@ class AdvancedSearch extends React.Component {
     super(props);
     const { dispatch } = props;
     this.state = {
+      error: false,
+      errorMsg: '',
       languages: [],
       queries: {
-        language: [],
         keyword: '',
         title: '',
         author: '',
@@ -106,7 +102,7 @@ class AdvancedSearch extends React.Component {
     this.setState((prevState) => {
       const queries = prevState.queries;
       queries[name] = value;
-      return { queries };
+      return { queries, error: false, errorMsg: '' };
     });
   }
 
@@ -168,8 +164,11 @@ class AdvancedSearch extends React.Component {
 
   parseStateToQuery() {
     const queries = Object.keys(this.state.queries)
-      .filter(q => this.state.queries[q] && this.state.queries[q].length > 0)
-      .map(q => ({ field: q, query: this.state.queries[q] }));
+      .map((q) => {
+        const query = this.state.queries[q] && this.state.queries[q].replace(/^\s+/, '').replace(/\s+$/, '');
+        return { field: q, query };
+      })
+      .filter(q => !!q.query);
 
     const filters = [];
     if (this.state.filters.language && this.state.filters.language.length > 0) {
@@ -207,6 +206,10 @@ class AdvancedSearch extends React.Component {
     event.preventDefault();
     event.stopPropagation();
     const fullQuery = this.parseStateToQuery();
+    if (!fullQuery || !fullQuery.queries || fullQuery.queries.length < 1) {
+      this.setState({ error: true, errorMsg: 'Please fill some query' });
+      return;
+    }
     if (fullQuery) {
       this.boundActions.userQuery(fullQuery);
       const path = `/search?${getQueryString(fullQuery)}`;
@@ -214,8 +217,21 @@ class AdvancedSearch extends React.Component {
     }
   }
 
+  validate() {
+    const fullQuery = this.parseStateToQuery();
+    if (!fullQuery || !fullQuery.queries || fullQuery.queries.length < 1) {
+      return false;
+    }
+    return true;
+  }
+
   clearForm() {
-    this.setState({ queries: {}, filters: { format: {}, language: [], years: {} } });
+    this.setState({
+      error: false,
+      errorMsg: '',
+      queries: {},
+      filters: { format: {}, language: [], years: {} },
+    });
   }
 
   render() {
@@ -428,6 +444,17 @@ class AdvancedSearch extends React.Component {
                         />
                       </div>
                     </div>
+                    {this.state.error && (
+                      <div
+                        className="usa-alert usa-alert--error"
+                        role="alert"
+                      >
+                        <div className="usa-alert__body">
+                          <h3 className="usa-alert__heading">Error</h3>
+                          <p className="usa-alert__text">{this.state.errorMsg}</p>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               </form>
