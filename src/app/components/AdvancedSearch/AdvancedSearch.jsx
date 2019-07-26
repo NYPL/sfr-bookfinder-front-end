@@ -11,10 +11,9 @@ import * as searchActions from '../../actions/SearchActions';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import { getQueryString } from '../../search/query';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
-import { isEmpty } from '../../util/Util';
 import TextInput from '../Form/TextInput';
 import Checkbox from '../Form/Checkbox';
-import { inputTerms } from '../../constants/labels';
+import { inputTerms, formatTypes } from '../../constants/labels';
 
 const initialState = {
   error: false,
@@ -254,14 +253,6 @@ class AdvancedSearch extends React.Component {
     this.context.router.push(path);
   }
 
-  validate() {
-    const fullQuery = this.parseStateToQuery();
-    if (!fullQuery || !fullQuery.queries || fullQuery.queries.length < 1) {
-      return false;
-    }
-    return true;
-  }
-
   clearForm() {
     this.setState({
       error: false,
@@ -272,10 +263,9 @@ class AdvancedSearch extends React.Component {
   }
 
   render() {
-    const { searchQuery, searchResults } = this.props;
+    const { searchQuery } = this.props;
     const { router } = this.context;
 
-    const pageType = isEmpty(searchResults) ? 'home' : 'results';
     /**
      * onClick handler for resetting state for the request back to the home page
      * to return the user to a new search.
@@ -289,6 +279,9 @@ class AdvancedSearch extends React.Component {
       router.push('/');
     };
     const languagesSelected = this.state.languages.filter(language => this.state.filters.language.indexOf(language.value) > -1);
+    const getQueryValue = key => this.state.queries[key];
+    const getFilterValue = (filter, key) => this.state.filters[filter] && this.state.filters[filter][key];
+
     return (
       <main
         id="mainContent"
@@ -303,7 +296,7 @@ class AdvancedSearch extends React.Component {
                   text: 'Advanced Search',
                 },
               ]}
-              pageType={pageType}
+              pageType="advanced-search"
               onClickHandler={handleReset}
             />
           </div>
@@ -340,7 +333,7 @@ class AdvancedSearch extends React.Component {
                           onChange={this.onQueryChange}
                           label={term.label}
                           key={term.key}
-                          value={this.state.queries[term.key]}
+                          value={getQueryValue(term.key)}
                         />
                       ))}
                     </div>
@@ -397,8 +390,8 @@ class AdvancedSearch extends React.Component {
                           name="start"
                           onChange={this.onYearChange}
                           label="Start"
-                          value={this.state.filters.years.start}
-                          max={this.state.filters.years.end}
+                          value={getFilterValue('years', 'start')}
+                          max={getFilterValue('years', 'end')}
                         />
                         <TextInput
                           className="grid-col-4"
@@ -410,8 +403,8 @@ class AdvancedSearch extends React.Component {
                           name="end"
                           onChange={this.onYearChange}
                           label="End"
-                          value={this.state.filters.years.end}
-                          min={this.state.filters.years.start}
+                          value={getFilterValue('years', 'end')}
+                          min={getFilterValue('years', 'start')}
                         />
                       </div>
                     </fieldset>
@@ -419,43 +412,20 @@ class AdvancedSearch extends React.Component {
 
                   <div className="tablet:grid-col-6">
                     <fieldset className="usa-fieldset grid-container width-full margin-x-0 padding-x-0 margin-bottom-2">
-                      <legend className="usa-legend font-sans-lg sub-legend">Format</legend>
-                      <div className="grid-row usa-label">
+                      <legend className="usa-legend font-sans-lg sub-legend margin-bottom-3">Format</legend>
+                      {formatTypes.map(formatType => (
                         <Checkbox
                           className="usa-checkbox tablet:grid-col-12"
                           labelClass="usa-checkbox__label"
                           inputClass="usa-checkbox__input"
-                          id="epub"
-                          isSelected={this.state.filters.format.epub}
+                          id={`filters-format-${formatType.value}`}
+                          isSelected={getFilterValue('format', formatType.value)}
                           onChange={this.onFormatChange}
-                          label="ePub"
-                          name="epub"
+                          label={formatType.label}
+                          name={formatType.value}
+                          key={`facet-format-${formatType.value}`}
                         />
-                      </div>
-                      <div className="grid-row">
-                        <Checkbox
-                          className="usa-checkbox tablet:grid-col-12"
-                          labelClass="usa-checkbox__label"
-                          inputClass="usa-checkbox__input"
-                          id="pdf"
-                          isSelected={this.state.filters.format.pdf}
-                          onChange={this.onFormatChange}
-                          label="PDF"
-                          name="pdf"
-                        />
-                      </div>
-                      <div className="grid-row">
-                        <Checkbox
-                          className="usa-checkbox tablet:grid-col-12"
-                          labelClass="usa-checkbox__label"
-                          inputClass="usa-checkbox__input"
-                          id="html"
-                          isSelected={this.state.filters.format.html}
-                          onChange={this.onFormatChange}
-                          label="Html"
-                          name="html"
-                        />
-                      </div>
+                      ))}
                     </fieldset>
                   </div>
                 </div>
@@ -504,13 +474,11 @@ class AdvancedSearch extends React.Component {
 }
 
 AdvancedSearch.propTypes = {
-  searchResults: PropTypes.objectOf(PropTypes.any),
   searchQuery: searchQueryPropTypes,
   dispatch: PropTypes.func,
 };
 
 AdvancedSearch.defaultProps = {
-  searchResults: {},
   searchQuery: initialSearchQuery,
   dispatch: () => {},
 };

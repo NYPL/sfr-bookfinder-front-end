@@ -3,10 +3,8 @@ import PropTypes from 'prop-types';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
 import { getQueryString } from '../../search/query';
 import FilterYears from './FilterYears';
-import { filtersLabels } from '../../constants/labels';
+import { filtersLabels, formatTypes } from '../../constants/labels';
 import Checkbox from '../Form/Checkbox';
-
-const formatTypes = [{ value: 'pdf', label: 'PDF' }, { value: 'epub', label: 'ePub' }, { value: 'html', label: 'Html' }];
 
 const Filters = ({
   data, searchQuery, userQuery, router,
