@@ -11,11 +11,33 @@ import * as searchActions from '../../actions/SearchActions';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import { getQueryString } from '../../search/query';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
-import { isEmpty } from '../../util/Util';
 import TextInput from '../Form/TextInput';
 import Checkbox from '../Form/Checkbox';
-import { inputTerms } from '../../constants/labels';
+import { inputTerms, formatTypes } from '../../constants/labels';
 
+const initialState = {
+  error: false,
+  errorMsg: '',
+  languages: [],
+  queries: {
+    keyword: '',
+    title: '',
+    author: '',
+    subject: '',
+  },
+  filters: {
+    format: {
+      epub: false,
+      pdf: false,
+      html: false,
+    },
+    language: [],
+    years: {
+      start: '',
+      end: '',
+    },
+  },
+};
 // style for the languages dropdown
 const customStyles = {
   control: base => ({
@@ -57,29 +79,7 @@ class AdvancedSearch extends React.Component {
   constructor(props) {
     super(props);
     const { dispatch } = props;
-    this.state = {
-      error: false,
-      errorMsg: '',
-      languages: [],
-      queries: {
-        keyword: '',
-        title: '',
-        author: '',
-        subject: '',
-      },
-      filters: {
-        format: {
-          epub: false,
-          pdf: false,
-          html: false,
-        },
-        language: [],
-        years: {
-          start: '',
-          end: '',
-        },
-      },
-    };
+    this.state = initialState;
     this.boundActions = bindActionCreators(searchActions, dispatch);
     this.onQueryChange = this.onQueryChange.bind(this);
     this.onLanguageChange = this.onLanguageChange.bind(this);
@@ -93,6 +93,10 @@ class AdvancedSearch extends React.Component {
 
   componentDidMount() {
     this.loadLanguages();
+  }
+
+  componentWillReceiveProps(props) {
+    this.parseQueryToState(props.searchQuery);
   }
 
   onQueryChange(event) {
@@ -202,6 +206,40 @@ class AdvancedSearch extends React.Component {
     return Object.assign({}, { page: '0', per_page: '10', sort: [] }, { queries, filters });
   }
 
+  parseQueryToState(searchQuery) {
+    const state = { queries: {}, filters: {} };
+    if (!searchQuery) {
+      return;
+    }
+    if (searchQuery.queries) {
+      searchQuery.queries.forEach((q) => {
+        state.queries[q.field] = q.query;
+      });
+    }
+    if (searchQuery.filters) {
+      searchQuery.filters.forEach((q) => {
+        if (q.field === 'format') {
+          if (!state.filters[q.field]) {
+            state.filters[q.field] = {};
+          }
+          state.filters[q.field][q.value] = true;
+        } else if (q.field === 'language') {
+          if (!state.filters[q.field]) {
+            state.filters[q.field] = [];
+          }
+          state.filters[q.field].push(q.value);
+        } else {
+          state.filters[q.field] = q.value;
+        }
+      });
+    }
+    this.setState((prevState) => {
+      const filters = { ...prevState.filters, ...state.filters };
+      const queries = { ...prevState.queries, ...state.queries };
+      return { filters, queries };
+    });
+  }
+
   submitSearchRequest(event) {
     event.preventDefault();
     event.stopPropagation();
@@ -210,19 +248,9 @@ class AdvancedSearch extends React.Component {
       this.setState({ error: true, errorMsg: 'Please fill some query' });
       return;
     }
-    if (fullQuery) {
-      this.boundActions.userQuery(fullQuery);
-      const path = `/search?${getQueryString(fullQuery)}`;
-      this.context.router.push(path);
-    }
-  }
-
-  validate() {
-    const fullQuery = this.parseStateToQuery();
-    if (!fullQuery || !fullQuery.queries || fullQuery.queries.length < 1) {
-      return false;
-    }
-    return true;
+    this.boundActions.userQuery(fullQuery);
+    const path = `/search?${getQueryString(fullQuery)}`;
+    this.context.router.push(path);
   }
 
   clearForm() {
@@ -235,10 +263,9 @@ class AdvancedSearch extends React.Component {
   }
 
   render() {
-    const { searchQuery, searchResults } = this.props;
+    const { searchQuery } = this.props;
     const { router } = this.context;
 
-    const pageType = isEmpty(searchResults) ? 'home' : 'results';
     /**
      * onClick handler for resetting state for the request back to the home page
      * to return the user to a new search.
@@ -251,6 +278,9 @@ class AdvancedSearch extends React.Component {
       this.boundActions.resetSearch();
       router.push('/');
     };
+    const languagesSelected = this.state.languages.filter(language => this.state.filters.language.indexOf(language.value) > -1);
+    const getQueryValue = key => this.state.queries[key];
+    const getFilterValue = (filter, key) => this.state.filters[filter] && this.state.filters[filter][key];
 
     return (
       <main
@@ -266,7 +296,7 @@ class AdvancedSearch extends React.Component {
                   text: 'Advanced Search',
                 },
               ]}
-              pageType={pageType}
+              pageType="advanced-search"
               onClickHandler={handleReset}
             />
           </div>
@@ -303,7 +333,7 @@ class AdvancedSearch extends React.Component {
                           onChange={this.onQueryChange}
                           label={term.label}
                           key={term.key}
-                          value={this.state.queries[term.key]}
+                          value={getQueryValue(term.key)}
                         />
                       ))}
                     </div>
@@ -328,7 +358,7 @@ class AdvancedSearch extends React.Component {
                       name="language"
                       id="language"
                       label="Languages"
-                      defaultValue={this.state.filters.language}
+                      value={languagesSelected}
                       onChange={this.onLanguageChange}
                       theme={theme => ({
                         ...theme,
@@ -360,8 +390,8 @@ class AdvancedSearch extends React.Component {
                           name="start"
                           onChange={this.onYearChange}
                           label="Start"
-                          value={this.state.filters.years.start}
-                          max={this.state.filters.years.end}
+                          value={getFilterValue('years', 'start')}
+                          max={getFilterValue('years', 'end')}
                         />
                         <TextInput
                           className="grid-col-4"
@@ -373,8 +403,8 @@ class AdvancedSearch extends React.Component {
                           name="end"
                           onChange={this.onYearChange}
                           label="End"
-                          value={this.state.filters.years.end}
-                          min={this.state.filters.years.start}
+                          value={getFilterValue('years', 'end')}
+                          min={getFilterValue('years', 'start')}
                         />
                       </div>
                     </fieldset>
@@ -382,43 +412,20 @@ class AdvancedSearch extends React.Component {
 
                   <div className="tablet:grid-col-6">
                     <fieldset className="usa-fieldset grid-container width-full margin-x-0 padding-x-0 margin-bottom-2">
-                      <legend className="usa-legend font-sans-lg sub-legend">Format</legend>
-                      <div className="grid-row usa-label">
+                      <legend className="usa-legend font-sans-lg sub-legend margin-bottom-3">Format</legend>
+                      {formatTypes.map(formatType => (
                         <Checkbox
                           className="usa-checkbox tablet:grid-col-12"
                           labelClass="usa-checkbox__label"
                           inputClass="usa-checkbox__input"
-                          id="epub"
-                          isSelected={this.state.filters.format.epub}
+                          id={`filters-format-${formatType.value}`}
+                          isSelected={getFilterValue('format', formatType.value)}
                           onChange={this.onFormatChange}
-                          label="ePub"
-                          name="epub"
+                          label={formatType.label}
+                          name={formatType.value}
+                          key={`facet-format-${formatType.value}`}
                         />
-                      </div>
-                      <div className="grid-row">
-                        <Checkbox
-                          className="usa-checkbox tablet:grid-col-12"
-                          labelClass="usa-checkbox__label"
-                          inputClass="usa-checkbox__input"
-                          id="pdf"
-                          isSelected={this.state.filters.format.pdf}
-                          onChange={this.onFormatChange}
-                          label="PDF"
-                          name="pdf"
-                        />
-                      </div>
-                      <div className="grid-row">
-                        <Checkbox
-                          className="usa-checkbox tablet:grid-col-12"
-                          labelClass="usa-checkbox__label"
-                          inputClass="usa-checkbox__input"
-                          id="html"
-                          isSelected={this.state.filters.format.html}
-                          onChange={this.onFormatChange}
-                          label="Html"
-                          name="html"
-                        />
-                      </div>
+                      ))}
                     </fieldset>
                   </div>
                 </div>
@@ -467,13 +474,11 @@ class AdvancedSearch extends React.Component {
 }
 
 AdvancedSearch.propTypes = {
-  searchResults: PropTypes.objectOf(PropTypes.any),
   searchQuery: searchQueryPropTypes,
   dispatch: PropTypes.func,
 };
 
 AdvancedSearch.defaultProps = {
-  searchResults: {},
   searchQuery: initialSearchQuery,
   dispatch: () => {},
 };
@@ -483,10 +488,7 @@ AdvancedSearch.contextTypes = {
   history: PropTypes.objectOf(PropTypes.any),
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  searchResults: state.searchResults || ownProps.searchResults,
-  searchQuery: state.searchQuery || ownProps.searchQuery,
-});
+const mapStateToProps = state => state;
 
 export default connect(
   mapStateToProps,
