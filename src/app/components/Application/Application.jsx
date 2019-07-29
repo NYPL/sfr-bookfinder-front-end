@@ -35,6 +35,7 @@ class Application extends React.Component {
         <Header
           skipNav={{ target: 'mainContent' }}
           navData={navConfig.current}
+          urlType="absolute"
         />
         <Loading />
         {React.cloneElement(this.props.children, this.props)}
