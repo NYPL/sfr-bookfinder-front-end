@@ -5,7 +5,6 @@ import ReactDOM from 'react-dom';
 import { Router, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import store from '../app/stores/Store';
-
 import './styles/main.scss';
 
 import routes from '../app/routes/routes';

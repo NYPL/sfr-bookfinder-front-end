@@ -30,7 +30,7 @@ $fontFamily: 'Kievit-Book', Source Sans Pro Web, Helvetica Neue, Helvetica, Robo
 @import './components/Filters.scss';
 @import './components/AdvancedSearch.scss';
 @import './core/fonts.scss';
-
+@import '~@nypl/dgx-header-component/dist/styles/main';
 html {
   font-family: $fontFamily;
 }
