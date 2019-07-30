@@ -3,7 +3,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import Footer from '@nypl/dgx-react-footer';
-import { Header, navConfig } from '../../libraries/nyplHeader';
 
 import appConfig from '../../../../appConfig';
 import Loading from './Loading';
@@ -32,11 +31,6 @@ class Application extends React.Component {
   render() {
     return (
       <div className="app-wrapper add-list-reset">
-        <Header
-          skipNav={{ target: 'mainContent' }}
-          navData={navConfig.current}
-          urlType="absolute"
-        />
         <Loading />
         {React.cloneElement(this.props.children, this.props)}
         <Footer />
