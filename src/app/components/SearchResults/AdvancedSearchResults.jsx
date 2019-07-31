@@ -37,7 +37,10 @@ const AdvancedSearchResults = ({ searchQuery, userQuery, router }) => {
   if (searchQuery && searchQuery.queries && searchQuery.queries.length > 0) {
     return (
       <div className="grid-row margin-y-2">
-        <div className="grid-col-10 sfr-center">
+        <div
+          className="grid-col-10 sfr-center"
+          id="advanced-search-tags"
+        >
           {searchQuery.queries.map(query => (
             <button
               type="button"
