@@ -356,7 +356,7 @@ class AdvancedSearch extends React.Component {
                       labelClass="usa-label"
                       selectClass="usa-select multiple"
                       name="language"
-                      id="language"
+                      id="filters-language"
                       label="Languages"
                       value={languagesSelected}
                       onChange={this.onLanguageChange}
@@ -384,7 +384,7 @@ class AdvancedSearch extends React.Component {
                           className="grid-col-4"
                           ariaLabel="Search for Start Date"
                           labelClass="usa-label"
-                          id="start"
+                          id="filters-year-start"
                           type="number"
                           inputClass="usa-input usa-input--small"
                           name="start"
@@ -397,7 +397,7 @@ class AdvancedSearch extends React.Component {
                           className="grid-col-4"
                           ariaLabel="Search for End Date"
                           labelClass="usa-label"
-                          id="end"
+                          id="filters-year-end"
                           type="number"
                           inputClass="usa-input usa-input--small"
                           name="end"
