@@ -2,8 +2,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
-
 import Footer from '@nypl/dgx-react-footer';
+
 import appConfig from '../../../../appConfig';
 import Loading from './Loading';
 import { documentTitles } from '../../constants/labels';

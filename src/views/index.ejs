@@ -47,8 +47,19 @@
     </script>
   </head>
   <body>
-    <!-- Header -->
-    <div id="nypl-header" class="nypl-header-img"></div>
+  <div id="Header-Placeholder">
+        <style>
+            #Header-Placeholder {
+                min-height: 70px;
+            }
+            @media screen and (min-width: 1024px) {
+                #Header-Placeholder {
+                    min-height: 230px;
+                }
+            }
+        </style>
+        <script type="text/javascript" src="https://header.nypl.org/dgx-header.min.js?skipNav=mainContent&urls=absolute" async></script>
+    </div>
     <div id="app"><%- application %></div>
 
     <script>
