@@ -118,12 +118,13 @@ h1.nypl-heading {
   }
 }
 
-// .nypl-searchbar-input {
-//   @media screen and (max-width: 480px) {
-//     display: block;
-//     width: 80%;
-//   }
-// }
+.nypl-searchbar-input {
+  position: relative;
+  .usa-error-message {
+    position: absolute;
+    top: -1.5rem;
+  }
+}
 
 .usa-button.sfr-search-button {
   height: 2.5rem;

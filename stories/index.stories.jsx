@@ -3,7 +3,9 @@
 import React from 'react';
 
 import { storiesOf } from '@storybook/react';
-import { text, array, object } from '@storybook/addon-knobs';
+import {
+  text, array, object, boolean,
+} from '@storybook/addon-knobs';
 // import { action } from '@storybook/addon-actions';
 // import { linkTo } from '@storybook/addon-links';
 
@@ -12,6 +14,7 @@ import { text, array, object } from '@storybook/addon-knobs';
 import SearchForm from '../src/app/components/SearchForm/SearchForm';
 import TextInput from '../src/app/components/Form/TextInput';
 import Select from '../src/app/components/Form/Select';
+import Checkbox from '../src/app/components/Form/Checkbox';
 import SearchButton from '../src/app/components/Button/SearchButton';
 
 import '../src/client/styles/main.scss';
@@ -59,6 +62,17 @@ storiesOf('Search', module)
       ariaLabel="Search"
     />
   ));
+storiesOf('Filters', module).add('Checkbox', () => (
+  <Checkbox
+    className="usa-checkbox tablet:grid-col-12"
+    labelClass="usa-checkbox__label"
+    inputClass="usa-checkbox__input"
+    id="filter-checkbox"
+    isSelected={boolean('checkbox', false)}
+    label={text('Label', 'Filter')}
+    name="filter-checkbox"
+  />
+));
 
 storiesOf('Results', module).add('EbooksList', () => (
   <table className="nypl-editions-table">
