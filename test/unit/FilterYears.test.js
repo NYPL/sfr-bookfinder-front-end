@@ -5,6 +5,7 @@ import { expect } from 'chai';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import FilterYears from '../../src/app/components/SearchResults/FilterYears';
+import TextInput from '../../src/app/components/Form/TextInput';
 
 configure({ adapter: new Adapter() });
 
@@ -17,7 +18,7 @@ describe('FilterYears', () => {
     });
 
     it('should show the form .', () => {
-      expect(component.find('input')).to.have.length(2);
+      expect(component.find(TextInput)).to.have.length(2);
     });
   });
   describe('Prepopulated years.', () => {
@@ -37,12 +38,12 @@ describe('FilterYears', () => {
     });
 
     it('should show the form .', () => {
-      expect(component.find('input')).to.have.length(2);
+      expect(component.find(TextInput)).to.have.length(2);
     });
     it('should prepopulate the form .', () => {
       expect(
         component
-          .find('input')
+          .find(TextInput)
           .first()
           .prop('value'),
       ).to.equal(1926);

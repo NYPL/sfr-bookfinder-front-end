@@ -78,7 +78,7 @@ export const buildQueryBody = (query) => {
   return ret;
 };
 
-export const getQueryString = query => Object.keys(query)
+export const getQueryString = query => query && Object.keys(query)
   .map(key => [key, query[key]]
     .map((o) => {
       let ret = o;

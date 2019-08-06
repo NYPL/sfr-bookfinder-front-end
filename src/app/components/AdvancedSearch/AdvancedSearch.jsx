@@ -13,7 +13,8 @@ import { getQueryString } from '../../search/query';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
 import TextInput from '../Form/TextInput';
 import Checkbox from '../Form/Checkbox';
-import { inputTerms, formatTypes } from '../../constants/labels';
+import { inputTerms, formatTypes, errorMessagesText } from '../../constants/labels';
+import FilterYears from '../SearchResults/FilterYears';
 
 const initialState = {
   error: false,
@@ -86,7 +87,7 @@ class AdvancedSearch extends React.Component {
     this.parseStateToQuery = this.parseStateToQuery.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
-    this.onYearChange = this.onYearChange.bind(this);
+    this.onChangeYears = this.onChangeYears.bind(this);
     this.onFormatChange = this.onFormatChange.bind(this);
     this.clearForm = this.clearForm.bind(this);
   }
@@ -121,17 +122,6 @@ class AdvancedSearch extends React.Component {
     }
   }
 
-  onYearChange(event) {
-    const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
-    this.setState((prevState) => {
-      const filters = prevState.filters;
-      filters.years[name] = value;
-      return { filters };
-    });
-  }
-
   onFormatChange(event) {
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -141,6 +131,18 @@ class AdvancedSearch extends React.Component {
       filters.format[name] = value;
       return { filters };
     });
+  }
+
+  onChangeYears(yearsFilter) {
+    this.setState((prevState) => {
+      const filters = prevState.filters;
+      filters.years = yearsFilter;
+      return { filters };
+    });
+  }
+
+  onErrorYears(errorObj) {
+    this.setState({ error: errorObj.error, errorMsg: errorObj.errorMsg });
   }
 
   loadLanguages() {
@@ -243,9 +245,12 @@ class AdvancedSearch extends React.Component {
   submitSearchRequest(event) {
     event.preventDefault();
     event.stopPropagation();
+    if (this.state.error) {
+      return;
+    }
     const fullQuery = this.parseStateToQuery();
     if (!fullQuery || !fullQuery.queries || fullQuery.queries.length < 1) {
-      this.setState({ error: true, errorMsg: 'Please fill some query' });
+      this.setState({ error: true, errorMsg: errorMessagesText.emptySearch });
       return;
     }
     this.boundActions.userQuery(fullQuery);
@@ -378,40 +383,19 @@ class AdvancedSearch extends React.Component {
                   <div className="tablet:grid-col-6">
                     <fieldset className="usa-fieldset grid-container width-full margin-x-0 padding-x-0 margin-bottom-2">
                       <legend className="usa-legend font-sans-lg sub-legend">Publication Year</legend>
-
-                      <div className="grid-row">
-                        <TextInput
-                          className="grid-col-4"
-                          ariaLabel="Search for Start Date"
-                          labelClass="usa-label"
-                          id="filters-year-start"
-                          type="number"
-                          inputClass="usa-input usa-input--small"
-                          name="start"
-                          onChange={this.onYearChange}
-                          label="Start"
-                          value={getFilterValue('years', 'start')}
-                          max={getFilterValue('years', 'end')}
-                        />
-                        <TextInput
-                          className="grid-col-4"
-                          ariaLabel="Search for End Date"
-                          labelClass="usa-label"
-                          id="filters-year-end"
-                          type="number"
-                          inputClass="usa-input usa-input--small"
-                          name="end"
-                          onChange={this.onYearChange}
-                          label="End"
-                          value={getFilterValue('years', 'end')}
-                          min={getFilterValue('years', 'start')}
-                        />
-                      </div>
+                      <FilterYears
+                        searchQuery={searchQuery}
+                        onChange={e => this.onChangeYears(e)}
+                        onError={e => this.onErrorYears(e)}
+                        inputClassName="tablet:grid-col padding-right-0 padding-top-2"
+                        className="grid-row grid-gap"
+                        showError={false}
+                      />
                     </fieldset>
                   </div>
 
                   <div className="tablet:grid-col-6">
-                    <fieldset className="usa-fieldset grid-container width-full margin-x-0 padding-x-0 margin-bottom-2">
+                    <fieldset className="usa-fieldset grid-container width-full margin-x-0 padding-x-0">
                       <legend className="usa-legend font-sans-lg sub-legend margin-bottom-3">Format</legend>
                       {formatTypes.map(formatType => (
                         <Checkbox
@@ -434,7 +418,7 @@ class AdvancedSearch extends React.Component {
                     <div className="grid-row grid-gap">
                       <div className="tablet:grid-col-6">
                         <input
-                          className="usa-button width-full usa-label"
+                          className="usa-button width-full margin-top-1"
                           type="submit"
                           value="Search"
                           readOnly
@@ -443,7 +427,7 @@ class AdvancedSearch extends React.Component {
                       </div>
                       <div className="tablet:grid-col-6">
                         <input
-                          className="usa-button usa-button--outline width-full usa-label"
+                          className="usa-button usa-button--outline width-full margin-top-1"
                           type="clear"
                           value="Clear"
                           onClick={this.clearForm}

@@ -9,6 +9,7 @@ import Checkbox from '../Form/Checkbox';
 const Filters = ({
   data, searchQuery, userQuery, router,
 }) => {
+  let isErrored = false;
   const filtersArray = [];
   // add search filters
   if (searchQuery && searchQuery.filters && Array.isArray(searchQuery.filters)) {
@@ -25,6 +26,9 @@ const Filters = ({
 
   // update page in store and go to any page
   const doSearchWithFilters = (filters) => {
+    if (isErrored) {
+      return;
+    }
     const newQuery = Object.assign({}, searchQuery, { filters }, { page: 0 });
     userQuery(newQuery);
     submit(newQuery);
@@ -32,6 +36,9 @@ const Filters = ({
 
   // on check of filter, add it or remove it from list and do the search
   const onChangeCheckbox = (e, field, value, negative) => {
+    if (isErrored) {
+      return;
+    }
     const matchIndex = filtersArray.findIndex(filter => filter.field === field && filter.value === value);
     if (negative) {
       if (!e.target.checked && matchIndex === -1) {
@@ -111,7 +118,9 @@ const Filters = ({
       }
     }
   };
-
+  const onErrorYears = (errorObj) => {
+    isErrored = errorObj.error;
+  };
   const searchContains = field => searchQuery && searchQuery.filters && searchQuery.filters.find(filter => filter.field === field);
   const showFields = () => Object.keys(filtersLabels)
     .map(field => ((data.facets && data.facets[field] && data.facets[field].length > 0)
@@ -141,6 +150,9 @@ const Filters = ({
             <FilterYears
               searchQuery={searchQuery}
               onChange={onChangeYears}
+              onError={e => onErrorYears(e)}
+              inputClassName="tablet:grid-col padding-right-4"
+              className="grid-row"
             />
             )}
             {field === 'show_all' && (
@@ -185,6 +197,15 @@ const Filters = ({
               ))}
           </fieldset>
         ))}
+        <div className="grid-row margin-top-1">
+          <button
+            className="usa-button usa-button--outline padding-x-4"
+            type="submit"
+            disabled={isErrored}
+          >
+            Update
+          </button>
+        </div>
       </form>
     );
   }

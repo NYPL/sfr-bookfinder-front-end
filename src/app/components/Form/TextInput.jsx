@@ -2,7 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const TextInput = ({
-  className, label, labelClass, id, inputClass, type, name, ariaLabel, value, onChange, max, min, errorMessage,
+  className,
+  label,
+  labelClass,
+  id,
+  inputClass,
+  type,
+  name,
+  ariaLabel,
+  value,
+  onChange,
+  max,
+  min,
+  errorMessage,
+  onBlur,
 }) => (
   <div className={className}>
     {label && (
@@ -30,6 +43,7 @@ const TextInput = ({
       aria-label={ariaLabel}
       value={value}
       onChange={onChange}
+      onBlur={onBlur}
       max={max}
       min={min}
     />
@@ -44,9 +58,10 @@ TextInput.propTypes = {
   inputClass: PropTypes.string,
   type: PropTypes.string,
   name: PropTypes.string,
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   ariaLabel: PropTypes.string,
   onChange: PropTypes.func,
+  onBlur: PropTypes.func,
   max: PropTypes.string,
   min: PropTypes.string,
   errorMessage: PropTypes.string,
@@ -63,6 +78,7 @@ TextInput.defaultProps = {
   value: '',
   ariaLabel: '',
   onChange: () => {},
+  onBlur: () => {},
   max: '',
   min: '',
   errorMessage: '',
