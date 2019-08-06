@@ -67,7 +67,7 @@ class FilterYears extends React.Component {
           {Object.keys(yearsType).map(yearType => (
             <TextInput
               className={this.props.inputClassName}
-              ariaLabel="Search for End Date"
+              ariaLabel={`Search for ${yearsType[yearType]} date`}
               labelClass=""
               id={`filters.years.${yearType}`}
               key={`filters.years.${yearType}`}
