@@ -13,7 +13,7 @@ import { getQueryString } from '../../search/query';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
 import TextInput from '../Form/TextInput';
 import Checkbox from '../Form/Checkbox';
-import { inputTerms, formatTypes } from '../../constants/labels';
+import { inputTerms, formatTypes, errorMessagesText } from '../../constants/labels';
 import FilterYears from '../SearchResults/FilterYears';
 
 const initialState = {
@@ -250,7 +250,7 @@ class AdvancedSearch extends React.Component {
     }
     const fullQuery = this.parseStateToQuery();
     if (!fullQuery || !fullQuery.queries || fullQuery.queries.length < 1) {
-      this.setState({ error: true, errorMsg: 'Please enter a search term' });
+      this.setState({ error: true, errorMsg: errorMessagesText.emptySearch });
       return;
     }
     this.boundActions.userQuery(fullQuery);

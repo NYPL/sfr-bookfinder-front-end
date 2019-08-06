@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
 import TextInput from '../Form/TextInput';
 
-import { yearsType } from '../../constants/labels';
+import { yearsType, errorMessagesText } from '../../constants/labels';
 
 const getYearsFilter = (searchQuery) => {
   const yearsValues = {};
@@ -30,7 +30,7 @@ class FilterYears extends React.Component {
     // TODO: errors control UI
     const errorMessage = {};
     const error = {};
-    const errorMessageText = 'Start date must be before End date.';
+    const errorMessageText = errorMessagesText.invalidDate;
     if (yearType === 'start') {
       if (this.state.end && val && val > Number(this.state.end)) {
         errorMessage[yearType] = errorMessageText;

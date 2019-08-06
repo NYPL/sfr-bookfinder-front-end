@@ -9,6 +9,8 @@ import TextInput from '../Form/TextInput';
 import { getQueryString } from '../../search/query';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
 import { deepEqual } from '../../util/Util';
+import { errorMessagesText } from '../../constants/labels';
+
 
 class SearchForm extends React.Component {
   constructor(props) {
@@ -80,7 +82,7 @@ class SearchForm extends React.Component {
     event.preventDefault();
     const query = this.state.searchQuery.query.replace(/^\s+/, '').replace(/\s+$/, '');
     if (!query) {
-      this.setState({ error: true, errorMsg: 'Please enter a search term' });
+      this.setState({ error: true, errorMsg: errorMessagesText.emptySearch });
       return;
     }
 

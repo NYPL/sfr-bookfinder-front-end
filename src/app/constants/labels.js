@@ -52,3 +52,8 @@ export const inputTerms = [
 
 
 export const formatTypes = [{ value: 'pdf', label: 'PDF' }, { value: 'epub', label: 'ePub' }, { value: 'html', label: 'Html' }];
+
+export const errorMessagesText = {
+  emptySearch: 'Please enter a search term',
+  invalidDate: 'Start date must be before End date',
+};
