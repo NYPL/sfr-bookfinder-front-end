@@ -250,7 +250,7 @@ class AdvancedSearch extends React.Component {
     }
     const fullQuery = this.parseStateToQuery();
     if (!fullQuery || !fullQuery.queries || fullQuery.queries.length < 1) {
-      this.setState({ error: true, errorMsg: 'Please fill some query' });
+      this.setState({ error: true, errorMsg: 'Please enter a search term' });
       return;
     }
     this.boundActions.userQuery(fullQuery);

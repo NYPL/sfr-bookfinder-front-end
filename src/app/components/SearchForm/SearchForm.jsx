@@ -80,7 +80,7 @@ class SearchForm extends React.Component {
     event.preventDefault();
     const query = this.state.searchQuery.query.replace(/^\s+/, '').replace(/\s+$/, '');
     if (!query) {
-      this.setState({ error: true, errorMsg: 'Please enter a term or terms to search' });
+      this.setState({ error: true, errorMsg: 'Please enter a search term' });
       return;
     }
 
