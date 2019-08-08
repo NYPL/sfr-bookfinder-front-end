@@ -28,6 +28,14 @@ class FilterYears extends React.Component {
   onChangeYear(e, yearType) {
     const val = e.target.value && Number(e.target.value);
     // TODO: errors control UI
+    const obj = {};
+    obj[yearType] = val;
+    this.setState(state => Object.assign({}, state, obj));
+    this.props.onChange({ ...{ start: this.state.start, end: this.state.end }, ...obj });
+  }
+
+  onBlur(e, yearType) {
+    const val = e.target.value && Number(e.target.value);
     const errorMessage = {};
     const error = {};
     const errorMessageText = errorMessagesText.invalidDate;
@@ -49,11 +57,7 @@ class FilterYears extends React.Component {
       }
     }
     this.setState({ errorMessage, error });
-    const obj = {};
-    obj[yearType] = val;
-    this.setState(state => Object.assign({}, state, obj));
     if (!error.end && !error.start) {
-      this.props.onChange({ ...{ start: this.state.start, end: this.state.end }, ...obj });
       this.props.onError({ errorMsg: '', error: false });
     } else {
       this.props.onError({ errorMsg: errorMessageText, error: true });
@@ -75,7 +79,7 @@ class FilterYears extends React.Component {
               inputClass={this.state.error[yearType] ? 'usa-input usa-input--error' : 'usa-input'}
               name={`filters.years.${yearType}`}
               onChange={e => this.onChangeYear(e, yearType)}
-              onBlur={e => this.onChangeYear(e, yearType)}
+              onBlur={e => this.onBlur(e, yearType)}
               label={yearsType[yearType]}
               value={this.state[yearType]}
               // errorMessage={this.state.errorMessage[yearType]}
@@ -84,17 +88,6 @@ class FilterYears extends React.Component {
             />
           ))}
         </div>
-        {this.props.showError && (this.state.error.start || this.state.error.end) && (
-          <div
-            className="usa-alert usa-alert--error"
-            role="alert"
-          >
-            <div className="usa-alert__body">
-              <h3 className="usa-alert__heading">Error</h3>
-              <p className="usa-alert__text">{this.state.errorMessage.start || this.state.errorMessage.end}</p>
-            </div>
-          </div>
-        )}
       </div>
     );
   }
@@ -106,7 +99,6 @@ FilterYears.propTypes = {
   onError: PropTypes.func,
   inputClassName: PropTypes.string,
   className: PropTypes.string,
-  showError: PropTypes.bool,
 };
 
 FilterYears.defaultProps = {
@@ -115,7 +107,6 @@ FilterYears.defaultProps = {
   onError: () => {},
   inputClassName: 'tablet:grid-col padding-right-0 padding-top-2',
   className: 'grid-row grid-gap',
-  showError: true,
 };
 
 export default FilterYears;
