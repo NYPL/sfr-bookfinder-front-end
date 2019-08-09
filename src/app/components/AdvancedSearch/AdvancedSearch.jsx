@@ -245,7 +245,8 @@ class AdvancedSearch extends React.Component {
   submitSearchRequest(event) {
     event.preventDefault();
     event.stopPropagation();
-    if (this.state.error) {
+    if (this.state.filters && this.state.filters.years && Number(this.state.filters.years.start) > Number(this.state.filters.years.end)) {
+      this.setState({ error: true, errorMsg: errorMessagesText.invalidDate });
       return;
     }
     const fullQuery = this.parseStateToQuery();
@@ -389,7 +390,6 @@ class AdvancedSearch extends React.Component {
                         onError={e => this.onErrorYears(e)}
                         inputClassName="tablet:grid-col padding-right-0 padding-top-2"
                         className="grid-row grid-gap"
-                        showError={false}
                       />
                     </fieldset>
                   </div>
