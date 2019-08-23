@@ -44,7 +44,8 @@ class SearchContainer extends React.Component {
     const {
       location: { query },
       dispatch,
-    } = this.props;
+      searchQuery,
+    } = this.props;    
 
     if (!query || isEmpty(query)) {
       this.boundActions.resetSearch();
@@ -59,7 +60,7 @@ class SearchContainer extends React.Component {
       if (query && query.queries) {
         newQuery = Object.assign({}, newQuery, { queries: JSON.parse(query.queries) });
       }
-      if (query) {
+      if (searchQuery && !deepEqual(newQuery, searchQuery)) {
         dispatch(searchActions.userQuery(newQuery));
         dispatch(searchActions.searchPost(newQuery));
       }
