@@ -255,6 +255,7 @@ class AdvancedSearch extends React.Component {
       return;
     }
     this.boundActions.userQuery(fullQuery);
+    this.boundActions.searchPost(fullQuery);
     const path = `/search?${getQueryString(fullQuery)}`;
     this.context.router.push(path);
   }

@@ -11,7 +11,6 @@ const { dispatch } = store; // dispatch is not found imported directly from stor
 // intercepts all http request to update the status of loading in the Store
 axios.interceptors.request.use(
   (config) => {
-    dispatch(errorMsgAction(''));
     dispatch(loadingAction(true));
     return config;
   },
@@ -23,7 +22,6 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(
   (response) => {
-    dispatch(errorMsgAction(''));
     dispatch(loadingAction(false));
     return response;
   },

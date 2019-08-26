@@ -56,7 +56,7 @@ const arrowRenderer = (open) => {
 
 // gets all links from all ebooks, classified on download true or false
 const linksArray = ({ ebooks, download }) => unique(
-  flattenDeep(ebooks.map(item => item.links)) //
+  flattenDeep(ebooks.filter(item => item.links).map(item => item.links)) //
     .filter(link => link.download === download), //
   'url',
 );
