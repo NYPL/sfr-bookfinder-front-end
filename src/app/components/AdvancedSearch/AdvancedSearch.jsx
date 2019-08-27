@@ -1,19 +1,19 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import axios from 'axios';
-import PropTypes from 'prop-types';
 import React from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import PropTypes from 'prop-types';
+import axios from 'axios';
 import Select from 'react-select';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router';
 import appConfig from '../../../../appConfig';
 import * as searchActions from '../../actions/SearchActions';
-import { errorMessagesText, formatTypes, inputTerms } from '../../constants/labels';
+import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import { getQueryString } from '../../search/query';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
-import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
-import Checkbox from '../Form/Checkbox';
 import TextInput from '../Form/TextInput';
+import Checkbox from '../Form/Checkbox';
+import { inputTerms, formatTypes, errorMessagesText } from '../../constants/labels';
 import FilterYears from '../SearchResults/FilterYears';
 
 const initialState = {
