@@ -1,13 +1,13 @@
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-env mocha */
-import React from 'react';
 import { expect } from 'chai';
-import { mount, configure } from 'enzyme';
+import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import React from 'react';
 import Select from 'react-select';
 import AdvancedSearch from '../../src/app/components/AdvancedSearch/AdvancedSearch';
-import TextInput from '../../src/app/components/Form/TextInput';
 import Checkbox from '../../src/app/components/Form/Checkbox';
+import TextInput from '../../src/app/components/Form/TextInput';
 import configureStore from '../../src/app/stores/configureStore';
 import initialState from '../../src/app/stores/InitialState';
 
@@ -19,6 +19,10 @@ describe('Search Container interactions', () => {
   before(() => {
     const store = configureStore(initialState);
     wrapper = mount(<AdvancedSearch store={store} />);
+  });
+
+  after(() => {
+    wrapper.unmount();
   });
 
   it('contains 4 advanced search inputs', () => {
@@ -49,11 +53,42 @@ describe('Search Container interactions', () => {
   });
 
   it('contains 3 format Searches', () => {
+    console.log('wrapperfind', wrapper.find('fieldset').at(3).find(Checkbox));
     expect(
       wrapper
         .find('fieldset')
         .at(3)
         .find(Checkbox),
     ).to.have.length(3);
+  });
+});
+
+
+describe('Search Form Validations', () => {
+  let wrapper;
+
+  it('displays error on missing search query', () => {
+    const store = configureStore(initialState);
+    wrapper = mount(<AdvancedSearch store={store} />);
+    wrapper.find('.usa-button').find({ value: 'Search' }).simulate('click');
+
+    expect(wrapper.find('.usa-alert__text').exists()).to.equal(true);
+  });
+
+  it('displays error on invalid date range', () => {
+    const store = configureStore(initialState);
+
+    wrapper = mount(<AdvancedSearch store={store} />);
+
+    wrapper.find('.usa-input').find({ name: 'keyword' })
+      .simulate('change', { target: { key: 'keyword', name: 'keyword', value: 'london' } });
+    wrapper.find('.usa-input').find({ name: 'filters.years.start' })
+      .simulate('change', { target: { key: 'filters.years.start', name: 'filters.years.start', value: '1990' } });
+    wrapper.find('.usa-input').find({ name: 'filters.years.end' })
+      .simulate('change', { target: { key: 'filters.years.end', name: 'filters.years.end', value: '1890' } });
+    wrapper.find('.usa-button').find({ value: 'Search' }).simulate('click');
+
+
+    expect(wrapper.find('.usa-alert__text').exists()).to.equal(true);
   });
 });

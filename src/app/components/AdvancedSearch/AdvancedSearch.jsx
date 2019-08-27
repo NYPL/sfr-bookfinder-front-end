@@ -1,19 +1,19 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
-import PropTypes from 'prop-types';
 import axios from 'axios';
-import Select from 'react-select';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
+import Select from 'react-select';
+import { bindActionCreators } from 'redux';
 import appConfig from '../../../../appConfig';
 import * as searchActions from '../../actions/SearchActions';
-import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
+import { errorMessagesText, formatTypes, inputTerms } from '../../constants/labels';
 import { getQueryString } from '../../search/query';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
-import TextInput from '../Form/TextInput';
+import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import Checkbox from '../Form/Checkbox';
-import { inputTerms, formatTypes, errorMessagesText } from '../../constants/labels';
+import TextInput from '../Form/TextInput';
 import FilterYears from '../SearchResults/FilterYears';
 
 const initialState = {
@@ -245,7 +245,9 @@ class AdvancedSearch extends React.Component {
   submitSearchRequest(event) {
     event.preventDefault();
     event.stopPropagation();
-    if (this.state.filters && this.state.filters.years && Number(this.state.filters.years.start) > Number(this.state.filters.years.end)) {
+    if (this.state.filters && this.state.filters.years
+      && this.state.filters.years.start && this.state.filters.years.end
+      && Number(this.state.filters.years.start) > Number(this.state.filters.years.end)) {
       this.setState({ error: true, errorMsg: errorMessagesText.invalidDate });
       return;
     }
@@ -465,7 +467,7 @@ AdvancedSearch.propTypes = {
 
 AdvancedSearch.defaultProps = {
   searchQuery: initialSearchQuery,
-  dispatch: () => {},
+  dispatch: () => { },
 };
 
 AdvancedSearch.contextTypes = {
