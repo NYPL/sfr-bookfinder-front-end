@@ -245,7 +245,9 @@ class AdvancedSearch extends React.Component {
   submitSearchRequest(event) {
     event.preventDefault();
     event.stopPropagation();
-    if (this.state.filters && this.state.filters.years && Number(this.state.filters.years.start) > Number(this.state.filters.years.end)) {
+    if (this.state.filters && this.state.filters.years
+      && this.state.filters.years.start && this.state.filters.years.end
+      && Number(this.state.filters.years.start) > Number(this.state.filters.years.end)) {
       this.setState({ error: true, errorMsg: errorMessagesText.invalidDate });
       return;
     }
@@ -465,7 +467,7 @@ AdvancedSearch.propTypes = {
 
 AdvancedSearch.defaultProps = {
   searchQuery: initialSearchQuery,
-  dispatch: () => {},
+  dispatch: () => { },
 };
 
 AdvancedSearch.contextTypes = {
