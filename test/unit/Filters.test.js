@@ -1,9 +1,11 @@
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-env mocha */
 import React from 'react';
+import { stub, spy } from 'sinon';
 import { expect } from 'chai';
-import { shallow, configure } from 'enzyme';
+import { shallow, mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import { mockRouterContext } from '../helpers/routing';
 import Filters from '../../src/app/components/SearchResults/Filters';
 import results from '../fixtures/results-list-full.json';
 import Checkbox from '../../src/app/components/Form/Checkbox';
@@ -101,6 +103,50 @@ describe('Filters', () => {
           .find(Checkbox)
           .props().isSelected,
       ).to.equal(true);
+    });
+  });
+
+  describe('Filter Interactions', () => {
+    let wrapper;
+    let context;
+    let childContextTypes;
+    const push = stub();
+    let start;
+    let end;
+
+    before(() => {
+      context = mockRouterContext(push);
+      childContextTypes = mockRouterContext(push);
+
+      wrapper = shallow(<Filters
+        data={results}
+        router={context.router}
+      />, { context, childContextTypes });
+
+      start = wrapper.find('FilterYears').dive().find({ name: 'filters.years.start' }).dive()
+        .find('.usa-input');
+      end = wrapper.find('FilterYears').dive().find({ name: 'filters.years.end' }).dive()
+        .find('.usa-input');
+    });
+
+    it('no error on start date with no end date', () => {
+      start.simulate('change', { target: { key: 'filters.years.start', name: 'filters.years.start', value: '1990' } });
+
+      wrapper.find('form').simulate('submit', {
+        preventDefault: () => { },
+        stopPropagation: () => { },
+      });
+      expect(wrapper.find('.usa-alert__text').exists()).to.equal(false);
+    });
+
+    it('no error on end date with no start date', () => {
+      end.simulate('change', { target: { key: 'filters.years.end', name: 'filters.years.end', value: '1990' } });
+
+      wrapper.find('form').simulate('submit', {
+        preventDefault: () => { },
+        stopPropagation: () => { },
+      });
+      expect(wrapper.find('.usa-alert__text').exists()).to.equal(false);
     });
   });
 });
