@@ -31,7 +31,6 @@ class FilterYears extends React.Component {
     const obj = {};
     obj[yearType] = val;
     this.setState(state => Object.assign({}, state, obj));
-
     this.props.onChange({ ...{ start: this.state.start, end: this.state.end }, ...obj });
   }
 

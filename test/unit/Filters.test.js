@@ -106,7 +106,7 @@ describe('Filters', () => {
     });
   });
 
-  describe('Filter Interactions', () => {
+  describe.only('Filter Interactions', () => {
     let wrapper;
     let context;
     let childContextTypes;
@@ -147,6 +147,17 @@ describe('Filters', () => {
         stopPropagation: () => { },
       });
       expect(wrapper.find('.usa-alert__text').exists()).to.equal(false);
+    });
+
+    it.only('displays error on invalid date range', () => {
+      wrapper.instance().onChangeYears({ start: 1992, end: 1990 });
+
+      wrapper.find('form').simulate('submit', {
+        preventDefault: () => { },
+        stopPropagation: () => { },
+      });
+
+      expect(wrapper.find('.usa-alert__text').exists()).to.equal(true);
     });
   });
 });

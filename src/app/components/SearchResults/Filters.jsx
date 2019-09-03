@@ -9,7 +9,6 @@ import Checkbox from '../Form/Checkbox';
 class Filters extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = { errorMsg: '', error: false };
     this.filtersArray = [];
 
