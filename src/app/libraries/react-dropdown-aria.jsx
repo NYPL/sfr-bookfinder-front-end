@@ -100,14 +100,14 @@ OptionItem.propTypes = {
 function defaultOptionRenderer(selectedOption, options, selectedOptionClassName, optionClassName, onOptionClicked, elementsRef, getStyle) {
   return options.map((option) => {
     const {
-      groupOptions, label, value, className,
+      groupOptions, uniqueId, value, className,
     } = option;
 
     if (groupOptions) {
       // Is group of options
       return React.createElement(
         'div',
-        { key: label, className: getStyle('groupContainer') },
+        { key: uniqueId, className: getStyle('groupContainer') },
         React.createElement(
           'div',
           { className: getStyle('groupHeading') },

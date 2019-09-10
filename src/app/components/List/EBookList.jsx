@@ -27,7 +27,8 @@ const generateLink = (url, eReaderUrl, local, download, ebook) => {
 // generates an array of options for the dropdown
 const generateOption = (link, eReaderUrl) => {
   const url = link.local && link.ebook && !link.download ? `${eReaderUrl}?url=${link.url}` : `${link.url}`;
-  const label = link.unique_id + link.label;
+  const uniqueId = link.unique_id;
+  const label = link.label;
   let className;
   if (!link.local) {
     className = 'external';
@@ -35,7 +36,7 @@ const generateOption = (link, eReaderUrl) => {
   return {
     value: label,
     url,
-    label,
+    uniqueId,
     title: url,
     ariaLabel: label,
     className,
