@@ -106,7 +106,7 @@ describe('Filters', () => {
     });
   });
 
-  describe.only('Filter Interactions', () => {
+  describe('Filter Interactions', () => {
     let wrapper;
     let context;
     let childContextTypes;
