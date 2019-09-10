@@ -149,7 +149,7 @@ describe('Filters', () => {
       expect(wrapper.find('.usa-alert__text').exists()).to.equal(false);
     });
 
-    it.only('displays error on invalid date range', () => {
+    it('displays error on invalid date range', () => {
       wrapper.instance().onChangeYears({ start: 1992, end: 1990 });
 
       wrapper.find('form').simulate('submit', {
