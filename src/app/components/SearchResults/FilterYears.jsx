@@ -82,9 +82,9 @@ class FilterYears extends React.Component {
               onBlur={e => this.onBlur(e, yearType)}
               label={yearsType[yearType]}
               value={this.state[yearType]}
-              // errorMessage={this.state.errorMessage[yearType]}
-              // max={yearType === 'start' ? this.state.end : null}
-              // min={yearType === 'end' ? this.state.start : null}
+            // errorMessage={this.state.errorMessage[yearType]}
+            // max={yearType === 'start' ? this.state.end : null}
+            // min={yearType === 'end' ? this.state.start : null}
             />
           ))}
         </div>
@@ -103,8 +103,8 @@ FilterYears.propTypes = {
 
 FilterYears.defaultProps = {
   searchQuery: initialSearchQuery,
-  onChange: () => {},
-  onError: () => {},
+  onChange: () => { },
+  onError: () => { },
   inputClassName: 'tablet:grid-col padding-right-0 padding-top-2',
   className: 'grid-row grid-gap',
 };

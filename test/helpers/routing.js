@@ -1,8 +1,7 @@
 import { stub } from 'sinon';
-import * as React from 'react';
 import PropTypes from 'prop-types';
 
-export const mockRouter = push => ({
+const mockRouter = push => ({
   push,
   createHref: stub(),
   replace: stub(),
@@ -13,6 +12,23 @@ export const mockRouter = push => ({
   isActive: stub(),
 });
 
-export const mockRouterContext = push => ({
+const mockRouterContext = push => ({
   router: mockRouter(push || stub()),
 });
+
+mockRouter.propTypes = {
+  push: PropTypes.func,
+  createHref: PropTypes.func,
+  replace: PropTypes.func,
+  go: PropTypes.func,
+  goBack: PropTypes.func,
+  goForward: PropTypes.func,
+  setRouteLeaveHook: PropTypes.func,
+  isActive: PropTypes.func,
+};
+
+mockRouterContext.propTyps = {
+  router: PropTypes.func,
+};
+
+export { mockRouter, mockRouterContext };

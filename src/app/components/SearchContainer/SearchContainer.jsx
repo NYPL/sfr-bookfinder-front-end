@@ -45,7 +45,7 @@ class SearchContainer extends React.Component {
       location: { query },
       dispatch,
       searchQuery,
-    } = this.props;    
+    } = this.props;
 
     if (!query || isEmpty(query)) {
       this.boundActions.resetSearch();
@@ -151,7 +151,7 @@ SearchContainer.defaultProps = {
   searchResults: {},
   searchQuery: initialSearchQuery,
   workDetail: {},
-  dispatch: () => {},
+  dispatch: () => { },
   eReaderUrl: '',
   location: {},
 };

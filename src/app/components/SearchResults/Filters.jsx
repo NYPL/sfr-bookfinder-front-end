@@ -10,83 +10,121 @@ class Filters extends React.Component {
   constructor(props) {
     super(props);
     this.state = { errorMsg: '', error: false };
+    this.filtersArray = [];
+
+    this.onChangeCheckbox = this.onChangeCheckbox.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.onChangeYears = this.onChangeYears.bind(this);
+
+    this.isFilterChecked = this.isFilterChecked.bind(this);
+    this.searchContains = this.searchContains.bind(this);
+    this.showFields = this.showFields.bind(this);
+    this.joinFacetsAndsearch = this.joinFacetsAndsearch.bind(this);
+    this.doSearchWithFilters = this.doSearchWithFilters.bind(this);
   }
 
-  render() {
-    const {
-      data, searchQuery, userQuery, router,
-    } = this.props;
-
-    const filtersArray = [];
-    // add search filters
-    if (searchQuery && searchQuery.filters && Array.isArray(searchQuery.filters)) {
-      searchQuery.filters.forEach((filter) => {
-        filtersArray.push({ field: filter.field, value: filter.value });
-      });
+  // on check of filter, add it or remove it from list and do the search
+  onChangeCheckbox(e, field, value, negative) {
+    if (this.state.error) {
+      return;
     }
+    const matchIndex = this.filtersArray.findIndex(filter => filter.field === field && filter.value === value);
+    if (negative) {
+      if (!e.target.checked && matchIndex === -1) {
+        this.filtersArray.push({ field, value });
+      } else if (matchIndex > -1) {
+        this.filtersArray.splice(matchIndex, 1);
+      }
+    } else if (e.target.checked && matchIndex === -1) {
+      this.filtersArray.push({ field, value });
+    } else if (matchIndex > -1) {
+      this.filtersArray.splice(matchIndex, 1);
+    }
+    this.doSearchWithFilters(this.filtersArray);
+  }
 
-    // redirect to url with query params
-    const submit = (query) => {
-      const path = `/search?${getQueryString(query)}`;
-      router.push(path);
-    };
+  // beginning to prepare for not-js
+  onSubmit(e) {
+    e.preventDefault();
+    e.stopPropagation();
 
-    // update page in store and go to any page
-    const doSearchWithFilters = (filters) => {
-      const newQuery = Object.assign({}, searchQuery, { filters }, { page: 0 });
-      userQuery(newQuery);
-      submit(newQuery);
-    };
+    const currentYearsFilter = this.filtersArray.find(filter => filter.field === 'years');
 
-    // on check of filter, add it or remove it from list and do the search
-    const onChangeCheckbox = (e, field, value, negative) => {
-      if (this.state.error) {
+    if (currentYearsFilter && currentYearsFilter.value) {
+      if ((currentYearsFilter.value.start) && (currentYearsFilter.value.end)
+        && Number(currentYearsFilter.value.start) > Number(currentYearsFilter.value.end)) {
+        this.setState({ error: true, errorMsg: errorMessagesText.invalidDate });
         return;
       }
-      const matchIndex = filtersArray.findIndex(filter => filter.field === field && filter.value === value);
-      if (negative) {
-        if (!e.target.checked && matchIndex === -1) {
-          filtersArray.push({ field, value });
-        } else if (matchIndex > -1) {
-          filtersArray.splice(matchIndex, 1);
-        }
-      } else if (e.target.checked && matchIndex === -1) {
-        filtersArray.push({ field, value });
-      } else if (matchIndex > -1) {
-        filtersArray.splice(matchIndex, 1);
+      this.setState({ error: false, errorMsg: '' });
+    }
+    this.doSearchWithFilters(this.filtersArray);
+  }
+
+  onChangeYears(yearsFilter) {
+    const currentYearsFilter = {
+      field: 'years',
+      value: yearsFilter,
+    };
+    const matchIndex = this.filtersArray.findIndex(filter => filter.field === 'years');
+    if (matchIndex === -1) {
+      this.filtersArray.push(currentYearsFilter);
+    } else if (matchIndex > -1) {
+      this.filtersArray[matchIndex] = currentYearsFilter;
+      if (!yearsFilter.start && !yearsFilter.end) {
+        this.filtersArray.splice(matchIndex, 1);
       }
-      doSearchWithFilters(filtersArray);
-    };
+    }
+  }
 
-    // see if filter is checked in previous search
-    const isFilterChecked = (field, value) => {
-      let filterFound;
-      if (searchQuery && searchQuery.filters) {
-        filterFound = searchQuery.filters.find(filter => filter.field === field && filter.value === value);
+  onErrorYears(errorObj) {
+    this.setState({ error: errorObj.error, errorMsg: errorObj.errorMsg });
+  }
+
+  // join current data filters with filters from previous search
+  joinFacetsAndsearch(facets, field) {
+    const missingFacets = [];
+    this.filtersArray.forEach((previousFilter) => {
+      const filterFound = facets.find(facet => facet.value === previousFilter.value && previousFilter.field === field);
+      if (!filterFound && previousFilter.field === field) {
+        missingFacets.push({ value: previousFilter.value, count: 0 });
       }
-      return !!filterFound;
-    };
+    });
+    return facets.concat(missingFacets);
+  }
 
-    // join current data filters with filters from previous search
-    const joinFacetsAndsearch = (facets, field) => {
-      const missingFacets = [];
-      filtersArray.forEach((previousFilter) => {
-        const filterFound = facets.find(facet => facet.value === previousFilter.value && previousFilter.field === field);
-        if (!filterFound && previousFilter.field === field) {
-          missingFacets.push({ value: previousFilter.value, count: 0 });
-        }
-      });
-      return facets.concat(missingFacets);
-    };
+  // redirect to url with query params
+  submit(query) {
+    const path = `/search?${getQueryString(query)}`;
+    this.props.router.push(path);
+  }
 
-    // sort filters by: included in search, then count, then alphabetically
-    // then returns only the first 10
-    const prepareFilters = (facets, field) => joinFacetsAndsearch(facets, field)
+  // update page in store and go to any page
+  doSearchWithFilters(filters) {
+    const newQuery = Object.assign({}, this.props.searchQuery, { filters }, { page: 0 });
+    this.props.userQuery(newQuery);
+    this.submit(newQuery);
+  }
+
+  // see if filter is checked in previous search
+  isFilterChecked(field, value) {
+    let filterFound;
+    if (this.props.searchQuery && this.props.searchQuery.filters) {
+      filterFound = this.props.searchQuery.filters.find(filter => filter.field === field && filter.value === value);
+    }
+    return !!filterFound;
+  }
+
+
+  // sort filters by: included in search, then count, then alphabetically
+  // then returns only the first 10
+  prepareFilters(facets, field) {
+    return this.joinFacetsAndsearch(facets, field)
       .sort((a, b) => {
-        if (!isFilterChecked(field, a.value) && isFilterChecked(field, b.value)) {
+        if (!this.isFilterChecked(field, a.value) && this.isFilterChecked(field, b.value)) {
           return 1;
         }
-        if (isFilterChecked(field, a.value) && !isFilterChecked(field, b.value)) {
+        if (this.isFilterChecked(field, a.value) && !this.isFilterChecked(field, b.value)) {
           return -1;
         }
         if (a.count < b.count) {
@@ -98,61 +136,48 @@ class Filters extends React.Component {
         return a.value < b.value ? -1 : 1;
       })
       .slice(0, 10);
+  }
 
-    // beginning to prepare for not-js
-    const onSubmit = (e) => {
-      e.preventDefault();
-      e.stopPropagation();
+  searchContains(field) {
+    return this.props.searchQuery && this.props.searchQuery.filters
+      && this.props.searchQuery.filters.find(filter => filter.field === field);
+  }
 
-      const currentYearsFilter = filtersArray.find(filter => filter.field === 'years');
-      if (currentYearsFilter && currentYearsFilter.value) {
-        if (Number(currentYearsFilter.value.start) > Number(currentYearsFilter.value.end)) {
-          this.setState({ error: true, errorMsg: errorMessagesText.invalidDate });
-          return;
-        }
-        this.setState({ error: false, errorMsg: '' });
-      }
-      doSearchWithFilters(filtersArray);
-    };
-
-    const onChangeYears = (yearsFilter) => {
-      const currentYearsFilter = {
-        field: 'years',
-        value: yearsFilter,
-      };
-      const matchIndex = filtersArray.findIndex(filter => filter.field === 'years');
-      if (matchIndex === -1) {
-        filtersArray.push(currentYearsFilter);
-      } else if (matchIndex > -1) {
-        filtersArray[matchIndex] = currentYearsFilter;
-        if (!yearsFilter.start && !yearsFilter.end) {
-          filtersArray.splice(matchIndex, 1);
-        }
-      }
-    };
-    const onErrorYears = (errorObj) => {
-      this.setState({ error: errorObj.error, errorMsg: errorObj.errorMsg });
-    };
-    const searchContains = field => searchQuery && searchQuery.filters && searchQuery.filters.find(filter => filter.field === field);
-    const showFields = () => Object.keys(filtersLabels)
+  showFields(data) {
+    return Object.keys(filtersLabels)
       .map(field => ((data.facets && data.facets[field] && data.facets[field].length > 0)
-          || searchContains(field)
-          || (field === 'years' && (searchContains(field) || (data.hits && data.hits.hits && data.hits.hits.length > 0)))
-          || field === 'show_all'
-          || (field === 'format' && (searchContains(field) || (data.hits && data.hits.hits && data.hits.hits.length > 0)))
+        || this.searchContains(field)
+        || (field === 'years' && (this.searchContains(field) || (data.hits && data.hits.hits && data.hits.hits.length > 0)))
+        || field === 'show_all'
+        || (field === 'format' && (this.searchContains(field) || (data.hits && data.hits.hits && data.hits.hits.length > 0)))
         ? field
         : null))
       .filter(x => x);
+  }
 
-    if (showFields().length > 0) {
+  render() {
+    const {
+      data, searchQuery,
+    } = this.props;
+
+    // add search filters
+    if (searchQuery && searchQuery.filters && Array.isArray(searchQuery.filters)) {
+      searchQuery.filters.forEach((filter) => {
+        if (!this.filtersArray.find(filtArrEntry => filtArrEntry.field === filter.field && filtArrEntry.value === filter.value)) {
+          this.filtersArray.push({ field: filter.field, value: filter.value });
+        }
+      });
+    }
+
+    if (this.showFields(data).length > 0) {
       return (
         <form
           className="filters usa-form"
           action="/search"
-          onSubmit={onSubmit}
+          onSubmit={this.onSubmit}
         >
           <div className="filters-header">Filter data</div>
-          {showFields().map(field => (
+          {this.showFields(data).map(field => (
             <fieldset
               key={field}
               className="filters-box usa-fieldset"
@@ -161,8 +186,8 @@ class Filters extends React.Component {
               {field === 'years' && (
                 <FilterYears
                   searchQuery={searchQuery}
-                  onChange={onChangeYears}
-                  onError={e => onErrorYears(e)}
+                  onChange={this.onChangeYears}
+                  onError={e => this.onErrorYears(e)}
                   inputClassName="tablet:grid-col padding-right-4"
                   className="grid-row"
                 />
@@ -173,21 +198,21 @@ class Filters extends React.Component {
                   labelClass="usa-checkbox__label"
                   inputClass="usa-checkbox__input"
                   id="show_all"
-                  isSelected={!isFilterChecked(field, true)}
-                  onChange={e => onChangeCheckbox(e, field, true, true)}
+                  isSelected={!this.isFilterChecked(field, true)}
+                  onChange={e => this.onChangeCheckbox(e, field, true, true)}
                   label="Read Only"
                   name="show_all"
                 />
               )}
               {field === 'language'
-                && prepareFilters(data.facets[field], field).map(facet => (
+                && this.prepareFilters(data.facets[field], field).map(facet => (
                   <Checkbox
                     className="usa-checkbox"
                     labelClass="usa-checkbox__label"
                     inputClass="usa-checkbox__input"
                     id={`filters-${field}-${facet.value}`}
-                    isSelected={isFilterChecked(field, facet.value)}
-                    onChange={e => onChangeCheckbox(e, field, facet.value)}
+                    isSelected={this.isFilterChecked(field, facet.value)}
+                    onChange={e => this.onChangeCheckbox(e, field, facet.value, false)}
                     label={facet.count > 0 ? `${facet.value} (${facet.count.toLocaleString()})` : `${facet.value}`}
                     name={`filters.${field}`}
                     key={`filters-${field}-${facet.value}`}
@@ -200,8 +225,8 @@ class Filters extends React.Component {
                     labelClass="usa-checkbox__label"
                     inputClass="usa-checkbox__input"
                     id={`filters-${field}-${formatType.value}`}
-                    isSelected={isFilterChecked(field, formatType.value)}
-                    onChange={e => onChangeCheckbox(e, field, formatType.value)}
+                    isSelected={this.isFilterChecked(field, formatType.value)}
+                    onChange={e => this.onChangeCheckbox(e, field, formatType.value, false)}
                     label={formatType.label}
                     name={`filters.${field}`}
                     key={`facet-${field}-${formatType.value}`}
@@ -249,7 +274,7 @@ Filters.propTypes = {
 Filters.defaultProps = {
   data: {},
   searchQuery: initialSearchQuery,
-  userQuery: () => {},
+  userQuery: () => { },
   router: {},
 };
 
