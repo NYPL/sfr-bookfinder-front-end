@@ -163,7 +163,7 @@ class Filters extends React.Component {
     // add search filters
     if (searchQuery && searchQuery.filters && Array.isArray(searchQuery.filters)) {
       searchQuery.filters.forEach((filter) => {
-        if (!this.filtersArray.find(filtArrEntry => filtArrEntry.field === filter.field && filtArrEntry.value === filter.value)) {
+        if (!this.filtersArray.find(filtArrEntry => filtArrEntry.field === filter.field)) {
           this.filtersArray.push({ field: filter.field, value: filter.value });
         }
       });
