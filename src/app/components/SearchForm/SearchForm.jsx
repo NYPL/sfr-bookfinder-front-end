@@ -3,20 +3,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
+import FeatureFlags from 'dgx-feature-flags';
 import Select from '../Form/Select';
 import SearchButton from '../Button/SearchButton';
 import TextInput from '../Form/TextInput';
+import TotalWorks from './TotalWorks';
 import { getQueryString } from '../../search/query';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
-import { deepEqual } from '../../util/Util';
+import { deepEqual, checkFeatureFlagActivated } from '../../util/Util';
 import { errorMessagesText } from '../../constants/labels';
+
+import featureFlagConfig from '../../../../featureFlagConfig';
+import config from '../../../../appConfig';
 
 
 class SearchForm extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { ...props, ...{ error: false, errorMsg: '' } };
+    this.state = { ...props, ...{ error: false, errorMsg: '', isFeatureFlagsActivated: {} } };
 
     this.onFieldChange = this.onFieldChange.bind(this);
     this.onQueryChange = this.onQueryChange.bind(this);
@@ -26,6 +31,11 @@ class SearchForm extends React.Component {
 
   componentDidMount() {
     global.window.scrollTo(0, 0);
+    FeatureFlags.store.listen(this.onFeatureFlagsChange.bind(this));
+
+    checkFeatureFlagActivated(
+      featureFlagConfig.featureFlagList, this.state.isFeatureFlagsActivated,
+    );
   }
 
   /**
@@ -38,6 +48,15 @@ class SearchForm extends React.Component {
     if (!deepEqual(nextProps.searchQuery, this.props.searchQuery)) {
       this.setState({ searchQuery: nextProps.searchQuery, error: false, errorMsg: '' });
     }
+  }
+
+  componentWillUnmount() {
+    FeatureFlags.store.unlisten(this.onFeatureFlagsChange.bind(this));
+  }
+
+  onFeatureFlagsChange() {
+    // eslint-disable-next-line react/no-unused-state
+    this.setState({ featureFlagsStore: FeatureFlags.store.getState() });
   }
 
   onFieldChange(event) {
@@ -148,6 +167,11 @@ class SearchForm extends React.Component {
                 Advanced Search
               </Link>
             </div>
+            {
+              // eslint-disable-next-line no-underscore-dangle
+              FeatureFlags.store._isFeatureActive(config.booksCount.experimentName)
+              && <TotalWorks />
+            }
           </div>
         </form>
       </div>
@@ -164,7 +188,7 @@ SearchForm.propTypes = {
 SearchForm.defaultProps = {
   allowedFields: ['keyword', 'title', 'author', 'subject'],
   searchQuery: initialSearchQuery,
-  userQuery: () => {},
+  userQuery: () => { },
 };
 
 SearchForm.contextTypes = {

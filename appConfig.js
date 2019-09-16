@@ -16,4 +16,8 @@ export default {
     recordPath: '/work',
     languagesPath: '/utils/languages',
   },
+  booksCount: {
+    apiUrl: '/utils/totals',
+    experimentName: 'BooksCount',
+  },
 };
