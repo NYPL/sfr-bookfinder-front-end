@@ -129,7 +129,7 @@ function defaultOptionRenderer(selectedOption, options, selectedOptionClassName,
 
     const optionClass = cx(className, getStyle('optionItem', { selected: value === selectedOption }));
     return React.createElement(OptionItem, {
-      key: value,
+      key: uniqueId,
       optionClass,
       onOptionClicked,
       option,
