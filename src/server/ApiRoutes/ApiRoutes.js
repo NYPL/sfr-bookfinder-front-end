@@ -13,6 +13,10 @@ function MainApp(req, res, next) {
   next();
 }
 
+const ReadOnline = (req, res, next) => {
+  next();
+};
+
 router
   .route('/search')
   .get(searchServer);
@@ -20,6 +24,10 @@ router
 router
   .route('/work')
   .get(searchServer);
+
+router
+  .route('/read-online')
+  .get(ReadOnline);
 
 router
   .route('/404')

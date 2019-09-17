@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 import Dropdown from '../../libraries/react-dropdown-aria';
 import { flattenDeep, unique } from '../../util/Util';
 
@@ -20,8 +21,14 @@ import { flattenDeep, unique } from '../../util/Util';
  */
 const generateLink = (url, eReaderUrl, local, download, ebook) => {
   const link = local && ebook && !download ? `${eReaderUrl}?url=${url}` : `${url}`;
-  const linkText = ebook && !download ? 'Read Online' : 'Download';
-  return <a href={`${link}`}>{`${linkText}`}</a>;
+  if (ebook && !download) {
+    return (
+      <Link to={{ pathname: '/read-online', query: { url: link } }}>
+        {'Read Online'}
+      </Link>
+    );
+  }
+  return <a href={`${link}`}>Download</a>;
 };
 
 // generates an array of options for the dropdown
@@ -44,9 +51,9 @@ const generateOption = (link, eReaderUrl) => {
 };
 
 const onSelectChange = (value, options) => {
-  const match = options.find(option => option.label === value);
+  const match = options.find(option => option.value === value);
   if (match) {
-    global.window.location.href = match.url;
+    global.window.location.href = `${window.location.origin}/read-online?url=${match.url}`;
   }
 };
 
