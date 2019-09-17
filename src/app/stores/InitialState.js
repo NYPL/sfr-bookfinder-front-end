@@ -30,6 +30,7 @@ const initialState = {
   searchResults: {},
   searchQuery: initialSearchQuery,
   workDetail: { instances: [] },
+  totalWorks: {},
 };
 
 export default initialState;

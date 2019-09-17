@@ -9,6 +9,7 @@ export const Actions = {
   FETCH_WORK: 'FETCH_WORK',
   SET_QUERY: 'SET_QUERY',
   RESET_SEARCH: 'RESET_SEARCH',
+  GET_TOTAL_WORKS: 'GET_TOTAL_WORKS',
   LOADING: 'LOADING',
   ERRORMSG: 'ERRORMSG',
 };
@@ -43,11 +44,18 @@ export const resetSearch = () => ({
   reset: true,
 });
 
+export const totalWorks = total => ({
+  type: Actions.GET_TOTAL_WORKS,
+  total,
+});
+
 const appEnv = process.env.APP_ENV || 'production';
 const apiUrl = appConfig.api[appEnv];
 const { searchPath, recordPath } = appConfig.api;
+const totalWorksPath = appConfig.booksCount.apiUrl;
 const searchUrl = apiUrl + searchPath;
 const recordUrl = apiUrl + recordPath;
+const totalWorksUrl = apiUrl + totalWorksPath;
 
 export const searchPost = (query) => {
   const sField = query.field && selectFields[query.field];
@@ -80,6 +88,18 @@ export const fetchWork = workId => dispatch => axios
   .catch((error) => {
     console.log('An error occurred during fetchWork', error.message);
     throw new Error('An error occurred during fetchWork', error.message);
+  });
+
+export const fetchTotalWorks = () => dispatch => axios
+  .get(totalWorksUrl)
+  .then((resp) => {
+    if (resp.data) {
+      dispatch(totalWorks(resp.data));
+    }
+  })
+  .catch((error) => {
+    console.log('An error occurred during fetchTotalWorks', error.message);
+    throw new Error('An error occurred during fetchTotalWorks', error.message);
   });
 
 export const serverPost = (query) => {
@@ -120,6 +140,7 @@ export const error = errorMsg => dispatch => dispatch(errorState(errorMsg));
 export default {
   searchPost,
   fetchWork,
+  fetchTotalWorks,
   serverPost,
   serverFetchWork,
   userQuery,

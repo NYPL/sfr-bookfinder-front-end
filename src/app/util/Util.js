@@ -1,3 +1,5 @@
+import FeatureFlags from 'dgx-feature-flags';
+
 // polyfill for Object.entries
 const entriesPolyFill = obj => Object.keys(obj).map(key => [key, obj[key]]);
 if (!Object.entries) Object.entries = entriesPolyFill;
@@ -37,6 +39,22 @@ export const uniqueAndSortByFrequency = (array) => {
   const compareFrequency = (a, b) => frequency[b] - frequency[a];
 
   return uniques.sort(compareFrequency);
+};
+
+/**
+ * checkFeatureFlagActivated(featureFlagList, componentStateObject)
+ * Check if the feature flags have been set. If they have not, activate the function to check
+ * if the related cookies are set.
+ * @param {string[]} featureFlagList - The list of the feature flags we want to set.
+ * @param {object} componentStateObject - The object that points to the state object of
+ * the component. The feature flag will change the state of the component through it.
+ */
+export const checkFeatureFlagActivated = (featureFlagList, componentStateObject) => {
+  featureFlagList.forEach((item) => {
+    if (!componentStateObject[item]) {
+      FeatureFlags.utils.activateFeature(item);
+    }
+  });
 };
 
 export default {

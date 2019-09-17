@@ -2,6 +2,7 @@ import '@babel/polyfill';
 import React from 'react';
 import a11y from 'react-a11y';
 import ReactDOM from 'react-dom';
+import FeatureFlags from 'dgx-feature-flags';
 import { Router, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import store from '../app/stores/Store';
@@ -14,6 +15,11 @@ if (global.loadA11y) {
 }
 
 const appElement = global.document.getElementById('app');
+
+// Used to activate/deactivate AB tests on global namespace.
+if (!window.dgxFeatureFlags) {
+  window.dgxFeatureFlags = FeatureFlags.utils;
+}
 
 ReactDOM.render(
   <Provider store={store}>

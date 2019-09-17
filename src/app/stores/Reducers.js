@@ -50,6 +50,13 @@ export const searchQuery = (state = null, action) => {
   return state;
 };
 
+export const totalWorks = (state = null, action) => {
+  if (action.type === Actions.GET_TOTAL_WORKS) {
+    return action.total;
+  }
+  return state;
+};
+
 export const sort = (state = null, action) => (action.sort ? action.sort : state);
 
 const appReducer = combineReducers({
@@ -57,13 +64,17 @@ const appReducer = combineReducers({
   searchQuery,
   sort,
   workDetail,
+  totalWorks,
   loading,
   errorMsg,
 });
 
 export const rootReducer = (state, action) => {
   if (action.type === Actions.RESET_SEARCH) {
-    return initialState;
+    // Reset everything except total books
+    return Object.assign({}, initialState, {
+      totalWorks: state.totalWorks,
+    });
   }
 
   return appReducer(state, action);
