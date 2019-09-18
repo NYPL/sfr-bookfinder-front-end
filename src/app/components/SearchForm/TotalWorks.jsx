@@ -22,14 +22,15 @@ class TotalWorks extends React.Component {
   }
 
   render() {
-    const totalWorks = this.props.totalWorks.data.counts.works;
+    const { totalWorks } = this.props;
+
     return (
       <div>
         {totalWorks && (
           <span>
             Total number of works:
             {' '}
-            {totalWorks}
+            {totalWorks.data.counts.works}
           </span>
         )}
       </div>
