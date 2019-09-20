@@ -21,6 +21,7 @@ $fontFamily: 'Kievit-Book', Source Sans Pro Web, Helvetica Neue, Helvetica, Robo
 @import './components/WorkHeader.scss';
 @import './components/WorkDetail.scss';
 @import './components/EBookList.scss';
+@import './components/EBookViewer.scss';
 @import './components/DefinitionList.scss';
 @import './components/EditionsList.scss';
 @import './components/Breadcrumbs.scss';
@@ -33,12 +34,15 @@ $fontFamily: 'Kievit-Book', Source Sans Pro Web, Helvetica Neue, Helvetica, Robo
 
 html {
   font-family: $fontFamily;
+  height: 100%;
 }
 body {
   line-height: 1.5rem;
+  height: 100%;
 }
 #app {
   margin: 0;
+  height: 100%;
 }
 
 .nypl-header-img {
@@ -110,6 +114,11 @@ a {
     }
   }
 }
+
+.app-wrapper {
+  height: 100%
+}
+
 .sfr-header-wrapper {
   // max-width: 840px;
   // width: 100%;

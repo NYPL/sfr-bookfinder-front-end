@@ -6,6 +6,7 @@ import SearchContainer from '../components/SearchContainer/SearchContainer';
 import AdvancedSearch from '../components/AdvancedSearch/AdvancedSearch';
 import NotFound404 from '../components/Error/NotFound404';
 import WorkDetail from '../components/WorkDetail/WorkDetail';
+import EBookViewer from '../components/Viewer/EBookViewer';
 
 const routes = {
   default: (
@@ -25,6 +26,10 @@ const routes = {
       <Route
         path="/advanced-search"
         component={AdvancedSearch}
+      />
+      <Route
+        path="/read-online"
+        component={EBookViewer}
       />
       <Route
         path="/404"
