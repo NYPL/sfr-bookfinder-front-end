@@ -1,5 +1,15 @@
 # CHANGE LOG
 
+## [0.3.1] - 2019-10-03
+
+### Added
+- Books available to read online now load in an iFrame, and NYPL branding and navigation are preserved.
+
+### Fixed
+
+- Filter by year searches using defaults when either start or end year is not present
+- Item with no links no longer causes unrecoverable error
+
 ## [0.3.0] - 2019-08-09
 
 ### Added
