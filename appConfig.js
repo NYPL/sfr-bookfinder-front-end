@@ -20,4 +20,8 @@ export default {
     apiUrl: '/utils/totals',
     experimentName: 'BooksCount',
   },
+  analytics: {
+    development: 'UA-1420324-149',
+    production: 'UA-1420324-149',
+  }
 };
