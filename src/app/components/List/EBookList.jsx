@@ -2,7 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import Dropdown from '../../libraries/react-dropdown-aria';
-import { flattenDeep, unique } from '../../util/Util';
+import { flattenDeep, unique, formatUrl } from '../../util/Util';
+
+/**
+ * Create a URL for that conforms to the webpub-reader streamed format
+ * @param {string} url
+ * @param {string} eReaderUrl
+ */
+const generateStreamedReaderUrl = (url, eReaderUrl) => {
+  const base64BookUrl = Buffer.from(formatUrl(url)).toString('base64');
+  const encodedBookUrl = encodeURIComponent(`${base64BookUrl}`);
+  const encodedReaderUrl = encodeURI(eReaderUrl);
+  const combined = `${eReaderUrl}/readerNYPL/?url=${encodedReaderUrl}/pub/${encodedBookUrl}/manifest.json`;
+  return combined;
+};
 
 /**
  * Create a link defaulting to an ebook "download" unless
@@ -19,9 +32,11 @@ import { flattenDeep, unique } from '../../util/Util';
  * @param {boolean} ebook
  * @return {string}
  */
-const generateLink = (url, eReaderUrl, local, download, ebook) => {
-  const link = local && ebook && !download ? `${eReaderUrl}?url=${url}` : `${url}`;
+const generateLink = (url, eReaderUrl, local, download, ereader, ebook) => {
+  const encodedUrl = generateStreamedReaderUrl(url, eReaderUrl);
+  const link = local && ebook && ereader && !download ? `${encodedUrl}` : formatUrl(url);
   if (ebook && !download) {
+    console.log('got here', link);
     return (
       <Link to={{ pathname: '/read-online', query: { url: link } }}>
         {'Read Online'}
@@ -32,8 +47,9 @@ const generateLink = (url, eReaderUrl, local, download, ebook) => {
 };
 
 // generates an array of options for the dropdown
-const generateOption = (link, eReaderUrl) => {
-  const url = link.local && link.ebook && !link.download ? `${eReaderUrl}?url=${link.url}` : `${link.url}`;
+const generateOption = (link, download, eReaderUrl) => {
+  const encodedUrl = generateStreamedReaderUrl(link.url, eReaderUrl);
+  const url = link.local && link.ebook && link.eReader && download ? `${eReaderUrl}?url=${encodedUrl}` : formatUrl(link.url);
   const uniqueId = link.unique_id;
   const label = link.label;
   let className;
@@ -45,15 +61,23 @@ const generateOption = (link, eReaderUrl) => {
     url,
     uniqueId,
     title: url,
+    local: link.local,
     ariaLabel: label,
     className,
   };
 };
 
-const onSelectChange = (value, options) => {
+const onSelectChange = (value, eReaderUrl, download, options) => {
   const match = options.find(option => option.value === value);
   if (match) {
-    global.window.location.href = `${window.location.origin}/read-online?url=${match.url}`;
+    if (download) {
+      global.window.location.href = formatUrl(match.url);
+    } else if (match.local) {
+      const encodedUrl = generateStreamedReaderUrl(match.url, eReaderUrl);
+      global.window.location.href = `${window.location.origin}/read-online?url=${encodeURI(encodedUrl)}`;
+    } else {
+      global.window.location.href = `${window.location.origin}/read-online?url=${formatUrl(match.url)}`;
+    }
   }
 };
 
@@ -62,25 +86,37 @@ const arrowRenderer = (open) => {
   return <i className={arrowClass} />;
 };
 
-// gets all links from all ebooks, classified on download true or false
-const linksArray = ({ ebooks, download }) => unique(
-  flattenDeep(ebooks.filter(item => item.links).map(item => item.links)) //
-    .filter(link => link.download === download), //
-  'url',
-);
-// const linksArray = ({ ebooks, download }) => flattenDeep(ebooks.map(item => item.links)).filter(link => link.download === download);
+// gets all links from all ebooks
+// First searches for eReader links
+// If it can't find then, it classifies them on download
+// TODO: This method does not work on items that have both eReader and non-eReader links
+const linksArray = ({ ebooks, download }) => {
+  const eReaderLinks = unique(
+    flattenDeep(ebooks.filter(item => item.links).map(item => item.links)) //
+      .filter(link => link.ereader === true), //
+    'url',
+  );
+  if (eReaderLinks.length > 0) {
+    return eReaderLinks;
+  }
+  return unique(
+    flattenDeep(ebooks.filter(item => item.links).map(item => item.links)) //
+      .filter(link => link.download === download), //
+    'url',
+  );
+};
 
 // render the dropdown and/or the link to the ebook, classifed by download true or false
 const LinksSelector = ({ ebooks, download, eReaderUrl }) => {
   const linksList = linksArray({ ebooks, download });
-  const options = linksList.map(link => Object.assign({}, generateOption(link, eReaderUrl)));
+  const options = linksList.map(link => Object.assign({}, generateOption(link, download, eReaderUrl)));
   return (
     <ul className="nypl-ebooks-list">
       {linksList.length > 1 && (
         <li className="ebooks-list-dropdown">
           <Dropdown
             options={options}
-            setSelected={e => onSelectChange(e, options)}
+            setSelected={e => onSelectChange(e, eReaderUrl, download, options)}
             placeholder={download ? 'Download' : 'Read Online'}
             selectedOption=""
             buttonClassName=""
@@ -90,7 +126,7 @@ const LinksSelector = ({ ebooks, download, eReaderUrl }) => {
       )}
       {linksList.length === 1
         && linksList.map((link, linkKey) => (
-          <li key={`${linkKey.toString()}`}>{generateLink(link.url, eReaderUrl, link.local, link.download, link.ebook)}</li>
+          <li key={`${linkKey.toString()}`}>{generateLink(link.url, eReaderUrl, link.local, download, link.ereader, link.ebook)}</li>
         ))}
     </ul>
   );
