@@ -36,7 +36,6 @@ const generateLink = (url, eReaderUrl, local, download, ereader, ebook) => {
   const encodedUrl = generateStreamedReaderUrl(url, eReaderUrl);
   const link = local && ebook && ereader && !download ? `${encodedUrl}` : formatUrl(url);
   if (ebook && !download) {
-    console.log('got here', link);
     return (
       <Link to={{ pathname: '/read-online', query: { url: link } }}>
         {'Read Online'}
