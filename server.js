@@ -84,7 +84,7 @@ app.get('/*', (req, res) => {
         appData: JSON.stringify(res.data).replace(/</g, '\\u003c'),
         appTitle,
         favicon: appConfig.favIconPath,
-        gaCode: analyticsConfig.google.code(isProduction),
+        gaCode: process.env.APP_ENV === 'production' ? appConfig.analytics.production : appConfig.analytics.development,
         webpackPort: WEBPACK_DEV_PORT,
         appEnv: process.env.APP_ENV,
         apiUrl: '',
