@@ -86,24 +86,13 @@ const arrowRenderer = (open) => {
 };
 
 // gets all links from all ebooks
-// First searches for eReader links
-// If it can't find then, it classifies them on download
-// TODO: This method does not work on items that have both eReader and non-eReader links
-const linksArray = ({ ebooks, download }) => {
-  const eReaderLinks = unique(
-    flattenDeep(ebooks.filter(item => item.links).map(item => item.links)) //
-      .filter(link => link.ereader === true), //
-    'url',
-  );
-  if (eReaderLinks.length > 0) {
-    return eReaderLinks;
-  }
-  return unique(
-    flattenDeep(ebooks.filter(item => item.links).map(item => item.links)) //
-      .filter(link => link.download === download), //
-    'url',
-  );
-};
+// If EReader, returns link
+// If not, it classifies them on download
+const linksArray = ({ ebooks, download }) => unique(
+  flattenDeep(ebooks.filter(item => item.links).map(item => item.links)) //
+    .filter(link => link.ereader === true || (link.local === false && link.download === download)), //
+  'url',
+);
 
 // render the dropdown and/or the link to the ebook, classifed by download true or false
 const LinksSelector = ({ ebooks, download, eReaderUrl }) => {
