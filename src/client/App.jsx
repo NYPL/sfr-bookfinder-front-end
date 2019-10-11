@@ -2,6 +2,7 @@ import '@babel/polyfill';
 import React from 'react';
 import a11y from 'react-a11y';
 import ReactDOM from 'react-dom';
+import { gaUtils } from 'dgx-react-ga'
 import FeatureFlags from 'dgx-feature-flags';
 import { Router, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
@@ -20,6 +21,8 @@ const appElement = global.document.getElementById('app');
 if (!window.dgxFeatureFlags) {
   window.dgxFeatureFlags = FeatureFlags.utils;
 }
+
+browserHistory.listen(location => gaUtils.trackPageview(location.pathname));
 
 ReactDOM.render(
   <Provider store={store}>
