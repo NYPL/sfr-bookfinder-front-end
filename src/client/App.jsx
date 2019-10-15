@@ -22,7 +22,7 @@ if (!window.dgxFeatureFlags) {
   window.dgxFeatureFlags = FeatureFlags.utils;
 }
 
-browserHistory.listen(location => gaUtils.trackPageview(location.pathname));
+browserHistory.listen(location => gaUtils.trackPageview(`${location.pathname}${location.search}`));
 
 ReactDOM.render(
   <Provider store={store}>
