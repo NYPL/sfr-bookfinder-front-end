@@ -61,28 +61,33 @@ class SearchForm extends React.Component {
 
   onFieldChange(event) {
     const fieldSelected = event.target.value;
-    this.setState(preState => ({
-      searchQuery: Object.assign(
-        {},
-        initialSearchQuery,
-        { showField: '', showQuery: '' },
-        { query: preState.searchQuery.showQuery ? preState.searchQuery.showQuery : preState.searchQuery.query },
-        { field: fieldSelected },
-      ),
-    }));
+    this.setState((prevState) => {
+      const advancedQuery = {
+        query: prevState.searchQuery.showQuery
+          ? prevState.searchQuery.showQuery : prevState.searchQuery.query,
+        field: fieldSelected,
+      };
+      return ({
+        searchQuery: Object.assign({}, initialSearchQuery,
+          { showField: '', showQuery: '' },
+          { queries: [].concat(advancedQuery) }),
+      });
+    });
   }
 
   onQueryChange(event) {
     const querySelected = event.target.value;
-    this.setState(preState => ({
-      searchQuery: Object.assign(
-        {},
-        initialSearchQuery,
-        { showField: '', showQuery: '' },
-        { field: preState.searchQuery.showField ? preState.searchQuery.showField : preState.searchQuery.field || 'keyword' },
-        { query: querySelected },
-      ),
-    }));
+
+    this.setState((prevState) => {
+      const advancedQuery = {
+        query: querySelected,
+        field: prevState.searchQuery.showField ? prevState.searchQuery.showField : prevState.searchQuery.field || 'keyword',
+      };
+
+      return ({
+        searchQuery: Object.assign({}, initialSearchQuery, { showField: '', showQuery: '' }, { queries: [].concat(advancedQuery) }),
+      });
+    });
     if (querySelected) {
       this.setState({ error: false, errorMsg: '' });
     }
@@ -91,7 +96,9 @@ class SearchForm extends React.Component {
   handleSubmit(event) {
     if (event && event.charCode === 13) {
       this.props.userQuery(
-        Object.assign({}, initialSearchQuery, { query: this.state.searchQuery.query, field: this.state.searchQuery.field || 'keyword' }),
+        Object.assign({}, initialSearchQuery, {
+          query: this.state.searchQuery.queries,
+        }),
       );
       this.submitSearchRequest(event);
     }
@@ -99,7 +106,7 @@ class SearchForm extends React.Component {
 
   submitSearchRequest(event) {
     event.preventDefault();
-    const query = this.state.searchQuery.query.replace(/^\s+/, '').replace(/\s+$/, '');
+    const query = this.state.searchQuery.queries[0].query.replace(/^\s+/, '').replace(/\s+$/, '');
     if (!query) {
       this.setState({ error: true, errorMsg: errorMessagesText.emptySearch });
       return;
@@ -110,8 +117,8 @@ class SearchForm extends React.Component {
   }
 
   render() {
-    const selectedQuery = this.state.searchQuery.showQuery || this.state.searchQuery.query;
-    const selectedField = this.state.searchQuery.showField || this.state.searchQuery.field;
+    const selectedQuery = this.state.searchQuery.showQuery || this.state.searchQuery.queries[0].query;
+    const selectedField = this.state.searchQuery.showField || this.state.searchQuery.queries[0].field;
 
     return (
       <div className="grid-row">

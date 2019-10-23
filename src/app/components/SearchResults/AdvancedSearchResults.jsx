@@ -41,16 +41,21 @@ const AdvancedSearchResults = ({ searchQuery, userQuery, router }) => {
           className="grid-col-10 sfr-center"
           id="advanced-search-tags"
         >
-          {searchQuery.queries.map(query => (
-            <button
-              type="button"
-              className={disableClearTag ? 'usa-button usa-button--outline tag-button' : 'usa-button usa-button--outline tag-button active'}
-              onClick={e => onClick(e, query)}
-              key={`${query.field}: ${query.query} `}
-            >
-              {`${label(query.field)}: ${query.query} `}
-            </button>
-          ))}
+          {searchQuery.queries.map((query) => {
+            if (query.field) {
+              return (
+                <button
+                  type="button"
+                  className={disableClearTag
+                    ? 'usa-button usa-button--outline tag-button' : 'usa-button usa-button--outline tag-button active'}
+                  onClick={e => onClick(e, query)}
+                  key={`${query.field}: ${query.query} `}
+                >
+                  {`${label(query.field)}: ${query.query} `}
+                </button>
+              );
+            }
+          })}
         </div>
       </div>
     );
@@ -66,7 +71,7 @@ AdvancedSearchResults.propTypes = {
 
 AdvancedSearchResults.defaultProps = {
   searchQuery: initialSearchQuery,
-  userQuery: () => {},
+  userQuery: () => { },
   router: {},
 };
 

@@ -22,8 +22,8 @@ describe('Search Container interactions', () => {
 
   it('contains an initialized <SearchForm /> component', () => {
     expect(wrapper.find(SearchForm)).to.have.length(1);
-    expect(wrapper.find(SearchForm).prop('searchQuery').query).to.equal('');
-    expect(wrapper.find(SearchForm).prop('searchQuery').field).to.equal('keyword');
+    expect(wrapper.find(SearchForm).prop('searchQuery').queries[0].query).to.equal('');
+    expect(wrapper.find(SearchForm).prop('searchQuery').queries[0].field).to.equal('');
   });
   it('contains a <SearchResults /> component', () => {
     expect(wrapper.find(SearchResults)).to.have.length(1);
