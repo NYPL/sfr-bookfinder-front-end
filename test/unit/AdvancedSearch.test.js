@@ -15,7 +15,7 @@ import initialState from '../../src/app/stores/InitialState';
 
 configure({ adapter: new Adapter() });
 
-describe('Search Container interactions', () => {
+describe('Advanced Search Container interactions', () => {
   let wrapper;
   let context;
   let childContextTypes;

@@ -79,19 +79,19 @@ describe('SearchForm', () => {
 
     it('should updated state values based on passed props for select', () => {
       component.find('select').simulate('change', { target: { value: 'author' } });
-      expect(component.state('searchQuery').field).to.equal('author');
+      expect(component.state('searchQuery').queries[0].field).to.equal('author');
     });
 
     it('should updated state values based on passed props for text input', () => {
       component.find('input').simulate('change', { target: { value: 'jefferson' } });
-      expect(component.state('searchQuery').query).to.equal('jefferson');
+      expect(component.state('searchQuery').queries[0].query).to.equal('jefferson');
     });
 
     it('should update state when the enter key is pressed', () => {
       component.find('input').props.value = 'jefferson';
       component.find('input').simulate('change', { target: { value: 'jackson' } });
 
-      expect(component.state('searchQuery').query).to.equal('jackson');
+      expect(component.state('searchQuery').queries[0].query).to.equal('jackson');
     });
 
     it('should update state when the button is clicked', () => {
@@ -101,7 +101,7 @@ describe('SearchForm', () => {
         .at(0)
         .simulate('change', { target: { value: 'johnson' } });
 
-      expect(component.state('searchQuery').query).to.equal('johnson');
+      expect(component.state('searchQuery').queries[0].query).to.equal('johnson');
     });
   });
 });
