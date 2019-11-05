@@ -161,7 +161,7 @@ class SearchForm extends React.Component {
             <SearchButton
               className="tablet:grid-col-2"
               id="search-button"
-              buttonClassName="usa-button sfr-search-button"
+              buttonClassName="button--outline"
               value="Search"
               onClick={this.submitSearchRequest}
               ariaLabel="Search"

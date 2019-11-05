@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Button from '@nypl/design-system-react-components';
 
 const SearchButton = ({
   id, className, onClick, value, buttonClassName, ariaLabel,
 }) => (
   <div className={className}>
-    <button
+    <Button
       id={id}
       className={buttonClassName}
       onClick={onClick}
@@ -13,7 +14,7 @@ const SearchButton = ({
       aria-label={ariaLabel}
     >
       <span className="usa-search__submit-text">{value}</span>
-    </button>
+    </Button>
   </div>
 );
 
