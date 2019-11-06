@@ -6,7 +6,6 @@ ul.nypl-ebooks-list {
   color: #0071bb;
   padding: 0;
   font-size: 1rem;
-  font-family: system-ui;
   font-weight: 700;
   li {
     display: inline-block;
@@ -44,7 +43,6 @@ ul.nypl-ebooks-list {
     background-size: 1rem;
     background-position: right 0.5rem center;
     font-size: 1rem;
-    font-family: system-ui;
     font-weight: 700;
   }
 }
@@ -64,7 +62,6 @@ ul.nypl-ebooks-list {
   text-align: center;
   text-decoration: none;
   font-size: 1rem;
-  font-family: system-ui;
   font-weight: 700;
   ul {
     width: 11.5rem;
@@ -73,7 +70,6 @@ ul.nypl-ebooks-list {
     border-radius: 8px;
     padding: 0;
     button {
-      font-family: system-ui;
       font-weight: 400;
       font-size: 1rem;
       max-width: 10rem;
