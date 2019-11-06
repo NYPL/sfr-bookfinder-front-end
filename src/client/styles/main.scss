@@ -9,8 +9,13 @@
 @import './core/rnw_variables';
 @import '~uswds/src/stylesheets/uswds';
 
+/**
+* Import font
+*/
+@import '~system-font-css/system-font';
+
 $nypl-dark-blue: #135772;
-$fontFamily: 'Kievit-Book', Source Sans Pro Web, Helvetica Neue, Helvetica, Roboto, Arial, sans-serif;
+$fontFamily: 'system-ui';
 
 /**
  * Import custom rules for this project.
@@ -30,7 +35,6 @@ $fontFamily: 'Kievit-Book', Source Sans Pro Web, Helvetica Neue, Helvetica, Robo
 @import './components/Loading.scss';
 @import './components/Filters.scss';
 @import './components/AdvancedSearch.scss';
-@import './core/fonts.scss';
 
 html {
   font-family: $fontFamily;
@@ -150,9 +154,6 @@ a {
   }
 }
 
-.usa-table {
-  font-family: $fontFamily;
-}
 
 select {
   position: relative;

@@ -1,5 +1,18 @@
 # CHANGE LOG
 
+## [0.3.2] - 2019-11-06
+
+### Added
+- Google Analytics hooks that record user searches
+- System Fonts
+
+### Fixed 
+- Read-online links now use webpub viewer
+- simple search now uses the `queries` array rather than a separate `query` array
+
+### Removed
+- The Kievit font
+
 ## [0.3.1] - 2019-10-03
 
 ### Added
