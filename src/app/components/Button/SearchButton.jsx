@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from '@nypl/design-system-react-components';
 
 const SearchButton = ({
   id, className, onClick, value, buttonClassName, ariaLabel,
 }) => (
   <div className={className}>
-    <Button
+    <button
       id={id}
       className={buttonClassName}
       onClick={onClick}
@@ -14,7 +13,7 @@ const SearchButton = ({
       aria-label={ariaLabel}
     >
       <span className="usa-search__submit-text">{value}</span>
-    </Button>
+    </button>
   </div>
 );
 
@@ -33,7 +32,7 @@ SearchButton.defaultProps = {
   className: '',
   buttonClassName: '',
   ariaLabel: '',
-  onClick: () => {},
+  onClick: () => { },
 };
 
 export default SearchButton;
