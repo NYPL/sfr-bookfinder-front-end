@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import * as designSystem from '@nypl/design-system-react-components';
+import * as DS from '@nypl/design-system-react-components';
 
 /**
  * Takes `query` and `type` as properties to pass to its methods.
@@ -35,7 +35,7 @@ const Breadcrumbs = ({ links, pageType, onClickHandler }) => {
 
   const crumbs = crumbTrail();
   return (
-    <designSystem.Breadcrumb breadcrumbs={crumbs} />
+    <DS.Breadcrumb breadcrumbs={crumbs} />
   );
 };
 
