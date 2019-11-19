@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
+import * as DS from '@nypl/design-system-react-components';
 
 /**
  * Takes `query` and `type` as properties to pass to its methods.
@@ -10,31 +11,22 @@ import { Link } from 'react-router';
  */
 const Breadcrumbs = ({ links, pageType, onClickHandler }) => {
   const homeLink = (
-    <li key="home">
-      <Link
-        to="/"
-        onClick={event => onClickHandler(event)}
-      >
-        ResearchNow
-      </Link>
-    </li>
+    <Link
+      to="/"
+      onClick={event => onClickHandler(event)}
+    >
+      ResearchNow
+    </Link>
   );
 
   const crumbTrail = () => {
     const crumbs = [homeLink];
 
     if (links && links.length && pageType !== 'home') {
-      links.forEach((link, iterator) => {
-        const linkKey = `links-${iterator}`;
-        if (iterator < links.length - 1) {
-          crumbs.push(
-            <li key={linkKey}>
-              <Link to={link.href}>{link.text}</Link>
-            </li>,
-          );
-        } else {
-          crumbs.push(<li key={linkKey}>{link.text}</li>);
-        }
+      links.forEach((link) => {
+        crumbs.push(
+          <Link to={link.href}>{link.text}</Link>,
+        );
       });
     }
 
@@ -42,17 +34,8 @@ const Breadcrumbs = ({ links, pageType, onClickHandler }) => {
   };
 
   const crumbs = crumbTrail();
-
   return (
-    <div className="grid-row">
-      <nav
-        aria-label="Breadcrumbs"
-        className="grid-col-10 sfr-center nypl-breadcrumbs"
-      >
-        <span className="nypl-screenreader-only">You are here:</span>
-        <ol>{crumbs}</ol>
-      </nav>
-    </div>
+    <DS.Breadcrumb breadcrumbs={crumbs} />
   );
 };
 

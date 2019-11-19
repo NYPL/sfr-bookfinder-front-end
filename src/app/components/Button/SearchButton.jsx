@@ -32,7 +32,7 @@ SearchButton.defaultProps = {
   className: '',
   buttonClassName: '',
   ariaLabel: '',
-  onClick: () => {},
+  onClick: () => { },
 };
 
 export default SearchButton;

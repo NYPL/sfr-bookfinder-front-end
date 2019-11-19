@@ -7,7 +7,11 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import TerserJSPlugin from 'terser-webpack-plugin';
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 
-const sassPaths = ['node_modules'];
+const globImporter = require('node-sass-glob-importer');
+
+const designSystemStylePath = require.resolve('@nypl/design-system-styles');
+
+const sassPaths = ['node_modules', designSystemStylePath];
 
 // References the application's root path
 const ROOT_PATH = path.resolve(__dirname);
@@ -98,7 +102,13 @@ if (ENV === 'development') {
         },
         {
           test: /\.scss?$/,
-          use: ['style-loader', 'css-loader', `sass-loader?includePaths=${sassPaths}`],
+          use: ['style-loader', 'css-loader', {
+            loader: 'sass-loader',
+            options: {
+              importer: globImporter(),
+              includePaths: sassPaths,
+            },
+          }],
           include: path.resolve(ROOT_PATH, 'src'),
         },
         {
@@ -164,7 +174,14 @@ if (ENV === 'production') {
         },
         {
           test: /\.scss?$/,
-          use: [MiniCssExtractPlugin.loader, 'css-loader', `sass-loader?includePaths=${sassPaths}`],
+          use: [MiniCssExtractPlugin.loader, 'css-loader',
+            {
+              loader: 'sass-loader',
+              options: {
+                importer: globImporter(),
+                includePaths: sassPaths,
+              },
+            }],
           include: path.resolve(ROOT_PATH, 'src'),
         },
         {
