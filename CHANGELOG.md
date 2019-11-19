@@ -1,4 +1,10 @@
 # CHANGE LOG
+## [0.3.3]
+### Added
+- Pulls in Design System as a dependency
+
+### Changed
+- Breadcrumbs now use Design System Breadcrumbs
 
 ## [0.3.2] - 2019-11-06
 
