@@ -23,10 +23,12 @@ const Breadcrumbs = ({ links, pageType, onClickHandler }) => {
     const crumbs = [homeLink];
 
     if (links && links.length && pageType !== 'home') {
-      links.forEach((link) => {
-        crumbs.push(
-          <Link to={link.href}>{link.text}</Link>,
-        );
+      links.forEach((link, i) => {
+        if (i < links.length - 1) {
+          crumbs.push(
+            <Link to={link.href}>{link.text}</Link>,
+          );
+        }
       });
     }
 
