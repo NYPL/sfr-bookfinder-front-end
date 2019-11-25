@@ -10,34 +10,35 @@ import * as DS from '@nypl/design-system-react-components';
  * @returns {array}
  */
 const Breadcrumbs = ({ links, pageType, onClickHandler }) => {
-  const homeLink = (
-    <Link
-      to="/"
-      onClick={event => onClickHandler(event)}
-    >
-      ResearchNow
-    </Link>
-  );
-
   const crumbTrail = () => {
+    const homeLink = (
+      <Link
+        to="/"
+        onClick={event => onClickHandler(event)}
+      >
+        ResearchNow
+      </Link>
+    );
+
     const crumbs = [homeLink];
 
     if (links && links.length && pageType !== 'home') {
-      links.forEach((link, i) => {
-        if (i < links.length - 1) {
-          crumbs.push(
-            <Link to={link.href}>{link.text}</Link>,
-          );
-        }
-      });
+      // If not on home, add all the other links, except for the current page
+      crumbs.concat(links.slice(0, -1)
+        .map(link => (
+          <Link
+            to={link.href}
+            onClick={event => onClickHandler(event)}
+          >
+            {link.text}
+          </Link>
+        )));
     }
-
     return crumbs;
   };
 
-  const crumbs = crumbTrail();
   return (
-    <DS.Breadcrumb breadcrumbs={crumbs} />
+    <DS.Breadcrumb breadcrumbs={crumbTrail()} />
   );
 };
 
