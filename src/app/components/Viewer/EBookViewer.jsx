@@ -14,6 +14,21 @@ class EBookViewer extends React.Component {
 
   componentDidMount() {
     this.parseQueryToState(this.props.location.query.url);
+    this.handleIframeTask = this.handleIframeTask.bind(this);
+    window.addEventListener('message', this.handleIframeTask, false);
+  }
+
+  handleIframeTask(e) {
+    if (e.origin !== 'http://localhost:4444') {
+      return;
+    }
+    if (e.data === 'backButtonClicked') {
+      // TODO: if (previous location within ResearchNow app) {
+      this.props.router.goBack();
+      // } else {
+      //   console.log('should go to home');
+      // }
+    }
   }
 
   parseQueryToState(url) {
@@ -42,10 +57,12 @@ class EBookViewer extends React.Component {
 
 EBookViewer.propTypes = {
   location: PropTypes.objectOf(PropTypes.any),
+  router: PropTypes.objectOf(PropTypes.any),
 };
 
 EBookViewer.defaultProps = {
   location: {},
+  router: {},
 };
 
 const mapStateToProps = state => state;
