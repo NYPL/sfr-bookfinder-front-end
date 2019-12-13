@@ -82,6 +82,7 @@ class SearchContainer extends React.Component {
       event.preventDefault();
 
       this.boundActions.resetSearch();
+      history.push('/');
       router.push('/');
     };
 
@@ -114,7 +115,6 @@ class SearchContainer extends React.Component {
               </div>
             )}
             <SearchForm
-              searchQuery={searchQuery}
               history={history}
               {...this.boundActions}
             />
