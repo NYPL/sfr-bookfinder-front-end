@@ -82,6 +82,7 @@ class SearchContainer extends React.Component {
       event.preventDefault();
 
       this.boundActions.resetSearch();
+      history.push('/');
       router.push('/');
     };
 
