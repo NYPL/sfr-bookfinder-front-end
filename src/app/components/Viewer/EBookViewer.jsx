@@ -57,12 +57,10 @@ class EBookViewer extends React.Component {
 
 EBookViewer.propTypes = {
   location: PropTypes.objectOf(PropTypes.any),
-  router: PropTypes.objectOf(PropTypes.any),
 };
 
 EBookViewer.defaultProps = {
   location: {},
-  router: {},
 };
 
 const mapStateToProps = state => state;

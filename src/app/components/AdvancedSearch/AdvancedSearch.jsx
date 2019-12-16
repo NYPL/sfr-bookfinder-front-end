@@ -285,7 +285,6 @@ class AdvancedSearch extends React.Component {
       event.preventDefault();
 
       this.boundActions.resetSearch();
-      history.push('/');
       router.push('/');
     };
     const languagesSelected = this.state.languages.filter(language => this.state.filters.language.indexOf(language.value) > -1);
