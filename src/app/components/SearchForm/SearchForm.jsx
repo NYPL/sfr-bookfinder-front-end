@@ -4,17 +4,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import FeatureFlags from 'dgx-feature-flags';
-import Select from '../Form/Select';
-import SearchButton from '../Button/SearchButton';
-import TextInput from '../Form/TextInput';
-import TotalWorks from './TotalWorks';
+import * as DS from '@nypl/design-system-react-components';
+// import Select from '../Form/Select';
+// import SearchButton from '../Button/SearchButton';
+// import TextInput from '../Form/TextInput';
+// import TotalWorks from './TotalWorks';
 import { getQueryString } from '../../search/query';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
 import { deepEqual, checkFeatureFlagActivated } from '../../util/Util';
 import { errorMessagesText } from '../../constants/labels';
 
+
 import featureFlagConfig from '../../../../featureFlagConfig';
-import config from '../../../../appConfig';
+// import config from '../../../../appConfig';
 
 
 class SearchForm extends React.Component {
@@ -64,7 +66,7 @@ class SearchForm extends React.Component {
     this.setState((prevState) => {
       const advancedQuery = {
         query: prevState.searchQuery.showQuery
-          ? prevState.searchQuery.showQuery : prevState.searchQuery.query,
+          ? prevState.searchQuery.showQuery : prevState.searchQuery.queries[0].query,
         field: fieldSelected,
       };
       return ({
@@ -81,7 +83,7 @@ class SearchForm extends React.Component {
     this.setState((prevState) => {
       const advancedQuery = {
         query: querySelected,
-        field: prevState.searchQuery.showField ? prevState.searchQuery.showField : prevState.searchQuery.field || 'keyword',
+        field: prevState.searchQuery.showField ? prevState.searchQuery.showField : prevState.searchQuery.queries[0].field || 'keyword',
       };
 
       return ({
@@ -100,7 +102,6 @@ class SearchForm extends React.Component {
           query: this.state.searchQuery.queries,
         }),
       );
-      this.submitSearchRequest(event);
     }
   }
 
@@ -121,8 +122,37 @@ class SearchForm extends React.Component {
     const selectedField = this.state.searchQuery.showField || this.state.searchQuery.queries[0].field;
 
     return (
-      <div className="grid-row">
-        <form
+      <DS.SearchPromo
+        headingText="Search the World's Research Collections"
+        titleId="title"
+        selectedOption={selectedField}
+        searchButtonId="searchButtonId"
+        advancedSearchMessage={(
+          <p>
+              Use
+            {' '}
+            <Link
+              to="advanced-search"
+              className="text-baseline"
+            >
+                Advanced Search
+            </Link>
+            {' '}
+              to narrow your results.
+          </p>
+          )}
+        hasError={this.state.error}
+        errorMessage={this.state.errorMsg}
+        searchBarId="searchBarId"
+        dropdownId="dropdownId"
+        searchValue={selectedQuery}
+        searchDropdownOptions={this.props.allowedFields}
+        searchSubmitHandler={this.submitSearchRequest}
+        textChangeHandler={this.onQueryChange}
+        selectChangeHandler={this.onFieldChange}
+        selectBlurHandler={this.onFieldChange}
+      />
+    /* <form
           className="grid-col-10 sfr-center usa-search usa-search--big"
           action="/search"
           method="get"
@@ -180,8 +210,7 @@ class SearchForm extends React.Component {
               && <TotalWorks />
             }
           </div>
-        </form>
-      </div>
+        </form> */
     );
   }
 }

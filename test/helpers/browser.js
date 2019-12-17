@@ -1,6 +1,9 @@
 require('@babel/register')();
 
+require.extensions['.svg'] = () => {};
+
 const jsdom = require('jsdom');
+
 const { JSDOM } = jsdom;
 
 const virtualConsole = new jsdom.VirtualConsole();

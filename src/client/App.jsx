@@ -2,7 +2,7 @@ import '@babel/polyfill';
 import React from 'react';
 import a11y from 'react-a11y';
 import ReactDOM from 'react-dom';
-import { gaUtils } from 'dgx-react-ga'
+import { gaUtils } from 'dgx-react-ga';
 import FeatureFlags from 'dgx-feature-flags';
 import { Router, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';

@@ -38,7 +38,7 @@ const Breadcrumbs = ({ links, pageType, onClickHandler }) => {
   };
 
   return (
-    <DS.Breadcrumb breadcrumbs={crumbTrail()} />
+    <DS.Breadcrumbs breadcrumbs={crumbTrail()} />
   );
 };
 

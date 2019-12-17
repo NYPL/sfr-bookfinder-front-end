@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
+import * as DS from '@nypl/design-system-react-components';
 import SearchForm from '../SearchForm/SearchForm';
 import SearchResults from '../SearchResults/SearchResults';
-import AdvancedSearchResults from '../SearchResults/AdvancedSearchResults';
+import Subjects from '../../../../subjectListConfig';
+// import AdvancedSearchResults from '../SearchResults/AdvancedSearchResults';
 import * as searchActions from '../../actions/SearchActions';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import { getQueryString } from '../../search/query';
@@ -88,50 +90,68 @@ class SearchContainer extends React.Component {
     return (
       <main
         id="mainContent"
-        className="main-content grid-container padding-0"
+      // className="main-content grid-container padding-0"
       >
-        <div className="grid-row">
-          <div className="sfr-header-wrapper tablet:grid-col-12">
-            <Breadcrumbs
-              links={[
-                {
-                  href: `/search?${getQueryString(searchQuery)}`,
-                  text: 'Search Results',
-                },
-              ]}
-              pageType={pageType}
-              onClickHandler={handleReset}
-            />
-          </div>
-          <div
-            aria-label="ResearchNow"
-            className="grid-col-12"
-          >
-            {(!searchResults || isEmpty(searchResults)) && (
-              <div className="sfr-header-wrapper grid-col-10">
-                <h1 className="nypl-heading">ResearchNow</h1>
-                <div id="tagline">Search the world&apos;s research collections and more for digital books you can use right now.</div>
-              </div>
-            )}
+        <Breadcrumbs
+          links={[
+            {
+              href: `/search?${getQueryString(searchQuery)}`,
+              text: 'Search Results',
+            },
+          ]}
+          pageType={pageType}
+          onClickHandler={handleReset}
+        />
+        <div
+          aria-label="ResearchNow"
+        >
+          {(!searchResults || isEmpty(searchResults)) && (
+            <div className="grid-row">
+              <DS.HeaderImgRight
+                headerId="ResearchNow-Main-Header"
+                isImageDecorative
+                pageTitleText="ResearchNow"
+                imgUrl="https://placeimg.com/200/100/arch"
+                bodyText={(
+                  <p>
+                  The internet’s search engine for research collections and
+                  e-books you can use right now. Powered by the New York Public Library.
+                  </p>
+              )}
+              />
+            </div>
+          )}
+          <div className="grid-row">
             <SearchForm
               searchQuery={searchQuery}
               history={history}
               {...this.boundActions}
             />
-            <AdvancedSearchResults
-              searchQuery={searchQuery}
-              {...this.boundActions}
-              router={router}
-            />
-            <SearchResults
-              searchQuery={searchQuery}
-              results={searchResults}
-              eReaderUrl={eReaderUrl}
-              {...this.boundActions}
-              history={history}
-              router={router}
-            />
           </div>
+
+          {(!searchResults || isEmpty(searchResults)) && (
+            <div className="grid-row">
+              <DS.IconLinkList
+                titleText="Browse By Subject"
+                titleId="subject-browse-list"
+                textLinks={Subjects}
+              />
+            </div>
+          )}
+          {/* <AdvancedSearchResults
+              searchQuery={searchQuery}
+              {...this.boundActions}
+              router={router}
+            /> */}
+          <SearchResults
+            searchQuery={searchQuery}
+            results={searchResults}
+            eReaderUrl={eReaderUrl}
+            {...this.boundActions}
+            history={history}
+            router={router}
+          />
+
         </div>
       </main>
     );
