@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
 import * as DS from '@nypl/design-system-react-components';
+import FeatureFlags from 'dgx-feature-flags';
 import SearchForm from '../SearchForm/SearchForm';
 import SearchResults from '../SearchResults/SearchResults';
 import Subjects from '../../../../subjectListConfig';
@@ -12,8 +13,11 @@ import * as searchActions from '../../actions/SearchActions';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import { getQueryString } from '../../search/query';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
-import { deepEqual, isEmpty } from '../../util/Util';
+import { deepEqual, isEmpty, checkFeatureFlagActivated } from '../../util/Util';
+import TotalWorks from '../SearchForm/TotalWorks';
 
+import featureFlagConfig from '../../../../featureFlagConfig';
+import config from '../../../../appConfig';
 /**
  * Container class providing the Redux action creators
  * to its child components. State data is passed along
@@ -26,13 +30,20 @@ class SearchContainer extends React.Component {
   constructor(props) {
     super(props);
     const { dispatch } = props;
+    this.state = { ...props, isFeatureFlagsActivated: {} };
 
     this.boundActions = bindActionCreators(searchActions, dispatch);
   }
 
   componentDidMount() {
     this.loadSearch();
+    FeatureFlags.store.listen(this.onFeatureFlagsChange.bind(this));
+
+    checkFeatureFlagActivated(
+      featureFlagConfig.featureFlagList, this.state.isFeatureFlagsActivated,
+    );
   }
+
 
   componentDidUpdate(prevProps) {
     const { location } = this.props;
@@ -40,6 +51,15 @@ class SearchContainer extends React.Component {
       global.window.scrollTo(0, 0);
       this.loadSearch();
     }
+  }
+
+  componentWillUnmount() {
+    FeatureFlags.store.unlisten(this.onFeatureFlagsChange.bind(this));
+  }
+
+  onFeatureFlagsChange() {
+    // eslint-disable-next-line react/no-unused-state
+    this.setState({ featureFlagsStore: FeatureFlags.store.getState() });
   }
 
   loadSearch() {
@@ -127,6 +147,11 @@ class SearchContainer extends React.Component {
               history={history}
               {...this.boundActions}
             />
+            {
+              // eslint-disable-next-line no-underscore-dangle
+              FeatureFlags.store._isFeatureActive(config.booksCount.experimentName)
+              && <TotalWorks />
+            }
           </div>
 
           {(!searchResults || isEmpty(searchResults)) && (

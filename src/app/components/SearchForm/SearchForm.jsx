@@ -3,20 +3,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import FeatureFlags from 'dgx-feature-flags';
 import * as DS from '@nypl/design-system-react-components';
 // import Select from '../Form/Select';
 // import SearchButton from '../Button/SearchButton';
 // import TextInput from '../Form/TextInput';
-// import TotalWorks from './TotalWorks';
 import { getQueryString } from '../../search/query';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
-import { deepEqual, checkFeatureFlagActivated } from '../../util/Util';
+import { deepEqual } from '../../util/Util';
 import { errorMessagesText } from '../../constants/labels';
-
-
-import featureFlagConfig from '../../../../featureFlagConfig';
-// import config from '../../../../appConfig';
 
 
 class SearchForm extends React.Component {
@@ -33,11 +27,6 @@ class SearchForm extends React.Component {
 
   componentDidMount() {
     global.window.scrollTo(0, 0);
-    FeatureFlags.store.listen(this.onFeatureFlagsChange.bind(this));
-
-    checkFeatureFlagActivated(
-      featureFlagConfig.featureFlagList, this.state.isFeatureFlagsActivated,
-    );
   }
 
   /**
@@ -52,14 +41,6 @@ class SearchForm extends React.Component {
     }
   }
 
-  componentWillUnmount() {
-    FeatureFlags.store.unlisten(this.onFeatureFlagsChange.bind(this));
-  }
-
-  onFeatureFlagsChange() {
-    // eslint-disable-next-line react/no-unused-state
-    this.setState({ featureFlagsStore: FeatureFlags.store.getState() });
-  }
 
   onFieldChange(event) {
     const fieldSelected = event.target.value;
@@ -124,7 +105,7 @@ class SearchForm extends React.Component {
     return (
       <DS.SearchPromo
         headingText="Search the World's Research Collections"
-        titleId="title"
+        titleId="tagline"
         selectedOption={selectedField}
         searchButtonId="searchButtonId"
         advancedSearchMessage={(
@@ -145,6 +126,7 @@ class SearchForm extends React.Component {
         errorMessage={this.state.errorMsg}
         searchBarId="searchBarId"
         dropdownId="dropdownId"
+        searchInputAriaLabel="Search for keyword, author, title, or subject"
         searchValue={selectedQuery}
         searchDropdownOptions={this.props.allowedFields}
         searchSubmitHandler={this.submitSearchRequest}
@@ -152,6 +134,7 @@ class SearchForm extends React.Component {
         selectChangeHandler={this.onFieldChange}
         selectBlurHandler={this.onFieldChange}
       />
+
     /* <form
           className="grid-col-10 sfr-center usa-search usa-search--big"
           action="/search"
