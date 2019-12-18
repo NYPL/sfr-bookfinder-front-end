@@ -9,11 +9,15 @@ import { flattenDeep, unique, formatUrl } from '../../util/Util';
  * @param {string} url
  * @param {string} eReaderUrl
  */
-const generateStreamedReaderUrl = (url, eReaderUrl) => {
+const generateStreamedReaderUrl = (url, eReaderUrl, referrer) => {
   const base64BookUrl = Buffer.from(formatUrl(url)).toString('base64');
   const encodedBookUrl = encodeURIComponent(`${base64BookUrl}`);
   const encodedReaderUrl = encodeURI(eReaderUrl);
-  const combined = `${eReaderUrl}/readerNYPL/?url=${encodedReaderUrl}/pub/${encodedBookUrl}/manifest.json`;
+
+  let combined = `${eReaderUrl}/readerNYPL/?url=${encodedReaderUrl}/pub/${encodedBookUrl}/manifest.json`;
+  if (referrer) {
+    combined += `#${referrer}`;
+  }
   return combined;
 };
 
@@ -32,7 +36,7 @@ const generateStreamedReaderUrl = (url, eReaderUrl) => {
  * @param {boolean} ebook
  * @return {string}
  */
-const generateLink = (url, eReaderUrl, local, download, ereader, ebook) => {
+const generateLink = (url, eReaderUrl, local, download, ereader, ebook, referrer) => {
   const encodedUrl = generateStreamedReaderUrl(url, eReaderUrl);
   const link = local && ebook && ereader && !download ? `${encodedUrl}` : formatUrl(url);
   if (ebook && !download) {
@@ -46,8 +50,8 @@ const generateLink = (url, eReaderUrl, local, download, ereader, ebook) => {
 };
 
 // generates an array of options for the dropdown
-const generateOption = (link, download, eReaderUrl) => {
-  const encodedUrl = generateStreamedReaderUrl(link.url, eReaderUrl);
+const generateOption = (link, download, eReaderUrl, referrer) => {
+  const encodedUrl = generateStreamedReaderUrl(link.url, eReaderUrl, referrer);
   const url = link.local && link.ebook && link.eReader && download ? `${eReaderUrl}?url=${encodedUrl}` : formatUrl(link.url);
   const uniqueId = link.unique_id;
   const label = link.label;
@@ -66,13 +70,13 @@ const generateOption = (link, download, eReaderUrl) => {
   };
 };
 
-const onSelectChange = (value, eReaderUrl, download, options) => {
+const onSelectChange = (value, eReaderUrl, download, options, referrer) => {
   const match = options.find(option => option.value === value);
   if (match) {
     if (download) {
       global.window.location.href = formatUrl(match.url);
     } else if (match.local) {
-      const encodedUrl = generateStreamedReaderUrl(match.url, eReaderUrl);
+      const encodedUrl = generateStreamedReaderUrl(match.url, eReaderUrl, referrer);
       global.window.location.href = `${window.location.origin}/read-online?url=${encodeURI(encodedUrl)}`;
     } else {
       global.window.location.href = `${window.location.origin}/read-online?url=${formatUrl(match.url)}`;
@@ -95,16 +99,18 @@ const linksArray = ({ ebooks, download }) => unique(
 );
 
 // render the dropdown and/or the link to the ebook, classifed by download true or false
-const LinksSelector = ({ ebooks, download, eReaderUrl }) => {
+const LinksSelector = ({
+  ebooks, download, eReaderUrl, referrer,
+}) => {
   const linksList = linksArray({ ebooks, download });
-  const options = linksList.map(link => Object.assign({}, generateOption(link, download, eReaderUrl)));
+  const options = linksList.map(link => Object.assign({}, generateOption(link, download, eReaderUrl, referrer)));
   return (
     <ul className="nypl-ebooks-list">
       {linksList.length > 1 && (
         <li className="ebooks-list-dropdown">
           <Dropdown
             options={options}
-            setSelected={e => onSelectChange(e, eReaderUrl, download, options)}
+            setSelected={e => onSelectChange(e, eReaderUrl, download, options, referrer)}
             placeholder={download ? 'Download' : 'Read Online'}
             selectedOption=""
             buttonClassName=""
@@ -114,37 +120,55 @@ const LinksSelector = ({ ebooks, download, eReaderUrl }) => {
       )}
       {linksList.length === 1
         && linksList.map((link, linkKey) => (
-          <li key={`${linkKey.toString()}`}>{generateLink(link.url, eReaderUrl, link.local, download, link.ereader, link.ebook)}</li>
+          <li key={`${linkKey.toString()}`}>
+            {generateLink(link.url, eReaderUrl, link.local, download, link.ereader, link.ebook, referrer)}
+          </li>
         ))}
     </ul>
   );
 };
 
-const EBookList = ({ ebooks, eReaderUrl }) => (
-  <ul className="nypl-ebooks-list">
-    <li>{LinksSelector({ ebooks, download: false, eReaderUrl })}</li>
-    <li>{LinksSelector({ ebooks, download: true, eReaderUrl })}</li>
-  </ul>
+const EBookList = ({ referrer, ebooks, eReaderUrl }) => (
+  <div>
+    <ul className="nypl-ebooks-list">
+      <li>
+        {LinksSelector({
+          ebooks, download: false, eReaderUrl, referrer,
+        })}
+
+      </li>
+      <li>
+        {LinksSelector({
+          ebooks, download: true, eReaderUrl, referrer,
+        })}
+
+      </li>
+    </ul>
+  </div>
 );
 
 LinksSelector.propTypes = {
+  referrer: PropTypes.string,
   ebooks: PropTypes.arrayOf(PropTypes.any),
   eReaderUrl: PropTypes.string,
   download: PropTypes.bool,
 };
 
 LinksSelector.defaultProps = {
+  referrer: '',
   ebooks: [],
   eReaderUrl: '',
   download: false,
 };
 
 EBookList.propTypes = {
+  referrer: PropTypes.string,
   ebooks: PropTypes.arrayOf(PropTypes.any),
   eReaderUrl: PropTypes.string,
 };
 
 EBookList.defaultProps = {
+  referrer: '',
   ebooks: [],
   eReaderUrl: '',
 };

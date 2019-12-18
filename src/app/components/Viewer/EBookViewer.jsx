@@ -13,7 +13,7 @@ class EBookViewer extends React.Component {
   }
 
   componentDidMount() {
-    this.parseQueryToState(this.props.location.query.url);
+    this.parseQueryToState(this.props.location.query);
     this.handleIframeTask = this.handleIframeTask.bind(this);
     window.addEventListener('message', this.handleIframeTask, false);
   }
@@ -23,16 +23,17 @@ class EBookViewer extends React.Component {
       return;
     }
     if (e.data === 'backButtonClicked') {
-      // TODO: if (previous location within ResearchNow app) {
-      this.props.router.goBack();
-      // } else {
-      //   console.log('should go to home');
-      // }
+      if (this.state.referrer) {
+        global.window.location.href = `${window.location.origin}${this.state.referrer}`;
+      } else {
+        global.window.location.href = `${window.location.origin}`;
+      }
     }
   }
 
-  parseQueryToState(url) {
-    this.setState({ bookUrl: url });
+  parseQueryToState(query) {
+    this.setState({ bookUrl: query.url });
+    this.setState({ referrer: decodeURI(this.props.location.hash).substring(1) });
   }
 
   render() {
@@ -57,12 +58,10 @@ class EBookViewer extends React.Component {
 
 EBookViewer.propTypes = {
   location: PropTypes.objectOf(PropTypes.any),
-  router: PropTypes.objectOf(PropTypes.any),
 };
 
 EBookViewer.defaultProps = {
   location: {},
-  router: {},
 };
 
 const mapStateToProps = state => state;

@@ -10,7 +10,7 @@ const htmlEntities = new Html5Entities();
 
 const chunk = (string, max) => (string.length > max ? `${string.slice(0, max)}&hellip;` : string);
 
-const ResultsListItem = ({ item, eReaderUrl }) => (
+const ResultsListItem = ({ item, eReaderUrl, referrer }) => (
   <li className="nypl-results-item">
     <div className="nypl-results-item-header">
       <div className="nypl-results-item-header-image">
@@ -42,6 +42,7 @@ const ResultsListItem = ({ item, eReaderUrl }) => (
     </div>
 
     <EditionsList
+      referrer={referrer}
       eReaderUrl={eReaderUrl}
       work={item}
       max={3}
@@ -50,11 +51,13 @@ const ResultsListItem = ({ item, eReaderUrl }) => (
 );
 
 ResultsListItem.propTypes = {
+  referrer: PropTypes.string,
   eReaderUrl: PropTypes.string,
   item: PropTypes.objectOf(PropTypes.any),
 };
 
 ResultsListItem.defaultProps = {
+  referrer: '',
   eReaderUrl: '',
   item: { instances: [] },
 };

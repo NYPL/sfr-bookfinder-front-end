@@ -13,7 +13,6 @@ import Filters from './Filters';
 const SearchResults = (props) => {
   const metadata = props.results && props.results.data && props.results.data.hits;
   const hits = props.results && props.results.data && props.results.data.hits && props.results.data.hits.hits;
-
   if (!hits) {
     return null;
   }
