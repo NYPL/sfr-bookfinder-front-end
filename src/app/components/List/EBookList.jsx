@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+// import { Link } from 'react-router';
 import Dropdown from '../../libraries/react-dropdown-aria';
 import { flattenDeep, unique, formatUrl } from '../../util/Util';
+// import SearchButton from '../Button/SearchButton';
 
 /**
  * Create a URL for that conforms to the webpub-reader streamed format
@@ -21,6 +22,17 @@ const generateStreamedReaderUrl = (url, eReaderUrl, referrer) => {
   return combined;
 };
 
+const goToReader = (url, eReaderUrl, download, local, referrer) => {
+  if (download) {
+    global.window.location.href = formatUrl(url);
+  } else if (local) {
+    const encodedUrl = generateStreamedReaderUrl(url, eReaderUrl, referrer);
+    global.window.location.href = `${window.location.origin}/read-online?url=${encodeURI(encodedUrl)}`;
+  } else {
+    global.window.location.href = `${window.location.origin}/read-online?url=${formatUrl(url)}`;
+  }
+};
+
 /**
  * Create a link defaulting to an ebook "download" unless
  * the ebook is hosted by us (link has our S3 bucket pattern)
@@ -36,17 +48,17 @@ const generateStreamedReaderUrl = (url, eReaderUrl, referrer) => {
  * @param {boolean} ebook
  * @return {string}
  */
-const generateLink = (url, eReaderUrl, local, download, ereader, ebook, referrer) => {
-  const encodedUrl = generateStreamedReaderUrl(url, eReaderUrl);
-  const link = local && ebook && ereader && !download ? `${encodedUrl}` : formatUrl(url);
-  if (ebook && !download) {
-    return (
-      <Link to={{ pathname: '/read-online', query: { url: link } }}>
-        {'Read Online'}
-      </Link>
-    );
-  }
-  return <a href={`${link}`}>Download</a>;
+const generateButton = (url, eReaderUrl, local, download, ereader, ebook, referrer) => {
+  // const link = local && ebook && ereader && !download ? `${encodedUrl}` : formatUrl(url);
+  const value = download ? 'Download' : 'Read Online';
+  return (
+    <button
+      type="button"
+      onClick={() => goToReader(url, eReaderUrl, download, local, referrer)}
+    >
+      {value}
+    </button>
+  );
 };
 
 // generates an array of options for the dropdown
@@ -73,14 +85,7 @@ const generateOption = (link, download, eReaderUrl, referrer) => {
 const onSelectChange = (value, eReaderUrl, download, options, referrer) => {
   const match = options.find(option => option.value === value);
   if (match) {
-    if (download) {
-      global.window.location.href = formatUrl(match.url);
-    } else if (match.local) {
-      const encodedUrl = generateStreamedReaderUrl(match.url, eReaderUrl, referrer);
-      global.window.location.href = `${window.location.origin}/read-online?url=${encodeURI(encodedUrl)}`;
-    } else {
-      global.window.location.href = `${window.location.origin}/read-online?url=${formatUrl(match.url)}`;
-    }
+    goToReader(match.url, eReaderUrl, download, match.local, referrer);
   }
 };
 
@@ -105,8 +110,9 @@ const LinksSelector = ({
   const linksList = linksArray({ ebooks, download });
   const options = linksList.map(link => Object.assign({}, generateOption(link, download, eReaderUrl, referrer)));
   return (
-    <ul className="nypl-ebooks-list">
-      {linksList.length > 1 && (
+    <div>
+      <ul className="nypl-ebooks-list">
+        {linksList.length > 1 && (
         <li className="ebooks-list-dropdown">
           <Dropdown
             options={options}
@@ -117,14 +123,16 @@ const LinksSelector = ({
             arrowRenderer={arrowRenderer}
           />
         </li>
-      )}
-      {linksList.length === 1
+        )}
+        {linksList.length === 1
         && linksList.map((link, linkKey) => (
           <li key={`${linkKey.toString()}`}>
-            {generateLink(link.url, eReaderUrl, link.local, download, link.ereader, link.ebook, referrer)}
+            {generateButton(link.url, eReaderUrl, link.local, download, link.ereader, link.ebook, referrer)}
           </li>
-        ))}
-    </ul>
+        ))
+        }
+      </ul>
+    </div>
   );
 };
 

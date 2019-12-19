@@ -10,10 +10,10 @@ export default {
     production: 'http://researchnow-webpub-dev.us-east-1.elasticbeanstalk.com:4444',
   },
   api: {
-    development: 'https://dev-platform.nypl.org/api/v0.1/research-now/v2',
+    development: 'http://localhost:3002/v2',
     production: 'https://dev-platform.nypl.org/api/v0.1/research-now/v2',
-    searchPath: '/search-api',
-    recordPath: '/work',
+    searchPath: '/sfr/search',
+    recordPath: '/sfr/work',
     languagesPath: '/utils/languages',
   },
   booksCount: {
