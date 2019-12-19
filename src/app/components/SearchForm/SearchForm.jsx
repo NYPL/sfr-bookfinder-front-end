@@ -101,33 +101,33 @@ class SearchForm extends React.Component {
   render() {
     const selectedQuery = this.state.searchQuery.showQuery || this.state.searchQuery.queries[0].query;
     const selectedField = this.state.searchQuery.showField || this.state.searchQuery.queries[0].field;
-
+    const advancedSearchMessage = () => (
+      <p>
+        Use
+        {' '}
+        <Link
+          to="advanced-search"
+          className="text-baseline"
+        >
+          Advanced Search
+        </Link>
+        {' '}
+        to narrow your results.
+      </p>
+    );
     return (
       <DS.SearchPromo
         headingText="Search the World's Research Collections"
         titleId="tagline"
         selectedOption={selectedField}
         searchButtonId="searchButtonId"
-        advancedSearchMessage={(
-          <p>
-              Use
-            {' '}
-            <Link
-              to="advanced-search"
-              className="text-baseline"
-            >
-                Advanced Search
-            </Link>
-            {' '}
-              to narrow your results.
-          </p>
-          )}
+        advancedSearchMessage={advancedSearchMessage}
+        searchValue={selectedQuery}
         hasError={this.state.error}
         errorMessage={this.state.errorMsg}
         searchBarId="searchBarId"
         dropdownId="dropdownId"
         searchInputAriaLabel="Search for keyword, author, title, or subject"
-        searchValue={selectedQuery}
         searchDropdownOptions={this.props.allowedFields}
         searchSubmitHandler={this.submitSearchRequest}
         textChangeHandler={this.onQueryChange}
