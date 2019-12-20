@@ -19,7 +19,7 @@ class EBookViewer extends React.Component {
   }
 
   handleIframeTask(e) {
-    if (e.origin !== 'http://localhost:4444') {
+    if (e.origin !== 'http://researchnow-webpub-dev.us-east-1.elasticbeanstalk.com:4444') {
       return;
     }
     if (e.data === 'backButtonClicked') {

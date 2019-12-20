@@ -6,14 +6,14 @@ export default {
   webpackDevServerPort: 3000,
   baseUrl: '',
   ereader: {
-    development: 'http://localhost:4444',
+    development: 'http://researchnow-webpub-dev.us-east-1.elasticbeanstalk.com:4444',
     production: 'http://researchnow-webpub-dev.us-east-1.elasticbeanstalk.com:4444',
   },
   api: {
-    development: 'http://localhost:3002/v2',
+    development: 'https://dev-platform.nypl.org/api/v0.1/research-now/v2',
     production: 'https://dev-platform.nypl.org/api/v0.1/research-now/v2',
-    searchPath: '/sfr/search',
-    recordPath: '/sfr/work',
+    searchPath: '/search-api',
+    recordPath: '/work',
     languagesPath: '/utils/languages',
   },
   booksCount: {
