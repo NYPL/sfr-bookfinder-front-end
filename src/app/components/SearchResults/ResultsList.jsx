@@ -30,12 +30,14 @@ class ResultsList extends React.Component {
         </div>
       );
     }
+    const referrer = this.context.router ? this.context.router.location.pathname + this.context.router.location.search : undefined;
 
     return (
       <div className="nypl-results">
         <ul className="nypl-results-list">
           {this.props.results.map(result => (
             <ResultsListItem
+              referrer={referrer}
               eReaderUrl={this.props.eReaderUrl}
               item={result._source}
               fetchWork={this.props.fetchWork}
@@ -57,7 +59,7 @@ ResultsList.propTypes = {
 ResultsList.defaultProps = {
   eReaderUrl: '',
   results: [],
-  fetchWork: () => {},
+  fetchWork: () => { },
 };
 
 ResultsList.contextTypes = {

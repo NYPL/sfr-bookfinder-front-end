@@ -146,6 +146,6 @@ if (!isProduction) {
     if (error) {
       console.log(colors.red(error));
     }
-    console.log(colors.magenta('Webpack Dev Server listening at'), colors.cyan('localhost3000'));
+    console.log(colors.magenta('Webpack Dev Server listening at'), colors.cyan('localhost:3000'));
   });
 }

@@ -114,7 +114,6 @@ class SearchContainer extends React.Component {
               </div>
             )}
             <SearchForm
-              searchQuery={searchQuery}
               history={history}
               {...this.boundActions}
             />
