@@ -81,7 +81,7 @@ class SearchForm extends React.Component {
     this.setState((prevState) => {
       const advancedQuery = {
         query: querySelected,
-        field: prevState.searchQuery.showField ? prevState.searchQuery.showField : prevState.searchQuery.field || 'keyword',
+        field: prevState.searchQuery.showField ? prevState.searchQuery.showField : prevState.searchQuery.queries[0].field || 'keyword',
       };
 
       return ({
