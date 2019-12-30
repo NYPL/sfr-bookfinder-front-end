@@ -3,8 +3,6 @@
  */
 @import '~@nypl/dgx-react-footer/dist/styles/styles';
 
-@import '~@nypl/design-system-styles/style';
-
 /**
  * Import style rules for US.gov Web Design System.
  */
@@ -18,6 +16,9 @@
 
 $nypl-dark-blue: #135772;
 $fontFamily: 'system-ui';
+
+/** Import Design System Styles */
+@import '~@nypl/design-system-styles/style';
 
 /**
  * Import custom rules for this project.

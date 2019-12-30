@@ -101,7 +101,7 @@ class SearchForm extends React.Component {
   render() {
     const selectedQuery = this.state.searchQuery.showQuery || this.state.searchQuery.queries[0].query;
     const selectedField = this.state.searchQuery.showField || this.state.searchQuery.queries[0].field;
-    const advancedSearchMessage = () => (
+    const advancedSearchMessage = (
       <p>
         Use
         {' '}
@@ -115,6 +115,7 @@ class SearchForm extends React.Component {
         to narrow your results.
       </p>
     );
+
     return (
       <DS.SearchPromo
         headingText="Search the World's Research Collections"
@@ -134,66 +135,6 @@ class SearchForm extends React.Component {
         selectChangeHandler={this.onFieldChange}
         selectBlurHandler={this.onFieldChange}
       />
-
-    /* <form
-          className="grid-col-10 sfr-center usa-search usa-search--big"
-          action="/search"
-          method="get"
-          onSubmit={this.handleSubmit}
-          onKeyPress={this.handleSubmit}
-        >
-          <div
-            role="search"
-            className="nypl-search grid-row"
-            aria-label="ResearchNow"
-          >
-            <Select
-              className="tablet:grid-col-4 nypl-search-input"
-              label=""
-              ariaLabel="Search"
-              labelClass="visuallyhidden usa-label"
-              id="search-by-field"
-              selectClass="nypl-select-input usa-select"
-              options={this.props.allowedFields}
-              onChange={this.onFieldChange}
-              value={selectedField}
-              name="field"
-            />
-            <TextInput
-              className="nypl-searchbar-input tablet:grid-col-4"
-              ariaLabel="Search for keyword, author, title, or subject"
-              labelClass="visuallyhidden usa-label"
-              id="search-field-big"
-              type="text"
-              inputClass={this.state.error ? 'usa-input nypl-search-input usa-input--error' : 'usa-input nypl-search-input'}
-              name="query"
-              value={selectedQuery}
-              onChange={this.onQueryChange}
-              errorMessage={this.state.error ? this.state.errorMsg : null}
-            />
-            <SearchButton
-              className="tablet:grid-col-2"
-              id="search-button"
-              buttonClassName="usa-button sfr-search-button"
-              value="Search"
-              onClick={this.submitSearchRequest}
-              ariaLabel="Search"
-            />
-            <div className="tablet:grid-col-2 nypl-advanced-search padding-left-2 text-pre text-center">
-              <Link
-                to="advanced-search"
-                className="text-baseline"
-              >
-                Advanced Search
-              </Link>
-            </div>
-            {
-              // eslint-disable-next-line no-underscore-dangle
-              FeatureFlags.store._isFeatureActive(config.booksCount.experimentName)
-              && <TotalWorks />
-            }
-          </div>
-        </form> */
     );
   }
 }
