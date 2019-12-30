@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import EBookList from './EBookList';
 
-const EditionsList = ({ work, eReaderUrl, max }) => {
+const EditionsList = ({
+  work, eReaderUrl, referrer, max,
+}) => {
   const list = work.instances;
   if (!list || list.length === 0) {
     return null;
@@ -30,7 +32,6 @@ const EditionsList = ({ work, eReaderUrl, max }) => {
   const languages = instance => instance.language
     && instance.language.length > 0 //
     && instance.language.map(lang => lang.language).join(', ');
-
   return (
     <div>
       <table className="usa-table usa-table--borderless nypl-editions-table">
@@ -60,6 +61,7 @@ const EditionsList = ({ work, eReaderUrl, max }) => {
                 <td className="nypl-editions-table-downloads">
                   {instance.items ? (
                     <EBookList
+                      referrer={referrer}
                       ebooks={instance.items}
                       eReaderUrl={eReaderUrl}
                     />
@@ -98,12 +100,14 @@ const EditionsList = ({ work, eReaderUrl, max }) => {
 EditionsList.propTypes = {
   work: PropTypes.objectOf(PropTypes.any),
   eReaderUrl: PropTypes.string,
+  referrer: PropTypes.string,
   max: PropTypes.number,
 };
 
 EditionsList.defaultProps = {
   work: { instances: [] },
   eReaderUrl: '',
+  referrer: '',
   max: 0,
 };
 

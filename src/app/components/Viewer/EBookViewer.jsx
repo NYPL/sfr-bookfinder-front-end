@@ -13,11 +13,27 @@ class EBookViewer extends React.Component {
   }
 
   componentDidMount() {
-    this.parseQueryToState(this.props.location.query.url);
+    this.parseQueryToState(this.props.location.query);
+    this.handleIframeTask = this.handleIframeTask.bind(this);
+    window.addEventListener('message', this.handleIframeTask, false);
   }
 
-  parseQueryToState(url) {
-    this.setState({ bookUrl: url });
+  handleIframeTask(e) {
+    if (e.origin !== 'http://researchnow-webpub-dev.us-east-1.elasticbeanstalk.com:4444') {
+      return;
+    }
+    if (e.data === 'backButtonClicked') {
+      if (this.state.referrer) {
+        global.window.location.href = `${window.location.origin}${this.state.referrer}`;
+      } else {
+        global.window.location.href = `${window.location.origin}`;
+      }
+    }
+  }
+
+  parseQueryToState(query) {
+    this.setState({ bookUrl: query.url });
+    this.setState({ referrer: decodeURI(this.props.location.hash).substring(1) });
   }
 
   render() {

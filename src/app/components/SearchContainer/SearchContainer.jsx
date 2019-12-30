@@ -143,7 +143,6 @@ class SearchContainer extends React.Component {
           )}
           <div className="grid-row">
             <SearchForm
-              searchQuery={searchQuery}
               history={history}
               {...this.boundActions}
             />

@@ -65,6 +65,7 @@ class WorkDetail extends React.Component {
       return null;
     }
     const { history } = this.context;
+    const referrer = this.props.location.pathname + this.props.location.search;
 
     /**
      * onClick handler for resetting state for the request back to the home page
@@ -118,6 +119,7 @@ class WorkDetail extends React.Component {
             </div>
             <div id="nypl-item-details">
               <EditionsList
+                referrer={referrer}
                 eReaderUrl={this.props.eReaderUrl}
                 work={work}
                 max={1}
@@ -137,6 +139,7 @@ class WorkDetail extends React.Component {
                 </h3>
               )}
               <EditionsList
+                referrer={referrer}
                 eReaderUrl={this.props.eReaderUrl}
                 work={work}
                 max={0}

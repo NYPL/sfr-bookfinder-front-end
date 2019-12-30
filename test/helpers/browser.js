@@ -1,3 +1,5 @@
+require.extensions['.svg'] = () => {};
+
 require('@babel/register')();
 
 require.extensions['.svg'] = () => {};
