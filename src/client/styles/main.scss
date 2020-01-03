@@ -130,6 +130,7 @@ a {
 .sfr-center {
   margin-left: auto;
   margin-right: auto;
+  width: $max-width;
 }
 
 .visuallyhidden {
@@ -162,6 +163,7 @@ select {
 .grid-col {
   flex: 1;
 }
+
 @-ms-viewport {
   width: device-width;
 }

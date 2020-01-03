@@ -102,14 +102,19 @@ if (ENV === 'development') {
         },
         {
           test: /\.scss?$/,
-          use: ['style-loader', 'css-loader', {
-            loader: 'sass-loader',
-            options: {
-              importer: globImporter(),
-              includePaths: sassPaths,
-            },
-          }],
-          include: path.resolve(ROOT_PATH, 'src'),
+          use: ['style-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                importLoaders: 1,
+              },
+            }, {
+              loader: 'sass-loader',
+              options: {
+                importer: globImporter(),
+              },
+            }],
+          include: [designSystemStylePath, path.resolve(ROOT_PATH, 'src')],
         },
         {
           test: /\.(gif|png|jp?g|svg)(\?v=\d+\.\d+\.\d+)?$/,

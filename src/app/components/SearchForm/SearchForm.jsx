@@ -121,7 +121,7 @@ class SearchForm extends React.Component {
         headingText="Search the World's Research Collections"
         titleId="tagline"
         selectedOption={selectedField}
-        searchButtonId="searchButtonId"
+        searchBtnId="searchButtonId"
         advancedSearchMessage={advancedSearchMessage}
         searchValue={selectedQuery}
         hasError={this.state.error}

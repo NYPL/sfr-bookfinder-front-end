@@ -127,39 +127,45 @@ class SearchContainer extends React.Component {
         >
           {(!searchResults || isEmpty(searchResults)) && (
             <div className="grid-row">
-              <DS.HeaderImgRight
-                headerId="ResearchNow-Main-Header"
-                isImageDecorative
-                pageTitleText="ResearchNow"
-                imgUrl="https://placeimg.com/200/100/arch"
-                bodyText={(
-                  <p>
-                  The internet’s search engine for research collections and
-                  e-books you can use right now. Powered by the New York Public Library.
-                  </p>
-              )}
-              />
+              <div className="sfr-center">
+                <DS.HeaderImgRight
+                  headerId="ResearchNow-Main-Header"
+                  isImageDecorative
+                  pageTitleText="ResearchNow"
+                  imgUrl="https://placeimg.com/200/100/arch"
+                  bodyText={(
+                    <p>
+                      The internet’s search engine for research collections and
+                      e-books you can use right now. Powered by the New York Public Library.
+                    </p>
+                  )}
+                />
+              </div>
             </div>
           )}
           <div className="grid-row">
-            <SearchForm
-              history={history}
-              {...this.boundActions}
-            />
-            {
+            <div className="sfr-center">
+              <SearchForm
+                history={history}
+                {...this.boundActions}
+              />
+              {
               // eslint-disable-next-line no-underscore-dangle
               FeatureFlags.store._isFeatureActive(config.booksCount.experimentName)
               && <TotalWorks />
             }
+            </div>
           </div>
 
           {(!searchResults || isEmpty(searchResults)) && (
             <div className="grid-row">
-              <DS.IconLinkList
-                titleText="Browse By Subject"
-                titleId="subject-browse-list"
-                textLinks={Subjects}
-              />
+              <div className="sfr-center">
+                <DS.IconLinkList
+                  titleText="Browse By Subject"
+                  titleId="subject-browse-list"
+                  textLinks={Subjects}
+                />
+              </div>
             </div>
           )}
           <AdvancedSearchResults
