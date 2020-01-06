@@ -3,15 +3,21 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
+import * as DS from '@nypl/design-system-react-components';
+import FeatureFlags from 'dgx-feature-flags';
 import SearchForm from '../SearchForm/SearchForm';
 import SearchResults from '../SearchResults/SearchResults';
+import Subjects from '../../../../subjectListConfig';
 import AdvancedSearchResults from '../SearchResults/AdvancedSearchResults';
 import * as searchActions from '../../actions/SearchActions';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import { getQueryString } from '../../search/query';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
-import { deepEqual, isEmpty } from '../../util/Util';
+import { deepEqual, isEmpty, checkFeatureFlagActivated } from '../../util/Util';
+import TotalWorks from '../SearchForm/TotalWorks';
 
+import featureFlagConfig from '../../../../featureFlagConfig';
+import config from '../../../../appConfig';
 /**
  * Container class providing the Redux action creators
  * to its child components. State data is passed along
@@ -24,13 +30,20 @@ class SearchContainer extends React.Component {
   constructor(props) {
     super(props);
     const { dispatch } = props;
+    this.state = { ...props, isFeatureFlagsActivated: {} };
 
     this.boundActions = bindActionCreators(searchActions, dispatch);
   }
 
   componentDidMount() {
     this.loadSearch();
+    FeatureFlags.store.listen(this.onFeatureFlagsChange.bind(this));
+
+    checkFeatureFlagActivated(
+      featureFlagConfig.featureFlagList, this.state.isFeatureFlagsActivated,
+    );
   }
+
 
   componentDidUpdate(prevProps) {
     const { location } = this.props;
@@ -38,6 +51,15 @@ class SearchContainer extends React.Component {
       global.window.scrollTo(0, 0);
       this.loadSearch();
     }
+  }
+
+  componentWillUnmount() {
+    FeatureFlags.store.unlisten(this.onFeatureFlagsChange.bind(this));
+  }
+
+  onFeatureFlagsChange() {
+    // eslint-disable-next-line react/no-unused-state
+    this.setState({ featureFlagsStore: FeatureFlags.store.getState() });
   }
 
   loadSearch() {
@@ -88,49 +110,78 @@ class SearchContainer extends React.Component {
     return (
       <main
         id="mainContent"
-        className="main-content grid-container padding-0"
+      // className="main-content grid-container padding-0"
       >
-        <div className="grid-row">
-          <div className="sfr-header-wrapper tablet:grid-col-12">
-            <Breadcrumbs
-              links={[
-                {
-                  href: `/search?${getQueryString(searchQuery)}`,
-                  text: 'Search Results',
-                },
-              ]}
-              pageType={pageType}
-              onClickHandler={handleReset}
-            />
-          </div>
-          <div
-            aria-label="ResearchNow"
-            className="grid-col-12"
-          >
-            {(!searchResults || isEmpty(searchResults)) && (
-              <div className="sfr-header-wrapper grid-col-10">
-                <h1 className="nypl-heading">ResearchNow</h1>
-                <div id="tagline">Search the world&apos;s research collections and more for digital books you can use right now.</div>
+        <Breadcrumbs
+          links={[
+            {
+              href: `/search?${getQueryString(searchQuery)}`,
+              text: 'Search Results',
+            },
+          ]}
+          pageType={pageType}
+          onClickHandler={handleReset}
+        />
+        <div
+          aria-label="ResearchNow"
+        >
+          {(!searchResults || isEmpty(searchResults)) && (
+            <div className="grid-row">
+              <div className="sfr-center">
+                <DS.HeaderImgRight
+                  headerId="ResearchNow-Main-Header"
+                  isImageDecorative
+                  pageTitleText="ResearchNow"
+                  imgUrl="https://placeimg.com/200/100/arch"
+                  bodyText={(
+                    <p>
+                      The internet’s search engine for research collections and
+                      e-books you can use right now. Powered by the New York Public Library.
+                    </p>
+                  )}
+                />
               </div>
-            )}
-            <SearchForm
-              history={history}
-              {...this.boundActions}
-            />
-            <AdvancedSearchResults
-              searchQuery={searchQuery}
-              {...this.boundActions}
-              router={router}
-            />
-            <SearchResults
-              searchQuery={searchQuery}
-              results={searchResults}
-              eReaderUrl={eReaderUrl}
-              {...this.boundActions}
-              history={history}
-              router={router}
-            />
+            </div>
+          )}
+          <div className="grid-row">
+            <div className="sfr-center">
+              <SearchForm
+                history={history}
+                {...this.boundActions}
+              />
+              {
+              // eslint-disable-next-line no-underscore-dangle
+              FeatureFlags.store._isFeatureActive(config.booksCount.experimentName)
+              && <TotalWorks />
+            }
+            </div>
           </div>
+
+          {(!searchResults || isEmpty(searchResults)) && (
+            <div className="grid-row">
+              <div className="sfr-center">
+                <DS.IconLinkList
+                  titleText="Browse By Subject"
+                  titleId="subject-browse-list"
+                  textLinks={Subjects}
+                />
+              </div>
+            </div>
+          )}
+          <AdvancedSearchResults
+            searchQuery={searchQuery}
+            {...this.boundActions}
+            router={router}
+          />
+          <SearchResults
+            searchQuery={searchQuery}
+            results={searchResults}
+            eReaderUrl={eReaderUrl}
+            {...this.boundActions}
+            history={history}
+            router={router}
+          />
+
         </div>
       </main>
     );

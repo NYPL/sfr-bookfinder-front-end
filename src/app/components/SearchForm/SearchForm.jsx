@@ -3,18 +3,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import FeatureFlags from 'dgx-feature-flags';
-import Select from '../Form/Select';
-import SearchButton from '../Button/SearchButton';
-import TextInput from '../Form/TextInput';
-import TotalWorks from './TotalWorks';
+import * as DS from '@nypl/design-system-react-components';
+// import Select from '../Form/Select';
+// import SearchButton from '../Button/SearchButton';
+// import TextInput from '../Form/TextInput';
 import { getQueryString } from '../../search/query';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
-import { deepEqual, checkFeatureFlagActivated } from '../../util/Util';
+import { deepEqual } from '../../util/Util';
 import { errorMessagesText } from '../../constants/labels';
-
-import featureFlagConfig from '../../../../featureFlagConfig';
-import config from '../../../../appConfig';
 
 
 class SearchForm extends React.Component {
@@ -31,11 +27,6 @@ class SearchForm extends React.Component {
 
   componentDidMount() {
     global.window.scrollTo(0, 0);
-    FeatureFlags.store.listen(this.onFeatureFlagsChange.bind(this));
-
-    checkFeatureFlagActivated(
-      featureFlagConfig.featureFlagList, this.state.isFeatureFlagsActivated,
-    );
   }
 
   /**
@@ -50,21 +41,13 @@ class SearchForm extends React.Component {
     }
   }
 
-  componentWillUnmount() {
-    FeatureFlags.store.unlisten(this.onFeatureFlagsChange.bind(this));
-  }
-
-  onFeatureFlagsChange() {
-    // eslint-disable-next-line react/no-unused-state
-    this.setState({ featureFlagsStore: FeatureFlags.store.getState() });
-  }
 
   onFieldChange(event) {
     const fieldSelected = event.target.value;
     this.setState((prevState) => {
       const advancedQuery = {
         query: prevState.searchQuery.showQuery
-          ? prevState.searchQuery.showQuery : prevState.searchQuery.query,
+          ? prevState.searchQuery.showQuery : prevState.searchQuery.queries[0].query,
         field: fieldSelected,
       };
       return ({
@@ -100,7 +83,6 @@ class SearchForm extends React.Component {
           query: this.state.searchQuery.queries,
         }),
       );
-      this.submitSearchRequest(event);
     }
   }
 
@@ -119,69 +101,40 @@ class SearchForm extends React.Component {
   render() {
     const selectedQuery = this.state.searchQuery.showQuery || this.state.searchQuery.queries[0].query;
     const selectedField = this.state.searchQuery.showField || this.state.searchQuery.queries[0].field;
+    const advancedSearchMessage = (
+      <p>
+        Use
+        {' '}
+        <Link
+          to="advanced-search"
+          className="text-baseline"
+        >
+          Advanced Search
+        </Link>
+        {' '}
+        to narrow your results.
+      </p>
+    );
 
     return (
-      <div className="grid-row">
-        <form
-          className="grid-col-10 sfr-center usa-search usa-search--big"
-          action="/search"
-          method="get"
-          onSubmit={this.handleSubmit}
-          onKeyPress={this.handleSubmit}
-        >
-          <div
-            role="search"
-            className="nypl-search grid-row"
-            aria-label="ResearchNow"
-          >
-            <Select
-              className="tablet:grid-col-4 nypl-search-input"
-              label=""
-              ariaLabel="Search"
-              labelClass="visuallyhidden usa-label"
-              id="search-by-field"
-              selectClass="nypl-select-input usa-select"
-              options={this.props.allowedFields}
-              onChange={this.onFieldChange}
-              value={selectedField}
-              name="field"
-            />
-            <TextInput
-              className="nypl-searchbar-input tablet:grid-col-4"
-              ariaLabel="Search for keyword, author, title, or subject"
-              labelClass="visuallyhidden usa-label"
-              id="search-field-big"
-              type="text"
-              inputClass={this.state.error ? 'usa-input nypl-search-input usa-input--error' : 'usa-input nypl-search-input'}
-              name="query"
-              value={selectedQuery}
-              onChange={this.onQueryChange}
-              errorMessage={this.state.error ? this.state.errorMsg : null}
-            />
-            <SearchButton
-              className="tablet:grid-col-2"
-              id="search-button"
-              buttonClassName="usa-button sfr-search-button"
-              value="Search"
-              onClick={this.submitSearchRequest}
-              ariaLabel="Search"
-            />
-            <div className="tablet:grid-col-2 nypl-advanced-search padding-left-2 text-pre text-center">
-              <Link
-                to="advanced-search"
-                className="text-baseline"
-              >
-                Advanced Search
-              </Link>
-            </div>
-            {
-              // eslint-disable-next-line no-underscore-dangle
-              FeatureFlags.store._isFeatureActive(config.booksCount.experimentName)
-              && <TotalWorks />
-            }
-          </div>
-        </form>
-      </div>
+      <DS.SearchPromo
+        headingText="Search the World's Research Collections"
+        titleId="tagline"
+        selectedOption={selectedField}
+        searchBtnId="searchButtonId"
+        advancedSearchMessage={advancedSearchMessage}
+        searchValue={selectedQuery}
+        hasError={this.state.error}
+        errorMessage={this.state.errorMsg}
+        searchBarId="searchBarId"
+        dropdownId="dropdownId"
+        searchInputAriaLabel="Search for keyword, author, title, or subject"
+        searchDropdownOptions={this.props.allowedFields}
+        searchSubmitHandler={this.submitSearchRequest}
+        textChangeHandler={this.onQueryChange}
+        selectChangeHandler={this.onFieldChange}
+        selectBlurHandler={this.onFieldChange}
+      />
     );
   }
 }

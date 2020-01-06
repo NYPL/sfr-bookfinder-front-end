@@ -2,6 +2,8 @@ require.extensions['.svg'] = () => {};
 
 require('@babel/register')();
 
+require.extensions['.svg'] = () => {};
+
 const jsdom = require('jsdom');
 
 const { JSDOM } = jsdom;

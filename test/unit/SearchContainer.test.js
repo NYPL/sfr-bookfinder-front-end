@@ -33,9 +33,9 @@ describe('Search Container interactions', () => {
     expect(wrapper.find('h1').text()).to.equal('ResearchNow');
   });
   it('contains a tagline element when search is empty', () => {
-    expect(wrapper.find('#tagline')).to.have.length(1);
-    expect(wrapper.find('#tagline').text()).to.equal(
-      "Search the world's research collections and more for digital books you can use right now.",
+    expect(wrapper.find('h2#tagline')).to.have.length(1);
+    expect(wrapper.find('h2#tagline').text()).to.equal(
+      "Search the World's Research Collections",
     );
   });
 });
