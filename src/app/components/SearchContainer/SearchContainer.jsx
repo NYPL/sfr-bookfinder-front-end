@@ -135,8 +135,7 @@ class SearchContainer extends React.Component {
                   imgUrl="https://placeimg.com/200/100/arch"
                   bodyText={(
                     <p>
-                      The internet’s search engine for research collections and
-                      e-books you can use right now. Powered by the New York Public Library.
+                      Find millions of free digital books from the world’s research libraries
                     </p>
                   )}
                 />
