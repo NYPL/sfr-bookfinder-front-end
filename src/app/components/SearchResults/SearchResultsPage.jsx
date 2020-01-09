@@ -6,9 +6,8 @@ import { withRouter } from 'react-router';
 import * as DS from '@nypl/design-system-react-components';
 import FeatureFlags from 'dgx-feature-flags';
 import SearchForm from '../SearchForm/SearchForm';
-import SearchResults from '../SearchResults/SearchResults';
-import Subjects from '../../../../subjectListConfig';
-import AdvancedSearchResults from '../SearchResults/AdvancedSearchResults';
+import SearchResults from './SearchResults';
+import AdvancedSearchResults from './AdvancedSearchResults';
 import * as searchActions from '../../actions/SearchActions';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import { getQueryString } from '../../search/query';
@@ -18,6 +17,7 @@ import TotalWorks from '../SearchForm/TotalWorks';
 
 import featureFlagConfig from '../../../../featureFlagConfig';
 import config from '../../../../appConfig';
+import SearchPagination from './SearchPagination';
 /**
  * Container class providing the Redux action creators
  * to its child components. State data is passed along
@@ -26,7 +26,7 @@ import config from '../../../../appConfig';
  * Accessibility Note: Creates the <main> element for all
  * search pages with the corresponding <h1>.
  */
-class SearchContainer extends React.Component {
+class SearchResultsPage extends React.Component {
   constructor(props) {
     super(props);
     const { dispatch } = props;
@@ -90,10 +90,10 @@ class SearchContainer extends React.Component {
   }
 
   render() {
-    const { searchQuery } = this.props;
+    const { searchQuery, searchResults, eReaderUrl } = this.props;
     const { router, history } = this.context;
 
-    const pageType = 'home';
+    const pageType = isEmpty(searchResults) ? 'home' : 'results';
     /**
      * onClick handler for resetting state for the request back to the home page
      * to return the user to a new search.
@@ -125,53 +125,47 @@ class SearchContainer extends React.Component {
         <div
           aria-label="ResearchNow"
         >
-          <div className="grid-row">
-            <div className="sfr-center">
-              <DS.HeaderImgRight
-                headerId="ResearchNow-Main-Header"
-                isImageDecorative
-                pageTitleText="ResearchNow"
-                imgUrl="https://placeimg.com/200/100/arch"
-                bodyText={(
-                  <p>
-                      Find millions of free digital books from the world’s research libraries
-                  </p>
-                  )}
-              />
-            </div>
-          </div>
-          <div className="grid-row">
-            <div className="sfr-center">
-              <SearchForm
-                isHomePage
-                history={history}
-                {...this.boundActions}
-              />
-              {
-                // eslint-disable-next-line no-underscore-dangle
-                FeatureFlags.store._isFeatureActive(config.booksCount.experimentName)
-                && <TotalWorks />
-              }
-            </div>
-          </div>
-          <div className="grid-row">
-            <div className="sfr-center">
-              <DS.IconLinkList
-                titleText="Browse By Subject"
-                titleId="subject-browse-list"
-                textLinks={Subjects}
-              />
-            </div>
-          </div>
 
-
+          <div className="sfr-center">
+            <SearchForm
+              isHomePage={false}
+              history={history}
+              {...this.boundActions}
+            />
+            {
+              // eslint-disable-next-line no-underscore-dangle
+              FeatureFlags.store._isFeatureActive(config.booksCount.experimentName)
+              && <TotalWorks />
+            }
+          </div>
+          <div className="grid-row">
+            <DS.Heading
+              level={1}
+              id="page-title-heading"
+              blockName="page-title"
+              text="Search Results for Blah"
+            />
+          </div>
+          <AdvancedSearchResults
+            searchQuery={searchQuery}
+            {...this.boundActions}
+            router={router}
+          />
+          <SearchResults
+            searchQuery={searchQuery}
+            results={searchResults}
+            eReaderUrl={eReaderUrl}
+            {...this.boundActions}
+            history={history}
+            router={router}
+          />
         </div>
       </main>
     );
   }
 }
 
-SearchContainer.propTypes = {
+SearchResultsPage.propTypes = {
   searchResults: PropTypes.objectOf(PropTypes.any),
   searchQuery: searchQueryPropTypes,
   workDetail: PropTypes.objectOf(PropTypes.any),
@@ -180,7 +174,7 @@ SearchContainer.propTypes = {
   location: PropTypes.objectOf(PropTypes.any),
 };
 
-SearchContainer.defaultProps = {
+SearchResultsPage.defaultProps = {
   searchResults: {},
   searchQuery: initialSearchQuery,
   workDetail: {},
@@ -189,7 +183,7 @@ SearchContainer.defaultProps = {
   location: {},
 };
 
-SearchContainer.contextTypes = {
+SearchResultsPage.contextTypes = {
   router: PropTypes.objectOf(PropTypes.any),
   history: PropTypes.objectOf(PropTypes.any),
 };
@@ -202,4 +196,4 @@ const mapStateToProps = (state, ownProps) => ({
 export default connect(
   mapStateToProps,
   null,
-)(withRouter(SearchContainer));
+)(withRouter(SearchResultsPage));

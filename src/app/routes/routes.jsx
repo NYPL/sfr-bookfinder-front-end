@@ -7,6 +7,7 @@ import AdvancedSearch from '../components/AdvancedSearch/AdvancedSearch';
 import NotFound404 from '../components/Error/NotFound404';
 import WorkDetail from '../components/WorkDetail/WorkDetail';
 import EBookViewer from '../components/Viewer/EBookViewer';
+import SearchResultsPage from '../components/SearchResults/SearchResultsPage';
 
 const routes = {
   default: (
@@ -17,7 +18,7 @@ const routes = {
       <IndexRoute component={SearchContainer} />
       <Route
         path="/search"
-        component={SearchContainer}
+        component={SearchResultsPage}
       />
       <Route
         path="/work"

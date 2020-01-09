@@ -1,9 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import * as DS from '@nypl/design-system-react-components';
 import ResultsMetadata from './ResultsMetadata';
 import ResultsList from './ResultsList';
 import SearchNavigation from './SearchNavigation';
 import Filters from './Filters';
+import SearchPagination from './SearchPagination';
+
 /**
  * Wrapper component for results lists which can contain a number of components
  * including search results, pagination, sorting/filtering components, etc.
@@ -11,6 +14,7 @@ import Filters from './Filters';
  * @return {string|null}
  */
 const SearchResults = (props) => {
+  console.log('props', props);
   const metadata = props.results && props.results.data && props.results.data.hits;
   const hits = props.results && props.results.data && props.results.data.hits && props.results.data.hits.hits;
   if (!hits) {
@@ -18,19 +22,20 @@ const SearchResults = (props) => {
   }
 
   return (
+
     <div className="margin-top-3">
+      <div className="grid-row">
+        <SearchNavigation
+          metadata={metadata}
+          results={hits}
+          fetchWork={props.fetchWork}
+          {...props}
+        />
+      </div>
       <div className="grid-row sfr-results-container">
         <div className="grid-col-3 nypl-results-column">
           <ResultsMetadata
             metadata={metadata}
-            {...props}
-          />
-        </div>
-        <div className="grid-col-9 sfr-results-search-header">
-          <SearchNavigation
-            metadata={metadata}
-            results={hits}
-            fetchWork={props.fetchWork}
             {...props}
           />
         </div>
@@ -50,16 +55,13 @@ const SearchResults = (props) => {
           />
         </div>
       </div>
-      <div className="grid-row sfr-results-container">
-        <div className="grid-col-12 sfr-results-search-footer">
-          <SearchNavigation
-            metadata={metadata}
-            results={hits}
-            fetchWork={props.fetchWork}
-            {...props}
-            isFooter
-          />
-        </div>
+      <div className="grid-row">
+        <SearchPagination
+          metadata={metadata}
+          results={hits}
+          fetchWork={props.fetchWork}
+          {...props}
+        />
       </div>
     </div>
   );

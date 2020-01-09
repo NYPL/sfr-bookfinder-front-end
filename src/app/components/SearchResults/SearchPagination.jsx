@@ -9,10 +9,9 @@ import SearchFooter from './SearchFooter';
 import { sortMap, numbersPerPage } from '../../constants/sorts';
 import { deepEqual } from '../../util/Util';
 
-const SearchNavigation = ({
+const SearchPagination = ({
   metadata, searchQuery, userQuery, router, isFooter,
 }) => {
-  console.log('got here');
   // page for query is -1 page shown
   const totalPages = Math.floor((Number(metadata.total || 0) - 1) / Number(searchQuery.per_page || 10)) + 1 || 1;
   // return list of pages till total pages
@@ -87,45 +86,45 @@ const SearchNavigation = ({
         && sortMap[sortMapping][0].dir === sortObj[0].dir,
   );
 
-  const ItemsPerPage = (
-    <Select
-      id="items-by-page"
-      selectClass="sfr-select-input usa-select"
-      className="nypl-search-input"
-      options={numbersPerPage}
-      label="Items per page"
-      labelClass=""
-      value={searchQuery.per_page || initialSearchQuery.per_page}
-      onChange={onChangePerPage}
-      onBlur={onChangePerPage}
-    />
-  );
-  const SortBy = (
-    <Select
-      id="sort-by"
-      selectClass="sfr-select-input usa-select"
-      className="nypl-search-input"
-      options={Object.keys(sortMap).map(sortOption => ({ value: sortOption, label: sortOption }))}
-      label="Sort by"
-      labelClass=""
-      value={getValueFromSortObject(searchQuery.sort)}
-      onChange={onChangeSort}
-      onBlur={onChangeSort}
-    />
-  );
-  const FirstPage = totalPages > 1 ? (
-    <a
-      onClick={e => navigateToPage(e, 1)}
-      onKeyPress={e => navigateToPage(e, 1)}
-      role="link"
-      tabIndex={0}
-      className="margin-x-2"
-    >
-        First
-    </a>
-  ) : (
-    <div />
-  );
+  //   const ItemsPerPage = (
+  //     <Select
+  //       id="items-by-page"
+  //       selectClass="sfr-select-input usa-select"
+  //       className="nypl-search-input"
+  //       options={numbersPerPage}
+  //       label="Items per page"
+  //       labelClass=""
+  //       value={searchQuery.per_page || initialSearchQuery.per_page}
+  //       onChange={onChangePerPage}
+  //       onBlur={onChangePerPage}
+  //     />
+  //   );
+  //   const SortBy = (
+  //     <Select
+  //       id="sort-by"
+  //       selectClass="sfr-select-input usa-select"
+  //       className="nypl-search-input"
+  //       options={Object.keys(sortMap).map(sortOption => ({ value: sortOption, label: sortOption }))}
+  //       label="Sort by"
+  //       labelClass=""
+  //       value={getValueFromSortObject(searchQuery.sort)}
+  //       onChange={onChangeSort}
+  //       onBlur={onChangeSort}
+  //     />
+  //   );
+  //   const FirstPage = totalPages > 1 ? (
+  //     <a
+  //       onClick={e => navigateToPage(e, 1)}
+  //       onKeyPress={e => navigateToPage(e, 1)}
+  //       role="link"
+  //       tabIndex={0}
+  //       className="margin-x-2"
+  //     >
+  //         First
+  //     </a>
+  //   ) : (
+  //     <div />
+  //   );
   const PreviousPage = totalPages > 1 ? (
     <a
       onClick={e => navigateToPage(e, Number(searchQuery.page || 0))}
@@ -165,53 +164,34 @@ const SearchNavigation = ({
   ) : (
     <div />
   );
-  const LastPage = totalPages > 1 ? (
-    <a
-      onClick={e => navigateToPage(e, totalPages)}
-      onKeyPress={e => navigateToPage(e, totalPages)}
-      role="link"
-      tabIndex={0}
-      className="margin-x-2"
-    >
-        Last
-    </a>
-  ) : (
-    <div />
-  );
+  //   const LastPage = totalPages > 1 ? (
+  //     <a
+  //       onClick={e => navigateToPage(e, totalPages)}
+  //       onKeyPress={e => navigateToPage(e, totalPages)}
+  //       role="link"
+  //       tabIndex={0}
+  //       className="margin-x-2"
+  //     >
+  //         Last
+  //     </a>
+  //   ) : (
+  //     <div />
+  //   );
 
   return (
     <div className="grid-row">
-      <DS.Heading
-        level={2}
-        id="page-title-heading"
-        blockName="page-title"
-        text="Display items 1 of whatevver"
-      />
-      <DS.Dropdown
-        dropdownId="items-per-page-select"
-        isRequired={false}
-        labelPosition="left"
-        labelText="Items Per Page"
-        labelId="nav-items-per-page"
-        dropdownOptions={numbersPerPage.map(number => number.toString())}
-        onSelectChange={onChangePerPage}
-        onSelectBlur={onChangePerPage}
-      />
-      <DS.Dropdown
-        dropdownId="sort-by-select"
-        isRequired={false}
-        labelPosition="left"
-        labelText="Sort By"
-        labelId="nav-sort-by"
-        dropdownOptions={Object.keys(sortMap).map(sortOption => sortOption)}
-        onSelectChange={onChangeSort}
-        onSelectBlur={onChangeSort}
+      <DS.Pagination
+        paginationDropdownOptions={pageList.map(page => page.label)}
+        previousPageHandler={e => navigateToPage(e, Number(searchQuery.page || 0))}
+        nextPageHandler={e => navigateToPage(e, Number(searchQuery.page || 0) + 2)}
+        onSelectChange={onChangePage}
+        onSelectBlur={onChangePage}
       />
     </div>
   );
 };
 
-SearchNavigation.propTypes = {
+SearchPagination.propTypes = {
   metadata: PropTypes.objectOf(PropTypes.any),
   searchQuery: searchQueryPropTypes,
   userQuery: PropTypes.func,
@@ -219,7 +199,7 @@ SearchNavigation.propTypes = {
   isFooter: PropTypes.bool,
 };
 
-SearchNavigation.defaultProps = {
+SearchPagination.defaultProps = {
   metadata: {},
   searchQuery: initialSearchQuery,
   userQuery: () => {},
@@ -227,4 +207,4 @@ SearchNavigation.defaultProps = {
   isFooter: false,
 };
 
-export default SearchNavigation;
+export default SearchPagination;

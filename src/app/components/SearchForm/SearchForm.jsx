@@ -117,35 +117,74 @@ class SearchForm extends React.Component {
     );
 
     return (
-      <DS.SearchPromo
-        headingText="Search the World's Research Collections"
-        titleId="tagline"
-        selectedOption={selectedField}
-        searchBtnId="searchButtonId"
-        advancedSearchMessage={advancedSearchMessage}
-        searchValue={selectedQuery}
-        hasError={this.state.error}
-        errorMessage={this.state.errorMsg}
-        searchBarId="searchBarId"
-        dropdownId="dropdownId"
-        searchInputAriaLabel="Search for keyword, author, title, or subject"
-        searchDropdownOptions={this.props.allowedFields}
-        searchSubmitHandler={this.submitSearchRequest}
-        textChangeHandler={this.onQueryChange}
-        selectChangeHandler={this.onFieldChange}
-        selectBlurHandler={this.onFieldChange}
-      />
+      <div>
+        {this.props.isHomePage && (
+        <DS.SearchPromo
+          headingText="Search the World's Research Collections"
+          titleId="tagline"
+          selectedOption={selectedField}
+          searchButtonId="searchButtonId"
+          advancedSearchMessage={advancedSearchMessage}
+          searchValue={selectedQuery}
+          hasError={this.state.error}
+          errorMessage={this.state.errorMsg}
+          searchBarId="searchBarId"
+          dropdownId="dropdownId"
+          searchInputAriaLabel="Search for keyword, author, title, or subject"
+          searchDropdownOptions={this.props.allowedFields}
+          searchSubmitHandler={this.submitSearchRequest}
+          textChangeHandler={this.onQueryChange}
+          selectChangeHandler={this.onFieldChange}
+          selectBlurHandler={this.onFieldChange}
+        />
+        )}
+        {!this.props.isHomePage && (
+        <DS.HeaderWithSearch
+          searchButtonId="searchButtonId"
+          searchBarAriaLabel="Search research catalog"
+          advancedSearchLinkContent={(
+            <DS.UnderlineLink>
+              <Link
+                to="advanced-search"
+                className="text-baseline"
+              >
+                  Advanced Search
+              </Link>
+            </DS.UnderlineLink>
+)}
+          searchBarId="searchBarId"
+          dropdownId="dropdownId"
+          textFieldAriaLabel="Research Now"
+          headingContent={(
+            <span>
+                Research
+              <span className="rn-section-title__emphasis">Now</span>
+            </span>
+            )}
+          headingId="researchNow-page-title-id"
+          headingUrl="#research-now-url"
+          headingBaseClass="rn-section-title"
+          searchDropdownOptions={this.props.allowedFields}
+          searchSubmitHandler={this.submitSearchRequest}
+          textChangeHandler={this.onQueryChange}
+          selectChangeHandler={this.onFieldChange}
+          selectBlurHandler={this.onFieldChange}
+        />
+        )}
+      </div>
     );
   }
 }
 
 SearchForm.propTypes = {
+  isHomePage: PropTypes.bool,
   allowedFields: PropTypes.arrayOf(PropTypes.any),
   searchQuery: searchQueryPropTypes,
   userQuery: PropTypes.func,
 };
 
 SearchForm.defaultProps = {
+  isHomePage: true,
   allowedFields: ['keyword', 'title', 'author', 'subject'],
   searchQuery: initialSearchQuery,
   userQuery: () => { },

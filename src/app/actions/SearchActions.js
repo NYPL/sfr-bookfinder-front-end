@@ -58,19 +58,23 @@ const recordUrl = apiUrl + recordPath;
 const totalWorksUrl = apiUrl + totalWorksPath;
 
 export const searchPost = (query) => {
+  console.log('query', query);
+
   const sField = query.field && selectFields[query.field];
   let queryBody;
   if (sField) {
     queryBody = buildQueryBody(Object.assign({}, query, { field: sField }));
   }
   queryBody = buildQueryBody(Object.assign({}, query));
+  console.log('queryBody', queryBody);
 
   return dispatch => axios
     .post(searchUrl, queryBody)
     .then((resp) => {
-      if (resp.data) {
-        dispatch(searchResults(resp.data));
-      }
+      console.log('Resp', resp);
+      // if (resp.data) {
+      //   dispatch(searchResults(resp.data));
+      // }
     })
     .catch((error) => {
       console.log('An error occurred during searchPost', error.message);
