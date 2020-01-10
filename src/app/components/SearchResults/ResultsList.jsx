@@ -1,6 +1,9 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
+import { Link } from 'react-router';
+
 import PropTypes from 'prop-types';
+import * as DS from '@nypl/design-system-react-components';
 import ResultsListItem from './ResultsListItem';
 import EmptySearchSvg from '../Svgs/EmptySearchSvg';
 import { isEmpty } from '../../util/Util';
@@ -15,6 +18,8 @@ import { isEmpty } from '../../util/Util';
  */
 class ResultsList extends React.Component {
   constructor(props) {
+    console.log('resultsList props ', props);
+
     super(props);
     this.props = props;
   }
@@ -32,20 +37,58 @@ class ResultsList extends React.Component {
     }
     const referrer = this.context.router ? this.context.router.location.pathname + this.context.router.location.search : undefined;
 
+
+    const results = this.props.results.map((result, index) => {
+      const titleContent = (
+        <Link
+          href="title-link-url"
+          className="link link--no-underline"
+        >
+Investigation of un-American propaganda activities in the United States. Hear...
+
+        </Link>
+      );
+      const authorLinkElement = (
+        <Link
+          to="author-url"
+          className="link"
+        >
+          {' '}
+  First Last
+
+        </Link>
+      );
+      const editionsElement = (
+        <Link
+          class="link"
+          to="#allEditionsUrl"
+        >
+  View All 7 editions
+
+        </Link>
+      );
+      return {
+        id: `search-result-${result.uuid}`,
+        resultIndex: { index },
+        titleElement: titleContent,
+        subtitle: result.subtitle,
+        authorElement: authorLinkElement,
+        editionInfo: {
+          editionYearHeading: '2004 Edition',
+          publisherAndLocation: 'Published in New York by Random House',
+          coverUrl: 'https://placeimg.com/57/81/arch',
+          language: 'Written in English',
+          license: 'Under Creative Commons License',
+          readOnlineLink: '#read-online',
+          downloadLink: '#download',
+        },
+        editionsLinkElement: editionsElement,
+      };
+    });
+    console.log('results', results);
+
     return (
-      <div className="nypl-results">
-        <ul className="nypl-results-list">
-          {this.props.results.map(result => (
-            <ResultsListItem
-              referrer={referrer}
-              eReaderUrl={this.props.eReaderUrl}
-              item={result._source}
-              fetchWork={this.props.fetchWork}
-              key={result._source.uuid}
-            />
-          ))}
-        </ul>
-      </div>
+      <DS.SearchResultsList searchResults={results}></DS.SearchResultsList>
     );
   }
 }

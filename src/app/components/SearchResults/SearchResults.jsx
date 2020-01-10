@@ -14,32 +14,30 @@ import SearchPagination from './SearchPagination';
  * @return {string|null}
  */
 const SearchResults = (props) => {
-  console.log('props', props);
+  console.log('SearchResults Props', props);
   const metadata = props.results && props.results.data && props.results.data.hits;
   const hits = props.results && props.results.data && props.results.data.hits && props.results.data.hits.hits;
-  if (!hits) {
+
+  const data = props.results.data;
+  if (!data) {
     return null;
   }
-
   return (
-
     <div className="margin-top-3">
-      <div className="grid-row">
-        <SearchNavigation
-          metadata={metadata}
-          results={hits}
-          fetchWork={props.fetchWork}
-          {...props}
-        />
-      </div>
-      <div className="grid-row sfr-results-container">
+      <SearchNavigation
+        metadata={metadata}
+        results={hits}
+        fetchWork={props.fetchWork}
+        {...props}
+      />
+      {/* <div className="grid-row sfr-results-container">
         <div className="grid-col-3 nypl-results-column">
           <ResultsMetadata
             metadata={metadata}
             {...props}
           />
         </div>
-      </div>
+      </div> */}
       <div className="grid-row sfr-results-container">
         <div className="grid-col-3 nypl-results-column">
           <Filters
@@ -49,7 +47,7 @@ const SearchResults = (props) => {
         </div>
         <div className="grid-col-9 nypl-results-main">
           <ResultsList
-            results={hits}
+            results={props.results.data.works}
             fetchWork={props.fetchWork}
             eReaderUrl={props.eReaderUrl}
           />

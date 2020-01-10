@@ -36,7 +36,9 @@ class SearchResultsPage extends React.Component {
   }
 
   componentDidMount() {
+    console.log('mounted');
     this.loadSearch();
+
     FeatureFlags.store.listen(this.onFeatureFlagsChange.bind(this));
 
     checkFeatureFlagActivated(
@@ -46,11 +48,11 @@ class SearchResultsPage extends React.Component {
 
 
   componentDidUpdate(prevProps) {
-    const { location } = this.props;
-    if (!deepEqual(location.query, prevProps.location.query)) {
-      global.window.scrollTo(0, 0);
-      this.loadSearch();
-    }
+    // const { location } = this.props;
+    // if (!deepEqual(location.query, prevProps.location.query)) {
+    //   global.window.scrollTo(0, 0);
+    this.loadSearch();
+    // }
   }
 
   componentWillUnmount() {
@@ -63,6 +65,7 @@ class SearchResultsPage extends React.Component {
   }
 
   loadSearch() {
+    console.log('search is loading');
     const {
       location: { query },
       dispatch,
@@ -90,6 +93,7 @@ class SearchResultsPage extends React.Component {
   }
 
   render() {
+    console.log('searchResultsPage props', this.props);
     const { searchQuery, searchResults, eReaderUrl } = this.props;
     const { router, history } = this.context;
 
@@ -106,6 +110,11 @@ class SearchResultsPage extends React.Component {
       this.boundActions.resetSearch();
       router.push('/');
     };
+
+    const displayItemsHeading = () => searchQuery.queries.map((query, index) => {
+      const joiner = index > searchQuery.queries.length ? 'and ' : '';
+      return `${query.field}: ${query.query} ${joiner}`;
+    });
 
     return (
       <main
@@ -143,7 +152,7 @@ class SearchResultsPage extends React.Component {
               level={1}
               id="page-title-heading"
               blockName="page-title"
-              text="Search Results for Blah"
+              text={`Search Results for ${displayItemsHeading()}`}
             />
           </div>
           <AdvancedSearchResults
@@ -153,7 +162,7 @@ class SearchResultsPage extends React.Component {
           />
           <SearchResults
             searchQuery={searchQuery}
-            results={searchResults}
+            results={searchResults.data}
             eReaderUrl={eReaderUrl}
             {...this.boundActions}
             history={history}

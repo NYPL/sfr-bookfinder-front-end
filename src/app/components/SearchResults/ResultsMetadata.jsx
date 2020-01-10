@@ -21,14 +21,9 @@ const ResultsMetadata = ({ searchQuery, metadata: { total } }) => {
   }
 
   return (
-    <div
-      className="nypl-results-summary"
-      aria-live="assertive"
-      aria-atomic="true"
-      role="presentation"
-    >
+    <span>
       {message}
-    </div>
+    </span>
   );
 };
 

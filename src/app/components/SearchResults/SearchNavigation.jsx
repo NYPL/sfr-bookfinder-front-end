@@ -8,6 +8,7 @@ import SearchHeader from './SearchHeader';
 import SearchFooter from './SearchFooter';
 import { sortMap, numbersPerPage } from '../../constants/sorts';
 import { deepEqual } from '../../util/Util';
+import ResultsMetadata from './ResultsMetadata';
 
 const SearchNavigation = ({
   metadata, searchQuery, userQuery, router, isFooter,
@@ -179,34 +180,38 @@ const SearchNavigation = ({
     <div />
   );
 
+
   return (
-    <div className="grid-row">
+    <div className="search-navigation grid-row">
       <DS.Heading
         level={2}
         id="page-title-heading"
         blockName="page-title"
-        text="Display items 1 of whatevver"
-      />
-      <DS.Dropdown
-        dropdownId="items-per-page-select"
-        isRequired={false}
-        labelPosition="left"
-        labelText="Items Per Page"
-        labelId="nav-items-per-page"
-        dropdownOptions={numbersPerPage.map(number => number.toString())}
-        onSelectChange={onChangePerPage}
-        onSelectBlur={onChangePerPage}
-      />
-      <DS.Dropdown
-        dropdownId="sort-by-select"
-        isRequired={false}
-        labelPosition="left"
-        labelText="Sort By"
-        labelId="nav-sort-by"
-        dropdownOptions={Object.keys(sortMap).map(sortOption => sortOption)}
-        onSelectChange={onChangeSort}
-        onSelectBlur={onChangeSort}
-      />
+      >
+        <ResultsMetadata />
+      </DS.Heading>
+      <div className="grid-row-right">
+        <DS.Dropdown
+          dropdownId="items-per-page-select"
+          isRequired={false}
+          labelPosition="left"
+          labelText="Items Per Page"
+          labelId="nav-items-per-page"
+          dropdownOptions={numbersPerPage.map(number => number.toString())}
+          onSelectChange={onChangePerPage}
+          onSelectBlur={onChangePerPage}
+        />
+        <DS.Dropdown
+          dropdownId="sort-by-select"
+          isRequired={false}
+          labelPosition="left"
+          labelText="Sort By"
+          labelId="nav-sort-by"
+          dropdownOptions={Object.keys(sortMap).map(sortOption => sortOption)}
+          onSelectChange={onChangeSort}
+          onSelectBlur={onChangeSort}
+        />
+      </div>
     </div>
   );
 };

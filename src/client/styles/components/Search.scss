@@ -12,6 +12,16 @@
   }
 }
 
+.advanced-search-tags { 
+  justify-content: space-between;
+  width: 100%;
+}
+
+.grid-row-right{ 
+  display: flex;
+  margin-left: auto;
+}
+
 .nypl-results-summary {
   border-left: 1px solid black;
   border-top: 1px solid black;

@@ -72,9 +72,9 @@ export const searchPost = (query) => {
     .post(searchUrl, queryBody)
     .then((resp) => {
       console.log('Resp', resp);
-      // if (resp.data) {
-      //   dispatch(searchResults(resp.data));
-      // }
+      if (resp.data) {
+        dispatch(searchResults(resp.data));
+      }
     })
     .catch((error) => {
       console.log('An error occurred during searchPost', error.message);
