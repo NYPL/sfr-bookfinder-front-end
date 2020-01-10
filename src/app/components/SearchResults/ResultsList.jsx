@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 
 import PropTypes from 'prop-types';
 import * as DS from '@nypl/design-system-react-components';
+import { title } from 'change-case';
 import ResultsListItem from './ResultsListItem';
 import EmptySearchSvg from '../Svgs/EmptySearchSvg';
 import { isEmpty } from '../../util/Util';
@@ -44,17 +45,23 @@ class ResultsList extends React.Component {
           href="title-link-url"
           className="link link--no-underline"
         >
-Investigation of un-American propaganda activities in the United States. Hear...
-
+          {result.title}
         </Link>
       );
+
+      const authorAgents = result.agents.filter(agent => agent.role === 'author');
       const authorLinkElement = (
         <Link
           to="author-url"
           className="link"
         >
-          {' '}
-  First Last
+          {/* TODO: better handling of multiple authors */}
+          {authorAgents.map((authorAgent, idx) => {
+            if (idx < authorAgents.length) {
+              return `${authorAgent.name}, `;
+            }
+            return authorAgent.name;
+          })}
 
         </Link>
       );
@@ -63,7 +70,11 @@ Investigation of un-American propaganda activities in the United States. Hear...
           class="link"
           to="#allEditionsUrl"
         >
-  View All 7 editions
+  View All
+          {' '}
+          {result.edition_count}
+          {' '}
+editions
 
         </Link>
       );
