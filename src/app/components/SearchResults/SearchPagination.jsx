@@ -192,7 +192,7 @@ const SearchPagination = ({
 };
 
 SearchPagination.propTypes = {
-  metadata: PropTypes.objectOf(PropTypes.any),
+  metadata: PropTypes.number,
   searchQuery: searchQueryPropTypes,
   userQuery: PropTypes.func,
   router: PropTypes.objectOf(PropTypes.any),
@@ -200,7 +200,7 @@ SearchPagination.propTypes = {
 };
 
 SearchPagination.defaultProps = {
-  metadata: {},
+  metadata: 0,
   searchQuery: initialSearchQuery,
   userQuery: () => {},
   router: {},

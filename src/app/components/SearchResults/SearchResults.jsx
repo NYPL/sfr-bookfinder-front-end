@@ -15,7 +15,7 @@ import SearchPagination from './SearchPagination';
  */
 const SearchResults = (props) => {
   console.log('SearchResults Props', props);
-  const metadata = props.results && props.results.data && props.results.data.hits;
+  const numberOfWorks = props.results && props.results.data && props.results.data.works.length;
   const hits = props.results && props.results.data && props.results.data.hits && props.results.data.hits.hits;
 
   const data = props.results.data;
@@ -25,7 +25,7 @@ const SearchResults = (props) => {
   return (
     <div className="margin-top-3">
       <SearchNavigation
-        metadata={metadata}
+        metadata={numberOfWorks}
         results={hits}
         fetchWork={props.fetchWork}
         {...props}
@@ -55,7 +55,7 @@ const SearchResults = (props) => {
       </div>
       <div className="grid-row">
         <SearchPagination
-          metadata={metadata}
+          metadata={numberOfWorks}
           results={hits}
           fetchWork={props.fetchWork}
           {...props}

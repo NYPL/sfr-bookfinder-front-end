@@ -13,9 +13,9 @@ import ResultsMetadata from './ResultsMetadata';
 const SearchNavigation = ({
   metadata, searchQuery, userQuery, router, isFooter,
 }) => {
-  console.log('got here');
+  console.log('got here', metadata);
   // page for query is -1 page shown
-  const totalPages = Math.floor((Number(metadata.total || 0) - 1) / Number(searchQuery.per_page || 10)) + 1 || 1;
+  const totalPages = Math.floor((Number(metadata || 0) - 1) / Number(searchQuery.per_page || 10)) + 1 || 1;
   // return list of pages till total pages
   const pageList = [];
   for (let i = 1; i <= totalPages; i += 1) {
@@ -188,7 +188,11 @@ const SearchNavigation = ({
         id="page-title-heading"
         blockName="page-title"
       >
-        <ResultsMetadata />
+        <ResultsMetadata
+          metadata={metadata}
+          searchQuery={searchQuery}
+        />
+
       </DS.Heading>
       <div className="grid-row-right">
         <DS.Dropdown
@@ -217,7 +221,7 @@ const SearchNavigation = ({
 };
 
 SearchNavigation.propTypes = {
-  metadata: PropTypes.objectOf(PropTypes.any),
+  metadata: PropTypes.number,
   searchQuery: searchQueryPropTypes,
   userQuery: PropTypes.func,
   router: PropTypes.objectOf(PropTypes.any),
@@ -225,7 +229,7 @@ SearchNavigation.propTypes = {
 };
 
 SearchNavigation.defaultProps = {
-  metadata: {},
+  metadata: 0,
   searchQuery: initialSearchQuery,
   userQuery: () => {},
   router: {},

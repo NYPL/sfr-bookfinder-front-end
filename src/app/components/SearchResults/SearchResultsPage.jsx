@@ -36,7 +36,6 @@ class SearchResultsPage extends React.Component {
   }
 
   componentDidMount() {
-    console.log('mounted');
     this.loadSearch();
 
     FeatureFlags.store.listen(this.onFeatureFlagsChange.bind(this));
@@ -46,13 +45,12 @@ class SearchResultsPage extends React.Component {
     );
   }
 
-
   componentDidUpdate(prevProps) {
-    // const { location } = this.props;
-    // if (!deepEqual(location.query, prevProps.location.query)) {
-    //   global.window.scrollTo(0, 0);
-    this.loadSearch();
-    // }
+    const { location } = this.props;
+    if (!deepEqual(location.query, prevProps.location.query)) {
+      global.window.scrollTo(0, 0);
+      this.loadSearch();
+    }
   }
 
   componentWillUnmount() {
@@ -64,8 +62,19 @@ class SearchResultsPage extends React.Component {
     this.setState({ featureFlagsStore: FeatureFlags.store.getState() });
   }
 
+  getDisplayItemsHeading() {
+    const showField = this.props.searchQuery.showField;
+    const showQuery = this.props.searchQuery.showQuery;
+    if (showField && showQuery) {
+      return `${showField}: ${showQuery}`;
+    }
+    return this.props.searchQuery.queries.map((query, index) => {
+      const joiner = index > this.props.searchQuery.queries.length ? 'and ' : '';
+      return `${query.field}: ${query.query} ${joiner}`;
+    });
+  }
+
   loadSearch() {
-    console.log('search is loading');
     const {
       location: { query },
       dispatch,
@@ -111,10 +120,6 @@ class SearchResultsPage extends React.Component {
       router.push('/');
     };
 
-    const displayItemsHeading = () => searchQuery.queries.map((query, index) => {
-      const joiner = index > searchQuery.queries.length ? 'and ' : '';
-      return `${query.field}: ${query.query} ${joiner}`;
-    });
 
     return (
       <main
@@ -152,7 +157,7 @@ class SearchResultsPage extends React.Component {
               level={1}
               id="page-title-heading"
               blockName="page-title"
-              text={`Search Results for ${displayItemsHeading()}`}
+              text={`Search Results for ${this.getDisplayItemsHeading()}`}
             />
           </div>
           <AdvancedSearchResults
@@ -175,7 +180,7 @@ class SearchResultsPage extends React.Component {
 }
 
 SearchResultsPage.propTypes = {
-  searchResults: PropTypes.objectOf(PropTypes.any),
+  searchResults: PropTypes.arrayOf(PropTypes.any),
   searchQuery: searchQueryPropTypes,
   workDetail: PropTypes.objectOf(PropTypes.any),
   dispatch: PropTypes.func,
@@ -184,7 +189,7 @@ SearchResultsPage.propTypes = {
 };
 
 SearchResultsPage.defaultProps = {
-  searchResults: {},
+  searchResults: [],
   searchQuery: initialSearchQuery,
   workDetail: {},
   dispatch: () => { },

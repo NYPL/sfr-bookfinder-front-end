@@ -8,7 +8,9 @@ import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialSt
  * @param {object} props
  * @return {string}
  */
-const ResultsMetadata = ({ searchQuery, metadata: { total } }) => {
+const ResultsMetadata = ({ searchQuery, metadata }) => {
+  console.log('total', metadata);
+  const total = metadata;
   let message = 'Viewing 0 items';
   const totalPages = Math.floor(total / (Number(searchQuery.per_page) || 10)) + 1;
   const firstElement = (Number(searchQuery.per_page || 10) * Number(searchQuery.page || 0) || 0) + 1;
