@@ -58,7 +58,7 @@ const recordUrl = apiUrl + recordPath;
 const totalWorksUrl = apiUrl + totalWorksPath;
 
 export const searchPost = (query) => {
-  console.log('query', query);
+  console.log('POST query', query);
 
   const sField = query.field && selectFields[query.field];
   let queryBody;

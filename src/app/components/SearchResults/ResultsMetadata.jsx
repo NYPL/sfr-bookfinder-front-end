@@ -9,7 +9,6 @@ import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialSt
  * @return {string}
  */
 const ResultsMetadata = ({ searchQuery, totalItems }) => {
-  console.log('total', totalItems);
   let message = 'Viewing 0 items';
   const totalPages = Math.floor(totalItems / (Number(searchQuery.per_page) || 10)) + 1;
   const firstElement = (Number(searchQuery.per_page || 10) * Number(searchQuery.page || 0) || 0) + 1;

@@ -57,7 +57,7 @@ const generateTitleLinkElem = (title, uuid) => {
 const getAuthorIdentifier = author => (author.viaf && 'viaf') || (author.lcnaf && 'lcnaf') || 'name';
 
 const getLinkToAuthorSearch = author => ({
-  queries: [{ query: author[getAuthorIdentifier(author)], field: getAuthorIdentifier(author) }],
+  queries: JSON.stringify([{ query: author[getAuthorIdentifier(author)], field: getAuthorIdentifier(author) }]),
   showQuery: `"${author.name}"`,
   showField: 'author',
 });
@@ -66,7 +66,6 @@ const generateAuthorLinkElem = (authorAgents) => {
   if (!authorAgents || !authorAgents.length) return undefined;
   return authorAgents.map((authorAgent, idx) => {
     const authorLinkText = idx === authorAgents.length - 1 ? authorAgent.name : `${authorAgent.name}, `;
-    console.log('link to author search query', getLinkToAuthorSearch(authorAgent));
     return (
       <Link
         to={{ pathname: '/search', query: getLinkToAuthorSearch(authorAgent) }}
@@ -82,7 +81,7 @@ const generateAuthorLinkElem = (authorAgents) => {
 // Note:  This link currently goes to the Work Detail page.
 // It should link to the Edition Detail page when it is implemented.
 const editionYearElem = (previewEdition, workUuid) => {
-  const editionDisplay = previewEdition && previewEdition.publicationDate
+  const editionDisplay = previewEdition.publication_date
     ? `${previewEdition.publication_date} Edition` : 'Edition Year Unkown';
   return (
     <Link
@@ -121,7 +120,7 @@ const publisherDisplayText = (previewEdition) => {
 const getLanguageDisplayText = (previewEdition) => {
   let languagesTextList;
   if (!previewEdition.languages || !previewEdition.languages.length) {
-    languagesTextList = 'Language Unkown';
+    languagesTextList = 'Undetermined Language';
   } else {
     languagesTextList = previewEdition.languages.map((lang, idx) => (idx === previewEdition.languages.length - 1
       ? lang.language : `${lang.language}, `));
@@ -147,21 +146,21 @@ const generateStreamedReaderUrl = (url, eReaderUrl, referrer) => {
 };
 
 // TODO: Local links should not have headers
-const getReadOnlineLink = (editionItem, eReaderUrl, referrer) => {
+const getReadOnlineLink = (origin, editionItem, eReaderUrl, referrer) => {
   const selectedLink = editionItem.links.find(link => !link.download);
   if (!selectedLink || !selectedLink.url) return undefined;
   if (selectedLink.local) {
     const encodedUrl = generateStreamedReaderUrl(selectedLink.url, eReaderUrl, referrer);
-    return `${window.location.origin}/read-online?url=${encodeURI(encodedUrl)}`;
+    return `${origin}/read-online?url=${encodeURI(encodedUrl)}`;
   }
-  return `${window.location.origin}/read-online?url=${formatUrl(selectedLink.url)}`;
+  return `${origin}/read-online?url=${formatUrl(selectedLink.url)}`;
 };
 const getDownloadLink = (editionItem) => {
   const selectedLink = editionItem.links.find(link => link.download);
   return selectedLink && selectedLink.url ? formatUrl(selectedLink.url) : undefined;
 };
 
-const formatAllResultsData = (results, eReaderUrl, referrer) => results.map((result, index) => {
+const formatAllResultsData = (results, origin, eReaderUrl, referrer) => results.map((result, index) => {
   const titleElement = generateTitleLinkElem(result.title, result.uuid);
   const authorLinkElement = generateAuthorLinkElem(getPreferredAgent(result.agents, 'author'));
   // TODO: Editions Link Page
@@ -191,7 +190,7 @@ const formatAllResultsData = (results, eReaderUrl, referrer) => results.map((res
       coverUrl: getCover(previewEdition),
       language: getLanguageDisplayText(previewEdition),
       license: getLicense(editionItem),
-      readOnlineLink: getReadOnlineLink(editionItem, eReaderUrl, referrer),
+      readOnlineLink: getReadOnlineLink(origin, editionItem, eReaderUrl, referrer),
       downloadLink: getDownloadLink(editionItem),
     },
     editionsLinkElement: allEditionsLink,
@@ -205,16 +204,19 @@ const formatAllResultsData = (results, eReaderUrl, referrer) => results.map((res
  */
 class ResultsList extends React.Component {
   constructor(props) {
-    console.log('resultsList props ', props);
-
     super(props);
     this.props = props;
+    this.state = { loaded: false };
+  }
+
+  componentDidMount() {
+    this.setState({ loaded: true });
   }
 
   render() {
     const { eReaderUrl, results } = this.props;
     const referrer = this.context.router ? this.context.router.location.pathname + this.context.router.location.search : undefined;
-
+    const origin = this.state.loaded ? window.location.origin : '';
     if (isEmpty(this.props.results)) {
       return (
         <div className="grid-row margin-3">
@@ -227,7 +229,7 @@ class ResultsList extends React.Component {
     }
 
     return (
-      <DS.SearchResultsList searchResults={formatAllResultsData(results, eReaderUrl, referrer)}></DS.SearchResultsList>
+      <DS.SearchResultsList searchResults={formatAllResultsData(results, origin, eReaderUrl, referrer)}></DS.SearchResultsList>
     );
   }
 }

@@ -17,7 +17,8 @@ import TotalWorks from '../SearchForm/TotalWorks';
 
 import featureFlagConfig from '../../../../featureFlagConfig';
 import config from '../../../../appConfig';
-import SearchPagination from './SearchPagination';
+// import SearchPagination from './SearchPagination';
+
 /**
  * Container class providing the Redux action creators
  * to its child components. State data is passed along
@@ -180,7 +181,7 @@ class SearchResultsPage extends React.Component {
 }
 
 SearchResultsPage.propTypes = {
-  searchResults: PropTypes.arrayOf(PropTypes.any),
+  searchResults: PropTypes.objectOf(PropTypes.any),
   searchQuery: searchQueryPropTypes,
   workDetail: PropTypes.objectOf(PropTypes.any),
   dispatch: PropTypes.func,
@@ -189,7 +190,7 @@ SearchResultsPage.propTypes = {
 };
 
 SearchResultsPage.defaultProps = {
-  searchResults: [],
+  searchResults: {},
   searchQuery: initialSearchQuery,
   workDetail: {},
   dispatch: () => { },
