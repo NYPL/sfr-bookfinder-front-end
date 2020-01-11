@@ -3,13 +3,15 @@ import React from 'react';
 import { Link } from 'react-router';
 import { Html5Entities } from 'html-entities';
 
-
 import PropTypes from 'prop-types';
 import * as DS from '@nypl/design-system-react-components';
-import { title } from 'change-case';
-import ResultsListItem from './ResultsListItem';
 import EmptySearchSvg from '../Svgs/EmptySearchSvg';
 import { isEmpty, formatUrl } from '../../util/Util';
+
+// Constants
+const MAX_TITLE_LENGTH = 80;
+const MAX_SUBTITILE_LENGTH = 80;
+const MAX_PUBLISHER_NAME_LENGTH = 80;
 
 // Data Transformation Utilities
 
@@ -19,6 +21,119 @@ function getFirstAndCountMore(array) {
   return `${array[0]}${moreText}`;
 }
 
+const htmlEntities = new Html5Entities();
+
+const getPreferredAgent = (agents, role) => {
+  if (!agents) return undefined;
+
+  const viafAgents = agents.filter(agent => agent.viaf !== null);
+  if (viafAgents && viafAgents.length) {
+    return viafAgents.filter(agent => agent.role === role);
+  }
+  return [agents.find(agent => agent.role === role)];
+};
+// Title
+const generateTitleLinkElem = (title, uuid) => {
+  let displayTitle;
+  if (!title) {
+    displayTitle = 'Title Unknown';
+  } else if (title.length > MAX_TITLE_LENGTH) {
+    displayTitle = `${title.substring(0, MAX_TITLE_LENGTH)}...`;
+  } else {
+    displayTitle = title;
+  }
+  return (
+    <Link
+      to={{ pathname: '/work', query: { workId: `${uuid}` } }}
+      title={htmlEntities.decode(title)}
+      className="link link--no-underline"
+    >
+      {displayTitle}
+    </Link>
+  );
+};
+
+// Author
+const getAuthorIdentifier = author => (author.viaf && 'viaf') || (author.lcnaf && 'lcnaf') || 'name';
+
+const getLinkToAuthorSearch = author => ({
+  queries: [{ query: author[getAuthorIdentifier(author)], field: getAuthorIdentifier(author) }],
+  showQuery: `"${author.name}"`,
+  showField: 'author',
+});
+
+const generateAuthorLinkElem = (authorAgents) => {
+  if (!authorAgents || !authorAgents.length) return undefined;
+  return authorAgents.map((authorAgent, idx) => {
+    const authorLinkText = idx === authorAgents.length - 1 ? authorAgent.name : `${authorAgent.name}, `;
+    console.log('link to author search query', getLinkToAuthorSearch(authorAgent));
+    return (
+      <Link
+        to={{ pathname: '/search', query: getLinkToAuthorSearch(authorAgent) }}
+        className="link"
+      >
+        {authorLinkText}
+      </Link>
+    );
+  });
+};
+
+// Edition Year
+// Note:  This link currently goes to the Work Detail page.
+// It should link to the Edition Detail page when it is implemented.
+const editionYearElem = (previewEdition, workUuid) => {
+  const editionDisplay = previewEdition && previewEdition.publicationDate
+    ? `${previewEdition.publication_date} Edition` : 'Edition Year Unkown';
+  return (
+    <Link
+      to={{ pathname: '/work', query: { workId: `${workUuid}` } }}
+      className="heading__link"
+    >
+      {editionDisplay}
+    </Link>
+  );
+};
+
+// Cover
+const getCover = (previewEdition) => {
+  if (!previewEdition.covers || !previewEdition.covers.length) return '#placeholder-cover';
+
+  const firstLocalCover = previewEdition.covers.find(cover => cover.flags.temporary === false);
+  return firstLocalCover ? firstLocalCover.url : 'placeholder-cover';
+};
+
+// Publisher Location and name
+const publisherDisplayLocation = previewEdition => (
+  previewEdition.publication_place
+    ? `in ${previewEdition.publication_place}` : undefined);
+const publisherDisplayText = (previewEdition) => {
+  const publisherNames = getPreferredAgent(previewEdition.agents, 'publisher').map(pubAgent => pubAgent.name);
+  if (!publisherNames) return undefined;
+
+  const publisherText = ` by ${getFirstAndCountMore(publisherNames)}`;
+  if (publisherText.length > MAX_PUBLISHER_NAME_LENGTH) {
+    return `${publisherText.substring(0, MAX_PUBLISHER_NAME_LENGTH)} ...`;
+  }
+  return publisherText;
+};
+
+// Language Display
+const getLanguageDisplayText = (previewEdition) => {
+  let languagesTextList;
+  if (!previewEdition.languages || !previewEdition.languages.length) {
+    languagesTextList = 'Language Unkown';
+  } else {
+    languagesTextList = previewEdition.languages.map((lang, idx) => (idx === previewEdition.languages.length - 1
+      ? lang.language : `${lang.language}, `));
+  }
+  return `Written in ${languagesTextList}`;
+};
+
+// Rights
+const getLicense = editionItem => (editionItem && editionItem.rights && editionItem.rights[0]
+  ? `Under ${editionItem.rights[0].rights_statement} license` : 'Under Unknown License');
+
+// Read Online and Download Urls
 const generateStreamedReaderUrl = (url, eReaderUrl, referrer) => {
   const base64BookUrl = Buffer.from(formatUrl(url)).toString('base64');
   const encodedBookUrl = encodeURIComponent(`${base64BookUrl}`);
@@ -31,20 +146,57 @@ const generateStreamedReaderUrl = (url, eReaderUrl, referrer) => {
   return combined;
 };
 
-const generateReadOnlineUrl = (url, local, eReaderUrl, referrer) => {
-  // Local refers to whether or not we're hosting it ourselves.
-  // If we host it ourselves, use the NYPL E-Reader.
-  if (local) {
-    const encodedUrl = generateStreamedReaderUrl(url, eReaderUrl, referrer);
+// TODO: Local links should not have headers
+const getReadOnlineLink = (editionItem, eReaderUrl, referrer) => {
+  const selectedLink = editionItem.links.find(link => !link.download);
+  if (!selectedLink || !selectedLink.url) return undefined;
+  if (selectedLink.local) {
+    const encodedUrl = generateStreamedReaderUrl(selectedLink.url, eReaderUrl, referrer);
     return `${window.location.origin}/read-online?url=${encodeURI(encodedUrl)}`;
   }
-  return `${window.location.origin}/read-online?url=${formatUrl(url)}`;
+  return `${window.location.origin}/read-online?url=${formatUrl(selectedLink.url)}`;
+};
+const getDownloadLink = (editionItem) => {
+  const selectedLink = editionItem.links.find(link => link.download);
+  return selectedLink && selectedLink.url ? formatUrl(selectedLink.url) : undefined;
 };
 
-const generateDownloadUrl = url => formatUrl(url);
+const formatAllResultsData = (results, eReaderUrl, referrer) => results.map((result, index) => {
+  const titleElement = generateTitleLinkElem(result.title, result.uuid);
+  const authorLinkElement = generateAuthorLinkElem(getPreferredAgent(result.agents, 'author'));
+  // TODO: Editions Link Page
+  const allEditionsLink = (
+    <Link
+      className="link"
+      to={{ pathname: '/work', query: { workId: `${result.uuid}` }, hash: '#all-editions' }}
+    >
+      {`View All ${result.edition_count} editions`}
+    </Link>
+  );
 
-const htmlEntities = new Html5Entities();
+  const previewEdition = result.editions[0];
+  const editionYearHeadingElement = editionYearElem(previewEdition, result.uuid);
 
+  const editionItem = previewEdition.items ? previewEdition.items[0] : undefined;
+
+  return {
+    id: `search-result-${result.uuid}`,
+    resultIndex: { index },
+    titleElement,
+    subtitle: result.subtitle,
+    authorElement: authorLinkElement,
+    editionInfo: {
+      editionYearHeading: editionYearHeadingElement,
+      publisherAndLocation: `Published ${publisherDisplayLocation(previewEdition)}${publisherDisplayText(previewEdition)}`,
+      coverUrl: getCover(previewEdition),
+      language: getLanguageDisplayText(previewEdition),
+      license: getLicense(editionItem),
+      readOnlineLink: getReadOnlineLink(editionItem, eReaderUrl, referrer),
+      downloadLink: getDownloadLink(editionItem),
+    },
+    editionsLinkElement: allEditionsLink,
+  };
+});
 /**
  * ResultsList takes the response and calls Design System's SearchResultsList
  * with the correctly formatted properties
@@ -60,7 +212,9 @@ class ResultsList extends React.Component {
   }
 
   render() {
-    const eReaderUrl = this.props.eReaderUrl;
+    const { eReaderUrl, results } = this.props;
+    const referrer = this.context.router ? this.context.router.location.pathname + this.context.router.location.search : undefined;
+
     if (isEmpty(this.props.results)) {
       return (
         <div className="grid-row margin-3">
@@ -71,87 +225,9 @@ class ResultsList extends React.Component {
         </div>
       );
     }
-    const referrer = this.context.router ? this.context.router.location.pathname + this.context.router.location.search : undefined;
-    const getIdentifier = author => (author.viaf && 'viaf') || (author.lcnaf && 'lcnaf') || 'name';
 
-    const linkToAuthor = author => ({
-      queries: JSON.stringify([{ query: author[getIdentifier(author)], field: getIdentifier(author) }]),
-      showQuery: `"${author.name}"`,
-      showField: 'author',
-    });
-    const results = this.props.results.map((result, index) => {
-      const titleContent = (
-        <Link
-          to={{ pathname: '/work', query: { workId: `${result.uuid}` } }}
-          title={htmlEntities.decode(result.title)}
-          className="link link--no-underline"
-        >
-          {result.title}
-        </Link>
-      );
-
-      const authorAgents = result.agents ? result.agents.filter(agent => agent.viaf !== null && agent.role === 'author') : [];
-      const authorLinkElement = authorAgents.map(authorAgent => (
-        <Link
-          to={{ pathname: '/search', query: linkToAuthor(authorAgent) }}
-          className="link"
-        >
-          {authorAgent.name}
-        </Link>
-      ));
-      const allEditionsLink = (
-        <Link
-          className="link"
-          to={{ pathname: '/work', query: { workId: `${result.uuid}` }, hash: '#all-editions' }}
-        >
-          {`View All ${result.edition_count} editions`}
-        </Link>
-      );
-
-      const previewEdition = result.editions[0];
-      const editionYearHeadingElement = (
-        <Link
-          to={{ pathname: '/work', query: { workId: `${result.uuid}` }, hash: '#all-editions' }}
-          className="heading__link"
-        >
-          {previewEdition.publication_date ? `${previewEdition.publication_date} Edition` : 'Edition Year Unkown'}
-        </Link>
-      );
-
-      const publisherAgents = previewEdition.agents ? previewEdition.agents.filter(agent => agent.viaf !== null && agent.role === 'publisher') : [];
-      const publishLocation = previewEdition.publication_place ? `in ${previewEdition.publication_place}` : undefined;
-      const publisherNames = publisherAgents.map(pubAgent => pubAgent.name);
-      const publisher = publisherNames ? ` by ${getFirstAndCountMore(publisherAgents.map(pubAgent => pubAgent.name))}` : undefined;
-      const language = previewEdition.languages ? `Written in ${previewEdition.languages.map(lang => lang.language)}` : undefined;
-
-      const editionItem = previewEdition.items ? previewEdition.items[0] : undefined;
-      const license = editionItem && editionItem.rights && editionItem.rights[0] ? `Under ${editionItem.rights[0].rights_statement} license` : 'Under Unknown License';
-      const readOnlineLink = editionItem.links.find(link => !link.download);
-      const downloadLink = editionItem.links.find(link => link.download);
-
-      console.log('readOnlineLink', readOnlineLink);
-      // TODO: Use stored covers
-      const coverUrl = previewEdition.covers ? previewEdition.covers[0].url : '#placeholder-cover';
-      return {
-        id: `search-result-${result.uuid}`,
-        resultIndex: { index },
-        titleElement: titleContent,
-        subtitle: result.subtitle,
-        authorElement: authorLinkElement,
-        editionInfo: {
-          editionYearHeading: editionYearHeadingElement,
-          publisherAndLocation: `Published ${publishLocation}${publisher}`,
-          coverUrl,
-          language,
-          license,
-          readOnlineLink: readOnlineLink ? generateReadOnlineUrl(readOnlineLink.url, readOnlineLink.local, eReaderUrl, referrer) : undefined,
-          downloadLink: downloadLink ? generateDownloadUrl(downloadLink.url) : undefined,
-        },
-        editionsLinkElement: allEditionsLink,
-      };
-    });
     return (
-      <DS.SearchResultsList searchResults={results}></DS.SearchResultsList>
+      <DS.SearchResultsList searchResults={formatAllResultsData(results, eReaderUrl, referrer)}></DS.SearchResultsList>
     );
   }
 }

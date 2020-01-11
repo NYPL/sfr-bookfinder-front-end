@@ -15,7 +15,7 @@ import SearchPagination from './SearchPagination';
  */
 const SearchResults = (props) => {
   console.log('SearchResults Props', props);
-  const numberOfWorks = props.results && props.results.data && props.results.data.works.length;
+  const numberOfWorks = props.results && props.results.data && props.results.data.totalWorks;
   const hits = props.results && props.results.data && props.results.data.hits && props.results.data.hits.hits;
 
   const data = props.results.data;
@@ -25,7 +25,7 @@ const SearchResults = (props) => {
   return (
     <div className="margin-top-3">
       <SearchNavigation
-        metadata={numberOfWorks}
+        totalItems={numberOfWorks}
         results={hits}
         fetchWork={props.fetchWork}
         {...props}
@@ -73,7 +73,7 @@ SearchResults.propTypes = {
 
 SearchResults.defaultProps = {
   eReaderUrl: '',
-  results: [],
+  results: {},
   fetchWork: () => {},
 };
 

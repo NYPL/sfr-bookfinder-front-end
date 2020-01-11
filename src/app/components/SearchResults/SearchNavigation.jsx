@@ -4,18 +4,16 @@ import * as DS from '@nypl/design-system-react-components';
 import Select from '../Form/Select';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
 import { getQueryString } from '../../search/query';
-import SearchHeader from './SearchHeader';
-import SearchFooter from './SearchFooter';
 import { sortMap, numbersPerPage } from '../../constants/sorts';
 import { deepEqual } from '../../util/Util';
 import ResultsMetadata from './ResultsMetadata';
 
 const SearchNavigation = ({
-  metadata, searchQuery, userQuery, router, isFooter,
+  totalItems, searchQuery, userQuery, router, isFooter,
 }) => {
-  console.log('got here', metadata);
+  console.log('searchNavigation totalItems', totalItems);
   // page for query is -1 page shown
-  const totalPages = Math.floor((Number(metadata || 0) - 1) / Number(searchQuery.per_page || 10)) + 1 || 1;
+  const totalPages = Math.floor((Number(totalItems || 0) - 1) / Number(searchQuery.per_page || 10)) + 1 || 1;
   // return list of pages till total pages
   const pageList = [];
   for (let i = 1; i <= totalPages; i += 1) {
@@ -189,7 +187,7 @@ const SearchNavigation = ({
         blockName="page-title"
       >
         <ResultsMetadata
-          metadata={metadata}
+          totalItems={totalItems}
           searchQuery={searchQuery}
         />
 
@@ -221,7 +219,7 @@ const SearchNavigation = ({
 };
 
 SearchNavigation.propTypes = {
-  metadata: PropTypes.number,
+  totalItems: PropTypes.number,
   searchQuery: searchQueryPropTypes,
   userQuery: PropTypes.func,
   router: PropTypes.objectOf(PropTypes.any),
@@ -229,7 +227,7 @@ SearchNavigation.propTypes = {
 };
 
 SearchNavigation.defaultProps = {
-  metadata: 0,
+  totalItems: 0,
   searchQuery: initialSearchQuery,
   userQuery: () => {},
   router: {},
