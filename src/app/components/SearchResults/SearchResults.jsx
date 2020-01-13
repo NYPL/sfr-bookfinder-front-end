@@ -17,7 +17,6 @@ const SearchResults = (props) => {
   console.log('SearchResults Props', props);
   const numberOfWorks = props.results && props.results.data && props.results.data.totalWorks;
   const hits = props.results && props.results.data && props.results.data.hits && props.results.data.hits.hits;
-
   const data = props.results.data;
   if (!data) {
     return null;
@@ -55,8 +54,8 @@ const SearchResults = (props) => {
       </div>
       <div className="grid-row">
         <SearchPagination
-          metadata={numberOfWorks}
-          results={hits}
+          totalItems={numberOfWorks}
+          results={props.results.data.works}
           fetchWork={props.fetchWork}
           {...props}
         />

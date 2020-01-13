@@ -4,22 +4,21 @@ import * as DS from '@nypl/design-system-react-components';
 import Select from '../Form/Select';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
 import { getQueryString } from '../../search/query';
-import SearchHeader from './SearchHeader';
-import SearchFooter from './SearchFooter';
+// import SearchHeader from './SearchHeader';
+// import SearchFooter from './SearchFooter';
 import { sortMap, numbersPerPage } from '../../constants/sorts';
 import { deepEqual } from '../../util/Util';
 
 const SearchPagination = ({
-  metadata, searchQuery, userQuery, router, isFooter,
+  totalItems, searchQuery, userQuery, router, isFooter,
 }) => {
   // page for query is -1 page shown
-  const totalPages = Math.floor((Number(metadata.total || 0) - 1) / Number(searchQuery.per_page || 10)) + 1 || 1;
+  const totalPages = Math.floor((Number(totalItems || 0) - 1) / Number(searchQuery.per_page || 10)) + 1 || 1;
   // return list of pages till total pages
   const pageList = [];
   for (let i = 1; i <= totalPages; i += 1) {
-    pageList.push({ value: i, label: `${i.toLocaleString()} of ${totalPages.toLocaleString()}` });
+    pageList.push(`${i.toLocaleString()} of ${totalPages.toLocaleString()}`);
   }
-
   // redirect to url with query params
   const submit = (query) => {
     const path = `/search?${getQueryString(query)}`;
@@ -27,19 +26,19 @@ const SearchPagination = ({
   };
 
   // update page in store and go to any page
-  const goToPage = (pageNumber) => {
-    const newPage = Number(pageNumber) - 1;
+  const goToPage = (newPageNumber) => {
     const perPage = searchQuery.per_page || initialSearchQuery.per_page;
-    if (Number(searchQuery.page) === newPage) {
+    if (Number(searchQuery.page) === newPageNumber) {
       return;
     }
-    const newQuery = Object.assign({}, searchQuery, { page: newPage, per_page: perPage, total: metadata.total || 0 });
+    const newQuery = Object.assign({}, searchQuery, { page: newPageNumber, per_page: perPage, total: totalItems || 0 });
     userQuery(newQuery);
     submit(newQuery);
   };
 
   // click and navigate to any page number
   const navigateToPage = (e, pageNumber) => {
+    console.log(`navigateToPage${pageNumber}`);
     e.preventDefault();
     e.stopPropagation();
     let page = pageNumber;
@@ -54,7 +53,9 @@ const SearchPagination = ({
 
   // update page in store when select of pages change
   const onChangePage = (e) => {
-    goToPage(Number(e.target.value));
+    const pageIndex = pageList.findIndex(pageValue => pageValue === e.target.value);
+    console.log('pageIndex', pageIndex);
+    goToPage(pageIndex);
   };
 
   // update per_page in store when select of per_ppage changes
@@ -62,7 +63,7 @@ const SearchPagination = ({
     const newPage = 0;
     const newPerPage = e.target.value;
     if (newPerPage !== searchQuery.per_page) {
-      const newQuery = Object.assign({}, searchQuery, { page: newPage, per_page: newPerPage, total: metadata.total || 0 });
+      const newQuery = Object.assign({}, searchQuery, { page: newPage, per_page: newPerPage, total: totalItems || 0 });
       userQuery(newQuery);
       submit(newQuery);
     }
@@ -181,9 +182,10 @@ const SearchPagination = ({
   return (
     <div className="grid-row">
       <DS.Pagination
-        paginationDropdownOptions={pageList.map(page => page.label)}
-        previousPageHandler={e => navigateToPage(e, Number(searchQuery.page || 0))}
-        nextPageHandler={e => navigateToPage(e, Number(searchQuery.page || 0) + 2)}
+        paginationDropdownOptions={pageList}
+        previousPageHandler={e => navigateToPage(e, Number(searchQuery.page) - 1)}
+        nextPageHandler={e => navigateToPage(e, Number(searchQuery.page) + 1)}
+        currentValue={pageList[Number(searchQuery.page)]}
         onSelectChange={onChangePage}
         onSelectBlur={onChangePage}
       />
@@ -192,7 +194,7 @@ const SearchPagination = ({
 };
 
 SearchPagination.propTypes = {
-  metadata: PropTypes.number,
+  totalItems: PropTypes.number,
   searchQuery: searchQueryPropTypes,
   userQuery: PropTypes.func,
   router: PropTypes.objectOf(PropTypes.any),
@@ -200,7 +202,7 @@ SearchPagination.propTypes = {
 };
 
 SearchPagination.defaultProps = {
-  metadata: 0,
+  totalItems: 0,
   searchQuery: initialSearchQuery,
   userQuery: () => {},
   router: {},

@@ -44,7 +44,7 @@ const generateTitleLinkElem = (title, uuid) => {
   }
   return (
     <Link
-      to={{ pathname: '/work', query: { workId: `${uuid}` } }}
+      to={{ pathname: '/work', query: { workId: `${uuid}`, recordType: 'editions' } }}
       title={htmlEntities.decode(title)}
       className="link link--no-underline"
     >
@@ -106,9 +106,9 @@ const publisherDisplayLocation = previewEdition => (
   previewEdition.publication_place
     ? `in ${previewEdition.publication_place}` : undefined);
 const publisherDisplayText = (previewEdition) => {
-  const publisherNames = getPreferredAgent(previewEdition.agents, 'publisher').map(pubAgent => pubAgent.name);
-  if (!publisherNames) return undefined;
-
+  const preferredAgent = getPreferredAgent(previewEdition.agents, 'publisher');
+  if (!preferredAgent) return undefined;
+  const publisherNames = preferredAgent.map(pubAgent => pubAgent.name);
   const publisherText = ` by ${getFirstAndCountMore(publisherNames)}`;
   if (publisherText.length > MAX_PUBLISHER_NAME_LENGTH) {
     return `${publisherText.substring(0, MAX_PUBLISHER_NAME_LENGTH)} ...`;
