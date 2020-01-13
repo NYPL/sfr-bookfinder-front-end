@@ -98,7 +98,7 @@ const getCover = (previewEdition) => {
   if (!previewEdition.covers || !previewEdition.covers.length) return '#placeholder-cover';
 
   const firstLocalCover = previewEdition.covers.find(cover => cover.flags.temporary === false);
-  return firstLocalCover ? firstLocalCover.url : 'placeholder-cover';
+  return firstLocalCover ? firstLocalCover.url : 'https://test-sfr-covers.s3.amazonaws.com/default/defaultCover.svg';
 };
 
 // Publisher Location and name

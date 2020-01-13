@@ -144,12 +144,13 @@ class Filters extends React.Component {
   }
 
   showFields(data) {
+    console.log('showfields data', data);
     return Object.keys(filtersLabels)
       .map(field => ((data.facets && data.facets[field] && data.facets[field].length > 0)
         || this.searchContains(field)
-        || (field === 'years' && (this.searchContains(field) || (data.hits && data.hits.hits && data.hits.hits.length > 0)))
+        || (field === 'years' && (this.searchContains(field) || (data.works && data.works.length > 0)))
         || field === 'show_all'
-        || (field === 'format' && (this.searchContains(field) || (data.hits && data.hits.hits && data.hits.hits.length > 0)))
+        || (field === 'format' && (this.searchContains(field) || (data.works && data.works.length > 0)))
         ? field
         : null))
       .filter(x => x);
@@ -159,7 +160,7 @@ class Filters extends React.Component {
     const {
       data, searchQuery,
     } = this.props;
-
+    console.log('filters data', data);
     // add search filters
     if (searchQuery && searchQuery.filters && Array.isArray(searchQuery.filters)) {
       searchQuery.filters.forEach((filter) => {
