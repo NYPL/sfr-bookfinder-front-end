@@ -82,11 +82,11 @@ export const searchPost = (query) => {
     });
 };
 
-export const fetchWork = (workId, recordType) => {
+export const fetchWork = (workId) => {
   console.log('fetching work', workId);
   console.log('recordUrl', recordUrl);
   return dispatch => axios
-    .get(recordUrl, { params: { identifier: workId, recordType } })
+    .get(recordUrl, { params: { identifier: workId, recordType: 'instances' } })
     .then((resp) => {
       console.log('fetchWork response', resp);
       if (resp.data) {

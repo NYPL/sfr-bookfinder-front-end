@@ -6,15 +6,18 @@ import EBookList from './EBookList';
 const EditionsList = ({
   work, eReaderUrl, referrer, max,
 }) => {
+  console.log('got to editionsList', work);
   const list = work.instances;
   if (!list || list.length === 0) {
     return null;
   }
 
   const getPublisher = (instance) => {
-    let publisher = instance && instance.agents && instance.agents.find(agent => agent.roles.indexOf('publisher') > -1);
-    publisher = publisher ? publisher.name : null;
-    return publisher;
+    console.log('instance', instance);
+    // let publisher = instance && instance.agents && instance.agents.find(agent => agent.roles.indexOf('publisher') > -1);
+    // publisher = publisher ? publisher.name : null;
+    // return publisher;
+    return 'publisher name';
   };
   const getIsValid = instance => (instance.items && instance.items.length > 0)
     || (instance.pub_date && instance.pub_date_display)
@@ -22,9 +25,9 @@ const EditionsList = ({
     || getPublisher(instance);
 
   const filterValid = instances => instances.filter(instance => getIsValid(instance));
-
   const editionCount = work.edition_count || filterValid(list).length;
 
+  console.log('valid', filterValid(list));
   const rights = instance => instance.rights
     && instance.rights.length > 0 //
     && instance.rights.map(right => right.rights_statement).join(', ');
@@ -47,7 +50,9 @@ const EditionsList = ({
         </thead>
         <tbody>
           {filterValid(list).map((instance, i) => {
-            const publisher = getPublisher(instance);
+            console.log('instances', instance);
+            const publisher = 'publisher_name';
+            // const publisher = getPublisher(instance);
 
             if (max && i >= max) {
               return null;

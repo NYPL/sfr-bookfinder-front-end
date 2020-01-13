@@ -44,7 +44,7 @@ const generateTitleLinkElem = (title, uuid) => {
   }
   return (
     <Link
-      to={{ pathname: '/work', query: { workId: `${uuid}`, recordType: 'editions' } }}
+      to={{ pathname: '/work', query: { workId: `${uuid}`, recordType: 'instances' } }}
       title={htmlEntities.decode(title)}
       className="link link--no-underline"
     >
