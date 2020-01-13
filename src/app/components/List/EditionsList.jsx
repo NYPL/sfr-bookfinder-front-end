@@ -13,11 +13,9 @@ const EditionsList = ({
   }
 
   const getPublisher = (instance) => {
-    console.log('instance', instance);
-    // let publisher = instance && instance.agents && instance.agents.find(agent => agent.roles.indexOf('publisher') > -1);
-    // publisher = publisher ? publisher.name : null;
-    // return publisher;
-    return 'publisher name';
+    let publisher = instance && instance.agents && instance.agents.find(agent => agent.roles.indexOf('publisher') > -1);
+    publisher = publisher ? publisher.name : null;
+    return publisher;
   };
   const getIsValid = instance => (instance.items && instance.items.length > 0)
     || (instance.pub_date && instance.pub_date_display)
@@ -27,14 +25,13 @@ const EditionsList = ({
   const filterValid = instances => instances.filter(instance => getIsValid(instance));
   const editionCount = work.edition_count || filterValid(list).length;
 
-  console.log('valid', filterValid(list));
   const rights = instance => instance.rights
     && instance.rights.length > 0 //
     && instance.rights.map(right => right.rights_statement).join(', ');
 
-  const languages = instance => instance.language
-    && instance.language.length > 0 //
-    && instance.language.map(lang => lang.language).join(', ');
+  const languages = instance => instance.languages
+    && instance.languages.length > 0 //
+    && instance.languages.map(lang => lang.language).join(', ');
   return (
     <div>
       <table className="usa-table usa-table--borderless nypl-editions-table">
@@ -50,9 +47,7 @@ const EditionsList = ({
         </thead>
         <tbody>
           {filterValid(list).map((instance, i) => {
-            console.log('instances', instance);
-            const publisher = 'publisher_name';
-            // const publisher = getPublisher(instance);
+            const publisher = getPublisher(instance);
 
             if (max && i >= max) {
               return null;

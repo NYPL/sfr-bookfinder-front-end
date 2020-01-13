@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import AuthorsList from '../List/AuthorsList';
 import BookSvg from '../Svgs/BookSvg';
 
-const WorkHeader = ({ data }) => {
-  console.log('workHeader data', data);
-  return (
+const WorkHeader = ({ data }) => (
     <div className="nypl-item-header">
       <div className="nypl-item-header-image">
         <BookSvg />
@@ -28,7 +26,6 @@ const WorkHeader = ({ data }) => {
       </div>
     </div>
   );
-};
 
 WorkHeader.propTypes = {
   data: PropTypes.objectOf(PropTypes.any),

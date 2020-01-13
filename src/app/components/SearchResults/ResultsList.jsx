@@ -28,9 +28,9 @@ const getPreferredAgent = (agents, role) => {
 
   const viafAgents = agents.filter(agent => agent.viaf !== null);
   if (viafAgents && viafAgents.length) {
-    return viafAgents.filter(agent => agent.role === role);
+    return viafAgents.filter(agent => agent.roles.includes(role));
   }
-  return [agents.find(agent => agent.role === role)];
+  return [agents.find(agent => agent.roles.includes(role))];
 };
 // Title
 const generateTitleLinkElem = (title, uuid) => {
@@ -65,6 +65,7 @@ const getLinkToAuthorSearch = author => ({
 const generateAuthorLinkElem = (authorAgents) => {
   if (!authorAgents || !authorAgents.length) return undefined;
   return authorAgents.map((authorAgent, idx) => {
+    console.log('authorAgent', authorAgent);
     const authorLinkText = idx === authorAgents.length - 1 ? authorAgent.name : `${authorAgent.name}, `;
     return (
       <Link
@@ -107,9 +108,10 @@ const publisherDisplayLocation = previewEdition => (
   previewEdition.publication_place
     ? `in ${previewEdition.publication_place}` : undefined);
 const publisherDisplayText = (previewEdition) => {
-  const preferredAgent = getPreferredAgent(previewEdition.agents, 'publisher');
-  if (!preferredAgent) return undefined;
-  const publisherNames = preferredAgent.map(pubAgent => pubAgent.name);
+  const preferredAgents = getPreferredAgent(previewEdition.agents, 'publisher');
+  console.log('preferredAgents', preferredAgents);
+  if (!preferredAgents) return undefined;
+  const publisherNames = preferredAgents.map((pubAgent) => { console.log('pubAgent'); return pubAgent.name; });
   const publisherText = ` by ${getFirstAndCountMore(publisherNames)}`;
   if (publisherText.length > MAX_PUBLISHER_NAME_LENGTH) {
     return `${publisherText.substring(0, MAX_PUBLISHER_NAME_LENGTH)} ...`;

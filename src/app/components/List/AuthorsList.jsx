@@ -28,21 +28,17 @@ const filterAgents = (agents, max, roleFilter) => agents //
   .slice(0, max || agents.length);
 
 const AuthorsList = ({ agents, max, roleFilter }) => (
-  <span> author </span>
-  // <ul className="authors-list">
-  //   {filterAgents(agents, max, roleFilter).map((entity, index, filteredAgents) => {
-  //     console.log('AuthorList FilterAgents', entity);
-  //     return (
-  //       <li key={`agents${index.toString()}`}>
-  //         <Link to={{ pathname: '/search', query: linkToAuthor(entity) }}>
-  //           {`${htmlEntities.decode(entity.name)}, ${entity.roles.join(', ')}`}
-  //         </Link>
-  //         {birthDate(entity)}
-  //         {index + 1 < filteredAgents.length && <span>, </span>}
-  //       </li>
-  //     );
-  //   })}
-  // </ul>
+  <ul className="authors-list">
+    {filterAgents(agents, max, roleFilter).map((entity, index, filteredAgents) => (
+      <li key={`agents${index.toString()}`}>
+        <Link to={{ pathname: '/search', query: linkToAuthor(entity) }}>
+          {`${htmlEntities.decode(entity.name)}, ${entity.roles.join(', ')}`}
+        </Link>
+        {birthDate(entity)}
+        {index + 1 < filteredAgents.length && <span>, </span>}
+      </li>
+    ))}
+  </ul>
 );
 
 AuthorsList.propTypes = {
