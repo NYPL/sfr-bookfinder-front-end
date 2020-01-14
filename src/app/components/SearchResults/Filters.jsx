@@ -144,7 +144,6 @@ class Filters extends React.Component {
   }
 
   showFields(data) {
-    console.log('showfields data', data);
     return Object.keys(filtersLabels)
       .map(field => ((data.facets && data.facets[field] && data.facets[field].length > 0)
         || this.searchContains(field)
@@ -160,7 +159,6 @@ class Filters extends React.Component {
     const {
       data, searchQuery,
     } = this.props;
-    console.log('filters data', data);
     // add search filters
     if (searchQuery && searchQuery.filters && Array.isArray(searchQuery.filters)) {
       searchQuery.filters.forEach((filter) => {

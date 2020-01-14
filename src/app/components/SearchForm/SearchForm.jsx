@@ -99,7 +99,6 @@ class SearchForm extends React.Component {
   }
 
   render() {
-    console.log('isHomePage', this.props.isHomePage);
     const selectedQuery = this.state.searchQuery.showQuery || this.state.searchQuery.queries[0].query;
     const selectedField = this.state.searchQuery.showField || this.state.searchQuery.queries[0].field;
     const advancedSearchMessage = (

@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as DS from '@nypl/design-system-react-components';
-import ResultsMetadata from './ResultsMetadata';
 import ResultsList from './ResultsList';
 import SearchNavigation from './SearchNavigation';
 import Filters from './Filters';

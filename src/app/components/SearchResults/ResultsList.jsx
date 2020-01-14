@@ -12,6 +12,7 @@ import { isEmpty, formatUrl } from '../../util/Util';
 const MAX_TITLE_LENGTH = 80;
 const MAX_SUBTITILE_LENGTH = 80;
 const MAX_PUBLISHER_NAME_LENGTH = 80;
+const PLACEHOLDER_COVER_LINK = 'https://test-sfr-covers.s3.amazonaws.com/default/defaultCover.png';
 
 // Data Transformation Utilities
 
@@ -65,7 +66,6 @@ const getLinkToAuthorSearch = author => ({
 const generateAuthorLinkElem = (authorAgents) => {
   if (!authorAgents || !authorAgents.length) return undefined;
   return authorAgents.map((authorAgent, idx) => {
-    console.log('authorAgent', authorAgent);
     const authorLinkText = idx === authorAgents.length - 1 ? authorAgent.name : `${authorAgent.name}, `;
     return (
       <Link
@@ -82,6 +82,7 @@ const generateAuthorLinkElem = (authorAgents) => {
 // Note:  This link currently goes to the Work Detail page.
 // It should link to the Edition Detail page when it is implemented.
 const editionYearElem = (previewEdition, workUuid) => {
+  console.log('previewEdition', previewEdition);
   const editionDisplay = previewEdition.publication_date
     ? `${previewEdition.publication_date} Edition` : 'Edition Year Unkown';
   return (
@@ -96,11 +97,10 @@ const editionYearElem = (previewEdition, workUuid) => {
 
 // Cover
 const getCover = (previewEdition) => {
-  if (!previewEdition.covers || !previewEdition.covers.length) return '#placeholder-cover';
+  if (!previewEdition.covers || !previewEdition.covers.length) return PLACEHOLDER_COVER_LINK;
 
   const firstLocalCover = previewEdition.covers.find(cover => cover.flags.temporary === false);
-  console.log('url', formatUrl(firstLocalCover.url));
-  return firstLocalCover ? formatUrl(firstLocalCover.url) : 'https://test-sfr-covers.s3.amazonaws.com/default/defaultCover.svg';
+  return firstLocalCover ? formatUrl(firstLocalCover.url) : PLACEHOLDER_COVER_LINK;
 };
 
 // Publisher Location and name
@@ -109,9 +109,8 @@ const publisherDisplayLocation = previewEdition => (
     ? `in ${previewEdition.publication_place}` : undefined);
 const publisherDisplayText = (previewEdition) => {
   const preferredAgents = getPreferredAgent(previewEdition.agents, 'publisher');
-  console.log('preferredAgents', preferredAgents);
   if (!preferredAgents) return undefined;
-  const publisherNames = preferredAgents.map((pubAgent) => { console.log('pubAgent'); return pubAgent.name; });
+  const publisherNames = preferredAgents.map(pubAgent => pubAgent.name);
   const publisherText = ` by ${getFirstAndCountMore(publisherNames)}`;
   if (publisherText.length > MAX_PUBLISHER_NAME_LENGTH) {
     return `${publisherText.substring(0, MAX_PUBLISHER_NAME_LENGTH)} ...`;
@@ -150,6 +149,7 @@ const generateStreamedReaderUrl = (url, eReaderUrl, referrer) => {
 
 // TODO: Local links should not have headers
 const getReadOnlineLink = (origin, editionItem, eReaderUrl, referrer) => {
+  if (!editionItem || !editionItem.links) return undefined;
   const selectedLink = editionItem.links.find(link => !link.download);
   if (!selectedLink || !selectedLink.url) return undefined;
   if (selectedLink.local) {
@@ -159,6 +159,7 @@ const getReadOnlineLink = (origin, editionItem, eReaderUrl, referrer) => {
   return `${origin}/read-online?url=${formatUrl(selectedLink.url)}`;
 };
 const getDownloadLink = (editionItem) => {
+  if (!editionItem || !editionItem.links) return undefined;
   const selectedLink = editionItem.links.find(link => link.download);
   return selectedLink && selectedLink.url ? formatUrl(selectedLink.url) : undefined;
 };
@@ -185,7 +186,7 @@ const formatAllResultsData = (results, origin, eReaderUrl, referrer) => results.
     id: `search-result-${result.uuid}`,
     resultIndex: { index },
     titleElement,
-    subtitle: result.subtitle,
+    subtitle: result.subtitle.length > MAX_SUBTITILE_LENGTH ? `${result.subtitle.substring(0, MAX_TITLE_LENGTH)}...` : result.subtitle,
     authorElement: authorLinkElement,
     editionInfo: {
       editionYearHeading: editionYearHeadingElement,
