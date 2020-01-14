@@ -27,14 +27,6 @@ const SearchResults = (props) => {
         fetchWork={props.fetchWork}
         {...props}
       />
-      {/* <div className="grid-row sfr-results-container">
-        <div className="grid-col-3 nypl-results-column">
-          <ResultsMetadata
-            metadata={metadata}
-            {...props}
-          />
-        </div>
-      </div> */}
       <div className="grid-row sfr-results-container">
         <div className="grid-col-3 nypl-results-column">
           <Filters

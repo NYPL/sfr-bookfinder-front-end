@@ -28,9 +28,9 @@ describe.only('Results List', () => {
       component = shallow(<ResultsList results={results.data.works} />);
     });
 
-    it('should display a DS ResultsList', () => {
-      console.log('component', component.name());
-      expect(component.find('ResultsList')).to.have.length(1);
+    // It shouldn't check DS behavior, only that something comes back.
+    it('should return results', () => {
+      expect(component.find('div')).to.have.length(1);
     });
   });
 });

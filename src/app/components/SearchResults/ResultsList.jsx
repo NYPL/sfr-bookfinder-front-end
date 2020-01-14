@@ -82,7 +82,6 @@ const generateAuthorLinkElem = (authorAgents) => {
 // Note:  This link currently goes to the Work Detail page.
 // It should link to the Edition Detail page when it is implemented.
 const editionYearElem = (previewEdition, workUuid) => {
-  console.log('previewEdition', previewEdition);
   const editionDisplay = previewEdition && previewEdition.publication_date
     ? `${previewEdition.publication_date} Edition` : 'Edition Year Unkown';
   return (
@@ -136,21 +135,27 @@ const getLicense = editionItem => (editionItem && editionItem.rights && editionI
 
 // Read Online and Download Urls
 const generateStreamedReaderUrl = (url, eReaderUrl, referrer) => {
+  console.log('url', url);
   const base64BookUrl = Buffer.from(formatUrl(url)).toString('base64');
   const encodedBookUrl = encodeURIComponent(`${base64BookUrl}`);
-  const encodedReaderUrl = encodeURI(eReaderUrl);
+  const encodedReaderUrl = encodeURIComponent(`${eReaderUrl}/pub/`);
+  console.log(`encodedReaderUrl${encodedReaderUrl}`);
 
-  let combined = `${eReaderUrl}/readerNYPL/?url=${encodedReaderUrl}/pub/${encodedBookUrl}/manifest.json`;
+  let combined = `${eReaderUrl}/readerNYPL/?url=${eReaderUrl}/pub/${encodedBookUrl}/manifest.json`;
   if (referrer) {
     combined += `#${referrer}`;
   }
+  console.log('combined', combined);
+
   return combined;
 };
 
 // TODO: Local links should not have headers
 const getReadOnlineLink = (origin, editionItem, eReaderUrl, referrer) => {
   if (!editionItem || !editionItem.links) return undefined;
-  const selectedLink = editionItem.links.find(link => !link.download);
+  // TODO: Revert after links fix
+  const selectedLink = editionItem.links.find(link => (!link.local && !link.download) || (link.local && link.download));
+  console.log('selectedLink', selectedLink);
   if (!selectedLink || !selectedLink.url) return undefined;
   if (selectedLink.local) {
     const encodedUrl = generateStreamedReaderUrl(selectedLink.url, eReaderUrl, referrer);
@@ -158,6 +163,7 @@ const getReadOnlineLink = (origin, editionItem, eReaderUrl, referrer) => {
   }
   return `${origin}/read-online?url=${formatUrl(selectedLink.url)}`;
 };
+
 const getDownloadLink = (editionItem) => {
   if (!editionItem || !editionItem.links) return undefined;
   const selectedLink = editionItem.links.find(link => link.download);
