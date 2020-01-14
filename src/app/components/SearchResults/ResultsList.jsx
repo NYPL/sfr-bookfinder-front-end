@@ -96,6 +96,7 @@ const editionYearElem = (previewEdition, workUuid) => {
 
 // Cover
 const getCover = (previewEdition) => {
+  if (!previewEdition) return PLACEHOLDER_COVER_LINK;
   if (!previewEdition.covers || !previewEdition.covers.length) return PLACEHOLDER_COVER_LINK;
 
   const firstLocalCover = previewEdition.covers.find(cover => cover.flags.temporary === false);
@@ -107,6 +108,7 @@ const publisherDisplayLocation = previewEdition => (
   previewEdition && previewEdition.publication_place
     ? `in ${previewEdition.publication_place}` : undefined);
 const publisherDisplayText = (previewEdition) => {
+  if (!previewEdition) return undefined;
   const preferredAgents = getPreferredAgent(previewEdition.agents, 'publisher');
   if (!preferredAgents) return undefined;
   const publisherNames = preferredAgents.map(pubAgent => pubAgent.name);
