@@ -7,7 +7,7 @@ import { shallow, mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { mockRouterContext } from '../helpers/routing';
 import Filters from '../../src/app/components/SearchResults/Filters';
-import results from '../fixtures/results-list-full.json';
+import results from '../fixtures/results-list.json';
 import Checkbox from '../../src/app/components/Form/Checkbox';
 
 configure({ adapter: new Adapter() });

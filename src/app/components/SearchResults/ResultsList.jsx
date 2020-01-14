@@ -83,7 +83,7 @@ const generateAuthorLinkElem = (authorAgents) => {
 // It should link to the Edition Detail page when it is implemented.
 const editionYearElem = (previewEdition, workUuid) => {
   console.log('previewEdition', previewEdition);
-  const editionDisplay = previewEdition.publication_date
+  const editionDisplay = previewEdition && previewEdition.publication_date
     ? `${previewEdition.publication_date} Edition` : 'Edition Year Unkown';
   return (
     <Link
@@ -105,7 +105,7 @@ const getCover = (previewEdition) => {
 
 // Publisher Location and name
 const publisherDisplayLocation = previewEdition => (
-  previewEdition.publication_place
+  previewEdition && previewEdition.publication_place
     ? `in ${previewEdition.publication_place}` : undefined);
 const publisherDisplayText = (previewEdition) => {
   const preferredAgents = getPreferredAgent(previewEdition.agents, 'publisher');
@@ -121,7 +121,7 @@ const publisherDisplayText = (previewEdition) => {
 // Language Display
 const getLanguageDisplayText = (previewEdition) => {
   let languagesTextList;
-  if (!previewEdition.languages || !previewEdition.languages.length) {
+  if (!previewEdition || !previewEdition.languages || !previewEdition.languages.length) {
     languagesTextList = 'Undetermined Language';
   } else {
     languagesTextList = previewEdition.languages.map((lang, idx) => (idx === previewEdition.languages.length - 1
@@ -180,13 +180,14 @@ const formatAllResultsData = (results, origin, eReaderUrl, referrer) => results.
   const previewEdition = result.editions[0];
   const editionYearHeadingElement = editionYearElem(previewEdition, result.uuid);
 
-  const editionItem = previewEdition.items ? previewEdition.items[0] : undefined;
+  const editionItem = previewEdition && previewEdition.items ? previewEdition.items[0] : undefined;
 
   return {
     id: `search-result-${result.uuid}`,
     resultIndex: { index },
     titleElement,
-    subtitle: result.subtitle.length > MAX_SUBTITILE_LENGTH ? `${result.subtitle.substring(0, MAX_TITLE_LENGTH)}...` : result.subtitle,
+    subtitle: result.subtitle && result.subtitle.length > MAX_SUBTITILE_LENGTH
+      ? `${result.subtitle.substring(0, MAX_TITLE_LENGTH)}...` : result.subtitle,
     authorElement: authorLinkElement,
     editionInfo: {
       editionYearHeading: editionYearHeadingElement,

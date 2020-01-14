@@ -5,7 +5,7 @@ import { expect } from 'chai';
 import { mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import SearchNavigation from '../../src/app/components/SearchResults/SearchNavigation';
-import results from '../fixtures/results-list-full.json';
+import results from '../fixtures/results-list.json';
 import { sortMap, numbersPerPage } from '../../src/app/constants/sorts';
 
 configure({ adapter: new Adapter() });

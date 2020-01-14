@@ -14,7 +14,7 @@ configure({ adapter: new Adapter() });
 
 describe('EditionsList', () => {
   let component;
-  const work = results.hits.hits[0]._source;
+  const work = results.data.works[0]._source;
 
   describe('Rows with full item detail', () => {
     before(() => {

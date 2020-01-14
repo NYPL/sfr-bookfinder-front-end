@@ -55,16 +55,14 @@ const SearchPagination = ({
   };
 
   return (
-    <div className="grid-row">
-      <DS.Pagination
-        paginationDropdownOptions={pageList}
-        previousPageHandler={e => navigateToPage(e, Number(searchQuery.page) - 1)}
-        nextPageHandler={e => navigateToPage(e, Number(searchQuery.page) + 1)}
-        currentValue={pageList[Number(searchQuery.page)]}
-        onSelectChange={onChangePage}
-        onSelectBlur={onChangePage}
-      />
-    </div>
+    <DS.Pagination
+      paginationDropdownOptions={pageList}
+      previousPageHandler={e => navigateToPage(e, Number(searchQuery.page) - 1)}
+      nextPageHandler={e => navigateToPage(e, Number(searchQuery.page) + 1)}
+      currentValue={pageList[Number(searchQuery.page)]}
+      onSelectChange={onChangePage}
+      onSelectBlur={onChangePage}
+    />
   );
 };
 

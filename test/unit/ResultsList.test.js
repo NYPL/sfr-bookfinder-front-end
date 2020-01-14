@@ -9,7 +9,7 @@ import results from '../fixtures/results-list.json';
 
 configure({ adapter: new Adapter() });
 
-describe('Results List', () => {
+describe.only('Results List', () => {
   let component;
 
   describe('No results behavior.', () => {
@@ -25,11 +25,12 @@ describe('Results List', () => {
 
   describe('Results behavior.', () => {
     before(() => {
-      component = shallow(<ResultsList results={results.hits.hits} />);
+      component = shallow(<ResultsList results={results.data.works} />);
     });
 
-    it('should display a grouped list of works and their instances.', () => {
-      expect(component.find('.nypl-results-list')).to.have.length(1);
+    it('should display a DS ResultsList', () => {
+      console.log('component', component.name());
+      expect(component.find('ResultsList')).to.have.length(1);
     });
   });
 });

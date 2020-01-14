@@ -91,20 +91,12 @@ body {
   max-width: 1332px;
   margin: 0 auto;
 }
-
-// ul,
-// ol {
-//   list-style: none;
-//   padding: 0;
-//   max-width: initial !important;
-// }
-
-// a:link,
-// a:visited,
-// a {
-//   color: #0071ce;
-//   text-decoration: none;
-// }
+.dropdown {
+  margin-right: 10px;
+}
+.search-results-list {
+  margin: 30px;
+}
 .bold {
   font-weight: bold;
 }
