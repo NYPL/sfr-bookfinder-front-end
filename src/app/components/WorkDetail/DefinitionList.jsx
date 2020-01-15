@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Html5Entities } from 'html-entities';
+import * as DS from '@nypl/design-system-react-components';
 import { Link } from 'react-router';
 import AuthorsList from '../List/AuthorsList';
 import { detailDefinitionLabels } from '../../constants/labels';
@@ -73,14 +74,16 @@ export const DefinitionList = ({ work }) => {
               .sort((a, b) => (a.subject && b.subject && a.subject.toLowerCase() < b.subject.toLowerCase() ? -1 : 1))
               .map((subject, i) => (
                 <li key={`subject${i.toString()}`}>
-                  <Link
-                    to={{
-                      pathname: '/search',
-                      query: { queries: `[{"query": "${subject.subject}", "field": "subject"}]` },
-                    }}
-                  >
-                    {htmlEntities.decode(subject.subject)}
-                  </Link>
+                  <DS.UnderlineLink>
+                    <Link
+                      to={{
+                        pathname: '/search',
+                        query: { queries: `[{"query": "${subject.subject}", "field": "subject"}]` },
+                      }}
+                    >
+                      {htmlEntities.decode(subject.subject)}
+                    </Link>
+                  </DS.UnderlineLink>
                 </li>
               ))}
           </ul>

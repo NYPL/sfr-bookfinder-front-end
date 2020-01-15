@@ -1,45 +1,55 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Html5Entities } from 'html-entities';
+// import { Html5Entities } from 'html-entities';
 import { Link } from 'react-router';
 
-const htmlEntities = new Html5Entities();
+// const htmlEntities = new Html5Entities();
 
-const getIdentifier = author => (author.viaf && 'viaf') || (author.lcnaf && 'lcnaf') || 'name';
+// const getIdentifier = author => (author.viaf && 'viaf') || (author.lcnaf && 'lcnaf') || 'name';
 
-const linkToAuthor = author => ({
-  query: author[getIdentifier(author)],
-  field: getIdentifier(author),
+// const linkToAuthor = author => ({
+//   query: author[getIdentifier(author)],
+//   field: getIdentifier(author),
+//   showQuery: `"${author.name}"`,
+//   showField: 'author',
+// });
+
+// const birthDate = entity => (entity.birth_date_display || entity.death_date_display) && (
+// <span>
+//   {' ('}
+//   {entity.birth_date_display && entity.birth_date_display}
+//   {entity.death_date_display && ` -- ${entity.death_date_display}`}
+//   {') '}
+// </span>
+// );
+
+// const filterAgents = (agents, max, roleFilter) => agents //
+//   .filter(agent => !roleFilter || agent.roles.indexOf(roleFilter) > -1)
+//   .slice(0, max || agents.length);
+const getAuthorIdentifier = author => (author.viaf && 'viaf') || (author.lcnaf && 'lcnaf') || 'name';
+
+const getLinkToAuthorSearch = author => ({
+  queries: JSON.stringify([{ query: author[getAuthorIdentifier(author)], field: getAuthorIdentifier(author) }]),
   showQuery: `"${author.name}"`,
   showField: 'author',
 });
 
-const birthDate = entity => (entity.birth_date_display || entity.death_date_display) && (
-<span>
-  {' ('}
-  {entity.birth_date_display && entity.birth_date_display}
-  {entity.death_date_display && ` -- ${entity.death_date_display}`}
-  {') '}
-</span>
-);
 
-const filterAgents = (agents, max, roleFilter) => agents //
-  .filter(agent => !roleFilter || agent.roles.indexOf(roleFilter) > -1)
-  .slice(0, max || agents.length);
-
-const AuthorsList = ({ agents, max, roleFilter }) => (
-  <ul className="authors-list">
-    {filterAgents(agents, max, roleFilter).map((entity, index, filteredAgents) => (
-      <li key={`agents${index.toString()}`}>
-        <Link to={{ pathname: '/search', query: linkToAuthor(entity) }}>
-          {`${htmlEntities.decode(entity.name)}, ${entity.roles.join(', ')}`}
-        </Link>
-        {birthDate(entity)}
-        {index + 1 < filteredAgents.length && <span>, </span>}
-      </li>
-    ))}
-  </ul>
-);
+const AuthorsList = ({ agents }) => {
+  console.log('agents', agents);
+  if (!agents || !agents.length) return null;
+  return agents.map((authorAgent, idx) => {
+    const authorLinkText = idx === agents.length - 1 ? authorAgent.name : `${authorAgent.name}, `;
+    return (
+      <Link
+        to={{ pathname: '/search', query: getLinkToAuthorSearch(authorAgent) }}
+        className="link"
+      >
+        {authorLinkText}
+      </Link>
+    );
+  });
+};
 
 AuthorsList.propTypes = {
   agents: PropTypes.arrayOf(PropTypes.any),

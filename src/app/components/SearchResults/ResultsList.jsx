@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import * as DS from '@nypl/design-system-react-components';
 import EmptySearchSvg from '../Svgs/EmptySearchSvg';
 import { isEmpty, formatUrl } from '../../util/Util';
+import AuthorsList from '../List/AuthorsList';
 
 // Constants
 const MAX_TITLE_LENGTH = 80;
@@ -24,15 +25,18 @@ function getFirstAndCountMore(array) {
 
 const htmlEntities = new Html5Entities();
 
-const getPreferredAgent = (agents, role) => {
-  if (!agents) return undefined;
+export const getPreferredAgent = (agents, role) => {
+  if (!agents || !agents.length) return undefined;
 
   const viafAgents = agents.filter(agent => agent.viaf !== null);
   if (viafAgents && viafAgents.length) {
-    return viafAgents.filter(agent => agent.roles.includes(role));
+    const foundAuthors = viafAgents.filter(agent => agent.roles.includes(role));
+    if (foundAuthors && foundAuthors.length) { return foundAuthors; }
   }
+
   return [agents.find(agent => agent.roles.includes(role))];
 };
+
 // Title
 const generateTitleLinkElem = (title, uuid) => {
   let displayTitle;
@@ -45,7 +49,7 @@ const generateTitleLinkElem = (title, uuid) => {
   }
   return (
     <Link
-      to={{ pathname: '/work', query: { workId: `${uuid}`, recordType: 'instances' } }}
+      to={{ pathname: '/work', query: { workId: `${uuid}`, recordType: 'editions' } }}
       title={htmlEntities.decode(title)}
       className="link link--no-underline"
     >
@@ -54,48 +58,31 @@ const generateTitleLinkElem = (title, uuid) => {
   );
 };
 
-// Author
-const getAuthorIdentifier = author => (author.viaf && 'viaf') || (author.lcnaf && 'lcnaf') || 'name';
-
-const getLinkToAuthorSearch = author => ({
-  queries: JSON.stringify([{ query: author[getAuthorIdentifier(author)], field: getAuthorIdentifier(author) }]),
-  showQuery: `"${author.name}"`,
-  showField: 'author',
-});
-
-const generateAuthorLinkElem = (authorAgents) => {
-  if (!authorAgents || !authorAgents.length) return undefined;
-  return authorAgents.map((authorAgent, idx) => {
-    const authorLinkText = idx === authorAgents.length - 1 ? authorAgent.name : `${authorAgent.name}, `;
-    return (
-      <Link
-        to={{ pathname: '/search', query: getLinkToAuthorSearch(authorAgent) }}
-        className="link"
-      >
-        {authorLinkText}
-      </Link>
-    );
-  });
-};
-
 // Edition Year
 // Note:  This link currently goes to the Work Detail page.
 // It should link to the Edition Detail page when it is implemented.
-const editionYearElem = (previewEdition, workUuid) => {
+export const editionYearElem = (previewEdition, workUuid) => {
   const editionDisplay = previewEdition && previewEdition.publication_date
-    ? `${previewEdition.publication_date} Edition` : 'Edition Year Unkown';
+    ? `${previewEdition.publication_date} Edition` : 'Edition Year Unknown';
+  console.log('edition display', editionDisplay);
   return (
+    <span>
+      {workUuid
+    && (
     <Link
       to={{ pathname: '/work', query: { workId: `${workUuid}` } }}
       className="heading__link"
     >
       {editionDisplay}
     </Link>
+    ) }
+      {!workUuid && <span>{editionDisplay}</span> }
+    </span>
   );
 };
 
 // Cover
-const getCover = (previewEdition) => {
+export const getCover = (previewEdition) => {
   if (!previewEdition) return PLACEHOLDER_COVER_LINK;
   if (!previewEdition.covers || !previewEdition.covers.length) return PLACEHOLDER_COVER_LINK;
 
@@ -118,9 +105,10 @@ const publisherDisplayText = (previewEdition) => {
   }
   return publisherText;
 };
+export const getPublisherAndLocation = previewEdition => (`Published ${publisherDisplayLocation(previewEdition)}${publisherDisplayText(previewEdition)}`);
 
 // Language Display
-const getLanguageDisplayText = (previewEdition) => {
+export const getLanguageDisplayText = (previewEdition) => {
   let languagesTextList;
   if (!previewEdition || !previewEdition.languages || !previewEdition.languages.length) {
     languagesTextList = 'Undetermined Language';
@@ -132,7 +120,7 @@ const getLanguageDisplayText = (previewEdition) => {
 };
 
 // Rights
-const getLicense = editionItem => (editionItem && editionItem.rights && editionItem.rights[0]
+export const getLicense = editionItem => (editionItem && editionItem.rights && editionItem.rights.length
   ? `Under ${editionItem.rights[0].rights_statement} license` : 'Under Unknown License');
 
 // Read Online and Download Urls
@@ -149,7 +137,8 @@ const generateStreamedReaderUrl = (url, eReaderUrl, referrer) => {
 };
 
 // TODO: Local links should not have headers
-const getReadOnlineLink = (origin, editionItem, eReaderUrl, referrer) => {
+export const getReadOnlineLink = (origin, editionItem, eReaderUrl, referrer) => {
+  console.log('links', editionItem);
   if (!editionItem || !editionItem.links) return undefined;
   // TODO: Revert after links fix
   const selectedLink = editionItem.links.find(link => (!link.local && !link.download) || (link.local && link.download));
@@ -161,7 +150,7 @@ const getReadOnlineLink = (origin, editionItem, eReaderUrl, referrer) => {
   return `${origin}/read-online?url=${formatUrl(selectedLink.url)}`;
 };
 
-const getDownloadLink = (editionItem) => {
+export const getDownloadLink = (editionItem) => {
   if (!editionItem || !editionItem.links) return undefined;
   const selectedLink = editionItem.links.find(link => link.download);
   return selectedLink && selectedLink.url ? formatUrl(selectedLink.url) : undefined;
@@ -169,7 +158,7 @@ const getDownloadLink = (editionItem) => {
 
 const formatAllResultsData = (results, origin, eReaderUrl, referrer) => results.map((result, index) => {
   const titleElement = generateTitleLinkElem(result.title, result.uuid);
-  const authorLinkElement = generateAuthorLinkElem(getPreferredAgent(result.agents, 'author'));
+  const authorLinkElement = <AuthorsList agents={getPreferredAgent(result.agents, 'author')} />;
   // TODO: Editions Link Page
   const allEditionsLink = (
     <Link
@@ -194,7 +183,7 @@ const formatAllResultsData = (results, origin, eReaderUrl, referrer) => results.
     authorElement: authorLinkElement,
     editionInfo: {
       editionYearHeading: editionYearHeadingElement,
-      publisherAndLocation: `Published ${publisherDisplayLocation(previewEdition)}${publisherDisplayText(previewEdition)}`,
+      publisherAndLocation: getPublisherAndLocation(previewEdition),
       coverUrl: getCover(previewEdition),
       language: getLanguageDisplayText(previewEdition),
       license: getLicense(editionItem),
@@ -233,6 +222,7 @@ class ResultsList extends React.Component {
             <span>No results were found. Please try a different keyword or fewer filters.</span>
           </div>
         </div>
+
       );
     }
 
