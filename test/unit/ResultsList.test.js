@@ -9,7 +9,7 @@ import results from '../fixtures/results-list.json';
 
 configure({ adapter: new Adapter() });
 
-describe.only('Results List', () => {
+describe('Results List', () => {
   let component;
 
   describe('No results behavior.', () => {
@@ -30,7 +30,7 @@ describe.only('Results List', () => {
 
     // It shouldn't check DS behavior, only that something comes back.
     it('should return results', () => {
-      expect(component.find('div')).to.have.length(1);
+      expect(component.dive().find('ul')).to.have.length(1);
     });
   });
 });

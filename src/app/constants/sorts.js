@@ -8,6 +8,6 @@ export const sortMap = {
   'Year Published (New-Old)': [{ field: 'date', dir: 'DESC' }],
 };
 
-export const numbersPerPage = [10, 20, 50, 100];
+export const numbersPerPage = ['10', '20', '50', '100'];
 
 export default { sortMap, numbersPerPage };

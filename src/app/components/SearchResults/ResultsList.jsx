@@ -137,17 +137,13 @@ const getLicense = editionItem => (editionItem && editionItem.rights && editionI
 
 // Read Online and Download Urls
 const generateStreamedReaderUrl = (url, eReaderUrl, referrer) => {
-  console.log('url', url);
   const base64BookUrl = Buffer.from(formatUrl(url)).toString('base64');
   const encodedBookUrl = encodeURIComponent(`${base64BookUrl}`);
-  const encodedReaderUrl = encodeURIComponent(`${eReaderUrl}/pub/`);
-  console.log(`encodedReaderUrl${encodedReaderUrl}`);
 
   let combined = `${eReaderUrl}/readerNYPL/?url=${eReaderUrl}/pub/${encodedBookUrl}/manifest.json`;
   if (referrer) {
     combined += `#${referrer}`;
   }
-  console.log('combined', combined);
 
   return combined;
 };
@@ -157,7 +153,6 @@ const getReadOnlineLink = (origin, editionItem, eReaderUrl, referrer) => {
   if (!editionItem || !editionItem.links) return undefined;
   // TODO: Revert after links fix
   const selectedLink = editionItem.links.find(link => (!link.local && !link.download) || (link.local && link.download));
-  console.log('selectedLink', selectedLink);
   if (!selectedLink || !selectedLink.url) return undefined;
   if (selectedLink.local) {
     const encodedUrl = generateStreamedReaderUrl(selectedLink.url, eReaderUrl, referrer);

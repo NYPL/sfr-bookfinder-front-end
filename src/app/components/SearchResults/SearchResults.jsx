@@ -4,6 +4,7 @@ import ResultsList from './ResultsList';
 import SearchNavigation from './SearchNavigation';
 import Filters from './Filters';
 import SearchPagination from './SearchPagination';
+import { searchQueryPropTypes, initialSearchQuery } from '../../stores/InitialState';
 
 /**
  * Wrapper component for results lists which can contain a number of components
@@ -31,7 +32,9 @@ const SearchResults = (props) => {
         <div className="grid-col-3 nypl-results-column">
           <Filters
             data={props.results.data}
-            {...props}
+            searchQuery={props.searchQuery}
+            userQuery={props.userQuery}
+            router={props.router}
           />
         </div>
         <div className="grid-col-9 nypl-results-main">
@@ -58,12 +61,18 @@ SearchResults.propTypes = {
   eReaderUrl: PropTypes.string,
   results: PropTypes.objectOf(PropTypes.any),
   fetchWork: PropTypes.func,
+  searchQuery: searchQueryPropTypes,
+  userQuery: PropTypes.func,
+  router: PropTypes.objectOf(PropTypes.any),
 };
 
 SearchResults.defaultProps = {
   eReaderUrl: '',
   results: {},
   fetchWork: () => {},
+  searchQuery: initialSearchQuery,
+  userQuery: () => { },
+  router: {},
 };
 
 export default SearchResults;

@@ -6,7 +6,6 @@ import { mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import SearchContainer from '../../src/app/components/SearchContainer/SearchContainer';
 import SearchForm from '../../src/app/components/SearchForm/SearchForm';
-import SearchResults from '../../src/app/components/SearchResults/SearchResults';
 import configureStore from '../../src/app/stores/configureStore';
 import initialState from '../../src/app/stores/InitialState';
 
@@ -24,9 +23,6 @@ describe('Search Container interactions', () => {
     expect(wrapper.find(SearchForm)).to.have.length(1);
     expect(wrapper.find(SearchForm).prop('searchQuery').queries[0].query).to.equal('');
     expect(wrapper.find(SearchForm).prop('searchQuery').queries[0].field).to.equal('');
-  });
-  it('contains a <SearchResults /> component', () => {
-    expect(wrapper.find(SearchResults)).to.have.length(1);
   });
   it('contains an <h1> when Search is empty', () => {
     expect(wrapper.find('h1')).to.have.length(1);

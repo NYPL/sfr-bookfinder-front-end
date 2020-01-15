@@ -1,379 +1,492 @@
 {
 	"status": 200,
 	"data": {
-		"works": [{
-			"date_created": "2019-12-27T17:37:04.954Z",
-			"date_modified": "2020-01-08T22:44:36.346Z",
-			"id": 23238,
-			"uuid": "a7b0d62b-26d1-4f14-bd33-03d1060ef2a0",
-			"title": "The adventures of Robinson Crusoe / by Daniel Defoe.",
-			"sort_title": "adventures of robinson crusoe / by daniel defoe.",
-			"sub_title": null,
-			"medium": null,
-			"series": "CIHM/ICMH Microfiche series = CIHM/ICMH collection de microfiches ;",
-			"series_position": "no. 85420",
-			"agents": [{
-				"name": "Defoe, Daniel",
-				"sort_name": "defoe, daniel",
-				"viaf": null,
-				"lcnaf": null,
-				"birth_date_display": "1661?",
-				"death_date_display": "1731",
-				"roles": ["author"]
-			}, {
-				"name": "Anelay, Henry",
-				"sort_name": "anelay, henry",
-				"viaf": "51542887",
-				"lcnaf": "nr91006845",
-				"death_date_display": "1883",
-				"birth_date_display": "1817",
-				"roles": ["illustrator"]
-			}, {
-				"name": "Sheeres, Charles William",
-				"sort_name": "sheeres, charles william",
-				"viaf": "58933657",
-				"lcnaf": "nr91006796",
-				"roles": ["illustrator", "engraver"]
-			}, {
-				"name": "Nicholson, Thomas Henry, -1870",
-				"sort_name": "nicholson, thomas henry, -1870",
-				"viaf": "58950311",
-				"lcnaf": "nr93004147",
-				"roles": ["illustrator"]
-			}, {
-				"name": "Defoë, Daniel, 1661?-1731",
-				"sort_name": "defoë, daniel, 1661?-1731",
-				"viaf": "39375774",
-				"lcnaf": "no89021314",
-				"birth_date_display": "1661?",
-				"death_date_display": "1731",
-				"roles": ["author"]
-			}],
-			"instances": null,
-			"editions": [{
-				"date_created": "2020-01-14T15:49:56.447Z",
-				"date_modified": "2020-01-14T15:49:56.448Z",
-				"id": 39793,
-				"publication_place": "London",
-				"publication_date": "1826",
-				"edition": null,
-				"edition_statement": "New and improved ed.",
-				"volume": null,
-				"table_of_contents": null,
-				"extent": null,
-				"summary": null,
-				"work_id": 23238,
-				"languages": [{
-					"language": "English",
-					"iso_2": "en",
-					"iso_3": "eng"
-				}],
-				"agents": [{
-					"name": "John Harris",
-					"sort_name": "john harris",
-					"viaf": null,
-					"lcnaf": null,
-					"roles": ["publisher"]
-				}],
-				"items": [{
-					"source": "hathitrust",
-					"content_type": "ebook",
-					"modified": null,
-					"drm": null,
-					"links": [{
-						"url": "catalog.hathitrust.org/api/volumes/oclc/13539148.html",
-						"media_type": "text/html",
-						"content": null,
-						"thumbnail": null,
-						"local": false,
-						"download": false,
-						"images": false,
-						"ebook": true
-					}],
-					"rights": null
-				}],
-				"covers": null
-			}],
-			"edition_count": 17,
-			"edition_range": "1000 - 2012",
-			"sort": [8.093442, "a7b0d62b-26d1-4f14-bd33-03d1060ef2a0"]
-		}, {
-			"date_created": "2019-12-29T01:38:58.397Z",
-			"date_modified": "2020-01-08T16:44:23.555Z",
-			"id": 56071,
-			"uuid": "07737109-2d77-4fb3-b23e-7991339216fb",
-			"title": "The Blithedale romance, by Nathaniel Hawthorne.",
-			"sort_title": "blithedale romance, by nathaniel hawthorne.",
-			"sub_title": null,
-			"medium": null,
-			"series": "The modern library classics",
-			"series_position": "vol. VIII",
-			"agents": [{
-				"name": "Hawthorne, Nathaniel",
-				"sort_name": "hawthorne, nathaniel",
-				"viaf": null,
-				"lcnaf": null,
-				"birth_date_display": "1804",
-				"death_date_display": "1864",
-				"roles": ["author"]
-			}, {
-				"name": "Dugdale, John",
-				"sort_name": "dugdale, john",
-				"viaf": "57970242",
-				"lcnaf": "n82142775",
-				"roles": ["editor", "author of introduction"]
-			}],
-			"instances": null,
-			"editions": [{
-				"date_created": "2020-01-14T15:49:48.646Z",
-				"date_modified": "2020-01-14T15:49:48.646Z",
-				"id": 33282,
-				"publication_place": "London",
-				"publication_date": "1852",
-				"edition": null,
-				"edition_statement": "[Another ed.].",
-				"volume": null,
-				"table_of_contents": null,
-				"extent": null,
-				"summary": null,
-				"work_id": 56071,
-				"languages": [{
-					"language": "English",
-					"iso_2": "en",
-					"iso_3": "eng"
-				}, {
-					"language": "German",
-					"iso_2": "de",
-					"iso_3": "deu"
-				}, {
-					"language": "Undetermined",
-					"iso_2": null,
-					"iso_3": "und"
-				}],
-				"agents": [{
-					"name": "C.E. Kollmann",
-					"sort_name": "c.e. kollmann",
-					"viaf": null,
-					"lcnaf": null,
-					"roles": ["publisher", "manufacturer"]
-				}, {
-					"name": "Chapman & Hall, britisches Verlagshaus",
-					"sort_name": "chapman & hall, britisches verlagshaus",
-					"viaf": "151283596",
-					"lcnaf": "n81117573",
-					"roles": ["publisher"]
-				}, {
-					"name": "Houghton, Mifflin and Company",
-					"sort_name": "houghton, mifflin and company",
-					"viaf": "131449065",
-					"lcnaf": "n88002745",
-					"roles": ["publisher"]
-				}, {
-					"name": "Houghton Mifflin, Medical Division",
-					"sort_name": "houghton mifflin, medical division",
-					"viaf": "262140940",
-					"lcnaf": "n85316845",
-					"roles": ["publisher"]
-				}, {
-					"name": "James R. Osgood and Company",
-					"sort_name": "james r. osgood and company",
-					"viaf": "148236742",
-					"lcnaf": "no96013109",
-					"roles": ["publisher"]
-				}, {
-					"name": "Thompson & Thomas",
-					"sort_name": "thompson & thomas",
-					"viaf": "151563992",
-					"lcnaf": "no94039933",
-					"roles": ["publisher"]
-				}],
-				"items": [{
-					"source": "internetarchive",
-					"content_type": "ebook",
-					"modified": null,
-					"drm": null,
-					"links": [{
-						"url": "archive.org/details/blithedaleromanc00hawtrich",
-						"media_type": "text/html",
-						"content": null,
-						"thumbnail": null,
-						"local": false,
-						"download": false,
-						"images": false,
-						"ebook": true
-					}],
-					"rights": null
-				}, {
-					"source": "hathitrust",
-					"content_type": "ebook",
-					"modified": null,
-					"drm": null,
-					"links": [{
-						"url": "catalog.hathitrust.org/api/volumes/oclc/39113388.html",
-						"media_type": "text/html",
-						"content": null,
-						"thumbnail": null,
-						"local": false,
-						"download": false,
-						"images": false,
-						"ebook": true
-					}],
-					"rights": null
-				}, {
-					"source": "hathitrust",
-					"content_type": "ebook",
-					"modified": null,
-					"drm": null,
-					"links": [{
-						"url": "catalog.hathitrust.org/api/volumes/oclc/3285916.html",
-						"media_type": "text/html",
-						"content": null,
-						"thumbnail": null,
-						"local": false,
-						"download": false,
-						"images": false,
-						"ebook": true
-					}],
-					"rights": null
-				}, {
-					"source": "hathitrust",
-					"content_type": "ebook",
-					"modified": null,
-					"drm": null,
-					"links": [{
-						"url": "catalog.hathitrust.org/api/volumes/oclc/223199908.html",
-						"media_type": "text/html",
-						"content": null,
-						"thumbnail": null,
-						"local": false,
-						"download": false,
-						"images": false,
-						"ebook": true
-					}],
-					"rights": null
-				}, {
-					"source": "hathitrust",
-					"content_type": "ebook",
-					"modified": null,
-					"drm": null,
-					"links": [{
-						"url": "catalog.hathitrust.org/api/volumes/oclc/274739.html",
-						"media_type": "text/html",
-						"content": null,
-						"thumbnail": null,
-						"local": false,
-						"download": false,
-						"images": false,
-						"ebook": true
-					}],
-					"rights": null
-				}, {
-					"source": "hathitrust",
-					"content_type": "ebook",
-					"modified": "2020-01-04T00:34:35",
-					"drm": null,
-					"links": [{
-						"url": "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=nyp.33433074852991",
-						"media_type": "application/pdf",
-						"content": null,
-						"thumbnail": null,
-						"local": false,
-						"download": true,
-						"images": true,
-						"ebook": true
-					}, {
-						"url": "babel.hathitrust.org/cgi/pt?id=nyp.33433074852991",
-						"media_type": "text/html",
-						"content": null,
-						"thumbnail": null,
-						"local": false,
-						"download": false,
-						"images": true,
-						"ebook": true
-					}],
-					"rights": [{
-						"license": "public_domain",
-						"rights_statement": "Public Domain"
-					}]
-				}, {
-					"source": "hathitrust",
-					"content_type": "ebook",
-					"modified": "2019-12-29T01:44:46",
-					"drm": null,
-					"links": [{
-						"url": "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=nyp.33433076087844",
-						"media_type": "application/pdf",
-						"content": null,
-						"thumbnail": null,
-						"local": false,
-						"download": true,
-						"images": true,
-						"ebook": true
-					}, {
-						"url": "babel.hathitrust.org/cgi/pt?id=nyp.33433076087844",
-						"media_type": "text/html",
-						"content": null,
-						"thumbnail": null,
-						"local": false,
-						"download": false,
-						"images": true,
-						"ebook": true
-					}],
-					"rights": [{
-						"license": "public_domain",
-						"rights_statement": "Public Domain"
-					}]
-				}],
-				"covers": [{
-					"url": "babel.hathitrust.org/cgi/htd/volume/pageimage/nyp.33433074852991/1?format=jpeg&v=2",
-					"media_type": "image/jpeg",
-					"flags": {
-						"cover": true,
-						"temporary": true
+		"works": [
+			{
+				"date_created": "2019-12-29T01:38:58.397Z",
+				"date_modified": "2020-01-08T16:44:23.555Z",
+				"id": 56071,
+				"uuid": "07737109-2d77-4fb3-b23e-7991339216fb",
+				"title": "The Blithedale romance, by Nathaniel Hawthorne.",
+				"sort_title": "blithedale romance, by nathaniel hawthorne.",
+				"sub_title": null,
+				"medium": null,
+				"series": "The modern library classics",
+				"series_position": "vol. VIII",
+				"agents": [
+					{
+						"name": "Hawthorne, Nathaniel",
+						"sort_name": "hawthorne, nathaniel",
+						"viaf": null,
+						"lcnaf": null,
+						"birth_date_display": "1804",
+						"death_date_display": "1864",
+						"roles": [
+							"author"
+						]
+					},
+					{
+						"name": "Dugdale, John",
+						"sort_name": "dugdale, john",
+						"viaf": "57970242",
+						"lcnaf": "n82142775",
+						"roles": [
+							"editor",
+							"author of introduction"
+						]
 					}
-				}, {
-					"url": "test-sfr-covers.s3.amazonaws.com/hathitrust/077371092d774fb3b23e7991339216fb_nyp.33433076087844.jpg",
-					"media_type": "image/jpeg",
-					"flags": {
-						"cover": true,
-						"temporary": false
+				],
+				"instances": null,
+				"editions": [
+					{
+						"date_created": "2020-01-14T15:49:48.646Z",
+						"date_modified": "2020-01-14T15:49:48.646Z",
+						"id": 33282,
+						"publication_place": "London",
+						"publication_date": "1852",
+						"edition": null,
+						"edition_statement": "[Another ed.].",
+						"volume": null,
+						"table_of_contents": null,
+						"extent": null,
+						"summary": null,
+						"work_id": 56071,
+						"languages": [
+							{
+								"language": "English",
+								"iso_2": "en",
+								"iso_3": "eng"
+							},
+							{
+								"language": "German",
+								"iso_2": "de",
+								"iso_3": "deu"
+							},
+							{
+								"language": "Undetermined",
+								"iso_2": null,
+								"iso_3": "und"
+							}
+						],
+						"agents": [
+							{
+								"name": "C.E. Kollmann",
+								"sort_name": "c.e. kollmann",
+								"viaf": null,
+								"lcnaf": null,
+								"roles": [
+									"publisher",
+									"manufacturer"
+								]
+							},
+							{
+								"name": "Chapman and Hall, London",
+								"sort_name": "chapman and hall, london",
+								"viaf": "151283596",
+								"lcnaf": "n81117573",
+								"roles": [
+									"publisher"
+								]
+							},
+							{
+								"name": "Houghton, Mifflin and Company",
+								"sort_name": "houghton, mifflin and company",
+								"viaf": "131449065",
+								"lcnaf": "n88002745",
+								"roles": [
+									"publisher"
+								]
+							},
+							{
+								"name": "Houghton Mifflin, Medical Division",
+								"sort_name": "houghton mifflin, medical division",
+								"viaf": "262140940",
+								"lcnaf": "n85316845",
+								"roles": [
+									"publisher"
+								]
+							},
+							{
+								"name": "James R. Osgood and Company",
+								"sort_name": "james r. osgood and company",
+								"viaf": "148236742",
+								"lcnaf": "no96013109",
+								"roles": [
+									"publisher"
+								]
+							},
+							{
+								"name": "Thompson & Thomas",
+								"sort_name": "thompson & thomas",
+								"viaf": "151563992",
+								"lcnaf": "no94039933",
+								"roles": [
+									"publisher"
+								]
+							}
+						],
+						"items": [
+							{
+								"source": "internetarchive",
+								"content_type": "ebook",
+								"modified": null,
+								"drm": null,
+								"links": [
+									{
+										"url": "archive.org/details/blithedaleromanc00hawtrich",
+										"media_type": "text/html",
+										"content": null,
+										"thumbnail": null,
+										"local": false,
+										"download": false,
+										"images": false,
+										"ebook": true
+									}
+								],
+								"rights": null
+							},
+							{
+								"source": "hathitrust",
+								"content_type": "ebook",
+								"modified": null,
+								"drm": null,
+								"links": [
+									{
+										"url": "catalog.hathitrust.org/api/volumes/oclc/39113388.html",
+										"media_type": "text/html",
+										"content": null,
+										"thumbnail": null,
+										"local": false,
+										"download": false,
+										"images": false,
+										"ebook": true
+									}
+								],
+								"rights": null
+							},
+							{
+								"source": "hathitrust",
+								"content_type": "ebook",
+								"modified": null,
+								"drm": null,
+								"links": [
+									{
+										"url": "catalog.hathitrust.org/api/volumes/oclc/3285916.html",
+										"media_type": "text/html",
+										"content": null,
+										"thumbnail": null,
+										"local": false,
+										"download": false,
+										"images": false,
+										"ebook": true
+									}
+								],
+								"rights": null
+							},
+							{
+								"source": "hathitrust",
+								"content_type": "ebook",
+								"modified": null,
+								"drm": null,
+								"links": [
+									{
+										"url": "catalog.hathitrust.org/api/volumes/oclc/223199908.html",
+										"media_type": "text/html",
+										"content": null,
+										"thumbnail": null,
+										"local": false,
+										"download": false,
+										"images": false,
+										"ebook": true
+									}
+								],
+								"rights": null
+							},
+							{
+								"source": "hathitrust",
+								"content_type": "ebook",
+								"modified": null,
+								"drm": null,
+								"links": [
+									{
+										"url": "catalog.hathitrust.org/api/volumes/oclc/274739.html",
+										"media_type": "text/html",
+										"content": null,
+										"thumbnail": null,
+										"local": false,
+										"download": false,
+										"images": false,
+										"ebook": true
+									}
+								],
+								"rights": null
+							},
+							{
+								"source": "hathitrust",
+								"content_type": "ebook",
+								"modified": "2020-01-04T00:34:35",
+								"drm": null,
+								"links": [
+									{
+										"url": "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=nyp.33433074852991",
+										"media_type": "application/pdf",
+										"content": null,
+										"thumbnail": null,
+										"local": false,
+										"download": true,
+										"images": true,
+										"ebook": true
+									},
+									{
+										"url": "babel.hathitrust.org/cgi/pt?id=nyp.33433074852991",
+										"media_type": "text/html",
+										"content": null,
+										"thumbnail": null,
+										"local": false,
+										"download": false,
+										"images": true,
+										"ebook": true
+									}
+								],
+								"rights": [
+									{
+										"license": "public_domain",
+										"rights_statement": "Public Domain"
+									}
+								]
+							},
+							{
+								"source": "hathitrust",
+								"content_type": "ebook",
+								"modified": "2019-12-29T01:44:46",
+								"drm": null,
+								"links": [
+									{
+										"url": "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=nyp.33433076087844",
+										"media_type": "application/pdf",
+										"content": null,
+										"thumbnail": null,
+										"local": false,
+										"download": true,
+										"images": true,
+										"ebook": true
+									},
+									{
+										"url": "babel.hathitrust.org/cgi/pt?id=nyp.33433076087844",
+										"media_type": "text/html",
+										"content": null,
+										"thumbnail": null,
+										"local": false,
+										"download": false,
+										"images": true,
+										"ebook": true
+									}
+								],
+								"rights": [
+									{
+										"license": "public_domain",
+										"rights_statement": "Public Domain"
+									}
+								]
+							}
+						],
+						"covers": [
+							{
+								"url": "babel.hathitrust.org/cgi/htd/volume/pageimage/nyp.33433074852991/1?format=jpeg&v=2",
+								"media_type": "image/jpeg",
+								"flags": {
+									"cover": true,
+									"temporary": true
+								}
+							},
+							{
+								"url": "test-sfr-covers.s3.amazonaws.com/hathitrust/077371092d774fb3b23e7991339216fb_nyp.33433076087844.jpg",
+								"media_type": "image/jpeg",
+								"flags": {
+									"cover": true,
+									"temporary": false
+								}
+							}
+						]
 					}
-				}]
-			}],
-			"edition_count": 17,
-			"edition_range": "1850 - 2019",
-			"sort": [6.087274, "07737109-2d77-4fb3-b23e-7991339216fb"]
-		}],
+				],
+				"edition_count": 17,
+				"edition_range": "1850 - 2019",
+				"sort": [
+					"07737109-2d77-4fb3-b23e-7991339216fb"
+				]
+			},
+			{
+				"date_created": "2019-12-27T17:37:04.954Z",
+				"date_modified": "2020-01-08T22:44:36.346Z",
+				"id": 23238,
+				"uuid": "a7b0d62b-26d1-4f14-bd33-03d1060ef2a0",
+				"title": "The adventures of Robinson Crusoe / by Daniel Defoe.",
+				"sort_title": "adventures of robinson crusoe / by daniel defoe.",
+				"sub_title": null,
+				"medium": null,
+				"series": "CIHM/ICMH Microfiche series = CIHM/ICMH collection de microfiches ;",
+				"series_position": "no. 85420",
+				"agents": [
+					{
+						"name": "Defoe, Daniel",
+						"sort_name": "defoe, daniel",
+						"viaf": null,
+						"lcnaf": null,
+						"birth_date_display": "1661?",
+						"death_date_display": "1731",
+						"roles": [
+							"author"
+						]
+					},
+					{
+						"name": "Anelay, Henry",
+						"sort_name": "anelay, henry",
+						"viaf": "51542887",
+						"lcnaf": "nr91006845",
+						"death_date_display": "1883",
+						"birth_date_display": "1817",
+						"roles": [
+							"illustrator"
+						]
+					},
+					{
+						"name": "Sheeres, Charles William",
+						"sort_name": "sheeres, charles william",
+						"viaf": "58933657",
+						"lcnaf": "nr91006796",
+						"roles": [
+							"illustrator",
+							"engraver"
+						]
+					},
+					{
+						"name": "Nicholson, Thomas Henry, -1870",
+						"sort_name": "nicholson, thomas henry, -1870",
+						"viaf": "58950311",
+						"lcnaf": "nr93004147",
+						"roles": [
+							"illustrator"
+						]
+					},
+					{
+						"name": "Defoë, Daniel, 1661?-1731",
+						"sort_name": "defoë, daniel, 1661?-1731",
+						"viaf": "39375774",
+						"lcnaf": "no89021314",
+						"birth_date_display": "1661?",
+						"death_date_display": "1731",
+						"roles": [
+							"author"
+						]
+					}
+				],
+				"instances": null,
+				"editions": [
+					{
+						"date_created": "2020-01-14T15:49:56.447Z",
+						"date_modified": "2020-01-14T15:49:56.448Z",
+						"id": 39793,
+						"publication_place": "London",
+						"publication_date": "1826",
+						"edition": null,
+						"edition_statement": "New and improved ed.",
+						"volume": null,
+						"table_of_contents": null,
+						"extent": null,
+						"summary": null,
+						"work_id": 23238,
+						"languages": [
+							{
+								"language": "English",
+								"iso_2": "en",
+								"iso_3": "eng"
+							}
+						],
+						"agents": [
+							{
+								"name": "John Harris",
+								"sort_name": "john harris",
+								"viaf": null,
+								"lcnaf": null,
+								"roles": [
+									"publisher"
+								]
+							}
+						],
+						"items": [
+							{
+								"source": "hathitrust",
+								"content_type": "ebook",
+								"modified": null,
+								"drm": null,
+								"links": [
+									{
+										"url": "catalog.hathitrust.org/api/volumes/oclc/13539148.html",
+										"media_type": "text/html",
+										"content": null,
+										"thumbnail": null,
+										"local": false,
+										"download": false,
+										"images": false,
+										"ebook": true
+									}
+								],
+								"rights": null
+							}
+						],
+						"covers": null
+					}
+				],
+				"edition_count": 17,
+				"edition_range": "1000 - 2012",
+				"sort": [
+					"a7b0d62b-26d1-4f14-bd33-03d1060ef2a0"
+				]
+			}
+		],
 		"totalWorks": 2,
 		"paging": {
-			"prev_page_sort": [8.093442, "a7b0d62b-26d1-4f14-bd33-03d1060ef2a0"],
-			"next_page_sort": [6.087274, "07737109-2d77-4fb3-b23e-7991339216fb"]
+			"prev_page_sort": [
+				"07737109-2d77-4fb3-b23e-7991339216fb"
+			],
+			"next_page_sort": [
+				"a7b0d62b-26d1-4f14-bd33-03d1060ef2a0"
+			]
 		},
 		"facets": {
-			"language": [{
-				"value": "English",
-				"count": 2
-			}, {
-				"value": "Undetermined",
-				"count": 2
-			}, {
-				"value": "Spanish",
-				"count": 2
-			}, {
-				"value": "German",
-				"count": 1
-			}, {
-				"value": "Vietnamese",
-				"count": 1
-			}, {
-				"value": "Chinese",
-				"count": 1
-			}, {
-				"value": "Danish",
-				"count": 1
-			}]
+			"language": [
+				{
+					"value": "English",
+					"count": 2
+				},
+				{
+					"value": "Undetermined",
+					"count": 2
+				},
+				{
+					"value": "Spanish",
+					"count": 2
+				},
+				{
+					"value": "German",
+					"count": 1
+				},
+				{
+					"value": "Vietnamese",
+					"count": 1
+				},
+				{
+					"value": "Chinese",
+					"count": 1
+				},
+				{
+					"value": "Danish",
+					"count": 1
+				}
+			]
 		}
 	},
-	"timestamp": "2020-01-14T16:24:20.678Z",
+	"timestamp": "2020-01-15T13:46:00.935Z",
 	"responseType": "searchResults"
 }
