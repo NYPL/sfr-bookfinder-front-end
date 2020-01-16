@@ -11,8 +11,9 @@ class Feedback extends React.Component {
 
     this.state = {
       showForm: false,
-      feedback: null,
-      email: null,
+      feedback: '',
+      email: '',
+      success: null,
     };
 
     this.feedbackField = React.createRef();
@@ -24,6 +25,7 @@ class Feedback extends React.Component {
     this.handleFeedbackChange = this.handleFeedbackChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.sendFeedback = this.sendFeedback.bind(this);
+    this.handleRadioChange = this.handleRadioChange.bind(this);
   }
 
   onSubmitForm(e) {
@@ -49,6 +51,7 @@ class Feedback extends React.Component {
         fields: {
           Email: this.state.email,
           Feedback: this.state.feedback,
+          Success: this.state.success,
           URL: `${this.props.location.pathname}${this.props.location.search}`,
         },
       }),
@@ -74,6 +77,10 @@ class Feedback extends React.Component {
 
   handleEmailChange(e) {
     this.setState({ email: e.target.value });
+  }
+
+  handleRadioChange(e) {
+    this.setState({ success: e.target.value });
   }
 
   render() {
@@ -104,17 +111,54 @@ class Feedback extends React.Component {
           >
             <form
               action=""
-              target="hidden_feedback_iframe"
               method="POST"
               onSubmit={e => this.onSubmitForm(e)}
             >
               <div>
+                <label id="sfr-feedback-success">Did you find what you were looking for?</label>
+                <div>
+                  <input 
+                    type="radio"
+                    className="sfr-feedback-radio"
+                    id="sfr-feedback-found-yes"
+                    name="feedback"
+                    value="yes"
+                    onChange={this.handleRadioChange}
+                  />
+                  <label htmlFor="sfr-feedback-found-yes" className="sfr-radio-label">Yes</label>
+                </div>
+
+                <div>
+                  <input
+                    type="radio"
+                    className="sfr-feedback-radio"
+                    id="sfr-feedback-found-no"
+                    name="feedback"
+                    value="no"
+                    onChange={this.handleRadioChange}
+                  />
+                  <label htmlFor="sfr-feedback-found-no" className="sfr-radio-label">No</label>
+                </div>
+
+                <div>
+                  <input
+                    type="radio"
+                    className="sfr-feedback-radio"
+                    id="sfr-feedback-found-browse"
+                    name="feedback"
+                    value="browse"
+                    onChange={this.handleRadioChange}
+                  />
+                  <label htmlFor="sfr-feedback-found-browse" className="sfr-radio-label">Just Browsing</label>
+                </div>
+              </div>
+              <div>
                 <label htmlFor="feedback-textarea-comment">
-                  Please provide your feedback about this page in the field below.
-                  <span className="nypl-required-field">&nbsp;Required</span>
+                  Comments (Required)
                 </label>
                 <textarea
                   id="feedback-textarea-comment"
+                  className="feedback-input"
                   name="sfr-general-feedback"
                   rows="5"
                   aria-required="true"
@@ -125,9 +169,10 @@ class Feedback extends React.Component {
                 />
               </div>
               <div>
-                <label htmlFor="feedback-input-email">Email Address</label>
+                <label htmlFor="feedback-input-email">Email Address (Not Required)</label>
                 <input
                   id="feedback-input-email"
+                  className="feedback-input"
                   name="sfr-feedback-email"
                   type="email"
                   value={this.state.email}
@@ -144,9 +189,17 @@ class Feedback extends React.Component {
                 Cancel
               </button>
 
-              <button type="submit" className="large">Submit</button>
+              <button
+                className="sfr-submit-feedback-button"
+                type="submit"
+              >
+                Submit
+              </button>
+
+              <div className="privacy-policy-link">
+                <a href="https://www.nypl.org/help/about-nypl/legal-notices/privacy-policy">Privacy Policy</a>
+              </div>
             </form>
-            <iframe name="hidden_feedback_iframe" title="NYPL Discovery Feedback Form" />
           </div>
         </FocusTrap>
       </div>

@@ -25,6 +25,6 @@ export default {
     production: 'UA-1420324-149',
   },
   feedback: {
-    formURL: 'https://api.airtable.com/v0/appFLZEc3LmVZCRxn/Table%201',
+    formURL: 'https://api.airtable.com/v0/appFLZEc3LmVZCRxn/Feedback',
   },
 };
