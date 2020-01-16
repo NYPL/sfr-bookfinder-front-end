@@ -121,54 +121,55 @@ class SearchResultsPage extends React.Component {
 
 
     return (
-      <main
-        id="mainContent"
-      // className="main-content grid-container padding-0"
-      >
-        <Breadcrumbs
-          links={[
-            {
-              href: `/search?${getQueryString(searchQuery)}`,
-              text: 'Search Results',
-            },
-          ]}
-          pageType={pageType}
-          onClickHandler={handleReset}
-        />
-        <div
-          aria-label="ResearchNow"
+      <DS.Container>
+        <main
+          id="mainContent"
         >
+          <Breadcrumbs
+            links={[
+              {
+                href: `/search?${getQueryString(searchQuery)}`,
+                text: 'Search Results',
+              },
+            ]}
+            pageType={pageType}
+            onClickHandler={handleReset}
+          />
+          <div
+            aria-label="ResearchNow"
+          >
 
-          <div className="sfr-center">
-            <SearchForm
-              isHomePage={false}
-              history={history}
-              {...this.boundActions}
-            />
-            {
+            <div className="sfr-center">
+              <SearchForm
+                isHomePage={false}
+                history={history}
+                {...this.boundActions}
+              />
+              {
               // eslint-disable-next-line no-underscore-dangle
               FeatureFlags.store._isFeatureActive(config.booksCount.experimentName)
               && <TotalWorks />
             }
-          </div>
-          <div className="grid-row">
-            <DS.Heading
-              level={1}
-              id="page-title-heading"
-              blockName="page-title"
-              text={`Search Results for ${this.getDisplayItemsHeading()}`}
+            </div>
+            <div className="grid-row">
+              <DS.Heading
+                level={1}
+                id="page-title-heading"
+                blockName="page-title"
+                text={`Search Results for ${this.getDisplayItemsHeading()}`}
+              />
+            </div>
+            <SearchResults
+              searchQuery={searchQuery}
+              results={searchResults.data}
+              eReaderUrl={eReaderUrl}
+              {...this.boundActions}
+              history={history}
+              router={router}
             />
           </div>
-          <SearchResults
-            searchQuery={searchQuery}
-            results={searchResults.data}
-            eReaderUrl={eReaderUrl}
-            {...this.boundActions}
-            history={history}
-            router={router}
-          />
-        </div>
-      </main>
+        </main>
+      </DS.Container>
     );
   }
 }

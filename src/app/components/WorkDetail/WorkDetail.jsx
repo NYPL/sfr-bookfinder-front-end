@@ -140,45 +140,45 @@ class WorkDetail extends React.Component {
     return (
       <main
         id="mainContent"
-        className="main-content grid-container padding-0"
       >
-        <Breadcrumbs
-          links={breadcrumbLinks(this.props.searchQuery, work)}
-          pageType="details"
-          onClickHandler={handleReset}
-        />
-        <div className="grid-row">
-          <div className="sfr-center">
-            <SearchForm
-              isHomePage={false}
-              history={history}
-              {...this.boundActions}
-            />
-          </div>
-        </div>
-        <div className="grid-row">
-          <div className="nypl-item-header">
-            <WorkHeader data={work} />
-          </div>
-        </div>
-        <div className="grid-row">
-          <DS.Heading
-            level={2}
-            id="featured-edition"
-            text="Featured Edition"
+        <DS.Container>
+          <Breadcrumbs
+            links={breadcrumbLinks(this.props.searchQuery, work)}
+            pageType="details"
+            onClickHandler={handleReset}
           />
-        </div>
-        <div className="grid-row">
-          {getEditionCard()}
-        </div>
-        <div className="grid-row">
-          <div id="nypl-item-details">
-            <DefinitionList
-              work={work}
-              dispatch={this.props.dispatch}
-              context={this.context}
+          <div className="grid-row">
+            <div className="sfr-center">
+              <SearchForm
+                isHomePage={false}
+                history={history}
+                {...this.boundActions}
+              />
+            </div>
+          </div>
+          <div className="grid-row">
+            <div className="nypl-item-header">
+              <WorkHeader data={work} />
+            </div>
+          </div>
+          <div className="grid-row">
+            <DS.Heading
+              level={2}
+              id="featured-edition"
+              text="Featured Edition"
             />
-            {work.editions && (
+          </div>
+          <div className="grid-row">
+            {getEditionCard()}
+          </div>
+          <div className="grid-row">
+            <div id="nypl-item-details">
+              <DefinitionList
+                work={work}
+                dispatch={this.props.dispatch}
+                context={this.context}
+              />
+              {work.editions && (
               <h3
                 tabIndex="-1"
                 id="all-editions"
@@ -186,15 +186,16 @@ class WorkDetail extends React.Component {
               >
                 All Editions
               </h3>
-            )}
-            <EditionsList
-              referrer={referrer}
-              eReaderUrl={this.props.eReaderUrl}
-              work={work}
-              max={0}
-            />
+              )}
+              <EditionsList
+                referrer={referrer}
+                eReaderUrl={this.props.eReaderUrl}
+                work={work}
+                max={0}
+              />
+            </div>
           </div>
-        </div>
+        </DS.Container>
       </main>
     );
   }
