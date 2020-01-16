@@ -24,4 +24,7 @@ export default {
     development: 'UA-1420324-149',
     production: 'UA-1420324-149',
   },
+  feedback: {
+    formURL: 'https://api.airtable.com/v0/appFLZEc3LmVZCRxn/Table%201',
+  },
 };
