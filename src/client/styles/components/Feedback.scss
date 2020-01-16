@@ -1,0 +1,107 @@
+.feedback {
+    position: static;
+    bottom: 0;
+    right: 0;
+    z-index: 100;
+    text-align: right;
+    background: #54514A;
+    color: #000;
+  
+    @include min-screen(1024px) {
+      position: fixed;
+      background: inherit;
+      max-width: 400px;
+    }
+  }
+  
+  .feedback-button {
+    background: #d0343a;
+    display: inline-block;
+    color: #FFF;
+    cursor: pointer;
+    box-sizing: border-box;
+    padding: 0.5rem 1rem;
+    border: 1px solid #d0343a;
+    text-align: center;
+    font-size: 1rem;
+    position: relative;
+  
+    &:hover {
+      background: #FFF;
+      border: 0.04167rem solid #d0343a;
+      color: #d0343a;
+    }
+  }
+  
+  .cancel-button {
+    background: #d0343a;
+    display: inline-block;
+    color: #FFF;
+    cursor: pointer;
+    box-sizing: border-box;
+    border: 1px solid #d0343a;
+    text-align: center;
+    font-size: 1rem;
+    position: relative;
+    margin-right: 15px;
+  }
+  
+  
+  .feedback-form-container {
+    display: none;
+    background: #FFF;
+    border: 1px solid #000;
+    box-shadow: -1px 0 1px 0 rgba(0,0,0,0.3);
+    padding: 0.35rem 0.5rem;
+    text-align: left;
+  
+    &.active {
+      display: block;
+    }
+  
+    p {
+      border-bottom: 1px solid #000;
+      margin-bottom: 0.35rem;
+      padding-bottom: 0.35rem;
+    }
+  
+    form {
+      margin: 0;
+      padding: 0;
+    }
+  
+    label {
+      display: block;
+      margin: 0.8rem 0 0.2rem;
+      font-size: 0.9rem;
+  
+      small {
+        line-height: 1;
+      }
+    }
+  
+    input,
+    select,
+    textarea {
+      display: block;
+      width: 100%;
+      background-color: #FFF;
+      border: 0;
+      font-size: 1rem;
+      line-height: 1.2;
+      box-sizing: border-box;
+    }
+  
+    input {
+      padding: 0.3rem 0.4rem;
+    }
+  
+    button {
+      font-size: 1rem;
+      margin-top: 1rem;
+    }
+  
+    iframe {
+      display: none;
+    }
+  }
