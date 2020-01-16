@@ -2,26 +2,57 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import FocusTrap from 'focus-trap-react';
 
+import appConfig from '../../../../appConfig';
+
 
 class Feedback extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { showForm: false };
+    this.state = {
+      showForm: false,
+      feedback: null,
+      email: null,
+    };
+
+    this.feedbackField = React.createRef();
 
     this.onSubmitForm = this.onSubmitForm.bind(this);
     this.openForm = this.openForm.bind(this);
     this.closeForm = this.closeForm.bind(this);
     this.deactivateForm = this.deactivateForm.bind(this);
+    this.handleFeedbackChange = this.handleFeedbackChange.bind(this);
+    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.sendFeedback = this.sendFeedback.bind(this);
   }
 
   onSubmitForm(e) {
-    if (!this.refs.commentText.value) {
-      this.refs.commentText.focus();
+    e.preventDefault();
+    if (!this.state.feedback) {
+      this.feedbackField.focus();
     } else {
-      this.setState({ showForm: false });
+      this.setState({
+        showForm: false,
+      }, this.sendFeedback());
       alert('Thank you, your feedback has been submitted.');
     }
+  }
+
+  sendFeedback() {
+    fetch(appConfig.feedback.formURL, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${process.env.AIRTABLE_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        fields: {
+          Email: this.state.email,
+          Feedback: this.state.feedback,
+          URL: `${this.props.location.pathname}${this.props.location.search}`,
+        },
+      }),
+    });
   }
 
   openForm() {
@@ -37,9 +68,16 @@ class Feedback extends React.Component {
     this.setState({ showForm: false });
   }
 
+  handleFeedbackChange(e) {
+    this.setState({ feedback: e.target.value });
+  }
+
+  handleEmailChange(e) {
+    this.setState({ email: e.target.value });
+  }
+
   render() {
     const showForm = this.state.showForm;
-    const currentURL = this.props.location.pathname + this.props.location.hash + this.props.location.search;
 
     return (
       <div className="feedback">
@@ -65,11 +103,10 @@ class Feedback extends React.Component {
             id="feedback-menu"
           >
             <form
-              action={'https://docs.google.com/forms/d/e/1FAIpQLSc7PuMbOB6S0_cqqeZ6sIImw058r' +
-                '_ebzhSGy34tnfAtuWKdVA/formResponse'}
+              action=""
               target="hidden_feedback_iframe"
               method="POST"
-              onSubmit={(e) => this.onSubmitForm(e)}
+              onSubmit={e => this.onSubmitForm(e)}
             >
               <div>
                 <label htmlFor="feedback-textarea-comment">
@@ -78,24 +115,25 @@ class Feedback extends React.Component {
                 </label>
                 <textarea
                   id="feedback-textarea-comment"
-                  name="entry.148983317"
+                  name="sfr-general-feedback"
                   rows="5"
-                  ref={this.commentText}
                   aria-required="true"
                   tabIndex="0"
+                  ref={this.feedbackField}
+                  value={this.state.feedback}
+                  onChange={this.handleFeedbackChange}
                 />
               </div>
               <div>
                 <label htmlFor="feedback-input-email">Email Address</label>
-                <input id="feedback-input-email" name="entry.503620384" type="email" />
+                <input
+                  id="feedback-input-email"
+                  name="sfr-feedback-email"
+                  type="email"
+                  value={this.state.email}
+                  onChange={this.handleEmailChange}
+                />
               </div>
-              <input
-                id="feedback-input-url"
-                name="entry.1973652282"
-                value={currentURL}
-                type="hidden"
-              />
-              <input name="fvv" value="1" type="hidden" />
 
               <button
                 className={`cancel-button ${!showForm ? 'hidden' : ''}`}

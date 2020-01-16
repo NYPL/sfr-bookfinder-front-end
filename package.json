@@ -83,6 +83,8 @@
     "dgx-feature-flags": "git+https://bitbucket.org/NYPL/dgx-feature-flags.git#master",
     "dgx-model-data": "git+https://bitbucket.org/NYPL/dgx-model-data.git#master",
     "dgx-react-ga": "git+https://bitbucket.org/NYPL/dgx-react-ga.git#master",
+    "dotenv": "^8.2.0",
+    "dotenv-webpack": "^1.7.0",
     "ejs": "2.6.1",
     "emotion": "^10.0.17",
     "enzyme-adapter-react-16": "^1.14.0",
