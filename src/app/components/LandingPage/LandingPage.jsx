@@ -24,7 +24,7 @@ import config from '../../../../appConfig';
  * Accessibility Note: Creates the <main> element for all
  * search pages with the corresponding <h1>.
  */
-class SearchContainer extends React.Component {
+class LandingPage extends React.Component {
   constructor(props) {
     super(props);
     const { dispatch } = props;
@@ -169,7 +169,7 @@ class SearchContainer extends React.Component {
   }
 }
 
-SearchContainer.propTypes = {
+LandingPage.propTypes = {
   searchResults: PropTypes.objectOf(PropTypes.any),
   searchQuery: searchQueryPropTypes,
   workDetail: PropTypes.objectOf(PropTypes.any),
@@ -178,7 +178,7 @@ SearchContainer.propTypes = {
   location: PropTypes.objectOf(PropTypes.any),
 };
 
-SearchContainer.defaultProps = {
+LandingPage.defaultProps = {
   searchResults: {},
   searchQuery: initialSearchQuery,
   workDetail: {},
@@ -187,7 +187,7 @@ SearchContainer.defaultProps = {
   location: {},
 };
 
-SearchContainer.contextTypes = {
+LandingPage.contextTypes = {
   router: PropTypes.objectOf(PropTypes.any),
   history: PropTypes.objectOf(PropTypes.any),
 };
@@ -200,4 +200,4 @@ const mapStateToProps = (state, ownProps) => ({
 export default connect(
   mapStateToProps,
   null,
-)(withRouter(SearchContainer));
+)(withRouter(LandingPage));

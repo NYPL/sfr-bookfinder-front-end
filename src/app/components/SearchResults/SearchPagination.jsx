@@ -35,7 +35,6 @@ const SearchPagination = ({
 
   // click and navigate to any page number
   const navigateToPage = (e, pageNumber) => {
-    console.log(`navigateToPage${pageNumber}`);
     e.preventDefault();
     e.stopPropagation();
     let page = pageNumber;

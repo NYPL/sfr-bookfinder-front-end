@@ -36,7 +36,6 @@ const getLinkToAuthorSearch = author => ({
 
 
 const AuthorsList = ({ agents }) => {
-  console.log('agents', agents);
   if (!agents || !agents.length) return null;
   return agents.map((authorAgent, idx) => {
     const authorLinkText = idx === agents.length - 1 ? authorAgent.name : `${authorAgent.name}, `;

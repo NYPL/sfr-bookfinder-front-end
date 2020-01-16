@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter, Link } from 'react-router';
+import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as DS from '@nypl/design-system-react-components';
@@ -10,15 +10,14 @@ import * as searchActions from '../../actions/SearchActions';
 import WorkHeader from './WorkHeader';
 import EditionsList from '../List/EditionsList';
 import SearchForm from '../SearchForm/SearchForm';
-import { getQueryString } from '../../search/query';
-import { deepEqual, isEmpty } from '../../util/Util';
+import { deepEqual } from '../../util/Util';
 import {
   editionYearElem, getCover, getLanguageDisplayText, getLicense, getReadOnlineLink, getDownloadLink, getPublisherAndLocation,
 } from '../SearchResults/ResultsList';
+import { getQueryString } from '../../search/query';
 
 const getFeaturedEditionData = (edition, origin, eReaderUrl, referrer) => {
   const editionYearHeadingElement = editionYearElem(edition);
-  console.log('editionYEarElement', editionYearHeadingElement);
   const editionItem = edition.items ? edition.items[0] : undefined;
 
   return {
@@ -71,7 +70,6 @@ class WorkDetail extends React.Component {
   loadWork(workId, hash) {
     global.window.scrollTo(0, 0);
     this.fetchWork(workId).then(() => {
-      console.log('work loaded props', this.props);
       scrollToHash(hash);
       this.setState({ loaded: true });
     });
@@ -82,9 +80,7 @@ class WorkDetail extends React.Component {
   }
 
   render() {
-    console.log('workDetail props', this.props);
     const work = this.props.work ? this.props.work.data : null;
-    console.log('work', work);
     if (!work || !work.editions || deepEqual(work, WorkDetail.defaultProps.work)) {
       return null;
     }
@@ -108,17 +104,27 @@ class WorkDetail extends React.Component {
 
     const breadcrumbLinks = (searchQuery, workItem) => {
       const links = [];
+      if (searchQuery) {
+        links.push({
+          href: `/search?${getQueryString(searchQuery)}`,
+          text: 'Search Results',
+        });
+      }
       if (workItem) {
         links.push({
           href: `/work?workId=${workItem.uuid}`,
-          text: 'Work Details',
+          text: 'Item Detail',
         });
       }
       return links;
     };
+
     const getEditionCard = () => {
       if (!work.editions[0]) return null;
-      const featuredEditionData = getFeaturedEditionData(work.editions[0], origin, eReaderUrl, referrer);
+      console.log('editions', work.editions);
+      const getFirstReadableEdition = work.editions.find(edition => edition.items
+        && edition.items.length && edition.items[0].links && edition.items[0].links.length);
+      const featuredEditionData = getFeaturedEditionData(getFirstReadableEdition, origin, eReaderUrl, referrer);
       return (
         <DS.EditionCard
           id="featured-card"

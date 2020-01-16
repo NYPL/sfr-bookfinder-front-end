@@ -24,16 +24,17 @@ const Breadcrumbs = ({ links, pageType, onClickHandler }) => {
 
     if (links && links.length && pageType !== 'home') {
       // If not on home, add all the other links, except for the current page
-      crumbs.concat(links.slice(0, -1)
+      const additionalLinks = (links.slice(0, -1)
         .map(link => (
-          <Link
-            to={link.href}
-            onClick={event => onClickHandler(event)}
-          >
+          <Link to={link.href}>
             {link.text}
           </Link>
         )));
+      if (additionalLinks) {
+        return crumbs.concat(additionalLinks);
+      }
     }
+
     return crumbs;
   };
 

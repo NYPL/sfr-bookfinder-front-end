@@ -64,7 +64,6 @@ const generateTitleLinkElem = (title, uuid) => {
 export const editionYearElem = (previewEdition, workUuid) => {
   const editionDisplay = previewEdition && previewEdition.publication_date
     ? `${previewEdition.publication_date} Edition` : 'Edition Year Unknown';
-  console.log('edition display', editionDisplay);
   return (
     <span>
       {workUuid
@@ -105,7 +104,9 @@ const publisherDisplayText = (previewEdition) => {
   }
   return publisherText;
 };
-export const getPublisherAndLocation = previewEdition => (`Published ${publisherDisplayLocation(previewEdition)}${publisherDisplayText(previewEdition)}`);
+export const getPublisherAndLocation = previewEdition => (
+  `Published ${publisherDisplayLocation(previewEdition)}${publisherDisplayText(previewEdition)}`
+);
 
 // Language Display
 export const getLanguageDisplayText = (previewEdition) => {
@@ -138,7 +139,6 @@ const generateStreamedReaderUrl = (url, eReaderUrl, referrer) => {
 
 // TODO: Local links should not have headers
 export const getReadOnlineLink = (origin, editionItem, eReaderUrl, referrer) => {
-  console.log('links', editionItem);
   if (!editionItem || !editionItem.links) return undefined;
   // TODO: Revert after links fix
   const selectedLink = editionItem.links.find(link => (!link.local && !link.download) || (link.local && link.download));

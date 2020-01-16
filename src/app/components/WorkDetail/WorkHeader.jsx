@@ -4,11 +4,9 @@ import * as DS from '@nypl/design-system-react-components';
 import AuthorsList from '../List/AuthorsList';
 import { getPreferredAgent } from '../SearchResults/ResultsList';
 
-const WorkHeader = ({ data }) => {
-  console.log('workHeader data', data);
-  return (
-    <div className="nypl-item-header">
-      {data
+const WorkHeader = ({ data }) => (
+  <div className="nypl-item-header">
+    {data
       && (
       <DS.Heading
         level={1}
@@ -18,16 +16,15 @@ const WorkHeader = ({ data }) => {
       />
       )
       }
-      { data.subtitle && <div className="search-result-item__subtitle">{data.subtitle}</div> }
-      {/** TODO: don't show if authors list empty */}
-      <span>
+    { data.subtitle && <div className="search-result-item__subtitle">{data.subtitle}</div> }
+    {/** TODO: don't show if authors list empty */}
+    <span>
         By
-        {' '}
-        <AuthorsList agents={getPreferredAgent(data.agents, 'author')} />
-      </span>
-    </div>
-  );
-};
+      {' '}
+      <AuthorsList agents={getPreferredAgent(data.agents, 'author')} />
+    </span>
+  </div>
+);
 
 WorkHeader.propTypes = {
   data: PropTypes.objectOf(PropTypes.any),

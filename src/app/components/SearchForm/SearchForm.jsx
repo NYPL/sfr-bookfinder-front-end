@@ -4,9 +4,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import * as DS from '@nypl/design-system-react-components';
-// import Select from '../Form/Select';
-// import SearchButton from '../Button/SearchButton';
-// import TextInput from '../Form/TextInput';
 import { getQueryString } from '../../search/query';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
 import { deepEqual } from '../../util/Util';
@@ -31,7 +28,7 @@ class SearchForm extends React.Component {
 
   /**
    * Used to update the downstream props updated by the
-   * parent component, SearchContainer.
+   * parent component, LandingPage.
    *
    * @param {object} nextProps
    */
@@ -107,7 +104,7 @@ class SearchForm extends React.Component {
         {' '}
         <Link
           to="advanced-search"
-          className="text-baseline"
+          className="link"
         >
           Advanced Search
         </Link>

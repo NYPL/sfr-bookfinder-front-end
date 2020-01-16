@@ -4,7 +4,7 @@ import React from 'react';
 import { expect } from 'chai';
 import { mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import SearchContainer from '../../src/app/components/SearchContainer/SearchContainer';
+import LandingPage from '../../src/app/components/LandingPage/LandingPage';
 import SearchForm from '../../src/app/components/SearchForm/SearchForm';
 import configureStore from '../../src/app/stores/configureStore';
 import initialState from '../../src/app/stores/InitialState';
@@ -16,7 +16,7 @@ describe('Search Container interactions', () => {
 
   before(() => {
     const store = configureStore(initialState);
-    wrapper = mount(<SearchContainer store={store} />);
+    wrapper = mount(<LandingPage store={store} />);
   });
 
   it('contains an initialized <SearchForm /> component', () => {

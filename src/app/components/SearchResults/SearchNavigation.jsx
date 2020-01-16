@@ -38,48 +38,12 @@ const SearchNavigation = ({
 
   // click and navigate with different sort
   const onChangeSort = (e) => {
-    if (sortMap[e.target.value] && !deepEqual(sortMap[e.target.value], searchQuery.sort)) {
+    if (e.target.value !== Object.keys(sortMap).find(key => sortMap[key] === searchQuery.sort)) {
       const newQuery = Object.assign({}, searchQuery, { sort: sortMap[e.target.value], page: 0 });
       userQuery(newQuery);
       submit(newQuery);
     }
   };
-
-  // // used to get the proper value in sort select from searchQuery
-  // const getValueFromSortObject = (sortObj = {}) => Object.keys(sortMap).find(
-  //   sortMapping => sortMap[sortMapping]
-  //       && sortObj[0]
-  //       && sortMap[sortMapping][0]
-  //       && sortMap[sortMapping][0].field === sortObj[0].field
-  //       && sortMap[sortMapping][0].dir === sortObj[0].dir,
-  // );
-
-  // const ItemsPerPage = (
-  //   <Select
-  //     id="items-by-page"
-  //     selectClass="sfr-select-input usa-select"
-  //     className="nypl-search-input"
-  //     options={numbersPerPage}
-  //     label="Items per page"
-  //     labelClass=""
-  //     value={searchQuery.per_page || initialSearchQuery.per_page}
-  //     onChange={onChangePerPage}
-  //     onBlur={onChangePerPage}
-  //   />
-  // );
-  // const SortBy = (
-  //   <Select
-  //     id="sort-by"
-  //     selectClass="sfr-select-input usa-select"
-  //     className="nypl-search-input"
-  //     options={Object.keys(sortMap).map(sortOption => ({ value: sortOption, label: sortOption }))}
-  //     label="Sort by"
-  //     labelClass=""
-  //     value={getValueFromSortObject(searchQuery.sort)}
-  //     onChange={onChangeSort}
-  //     onBlur={onChangeSort}
-  //   />
-  // );
 
   return (
     <div className="search-navigation grid-row">
@@ -101,6 +65,7 @@ const SearchNavigation = ({
           labelPosition="left"
           labelText="Items Per Page"
           labelId="nav-items-per-page"
+          selectedOption={searchQuery.per_page ? searchQuery.per_page : undefined}
           dropdownOptions={numbersPerPage.map(number => number.toString())}
           onSelectChange={onChangePerPage}
           onSelectBlur={onChangePerPage}
@@ -111,6 +76,7 @@ const SearchNavigation = ({
           labelPosition="left"
           labelText="Sort By"
           labelId="nav-sort-by"
+          selectedOption={searchQuery.sort ? Object.keys(sortMap).find(key => deepEqual(sortMap[key], searchQuery.sort)) : undefined}
           dropdownOptions={Object.keys(sortMap).map(sortOption => sortOption)}
           onSelectChange={onChangeSort}
           onSelectBlur={onChangeSort}
