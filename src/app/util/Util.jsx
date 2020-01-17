@@ -1,3 +1,4 @@
+import React from 'react';
 import FeatureFlags from 'dgx-feature-flags';
 
 // polyfill for Object.entries
@@ -20,6 +21,14 @@ export const formatUrl = (link) => {
 
   return link;
 };
+
+// Given an array of JSX elements, return JSX that joins them with the Joiner.
+export const joinArrayOfElements = (array, joiner) => array.map((item, idx) => ((idx < array.length - 1) ? (
+  <>
+    {item}
+    {joiner}
+  </>
+) : item));
 
 // return unique elements of array
 export const unique = (array, propertyName) => array //

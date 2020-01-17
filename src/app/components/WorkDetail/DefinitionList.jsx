@@ -7,7 +7,7 @@ import { detailDefinitionLabels } from '../../constants/labels';
 import {
   unique, flattenDeep, isEmpty, uniqueAndSortByFrequency,
 } from '../../util/Util';
-import { getLinkToAuthorSearch } from '../Card/EditionCard';
+import EditionCard from '../Card/EditionCard';
 
 const htmlEntities = new Html5Entities();
 
@@ -33,7 +33,7 @@ const getAuthorsList = (agents) => {
     const authorLabel = `${agent.name}, ${agent.roles.map(role => `${role} `)}`;
     return (
       <Link
-        to={{ pathname: '/search', query: getLinkToAuthorSearch(agent) }}
+        to={{ pathname: '/search', query: EditionCard.getLinkToAuthorSearch(agent) }}
         className="link"
       >
         {authorLabel}

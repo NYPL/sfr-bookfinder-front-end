@@ -11,23 +11,21 @@ import WorkHeader from './WorkHeader';
 import EditionsList from '../List/EditionsList';
 import SearchForm from '../SearchForm/SearchForm';
 import { deepEqual } from '../../util/Util';
-import {
-  editionYearElem, getCover, getLanguageDisplayText, getLicense, getReadOnlineLink, getDownloadLink, getPublisherAndLocation,
-} from '../Card/EditionCard';
+import EditionCard from '../Card/EditionCard';
 import { getQueryString } from '../../search/query';
 
 const getFeaturedEditionData = (edition, origin, eReaderUrl, referrer) => {
-  const editionYearHeadingElement = editionYearElem(edition);
+  const editionYearHeadingElement = EditionCard.editionYearElem(edition);
   const editionItem = edition.items ? edition.items[0] : undefined;
 
   return {
     editionYearHeading: editionYearHeadingElement,
-    publisherAndLocation: getPublisherAndLocation(edition),
-    coverUrl: getCover(edition),
-    language: getLanguageDisplayText(edition),
-    license: getLicense(editionItem),
-    readOnlineLink: getReadOnlineLink(origin, editionItem, eReaderUrl, referrer),
-    downloadLink: getDownloadLink(editionItem),
+    publisherAndLocation: EditionCard.getPublisherAndLocation(edition),
+    coverUrl: EditionCard.getCover(edition),
+    language: EditionCard.getLanguageDisplayText(edition),
+    license: EditionCard.getLicense(editionItem),
+    readOnlineLink: EditionCard.getReadOnlineLink(origin, editionItem, eReaderUrl, referrer),
+    downloadLink: EditionCard.getDownloadLink(editionItem),
   };
 };
 

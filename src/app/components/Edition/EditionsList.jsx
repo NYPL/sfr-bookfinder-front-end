@@ -1,22 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as DS from '@nypl/design-system-react-components';
-import {
-  editionYearElem, getCover, getLanguageDisplayText, getLicense, getReadOnlineLink, getDownloadLink, getPublisherAndLocation,
-} from '../Card/EditionCard';
+import EditionCard from '../Card/EditionCard';
 
 const getAllEditionsData = (editions, origin, eReaderUrl, referrer) => editions.map((edition) => {
-  const editionYearHeadingElement = editionYearElem(edition);
+  const editionYearHeadingElement = EditionCard.editionYearElem(edition);
   const editionItem = edition && edition.items ? edition.items[0] : undefined;
 
   return {
     editionYearHeading: editionYearHeadingElement,
-    publisherAndLocation: getPublisherAndLocation(edition),
-    coverUrl: getCover(edition),
-    language: getLanguageDisplayText(edition),
-    license: getLicense(editionItem),
-    readOnlineLink: getReadOnlineLink(origin, editionItem, eReaderUrl, referrer),
-    downloadLink: getDownloadLink(editionItem),
+    publisherAndLocation: EditionCard.getPublisherAndLocation(edition),
+    coverUrl: EditionCard.getCover(edition),
+    language: EditionCard.getLanguageDisplayText(edition),
+    license: EditionCard.getLicense(editionItem),
+    readOnlineLink: EditionCard.getReadOnlineLink(origin, editionItem, eReaderUrl, referrer),
+    downloadLink: EditionCard.getDownloadLink(editionItem),
   };
 });
 
