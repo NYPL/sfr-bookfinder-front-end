@@ -16,7 +16,6 @@ describe('DefinitionList', () => {
 
   before(() => {
     component = shallow(<DefinitionList work={detail} />);
-    console.log('component debug', component.debug());
   });
 
   it('should display a definition list of detail elements', () => {
