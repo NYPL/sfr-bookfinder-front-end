@@ -59,11 +59,6 @@
     margin-right: 15px;
   }
 
-  .privacy-policy-link {
-    display: inline-block;
-    float: right;
-  }
-  
   .feedback-form-container {
     display: none;
     background: #efedeb;
@@ -119,10 +114,6 @@
       margin-top: 1rem;
     }
   
-    iframe {
-      display: none;
-    }
-
     .sfr-feedback-radio {
       display: inline-block;
       width: 0.75rem;
@@ -132,5 +123,10 @@
       display: inline-block;
       padding-left: 0.3rem;
       margin: 0.2rem;
+    }
+
+    #textarea-status-note {
+      font-size: 0.8rem;
+      color: #d0343a;
     }
   }
