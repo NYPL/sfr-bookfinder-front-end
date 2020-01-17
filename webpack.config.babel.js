@@ -24,7 +24,7 @@ const ENV = process.env.NODE_ENV || 'development';
 
 // Sets appEnv so the the header component will point to the search app on either Dev or Prod
 const appEnv = process.env.APP_ENV ? process.env.APP_ENV : 'production';
-const airtableKey = process.env.AIRTABLE_API_KEY || 'broken :(';
+const airtableKey = process.env.AIRTABLE_API_KEY;
 
 // Holds the common settings for any environment
 const commonSettings = {
