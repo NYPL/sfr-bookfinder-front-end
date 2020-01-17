@@ -12,7 +12,6 @@ class Feedback extends React.Component {
     this.state = {
       showForm: false,
       feedback: '',
-      email: '',
       success: null,
     };
 
@@ -23,7 +22,6 @@ class Feedback extends React.Component {
     this.closeForm = this.closeForm.bind(this);
     this.deactivateForm = this.deactivateForm.bind(this);
     this.handleFeedbackChange = this.handleFeedbackChange.bind(this);
-    this.handleEmailChange = this.handleEmailChange.bind(this);
     this.sendFeedback = this.sendFeedback.bind(this);
     this.handleRadioChange = this.handleRadioChange.bind(this);
   }
@@ -73,10 +71,6 @@ class Feedback extends React.Component {
 
   handleFeedbackChange(e) {
     this.setState({ feedback: e.target.value });
-  }
-
-  handleEmailChange(e) {
-    this.setState({ email: e.target.value });
   }
 
   handleRadioChange(e) {
@@ -167,17 +161,7 @@ class Feedback extends React.Component {
                   value={this.state.feedback}
                   onChange={this.handleFeedbackChange}
                 />
-              </div>
-              <div>
-                <label htmlFor="feedback-input-email">Email Address (Not Required)</label>
-                <input
-                  id="feedback-input-email"
-                  className="feedback-input"
-                  name="sfr-feedback-email"
-                  type="email"
-                  value={this.state.email}
-                  onChange={this.handleEmailChange}
-                />
+                <div id="textarea-status-note">{this.state.commentStatus}</div>
               </div>
 
               <button
