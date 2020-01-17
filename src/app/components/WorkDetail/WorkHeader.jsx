@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as DS from '@nypl/design-system-react-components';
-import { getAuthorsList, getPreferredAgent } from '../Card/EditionCard';
+import EditionCard from '../Card/EditionCard';
 
 const WorkHeader = ({ data }) => {
-  const authorsList = getAuthorsList(getPreferredAgent(data.agents, 'author'));
+  const authorsList = EditionCard.getAuthorsList(EditionCard.getPreferredAgent(data.agents, 'author'));
 
   return (
     <div className="nypl-item-header">

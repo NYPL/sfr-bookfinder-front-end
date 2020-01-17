@@ -5,27 +5,24 @@ import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import * as DS from '@nypl/design-system-react-components';
 import EmptySearchSvg from '../Svgs/EmptySearchSvg';
-import { isEmpty } from '../../util/Util';
-import {
-  editionYearElem, getCover, getLanguageDisplayText, getLicense, getReadOnlineLink, getDownloadLink,
-  getPublisherAndLocation, generateTitleLinkElem, getSubtitleText, getAuthorsList, getPreferredAgent,
-} from '../Card/EditionCard';
+import { isEmpty, joinArrayOfElements } from '../../util/Util';
+import EditionCard from '../Card/EditionCard';
 
 const formatAllResultsData = (results, origin, eReaderUrl, referrer) => results.map((result, index) => {
-  const titleElement = generateTitleLinkElem(result.title, result.uuid);
-  const authorLinkElement = getAuthorsList(getPreferredAgent(result.agents, 'author'));
+  const titleElement = EditionCard.generateTitleLinkElem(result.title, result.uuid);
+  const authorLinkElement = EditionCard.getAuthorsList(EditionCard.getPreferredAgent(result.agents, 'author'));
   // TODO: Editions Link Page
-  const allEditionsLink = (
+  const allEditionsLink = result.edition_count > 1 ? (
     <Link
       className="link"
       to={{ pathname: '/work', query: { workId: `${result.uuid}` }, hash: '#all-editions' }}
     >
       {`View All ${result.edition_count} editions`}
     </Link>
-  );
+  ) : undefined;
 
   const previewEdition = result.editions[0];
-  const editionYearHeadingElement = editionYearElem(previewEdition, result.uuid);
+  const editionYearHeadingElement = EditionCard.editionYearElem(previewEdition, result.uuid);
 
   const editionItem = previewEdition && previewEdition.items ? previewEdition.items[0] : undefined;
 
@@ -33,16 +30,16 @@ const formatAllResultsData = (results, origin, eReaderUrl, referrer) => results.
     id: `search-result-${result.uuid}`,
     resultIndex: { index },
     titleElement,
-    subtitle: getSubtitleText(result.subtitle),
-    authorElement: authorLinkElement,
+    subtitle: EditionCard.getSubtitleText(result.subtitle),
+    authorElement: joinArrayOfElements(authorLinkElement, ', '),
     editionInfo: {
       editionYearHeading: editionYearHeadingElement,
-      publisherAndLocation: getPublisherAndLocation(previewEdition),
-      coverUrl: getCover(previewEdition),
-      language: getLanguageDisplayText(previewEdition),
-      license: getLicense(editionItem),
-      readOnlineLink: getReadOnlineLink(origin, editionItem, eReaderUrl, referrer),
-      downloadLink: getDownloadLink(editionItem),
+      publisherAndLocation: EditionCard.getPublisherAndLocation(previewEdition),
+      coverUrl: EditionCard.getCover(previewEdition),
+      language: EditionCard.getLanguageDisplayText(previewEdition),
+      license: EditionCard.getLicense(editionItem),
+      readOnlineLink: EditionCard.getReadOnlineLink(origin, editionItem, eReaderUrl, referrer),
+      downloadLink: EditionCard.getDownloadLink(editionItem),
     },
     editionsLinkElement: allEditionsLink,
   };
