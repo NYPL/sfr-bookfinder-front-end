@@ -106,11 +106,7 @@ class Feedback extends React.Component {
             className={`feedback-form-container${showForm ? ' active' : ''}`}
             id="feedback-menu"
           >
-            <form
-              action=""
-              method="POST"
-              onSubmit={e => this.onSubmitForm(e)}
-            >
+            <form onSubmit={e => this.onSubmitForm(e)}>
               <div>
                 <label id="sfr-feedback-success">Did you find what you were looking for?</label>
                 <div>
