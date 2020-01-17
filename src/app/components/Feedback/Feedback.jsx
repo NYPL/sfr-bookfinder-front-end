@@ -13,6 +13,7 @@ class Feedback extends React.Component {
       showForm: false,
       feedback: '',
       success: null,
+      commentStatus: '',
     };
 
     this.feedbackField = React.createRef();
@@ -27,9 +28,11 @@ class Feedback extends React.Component {
   }
 
   onSubmitForm(e) {
+    console.log(e);
     e.preventDefault();
     if (!this.state.feedback) {
       this.feedbackField.focus();
+      this.setState({ commentStatus: 'Comment Required' });
     } else {
       this.setState({
         showForm: false,
@@ -157,7 +160,7 @@ class Feedback extends React.Component {
                   rows="5"
                   aria-required="true"
                   tabIndex="0"
-                  ref={this.feedbackField}
+                  ref={(textarea) => this.feedbackField = textarea}
                   value={this.state.feedback}
                   onChange={this.handleFeedbackChange}
                 />
