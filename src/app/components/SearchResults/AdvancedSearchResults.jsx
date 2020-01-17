@@ -34,29 +34,29 @@ const AdvancedSearchResults = ({ searchQuery, userQuery, router }) => {
 
   const label = field => labelTerms.find(l => l.key === field).label;
 
-  if (searchQuery && searchQuery.queries && searchQuery.queries.length > 0) {
-    return (
-      <div className="grid-row margin-y-2">
-        <div
-          className="grid-col-10 sfr-center"
-          id="advanced-search-tags"
-        >
-          {searchQuery.queries.map(query => (query.field
-            && (
-              <button
-                type="button"
-                className={disableClearTag
-                  ? 'usa-button usa-button--outline tag-button' : 'usa-button usa-button--outline tag-button active'}
-                onClick={e => onClick(e, query)}
-                key={`${query.field}: ${query.query} `}
-              >
-                {`${label(query.field)}: ${query.query} `}
-              </button>
-            )))}
-        </div>
-      </div>
-    );
-  }
+  // if (searchQuery && searchQuery.queries && searchQuery.queries.length > 0) {
+  //   return (
+  //     <div className="grid-row margin-y-2">
+  //       <div
+  //         className="grid-col-10 sfr-center"
+  //         id="advanced-search-tags"
+  //       >
+  //         {searchQuery.queries.map(query => (query.field
+  //           && (
+  //             <button
+  //               type="button"
+  //               className={disableClearTag
+  //                 ? 'usa-button usa-button--outline tag-button' : 'usa-button usa-button--outline tag-button active'}
+  //               onClick={e => onClick(e, query)}
+  //               key={`${query.field}: ${query.query} `}
+  //             >
+  //               {`${label(query.field)}: ${query.query} `}
+  //             </button>
+  //           )))}
+  //       </div>
+  //     </div>
+  //   );
+  // }
   return null;
 };
 

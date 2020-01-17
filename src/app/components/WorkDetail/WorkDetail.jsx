@@ -60,7 +60,7 @@ class WorkDetail extends React.Component {
   }
 
   render() {
-    const { work } = this.props;
+    const work = this.props.work ? this.props.work.data : null;
     if (!work || isEmpty(work) || deepEqual(work, WorkDetail.defaultProps.work)) {
       return null;
     }
@@ -103,10 +103,13 @@ class WorkDetail extends React.Component {
               pageType="details"
               onClickHandler={handleReset}
             />
-            <SearchForm
-              history={history}
-              {...this.boundActions}
-            />
+            <div className="sfr-center">
+              <SearchForm
+                isHomePage={false}
+                history={history}
+                {...this.boundActions}
+              />
+            </div>
             <div className="grid-col-10 sfr-center margin-y-3">
               {this.props.searchQuery && this.props.searchQuery.query && (
                 <Link to={`/search?${getQueryString(this.props.searchQuery)}`}>Back to Search Results</Link>
@@ -153,6 +156,7 @@ class WorkDetail extends React.Component {
 }
 
 WorkDetail.propTypes = {
+  temp: PropTypes.objectOf(PropTypes.any),
   work: PropTypes.objectOf(PropTypes.any),
   searchQuery: PropTypes.objectOf(PropTypes.any),
   eReaderUrl: PropTypes.string,
@@ -161,7 +165,8 @@ WorkDetail.propTypes = {
 };
 
 WorkDetail.defaultProps = {
-  work: { instances: [] },
+  temp: {},
+  work: { data: { instances: [] } },
   searchQuery: {},
   eReaderUrl: '',
   dispatch: () => {},

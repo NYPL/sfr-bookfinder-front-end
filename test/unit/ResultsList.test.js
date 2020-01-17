@@ -25,11 +25,12 @@ describe('Results List', () => {
 
   describe('Results behavior.', () => {
     before(() => {
-      component = shallow(<ResultsList results={results.hits.hits} />);
+      component = shallow(<ResultsList results={results.data.works} />);
     });
 
-    it('should display a grouped list of works and their instances.', () => {
-      expect(component.find('.nypl-results-list')).to.have.length(1);
+    // It shouldn't check DS behavior, only that something comes back.
+    it('should return results', () => {
+      expect(component.dive().find('ul')).to.have.length(1);
     });
   });
 });

@@ -56,10 +56,11 @@ describe('SearchForm', () => {
       expect(selectLabel.getElements()[0].props['aria-label']).to.equal('Search by');
     });
 
-    it('should contain a aria label for the text input.', () => {
-      const textInputLabel = component.find('input');
-      expect(textInputLabel.getElements()[0].props['aria-label']).to.equal('Search for keyword, author, title, or subject');
-    });
+    // TODO: This kind of check doesn't need to be in RN.
+    // it('should contain a aria label for the text input.', () => {
+    //   const textInputLabel = component.find('input');
+    //   expect(textInputLabel.getElements()[0].props['aria-label']).to.equal('Search for keyword, author, title, or subject');
+    // });
   });
 
   describe('Changes from props', () => {

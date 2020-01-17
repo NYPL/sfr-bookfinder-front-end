@@ -58,16 +58,20 @@ const recordUrl = apiUrl + recordPath;
 const totalWorksUrl = apiUrl + totalWorksPath;
 
 export const searchPost = (query) => {
+  console.log('POST query', query);
+
   const sField = query.field && selectFields[query.field];
   let queryBody;
   if (sField) {
     queryBody = buildQueryBody(Object.assign({}, query, { field: sField }));
   }
   queryBody = buildQueryBody(Object.assign({}, query));
+  console.log('searchPost queryBody', queryBody);
 
   return dispatch => axios
     .post(searchUrl, queryBody)
     .then((resp) => {
+      console.log('Resp', resp);
       if (resp.data) {
         dispatch(searchResults(resp.data));
       }
@@ -78,17 +82,22 @@ export const searchPost = (query) => {
     });
 };
 
-export const fetchWork = workId => dispatch => axios
-  .get(recordUrl, { params: { identifier: workId } })
-  .then((resp) => {
-    if (resp.data) {
-      dispatch(workDetail(resp.data));
-    }
-  })
-  .catch((error) => {
-    console.log('An error occurred during fetchWork', error.message);
-    throw new Error('An error occurred during fetchWork', error.message);
-  });
+export const fetchWork = (workId) => {
+  console.log('fetching work', workId);
+  console.log('recordUrl', recordUrl);
+  return dispatch => axios
+    .get(recordUrl, { params: { identifier: workId, recordType: 'instances' } })
+    .then((resp) => {
+      console.log('fetchWork response', resp);
+      if (resp.data) {
+        dispatch(workDetail(resp.data));
+      }
+    })
+    .catch((error) => {
+      console.log('An error occurred during fetchWork', error.message);
+      throw new Error('An error occurred during fetchWork', error.message);
+    });
+};
 
 export const fetchTotalWorks = () => dispatch => axios
   .get(totalWorksUrl)

@@ -10,49 +10,67 @@ configure({ adapter: new Adapter() });
 
 describe('Results Metadata', () => {
   let component;
-  let metadata;
+  let searchQuery;
 
   describe('No results message delivery', () => {
     before(() => {
-      metadata = {
-        total: 0,
-      };
-      component = shallow(<ResultsMetadata metadata={metadata} />);
+      component = shallow(<ResultsMetadata totalItems={0} />);
     });
 
     it('should have a message stating no results found.', () => {
-      expect(component.find('div')).to.have.length(1);
-      expect(component.find('div').text()).to.equal('Viewing 0 items');
+      expect(component.find('span')).to.have.length(1);
+      expect(component.find('span').text()).to.equal('Viewing 0 items');
     });
   });
 
   describe('Found < page size of results', () => {
     before(() => {
-      metadata = {
-        total: 5,
-        max_score: 1.332332,
+      searchQuery = {
+        filters: [],
+        page: '0',
+        per_page: '10',
+        queries: [{
+          query: 'cat',
+          field: 'keyword',
+        }],
+        showField: '',
+        showQuery: '',
+        sort: [],
+        total: '0',
       };
-      component = shallow(<ResultsMetadata metadata={metadata} />);
+      component = shallow(<ResultsMetadata
+        totalItems={5}
+        searchQuery={searchQuery}
+      />);
     });
 
     it('should have a message displaying all 5 results found.', () => {
-      expect(component.find('div')).to.have.length(1);
-      expect(component.find('div').text()).to.equal('Viewing 1 - 5 of 5 items');
+      expect(component.find('span')).to.have.length(1);
+      expect(component.find('span').text()).to.equal('Viewing 1 - 5 of 5 items');
     });
   });
 
   describe('Found > page size of results', () => {
     before(() => {
-      metadata = {
-        total: 15,
-        max_score: 1.332332,
+      searchQuery = {
+        filters: [],
+        page: '0',
+        per_page: '10',
+        queries: [{
+          query: 'cat',
+          field: 'keyword',
+        }],
+        showField: '',
+        showQuery: '',
+        sort: [],
+        total: '0',
       };
-      component = shallow(<ResultsMetadata metadata={metadata} />);
+      component = shallow(<ResultsMetadata totalItems={15} />);
     });
 
     it('should have a message displaying 10 of 15 results found.', () => {
-      expect(component.find('div')).to.have.length(1);
-      expect(component.find('div').text()).to.equal('Viewing 1 - 10 of 15 items');
+      expect(component.find('span')).to.have.length(1);
+      expect(component.find('span').text()).to.equal('Viewing 1 - 10 of 15 items');
     });
   });
 });

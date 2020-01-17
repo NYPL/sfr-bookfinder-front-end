@@ -6,6 +6,7 @@ import EBookList from './EBookList';
 const EditionsList = ({
   work, eReaderUrl, referrer, max,
 }) => {
+  console.log('got to editionsList', work);
   const list = work.instances;
   if (!list || list.length === 0) {
     return null;
@@ -22,16 +23,15 @@ const EditionsList = ({
     || getPublisher(instance);
 
   const filterValid = instances => instances.filter(instance => getIsValid(instance));
-
   const editionCount = work.edition_count || filterValid(list).length;
 
   const rights = instance => instance.rights
     && instance.rights.length > 0 //
     && instance.rights.map(right => right.rights_statement).join(', ');
 
-  const languages = instance => instance.language
-    && instance.language.length > 0 //
-    && instance.language.map(lang => lang.language).join(', ');
+  const languages = instance => instance.languages
+    && instance.languages.length > 0 //
+    && instance.languages.map(lang => lang.language).join(', ');
   return (
     <div>
       <table className="usa-table usa-table--borderless nypl-editions-table">
