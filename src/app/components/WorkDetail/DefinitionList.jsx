@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { Html5Entities } from 'html-entities';
 import * as DS from '@nypl/design-system-react-components';
 import { Link } from 'react-router';
-import AuthorsList from '../List/AuthorsList';
 import { detailDefinitionLabels } from '../../constants/labels';
 import {
   unique, flattenDeep, isEmpty, uniqueAndSortByFrequency,
 } from '../../util/Util';
+import { getAuthorsList } from '../Card/EditionCard';
 
 const htmlEntities = new Html5Entities();
 
@@ -65,7 +65,7 @@ export const DefinitionList = ({ work }) => {
           </ul>
         );
       case 'agents':
-        return <AuthorsList agents={list} />;
+        return getAuthorsList(list);
 
       case 'subjects':
         return (
@@ -143,11 +143,11 @@ export const DefinitionList = ({ work }) => {
       <table className="nypl-details-table">
         <tbody>
           {defsData.map(
-            (entry, i) => elements.includes(entry[0]) && (
-            <tr key={`entry${i.toString()}`}>
-              <th scope="row">{detailDefinitionLabels[entry[0]]}</th>
-              <td>{parseEntries(entry[0], entry[1], workObj)}</td>
-            </tr>
+            (entry, i) => elements.includes(entry[0]) && entry[1] && (
+              <tr key={`entry${i.toString()}`}>
+                <th scope="row">{detailDefinitionLabels[entry[0]]}</th>
+                <td>{parseEntries(entry[0], entry[1], workObj)}</td>
+              </tr>
             ),
           )}
         </tbody>

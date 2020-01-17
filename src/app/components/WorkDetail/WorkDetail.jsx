@@ -13,7 +13,7 @@ import SearchForm from '../SearchForm/SearchForm';
 import { deepEqual } from '../../util/Util';
 import {
   editionYearElem, getCover, getLanguageDisplayText, getLicense, getReadOnlineLink, getDownloadLink, getPublisherAndLocation,
-} from '../SearchResults/ResultsList';
+} from '../Card/EditionCard';
 import { getQueryString } from '../../search/query';
 
 const getFeaturedEditionData = (edition, origin, eReaderUrl, referrer) => {
@@ -121,7 +121,6 @@ class WorkDetail extends React.Component {
 
     const getEditionCard = () => {
       if (!work.editions[0]) return null;
-      console.log('editions', work.editions);
       const getFirstReadableEdition = work.editions.find(edition => edition.items
         && edition.items.length && edition.items[0].links && edition.items[0].links.length);
       const featuredEditionData = getFeaturedEditionData(getFirstReadableEdition, origin, eReaderUrl, referrer);
@@ -138,10 +137,10 @@ class WorkDetail extends React.Component {
     };
 
     return (
-      <main
-        id="mainContent"
-      >
-        <DS.Container>
+      <DS.Container>
+        <main
+          id="mainContent"
+        >
           <Breadcrumbs
             links={breadcrumbLinks(this.props.searchQuery, work)}
             pageType="details"
@@ -169,7 +168,9 @@ class WorkDetail extends React.Component {
             />
           </div>
           <div className="grid-row">
-            {getEditionCard()}
+            <div className="sfr-center">
+              {getEditionCard()}
+            </div>
           </div>
           <div className="grid-row">
             <div id="nypl-item-details">
@@ -195,8 +196,8 @@ class WorkDetail extends React.Component {
               />
             </div>
           </div>
-        </DS.Container>
-      </main>
+        </main>
+      </DS.Container>
     );
   }
 }

@@ -4,6 +4,23 @@ import FeatureFlags from 'dgx-feature-flags';
 const entriesPolyFill = obj => Object.keys(obj).map(key => [key, obj[key]]);
 if (!Object.entries) Object.entries = entriesPolyFill;
 
+// Given a link, return the link with 'http' and strip https if present
+export const formatUrl = (link) => {
+  const prefix = 'http://';
+  const securePrefix = 'https://';
+
+  if (link.substr(0, securePrefix.length) === securePrefix) {
+    // change https to http
+    return prefix + link.substr(securePrefix.length);
+  }
+
+  if (link.substr(0, prefix.length) !== prefix) {
+    return prefix + link;
+  }
+
+  return link;
+};
+
 // return unique elements of array
 export const unique = (array, propertyName) => array //
   .filter(
@@ -57,28 +74,11 @@ export const checkFeatureFlagActivated = (featureFlagList, componentStateObject)
   });
 };
 
-// Given a link, return the link with 'http' and strip https if present
-export const formatUrl = (link) => {
-  const prefix = 'http://';
-  const securePrefix = 'https://';
-
-  if (link.substr(0, securePrefix.length) === securePrefix) {
-    // change https to http
-    return prefix + link.substr(securePrefix.length);
-  }
-
-  if (link.substr(0, prefix.length) !== prefix) {
-    return prefix + link;
-  }
-
-  return link;
-};
-
 export default {
+  formatUrl,
   unique,
   flattenDeep,
   isEmpty,
   deepEqual,
   uniqueAndSortByFrequency,
-  formatUrl,
 };

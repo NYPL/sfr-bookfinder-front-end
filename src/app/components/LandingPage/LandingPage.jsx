@@ -106,65 +106,62 @@ class LandingPage extends React.Component {
     };
 
     return (
-      <main
-        id="mainContent"
-      // className="main-content grid-container padding-0"
-      >
-        <Breadcrumbs
-          links={[
-            {
-              href: `/search?${getQueryString(searchQuery)}`,
-              text: 'Search Results',
-            },
-          ]}
-          pageType={pageType}
-          onClickHandler={handleReset}
-        />
-        <div
-          aria-label="ResearchNow"
-        >
-          <div className="grid-row">
-            <div className="sfr-center">
-              <DS.HeaderImgRight
-                headerId="ResearchNow-Main-Header"
-                isImageDecorative
-                pageTitleText="ResearchNow"
-                imgUrl="https://placeimg.com/200/100/arch"
-                bodyText={(
-                  <p>
-                      Find millions of free digital books from the world’s research libraries
-                  </p>
-                  )}
-              />
-            </div>
-          </div>
-          <div className="grid-row">
-            <div className="sfr-center">
-              <SearchForm
-                isHomePage
-                history={history}
-                {...this.boundActions}
-              />
+      <DS.Container>
+        <main id="mainContent">
+          <Breadcrumbs
+            links={[
               {
+                href: `/search?${getQueryString(searchQuery)}`,
+                text: 'Search Results',
+              },
+            ]}
+            pageType={pageType}
+            onClickHandler={handleReset}
+          />
+          <div
+            aria-label="ResearchNow"
+          >
+            <div className="grid-row">
+              <div className="sfr-center">
+                <DS.HeaderImgRight
+                  headerId="ResearchNow-Main-Header"
+                  isImageDecorative
+                  pageTitleText="ResearchNow"
+                  imgUrl="https://placeimg.com/200/100/arch"
+                  bodyText={(
+                    <p>
+                      Find millions of free digital books from the world’s research libraries
+                    </p>
+                  )}
+                />
+              </div>
+            </div>
+            <div className="grid-row">
+              <div className="sfr-center">
+                <SearchForm
+                  isHomePage
+                  history={history}
+                  {...this.boundActions}
+                />
+                {
                 // eslint-disable-next-line no-underscore-dangle
                 FeatureFlags.store._isFeatureActive(config.booksCount.experimentName)
                 && <TotalWorks />
               }
+              </div>
+            </div>
+            <div className="grid-row">
+              <div className="sfr-center">
+                <DS.IconLinkList
+                  titleText="Browse By Subject"
+                  titleId="subject-browse-list"
+                  textLinks={Subjects}
+                />
+              </div>
             </div>
           </div>
-          <div className="grid-row">
-            <div className="sfr-center">
-              <DS.IconLinkList
-                titleText="Browse By Subject"
-                titleId="subject-browse-list"
-                textLinks={Subjects}
-              />
-            </div>
-          </div>
-
-
-        </div>
-      </main>
+        </main>
+      </DS.Container>
     );
   }
 }

@@ -122,9 +122,7 @@ class SearchResultsPage extends React.Component {
 
     return (
       <DS.Container>
-        <main
-          id="mainContent"
-        >
+        <main id="mainContent">
           <Breadcrumbs
             links={[
               {

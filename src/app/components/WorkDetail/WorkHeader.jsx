@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as DS from '@nypl/design-system-react-components';
-import AuthorsList from '../List/AuthorsList';
-import { getPreferredAgent } from '../SearchResults/ResultsList';
+import { getAuthorsList, getPreferredAgent } from '../Card/EditionCard';
 
 const WorkHeader = ({ data }) => (
   <div className="nypl-item-header">
@@ -21,7 +20,7 @@ const WorkHeader = ({ data }) => (
     <span>
         By
       {' '}
-      <AuthorsList agents={getPreferredAgent(data.agents, 'author')} />
+      {getAuthorsList(getPreferredAgent(data.agents, 'author'))}
     </span>
   </div>
 );
