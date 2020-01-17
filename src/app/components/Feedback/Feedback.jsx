@@ -179,9 +179,6 @@ class Feedback extends React.Component {
                 Submit
               </button>
 
-              <div className="privacy-policy-link">
-                <a href="https://www.nypl.org/help/about-nypl/legal-notices/privacy-policy">Privacy Policy</a>
-              </div>
             </form>
           </div>
         </FocusTrap>
