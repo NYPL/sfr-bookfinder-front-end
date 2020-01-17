@@ -81,7 +81,7 @@ export const getSubtitleText = subtitle => (subtitle && subtitle.length > MAX_SU
 // Author
 const getAuthorIdentifier = author => (author.viaf && 'viaf') || (author.lcnaf && 'lcnaf') || 'name';
 
-const getLinkToAuthorSearch = author => ({
+export const getLinkToAuthorSearch = author => ({
   queries: JSON.stringify([{ query: author[getAuthorIdentifier(author)], field: getAuthorIdentifier(author) }]),
   showQuery: `"${author.name}"`,
   showField: 'author',
@@ -189,6 +189,7 @@ export default {
   editionYearElem,
   generateTitleLinkElem,
   getSubtitleText,
+  getLinkToAuthorSearch,
   getAuthorsList,
   getCover,
   getPublisherAndLocation,

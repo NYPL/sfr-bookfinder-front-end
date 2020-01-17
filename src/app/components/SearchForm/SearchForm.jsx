@@ -38,7 +38,6 @@ class SearchForm extends React.Component {
     }
   }
 
-  // TODO: fix show field and query
   onFieldChange(event) {
     const fieldSelected = event.target.value;
     this.setState((prevState) => {

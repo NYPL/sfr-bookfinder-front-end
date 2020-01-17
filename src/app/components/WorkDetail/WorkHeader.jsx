@@ -3,9 +3,12 @@ import PropTypes from 'prop-types';
 import * as DS from '@nypl/design-system-react-components';
 import { getAuthorsList, getPreferredAgent } from '../Card/EditionCard';
 
-const WorkHeader = ({ data }) => (
-  <div className="nypl-item-header">
-    {data
+const WorkHeader = ({ data }) => {
+  const authorsList = getAuthorsList(getPreferredAgent(data.agents, 'author'));
+
+  return (
+    <div className="nypl-item-header">
+      {data
       && (
       <DS.Heading
         level={1}
@@ -15,15 +18,17 @@ const WorkHeader = ({ data }) => (
       />
       )
       }
-    { data.subtitle && <div className="search-result-item__subtitle">{data.subtitle}</div> }
-    {/** TODO: don't show if authors list empty */}
-    <span>
+      { data.subtitle && <div className="search-result-item__subtitle">{data.subtitle}</div> }
+      { authorsList && authorsList.length && (
+      <span>
         By
-      {' '}
-      {getAuthorsList(getPreferredAgent(data.agents, 'author'))}
-    </span>
-  </div>
-);
+        {' '}
+        {authorsList}
+      </span>
+      )}
+    </div>
+  );
+};
 
 WorkHeader.propTypes = {
   data: PropTypes.objectOf(PropTypes.any),
