@@ -15,7 +15,9 @@ describe('Results List', () => {
   describe('No results behavior.', () => {
     before(() => {
       const noResults = [];
-      component = shallow(<ResultsList results={noResults} />);
+      component = shallow(<ResultsList
+        results={noResults}
+      />);
     });
 
     it('should return null when results object given is empty.', () => {
