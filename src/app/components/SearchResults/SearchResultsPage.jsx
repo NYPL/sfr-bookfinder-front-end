@@ -7,7 +7,6 @@ import * as DS from '@nypl/design-system-react-components';
 import FeatureFlags from 'dgx-feature-flags';
 import SearchForm from '../SearchForm/SearchForm';
 import SearchResults from './SearchResults';
-import AdvancedSearchResults from './AdvancedSearchResults';
 import * as searchActions from '../../actions/SearchActions';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import { getQueryString } from '../../search/query';
@@ -103,7 +102,6 @@ class SearchResultsPage extends React.Component {
   }
 
   render() {
-    console.log('searchResultsPage props', this.props);
     const { searchQuery, searchResults, eReaderUrl } = this.props;
     const { router, history } = this.context;
 
@@ -123,59 +121,53 @@ class SearchResultsPage extends React.Component {
 
 
     return (
-      <main
-        id="mainContent"
-      // className="main-content grid-container padding-0"
-      >
-        <Breadcrumbs
-          links={[
-            {
-              href: `/search?${getQueryString(searchQuery)}`,
-              text: 'Search Results',
-            },
-          ]}
-          pageType={pageType}
-          onClickHandler={handleReset}
-        />
-        <div
-          aria-label="ResearchNow"
-        >
+      <DS.Container>
+        <main id="mainContent">
+          <Breadcrumbs
+            links={[
+              {
+                href: `/search?${getQueryString(searchQuery)}`,
+                text: 'Search Results',
+              },
+            ]}
+            pageType={pageType}
+            onClickHandler={handleReset}
+          />
+          <div
+            aria-label="ResearchNow"
+          >
 
-          <div className="sfr-center">
-            <SearchForm
-              isHomePage={false}
-              history={history}
-              {...this.boundActions}
-            />
-            {
+            <div className="sfr-center">
+              <SearchForm
+                isHomePage={false}
+                history={history}
+                {...this.boundActions}
+              />
+              {
               // eslint-disable-next-line no-underscore-dangle
               FeatureFlags.store._isFeatureActive(config.booksCount.experimentName)
               && <TotalWorks />
             }
-          </div>
-          <div className="grid-row">
-            <DS.Heading
-              level={1}
-              id="page-title-heading"
-              blockName="page-title"
-              text={`Search Results for ${this.getDisplayItemsHeading()}`}
+            </div>
+            <div className="grid-row">
+              <DS.Heading
+                level={1}
+                id="page-title-heading"
+                blockName="page-title"
+                text={`Search Results for ${this.getDisplayItemsHeading()}`}
+              />
+            </div>
+            <SearchResults
+              searchQuery={searchQuery}
+              results={searchResults.data}
+              eReaderUrl={eReaderUrl}
+              {...this.boundActions}
+              history={history}
+              router={router}
             />
           </div>
-          <AdvancedSearchResults
-            searchQuery={searchQuery}
-            {...this.boundActions}
-            router={router}
-          />
-          <SearchResults
-            searchQuery={searchQuery}
-            results={searchResults.data}
-            eReaderUrl={eReaderUrl}
-            {...this.boundActions}
-            history={history}
-            router={router}
-          />
-        </div>
-      </main>
+        </main>
+      </DS.Container>
     );
   }
 }

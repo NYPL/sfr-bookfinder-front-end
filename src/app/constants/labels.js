@@ -10,8 +10,8 @@ export const detailDefinitionLabels = {
   issued_display: 'Date Issued',
   language: 'Language',
   rights: 'Rights',
-  measurements: 'Measurements',
-  identifiers: 'Identifiers',
+  // measurements: 'Measurements',
+  // identifiers: 'Identifiers',
   links: 'Links',
 };
 

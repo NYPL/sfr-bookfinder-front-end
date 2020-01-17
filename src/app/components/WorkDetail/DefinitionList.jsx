@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Html5Entities } from 'html-entities';
+import * as DS from '@nypl/design-system-react-components';
 import { Link } from 'react-router';
-import AuthorsList from '../List/AuthorsList';
 import { detailDefinitionLabels } from '../../constants/labels';
 import {
   unique, flattenDeep, isEmpty, uniqueAndSortByFrequency,
 } from '../../util/Util';
+import { getLinkToAuthorSearch } from '../Card/EditionCard';
 
 const htmlEntities = new Html5Entities();
 
@@ -15,14 +16,38 @@ const elements = Object.keys(detailDefinitionLabels);
 
 // extract unique language array from instances of a work item
 const addLanguagestoWorkItem = work => work
-  && work.instances
+  && work.editions
   && uniqueAndSortByFrequency(
     flattenDeep(
-      work.instances.map(
-        instance => instance.language && instance.language.map(language => language.language), //
+      work.editions.map(
+        instance => instance.languages && instance.languages.length && instance.languages.map(language => language.language),
       ),
     ),
   );
+
+// Get List of Authors and their Roles
+const getAuthorsList = (agents) => {
+  if (!agents || !agents.length) return null;
+
+  const authorsList = agents.map((agent) => {
+    const authorLabel = `${agent.name}, ${agent.roles.map(role => `${role} `)}`;
+    return (
+      <Link
+        to={{ pathname: '/search', query: getLinkToAuthorSearch(agent) }}
+        className="link"
+      >
+        {authorLabel}
+      </Link>
+    );
+  });
+
+  if (authorsList && authorsList.length) {
+    return authorsList.map((authorItem, i) => (
+      <li key={`author-${i.toString()}`}>{authorItem}</li>
+    ));
+  }
+  return <li key="author-no-author">Author Unavailable</li>;
+};
 /**
  * Build a definition list of elements from a bibliographic record provided
  * by Elastisearch.
@@ -57,14 +82,16 @@ export const DefinitionList = ({ work }) => {
     switch (type) {
       case 'language':
         return (
-          <ul>
-            {list.map((language, i) => (
-              <li key={`language${i.toString()}`}>{language}</li>
-            ))}
+          <ul className="definitions-languages">
+            {list.map((language, i) => <li key={`language${i.toString()}`}>{language}</li>)}
           </ul>
         );
       case 'agents':
-        return <AuthorsList agents={list} />;
+        return (
+          <ul className="definitions-authors">
+            {getAuthorsList(list)}
+          </ul>
+        );
 
       case 'subjects':
         return (
@@ -73,21 +100,23 @@ export const DefinitionList = ({ work }) => {
               .sort((a, b) => (a.subject && b.subject && a.subject.toLowerCase() < b.subject.toLowerCase() ? -1 : 1))
               .map((subject, i) => (
                 <li key={`subject${i.toString()}`}>
-                  <Link
-                    to={{
-                      pathname: '/search',
-                      query: { queries: `[{"query": "${subject.subject}", "field": "subject"}]` },
-                    }}
-                  >
-                    {htmlEntities.decode(subject.subject)}
-                  </Link>
+                  <DS.UnderlineLink>
+                    <Link
+                      to={{
+                        pathname: '/search',
+                        query: { queries: `[{"query": "${subject.subject}", "field": "subject"}]` },
+                      }}
+                    >
+                      {htmlEntities.decode(subject.subject)}
+                    </Link>
+                  </DS.UnderlineLink>
                 </li>
               ))}
           </ul>
         );
       case 'identifiers':
         return (
-          <ul className="sfr-inline-list">
+          <ul className="sfr-inline-list definitions-identifiers">
             {list
               .sort((a, b) => (a.id_type < b.id_type ? -1 : 1))
               .map((identifier, i) => (
@@ -97,7 +126,7 @@ export const DefinitionList = ({ work }) => {
         );
       case 'measurements':
         return (
-          <ul className="sfr-inline-list">
+          <ul className="sfr-inline-list definitions-measurements">
             {list
               .sort((a, b) => (a.value < b.value ? 1 : -1))
               .map((measurement, i) => (
@@ -107,7 +136,7 @@ export const DefinitionList = ({ work }) => {
         );
       case 'series':
         return (
-          <span>
+          <span className="definitions-series">
             {entries}
             {workObj.series_position && ` ${workObj.series_position}`}
           </span>
@@ -140,11 +169,11 @@ export const DefinitionList = ({ work }) => {
       <table className="nypl-details-table">
         <tbody>
           {defsData.map(
-            (entry, i) => elements.includes(entry[0]) && (
-            <tr key={`entry${i.toString()}`}>
-              <th scope="row">{detailDefinitionLabels[entry[0]]}</th>
-              <td>{parseEntries(entry[0], entry[1], workObj)}</td>
-            </tr>
+            (entry, i) => elements.includes(entry[0]) && entry[1] && (
+              <tr key={`entry${i.toString()}`}>
+                <th scope="row">{detailDefinitionLabels[entry[0]]}</th>
+                <td>{parseEntries(entry[0], entry[1], workObj)}</td>
+              </tr>
             ),
           )}
         </tbody>

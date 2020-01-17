@@ -1,9 +1,9 @@
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-env mocha */
 import React from 'react';
-import { stub, spy } from 'sinon';
+import { stub } from 'sinon';
 import { expect } from 'chai';
-import { shallow, mount, configure } from 'enzyme';
+import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { mockRouterContext } from '../helpers/routing';
 import Filters from '../../src/app/components/SearchResults/Filters';
