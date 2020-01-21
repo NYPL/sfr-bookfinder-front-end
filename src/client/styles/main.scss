@@ -169,6 +169,10 @@ select {
 }
 
 //DS Overrides: 
+.header-with-image-right__image {
+  display: none;
+}
+
 .dropdown {
   margin-right: 10px;
 }

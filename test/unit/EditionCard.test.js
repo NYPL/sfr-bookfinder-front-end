@@ -111,7 +111,6 @@ describe('Edition Card', () => {
   describe('gets Edition Year', () => {
     it('If UUID is passed, it should display the year as a link', () => {
       component = mount(EditionCard.editionYearElem(work.editions[0], work.uuid));
-      console.log("component", component.debug());
       expect(component.find('a').text()).to.equal('1852 Edition');
     });
 
