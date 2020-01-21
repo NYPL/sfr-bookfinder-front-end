@@ -7,6 +7,7 @@ import Footer from '@nypl/dgx-react-footer';
 import appConfig from '../../../../appConfig';
 import Loading from './Loading';
 import { documentTitles } from '../../constants/labels';
+import Feedback from '../Feedback/Feedback';
 
 class Application extends React.Component {
   componentDidMount() {
@@ -34,6 +35,7 @@ class Application extends React.Component {
         <Loading />
         {React.cloneElement(this.props.children, this.props)}
         <Footer />
+        <Feedback location={this.props.location} />
       </div>
     );
   }
