@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable jsx-a11y/label-has-for */
 import React from 'react';
 import PropTypes from 'prop-types';
 import FocusTrap from 'focus-trap-react';
@@ -28,6 +30,7 @@ class Feedback extends React.Component {
   }
 
   onSubmitForm(e) {
+    // eslint-disable-next-line no-console
     console.log(e);
     e.preventDefault();
     if (!this.state.feedback) {
@@ -37,6 +40,7 @@ class Feedback extends React.Component {
       this.setState({
         showForm: false,
       }, this.sendFeedback());
+      // eslint-disable-next-line no-alert
       alert('Thank you, your feedback has been submitted.');
     }
   }
@@ -86,6 +90,7 @@ class Feedback extends React.Component {
     return (
       <div className="feedback">
         <button
+          type="button"
           className="feedback-button"
           onClick={() => this.openForm()}
           aria-haspopup="true"
@@ -110,7 +115,7 @@ class Feedback extends React.Component {
               <div>
                 <label id="sfr-feedback-success">Did you find what you were looking for?</label>
                 <div>
-                  <input 
+                  <input
                     type="radio"
                     className="sfr-feedback-radio"
                     id="sfr-feedback-found-yes"
@@ -118,7 +123,12 @@ class Feedback extends React.Component {
                     value="yes"
                     onChange={this.handleRadioChange}
                   />
-                  <label htmlFor="sfr-feedback-found-yes" className="sfr-radio-label">Yes</label>
+                  <label
+                    htmlFor="sfr-feedback-found-yes"
+                    className="sfr-radio-label"
+                  >
+                    Yes
+                  </label>
                 </div>
 
                 <div>
@@ -130,7 +140,12 @@ class Feedback extends React.Component {
                     value="no"
                     onChange={this.handleRadioChange}
                   />
-                  <label htmlFor="sfr-feedback-found-no" className="sfr-radio-label">No</label>
+                  <label
+                    htmlFor="sfr-feedback-found-no"
+                    className="sfr-radio-label"
+                  >
+                    No
+                  </label>
                 </div>
 
                 <div>
@@ -142,7 +157,13 @@ class Feedback extends React.Component {
                     value="browse"
                     onChange={this.handleRadioChange}
                   />
-                  <label htmlFor="sfr-feedback-found-browse" className="sfr-radio-label">Just Browsing</label>
+                  <label
+                    htmlFor="sfr-feedback-found-browse"
+                    className="sfr-radio-label"
+                  >
+                    Just Browsing
+
+                  </label>
                 </div>
               </div>
               <div>
@@ -156,7 +177,7 @@ class Feedback extends React.Component {
                   rows="5"
                   aria-required="true"
                   tabIndex="0"
-                  ref={(textarea) => this.feedbackField = textarea}
+                  ref={(textarea) => { this.feedbackField = textarea; }}
                   value={this.state.feedback}
                   onChange={this.handleFeedbackChange}
                 />
@@ -164,6 +185,7 @@ class Feedback extends React.Component {
               </div>
 
               <button
+                type="button"
                 className={`cancel-button ${!showForm ? 'hidden' : ''}`}
                 onClick={e => this.closeForm(e)}
                 aria-expanded={!showForm}
@@ -188,7 +210,11 @@ class Feedback extends React.Component {
 }
 
 Feedback.propTypes = {
-  location: PropTypes.object,
+  location: PropTypes.objectOf(PropTypes.any),
+};
+
+Feedback.defaultProps = {
+  location: {},
 };
 
 export default Feedback;
