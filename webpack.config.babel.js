@@ -1,4 +1,5 @@
 import path from 'path';
+import dotenv from 'dotenv';
 
 import webpack from 'webpack';
 import merge from 'webpack-merge';
@@ -13,6 +14,8 @@ const designSystemStylePath = require.resolve('@nypl/design-system-styles');
 
 const sassPaths = ['node_modules', designSystemStylePath];
 
+dotenv.config();
+
 // References the application's root path
 const ROOT_PATH = path.resolve(__dirname);
 
@@ -21,6 +24,7 @@ const ENV = process.env.NODE_ENV || 'development';
 
 // Sets appEnv so the the header component will point to the search app on either Dev or Prod
 const appEnv = process.env.APP_ENV ? process.env.APP_ENV : 'production';
+const airtableKey = process.env.AIRTABLE_API_KEY;
 
 // Holds the common settings for any environment
 const commonSettings = {
@@ -86,6 +90,7 @@ if (ENV === 'development') {
       new webpack.DefinePlugin({
         'process.env': {
           APP_ENV: JSON.stringify('development'),
+          AIRTABLE_API_KEY: JSON.stringify(airtableKey),
         },
       }),
     ],
