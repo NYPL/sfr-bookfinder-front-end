@@ -20,7 +20,7 @@ const addLanguagestoWorkItem = work => work
   && uniqueAndSortByFrequency(
     flattenDeep(
       work.editions.map(
-        instance => instance.languages && instance.languages.length && instance.languages.map(language => language.language),
+        edition => edition.languages && edition.languages.length && edition.languages.map(language => language.language),
       ),
     ),
   );

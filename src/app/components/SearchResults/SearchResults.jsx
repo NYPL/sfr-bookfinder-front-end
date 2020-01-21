@@ -14,7 +14,6 @@ import { searchQueryPropTypes, initialSearchQuery } from '../../stores/InitialSt
  */
 const SearchResults = (props) => {
   const numberOfWorks = props.results && props.results.data && props.results.data.totalWorks;
-  const hits = props.results && props.results.data && props.results.data.hits && props.results.data.hits.hits;
   const data = props.results.data;
   if (!data) {
     return null;
@@ -23,7 +22,6 @@ const SearchResults = (props) => {
     <div className="margin-top-3">
       <SearchNavigation
         totalItems={numberOfWorks}
-        results={hits}
         fetchWork={props.fetchWork}
         {...props}
       />

@@ -51,7 +51,6 @@ export default class EditionCard {
     return `${array[0]}${moreText}`;
   }
 
-
   // Title
   static generateTitleLinkElem(title, uuid) {
     let displayTitle;
@@ -120,36 +119,37 @@ export default class EditionCard {
   static publisherDisplayLocation(previewEdition) {
     return (
       previewEdition && previewEdition.publication_place
-        ? `in ${previewEdition.publication_place}` : undefined);
+        ? ` in ${previewEdition.publication_place}` : '');
   }
 
   static publisherDisplayText(previewEdition) {
-    if (!previewEdition) return undefined;
+    if (!previewEdition) return '';
     const preferredAgents = EditionCard.getPreferredAgent(previewEdition.agents, 'publisher');
-    if (!preferredAgents) return undefined;
+    if (!preferredAgents) return '';
     const publisherNames = preferredAgents.map(pubAgent => pubAgent.name);
     const publisherText = ` by ${EditionCard.getFirstAndCountMore(publisherNames)}`;
     if (publisherText.length > MAX_PUBLISHER_NAME_LENGTH) {
-      return `${publisherText.substring(0, MAX_PUBLISHER_NAME_LENGTH)} ...`;
+      return `${publisherText.substring(0, MAX_PUBLISHER_NAME_LENGTH)}...`;
     }
     return publisherText;
   }
 
   static getPublisherAndLocation(previewEdition) {
+    const displayLocation = EditionCard.publisherDisplayLocation(previewEdition);
+    const displayName = EditionCard.publisherDisplayText(previewEdition);
+    if (!displayLocation && !displayName) return undefined;
     return (
-      `Published ${EditionCard.publisherDisplayLocation(previewEdition)}${EditionCard.publisherDisplayText(previewEdition)}`
+      `Published${displayLocation}${displayName}`
     );
   }
 
   // Language Display
   static getLanguageDisplayText(previewEdition) {
-    let languagesTextList;
-    if (!previewEdition || !previewEdition.languages || !previewEdition.languages.length) {
-      languagesTextList = 'Undetermined';
-    } else {
-      languagesTextList = previewEdition.languages.map(lang => lang.language);
+    if (previewEdition && previewEdition.languages && previewEdition.languages.length) {
+      const languagesTextList = previewEdition.languages.filter(lang => lang.language).map(lang => lang.language);
+      if (languagesTextList && languagesTextList.length) return `Languages: ${languagesTextList.join(', ')}`;
     }
-    return `Languages: ${languagesTextList.join(', ')}`;
+    return 'Languages: Undetermined';
   }
 
   // Rights
@@ -157,8 +157,11 @@ export default class EditionCard {
     return (editionItem && editionItem.rights && editionItem.rights.length
       ? `License: ${editionItem.rights[0].rights_statement}` : 'License: Unknown');
   }
-  // Read Online and Download Urls
 
+  // Read Online and Download Urls
+  // Generate URL of the format that is served by Ereader streamed server.
+  // This is specific to and backwards-engineered from the webpub-viewer URLs.
+  // and should be changed when webpub-viewer is able to generate more reasonable URLs.
   static generateStreamedReaderUrl(url, eReaderUrl, referrer) {
     const base64BookUrl = Buffer.from(formatUrl(url)).toString('base64');
     const encodedBookUrl = encodeURIComponent(`${base64BookUrl}`);
@@ -167,16 +170,15 @@ export default class EditionCard {
     if (referrer) {
       combined += `#${referrer}`;
     }
-
     return combined;
   }
 
   // TODO: Local links should not have headers
-
   static getReadOnlineLink(origin, editionItem, eReaderUrl, referrer) {
     if (!editionItem || !editionItem.links) return undefined;
     // TODO: Revert after links fix
     const selectedLink = editionItem.links.find(link => (!link.local && !link.download) || (link.local && link.download));
+    console.log("selectedLink", selectedLink);
     if (!selectedLink || !selectedLink.url) return undefined;
     if (selectedLink.local) {
       const encodedUrl = EditionCard.generateStreamedReaderUrl(selectedLink.url, eReaderUrl, referrer);

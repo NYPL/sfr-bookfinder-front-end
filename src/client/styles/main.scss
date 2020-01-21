@@ -173,6 +173,10 @@ select {
   display: none;
 }
 
+.container {
+  margin-top: 0;
+}
+
 .dropdown {
   margin-right: 10px;
 }
@@ -182,7 +186,7 @@ select {
 }
 
 .search-result-item {
-  margin-top: 2em;
+  margin: 2em 2em 0 2em;
 }
 
 h2#featured-edition {
