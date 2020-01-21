@@ -31,7 +31,7 @@ const formatAllResultsData = (results, origin, eReaderUrl, referrer) => results.
     resultIndex: { index },
     titleElement,
     subtitle: EditionCard.getSubtitleText(result.subtitle),
-    authorElement: joinArrayOfElements(authorLinkElement, ', '),
+    authorElement: authorLinkElement ? joinArrayOfElements(authorLinkElement, ', ') : undefined,
     editionInfo: {
       editionYearHeading: editionYearHeadingElement,
       publisherAndLocation: EditionCard.getPublisherAndLocation(previewEdition),

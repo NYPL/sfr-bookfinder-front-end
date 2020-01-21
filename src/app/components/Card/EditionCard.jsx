@@ -19,7 +19,8 @@ export default class EditionCard {
       if (foundAuthors && foundAuthors.length) { return foundAuthors; }
     }
 
-    return [agents.find(agent => agent.roles.includes(role))];
+    const preferredAgents = agents.find(agent => agent.roles.includes(role));
+    return preferredAgents ? [preferredAgents] : undefined;
   }
 
   // Edition Year
@@ -39,7 +40,7 @@ export default class EditionCard {
               {editionDisplay}
             </Link>
           )}
-        {!workUuid && <span>{editionDisplay}</span>}
+        {!workUuid && <>{ editionDisplay }</>}
       </span>
     );
   }

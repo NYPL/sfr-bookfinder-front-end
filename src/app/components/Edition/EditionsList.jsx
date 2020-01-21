@@ -33,7 +33,6 @@ class EditionsList extends React.Component {
     const {
       work, eReaderUrl, referrer,
     } = this.props;
-
     const editions = work.editions;
     if (!editions || editions.length === 0) {
       return null;
