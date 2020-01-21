@@ -169,6 +169,7 @@ if (ENV === 'production') {
         'process.env': {
           NODE_ENV: JSON.stringify('production'),
           APP_ENV: JSON.stringify(appEnv),
+          AIRTABLE_API_KEY: JSON.stringify(airtableKey),
         },
       }),
     ],
