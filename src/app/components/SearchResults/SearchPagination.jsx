@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import * as DS from '@nypl/design-system-react-components';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
 import { getQueryString } from '../../search/query';
-// import SearchHeader from './SearchHeader';
-// import SearchFooter from './SearchFooter';
 
 const SearchPagination = ({
   totalItems, searchQuery, userQuery, router,

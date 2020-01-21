@@ -5,7 +5,7 @@
 /* eslint-env mocha */
 import React from 'react';
 import { expect } from 'chai';
-import { shallow, configure } from 'enzyme';
+import { shallow, mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import EditionCard from '../../src/app/components/Card/EditionCard';
 import results from '../fixtures/results-list.json';
@@ -110,7 +110,8 @@ describe('Edition Card', () => {
 
   describe('gets Edition Year', () => {
     it('If UUID is passed, it should display the year as a link', () => {
-      component = shallow(EditionCard.editionYearElem(work.editions[0], work.uuid));
+      component = mount(EditionCard.editionYearElem(work.editions[0], work.uuid));
+      console.log("component", component.debug());
       expect(component.find('a').text()).to.equal('1852 Edition');
     });
 
@@ -153,7 +154,8 @@ describe('Edition Card', () => {
 
   describe('gets Author list', () => {
     before(() => { });
-    it('should return a list of links');
+    it('should return a list of links', () => {
+    });
   });
 
   describe('Get covers', () => {
@@ -165,17 +167,21 @@ describe('Edition Card', () => {
 
   describe('get publisher and display location', () => {
     before(() => { });
-    it('Should return publisher and location');
-    it('If no publisher, should only display location');
-    it('if no location, should only get publisher');
-    it('If neither, nothing');
+    it('Should return publisher and location', () => {
+    });
+    it('If no publisher, should only display location', () => {
+    });
+    it('if no location, should only get publisher', () => {
+    });
+    it('If neither, nothing', () => {
+    });
   });
 
   describe('get languages', () => {});
 
-  describe('get license');
+  describe('get license', () => {});
 
-  describe('get download url');
+  describe('get download url', () => {});
 
-  describe('get read online url');
+  describe('get read online url', () => {});
 });

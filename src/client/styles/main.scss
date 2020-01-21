@@ -87,12 +87,7 @@ body {
   max-width: 1332px;
   margin: 0 auto;
 }
-.dropdown {
-  margin-right: 10px;
-}
-.search-results-list {
-  margin: 30px;
-}
+
 .bold {
   font-weight: bold;
 }
@@ -174,6 +169,10 @@ select {
 }
 
 //DS Overrides: 
+.dropdown {
+  margin-right: 10px;
+}
+
 .iconlink-list {
   margin-top: 0.5em;
 }
