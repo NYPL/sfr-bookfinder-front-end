@@ -30,7 +30,7 @@ const getAuthorsList = (agents) => {
   if (!agents || !agents.length) return null;
 
   const authorsList = agents.map((agent) => {
-    const authorLabel = `${agent.name}, ${agent.roles.map(role => `${role} `)}`;
+    const authorLabel = `${agent.name}${agent.roles.map(role => `, ${role} `)}`;
     return (
       <Link
         to={{ pathname: '/search', query: EditionCard.getLinkToAuthorSearch(agent) }}

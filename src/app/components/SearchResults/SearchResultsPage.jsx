@@ -16,7 +16,6 @@ import TotalWorks from '../SearchForm/TotalWorks';
 
 import featureFlagConfig from '../../../../featureFlagConfig';
 import config from '../../../../appConfig';
-// import SearchPagination from './SearchPagination';
 
 /**
  * Container class providing the Redux action creators
@@ -68,10 +67,11 @@ class SearchResultsPage extends React.Component {
     if (showField && showQuery) {
       return `${showField}: ${showQuery}`;
     }
-    return this.props.searchQuery.queries.map((query, index) => {
-      const joiner = index > this.props.searchQuery.queries.length ? 'and ' : '';
-      return `${query.field}: ${query.query} ${joiner}`;
+    const queries = this.props.searchQuery.queries.map((query, index) => {
+      const joiner = index < this.props.searchQuery.queries.length - 1 ? ' and ' : '';
+      return `${query.field}: ${query.query}${joiner}`;
     });
+    return queries.join('');
   }
 
   loadSearch() {

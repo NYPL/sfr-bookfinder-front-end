@@ -170,9 +170,11 @@ describe('Edition Card', () => {
       expect(EditionCard.getSubtitleText('Subtitle')).to.equal('Subtitle');
     });
     it('should truncate the subtitle if it is too long', () => {
-      const tooLongTitle = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent consequat velit diam.';
-      const truncatedTitle = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent consequat veli...';
-      expect(EditionCard.getSubtitleText(tooLongTitle)).to.equal(truncatedTitle);
+      const tooLongSubtitle = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. '
+        + 'Aenean commodo ligula eget dolor. Aenean massa. Cum sociis nato';
+      const truncatedSubtitle = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. '
+        + 'Aenean commodo ligula eget dolor. Aenean massa. Cum sociis nat...';
+      expect(EditionCard.getSubtitleText(tooLongSubtitle)).to.equal(truncatedSubtitle);
     });
     it('should return nothing if no subtitle is found', () => {
       expect(EditionCard.getSubtitleText(undefined)).to.equal(undefined);

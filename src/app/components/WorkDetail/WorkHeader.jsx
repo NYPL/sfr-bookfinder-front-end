@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as DS from '@nypl/design-system-react-components';
 import EditionCard from '../Card/EditionCard';
+import { joinArrayOfElements } from '../../util/Util';
 
 const WorkHeader = ({ data }) => {
   const authorsList = EditionCard.getAuthorsList(EditionCard.getPreferredAgent(data.agents, 'author'));
@@ -23,7 +24,7 @@ const WorkHeader = ({ data }) => {
       <span>
         By
         {' '}
-        {authorsList}
+        {joinArrayOfElements(authorsList, ', ')}
       </span>
       )}
     </div>
