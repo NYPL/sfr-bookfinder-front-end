@@ -8,18 +8,20 @@ import EmptySearchSvg from '../Svgs/EmptySearchSvg';
 import { isEmpty, joinArrayOfElements } from '../../util/Util';
 import EditionCard from '../Card/EditionCard';
 
-const formatAllResultsData = (results, origin, eReaderUrl, referrer) => results.map((result, index) => {
+export const getEditionsLinkElement = result => (result.edition_count > 1 ? (
+  <Link
+    className="link"
+    to={{ pathname: '/work', query: { workId: `${result.uuid}` }, hash: '#all-editions' }}
+  >
+    {`View All ${result.edition_count} Editions`}
+  </Link>
+) : undefined);
+
+export const formatAllResultsData = (results, origin, eReaderUrl, referrer) => results.map((result, index) => {
   const titleElement = EditionCard.generateTitleLinkElem(result.title, result.uuid);
   const authorLinkElement = EditionCard.getAuthorsList(EditionCard.getPreferredAgent(result.agents, 'author'));
   // TODO: Editions Link Page
-  const allEditionsLink = result.edition_count > 1 ? (
-    <Link
-      className="link"
-      to={{ pathname: '/work', query: { workId: `${result.uuid}` }, hash: '#all-editions' }}
-    >
-      {`View All ${result.edition_count} editions`}
-    </Link>
-  ) : undefined;
+  const allEditionsLink = getEditionsLinkElement(result);
 
   const previewEdition = result.editions[0];
   const editionYearHeadingElement = EditionCard.editionYearElem(previewEdition, result.uuid);
