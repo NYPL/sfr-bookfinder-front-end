@@ -31,10 +31,9 @@ const Breadcrumbs = ({ links, pageType, onClickHandler }) => {
           </Link>
         )));
       if (additionalLinks) {
-        return crumbs.concat(additionalLinks);
+        crumbs.concat(additionalLinks);
       }
     }
-
     return crumbs;
   };
 

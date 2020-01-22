@@ -178,7 +178,6 @@ export default class EditionCard {
     if (!editionItem || !editionItem.links) return undefined;
     // TODO: Revert after links fix
     const selectedLink = editionItem.links.find(link => (!link.local && !link.download) || (link.local && link.download));
-    console.log("selectedLink", selectedLink);
     if (!selectedLink || !selectedLink.url) return undefined;
     if (selectedLink.local) {
       const encodedUrl = EditionCard.generateStreamedReaderUrl(selectedLink.url, eReaderUrl, referrer);
