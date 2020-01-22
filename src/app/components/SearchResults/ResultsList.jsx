@@ -23,16 +23,16 @@ export const formatAllResultsData = (results, origin, eReaderUrl, referrer) => r
   // TODO: Editions Link Page
   const allEditionsLink = getEditionsLinkElement(result);
 
-  const previewEdition = result.editions[0];
+  const previewEdition = result.editions && result.editions[0];
   const editionYearHeadingElement = EditionCard.editionYearElem(previewEdition, result.uuid);
 
   const editionItem = previewEdition && previewEdition.items ? previewEdition.items[0] : undefined;
 
   return {
     id: `search-result-${result.uuid}`,
-    resultIndex: { index },
+    resultIndex: index,
     titleElement,
-    subtitle: EditionCard.getSubtitleText(result.subtitle),
+    subtitle: EditionCard.getSubtitleText(result.sub_title),
     authorElement: authorLinkElement ? joinArrayOfElements(authorLinkElement, ', ') : undefined,
     editionInfo: {
       editionYearHeading: editionYearHeadingElement,

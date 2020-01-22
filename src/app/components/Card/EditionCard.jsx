@@ -74,6 +74,7 @@ export default class EditionCard {
 
   // Subtitle
   static getSubtitleText(subtitle) {
+    console.log('subtitle', subtitle);
     return (subtitle && subtitle.length > MAX_SUBTITILE_LENGTH
       ? `${subtitle.substring(0, MAX_SUBTITILE_LENGTH)}...` : subtitle);
   }
