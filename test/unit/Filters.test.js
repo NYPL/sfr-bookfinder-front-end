@@ -1,13 +1,14 @@
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-env mocha */
 import React from 'react';
-import { stub, spy } from 'sinon';
+import { stub } from 'sinon';
 import { expect } from 'chai';
-import { shallow, mount, configure } from 'enzyme';
+import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { mockRouterContext } from '../helpers/routing';
 import Filters from '../../src/app/components/SearchResults/Filters';
-import results from '../fixtures/results-list-full.json';
+import results from '../fixtures/results-list.json';
+import defaultQuery from '../fixtures/search-query.json';
 import Checkbox from '../../src/app/components/Form/Checkbox';
 
 configure({ adapter: new Adapter() });
@@ -59,7 +60,11 @@ describe('Filters', () => {
 
   describe('Filters behavior.', () => {
     before(() => {
-      component = shallow(<Filters data={results} />);
+      const searchQuery = defaultQuery;
+      component = shallow(<Filters
+        data={results.data}
+        searchQuery={searchQuery}
+      />);
     });
 
     it('should display a list of fields (currently 4)', () => {
@@ -71,8 +76,11 @@ describe('Filters', () => {
           .find('fieldset')
           .at(1)
           .find(Checkbox),
-      ).to.have.length(10);
+      ).to.have.length(7);
     });
+
+    // TODO: Check that the languages cut off at 10
+
     it('should display the maximum count of language filter first', () => {
       expect(
         component
@@ -81,7 +89,7 @@ describe('Filters', () => {
           .find(Checkbox)
           .first()
           .props().label,
-      ).to.equal('English (2,148)');
+      ).to.equal('English (2)');
     });
     it('should contain Years Filter', () => {
       expect(component.find('FilterYears')).to.have.length(1);
@@ -119,10 +127,10 @@ describe('Filters', () => {
       childContextTypes = mockRouterContext(push);
 
       wrapper = shallow(<Filters
-        data={results}
+        data={results.data}
+        searchQuery={defaultQuery}
         router={context.router}
       />, { context, childContextTypes });
-
       start = wrapper.find('FilterYears').dive().find({ name: 'filters.years.start' }).dive()
         .find('.usa-input');
       end = wrapper.find('FilterYears').dive().find({ name: 'filters.years.end' }).dive()

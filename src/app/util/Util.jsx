@@ -1,8 +1,45 @@
+import React from 'react';
 import FeatureFlags from 'dgx-feature-flags';
 
 // polyfill for Object.entries
 const entriesPolyFill = obj => Object.keys(obj).map(key => [key, obj[key]]);
 if (!Object.entries) Object.entries = entriesPolyFill;
+
+// Given a link, return the link with 'http' and strip https if present
+// The 'http' is necessary (and fails on https) because of something in our
+// server set-up.  Until we figure out what it is, this will allow all the links to work.
+
+export const formatUrl = (link) => {
+  const prefix = 'http://';
+  const securePrefix = 'https://';
+
+  if (link.substr(0, securePrefix.length) === securePrefix) {
+    // change https to http
+    return prefix + link.substr(securePrefix.length);
+  }
+
+  if (link.substr(0, prefix.length) !== prefix) {
+    return prefix + link;
+  }
+
+  return link;
+};
+
+// Given an array of JSX elements, return JSX that joins them with the Joiner.
+export const joinArrayOfElements = (array, joiner) => {
+  if (!array || !array.length) {
+    return undefined;
+  }
+  return array.map((item, idx) => {
+    if (!item) return undefined;
+    return ((idx < array.length - 1) ? (
+      <>
+        {item}
+        {joiner}
+      </>
+    ) : <>{item}</>);
+  });
+};
 
 // return unique elements of array
 export const unique = (array, propertyName) => array //
@@ -57,28 +94,11 @@ export const checkFeatureFlagActivated = (featureFlagList, componentStateObject)
   });
 };
 
-// Given a link, return the link with 'http' and strip https if present
-export const formatUrl = (link) => {
-  const prefix = 'http://';
-  const securePrefix = 'https://';
-
-  if (link.substr(0, securePrefix.length) === securePrefix) {
-    // change https to http
-    return prefix + link.substr(securePrefix.length);
-  }
-
-  if (link.substr(0, prefix.length) !== prefix) {
-    return prefix + link;
-  }
-
-  return link;
-};
-
 export default {
+  formatUrl,
   unique,
   flattenDeep,
   isEmpty,
   deepEqual,
   uniqueAndSortByFrequency,
-  formatUrl,
 };

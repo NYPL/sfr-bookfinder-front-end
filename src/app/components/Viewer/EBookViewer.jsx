@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { formatUrl } from '../../util/Util';
 
-
 class EBookViewer extends React.Component {
   constructor(props) {
     super(props);

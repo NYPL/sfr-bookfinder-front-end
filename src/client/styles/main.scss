@@ -26,14 +26,9 @@ $fontFamily: 'system-ui';
 
 @import './mixins/Mixins.scss';
 @import './components/Search.scss';
-@import './components/WorkHeader.scss';
 @import './components/WorkDetail.scss';
-@import './components/EBookList.scss';
 @import './components/EBookViewer.scss';
 @import './components/DefinitionList.scss';
-@import './components/EditionsList.scss';
-@import './components/SearchHeader.scss';
-@import './components/SearchFooter.scss';
 @import './components/Loading.scss';
 @import './components/Filters.scss';
 @import './components/AdvancedSearch.scss';
@@ -93,19 +88,6 @@ body {
   margin: 0 auto;
 }
 
-ul,
-ol {
-  list-style: none;
-  padding: 0;
-  max-width: initial !important;
-}
-
-a:link,
-a:visited,
-a {
-  color: #0071ce;
-  text-decoration: none;
-}
 .bold {
   font-weight: bold;
 }
@@ -184,4 +166,29 @@ select {
   .emailSubscription-wrapper {
     box-sizing: content-box;
   }
+}
+
+//DS Overrides: 
+.header-with-image-right__image {
+  display: none;
+}
+
+.container {
+  margin-top: 0;
+}
+
+.dropdown {
+  margin-right: 10px;
+}
+
+.iconlink-list {
+  margin-top: 0.5em;
+}
+
+.search-result-item {
+  margin: 2em 2em 0 2em;
+}
+
+h2#featured-edition {
+  margin-top: 0.75em;
 }

@@ -1,20 +1,23 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable jsx-a11y/label-has-for */
 import React from 'react';
 import PropTypes from 'prop-types';
 import FocusTrap from 'focus-trap-react';
 
 import appConfig from '../../../../appConfig';
 
+const initialState = {
+  showForm: false,
+  feedback: '',
+  success: null,
+  commentStatus: false,
+};
 
 class Feedback extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      showForm: false,
-      feedback: '',
-      success: null,
-      commentStatus: false,
-    };
+    this.state = initialState;
 
     this.feedbackField = React.createRef();
 
@@ -28,6 +31,7 @@ class Feedback extends React.Component {
   }
 
   onSubmitForm(e) {
+    // eslint-disable-next-line no-console
     console.log(e);
     e.preventDefault();
     if (!this.state.feedback) {
@@ -37,6 +41,7 @@ class Feedback extends React.Component {
       this.setState({
         showForm: false,
       }, this.sendFeedback());
+      // eslint-disable-next-line no-alert
       alert('Thank you, your feedback has been submitted.');
     }
   }
@@ -57,15 +62,15 @@ class Feedback extends React.Component {
         },
       }),
     });
+    this.closeForm();
   }
 
   openForm() {
     this.setState({ showForm: true });
   }
 
-  closeForm(e) {
-    e.preventDefault();
-    this.deactivateForm();
+  closeForm() {
+    this.setState(initialState);
   }
 
   deactivateForm() {
@@ -86,6 +91,7 @@ class Feedback extends React.Component {
     return (
       <div className="feedback">
         <button
+          type="button"
           className="feedback-button"
           onClick={() => this.openForm()}
           aria-haspopup="true"
@@ -110,39 +116,58 @@ class Feedback extends React.Component {
               <div>
                 <label id="sfr-feedback-success">Did you find what you were looking for?</label>
                 <div>
-                  <input 
+                  <input
                     type="radio"
                     className="sfr-feedback-radio"
+                    checked={this.state.success === 'yes'}
                     id="sfr-feedback-found-yes"
                     name="feedback"
                     value="yes"
-                    onChange={this.handleRadioChange}
+                    onChange={e => this.handleRadioChange(e)}
                   />
-                  <label htmlFor="sfr-feedback-found-yes" className="sfr-radio-label">Yes</label>
+                  <label
+                    htmlFor="sfr-feedback-found-yes"
+                    className="sfr-radio-label"
+                  >
+                    Yes
+                  </label>
                 </div>
 
                 <div>
                   <input
                     type="radio"
+                    checked={this.state.success === 'no'}
                     className="sfr-feedback-radio"
                     id="sfr-feedback-found-no"
                     name="feedback"
                     value="no"
-                    onChange={this.handleRadioChange}
+                    onChange={e => this.handleRadioChange(e)}
                   />
-                  <label htmlFor="sfr-feedback-found-no" className="sfr-radio-label">No</label>
+                  <label
+                    htmlFor="sfr-feedback-found-no"
+                    className="sfr-radio-label"
+                  >
+                    No
+                  </label>
                 </div>
 
                 <div>
                   <input
                     type="radio"
+                    checked={this.state.success === 'browse'}
                     className="sfr-feedback-radio"
                     id="sfr-feedback-found-browse"
                     name="feedback"
                     value="browse"
-                    onChange={this.handleRadioChange}
+                    onChange={e => this.handleRadioChange(e)}
                   />
-                  <label htmlFor="sfr-feedback-found-browse" className="sfr-radio-label">Just Browsing</label>
+                  <label
+                    htmlFor="sfr-feedback-found-browse"
+                    className="sfr-radio-label"
+                  >
+                    Just Browsing
+
+                  </label>
                 </div>
               </div>
               <div>
@@ -156,7 +181,7 @@ class Feedback extends React.Component {
                   rows="5"
                   aria-required="true"
                   tabIndex="0"
-                  ref={(textarea) => this.feedbackField = textarea}
+                  ref={(textarea) => { this.feedbackField = textarea; }}
                   value={this.state.feedback}
                   onChange={this.handleFeedbackChange}
                 />
@@ -164,8 +189,9 @@ class Feedback extends React.Component {
               </div>
 
               <button
+                type="button"
                 className={`cancel-button ${!showForm ? 'hidden' : ''}`}
-                onClick={e => this.closeForm(e)}
+                onClick={this.closeForm}
                 aria-expanded={!showForm}
                 aria-controls="feedback-menu"
               >
@@ -188,7 +214,11 @@ class Feedback extends React.Component {
 }
 
 Feedback.propTypes = {
-  location: PropTypes.object,
+  location: PropTypes.objectOf(PropTypes.any),
+};
+
+Feedback.defaultProps = {
+  location: {},
 };
 
 export default Feedback;

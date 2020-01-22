@@ -1,31 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AuthorsList from '../List/AuthorsList';
-import BookSvg from '../Svgs/BookSvg';
+import * as DS from '@nypl/design-system-react-components';
+import EditionCard from '../Card/EditionCard';
+import { joinArrayOfElements } from '../../util/Util';
 
-const WorkHeader = ({ data }) => (
-  <div className="nypl-item-header">
-    <div className="nypl-item-header-image">
-      <BookSvg />
-    </div>
-    <div className="nypl-item-header-column">
-      <div className="nypl-item-header-title">{data.title}</div>
-      {data.subtitle && <div>{data.subtitle}</div>}
-      {data.agents
-      && data.agents.length > 0 //
-        && data.agents.filter(agent => agent.roles && agent.roles.indexOf('author') > -1).length > 0 && (
-          <div className="nypl-item-header-author">
-            By&nbsp;
-            <AuthorsList
-              agents={data.agents}
-              max={1}
-              roleFilter="author"
-            />
-          </div>
+const WorkHeader = ({ data }) => {
+  const authorsList = EditionCard.getAuthorsList(EditionCard.getPreferredAgent(data.agents, 'author'));
+
+  return (
+    <div className="nypl-item-header">
+      {data
+      && (
+      <DS.Heading
+        level={1}
+        id="work-title"
+        blockName="page-title"
+        text={data.title}
+      />
+      )
+      }
+      { data.subtitle && <div className="search-result-item__subtitle">{data.subtitle}</div> }
+      { authorsList && authorsList.length && (
+      <span>
+        By
+        {' '}
+        {joinArrayOfElements(authorsList, ', ')}
+      </span>
       )}
     </div>
-  </div>
-);
+  );
+};
 
 WorkHeader.propTypes = {
   data: PropTypes.objectOf(PropTypes.any),

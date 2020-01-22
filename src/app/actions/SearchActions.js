@@ -79,7 +79,7 @@ export const searchPost = (query) => {
 };
 
 export const fetchWork = workId => dispatch => axios
-  .get(recordUrl, { params: { identifier: workId } })
+  .get(recordUrl, { params: { identifier: workId, recordType: 'editions' } })
   .then((resp) => {
     if (resp.data) {
       dispatch(workDetail(resp.data));
@@ -124,7 +124,7 @@ export const serverPost = (query) => {
 };
 
 export const serverFetchWork = workId => axios
-  .get(recordUrl, { params: { identifier: workId } })
+  .get(recordUrl, { params: { identifier: workId, recordType: 'editions' } })
   .then((resp) => {
     serverState.workDetail = { work: resp.data };
     return serverState;

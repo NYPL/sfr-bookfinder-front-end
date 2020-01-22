@@ -1,15 +1,55 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
+import { Link } from 'react-router';
+
 import PropTypes from 'prop-types';
-import ResultsListItem from './ResultsListItem';
+import * as DS from '@nypl/design-system-react-components';
 import EmptySearchSvg from '../Svgs/EmptySearchSvg';
-import { isEmpty } from '../../util/Util';
+import { isEmpty, joinArrayOfElements } from '../../util/Util';
+import EditionCard from '../Card/EditionCard';
+
+export const getEditionsLinkElement = result => (result.edition_count > 1 ? (
+  <Link
+    className="link"
+    to={{ pathname: '/work', query: { workId: `${result.uuid}` }, hash: '#all-editions' }}
+  >
+    {`View All ${result.edition_count} Editions`}
+  </Link>
+) : undefined);
+
+export const formatAllResultsData = (results, origin, eReaderUrl, referrer) => results.map((result, index) => {
+  const titleElement = EditionCard.generateTitleLinkElem(result.title, result.uuid);
+  const authorLinkElement = EditionCard.getAuthorsList(EditionCard.getPreferredAgent(result.agents, 'author'));
+  // TODO: Editions Link Page
+  const allEditionsLink = getEditionsLinkElement(result);
+
+  const previewEdition = result.editions && result.editions[0];
+  const editionYearHeadingElement = EditionCard.editionYearElem(previewEdition, result.uuid);
+
+  const editionItem = previewEdition && previewEdition.items ? previewEdition.items[0] : undefined;
+
+  return {
+    id: `search-result-${result.uuid}`,
+    resultIndex: index,
+    titleElement,
+    subtitle: EditionCard.getSubtitleText(result.sub_title),
+    authorElement: authorLinkElement ? joinArrayOfElements(authorLinkElement, ', ') : undefined,
+    editionInfo: {
+      editionYearHeading: editionYearHeadingElement,
+      publisherAndLocation: EditionCard.getPublisherAndLocation(previewEdition),
+      coverUrl: EditionCard.getCover(previewEdition),
+      language: EditionCard.getLanguageDisplayText(previewEdition),
+      license: EditionCard.getLicense(editionItem),
+      readOnlineLink: EditionCard.getReadOnlineLink(origin, editionItem, eReaderUrl, referrer),
+      downloadLink: EditionCard.getDownloadLink(editionItem),
+    },
+    editionsLinkElement: allEditionsLink,
+  };
+});
 
 /**
- * ResultsList presents search results as a "grouped" list of books
- * with their associated editions provided by the EditionsList component.
- * Each result displays a title and author element linked to its companion
- * detailed view.
+ * ResultsList takes the response and calls Design System's SearchResultsList
+ * with the correctly formatted properties
  *
  * @returns {string|null}
  */
@@ -17,9 +57,17 @@ class ResultsList extends React.Component {
   constructor(props) {
     super(props);
     this.props = props;
+    this.state = { loaded: false };
+  }
+
+  componentDidMount() {
+    this.setState({ loaded: true });
   }
 
   render() {
+    const { eReaderUrl, results } = this.props;
+    const referrer = this.context.router ? this.context.router.location.pathname + this.context.router.location.search : undefined;
+    const origin = this.state.loaded ? window.location.origin : '';
     if (isEmpty(this.props.results)) {
       return (
         <div className="grid-row margin-3">
@@ -28,24 +76,12 @@ class ResultsList extends React.Component {
             <span>No results were found. Please try a different keyword or fewer filters.</span>
           </div>
         </div>
+
       );
     }
-    const referrer = this.context.router ? this.context.router.location.pathname + this.context.router.location.search : undefined;
 
     return (
-      <div className="nypl-results">
-        <ul className="nypl-results-list">
-          {this.props.results.map(result => (
-            <ResultsListItem
-              referrer={referrer}
-              eReaderUrl={this.props.eReaderUrl}
-              item={result._source}
-              fetchWork={this.props.fetchWork}
-              key={result._source.uuid}
-            />
-          ))}
-        </ul>
-      </div>
+      <DS.SearchResultsList searchResults={formatAllResultsData(results, origin, eReaderUrl, referrer)}></DS.SearchResultsList>
     );
   }
 }
@@ -53,13 +89,11 @@ class ResultsList extends React.Component {
 ResultsList.propTypes = {
   eReaderUrl: PropTypes.string,
   results: PropTypes.arrayOf(PropTypes.any),
-  fetchWork: PropTypes.func,
 };
 
 ResultsList.defaultProps = {
   eReaderUrl: '',
   results: [],
-  fetchWork: () => { },
 };
 
 ResultsList.contextTypes = {

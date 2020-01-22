@@ -6,6 +6,8 @@ import { expect } from 'chai';
 import { mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import Select from 'react-select';
+import createCache from '@emotion/cache';
+import { CacheProvider } from '@emotion/core';
 import { mockRouterContext } from '../helpers/routing';
 import AdvancedSearch from '../../src/app/components/AdvancedSearch/AdvancedSearch';
 import TextInput from '../../src/app/components/Form/TextInput';
@@ -14,7 +16,16 @@ import configureStore from '../../src/app/stores/configureStore';
 import initialState from '../../src/app/stores/InitialState';
 
 configure({ adapter: new Adapter() });
-
+const cache = createCache();
+function withCacheProvider(
+  children,
+) {
+  return (
+    <CacheProvider value={cache}>
+      {children}
+    </CacheProvider>
+  );
+}
 describe('Advanced Search Container interactions', () => {
   let wrapper;
   let context;
@@ -27,7 +38,7 @@ describe('Advanced Search Container interactions', () => {
     context = mockRouterContext(push);
     childContextTypes = mockRouterContext(push);
 
-    wrapper = mount(<AdvancedSearch store={store} />, { context, childContextTypes });
+    wrapper = mount(withCacheProvider(<AdvancedSearch store={store} />), { context, childContextTypes });
   });
 
   after(() => {

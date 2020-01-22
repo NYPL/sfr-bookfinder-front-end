@@ -2,11 +2,12 @@ import React from 'react';
 import { Route, IndexRoute, Redirect } from 'react-router';
 
 import Application from '../components/Application/Application';
-import SearchContainer from '../components/SearchContainer/SearchContainer';
 import AdvancedSearch from '../components/AdvancedSearch/AdvancedSearch';
 import NotFound404 from '../components/Error/NotFound404';
 import WorkDetail from '../components/WorkDetail/WorkDetail';
 import EBookViewer from '../components/Viewer/EBookViewer';
+import SearchResultsPage from '../components/SearchResults/SearchResultsPage';
+import LandingPage from '../components/LandingPage/LandingPage';
 
 const routes = {
   default: (
@@ -14,10 +15,10 @@ const routes = {
       path="/"
       component={Application}
     >
-      <IndexRoute component={SearchContainer} />
+      <IndexRoute component={LandingPage} />
       <Route
         path="/search"
-        component={SearchContainer}
+        component={SearchResultsPage}
       />
       <Route
         path="/work"

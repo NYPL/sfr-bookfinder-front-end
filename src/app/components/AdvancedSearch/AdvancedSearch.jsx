@@ -6,6 +6,7 @@ import Select from 'react-select';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
+
 import appConfig from '../../../../appConfig';
 import * as searchActions from '../../actions/SearchActions';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
@@ -15,6 +16,7 @@ import TextInput from '../Form/TextInput';
 import Checkbox from '../Form/Checkbox';
 import { inputTerms, formatTypes, errorMessagesText } from '../../constants/labels';
 import FilterYears from '../SearchResults/FilterYears';
+
 
 const initialState = {
   error: false,
