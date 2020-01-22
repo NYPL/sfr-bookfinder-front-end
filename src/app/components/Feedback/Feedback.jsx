@@ -6,17 +6,18 @@ import FocusTrap from 'focus-trap-react';
 
 import appConfig from '../../../../appConfig';
 
+const initialState = {
+  showForm: false,
+  feedback: '',
+  success: null,
+  commentStatus: false,
+};
 
 class Feedback extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      showForm: false,
-      feedback: '',
-      success: null,
-      commentStatus: false,
-    };
+    this.state = initialState;
 
     this.feedbackField = React.createRef();
 
@@ -61,15 +62,15 @@ class Feedback extends React.Component {
         },
       }),
     });
+    this.closeForm();
   }
 
   openForm() {
     this.setState({ showForm: true });
   }
 
-  closeForm(e) {
-    e.preventDefault();
-    this.deactivateForm();
+  closeForm() {
+    this.setState(initialState);
   }
 
   deactivateForm() {
@@ -118,10 +119,11 @@ class Feedback extends React.Component {
                   <input
                     type="radio"
                     className="sfr-feedback-radio"
+                    checked={this.state.success === 'yes'}
                     id="sfr-feedback-found-yes"
                     name="feedback"
                     value="yes"
-                    onChange={this.handleRadioChange}
+                    onChange={e => this.handleRadioChange(e)}
                   />
                   <label
                     htmlFor="sfr-feedback-found-yes"
@@ -134,11 +136,12 @@ class Feedback extends React.Component {
                 <div>
                   <input
                     type="radio"
+                    checked={this.state.success === 'no'}
                     className="sfr-feedback-radio"
                     id="sfr-feedback-found-no"
                     name="feedback"
                     value="no"
-                    onChange={this.handleRadioChange}
+                    onChange={e => this.handleRadioChange(e)}
                   />
                   <label
                     htmlFor="sfr-feedback-found-no"
@@ -151,11 +154,12 @@ class Feedback extends React.Component {
                 <div>
                   <input
                     type="radio"
+                    checked={this.state.success === 'browse'}
                     className="sfr-feedback-radio"
                     id="sfr-feedback-found-browse"
                     name="feedback"
                     value="browse"
-                    onChange={this.handleRadioChange}
+                    onChange={e => this.handleRadioChange(e)}
                   />
                   <label
                     htmlFor="sfr-feedback-found-browse"
@@ -187,7 +191,7 @@ class Feedback extends React.Component {
               <button
                 type="button"
                 className={`cancel-button ${!showForm ? 'hidden' : ''}`}
-                onClick={e => this.closeForm(e)}
+                onClick={this.closeForm}
                 aria-expanded={!showForm}
                 aria-controls="feedback-menu"
               >
