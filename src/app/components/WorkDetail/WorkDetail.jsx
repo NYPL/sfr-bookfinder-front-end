@@ -14,7 +14,7 @@ import { deepEqual } from '../../util/Util';
 import EditionCard from '../Card/EditionCard';
 import { getQueryString } from '../../search/query';
 
-const getFeaturedEditionData = (edition, origin, eReaderUrl, referrer) => {
+export const getFeaturedEditionData = (edition, origin, eReaderUrl, referrer) => {
   const editionYearHeadingElement = EditionCard.editionYearElem(edition);
   const editionItem = edition.items ? edition.items[0] : undefined;
 

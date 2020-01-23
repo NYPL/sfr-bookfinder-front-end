@@ -119,7 +119,6 @@ class SearchResultsPage extends React.Component {
       router.push('/');
     };
 
-
     return (
       <DS.Container>
         <main id="mainContent">

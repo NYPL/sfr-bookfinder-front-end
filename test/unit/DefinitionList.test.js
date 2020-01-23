@@ -38,7 +38,7 @@ describe('DefinitionList', () => {
 
   it('should have a list of Subjects', () => {
     const subjects = component.find('.definitions-subjects');
-    expect(subjects.find('Link')).to.have.length(78);
+    expect(subjects.find('Link')).to.have.length(8);
   });
 
   it('the list of subjects should be ordered alphabetically', () => {
@@ -48,7 +48,7 @@ describe('DefinitionList', () => {
         .find('Link')
         .first()
         .getElements()[0].props.children,
-    ).to.equal('Advertisements -- 19th century. -- United States');
+    ).to.equal('Aufsatzsammlung.');
   });
 
   it('should have a list of Authors', () => {

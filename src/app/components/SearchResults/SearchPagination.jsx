@@ -4,16 +4,20 @@ import * as DS from '@nypl/design-system-react-components';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
 import { getQueryString } from '../../search/query';
 
+const getTotalPages = (totalItems, searchQuery) => Math.floor((Number(totalItems || 0) - 1) / Number(searchQuery.per_page || 10)) + 1 || 1;
+const getPageList = (totalItems, searchQuery) => {
+  const pageList = [];
+  const totalPages = getTotalPages(totalItems, searchQuery);
+  for (let i = 1; i <= totalPages; i += 1) {
+    pageList.push({ value: i, label: `${i.toLocaleString()} of ${totalPages.toLocaleString()}` });
+  }
+  return pageList;
+};
+
 const SearchPagination = ({
   totalItems, searchQuery, userQuery, router,
 }) => {
-  // page for query is -1 page shown
-  const totalPages = Math.floor((Number(totalItems || 0) - 1) / Number(searchQuery.per_page || 10)) + 1 || 1;
-  // return list of pages till total pages
-  const pageList = [];
-  for (let i = 1; i <= totalPages; i += 1) {
-    pageList.push(`${i.toLocaleString()} of ${totalPages.toLocaleString()}`);
-  }
+  const pageList = getPageList(totalItems, searchQuery);
   // redirect to url with query params
   const submit = (query) => {
     const path = `/search?${getQueryString(query)}`;
