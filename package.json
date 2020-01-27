@@ -12,11 +12,9 @@
     "dist": "NODE_ENV=production ./node_modules/.bin/webpack --config webpack.config.babel.js",
     "rebuild-modules": "rm -rf node_modules && npm install",
     "postinstall": "npm run dist",
-    "test": "mocha test/helpers/browser.js test/unit",
-    "test-unit": "mocha --require babel-core/register test/unit",
-    "test-with-coverage": "nyc ./node_modules/.bin/mocha test/helpers/browser.js test/*.test.js",
-    "coverage": "BABEL_ENV=test node_modules/.bin/nyc --require mocha npm test",
-    "coverage-report": "BABEL_ENV=test node_modules/.bin/nyc report --reporter=lcov",
+    "test": "BABEL_ENV=test ./node_modules/.bin/nyc --require mocha npm run test-unit",
+    "test-unit": "mocha test/helpers/browser.js test/unit",
+    "coverage-report": "BABEL_ENV=test ./node_modules/.bin/nyc report --reporter=lcov",
     "coverage-report-html": "BABEL_ENV=test ./node_modules/.bin/nyc report --reporter=html && open -a 'Google Chrome' ./coverage/index.html",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
@@ -37,6 +35,7 @@
     "url": "https://github.com/NYPL/sfr-bookfinder-front-end/issues"
   },
   "devDependencies": {
+    "@istanbuljs/nyc-config-babel": "^3.0.0",
     "@storybook/addon-a11y": "^5.2.8",
     "@storybook/addon-actions": "^5.2.8",
     "@storybook/addon-knobs": "^5.2.8",
