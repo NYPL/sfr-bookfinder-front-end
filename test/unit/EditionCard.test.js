@@ -599,4 +599,29 @@ describe('Edition Card', () => {
       expect(EditionCard.getReadOnlineLink(origin, testItem, eReaderUrl, referrer)).to.equal(undefined);
     });
   });
+
+  describe('get author identifier', () => {
+    let testAuthor;
+    before(() => {
+      testAuthor = {
+        name: 'Tester, Test',
+        viaf: 'n123456',
+        lcnaf: '098765x',
+      };
+    });
+
+    it('should return a tuple of viaf for viaf queries', () => {
+      expect(EditionCard.getAuthorIdentifier(testAuthor)).to.deep.equal(['viaf', 'viaf']);
+    });
+
+    it('should return lcnaf if viaf is not set', () => {
+      testAuthor.viaf = null;
+      expect(EditionCard.getAuthorIdentifier(testAuthor)).to.deep.equal(['lcnaf', 'lcnaf']);
+    });
+
+    it('should return name/author if viaf and lcnaf are not set', () => {
+      testAuthor.lcnaf = null;
+      expect(EditionCard.getAuthorIdentifier(testAuthor)).to.deep.equal(['name', 'author']);
+    });
+  });
 });
