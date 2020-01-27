@@ -274,21 +274,8 @@ class AdvancedSearch extends React.Component {
   }
 
   render() {
-    const { searchQuery } = this.props;
+    const { searchQuery, location } = this.props;
     const { router } = this.context;
-
-    /**
-     * onClick handler for resetting state for the request back to the home page
-     * to return the user to a new search.
-     *
-     * @param {object} event
-     */
-    const handleReset = (event) => {
-      event.preventDefault();
-
-      this.boundActions.resetSearch();
-      router.push('/');
-    };
     const languagesSelected = this.state.languages.filter(language => this.state.filters.language.indexOf(language.value) > -1);
     const getQueryValue = key => this.state.queries[key];
     const getFilterValue = (filter, key) => this.state.filters[filter] && this.state.filters[filter][key];
@@ -301,14 +288,8 @@ class AdvancedSearch extends React.Component {
         <div className="grid-row">
           <div className="sfr-header-wrapper tablet:grid-col-12">
             <Breadcrumbs
-              links={[
-                {
-                  href: `/search?${getQueryString(searchQuery)}`,
-                  text: 'Advanced Search',
-                },
-              ]}
-              pageType="advanced-search"
-              onClickHandler={handleReset}
+              router={router}
+              location={location}
             />
           </div>
           <div
@@ -463,11 +444,13 @@ class AdvancedSearch extends React.Component {
 }
 
 AdvancedSearch.propTypes = {
+  location: PropTypes.objectOf(PropTypes.any),
   searchQuery: searchQueryPropTypes,
   dispatch: PropTypes.func,
 };
 
 AdvancedSearch.defaultProps = {
+  location: {},
   searchQuery: initialSearchQuery,
   dispatch: () => { },
 };

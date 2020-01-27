@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { formatUrl } from '../../util/Util';
+import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 
 class EBookViewer extends React.Component {
   constructor(props) {
@@ -36,11 +37,20 @@ class EBookViewer extends React.Component {
   }
 
   render() {
+    const { router } = this.context;
+    const work = this.props.workDetail && this.props.workDetail.work ? this.props.workDetail.work.data : undefined;
     const bookUrl = this.state.bookUrl;
 
     return (
       <span>
-        {bookUrl
+        <Breadcrumbs
+          router={router}
+          location={this.props.location}
+          searchQuery={this.props.searchQuery}
+          workDetail={work}
+        />
+        <span>
+          {bookUrl
       && (
       <iframe
         allowFullScreen
@@ -49,6 +59,7 @@ class EBookViewer extends React.Component {
         title="Ebook Frame"
       />
       ) }
+        </span>
       </span>
     );
   }
@@ -57,10 +68,19 @@ class EBookViewer extends React.Component {
 
 EBookViewer.propTypes = {
   location: PropTypes.objectOf(PropTypes.any),
+  workDetail: PropTypes.objectOf(PropTypes.any),
+  searchQuery: PropTypes.objectOf(PropTypes.any),
 };
 
 EBookViewer.defaultProps = {
   location: {},
+  workDetail: {},
+  searchQuery: {},
+};
+
+EBookViewer.contextTypes = {
+  router: PropTypes.objectOf(PropTypes.any),
+  history: PropTypes.objectOf(PropTypes.any),
 };
 
 const mapStateToProps = state => state;

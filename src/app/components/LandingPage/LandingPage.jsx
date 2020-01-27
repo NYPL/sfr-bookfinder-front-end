@@ -9,7 +9,6 @@ import SearchForm from '../SearchForm/SearchForm';
 import Subjects from '../../../../subjectListConfig';
 import * as searchActions from '../../actions/SearchActions';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
-import { getQueryString } from '../../search/query';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
 import { deepEqual, isEmpty, checkFeatureFlagActivated } from '../../util/Util';
 import TotalWorks from '../SearchForm/TotalWorks';
@@ -88,35 +87,14 @@ class LandingPage extends React.Component {
   }
 
   render() {
-    const { searchQuery } = this.props;
     const { router, history } = this.context;
-
-    const pageType = 'home';
-    /**
-     * onClick handler for resetting state for the request back to the home page
-     * to return the user to a new search.
-     *
-     * @param {object} event
-     */
-    const handleReset = (event) => {
-      event.preventDefault();
-
-      this.boundActions.resetSearch();
-      router.push('/');
-    };
 
     return (
       <DS.Container>
         <main id="mainContent">
           <Breadcrumbs
-            links={[
-              {
-                href: `/search?${getQueryString(searchQuery)}`,
-                text: 'Search Results',
-              },
-            ]}
-            pageType={pageType}
-            onClickHandler={handleReset}
+            router={router}
+            location={this.props.location}
           />
           <div
             aria-label="ResearchNow"

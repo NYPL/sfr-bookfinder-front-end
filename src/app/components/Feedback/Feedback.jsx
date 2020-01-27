@@ -31,8 +31,6 @@ class Feedback extends React.Component {
   }
 
   onSubmitForm(e) {
-    // eslint-disable-next-line no-console
-    console.log(e);
     e.preventDefault();
     if (!this.state.feedback) {
       this.feedbackField.focus();
