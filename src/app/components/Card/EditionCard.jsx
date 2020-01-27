@@ -81,12 +81,15 @@ export default class EditionCard {
 
   // Author
   static getAuthorIdentifier(author) {
-    return (author.viaf && 'viaf') || (author.lcnaf && 'lcnaf') || 'name';
+    return (author.viaf && ['viaf', 'viaf']) || (author.lcnaf && ['lcnaf', 'lcnaf']) || ['name', 'author'];
   }
 
   static getLinkToAuthorSearch(author) {
     return ({
-      queries: JSON.stringify([{ query: author[EditionCard.getAuthorIdentifier(author)], field: EditionCard.getAuthorIdentifier(author) }]),
+      queries: JSON.stringify([{
+        query: author[EditionCard.getAuthorIdentifier(author)[0]],
+        field: EditionCard.getAuthorIdentifier(author)[1],
+      }]),
       showQuery: `"${author.name}"`,
       showField: 'author',
     });
