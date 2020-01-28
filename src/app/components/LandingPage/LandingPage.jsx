@@ -33,21 +33,12 @@ class LandingPage extends React.Component {
   }
 
   componentDidMount() {
-    this.loadSearch();
+    this.boundActions.resetSearch();
     FeatureFlags.store.listen(this.onFeatureFlagsChange.bind(this));
 
     checkFeatureFlagActivated(
       featureFlagConfig.featureFlagList, this.state.isFeatureFlagsActivated,
     );
-  }
-
-
-  componentDidUpdate(prevProps) {
-    const { location } = this.props;
-    if (!deepEqual(location.query, prevProps.location.query)) {
-      global.window.scrollTo(0, 0);
-      this.loadSearch();
-    }
   }
 
   componentWillUnmount() {
@@ -57,33 +48,6 @@ class LandingPage extends React.Component {
   onFeatureFlagsChange() {
     // eslint-disable-next-line react/no-unused-state
     this.setState({ featureFlagsStore: FeatureFlags.store.getState() });
-  }
-
-  loadSearch() {
-    const {
-      location: { query },
-      dispatch,
-      searchQuery,
-    } = this.props;
-
-    if (!query || isEmpty(query)) {
-      this.boundActions.resetSearch();
-    } else {
-      let newQuery = Object.assign({}, query);
-      if (query && query.filters) {
-        newQuery = Object.assign({}, newQuery, { filters: JSON.parse(query.filters) });
-      }
-      if (query && query.sort) {
-        newQuery = Object.assign({}, newQuery, { sort: JSON.parse(query.sort) });
-      }
-      if (query && query.queries) {
-        newQuery = Object.assign({}, newQuery, { queries: JSON.parse(query.queries) });
-      }
-      if (searchQuery && !deepEqual(newQuery, searchQuery)) {
-        dispatch(searchActions.userQuery(newQuery));
-        dispatch(searchActions.searchPost(newQuery));
-      }
-    }
   }
 
   render() {

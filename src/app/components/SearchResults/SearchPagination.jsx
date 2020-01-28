@@ -25,7 +25,7 @@ const SearchPagination = ({
     router.push(path);
   };
 
-  // update page in store and go to any page
+// update page in store and go to any page
   const goToPage = (newPageNumber) => {
     const perPage = searchQuery.per_page || initialSearchQuery.per_page;
     if (Number(searchQuery.page) === newPageNumber) {
