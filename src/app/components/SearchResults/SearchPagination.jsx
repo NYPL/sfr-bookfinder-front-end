@@ -5,13 +5,10 @@ import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialSt
 import { getQueryString } from '../../search/query';
 
 const getTotalPages = (totalItems, searchQuery) => Math.floor((Number(totalItems || 0) - 1) / Number(searchQuery.per_page || 10)) + 1 || 1;
-const getPageList = (totalItems, searchQuery) => {
+const getPageList = (totalPages) => {
   const pageList = [];
-  const totalPages = getTotalPages(totalItems, searchQuery);
   for (let i = 1; i <= totalPages; i += 1) {
-    let currentPage = {};
-    currentPage.value = i;
-    currentPage.label = `${i.toLocaleString()} of ${totalPages.toLocaleString()}` 
+    let currentPage = `${i.toLocaleString()} of ${totalPages.toLocaleString()}`;
     pageList.push(currentPage);
   }
   return pageList;
@@ -20,7 +17,8 @@ const getPageList = (totalItems, searchQuery) => {
 const SearchPagination = ({
   totalItems, searchQuery, userQuery, router,
 }) => {
-  const pageList = getPageList(totalItems, searchQuery);
+  const totalPages = getTotalPages(totalItems, searchQuery);
+  const pageList = getPageList(totalPages);
   // redirect to url with query params
   const submit = (query) => {
     const path = `/search?${getQueryString(query)}`;
@@ -57,11 +55,10 @@ const SearchPagination = ({
     const pageIndex = pageList.findIndex(pageValue => pageValue === e.target.value);
     goToPage(pageIndex);
   };
-  console.log("pageList", pageList.map(page => page.label))
 
   return (
     <DS.Pagination
-      paginationDropdownOptions={pageList.map(page => page.label)}
+      paginationDropdownOptions={pageList}
       previousPageHandler={e => navigateToPage(e, Number(searchQuery.page) - 1)}
       nextPageHandler={e => navigateToPage(e, Number(searchQuery.page) + 1)}
       currentValue={pageList[Number(searchQuery.page)]}
