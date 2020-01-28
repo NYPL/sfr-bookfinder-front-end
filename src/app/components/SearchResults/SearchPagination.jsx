@@ -9,7 +9,10 @@ const getPageList = (totalItems, searchQuery) => {
   const pageList = [];
   const totalPages = getTotalPages(totalItems, searchQuery);
   for (let i = 1; i <= totalPages; i += 1) {
-    pageList.push({ value: i, label: `${i.toLocaleString()} of ${totalPages.toLocaleString()}` });
+    let currentPage = {};
+    currentPage.value = i;
+    currentPage.label = `${i.toLocaleString()} of ${totalPages.toLocaleString()}` 
+    pageList.push(currentPage);
   }
   return pageList;
 };
@@ -54,10 +57,11 @@ const SearchPagination = ({
     const pageIndex = pageList.findIndex(pageValue => pageValue === e.target.value);
     goToPage(pageIndex);
   };
+  console.log("pageList", pageList.map(page => page.label))
 
   return (
     <DS.Pagination
-      paginationDropdownOptions={pageList}
+      paginationDropdownOptions={pageList.map(page => page.label)}
       previousPageHandler={e => navigateToPage(e, Number(searchQuery.page) - 1)}
       nextPageHandler={e => navigateToPage(e, Number(searchQuery.page) + 1)}
       currentValue={pageList[Number(searchQuery.page)]}

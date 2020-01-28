@@ -20,11 +20,11 @@ const SearchResults = (props) => {
   }
   return (
     <div className="margin-top-3">
-      <SearchNavigation
+      {/* <SearchNavigation
         totalItems={numberOfWorks}
         fetchWork={props.fetchWork}
         {...props}
-      />
+      /> */}
       <div className="grid-row sfr-results-container">
         <div className="grid-col-3 nypl-results-column">
           <Filters
@@ -47,7 +47,7 @@ const SearchResults = (props) => {
           totalItems={numberOfWorks}
           results={props.results.data.works}
           fetchWork={props.fetchWork}
-          {...props}
+          router={props.router}
         />
       </div>
     </div>

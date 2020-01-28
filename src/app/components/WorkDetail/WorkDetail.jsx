@@ -12,7 +12,6 @@ import EditionsList from '../List/EditionsList';
 import SearchForm from '../SearchForm/SearchForm';
 import { deepEqual } from '../../util/Util';
 import EditionCard from '../Card/EditionCard';
-import { getQueryString } from '../../search/query';
 
 export const getFeaturedEditionData = (edition, origin, eReaderUrl, referrer) => {
   const editionYearHeadingElement = EditionCard.editionYearElem(edition);
@@ -78,6 +77,8 @@ class WorkDetail extends React.Component {
   }
 
   render() {
+    const { router } = this.context;
+
     const work = this.props.work ? this.props.work.data : null;
     if (!work || !work.editions || deepEqual(work, WorkDetail.defaultProps.work)) {
       return null;
@@ -86,36 +87,6 @@ class WorkDetail extends React.Component {
     const eReaderUrl = this.props.eReaderUrl;
     const referrer = this.props.location.pathname + this.props.location.search;
     const origin = this.state.loaded ? window.location.origin : '';
-
-    /**
-     * onClick handler for resetting state for the request back to the home page
-     * to return the user to a new search.
-     *
-     * @param {object} event
-     */
-    const handleReset = (event) => {
-      event.preventDefault();
-
-      this.boundActions.resetSearch();
-      this.context.router.push('/');
-    };
-
-    const breadcrumbLinks = (searchQuery, workItem) => {
-      const links = [];
-      if (searchQuery) {
-        links.push({
-          href: `/search?${getQueryString(searchQuery)}`,
-          text: 'Search Results',
-        });
-      }
-      if (workItem) {
-        links.push({
-          href: `/work?workId=${workItem.uuid}`,
-          text: 'Item Detail',
-        });
-      }
-      return links;
-    };
 
     const getEditionCard = () => {
       if (!work.editions[0]) return null;
@@ -140,9 +111,9 @@ class WorkDetail extends React.Component {
           id="mainContent"
         >
           <Breadcrumbs
-            links={breadcrumbLinks(this.props.searchQuery, work)}
-            pageType="details"
-            onClickHandler={handleReset}
+            router={router}
+            location={this.props.location}
+            searchQuery={this.props.searchQuery}
           />
           <div className="grid-row">
             <div className="sfr-center">
@@ -227,6 +198,11 @@ const mapStateToProps = (state, ownProps) => ({
   work: state.workDetail && state.workDetail.work,
   searchQuery: state.searchQuery || ownProps.searchQuery,
 });
+
+WorkDetail.contextTypes = {
+  router: PropTypes.objectOf(PropTypes.any),
+  history: PropTypes.objectOf(PropTypes.any),
+};
 
 export default connect(
   mapStateToProps,
