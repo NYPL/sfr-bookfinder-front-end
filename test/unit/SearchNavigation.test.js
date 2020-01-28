@@ -12,7 +12,7 @@ import { mockRouterContext, mockRouter } from '../helpers/routing';
 
 configure({ adapter: new Adapter() });
 
-describe.only('Search Navigation', () => {
+describe('Search Navigation', () => {
   describe('No results behavior.', () => {
     let query;
     let component;
@@ -63,7 +63,7 @@ describe.only('Search Navigation', () => {
     it('should contain a select with list of numbers per page equal to 10, 20, 50, 100', () => {
       expect(
         component.find('#items-per-page-select').find('option').map(opt => opt.props().value),
-      ).to.eql(numbersPerPage); // eql used for arrays equality
+      ).to.eql(numbersPerPage);
     });
     it('should contain a select with list of sort options', () => {
       expect(component.find('#sort-by-select').find('option')).to.have.length(7);
@@ -74,7 +74,7 @@ describe.only('Search Navigation', () => {
     it('should contain a select with sort selections equal to the sortMap', () => {
       expect(
         component.find('#sort-by-select').find('option').map(opt => opt.props().value),
-      ).to.eql(Object.keys(sortMap)); // eql used for arrays equality
+      ).to.eql(Object.keys(sortMap));
     });
   });
 });
