@@ -9,5 +9,10 @@
       }
     ],
     "@babel/preset-react"
-  ]
+  ],
+  "env": {
+    "test": {
+      "plugins": ["istanbul"]
+    }
+  }
 }
