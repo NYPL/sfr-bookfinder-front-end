@@ -10,7 +10,7 @@ import Subjects from '../../../../subjectListConfig';
 import * as searchActions from '../../actions/SearchActions';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
-import { deepEqual, isEmpty, checkFeatureFlagActivated } from '../../util/Util';
+import { checkFeatureFlagActivated } from '../../util/Util';
 import TotalWorks from '../SearchForm/TotalWorks';
 
 import featureFlagConfig from '../../../../featureFlagConfig';

@@ -5,8 +5,6 @@ import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
 import * as DS from '@nypl/design-system-react-components';
 import FeatureFlags from 'dgx-feature-flags';
-import SearchForm from '../SearchForm/SearchForm';
-import SearchResults from './SearchResults';
 import * as searchActions from '../../actions/SearchActions';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
@@ -15,6 +13,35 @@ import TotalWorks from '../SearchForm/TotalWorks';
 
 import featureFlagConfig from '../../../../featureFlagConfig';
 import config from '../../../../appConfig';
+import SearchHeader from '../SearchForm/SearchHeader';
+import SearchResults from './SearchResults';
+
+export const loadSearch = (props) => {
+  const {
+    location: { query },
+    dispatch,
+    searchQuery,
+  } = props;
+
+  if (!query || isEmpty(query)) {
+    searchActions.resetSearch();
+  } else {
+    let newQuery = Object.assign({}, query);
+    if (query && query.filters) {
+      newQuery = Object.assign({}, newQuery, { filters: JSON.parse(query.filters) });
+    }
+    if (query && query.sort) {
+      newQuery = Object.assign({}, newQuery, { sort: JSON.parse(query.sort) });
+    }
+    if (query && query.queries) {
+      newQuery = Object.assign({}, newQuery, { queries: JSON.parse(query.queries) });
+    }
+    if (searchQuery && !deepEqual(newQuery, searchQuery)) {
+      dispatch(searchActions.userQuery(newQuery));
+      dispatch(searchActions.searchPost(newQuery));
+    }
+  }
+};
 
 /**
  * Container class providing the Redux action creators
@@ -34,7 +61,7 @@ class SearchResultsPage extends React.Component {
   }
 
   componentDidMount() {
-    this.loadSearch();
+    loadSearch(this.props);
 
     FeatureFlags.store.listen(this.onFeatureFlagsChange.bind(this));
 
@@ -47,7 +74,7 @@ class SearchResultsPage extends React.Component {
     const { location } = this.props;
     if (!deepEqual(location.query, prevProps.location.query)) {
       global.window.scrollTo(0, 0);
-      this.loadSearch();
+      loadSearch(this.props);
     }
   }
 
@@ -73,33 +100,6 @@ class SearchResultsPage extends React.Component {
     return queries.join('');
   }
 
-  loadSearch() {
-    const {
-      location: { query },
-      dispatch,
-      searchQuery,
-    } = this.props;
-
-    if (!query || isEmpty(query)) {
-      this.boundActions.resetSearch();
-    } else {
-      let newQuery = Object.assign({}, query);
-      if (query && query.filters) {
-        newQuery = Object.assign({}, newQuery, { filters: JSON.parse(query.filters) });
-      }
-      if (query && query.sort) {
-        newQuery = Object.assign({}, newQuery, { sort: JSON.parse(query.sort) });
-      }
-      if (query && query.queries) {
-        newQuery = Object.assign({}, newQuery, { queries: JSON.parse(query.queries) });
-      }
-      if (searchQuery && !deepEqual(newQuery, searchQuery)) {
-        dispatch(searchActions.userQuery(newQuery));
-        dispatch(searchActions.searchPost(newQuery));
-      }
-    }
-  }
-
   render() {
     const { searchQuery, searchResults, eReaderUrl } = this.props;
     const { router, history } = this.context;
@@ -115,7 +115,7 @@ class SearchResultsPage extends React.Component {
           >
 
             <div className="sfr-center">
-              <SearchForm
+              <SearchHeader
                 isHomePage={false}
                 history={history}
                 {...this.boundActions}

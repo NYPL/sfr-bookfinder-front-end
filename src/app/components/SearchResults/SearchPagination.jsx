@@ -8,7 +8,7 @@ const getTotalPages = (totalItems, searchQuery) => Math.floor((Number(totalItems
 const getPageList = (totalPages) => {
   const pageList = [];
   for (let i = 1; i <= totalPages; i += 1) {
-    let currentPage = `${i.toLocaleString()} of ${totalPages.toLocaleString()}`;
+    const currentPage = `${i.toLocaleString()} of ${totalPages.toLocaleString()}`;
     pageList.push(currentPage);
   }
   return pageList;
@@ -25,7 +25,7 @@ const SearchPagination = ({
     router.push(path);
   };
 
-// update page in store and go to any page
+  // update page in store and go to any page
   const goToPage = (newPageNumber) => {
     const perPage = searchQuery.per_page || initialSearchQuery.per_page;
     if (Number(searchQuery.page) === newPageNumber) {

@@ -9,9 +9,9 @@ import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import * as searchActions from '../../actions/SearchActions';
 import WorkHeader from './WorkHeader';
 import EditionsList from '../List/EditionsList';
-import SearchForm from '../SearchForm/SearchForm';
 import { deepEqual } from '../../util/Util';
 import EditionCard from '../Card/EditionCard';
+import SearchHeader from '../SearchForm/SearchHeader';
 
 export const getFeaturedEditionData = (edition, origin, eReaderUrl, referrer) => {
   const editionYearHeadingElement = EditionCard.editionYearElem(edition);
@@ -117,7 +117,7 @@ class WorkDetail extends React.Component {
           />
           <div className="grid-row">
             <div className="sfr-center">
-              <SearchForm
+              <SearchHeader
                 isHomePage={false}
                 history={history}
                 {...this.boundActions}

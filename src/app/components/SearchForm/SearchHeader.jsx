@@ -5,11 +5,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import * as DS from '@nypl/design-system-react-components';
 import { getQueryString } from '../../search/query';
-import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
-import { deepEqual } from '../../util/Util';
-import { errorMessagesText } from '../../constants/labels';
+import { initialSearchQuery } from '../../stores/InitialState';
 
-class SearchForm extends React.Component {
+class SearchHeader extends React.Component {
   constructor(props) {
     super(props);
 
@@ -23,18 +21,6 @@ class SearchForm extends React.Component {
 
   componentDidMount() {
     global.window.scrollTo(0, 0);
-  }
-
-  /**
-   * Used to update the downstream props updated by the
-   * parent component, LandingPage.
-   *
-   * @param {object} nextProps
-   */
-  componentWillReceiveProps(nextProps) {
-    if (!deepEqual(nextProps.searchQuery, this.props.searchQuery)) {
-      this.setState({ searchQuery: nextProps.searchQuery, error: false, errorMsg: '' });
-    }
   }
 
   onFieldChange(event) {
@@ -54,21 +40,16 @@ class SearchForm extends React.Component {
   }
 
   onQueryChange(event) {
-    const querySelected = event.target.value;
-
     this.setState((prevState) => {
-      const advancedQuery = {
-        query: querySelected,
+      const searchQuery = {
+        query: event.target.value,
         field: prevState.searchQuery.showField ? prevState.searchQuery.showField : prevState.searchQuery.queries[0].field || 'keyword',
       };
 
       return ({
-        searchQuery: Object.assign({}, initialSearchQuery, { showField: '', showQuery: '' }, { queries: [].concat(advancedQuery) }),
+        searchQuery: Object.assign({}, initialSearchQuery, { showField: '', showQuery: '' }, { queries: [].concat(searchQuery) }),
       });
     });
-    if (querySelected) {
-      this.setState({ error: false, errorMsg: '' });
-    }
   }
 
   handleSubmit(event) {
@@ -83,48 +64,50 @@ class SearchForm extends React.Component {
 
   submitSearchRequest(event) {
     event.preventDefault();
-    const query = this.state.searchQuery.queries[0].query.replace(/^\s+/, '').replace(/\s+$/, '');
-    if (!query) {
-      this.setState({ error: true, errorMsg: errorMessagesText.emptySearch });
-      return;
-    }
 
     const path = `/search?${getQueryString(this.state.searchQuery)}`;
     this.context.router.push(path);
   }
 
   render() {
-    const selectedQuery = this.state.searchQuery.showQuery || this.state.searchQuery.queries[0].query;
-    const selectedField = this.state.searchQuery.showField || this.state.searchQuery.queries[0].field;
-    const advancedSearchMessage = (
-      <p>
-        Use
-        {' '}
-        <Link
-          to="advanced-search"
-          className="link"
-        >
-          Advanced Search
-        </Link>
-        {' '}
-        to narrow your results.
-      </p>
-    );
-
     return (
       <div>
-        <DS.SearchPromo
-          headingText="Search the World's Research Collections"
-          titleId="tagline"
-          selectedOption={selectedField}
+        <DS.HeaderWithSearch
           searchButtonId="searchButtonId"
-          advancedSearchMessage={advancedSearchMessage}
-          searchValue={selectedQuery}
-          hasError={this.state.error}
-          errorMessage={this.state.errorMsg}
+          searchBarAriaLabel="Search research catalog"
+          sectionTitle={(
+            <Link
+              className="search-header__rn-section-title rn-section-title"
+              to="/"
+            >
+              <span id="research-now-title">
+                  Research
+                <span className="rn-section-title__emphasis">Now</span>
+              </span>
+            </Link>
+            )}
+          advancedSearchElem={(
+            <DS.UnderlineLink>
+              <Link
+                to="advanced-search"
+                className="text-baseline"
+              >
+                  Advanced Search
+              </Link>
+            </DS.UnderlineLink>
+            )}
           searchBarId="searchBarId"
           dropdownId="dropdownId"
-          searchInputAriaLabel="Search for keyword, author, title, or subject"
+          textFieldAriaLabel="Research Now"
+          headingContent={(
+            <span>
+                Research
+              <span className="rn-section-title__emphasis">Now</span>
+            </span>
+            )}
+          headingId="researchNow-page-title-id"
+          headingUrl="#research-now-url"
+          headingBaseClass="rn-section-title"
           searchDropdownOptions={this.props.allowedFields}
           searchSubmitHandler={this.submitSearchRequest}
           textChangeHandler={this.onQueryChange}
@@ -136,21 +119,19 @@ class SearchForm extends React.Component {
   }
 }
 
-SearchForm.propTypes = {
+SearchHeader.propTypes = {
   allowedFields: PropTypes.arrayOf(PropTypes.any),
-  searchQuery: searchQueryPropTypes,
   userQuery: PropTypes.func,
 };
 
-SearchForm.defaultProps = {
+SearchHeader.defaultProps = {
   allowedFields: ['keyword', 'title', 'author', 'subject'],
-  searchQuery: initialSearchQuery,
   userQuery: () => { },
 };
 
-SearchForm.contextTypes = {
+SearchHeader.contextTypes = {
   router: PropTypes.objectOf(PropTypes.any),
   history: PropTypes.objectOf(PropTypes.any),
 };
 
-export default SearchForm;
+export default SearchHeader;
