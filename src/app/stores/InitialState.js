@@ -25,7 +25,7 @@ export const searchQueryPropTypes = PropTypes.shape({
 const initialState = {
   searchResults: {},
   searchQuery: initialSearchQuery,
-  workDetail: { instances: [] },
+  work: { instances: [] },
   totalWorks: {},
 };
 

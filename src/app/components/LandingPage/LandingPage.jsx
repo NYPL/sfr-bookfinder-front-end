@@ -111,7 +111,6 @@ class LandingPage extends React.Component {
 LandingPage.propTypes = {
   searchResults: PropTypes.objectOf(PropTypes.any),
   searchQuery: searchQueryPropTypes,
-  workDetail: PropTypes.objectOf(PropTypes.any),
   dispatch: PropTypes.func,
   eReaderUrl: PropTypes.string,
   location: PropTypes.objectOf(PropTypes.any),
@@ -120,7 +119,6 @@ LandingPage.propTypes = {
 LandingPage.defaultProps = {
   searchResults: {},
   searchQuery: initialSearchQuery,
-  workDetail: {},
   dispatch: () => { },
   eReaderUrl: '',
   location: {},

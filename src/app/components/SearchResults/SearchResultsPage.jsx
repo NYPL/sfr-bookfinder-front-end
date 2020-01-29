@@ -24,7 +24,7 @@ export const loadSearch = (props) => {
   } = props;
 
   if (!query || isEmpty(query)) {
-    searchActions.resetSearch();
+    dispatch(searchActions.resetSearch());
   } else {
     let newQuery = Object.assign({}, query);
     if (query && query.filters) {
@@ -152,7 +152,7 @@ class SearchResultsPage extends React.Component {
 SearchResultsPage.propTypes = {
   searchResults: PropTypes.objectOf(PropTypes.any),
   searchQuery: searchQueryPropTypes,
-  workDetail: PropTypes.objectOf(PropTypes.any),
+  work: PropTypes.objectOf(PropTypes.any),
   dispatch: PropTypes.func,
   eReaderUrl: PropTypes.string,
   location: PropTypes.objectOf(PropTypes.any),
@@ -161,7 +161,7 @@ SearchResultsPage.propTypes = {
 SearchResultsPage.defaultProps = {
   searchResults: {},
   searchQuery: initialSearchQuery,
-  workDetail: {},
+  work: {},
   dispatch: () => { },
   eReaderUrl: '',
   location: {},

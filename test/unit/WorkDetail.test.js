@@ -17,6 +17,7 @@ import initialState from '../../src/app/stores/InitialState';
 
 import WorkDetail, { getFeaturedEditionData } from '../../src/app/components/WorkDetail/WorkDetail';
 
+configure({ adapter: new Adapter() });
 describe('Work Detail Page Test', () => {
   describe('getFeaturedEditionData', () => {
     describe('Get Featured Edition with Complete Data', () => {
@@ -79,23 +80,21 @@ describe('Work Detail Page Test', () => {
     });
   });
 
-  describe('WorkDetail Rendering', () => {
-    let context;
-    let childContextTypes;
-    let push;
+  describe.only('WorkDetail Rendering', () => {
+    let container;
+
     before(() => {
-      configure({ adapter: new Adapter() });
-      push = stub();
-      context = mockRouterContext(push);
-      childContextTypes = mockRouterContext(push);
+      initialState.work = { data: workDetail };
+      const store = configureStore(initialState);
+      container = mount(<WorkDetail
+        store={store}
+      />);
     });
 
-    // it('should do a thing', () => {
-    //   const store = configureStore(initialState);
-    //   const container = mount(<WorkDetail store={store} />, { context, childContextTypes });
-    //   console.log('contaiiiner', container.debug());
-    //   // const blah = container.render();
-    //   console.log('blahhh', container.html());
-    // });
+    it('should do a thing', () => {
+      console.log('container', container.debug());
+      const workDetail = container.find('WorkDetail');
+      // console.log('workDetail', workDetail.first().getDomNode().debug());
+    });
   });
 });

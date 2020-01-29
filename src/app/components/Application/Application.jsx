@@ -30,6 +30,7 @@ class Application extends React.Component {
   }
 
   render() {
+    console.log('children', this.props.children);
     return (
       <div className="app-wrapper add-list-reset">
         <Loading />

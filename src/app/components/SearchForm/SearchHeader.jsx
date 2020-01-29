@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import * as DS from '@nypl/design-system-react-components';
 import { getQueryString } from '../../search/query';
-import { initialSearchQuery } from '../../stores/InitialState';
+import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
+import { deepEqual } from '../../util/Util';
 
 class SearchHeader extends React.Component {
   constructor(props) {
@@ -21,6 +22,18 @@ class SearchHeader extends React.Component {
 
   componentDidMount() {
     global.window.scrollTo(0, 0);
+  }
+
+  /**
+   * Used to update the downstream props updated by the
+   * parent component, LandingPage.
+   *
+   * @param {object} nextProps
+   */
+  componentWillReceiveProps(nextProps) {
+    if (!deepEqual(nextProps.searchQuery, this.props.searchQuery)) {
+      this.setState({ searchQuery: nextProps.searchQuery });
+    }
   }
 
   onFieldChange(event) {
@@ -40,9 +53,11 @@ class SearchHeader extends React.Component {
   }
 
   onQueryChange(event) {
+    const querySelected = event.target.value;
+
     this.setState((prevState) => {
       const searchQuery = {
-        query: event.target.value,
+        query: querySelected,
         field: prevState.searchQuery.showField ? prevState.searchQuery.showField : prevState.searchQuery.queries[0].field || 'keyword',
       };
 
@@ -121,11 +136,13 @@ class SearchHeader extends React.Component {
 
 SearchHeader.propTypes = {
   allowedFields: PropTypes.arrayOf(PropTypes.any),
+  searchQuery: searchQueryPropTypes,
   userQuery: PropTypes.func,
 };
 
 SearchHeader.defaultProps = {
   allowedFields: ['keyword', 'title', 'author', 'subject'],
+  searchQuery: initialSearchQuery,
   userQuery: () => { },
 };
 

@@ -65,7 +65,6 @@ class EBookViewer extends React.Component {
   }
 }
 
-
 EBookViewer.propTypes = {
   location: PropTypes.objectOf(PropTypes.any),
   workDetail: PropTypes.objectOf(PropTypes.any),

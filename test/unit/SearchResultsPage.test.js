@@ -12,17 +12,36 @@ import SearchResultsPage, { loadSearch } from '../../src/app/components/SearchRe
 
 configure({ adapter: new Adapter() });
 describe('Search Results Page', () => {
-//   describe('loadSearch', () => {
-//     const props = {
-//       location: { query: { queries: [{ query: 'cat', field: 'keyword' }] } },
-//       dispatch: stub(),
-//       searchQuery: {},
-//     };
-//     it('stuff', () => {
-//       loadSearch(props);
-//       console.log('aaaaa', props.dispatch.args);
-//     });
-//   });
+  describe('loadSearch', () => {
+    const props = {
+      location: {
+        query: {
+          filters: '[]',
+          page: '0',
+          per_page: '10',
+          queries: '[{"query":"cat","field":"keyword"}]',
+          showField: '',
+          showQuery: '',
+          sort: '[]',
+          total: '0',
+        },
+      },
+      dispatch: stub(),
+      searchQuery: {},
+
+    };
+    it('Load search with query sets query and calls search with correct parameters ', () => {
+      loadSearch(props);
+    });
+
+    it('Load search with no query resets search', () => {
+
+    });
+  });
+
+  describe('search info heading', () => {
+
+  });
 
   describe('Search Results Page render', () => {
     let wrapper;
@@ -41,6 +60,9 @@ describe('Search Results Page', () => {
 
     it('contains an <h1>', () => {
       expect(wrapper.find('h1')).to.have.length(1);
+    });
+    it('contains a <SearchResults /> component', () => {
+      expect(wrapper.find('SearchHeader').exists()).to.equal(true);
     });
   });
 });
