@@ -10,9 +10,11 @@ if (!Object.entries) Object.entries = entriesPolyFill;
 export const formatUrl = (link, env) => {
   const devPrefix = 'http://';
   const securePrefix = 'https://';
-
   if (link.substr(0, 4) !== 'http') {
     return env === 'production' ? securePrefix + link : devPrefix + link;
+  }
+  if (env === 'development' && link.substr(0, securePrefix.length) === securePrefix) {
+    return devPrefix + link.substr(securePrefix.length);
   }
   return link;
 };
