@@ -199,7 +199,7 @@ class Filters extends React.Component {
                   id="show_all"
                   isSelected={!this.isFilterChecked(field, true)}
                   onChange={e => this.onChangeCheckbox(e, field, true, true)}
-                  label="Read Only"
+                  label="Available Online"
                   name="show_all"
                 />
               )}
