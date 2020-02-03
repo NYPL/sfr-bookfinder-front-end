@@ -8,15 +8,16 @@ if (!Object.entries) Object.entries = entriesPolyFill;
 // Given a link, return the link with 'http' if on development, 'https' if on production.
 
 export const formatUrl = (link, env) => {
-  const devPrefix = 'http://';
-  const securePrefix = 'https://';
-  if (link.substr(0, 4) !== 'http') {
-    return env === 'production' ? securePrefix + link : devPrefix + link;
+  const prefix = env === 'development' ? 'http://' : 'https://';
+  if (env === 'development') {
+    // If passed https, change to http
+    if (link.startsWith('https://')) {
+      return `http://${link.substr(8)}`;
+    }
+  } else if (env !== 'production') {
+    console.warn(`Environment should be either "development" or "production" but got ${env}`);
   }
-  if (env === 'development' && link.substr(0, securePrefix.length) === securePrefix) {
-    return devPrefix + link.substr(securePrefix.length);
-  }
-  return link;
+  return link.startsWith('http') ? link : prefix + link;
 };
 
 // Given an array of JSX elements, return JSX that joins them with the Joiner.
