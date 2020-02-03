@@ -10,7 +10,6 @@ import { match, RouterContext } from 'react-router';
 import { config as analyticsConfig } from 'dgx-react-ga';
 import webpack from 'webpack';
 import { Provider } from 'react-redux';
-
 import apiRoutes from './src/server/ApiRoutes/ApiRoutes';
 import routes from './src/app/routes/routes';
 import configureStore from './src/app/stores/configureStore';
