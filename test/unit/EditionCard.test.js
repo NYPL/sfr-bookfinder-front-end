@@ -198,7 +198,7 @@ describe('Edition Card', () => {
     it('Should get non-temporary cover url', () => {
       testEdition.covers = [
         {
-          url: 'http://not-local-url.com',
+          url: 'https://not-local-url.com',
           media_type: 'image/jpeg',
           flags: {
             cover: true,
@@ -206,7 +206,7 @@ describe('Edition Card', () => {
           },
         },
         {
-          url: 'http://local-url.com',
+          url: 'https://local-url.com',
           media_type: 'image/jpeg',
           flags: {
             cover: true,
@@ -219,7 +219,7 @@ describe('Edition Card', () => {
     it('Should get first non-temporary cover if multiple are passed', () => {
       testEdition.covers = [
         {
-          url: 'http://first-local-url.com',
+          url: 'https://first-local-url.com',
           media_type: 'image/jpeg',
           flags: {
             cover: true,
@@ -227,7 +227,7 @@ describe('Edition Card', () => {
           },
         },
         {
-          url: 'http://second-local-url.com',
+          url: 'https://second-local-url.com',
           media_type: 'image/jpeg',
           flags: {
             cover: true,
@@ -240,7 +240,7 @@ describe('Edition Card', () => {
     it('should return placeholder cover url if only temporary covers are found', () => {
       testEdition.covers = [
         {
-          url: 'http://not-local-url.com',
+          url: 'https://not-local-url.com',
           media_type: 'image/jpeg',
           flags: {
             cover: true,
@@ -473,7 +473,7 @@ describe('Edition Card', () => {
           images: true,
           ebook: true,
         }];
-      expect(EditionCard.getDownloadLink(testItem)).to.equal('http://download-url');
+      expect(EditionCard.getDownloadLink(testItem)).to.equal('https://download-url');
     });
     it('should return the first link if multiple are downloadable', () => {
       testItem.links = [
@@ -497,7 +497,7 @@ describe('Edition Card', () => {
           images: true,
           ebook: true,
         }];
-      expect(EditionCard.getDownloadLink(testItem)).to.equal('http://download-url-1');
+      expect(EditionCard.getDownloadLink(testItem)).to.equal('https://download-url-1');
     });
     it('should return undefined if links are null', () => {
       testItem.links = null;
@@ -540,7 +540,7 @@ describe('Edition Card', () => {
     it('should return appropriately formatted webpub-viewer link', () => {
       testItem.links = [
         {
-          url: 'read-online-url-1',
+          url: 'https://read-online-url-1',
           media_type: 'application/pdf',
           content: null,
           thumbnail: null,
@@ -550,7 +550,10 @@ describe('Edition Card', () => {
           ebook: true,
         }];
       expect(EditionCard.getReadOnlineLink(origin, testItem, eReaderUrl, referrer))
-        .to.equal('origin/read-online?url=eReaderUrl/readerNYPL/?url=eReaderUrl/pub/aHR0cDovL3JlYWQtb25saW5lLXVybC0x/manifest.json#referrer');
+        .to.equal(
+          'origin/read-online?url=eReaderUrl/readerNYPL/?url=eReaderUrl'
+          + '/pub/aHR0cHM6Ly9yZWFkLW9ubGluZS11cmwtMQ%253D%253D/manifest.json#referrer',
+        );
     });
 
     it('should return appropriately formatted non-webpub-viewer link', () => {
@@ -566,7 +569,7 @@ describe('Edition Card', () => {
           ebook: true,
         }];
       expect(EditionCard.getReadOnlineLink(origin, testItem, eReaderUrl, referrer))
-        .to.equal('origin/read-online?url=http://read-online-url-1');
+        .to.equal('origin/read-online?url=https://read-online-url-1');
     });
 
     it('should select the first read-online link', () => {
@@ -592,7 +595,7 @@ describe('Edition Card', () => {
           ebook: true,
         }];
       expect(EditionCard.getReadOnlineLink(origin, testItem, eReaderUrl, referrer))
-        .to.equal('origin/read-online?url=http://read-online-url-1');
+        .to.equal('origin/read-online?url=https://read-online-url-1');
     });
     it('returns undefined when no links are passed', () => {
       testItem.links = null;

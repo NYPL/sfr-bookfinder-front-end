@@ -88,7 +88,7 @@ describe('Results List', () => {
       });
       it('result data has coverUrl', () => {
         expect(resultsData.editionInfo.coverUrl).to.equal(
-          'http://test-sfr-covers.s3.amazonaws.com/hathitrust/077371092d774fb3b23e7991339216fb_nyp.33433076087844.jpg',
+          'https://test-sfr-covers.s3.amazonaws.com/hathitrust/077371092d774fb3b23e7991339216fb_nyp.33433076087844.jpg',
         );
       });
       it('result data has language', () => {
@@ -99,11 +99,11 @@ describe('Results List', () => {
       });
       it('result data has readOnlineLink', () => {
         expect(resultsData.editionInfo.readOnlineLink).to.equal(
-          'origin/read-online?url=http://archive.org/details/blithedaleromanc00hawtrich',
+          'origin/read-online?url=https://archive.org/details/blithedaleromanc00hawtrich',
         );
       });
       it('result data has download link', () => {
-        expect(resultsData.editionInfo.downloadLink).to.equal('http://catalog.hathitrust.org/api/volumes/oclc/39113388.html');
+        expect(resultsData.editionInfo.downloadLink).to.equal('https://catalog.hathitrust.org/api/volumes/oclc/39113388.html');
       });
       it('result data has editions link', () => {
         expect(mount(<span>{resultsData.editionsLinkElement}</span>).text()).to.equal('View All 17 Editions');
