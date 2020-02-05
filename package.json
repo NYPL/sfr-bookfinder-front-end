@@ -12,7 +12,7 @@
     "dist": "NODE_ENV=production ./node_modules/.bin/webpack --config webpack.config.babel.js",
     "rebuild-modules": "rm -rf node_modules && npm install",
     "postinstall": "npm run dist",
-    "test": "BABEL_ENV=test ./node_modules/.bin/nyc --require mocha npm run test-unit",
+    "test": "APP_ENV=production BABEL_ENV=test ./node_modules/.bin/nyc --require mocha npm run test-unit",
     "test-unit": "mocha test/helpers/browser.js test/unit",
     "coverage-report": "BABEL_ENV=test ./node_modules/.bin/nyc report --reporter=lcov",
     "coverage-report-html": "BABEL_ENV=test ./node_modules/.bin/nyc report --reporter=html && open -a 'Google Chrome' ./coverage/index.html",

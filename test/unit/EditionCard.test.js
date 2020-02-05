@@ -3,6 +3,8 @@
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable prefer-destructuring */
 /* eslint-env mocha */
+import React from 'react';
+
 import { expect } from 'chai';
 import { shallow, mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
@@ -625,6 +627,67 @@ describe('Edition Card', () => {
     it('should return name/author if viaf and lcnaf are not set', () => {
       testAuthor.lcnaf = null;
       expect(EditionCard.getAuthorIdentifier(testAuthor)).to.deep.equal(['name', 'author']);
+    });
+  });
+
+  describe('getEditionData', () => {
+    describe('Get Edition with Complete Data', () => {
+      const edition = work.editions[0];
+      const editionData = EditionCard.getEditionData(edition, 'origin', 'eReaderUrl', 'referrer');
+      it('Edition has Year Heading Element', () => {
+        expect(mount(<span>{editionData.editionYearHeading}</span>).text()).to.equal('1852 Edition');
+      });
+      it('Edition has publisher and location', () => {
+        expect(editionData.publisherAndLocation).to.equal(
+          'Published in London by Chapman and Hall, London + 4 more',
+        );
+      });
+      it('Edition has cover URL', () => {
+        expect(editionData.coverUrl).to.equal(
+          'https://test-sfr-covers.s3.amazonaws.com/hathitrust/077371092d774fb3b23e7991339216fb_nyp.33433076087844.jpg',
+        );
+      });
+      it('Edition has list of languages', () => {
+        expect(editionData.language).to.equal('Languages: English, German, Undetermined');
+      });
+      it('Edition has license', () => {
+        expect(editionData.license).to.equal('License: Unknown');
+      });
+      it('Edition has Read Online Link', () => {
+        expect(editionData.readOnlineLink).to.equal(
+          'origin/read-online?url=https://archive.org/details/blithedaleromanc00hawtrich',
+        );
+      });
+      it('Edition has Download link', () => {
+        expect(editionData.downloadLink).to.equal('https://catalog.hathitrust.org/api/volumes/oclc/39113388.html');
+      });
+    });
+
+    describe('Get Edition with Missing Data', () => {
+      const featuredEditionData = EditionCard.getEditionData([{}], 'origin', 'eReaderUrl', 'referrer');
+      it('Edition has Year Heading Element', () => {
+        expect(mount(<span>{featuredEditionData.editionYearHeading}</span>).text()).to.equal('Edition Year Unknown');
+      });
+      it('Edition has publisher and location', () => {
+        expect(featuredEditionData.publisherAndLocation).to.equal(undefined);
+      });
+      it('Edition has cover URL', () => {
+        expect(featuredEditionData.coverUrl).to.equal(
+          'https://test-sfr-covers.s3.amazonaws.com/default/defaultCover.png',
+        );
+      });
+      it('Edition has list of languages', () => {
+        expect(featuredEditionData.language).to.equal('Languages: Undetermined');
+      });
+      it('Edition has license', () => {
+        expect(featuredEditionData.license).to.equal('License: Unknown');
+      });
+      it('Edition has Read Online Link', () => {
+        expect(featuredEditionData.readOnlineLink).to.equal(undefined);
+      });
+      it('Edition has Download link', () => {
+        expect(featuredEditionData.downloadLink).to.equal(undefined);
+      });
     });
   });
 });

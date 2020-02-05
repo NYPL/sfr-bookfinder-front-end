@@ -194,4 +194,19 @@ export default class EditionCard {
     const selectedLink = editionItem.links.find(link => link.download);
     return selectedLink && selectedLink.url ? formatUrl(selectedLink.url, process.env.APP_ENV) : undefined;
   }
+
+  static getEditionData(edition, origin, eReaderUrl, referrer) {
+    const editionYearHeadingElement = EditionCard.editionYearElem(edition);
+    const editionItem = edition && edition.items ? edition.items[0] : undefined;
+
+    return {
+      editionYearHeading: editionYearHeadingElement,
+      publisherAndLocation: EditionCard.getPublisherAndLocation(edition),
+      coverUrl: EditionCard.getCover(edition),
+      language: EditionCard.getLanguageDisplayText(edition),
+      license: EditionCard.getLicense(editionItem),
+      readOnlineLink: EditionCard.getReadOnlineLink(origin, editionItem, eReaderUrl, referrer),
+      downloadLink: EditionCard.getDownloadLink(editionItem),
+    };
+  }
 }

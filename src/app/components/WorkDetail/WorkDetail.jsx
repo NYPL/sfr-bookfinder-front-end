@@ -13,21 +13,6 @@ import { deepEqual } from '../../util/Util';
 import EditionCard from '../Card/EditionCard';
 import SearchHeader from '../SearchForm/SearchHeader';
 
-export const getFeaturedEditionData = (edition, origin, eReaderUrl, referrer) => {
-  const editionYearHeadingElement = EditionCard.editionYearElem(edition);
-  const editionItem = edition.items ? edition.items[0] : undefined;
-
-  return {
-    editionYearHeading: editionYearHeadingElement,
-    publisherAndLocation: EditionCard.getPublisherAndLocation(edition),
-    coverUrl: EditionCard.getCover(edition),
-    language: EditionCard.getLanguageDisplayText(edition),
-    license: EditionCard.getLicense(editionItem),
-    readOnlineLink: EditionCard.getReadOnlineLink(origin, editionItem, eReaderUrl, referrer),
-    downloadLink: EditionCard.getDownloadLink(editionItem),
-  };
-};
-
 const scrollToHash = (hash) => {
   const hashtag = hash && hash.replace(/#/, '');
   if (hashtag) {
@@ -43,7 +28,7 @@ const getEditionCard = (work, origin, eReaderUrl, referrer) => {
   if (!work.editions[0]) return null;
   const getFirstReadableEdition = work.editions.find(edition => edition.items
     && edition.items.length && edition.items[0].links && edition.items[0].links.length);
-  const featuredEditionData = getFeaturedEditionData(getFirstReadableEdition, origin, eReaderUrl, referrer);
+  const featuredEditionData = EditionCard.getEditionData(getFirstReadableEdition, origin, eReaderUrl, referrer);
   return (
     <DS.EditionCard
       id="featured-card"
