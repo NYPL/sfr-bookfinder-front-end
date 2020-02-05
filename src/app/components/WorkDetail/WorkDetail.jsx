@@ -58,7 +58,6 @@ const getEditionCard = (work, origin, eReaderUrl, referrer) => {
 
 class WorkDetail extends React.Component {
   constructor(props) {
-    console.log('workDetail props', props);
     super(props);
     const { dispatch } = props;
     this.state = { ...props, loaded: false };
@@ -85,24 +84,16 @@ class WorkDetail extends React.Component {
 
   loadWork(workId, hash) {
     global.window.scrollTo(0, 0);
-    this.fetchWork(workId).then(() => {
+    this.props.dispatch(searchActions.fetchWork(workId)).then(() => {
       scrollToHash(hash);
       this.setState({ loaded: true });
     });
   }
 
-  fetchWork(workId) {
-    return this.props.dispatch(searchActions.fetchWork(workId));
-  }
-
-
   render() {
-    const { router } = this.context;
-    console.log('work', this.props.work);
+    const { router, history } = this.context;
     const work = this.props.work ? this.props.work.data : null;
-    const isValidWork = (work && work.editions && !deepEqual(work, WorkDetail.defaultProps.work));
-    console.log('isValidWork', isValidWork);
-    const { history } = this.context;
+    const isValidWork = work && work.editions && !deepEqual(work, WorkDetail.defaultProps.work);
     const eReaderUrl = this.props.eReaderUrl;
     const referrer = this.props.location.pathname + this.props.location.search;
     const origin = this.state.loaded ? window.location.origin : '';

@@ -39,10 +39,6 @@ describe('Search Results Page', () => {
     });
   });
 
-  describe('search info heading', () => {
-
-  });
-
   describe('Search Results Page render', () => {
     let wrapper;
 

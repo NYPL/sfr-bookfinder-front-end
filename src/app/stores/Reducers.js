@@ -32,13 +32,8 @@ export const searchResults = (state = null, action) => {
 };
 
 export const work = (state = null, action) => {
-  if (action.work) {
-    console.log('work action called', action);
-  }
-
   switch (action.type) {
     case Actions.FETCH_WORK:
-      console.log('fetch work called', action.work);
       return {
         work: action.work,
       };

@@ -109,7 +109,6 @@ export const serverPost = (query) => {
     queryBody = buildQueryBody(Object.assign({}, query, { field: sField }));
   }
   queryBody = buildQueryBody(Object.assign({}, query));
-
   return axios
     .post(searchUrl, queryBody)
     .then((resp) => {

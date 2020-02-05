@@ -550,7 +550,8 @@ describe('Edition Card', () => {
           ebook: true,
         }];
       expect(EditionCard.getReadOnlineLink(origin, testItem, eReaderUrl, referrer))
-        .to.equal('origin/read-online?url=eReaderUrl/readerNYPL/?url=eReaderUrl/pub/aHR0cDovL3JlYWQtb25saW5lLXVybC0x/manifest.json#referrer');
+        .to.equal('origin/read-online?url=eReaderUrl/readerNYPL/?url=eReaderUrl'
+        + '/pub/aHR0cDovL3JlYWQtb25saW5lLXVybC0x/manifest.json#referrer');
     });
 
     it('should return appropriately formatted non-webpub-viewer link', () => {

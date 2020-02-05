@@ -3,7 +3,7 @@
 import React from 'react';
 import { expect } from 'chai';
 import { stub } from 'sinon';
-import { mount, shallow, configure } from 'enzyme';
+import { mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import SearchNavigation, { submit } from '../../src/app/components/SearchResults/SearchNavigation';
 import results from '../fixtures/results-list.json';
@@ -41,10 +41,12 @@ describe('Search Navigation', () => {
       expect(component.find('h2').exists()).to.equal(true);
       expect(component.find('h2').text()).to.equal('Viewing 0 items');
     });
+
     it('Should contain a dropdown with number of items per page', () => {
       expect(component.find('select#items-per-page-select').exists()).to.equal(true);
     });
-    it('Should contain a dropdown with number of items per page', () => {
+
+    it('Should contain a dropdown with select options', () => {
       expect(component.find('select#sort-by-select').exists()).to.equal(true);
     });
   });
@@ -65,12 +67,15 @@ describe('Search Navigation', () => {
         component.find('#items-per-page-select').find('option').map(opt => opt.props().value),
       ).to.eql(numbersPerPage);
     });
+
     it('should contain a select with list of sort options', () => {
       expect(component.find('#sort-by-select').find('option')).to.have.length(7);
     });
+
     it('should contain a select with sort selections', () => {
       expect(component.find('#sort-by-select').find('option')).to.have.length(Object.keys(sortMap).length);
     });
+
     it('should contain a select with sort selections equal to the sortMap', () => {
       expect(
         component.find('#sort-by-select').find('option').map(opt => opt.props().value),

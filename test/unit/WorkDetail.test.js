@@ -4,13 +4,9 @@
 /* eslint-disable prefer-destructuring */
 /* eslint-env mocha */
 import React from 'react';
-import { stub } from 'sinon';
 import { expect } from 'chai';
-import {
-  shallow, mount, render, configure,
-} from 'enzyme';
+import { mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { mockRouterContext } from '../helpers/routing';
 import configureStore from '../../src/app/stores/configureStore';
 import workDetail from '../fixtures/work-detail.json';
 import initialState from '../../src/app/stores/InitialState';
@@ -80,21 +76,23 @@ describe('Work Detail Page Test', () => {
     });
   });
 
-  describe.only('WorkDetail Rendering', () => {
+  describe('WorkDetail Rendering with empty work', () => {
     let container;
 
     before(() => {
-      initialState.work = { data: workDetail };
       const store = configureStore(initialState);
       container = mount(<WorkDetail
         store={store}
+        location={{ query: { workId: 'invalid' } }}
       />);
     });
 
-    it('should do a thing', () => {
-      console.log('container', container.debug());
-      const workDetail = container.find('WorkDetail');
-      // console.log('workDetail', workDetail.first().getDomNode().debug());
+    it('should show breadcrumb', () => {
+      expect(container.find('Breadcrumbs').exists()).to.equal(true);
+    });
+
+    it('should show searchHeader', () => {
+      expect(container.find('SearchHeader').exists()).to.equal(true);
     });
   });
 });

@@ -24,7 +24,7 @@ describe('Landing Page render', () => {
   it('contains an initialized <SearchForm /> component', () => {
     expect(wrapper.find('SearchForm').exists()).to.equal(true);
   });
-  it('contains an <h1> when Search is empty', () => {
+  it('contains an <h1>', () => {
     expect(wrapper.find('h1')).to.have.length(1);
   });
   it('contains a list of subjects', () => {
