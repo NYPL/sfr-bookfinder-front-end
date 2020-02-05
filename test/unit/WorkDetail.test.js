@@ -29,7 +29,7 @@ describe('Work Detail Page Test', () => {
       });
       it('Edition has cover URL', () => {
         expect(featuredEditionData.coverUrl).to.equal(
-          'http://test-sfr-covers.s3.amazonaws.com/hathitrust/077371092d774fb3b23e7991339216fb_nyp.33433076087844.jpg',
+          'https://test-sfr-covers.s3.amazonaws.com/hathitrust/077371092d774fb3b23e7991339216fb_nyp.33433076087844.jpg',
         );
       });
       it('Edition has list of languages', () => {
@@ -40,11 +40,11 @@ describe('Work Detail Page Test', () => {
       });
       it('Edition has Read Online Link', () => {
         expect(featuredEditionData.readOnlineLink).to.equal(
-          'origin/read-online?url=http://archive.org/details/blithedaleromanc00hawtrich',
+          'origin/read-online?url=https://archive.org/details/blithedaleromanc00hawtrich',
         );
       });
       it('Edition has Download link', () => {
-        expect(featuredEditionData.downloadLink).to.equal('http://catalog.hathitrust.org/api/volumes/oclc/39113388.html');
+        expect(featuredEditionData.downloadLink).to.equal('https://catalog.hathitrust.org/api/volumes/oclc/39113388.html');
       });
     });
 

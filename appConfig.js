@@ -6,8 +6,8 @@ export default {
   webpackDevServerPort: 3000,
   baseUrl: '',
   ereader: {
-    development: 'http://researchnow-webpub-dev.us-east-1.elasticbeanstalk.com:4444',
-    production: 'http://researchnow-webpub-dev.us-east-1.elasticbeanstalk.com:4444',
+    development: 'http://localhost:4444',
+    production: 'https://researchnow-reader.nypl.org',
   },
   api: {
     development: 'https://dev-platform.nypl.org/api/v0.1/research-now/v3',

@@ -24,6 +24,7 @@ the user.
 
 ### Installation
 Clone the repo and run `npm install`.
+ResearchNow also uses [webpub viewer] (https://github.com/NYPL-Simplified/webpub-viewer/tree/SFR-develop) to serve epubs.  Clone this branch and run `npm install` and `npm run streamed`
 
 For local development, run `npm run dev-start` to start the local server at `localhost:3001` with
 default environment variables.

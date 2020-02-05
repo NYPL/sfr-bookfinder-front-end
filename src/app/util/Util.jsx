@@ -5,24 +5,19 @@ import FeatureFlags from 'dgx-feature-flags';
 const entriesPolyFill = obj => Object.keys(obj).map(key => [key, obj[key]]);
 if (!Object.entries) Object.entries = entriesPolyFill;
 
-// Given a link, return the link with 'http' and strip https if present
-// The 'http' is necessary (and fails on https) because of something in our
-// server set-up.  Until we figure out what it is, this will allow all the links to work.
+// Given a link, return the link with 'http' if on development, 'https' if on production.
 
-export const formatUrl = (link) => {
-  const prefix = 'http://';
-  const securePrefix = 'https://';
-
-  if (link.substr(0, securePrefix.length) === securePrefix) {
-    // change https to http
-    return prefix + link.substr(securePrefix.length);
+export const formatUrl = (link, env) => {
+  const prefix = env === 'development' ? 'http://' : 'https://';
+  if (env === 'development') {
+    // If passed https, change to http
+    if (link.startsWith('https://')) {
+      return `http://${link.substr(8)}`;
+    }
+  } else if (env !== 'production') {
+    console.warn(`Environment should be either "development" or "production" but got ${env}`);
   }
-
-  if (link.substr(0, prefix.length) !== prefix) {
-    return prefix + link;
-  }
-
-  return link;
+  return link.startsWith('http') ? link : prefix + link;
 };
 
 // Given an array of JSX elements, return JSX that joins them with the Joiner.

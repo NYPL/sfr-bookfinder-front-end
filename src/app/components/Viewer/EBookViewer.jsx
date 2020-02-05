@@ -4,11 +4,12 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { formatUrl } from '../../util/Util';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
+import appConfig from '../../../../appConfig';
 
 class EBookViewer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { };
     this.props = props;
   }
 
@@ -19,7 +20,7 @@ class EBookViewer extends React.Component {
   }
 
   handleIframeTask(e) {
-    if (e.origin !== 'http://researchnow-webpub-dev.us-east-1.elasticbeanstalk.com:4444') {
+    if (e.origin !== this.props.eReaderUrl) {
       return;
     }
     if (e.data === 'backButtonClicked') {
@@ -55,7 +56,7 @@ class EBookViewer extends React.Component {
       <iframe
         allowFullScreen
         scrolling="no"
-        src={`${formatUrl(bookUrl)}`}
+        src={`${formatUrl(bookUrl, process.env.APP_ENV)}`}
         title="Ebook Frame"
       />
       ) }
@@ -69,12 +70,14 @@ EBookViewer.propTypes = {
   location: PropTypes.objectOf(PropTypes.any),
   workDetail: PropTypes.objectOf(PropTypes.any),
   searchQuery: PropTypes.objectOf(PropTypes.any),
+  eReaderUrl: PropTypes.string,
 };
 
 EBookViewer.defaultProps = {
   location: {},
   workDetail: {},
   searchQuery: {},
+  eReaderUrl: appConfig.ereader[process.env.APP_ENV],
 };
 
 EBookViewer.contextTypes = {
