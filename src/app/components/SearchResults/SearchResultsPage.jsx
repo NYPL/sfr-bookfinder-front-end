@@ -116,7 +116,6 @@ class SearchResultsPage extends React.Component {
 
             <div className="sfr-center">
               <SearchHeader
-                isHomePage={false}
                 history={history}
                 {...this.boundActions}
               />

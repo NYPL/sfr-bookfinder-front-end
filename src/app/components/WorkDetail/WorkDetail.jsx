@@ -96,7 +96,6 @@ class WorkDetail extends React.Component {
           <div className="grid-row">
             <div className="sfr-center">
               <SearchHeader
-                isHomePage={false}
                 history={history}
                 {...this.boundActions}
               />
