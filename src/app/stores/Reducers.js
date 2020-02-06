@@ -31,7 +31,7 @@ export const searchResults = (state = null, action) => {
   }
 };
 
-export const workDetail = (state = null, action) => {
+export const workResult = (state = null, action) => {
   switch (action.type) {
     case Actions.FETCH_WORK:
       return {
@@ -63,7 +63,7 @@ const appReducer = combineReducers({
   searchResults,
   searchQuery,
   sort,
-  workDetail,
+  workResult,
   totalWorks,
   loading,
   errorMsg,
@@ -76,7 +76,6 @@ export const rootReducer = (state, action) => {
       totalWorks: state.totalWorks,
     });
   }
-
   return appReducer(state, action);
 };
 

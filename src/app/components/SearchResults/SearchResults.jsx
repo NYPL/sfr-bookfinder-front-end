@@ -45,8 +45,9 @@ const SearchResults = (props) => {
       <div className="grid-row">
         <SearchPagination
           totalItems={numberOfWorks}
-          results={props.results.data.works}
-          fetchWork={props.fetchWork}
+          searchQuery={props.searchQuery}
+          userQuery={props.userQuery}
+          router={props.router}
           {...props}
         />
       </div>

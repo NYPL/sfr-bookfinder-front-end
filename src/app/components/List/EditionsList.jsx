@@ -3,20 +3,9 @@ import PropTypes from 'prop-types';
 import * as DS from '@nypl/design-system-react-components';
 import EditionCard from '../Card/EditionCard';
 
-const getAllEditionsData = (editions, origin, eReaderUrl, referrer) => editions.map((edition) => {
-  const editionYearHeadingElement = EditionCard.editionYearElem(edition);
-  const editionItem = edition && edition.items ? edition.items[0] : undefined;
-
-  return {
-    editionYearHeading: editionYearHeadingElement,
-    publisherAndLocation: EditionCard.getPublisherAndLocation(edition),
-    coverUrl: EditionCard.getCover(edition),
-    language: EditionCard.getLanguageDisplayText(edition),
-    license: EditionCard.getLicense(editionItem),
-    readOnlineLink: EditionCard.getReadOnlineLink(origin, editionItem, eReaderUrl, referrer),
-    downloadLink: EditionCard.getDownloadLink(editionItem),
-  };
-});
+const getAllEditionsData = (editions, origin, eReaderUrl, referrer) => editions.map(
+  edition => EditionCard.getEditionData(edition, origin, eReaderUrl, referrer),
+);
 
 class EditionsList extends React.Component {
   constructor(props) {

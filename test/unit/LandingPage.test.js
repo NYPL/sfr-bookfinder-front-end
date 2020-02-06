@@ -2,7 +2,7 @@
 /* eslint-env mocha */
 import React from 'react';
 import { expect } from 'chai';
-import { shallow, configure } from 'enzyme';
+import { mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import LandingPage from '../../src/app/components/LandingPage/LandingPage';
 import configureStore from '../../src/app/stores/configureStore';
@@ -10,27 +10,26 @@ import initialState from '../../src/app/stores/InitialState';
 
 configure({ adapter: new Adapter() });
 
-describe('Landing Page interactions', () => {
+describe('Landing Page render', () => {
   let wrapper;
 
   before(() => {
     const store = configureStore(initialState);
-    wrapper = shallow(<LandingPage store={store} />).dive().find('LandingPage');
+    wrapper = mount(<LandingPage store={store} />);
+  });
+  it('contains a <Breadcrumbs /> component', () => {
+    expect(wrapper.find('Breadcrumbs').exists()).to.equal(true);
   });
 
   it('contains an initialized <SearchForm /> component', () => {
-    expect(wrapper).to.have.length(1);
-    expect(wrapper.prop('searchQuery').queries[0].query).to.equal('');
-    expect(wrapper.prop('searchQuery').queries[0].field).to.equal('');
+    expect(wrapper.find('SearchForm').exists()).to.equal(true);
   });
-  // it('contains an <h1> when Search is empty', () => {
-  //   expect(wrapper.find('LandingPage').dive().find('#ResearchNow-Main-Header')).to.have.length(1);
-  //   expect(wrapper.find('LandingPage').dive().find('#ResearchNow-Main-Header').text()).to.equal('ResearchNow');
-  // });
-  it('contains a SearchForm element', () => {
-    expect(wrapper.dive().find('SearchForm')).to.have.length(1);
+  it('contains an <h1>', () => {
+    expect(wrapper.find('h1')).to.have.length(1);
   });
-  // it('contains a list of subjects', () => {
-  //   expect();
-  // });
+  it('contains a list of subjects', () => {
+    const browseList = wrapper.find({ 'aria-labelledby': 'subject-browse-list' });
+    expect(browseList).to.have.length(1);
+    expect(browseList.find('li')).to.have.length(5);
+  });
 });

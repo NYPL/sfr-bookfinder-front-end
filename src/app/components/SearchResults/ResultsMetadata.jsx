@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
+import { getNumberOfPages } from '../../util/Util';
 
 /**
- * Present basic search metadata about the curren search or a "no results"
+ * Present basic search metadata about the current search or a "no results"
  * statement.
  * @param {object} props
  * @return {string}
  */
 const ResultsMetadata = ({ searchQuery, totalItems }) => {
   let message = 'Viewing 0 items';
-  const totalPages = Math.floor(totalItems / (Number(searchQuery.per_page) || 10)) + 1;
+  const totalPages = getNumberOfPages(totalItems, searchQuery.per_page);
   const firstElement = (Number(searchQuery.per_page || 10) * Number(searchQuery.page || 0) || 0) + 1;
   let lastElement = Number(searchQuery.per_page || 10) * (Number(searchQuery.page || 0) + 1) || 10;
   if (searchQuery.page >= totalPages - 1 && lastElement > totalItems) {

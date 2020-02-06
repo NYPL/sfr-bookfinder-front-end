@@ -109,7 +109,6 @@ export const serverPost = (query) => {
     queryBody = buildQueryBody(Object.assign({}, query, { field: sField }));
   }
   queryBody = buildQueryBody(Object.assign({}, query));
-
   return axios
     .post(searchUrl, queryBody)
     .then((resp) => {
@@ -126,7 +125,7 @@ export const serverPost = (query) => {
 export const serverFetchWork = workId => axios
   .get(recordUrl, { params: { identifier: workId, recordType: 'editions' } })
   .then((resp) => {
-    serverState.workDetail = { work: resp.data };
+    serverState.workResult = { work: resp.data };
     return serverState;
   })
   .catch((error) => {

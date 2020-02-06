@@ -7,10 +7,9 @@ import React from 'react';
 import { expect } from 'chai';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { formatUrl, joinArrayOfElements } from '../../src/app/util/Util';
+import { formatUrl, joinArrayOfElements, getNumberOfPages } from '../../src/app/util/Util';
 
 configure({ adapter: new Adapter() });
-
 
 describe('formatUrl', () => {
   it('prefixes a url with http in development', () => {
@@ -57,5 +56,19 @@ describe('JoinArrayOfElements', () => {
     const joined = joinArrayOfElements(null);
     const wrapper = shallow(<span>{joined}</span>);
     expect(wrapper.find('span').length).to.equal(1);
+  });
+});
+
+describe('getNumberOfPages', () => {
+  it('Returns correct number of pages', () => {
+    expect(getNumberOfPages(100, 10)).to.equal(10);
+  });
+
+  it('Returns 1 page when perPage is greater than number of items', () => {
+    expect(getNumberOfPages(10, 100)).to.equal(1);
+  });
+
+  it('Returns 1 pages when there are no items', () => {
+    expect(getNumberOfPages(0, 10)).to.equal(1);
   });
 });

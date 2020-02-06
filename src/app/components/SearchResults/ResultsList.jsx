@@ -34,15 +34,7 @@ export const formatAllResultsData = (results, origin, eReaderUrl, referrer) => r
     titleElement,
     subtitle: EditionCard.getSubtitleText(result.sub_title),
     authorElement: authorLinkElement ? joinArrayOfElements(authorLinkElement, ', ') : undefined,
-    editionInfo: {
-      editionYearHeading: editionYearHeadingElement,
-      publisherAndLocation: EditionCard.getPublisherAndLocation(previewEdition),
-      coverUrl: EditionCard.getCover(previewEdition),
-      language: EditionCard.getLanguageDisplayText(previewEdition),
-      license: EditionCard.getLicense(editionItem),
-      readOnlineLink: EditionCard.getReadOnlineLink(origin, editionItem, eReaderUrl, referrer),
-      downloadLink: EditionCard.getDownloadLink(editionItem),
-    },
+    editionInfo: EditionCard.getEditionData(previewEdition, origin, eReaderUrl, referrer),
     editionsLinkElement: allEditionsLink,
   };
 });

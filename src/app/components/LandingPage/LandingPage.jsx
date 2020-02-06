@@ -10,7 +10,7 @@ import Subjects from '../../../../subjectListConfig';
 import * as searchActions from '../../actions/SearchActions';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
-import { deepEqual, isEmpty, checkFeatureFlagActivated } from '../../util/Util';
+import { checkFeatureFlagActivated } from '../../util/Util';
 import TotalWorks from '../SearchForm/TotalWorks';
 
 import featureFlagConfig from '../../../../featureFlagConfig';
@@ -33,21 +33,12 @@ class LandingPage extends React.Component {
   }
 
   componentDidMount() {
-    this.loadSearch();
+    this.boundActions.resetSearch();
     FeatureFlags.store.listen(this.onFeatureFlagsChange.bind(this));
 
     checkFeatureFlagActivated(
       featureFlagConfig.featureFlagList, this.state.isFeatureFlagsActivated,
     );
-  }
-
-
-  componentDidUpdate(prevProps) {
-    const { location } = this.props;
-    if (!deepEqual(location.query, prevProps.location.query)) {
-      global.window.scrollTo(0, 0);
-      this.loadSearch();
-    }
   }
 
   componentWillUnmount() {
@@ -57,33 +48,6 @@ class LandingPage extends React.Component {
   onFeatureFlagsChange() {
     // eslint-disable-next-line react/no-unused-state
     this.setState({ featureFlagsStore: FeatureFlags.store.getState() });
-  }
-
-  loadSearch() {
-    const {
-      location: { query },
-      dispatch,
-      searchQuery,
-    } = this.props;
-
-    if (!query || isEmpty(query)) {
-      this.boundActions.resetSearch();
-    } else {
-      let newQuery = Object.assign({}, query);
-      if (query && query.filters) {
-        newQuery = Object.assign({}, newQuery, { filters: JSON.parse(query.filters) });
-      }
-      if (query && query.sort) {
-        newQuery = Object.assign({}, newQuery, { sort: JSON.parse(query.sort) });
-      }
-      if (query && query.queries) {
-        newQuery = Object.assign({}, newQuery, { queries: JSON.parse(query.queries) });
-      }
-      if (searchQuery && !deepEqual(newQuery, searchQuery)) {
-        dispatch(searchActions.userQuery(newQuery));
-        dispatch(searchActions.searchPost(newQuery));
-      }
-    }
   }
 
   render() {
@@ -117,7 +81,6 @@ class LandingPage extends React.Component {
             <div className="grid-row">
               <div className="sfr-center">
                 <SearchForm
-                  isHomePage
                   history={history}
                   {...this.boundActions}
                 />
@@ -147,7 +110,6 @@ class LandingPage extends React.Component {
 LandingPage.propTypes = {
   searchResults: PropTypes.objectOf(PropTypes.any),
   searchQuery: searchQueryPropTypes,
-  workDetail: PropTypes.objectOf(PropTypes.any),
   dispatch: PropTypes.func,
   eReaderUrl: PropTypes.string,
   location: PropTypes.objectOf(PropTypes.any),
@@ -156,7 +118,6 @@ LandingPage.propTypes = {
 LandingPage.defaultProps = {
   searchResults: {},
   searchQuery: initialSearchQuery,
-  workDetail: {},
   dispatch: () => { },
   eReaderUrl: '',
   location: {},

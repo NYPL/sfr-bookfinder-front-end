@@ -9,24 +9,9 @@ import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import * as searchActions from '../../actions/SearchActions';
 import WorkHeader from './WorkHeader';
 import EditionsList from '../List/EditionsList';
-import SearchForm from '../SearchForm/SearchForm';
 import { deepEqual } from '../../util/Util';
 import EditionCard from '../Card/EditionCard';
-
-const getFeaturedEditionData = (edition, origin, eReaderUrl, referrer) => {
-  const editionYearHeadingElement = EditionCard.editionYearElem(edition);
-  const editionItem = edition.items ? edition.items[0] : undefined;
-
-  return {
-    editionYearHeading: editionYearHeadingElement,
-    publisherAndLocation: EditionCard.getPublisherAndLocation(edition),
-    coverUrl: EditionCard.getCover(edition),
-    language: EditionCard.getLanguageDisplayText(edition),
-    license: EditionCard.getLicense(editionItem),
-    readOnlineLink: EditionCard.getReadOnlineLink(origin, editionItem, eReaderUrl, referrer),
-    downloadLink: EditionCard.getDownloadLink(editionItem),
-  };
-};
+import SearchHeader from '../SearchForm/SearchHeader';
 
 const scrollToHash = (hash) => {
   const hashtag = hash && hash.replace(/#/, '');
@@ -39,18 +24,36 @@ const scrollToHash = (hash) => {
   }
 };
 
+const getEditionCard = (work, origin, eReaderUrl, referrer) => {
+  if (!work.editions[0]) return null;
+  const getFirstReadableEdition = work.editions.find(edition => edition.items
+    && edition.items.length && edition.items[0].links && edition.items[0].links.length);
+  const featuredEditionData = EditionCard.getEditionData(getFirstReadableEdition, origin, eReaderUrl, referrer);
+  return (
+    <DS.EditionCard
+      id="featured-card"
+      coverUrl={featuredEditionData.coverUrl}
+      editionHeadingElement={featuredEditionData.editionYearHeading}
+      editionInfo={[featuredEditionData.publisherAndLocation, featuredEditionData.language, featuredEditionData.license]}
+      readOnlineLink={featuredEditionData.readOnlineLink}
+      downloadLink={featuredEditionData.downloadLink}
+    />
+  );
+};
+
 class WorkDetail extends React.Component {
   constructor(props) {
     super(props);
     const { dispatch } = props;
-    this.state = { loaded: false };
+    this.state = { ...props, loaded: false };
     this.boundActions = bindActionCreators(searchActions, dispatch);
   }
 
   componentDidMount() {
     const { query, hash } = this.props.location;
     const workId = query && query.workId;
-    this.loadWork(workId, hash);
+    this.loadWork(workId, hash, this.boundActions);
+    this.setState({ loaded: true });
   }
 
   componentDidUpdate(prevProps) {
@@ -66,44 +69,19 @@ class WorkDetail extends React.Component {
 
   loadWork(workId, hash) {
     global.window.scrollTo(0, 0);
-    this.fetchWork(workId).then(() => {
+    this.props.dispatch(searchActions.fetchWork(workId)).then(() => {
       scrollToHash(hash);
       this.setState({ loaded: true });
     });
   }
 
-  fetchWork(workId) {
-    return this.props.dispatch(searchActions.fetchWork(workId));
-  }
-
   render() {
-    const { router } = this.context;
-
-    const work = this.props.work ? this.props.work.data : null;
-    if (!work || !work.editions || deepEqual(work, WorkDetail.defaultProps.work)) {
-      return null;
-    }
-    const { history } = this.context;
+    const { router, history } = this.context;
+    const work = this.props.workResult ? this.props.workResult.data : null;
+    const isValidWork = work && work.editions && !deepEqual(work, WorkDetail.defaultProps.workResult);
     const eReaderUrl = this.props.eReaderUrl;
     const referrer = this.props.location.pathname + this.props.location.search;
     const origin = this.state.loaded ? window.location.origin : '';
-
-    const getEditionCard = () => {
-      if (!work.editions[0]) return null;
-      const getFirstReadableEdition = work.editions.find(edition => edition.items
-        && edition.items.length && edition.items[0].links && edition.items[0].links.length);
-      const featuredEditionData = getFeaturedEditionData(getFirstReadableEdition, origin, eReaderUrl, referrer);
-      return (
-        <DS.EditionCard
-          id="featured-card"
-          coverUrl={featuredEditionData.coverUrl}
-          editionHeadingElement={featuredEditionData.editionYearHeading}
-          editionInfo={[featuredEditionData.publisherAndLocation, featuredEditionData.language, featuredEditionData.license]}
-          readOnlineLink={featuredEditionData.readOnlineLink}
-          downloadLink={featuredEditionData.downloadLink}
-        />
-      );
-    };
 
     return (
       <DS.Container>
@@ -117,54 +95,59 @@ class WorkDetail extends React.Component {
           />
           <div className="grid-row">
             <div className="sfr-center">
-              <SearchForm
-                isHomePage={false}
+              <SearchHeader
                 history={history}
                 {...this.boundActions}
               />
             </div>
           </div>
-          <div className="grid-row">
-            <div className="nypl-item-header">
-              <WorkHeader data={work} />
+          { isValidWork
+          && (
+          <>
+            <div className="grid-row">
+              <div className="nypl-item-header">
+                <WorkHeader data={work} />
+              </div>
             </div>
-          </div>
-          <div className="grid-row">
-            <DS.Heading
-              level={2}
-              id="featured-edition"
-              text="Featured Edition"
-            />
-          </div>
-          <div className="grid-row">
-            <div className="sfr-center">
-              {getEditionCard()}
-            </div>
-          </div>
-          <div className="grid-row">
-            <div id="nypl-item-details">
-              <DefinitionList
-                work={work}
-                dispatch={this.props.dispatch}
-                context={this.context}
+            <div className="grid-row">
+              <DS.Heading
+                level={2}
+                id="featured-edition"
+                text="Featured Edition"
               />
-              {work.editions && (
-              <h3
-                tabIndex="-1"
-                id="all-editions"
-                className="all-editions-tag bold"
-              >
+            </div>
+            <div className="grid-row">
+              <div className="sfr-center">
+                {getEditionCard(work, origin, eReaderUrl, referrer)}
+              </div>
+            </div>
+            <div className="grid-row">
+              <div id="nypl-item-details">
+                <DefinitionList
+                  work={work}
+                  dispatch={this.props.dispatch}
+                  context={this.context}
+                />
+                {work.editions && (
+                <h3
+                  tabIndex="-1"
+                  id="all-editions"
+                  className="all-editions-tag bold"
+                >
                 All Editions
-              </h3>
-              )}
-              <EditionsList
-                referrer={referrer}
-                eReaderUrl={this.props.eReaderUrl}
-                work={work}
-                max={0}
-              />
+                </h3>
+                )}
+                <EditionsList
+                  referrer={referrer}
+                  eReaderUrl={this.props.eReaderUrl}
+                  work={work}
+                  max={0}
+                />
+              </div>
             </div>
-          </div>
+          </>
+          )
+          }
         </main>
       </DS.Container>
     );
@@ -172,8 +155,7 @@ class WorkDetail extends React.Component {
 }
 
 WorkDetail.propTypes = {
-  temp: PropTypes.objectOf(PropTypes.any),
-  work: PropTypes.objectOf(PropTypes.any),
+  workResult: PropTypes.objectOf(PropTypes.any),
   searchQuery: PropTypes.objectOf(PropTypes.any),
   eReaderUrl: PropTypes.string,
   dispatch: PropTypes.func,
@@ -181,8 +163,7 @@ WorkDetail.propTypes = {
 };
 
 WorkDetail.defaultProps = {
-  temp: {},
-  work: { data: { instances: [] } },
+  workResult: { data: { instances: [] } },
   searchQuery: {},
   eReaderUrl: '',
   dispatch: () => { },
@@ -195,7 +176,7 @@ WorkDetail.contextTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  work: state.workDetail && state.workDetail.work,
+  workResult: state.workResult && state.workResult.work,
   searchQuery: state.searchQuery || ownProps.searchQuery,
 });
 

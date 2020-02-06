@@ -3,17 +3,22 @@ import PropTypes from 'prop-types';
 import * as DS from '@nypl/design-system-react-components';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
 import { getQueryString } from '../../search/query';
+import { getNumberOfPages } from '../../util/Util';
+
+const getPageList = (totalPages) => {
+  const pageList = [];
+  for (let i = 1; i <= totalPages; i += 1) {
+    const currentPage = `${i.toLocaleString()} of ${totalPages.toLocaleString()}`;
+    pageList.push(currentPage);
+  }
+  return pageList;
+};
 
 const SearchPagination = ({
   totalItems, searchQuery, userQuery, router,
 }) => {
-  // page for query is -1 page shown
-  const totalPages = Math.floor((Number(totalItems || 0) - 1) / Number(searchQuery.per_page || 10)) + 1 || 1;
-  // return list of pages till total pages
-  const pageList = [];
-  for (let i = 1; i <= totalPages; i += 1) {
-    pageList.push(`${i.toLocaleString()} of ${totalPages.toLocaleString()}`);
-  }
+  const totalPages = getNumberOfPages(totalItems, searchQuery.per_page);
+  const pageList = getPageList(totalPages);
   // redirect to url with query params
   const submit = (query) => {
     const path = `/search?${getQueryString(query)}`;
