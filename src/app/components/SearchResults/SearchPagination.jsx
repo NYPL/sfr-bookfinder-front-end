@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import * as DS from '@nypl/design-system-react-components';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
 import { getQueryString } from '../../search/query';
+import { getNumberOfPages } from '../../util/Util';
 
-const getTotalPages = (totalItems, searchQuery) => Math.floor((Number(totalItems || 0) - 1) / Number(searchQuery.per_page || 10)) + 1 || 1;
 const getPageList = (totalPages) => {
   const pageList = [];
   for (let i = 1; i <= totalPages; i += 1) {
@@ -17,7 +17,7 @@ const getPageList = (totalPages) => {
 const SearchPagination = ({
   totalItems, searchQuery, userQuery, router,
 }) => {
-  const totalPages = getTotalPages(totalItems, searchQuery);
+  const totalPages = getNumberOfPages(totalItems, searchQuery.per_page);
   const pageList = getPageList(totalPages);
   // redirect to url with query params
   const submit = (query) => {

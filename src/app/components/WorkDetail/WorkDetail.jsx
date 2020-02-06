@@ -43,7 +43,6 @@ const getEditionCard = (work, origin, eReaderUrl, referrer) => {
 
 class WorkDetail extends React.Component {
   constructor(props) {
-    console.log('props', props);
     super(props);
     const { dispatch } = props;
     this.state = { ...props, loaded: false };
@@ -177,15 +176,10 @@ WorkDetail.contextTypes = {
   history: PropTypes.objectOf(PropTypes.any),
 };
 
-const mapStateToProps = (state, ownProps) => {
-  console.log('state', state);
-
-  return {
-    workResult: state.workResult && state.workResult.work,
-    searchQuery: state.searchQuery || ownProps.searchQuery,
-  };
-};
-
+const mapStateToProps = (state, ownProps) => ({
+  workResult: state.workResult && state.workResult.work,
+  searchQuery: state.searchQuery || ownProps.searchQuery,
+});
 
 WorkDetail.contextTypes = {
   router: PropTypes.objectOf(PropTypes.any),

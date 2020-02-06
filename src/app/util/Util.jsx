@@ -20,6 +20,8 @@ export const formatUrl = (link, env) => {
   return link.startsWith('http') ? link : prefix + link;
 };
 
+export const getNumberOfPages = (totalItems, perPage) => Math.floor((Number(totalItems || 0) - 1) / Number(perPage || 10)) + 1 || 1;
+
 // Given an array of JSX elements, return JSX that joins them with the Joiner.
 export const joinArrayOfElements = (array, joiner) => {
   if (!array || !array.length) {
@@ -91,6 +93,7 @@ export const checkFeatureFlagActivated = (featureFlagList, componentStateObject)
 
 export default {
   formatUrl,
+  getNumberOfPages,
   unique,
   flattenDeep,
   isEmpty,
