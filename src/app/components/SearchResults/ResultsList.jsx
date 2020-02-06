@@ -24,9 +24,6 @@ export const formatAllResultsData = (results, origin, eReaderUrl, referrer) => r
   const allEditionsLink = getEditionsLinkElement(result);
 
   const previewEdition = result.editions && result.editions[0];
-  const editionYearHeadingElement = EditionCard.editionYearElem(previewEdition, result.uuid);
-
-  const editionItem = previewEdition && previewEdition.items ? previewEdition.items[0] : undefined;
 
   return {
     id: `search-result-${result.uuid}`,

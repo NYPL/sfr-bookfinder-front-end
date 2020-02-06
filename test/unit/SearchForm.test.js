@@ -91,4 +91,13 @@ describe('SearchForm', () => {
       expect(component.state('searchQuery').queries[0].query).to.equal('johnson');
     });
   });
+
+  describe('Search Submit', () => {
+    it('Submitting an empty query should set error state', () => {
+
+    });
+    it('Submitting a correct query should push new path to router', () => {
+
+    });
+  });
 });

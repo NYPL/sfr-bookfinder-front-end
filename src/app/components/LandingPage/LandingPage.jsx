@@ -81,7 +81,6 @@ class LandingPage extends React.Component {
             <div className="grid-row">
               <div className="sfr-center">
                 <SearchForm
-                  isHomePage
                   history={history}
                   {...this.boundActions}
                 />
