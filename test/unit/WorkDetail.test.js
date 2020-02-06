@@ -8,7 +8,6 @@ import { expect } from 'chai';
 import { mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import configureStore from '../../src/app/stores/configureStore';
-import workDetail from '../fixtures/work-detail.json';
 import initialState from '../../src/app/stores/InitialState';
 
 import WorkDetail from '../../src/app/components/WorkDetail/WorkDetail';

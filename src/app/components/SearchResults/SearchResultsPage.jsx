@@ -152,7 +152,7 @@ class SearchResultsPage extends React.Component {
 SearchResultsPage.propTypes = {
   searchResults: PropTypes.objectOf(PropTypes.any),
   searchQuery: searchQueryPropTypes,
-  work: PropTypes.objectOf(PropTypes.any),
+  workResult: PropTypes.objectOf(PropTypes.any),
   dispatch: PropTypes.func,
   eReaderUrl: PropTypes.string,
   location: PropTypes.objectOf(PropTypes.any),
@@ -161,7 +161,7 @@ SearchResultsPage.propTypes = {
 SearchResultsPage.defaultProps = {
   searchResults: {},
   searchQuery: initialSearchQuery,
-  work: {},
+  workResult: {},
   dispatch: () => { },
   eReaderUrl: '',
   location: {},

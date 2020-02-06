@@ -125,7 +125,7 @@ export const serverPost = (query) => {
 export const serverFetchWork = workId => axios
   .get(recordUrl, { params: { identifier: workId, recordType: 'editions' } })
   .then((resp) => {
-    serverState.work = { work: resp.data };
+    serverState.workResult = { work: resp.data };
     return serverState;
   })
   .catch((error) => {

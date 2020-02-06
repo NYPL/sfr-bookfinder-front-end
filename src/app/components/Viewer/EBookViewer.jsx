@@ -39,7 +39,7 @@ class EBookViewer extends React.Component {
 
   render() {
     const { router } = this.context;
-    const work = this.props.workDetail && this.props.workDetail.work ? this.props.workDetail.work.data : undefined;
+    const work = this.props.workResult && this.props.workResult.work ? this.props.workResult.work.data : undefined;
     const bookUrl = this.state.bookUrl;
 
     return (
@@ -68,14 +68,14 @@ class EBookViewer extends React.Component {
 
 EBookViewer.propTypes = {
   location: PropTypes.objectOf(PropTypes.any),
-  workDetail: PropTypes.objectOf(PropTypes.any),
+  workResult: PropTypes.objectOf(PropTypes.any),
   searchQuery: PropTypes.objectOf(PropTypes.any),
   eReaderUrl: PropTypes.string,
 };
 
 EBookViewer.defaultProps = {
   location: {},
-  workDetail: {},
+  workResult: {},
   searchQuery: {},
   eReaderUrl: appConfig.ereader[process.env.APP_ENV],
 };

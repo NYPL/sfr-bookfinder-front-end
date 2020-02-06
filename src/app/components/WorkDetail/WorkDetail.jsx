@@ -43,6 +43,7 @@ const getEditionCard = (work, origin, eReaderUrl, referrer) => {
 
 class WorkDetail extends React.Component {
   constructor(props) {
+    console.log('props', props);
     super(props);
     const { dispatch } = props;
     this.state = { ...props, loaded: false };
@@ -77,8 +78,8 @@ class WorkDetail extends React.Component {
 
   render() {
     const { router, history } = this.context;
-    const work = this.props.work ? this.props.work.data : null;
-    const isValidWork = work && work.editions && !deepEqual(work, WorkDetail.defaultProps.work);
+    const work = this.props.workResult ? this.props.workResult.data : null;
+    const isValidWork = work && work.editions && !deepEqual(work, WorkDetail.defaultProps.workResult);
     const eReaderUrl = this.props.eReaderUrl;
     const referrer = this.props.location.pathname + this.props.location.search;
     const origin = this.state.loaded ? window.location.origin : '';
@@ -156,7 +157,7 @@ class WorkDetail extends React.Component {
 }
 
 WorkDetail.propTypes = {
-  work: PropTypes.objectOf(PropTypes.any),
+  workResult: PropTypes.objectOf(PropTypes.any),
   searchQuery: PropTypes.objectOf(PropTypes.any),
   eReaderUrl: PropTypes.string,
   dispatch: PropTypes.func,
@@ -164,7 +165,7 @@ WorkDetail.propTypes = {
 };
 
 WorkDetail.defaultProps = {
-  work: { data: { instances: [] } },
+  workResult: { data: { instances: [] } },
   searchQuery: {},
   eReaderUrl: '',
   dispatch: () => { },
@@ -176,10 +177,15 @@ WorkDetail.contextTypes = {
   history: PropTypes.objectOf(PropTypes.any),
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  work: state.work && state.work.work,
-  searchQuery: state.searchQuery || ownProps.searchQuery,
-});
+const mapStateToProps = (state, ownProps) => {
+  console.log('state', state);
+
+  return {
+    workResult: state.workResult && state.workResult.work,
+    searchQuery: state.searchQuery || ownProps.searchQuery,
+  };
+};
+
 
 WorkDetail.contextTypes = {
   router: PropTypes.objectOf(PropTypes.any),
