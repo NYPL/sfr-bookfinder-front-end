@@ -4,6 +4,7 @@ import React from 'react';
 import { expect } from 'chai';
 import { mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import * as DS from '@nypl/design-system-react-components';
 import LandingPage from '../../src/app/components/LandingPage/LandingPage';
 import configureStore from '../../src/app/stores/configureStore';
 import initialState from '../../src/app/stores/InitialState';
@@ -24,8 +25,11 @@ describe('Landing Page render', () => {
   it('contains an initialized <SearchForm /> component', () => {
     expect(wrapper.find('SearchForm').exists()).to.equal(true);
   });
-  it('contains an <h1>', () => {
-    expect(wrapper.find('h1')).to.have.length(1);
+  it('contains a DS HeaderImgRight component', () => {
+    expect(wrapper.find(DS.HeaderImgRight)).to.have.length(1);
+  });
+  it('contains a DS IconLinkList component', () => {
+    expect(wrapper.find(DS.IconLinkList)).to.have.length(1);
   });
   it('contains a list of subjects', () => {
     const browseList = wrapper.find({ 'aria-labelledby': 'subject-browse-list' });

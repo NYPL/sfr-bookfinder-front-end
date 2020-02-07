@@ -7,6 +7,7 @@ import { stub } from 'sinon';
 import chai, { expect } from 'chai';
 import { mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import * as DS from '@nypl/design-system-react-components';
 import configureStore from '../../src/app/stores/configureStore';
 import initialState from '../../src/app/stores/InitialState';
 import SearchResultsPage, { loadSearch } from '../../src/app/components/SearchResults/SearchResultsPage';
@@ -85,8 +86,8 @@ describe('Search Results Page', () => {
       expect(wrapper.find('SearchHeader').exists()).to.equal(true);
     });
 
-    it('contains an <h1>', () => {
-      expect(wrapper.find('h1')).to.have.length(1);
+    it('contains a DS Heading', () => {
+      expect(wrapper.find(DS.Heading)).to.have.length(1);
     });
     it('contains a <SearchResults /> component', () => {
       expect(wrapper.find('SearchHeader').exists()).to.equal(true);

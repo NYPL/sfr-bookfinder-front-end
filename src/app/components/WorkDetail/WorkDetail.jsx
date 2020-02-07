@@ -50,6 +50,7 @@ class WorkDetail extends React.Component {
   }
 
   componentDidMount() {
+    console.log('props', this.props);
     const { query, hash } = this.props.location;
     const workId = query && query.workId;
     this.loadWork(workId, hash, this.boundActions);
@@ -79,6 +80,7 @@ class WorkDetail extends React.Component {
     const { router, history } = this.context;
     const work = this.props.workResult ? this.props.workResult.data : null;
     const isValidWork = work && work.editions && !deepEqual(work, WorkDetail.defaultProps.workResult);
+    console.log('validWork', isValidWork);
     const eReaderUrl = this.props.eReaderUrl;
     const referrer = this.props.location.pathname + this.props.location.search;
     const origin = this.state.loaded ? window.location.origin : '';
