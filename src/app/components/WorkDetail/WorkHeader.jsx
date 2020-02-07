@@ -5,7 +5,7 @@ import EditionCard from '../Card/EditionCard';
 import { joinArrayOfElements } from '../../util/Util';
 
 const WorkHeader = ({ data }) => {
-  const authorsList = EditionCard.getAuthorsList(EditionCard.getPreferredAgent(data.agents, 'author'));
+  const authorsList = EditionCard.getAuthorsList(EditionCard.getPreferredAgent(data.agents, 'author'), 'work-detail-header');
 
   return (
     <div className="nypl-item-header">

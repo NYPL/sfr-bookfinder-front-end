@@ -89,7 +89,7 @@ export const DefinitionList = ({ work }) => {
       case 'agents':
         return (
           <ul className="definitions-authors">
-            {getAuthorsList(list)}
+            {getAuthorsList(list, 'definitionList-author')}
           </ul>
         );
 
