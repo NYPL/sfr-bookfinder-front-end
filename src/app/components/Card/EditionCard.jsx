@@ -94,7 +94,7 @@ export default class EditionCard {
     });
   }
 
-  static getAuthorsList(agents) {
+  static getAuthorsList(agents, linkKeyPrefix) {
     if (!agents || !agents.length) return null;
     return agents.map((authorAgent) => {
       const authorLinkText = authorAgent.name;
@@ -102,6 +102,7 @@ export default class EditionCard {
         <Link
           to={{ pathname: '/search', query: EditionCard.getLinkToAuthorSearch(authorAgent) }}
           className="link"
+          key={authorAgent.viaf ? `${linkKeyPrefix}-${authorAgent.viaf}` : `${linkKeyPrefix}-${authorAgent.name}`}
         >
           {authorLinkText}
         </Link>
