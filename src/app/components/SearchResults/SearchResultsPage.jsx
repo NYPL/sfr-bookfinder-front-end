@@ -16,7 +16,7 @@ import config from '../../../../appConfig';
 import SearchHeader from '../SearchForm/SearchHeader';
 import SearchResults from './SearchResults';
 
-export const loadSearch = (props, router) => {
+export const loadSearch = (props, context) => {
   const {
     location: { query },
     dispatch,
@@ -25,7 +25,7 @@ export const loadSearch = (props, router) => {
 
   if (!query || isEmpty(query)) {
     dispatch(searchActions.resetSearch());
-    router.push('/');
+    context.router.push('/');
   } else {
     let newQuery = Object.assign({}, query);
     if (query && query.filters) {
@@ -62,7 +62,7 @@ class SearchResultsPage extends React.Component {
   }
 
   componentDidMount() {
-    loadSearch(this.props, this.context.router);
+    loadSearch(this.props, this.context);
 
     FeatureFlags.store.listen(this.onFeatureFlagsChange.bind(this));
 
@@ -75,7 +75,7 @@ class SearchResultsPage extends React.Component {
     const { location } = this.props;
     if (!deepEqual(location.query, prevProps.location.query)) {
       global.window.scrollTo(0, 0);
-      loadSearch(this.props, this.context.router);
+      loadSearch(this.props, this.context);
     }
   }
 
@@ -104,6 +104,7 @@ class SearchResultsPage extends React.Component {
   render() {
     const { searchQuery, searchResults, eReaderUrl } = this.props;
     const { router, history } = this.context;
+
     return (
       <DS.Container>
         <main id="mainContent">
