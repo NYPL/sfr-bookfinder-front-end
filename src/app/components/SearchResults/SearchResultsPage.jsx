@@ -16,7 +16,7 @@ import config from '../../../../appConfig';
 import SearchHeader from '../SearchForm/SearchHeader';
 import SearchResults from './SearchResults';
 
-export const loadSearch = (props) => {
+export const loadSearch = (props, router) => {
   const {
     location: { query },
     dispatch,
@@ -25,6 +25,7 @@ export const loadSearch = (props) => {
 
   if (!query || isEmpty(query)) {
     dispatch(searchActions.resetSearch());
+    router.push('/');
   } else {
     let newQuery = Object.assign({}, query);
     if (query && query.filters) {
@@ -61,7 +62,7 @@ class SearchResultsPage extends React.Component {
   }
 
   componentDidMount() {
-    loadSearch(this.props);
+    loadSearch(this.props, this.context.router);
 
     FeatureFlags.store.listen(this.onFeatureFlagsChange.bind(this));
 
@@ -74,7 +75,7 @@ class SearchResultsPage extends React.Component {
     const { location } = this.props;
     if (!deepEqual(location.query, prevProps.location.query)) {
       global.window.scrollTo(0, 0);
-      loadSearch(this.props);
+      loadSearch(this.props, this.context.router);
     }
   }
 
