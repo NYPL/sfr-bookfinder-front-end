@@ -16,6 +16,8 @@ import config from '../../../../appConfig';
 import SearchHeader from '../SearchForm/SearchHeader';
 import SearchResults from './SearchResults';
 
+export const isValidSearchQuery = query => !!query && !isEmpty(query) && !!query.queries && !isEmpty(query.queries);
+
 export const loadSearch = (props, context) => {
   const {
     location: { query },
@@ -23,7 +25,7 @@ export const loadSearch = (props, context) => {
     searchQuery,
   } = props;
 
-  if (!query || isEmpty(query)) {
+  if (!isValidSearchQuery(query)) {
     dispatch(searchActions.resetSearch());
     context.router.push('/');
   } else {
@@ -115,7 +117,6 @@ class SearchResultsPage extends React.Component {
           <div
             aria-label="ResearchNow"
           >
-
             <div className="sfr-center">
               <SearchHeader />
               {

@@ -8,30 +8,54 @@ import { mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import configureStore from '../../src/app/stores/configureStore';
 import initialState from '../../src/app/stores/InitialState';
-import SearchResultsPage, { loadSearch } from '../../src/app/components/SearchResults/SearchResultsPage';
+import SearchResultsPage, { loadSearch, isValidSearchQuery } from '../../src/app/components/SearchResults/SearchResultsPage';
 import { Actions } from '../../src/app/actions/SearchActions';
-import { mockRouter, mockRouterContext } from '../helpers/routing';
+import { mockRouterContext } from '../helpers/routing';
 
 chai.use(sinonChai);
 
 configure({ adapter: new Adapter() });
-describe.only('Search Results Page', () => {
-  
+
+describe('Search Results Page', () => {
+  const searchQuery = {
+    filters: [],
+    page: '0',
+    per_page: '10',
+    queries: [{ field: 'keyword', query: 'cat' }],
+    showField: '',
+    showQuery: '',
+    sort: [],
+    total: '0',
+  };
+
+  describe('isValidSearchQuery', () => {
+    it('returns true if searchQuery has queries', () => {
+      expect(isValidSearchQuery(searchQuery)).to.equal(true);
+    });
+    it('returns false if it has other fields but no queries', () => {
+      expect(isValidSearchQuery({
+        filters: '[]',
+        page: '0',
+        per_page: '10',
+        queries: '',
+        showField: '',
+        showQuery: '',
+        sort: '[]',
+        total: '0',
+      })).to.equal(false);
+    });
+    it('returns false if passed empty', () => {
+      expect(isValidSearchQuery({})).to.equal(false);
+    });
+    it('returns false if passed null', () => {
+      expect(isValidSearchQuery(null)).to.equal(false);
+    });
+  });
+
   describe('loadSearch', () => {
     let props;
     let push;
-    let router;
     let context;
-    const searchQuery = {
-      filters: [],
-      page: '0',
-      per_page: '10',
-      queries: [{ field: 'keyword', query: 'cat' }],
-      showField: '',
-      showQuery: '',
-      sort: [],
-      total: '0',
-    };
 
     beforeEach(() => {
       push = stub();
