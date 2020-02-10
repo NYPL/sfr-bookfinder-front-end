@@ -106,7 +106,6 @@ class SearchResultsPage extends React.Component {
   render() {
     const { searchQuery, searchResults, eReaderUrl } = this.props;
     const { router, history } = this.context;
-
     return (
       <DS.Container>
         <main id="mainContent">
@@ -120,10 +119,10 @@ class SearchResultsPage extends React.Component {
             <div className="sfr-center">
               <SearchHeader />
               {
-              // eslint-disable-next-line no-underscore-dangle
-              FeatureFlags.store._isFeatureActive(config.booksCount.experimentName)
-              && <TotalWorks />
-            }
+                // eslint-disable-next-line no-underscore-dangle
+                FeatureFlags.store._isFeatureActive(config.booksCount.experimentName)
+                && <TotalWorks />
+              }
             </div>
             <div className="grid-row">
               <DS.Heading
