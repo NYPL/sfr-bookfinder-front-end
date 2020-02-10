@@ -50,15 +50,15 @@ describe('Search Results Page', () => {
       expect(wrapper.find('Breadcrumbs').exists()).to.equal(true);
     });
 
-    it('contains an initialized <SearchHeader /> component', () => {
-      expect(wrapper.find('SearchHeader').exists()).to.equal(true);
+    it('contains an initialized <SearchComponent /> component', () => {
+      expect(wrapper.find('SearchComponent').exists()).to.equal(true);
     });
 
     it('contains an <h1>', () => {
       expect(wrapper.find('h1')).to.have.length(1);
     });
-    it('contains a <SearchResults /> component', () => {
-      expect(wrapper.find('SearchHeader').exists()).to.equal(true);
+    it('contains a <ResultsHeader /> component', () => {
+      expect(wrapper.find('ResultsHeader').exists()).to.equal(true);
     });
   });
 });
