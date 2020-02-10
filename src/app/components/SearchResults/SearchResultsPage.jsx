@@ -116,10 +116,7 @@ class SearchResultsPage extends React.Component {
           >
 
             <div className="sfr-center">
-              <SearchHeader
-                history={history}
-                {...this.boundActions}
-              />
+              <SearchHeader />
               {
               // eslint-disable-next-line no-underscore-dangle
               FeatureFlags.store._isFeatureActive(config.booksCount.experimentName)

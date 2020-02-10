@@ -29,8 +29,8 @@ describe('Work Detail Page Test', () => {
       expect(container.find('Breadcrumbs').exists()).to.equal(true);
     });
 
-    it('should show searchHeader', () => {
-      expect(container.find('SearchHeader').exists()).to.equal(true);
+    it('should show ResultsHeader', () => {
+      expect(container.find('ResultsHeader').exists()).to.equal(true);
     });
   });
 });
