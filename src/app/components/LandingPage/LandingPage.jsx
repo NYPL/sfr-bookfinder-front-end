@@ -80,10 +80,7 @@ class LandingPage extends React.Component {
             </div>
             <div className="grid-row">
               <div className="sfr-center">
-                <SearchForm
-                  history={history}
-                  {...this.boundActions}
-                />
+                <SearchForm />
                 {
                 // eslint-disable-next-line no-underscore-dangle
                 FeatureFlags.store._isFeatureActive(config.booksCount.experimentName)

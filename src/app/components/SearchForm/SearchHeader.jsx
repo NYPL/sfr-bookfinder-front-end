@@ -71,10 +71,5 @@ ResultsHeader.defaultProps = {
   errorMessage: '',
 };
 
-ResultsHeader.contextTypes = {
-  router: PropTypes.objectOf(PropTypes.any),
-  history: PropTypes.objectOf(PropTypes.any),
-};
-
 const SearchHeader = withSearch(ResultsHeader);
 export default SearchHeader;

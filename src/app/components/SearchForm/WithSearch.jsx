@@ -110,8 +110,8 @@ function withSearch(WrappedComponent) {
 
   SearchComponent.contextTypes = {
     router: PropTypes.objectOf(PropTypes.any),
-    history: PropTypes.objectOf(PropTypes.any),
   };
+
   return SearchComponent;
 }
 

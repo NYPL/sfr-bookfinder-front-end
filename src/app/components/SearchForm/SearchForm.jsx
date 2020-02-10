@@ -47,7 +47,6 @@ const LandingPromo = (props) => {
   );
 };
 
-
 LandingPromo.propTypes = {
   allowedFields: PropTypes.arrayOf(PropTypes.any),
   currentQuery: searchQueryPropTypes,
@@ -68,11 +67,5 @@ LandingPromo.defaultProps = {
   errorMessage: '',
 };
 
-LandingPromo.contextTypes = {
-  router: PropTypes.objectOf(PropTypes.any),
-  history: PropTypes.objectOf(PropTypes.any),
-};
-
 const SearchForm = withSearch(LandingPromo);
-
 export default SearchForm;
