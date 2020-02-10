@@ -6,12 +6,17 @@ import { getQueryString } from '../../search/query';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
 import { errorMessagesText } from '../../constants/labels';
 
+/** Wrapper that adds search functionality
+ It contains handling for changes in search field and search query, as well as submit handling
+
+ @param Component Component to test or React Element that needs these handlers */
+
 function withSearch(WrappedComponent) {
   class SearchComponent extends React.Component {
     constructor(props) {
       super(props);
 
-      this.state = { ...props, ...{ error: false, errorMsg: '', isFeatureFlagsActivated: {} } };
+      this.state = { error: false, errorMsg: '', ...props };
 
       this.onFieldChange = this.onFieldChange.bind(this);
       this.onQueryChange = this.onQueryChange.bind(this);
@@ -70,7 +75,7 @@ function withSearch(WrappedComponent) {
 
     submitSearchRequest(event) {
       event.preventDefault();
-      const query = this.state.searchQuery.queries[0].query.replace(/^\s+/, '').replace(/\s+$/, '');
+      const query = this.state.searchQuery.queries[0].query.trim();
       if (!query) {
         this.setState({ error: true, errorMsg: errorMessagesText.emptySearch });
         return;
@@ -86,7 +91,6 @@ function withSearch(WrappedComponent) {
           onQueryChange={this.onQueryChange}
           onFieldChange={this.onFieldChange}
           submitSearchRequest={this.submitSearchRequest}
-          context={this.context}
           currentQuery={this.state.searchQuery}
           hasError={this.state.error}
           errorMessage={this.state.errorMsg}
@@ -97,13 +101,11 @@ function withSearch(WrappedComponent) {
   }
 
   SearchComponent.propTypes = {
-    allowedFields: PropTypes.arrayOf(PropTypes.any),
     searchQuery: searchQueryPropTypes,
     userQuery: PropTypes.func,
   };
 
   SearchComponent.defaultProps = {
-    allowedFields: ['keyword', 'title', 'author', 'subject'],
     searchQuery: initialSearchQuery,
     userQuery: () => { },
   };
