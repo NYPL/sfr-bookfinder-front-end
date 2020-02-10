@@ -4,153 +4,68 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import * as DS from '@nypl/design-system-react-components';
-import { getQueryString } from '../../search/query';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
-import { deepEqual } from '../../util/Util';
-import { errorMessagesText } from '../../constants/labels';
+import withSearch from './WithSearch';
 
-class SearchForm extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = { ...props, ...{ error: false, errorMsg: '', isFeatureFlagsActivated: {} } };
-
-    this.onFieldChange = this.onFieldChange.bind(this);
-    this.onQueryChange = this.onQueryChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.submitSearchRequest = this.submitSearchRequest.bind(this);
-  }
-
-  componentDidMount() {
-    global.window.scrollTo(0, 0);
-  }
-
-  /**
-   * Used to update the downstream props updated by the
-   * parent component, LandingPage.
-   *
-   * @param {object} nextProps
-   */
-  componentWillReceiveProps(nextProps) {
-    if (!deepEqual(nextProps.searchQuery, this.props.searchQuery)) {
-      this.setState({ searchQuery: nextProps.searchQuery, error: false, errorMsg: '' });
-    }
-  }
-
-  onFieldChange(event) {
-    const fieldSelected = event.target.value;
-    this.setState((prevState) => {
-      const advancedQuery = {
-        query: prevState.searchQuery.showQuery
-          ? prevState.searchQuery.showQuery : prevState.searchQuery.queries[0].query,
-        field: fieldSelected,
-      };
-      return ({
-        searchQuery: Object.assign({}, initialSearchQuery,
-          { showField: '', showQuery: '' },
-          { queries: [].concat(advancedQuery) }),
-      });
-    });
-  }
-
-  onQueryChange(event) {
-    const querySelected = event.target.value;
-
-    this.setState((prevState) => {
-      const advancedQuery = {
-        query: querySelected,
-        field: prevState.searchQuery.showField ? prevState.searchQuery.showField : prevState.searchQuery.queries[0].field || 'keyword',
-      };
-
-      return ({
-        searchQuery: Object.assign({}, initialSearchQuery, { showField: '', showQuery: '' }, { queries: [].concat(advancedQuery) }),
-      });
-    });
-    if (querySelected) {
-      this.setState({ error: false, errorMsg: '' });
-    }
-  }
-
-  handleSubmit(event) {
-    if (event && event.charCode === 13) {
-      this.props.userQuery(
-        Object.assign({}, initialSearchQuery, {
-          query: this.state.searchQuery.queries,
-        }),
-      );
-    }
-  }
-
-  submitSearchRequest(event) {
-    event.preventDefault();
-    const query = this.state.searchQuery.queries[0].query.replace(/^\s+/, '').replace(/\s+$/, '');
-    if (!query) {
-      this.setState({ error: true, errorMsg: errorMessagesText.emptySearch });
-      return;
-    }
-
-    const path = `/search?${getQueryString(this.state.searchQuery)}`;
-    this.context.router.push(path);
-  }
-
-  render() {
-    const selectedQuery = this.state.searchQuery.showQuery || this.state.searchQuery.queries[0].query;
-    const selectedField = this.state.searchQuery.showField || this.state.searchQuery.queries[0].field;
-    const advancedSearchMessage = (
-      <p>
+const LandingPromo = (props) => {
+  const selectedQuery = props.currentQuery.showQuery || props.currentQuery.queries[0].query;
+  const selectedField = props.currentQuery.showField || props.currentQuery.queries[0].field;
+  const advancedSearchMessage = (
+    <p>
         Use
-        {' '}
-        <Link
-          to="advanced-search"
-          className="link"
-        >
+      {' '}
+      <Link
+        to="advanced-search"
+        className="link"
+      >
           Advanced Search
-        </Link>
-        {' '}
+      </Link>
+      {' '}
         to narrow your results.
-      </p>
-    );
+    </p>
+  );
 
-    return (
-      <div>
-        <DS.SearchPromo
-          headingText="Search the World's Research Collections"
-          titleId="tagline"
-          selectedOption={selectedField}
-          searchButtonId="searchButtonId"
-          advancedSearchMessage={advancedSearchMessage}
-          searchValue={selectedQuery}
-          hasError={this.state.error}
-          errorMessage={this.state.errorMsg}
-          searchBarId="searchBarId"
-          dropdownId="dropdownId"
-          searchInputAriaLabel="Search for keyword, author, title, or subject"
-          searchDropdownOptions={this.props.allowedFields}
-          searchSubmitHandler={this.submitSearchRequest}
-          textChangeHandler={this.onQueryChange}
-          selectChangeHandler={this.onFieldChange}
-          selectBlurHandler={this.onFieldChange}
-        />
-      </div>
-    );
-  }
-}
+  return (
+    <DS.SearchPromo
+      headingText="Search the World's Research Collections"
+      titleId="tagline"
+      selectedOption={selectedField}
+      searchButtonId="searchButtonId"
+      advancedSearchMessage={advancedSearchMessage}
+      searchValue={selectedQuery}
+      hasError={props.hasError}
+      errorMessage={props.errorMessage}
+      searchBarId="searchBarId"
+      dropdownId="dropdownId"
+      searchInputAriaLabel="Search for keyword, author, title, or subject"
+      searchDropdownOptions={props.allowedFields}
+      searchSubmitHandler={props.submitSearchRequest}
+      textChangeHandler={props.onQueryChange}
+      selectChangeHandler={props.onFieldChange}
+      selectBlurHandler={props.onFieldChange}
+    />
+  );
+};
 
-SearchForm.propTypes = {
+LandingPromo.propTypes = {
   allowedFields: PropTypes.arrayOf(PropTypes.any),
-  searchQuery: searchQueryPropTypes,
-  userQuery: PropTypes.func,
+  currentQuery: searchQueryPropTypes,
+  submitSearchRequest: PropTypes.func,
+  onQueryChange: PropTypes.func,
+  onFieldChange: PropTypes.func,
+  hasError: PropTypes.bool,
+  errorMessage: PropTypes.string,
 };
 
-SearchForm.defaultProps = {
+LandingPromo.defaultProps = {
   allowedFields: ['keyword', 'title', 'author', 'subject'],
-  searchQuery: initialSearchQuery,
-  userQuery: () => { },
+  currentQuery: initialSearchQuery,
+  submitSearchRequest: () => { },
+  onQueryChange: () => { },
+  onFieldChange: () => { },
+  hasError: false,
+  errorMessage: '',
 };
 
-SearchForm.contextTypes = {
-  router: PropTypes.objectOf(PropTypes.any),
-  history: PropTypes.objectOf(PropTypes.any),
-};
-
+const SearchForm = withSearch(LandingPromo);
 export default SearchForm;

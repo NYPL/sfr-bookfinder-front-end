@@ -49,16 +49,14 @@ describe('Search Results Page', () => {
     it('contains a <Breadcrumbs /> component', () => {
       expect(wrapper.find('Breadcrumbs').exists()).to.equal(true);
     });
-
-    it('contains an initialized <SearchHeader /> component', () => {
-      expect(wrapper.find('SearchHeader').exists()).to.equal(true);
+    it('contains a <ResultsHeader /> component', () => {
+      expect(wrapper.find('ResultsHeader').exists()).to.equal(true);
     });
-
     it('contains an <h1>', () => {
       expect(wrapper.find('h1')).to.have.length(1);
     });
     it('contains a <SearchResults /> component', () => {
-      expect(wrapper.find('SearchHeader').exists()).to.equal(true);
+      expect(wrapper.find('SearchResults').exists()).to.equal(true);
     });
   });
 });
