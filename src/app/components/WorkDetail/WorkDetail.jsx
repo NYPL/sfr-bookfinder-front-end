@@ -50,7 +50,7 @@ class WorkDetail extends React.Component {
   }
 
   componentDidMount() {
-    console.log('props', this.props);
+    console.log('mount props', this.props);
     const { query, hash } = this.props.location;
     const workId = query && query.workId;
     this.loadWork(workId, hash, this.boundActions);
@@ -58,6 +58,8 @@ class WorkDetail extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    console.log('updated props', this.props);
+
     const { query, hash } = this.props.location;
     const workId = query && query.workId;
     const prevWorkId = prevProps.location && prevProps.location.query && prevProps.location.query.workId;
@@ -69,6 +71,7 @@ class WorkDetail extends React.Component {
   }
 
   loadWork(workId, hash) {
+    console.log('called in here');
     global.window.scrollTo(0, 0);
     this.props.dispatch(searchActions.fetchWork(workId)).then(() => {
       scrollToHash(hash);
@@ -80,7 +83,7 @@ class WorkDetail extends React.Component {
     const { router, history } = this.context;
     const work = this.props.workResult ? this.props.workResult.data : null;
     const isValidWork = work && work.editions && !deepEqual(work, WorkDetail.defaultProps.workResult);
-    console.log('validWork', isValidWork);
+    console.log('isValidWork', work);
     const eReaderUrl = this.props.eReaderUrl;
     const referrer = this.props.location.pathname + this.props.location.search;
     const origin = this.state.loaded ? window.location.origin : '';

@@ -75,7 +75,7 @@ EBookViewer.propTypes = {
 
 EBookViewer.defaultProps = {
   location: {},
-  workResult: {},
+  workResult: { instances: [], editions: [] },
   searchQuery: {},
   eReaderUrl: appConfig.ereader[process.env.APP_ENV],
 };

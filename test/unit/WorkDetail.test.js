@@ -1,61 +1,65 @@
-/* eslint-disable no-unused-expressions */
-/* eslint-disable no-underscore-dangle */
 /* eslint-disable react/jsx-filename-extension */
-/* eslint-disable prefer-destructuring */
 /* eslint-env mocha */
 import React from 'react';
-import { expect } from 'chai';
+import { expect, spy } from 'chai';
 import { stub } from 'sinon';
-import { mount, configure } from 'enzyme';
+import { shallow, mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import configureStore from 'redux-mock-store';
-import { Provider } from 'react-redux';
-import renderer from 'react-test-renderer';
+import configureStore from '../../src/app/stores/configureStore';
 import initialState from '../../src/app/stores/InitialState';
 import detail from '../fixtures/work-detail.json';
+import { mockRouterContext } from '../helpers/routing';
+
 
 import WorkDetail from '../../src/app/components/WorkDetail/WorkDetail';
 
 configure({ adapter: new Adapter() });
 describe.only('Work Detail Page Test', () => {
-  describe.only('WorkDetail Rendering with empty work', () => {
-    let container;
-
+  describe('WorkDetail Rendering with empty work', () => {
+    let component;
+    const store = configureStore(initialState);
     before(() => {
-      const mockStore = configureStore([]);
-      const store = mockStore(initialState);
-      const component = mount(
-        <WorkDetail store={store} />,
+      component = mount(
+        <WorkDetail
+          store={store}
+        />,
       );
-      console.log('debug', component.debug);
     });
 
     it('should show breadcrumb', () => {
-      expect(container.find('Breadcrumbs').exists()).to.equal(true);
+      expect(component.find('Breadcrumbs').exists()).to.equal(true);
     });
 
     it('should show searchHeader', () => {
-      expect(container.find('SearchHeader').exists()).to.equal(true);
+      expect(component.find('SearchHeader').exists()).to.equal(true);
     });
   });
 
   describe('WorkDetail Rendering with valid work', () => {
+    const store = configureStore(initialState);
     let container;
-
     before(() => {
-      const mockStore = configureStore([]);
-      const store = mockStore(initialState);
-      const workResult = { data: { detail } };
+      store.dispatch = stub().callsFake(() => { console.log('dispatch called'); }).resolves('blahaaaaaa');
+      const props = { store, workResult: ['hello'] };
       container = mount(<WorkDetail
-        store={store}
-        location={{ query: { workId: '12345' }, pathName: '/', search: '&search' }}
-        workResult={workResult}
+        {...props}
       />);
-      console.log('debug', container.debug());
+      container.setProps({
+        workResult: ['hello'],
+
+      }, () => { console.log('new props set'); });
     });
 
     it('should show breadcrumb', () => {
-      expect(container.find('Breadcrumbs').exists()).to.equal(true);
+      console.log('setting props');
+      container.update();
+      console.log('done setting props');
+      // console.log('debug', container.debug());
+
+
+      expect(store.dispatch.calledOnce).to.equal(true);
+      // expect(loadWorkStub.calledOnce).to.equal(true);
+      // expect(container.find('Breadcrumbs').exists()).to.equal(true);
     });
 
     it('should show searchHeader', () => {
