@@ -37,6 +37,7 @@ const getEditionCard = (work, origin, eReaderUrl, referrer) => {
       editionInfo={[featuredEditionData.publisherAndLocation, featuredEditionData.language, featuredEditionData.license]}
       readOnlineLink={featuredEditionData.readOnlineLink}
       downloadLink={featuredEditionData.downloadLink}
+      noLinkElement={featuredEditionData.noLinkElement}
     />
   );
 };
@@ -76,7 +77,7 @@ class WorkDetail extends React.Component {
   }
 
   render() {
-    const { router, history } = this.context;
+    const { router } = this.context;
     const work = this.props.workResult ? this.props.workResult.data : null;
     const isValidWork = work && work.editions && !deepEqual(work, WorkDetail.defaultProps.workResult);
     const eReaderUrl = this.props.eReaderUrl;

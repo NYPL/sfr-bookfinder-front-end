@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { Html5Entities } from 'html-entities';
+import * as DS from '@nypl/design-system-react-components';
 import {
   MAX_TITLE_LENGTH, MAX_PUBLISHER_NAME_LENGTH, MAX_SUBTITILE_LENGTH, PLACEHOLDER_COVER_LINK,
 } from '../../constants/editioncard';
 import { formatUrl } from '../../util/Util';
+
 
 const htmlEntities = new Html5Entities();
 
@@ -177,7 +179,6 @@ export default class EditionCard {
     return combined;
   }
 
-  // TODO: Local links should not have headers
   static getReadOnlineLink(origin, editionItem, eReaderUrl, referrer) {
     if (!editionItem || !editionItem.links) return undefined;
     // TODO: Revert after links fix
@@ -196,7 +197,19 @@ export default class EditionCard {
     return selectedLink && selectedLink.url ? formatUrl(selectedLink.url, process.env.APP_ENV) : undefined;
   }
 
-  static getEditionData(edition, origin, eReaderUrl, referrer) {
+  static getNoLinkElement(shouldShowDigitization, showRequestButton) {
+    if (shouldShowDigitization) {
+      return (
+        <span>
+        Not Available Online.
+          { showRequestButton }
+        </span>
+      );
+    }
+    return undefined;
+  }
+
+  static getEditionData(edition, origin, eReaderUrl, referrer, shouldShowDigitization, showRequestButton) {
     const editionYearHeadingElement = EditionCard.editionYearElem(edition);
     const editionItem = edition && edition.items ? edition.items[0] : undefined;
 
@@ -208,6 +221,7 @@ export default class EditionCard {
       license: EditionCard.getLicense(editionItem),
       readOnlineLink: EditionCard.getReadOnlineLink(origin, editionItem, eReaderUrl, referrer),
       downloadLink: EditionCard.getDownloadLink(editionItem),
+      noLinkElement: EditionCard.getNoLinkElement(shouldShowDigitization, showRequestButton),
     };
   }
 }

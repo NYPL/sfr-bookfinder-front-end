@@ -4,9 +4,15 @@ import { Link } from 'react-router';
 
 import PropTypes from 'prop-types';
 import * as DS from '@nypl/design-system-react-components';
+import FeatureFlags from 'dgx-feature-flags';
 import EmptySearchSvg from '../Svgs/EmptySearchSvg';
-import { isEmpty, joinArrayOfElements } from '../../util/Util';
+import { isEmpty, joinArrayOfElements, checkFeatureFlagActivated } from '../../util/Util';
+
 import EditionCard from '../Card/EditionCard';
+
+import featureFlagConfig from '../../../../featureFlagConfig';
+import config from '../../../../appConfig';
+import RequestDigital from '../Feedback/RequestDigital';
 
 export const getEditionsLinkElement = result => (result.edition_count > 1 ? (
   <Link
@@ -16,25 +22,6 @@ export const getEditionsLinkElement = result => (result.edition_count > 1 ? (
     {`View All ${result.edition_count} Editions`}
   </Link>
 ) : undefined);
-
-export const formatAllResultsData = (results, origin, eReaderUrl, referrer) => results.map((result, index) => {
-  const titleElement = EditionCard.generateTitleLinkElem(result.title, result.uuid);
-  const authorLinkElement = EditionCard.getAuthorsList(EditionCard.getPreferredAgent(result.agents, 'author'), `${result.uuid}-author`);
-  // TODO: Editions Link Page
-  const allEditionsLink = getEditionsLinkElement(result);
-
-  const previewEdition = result.editions && result.editions[0];
-
-  return {
-    id: `search-result-${result.uuid}`,
-    resultIndex: index,
-    titleElement,
-    subtitle: EditionCard.getSubtitleText(result.sub_title),
-    authorElement: authorLinkElement ? joinArrayOfElements(authorLinkElement, ', ') : undefined,
-    editionInfo: EditionCard.getEditionData(previewEdition, origin, eReaderUrl, referrer),
-    editionsLinkElement: allEditionsLink,
-  };
-});
 
 /**
  * ResultsList takes the response and calls Design System's SearchResultsList
@@ -46,11 +33,65 @@ class ResultsList extends React.Component {
   constructor(props) {
     super(props);
     this.props = props;
-    this.state = { loaded: false };
+    this.openForm = this.openForm.bind(this);
+    this.closeForm = this.closeForm.bind(this);
+    this.formatAllResultsData = this.formatAllResultsData.bind(this);
+    this.state = { loaded: false, isFeatureFlagsActivated: {}, requestedWork: null };
   }
 
   componentDidMount() {
     this.setState({ loaded: true });
+    FeatureFlags.store.listen(this.onFeatureFlagsChange.bind(this));
+
+    checkFeatureFlagActivated(
+      featureFlagConfig.featureFlagList, this.state.isFeatureFlagsActivated,
+    );
+  }
+
+  onFeatureFlagsChange() {
+    // eslint-disable-next-line react/no-unused-state
+    this.setState({ featureFlagsStore: FeatureFlags.store.getState() });
+  }
+
+  openForm(result) {
+    console.log('open form called');
+    this.setState({ requestedWork: result });
+  }
+
+  closeForm() {
+    console.log('close form called');
+    this.setState({ requestedWork: null });
+  }
+
+  formatAllResultsData(results, origin, eReaderUrl, referrer) {
+    const shouldShowRequest = FeatureFlags.store._isFeatureActive(config.requestDigital.experimentName);
+
+    return results.map((result, index) => {
+      const showRequestButton = (
+        <DS.Button
+          callback={() => this.openForm(result)}
+          content="Request Digitization"
+        >
+        </DS.Button>
+      );
+
+      const titleElement = EditionCard.generateTitleLinkElem(result.title, result.uuid);
+      const authorLinkElement = EditionCard.getAuthorsList(EditionCard.getPreferredAgent(result.agents, 'author'), `${result.uuid}-author`);
+      // TODO: Editions Link Page
+      const allEditionsLink = getEditionsLinkElement(result);
+
+      const previewEdition = result.editions && result.editions[0];
+
+      return {
+        id: `search-result-${result.uuid}`,
+        resultIndex: index,
+        titleElement,
+        subtitle: EditionCard.getSubtitleText(result.sub_title),
+        authorElement: authorLinkElement ? joinArrayOfElements(authorLinkElement, ', ') : undefined,
+        editionInfo: EditionCard.getEditionData(previewEdition, origin, eReaderUrl, referrer, shouldShowRequest, showRequestButton),
+        editionsLinkElement: allEditionsLink,
+      };
+    });
   }
 
   render() {
@@ -70,7 +111,18 @@ class ResultsList extends React.Component {
     }
 
     return (
-      <DS.SearchResultsList searchResults={formatAllResultsData(results, origin, eReaderUrl, referrer)}></DS.SearchResultsList>
+      <>
+        {this.state.requestedWork && (
+        <RequestDigital
+          closeForm={this.closeForm}
+          requestedWork={this.state.requestedWork}
+        />
+        )}
+        <DS.SearchResultsList
+          searchResults={this.formatAllResultsData(results, origin, eReaderUrl, referrer)}
+        >
+        </DS.SearchResultsList>
+      </>
     );
   }
 }
