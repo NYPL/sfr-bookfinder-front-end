@@ -197,19 +197,16 @@ export default class EditionCard {
     return selectedLink && selectedLink.url ? formatUrl(selectedLink.url, process.env.APP_ENV) : undefined;
   }
 
-  static getNoLinkElement(shouldShowDigitization, showRequestButton) {
-    if (shouldShowDigitization) {
-      return (
-        <span>
+  static getNoLinkElement(showRequestButton) {
+    return (
+      <span>
         Not Available Online.
-          { showRequestButton }
-        </span>
-      );
-    }
-    return undefined;
+        { showRequestButton }
+      </span>
+    );
   }
 
-  static getEditionData(edition, origin, eReaderUrl, referrer, shouldShowDigitization, showRequestButton) {
+  static getEditionData(edition, origin, eReaderUrl, referrer, showRequestButton) {
     const editionYearHeadingElement = EditionCard.editionYearElem(edition);
     const editionItem = edition && edition.items ? edition.items[0] : undefined;
 
@@ -221,7 +218,7 @@ export default class EditionCard {
       license: EditionCard.getLicense(editionItem),
       readOnlineLink: EditionCard.getReadOnlineLink(origin, editionItem, eReaderUrl, referrer),
       downloadLink: EditionCard.getDownloadLink(editionItem),
-      noLinkElement: EditionCard.getNoLinkElement(shouldShowDigitization, showRequestButton),
+      noLinkElement: EditionCard.getNoLinkElement(showRequestButton),
     };
   }
 }

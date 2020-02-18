@@ -1,6 +1,6 @@
 
 const FeatureFlagConfig = {
-  featureFlagList: ['RequestDigital'],
+  featureFlagList: [],
 };
 
 export default FeatureFlagConfig;

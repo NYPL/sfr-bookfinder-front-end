@@ -4,14 +4,19 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as DS from '@nypl/design-system-react-components';
+import FeatureFlags from 'dgx-feature-flags';
 import { DefinitionList } from './DefinitionList';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import * as searchActions from '../../actions/SearchActions';
 import WorkHeader from './WorkHeader';
 import EditionsList from '../List/EditionsList';
-import { deepEqual } from '../../util/Util';
+import { deepEqual, checkFeatureFlagActivated } from '../../util/Util';
 import EditionCard from '../Card/EditionCard';
 import SearchHeader from '../SearchForm/SearchHeader';
+import RequestDigital from '../Feedback/RequestDigital';
+import featureFlagConfig from '../../../../featureFlagConfig';
+import config from '../../../../appConfig';
+
 
 const scrollToHash = (hash) => {
   const hashtag = hash && hash.replace(/#/, '');
@@ -46,7 +51,12 @@ class WorkDetail extends React.Component {
   constructor(props) {
     super(props);
     const { dispatch } = props;
-    this.state = { ...props, loaded: false };
+    this.state = {
+      loaded: false, requestedEdition: null, isFeatureFlagsActivated: {}, ...props,
+    };
+    this.openForm = this.openForm.bind(this);
+    this.closeForm = this.closeForm.bind(this);
+    this.getRequestEditionButton = this.getRequestEditionButton.bind(this);
     this.boundActions = bindActionCreators(searchActions, dispatch);
   }
 
@@ -55,6 +65,11 @@ class WorkDetail extends React.Component {
     const workId = query && query.workId;
     this.loadWork(workId, hash, this.boundActions);
     this.setState({ loaded: true });
+    FeatureFlags.store.listen(this.onFeatureFlagsChange.bind(this));
+
+    checkFeatureFlagActivated(
+      featureFlagConfig.featureFlagList, this.state.isFeatureFlagsActivated,
+    );
   }
 
   componentDidUpdate(prevProps) {
@@ -66,6 +81,39 @@ class WorkDetail extends React.Component {
     } else if (hash) {
       scrollToHash(hash);
     }
+  }
+
+  onFeatureFlagsChange() {
+    // eslint-disable-next-line react/no-unused-state
+    this.setState({ featureFlagsStore: FeatureFlags.store.getState() });
+  }
+
+  getRequestDigital(work) {
+    return (
+      <RequestDigital
+        closeForm={this.closeForm}
+        requestedWork={work}
+        requestedEdition={this.state.requestedEdition}
+      />
+    );
+  }
+
+  getRequestEditionButton(edition) {
+    return (
+      <DS.Button
+        callback={() => this.openForm(edition)}
+        content="Request Digitization"
+      >
+      </DS.Button>
+    );
+  }
+
+  openForm(requestedEdition) {
+    this.setState({ requestedEdition });
+  }
+
+  closeForm() {
+    this.setState({ requestedEdition: null });
   }
 
   loadWork(workId, hash) {
@@ -83,9 +131,12 @@ class WorkDetail extends React.Component {
     const eReaderUrl = this.props.eReaderUrl;
     const referrer = this.props.location.pathname + this.props.location.search;
     const origin = this.state.loaded ? window.location.origin : '';
+    // eslint-disable-next-line no-underscore-dangle
+    const shouldShowRequest = FeatureFlags.store._isFeatureActive(config.requestDigital.experimentName);
 
     return (
       <DS.Container>
+        {this.state.requestedEdition && this.getRequestDigital(work)}
         <main
           id="mainContent"
         >
@@ -140,6 +191,7 @@ class WorkDetail extends React.Component {
                   eReaderUrl={this.props.eReaderUrl}
                   work={work}
                   max={0}
+                  getRequestEditionButton={shouldShowRequest ? this.getRequestEditionButton : undefined}
                 />
               </div>
             </div>

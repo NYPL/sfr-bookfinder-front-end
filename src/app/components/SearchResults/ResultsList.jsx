@@ -36,7 +36,9 @@ class ResultsList extends React.Component {
     this.openForm = this.openForm.bind(this);
     this.closeForm = this.closeForm.bind(this);
     this.formatAllResultsData = this.formatAllResultsData.bind(this);
-    this.state = { loaded: false, isFeatureFlagsActivated: {}, requestedWork: null };
+    this.state = {
+      loaded: false, isFeatureFlagsActivated: {}, requestedWork: null, requestedEdition: null,
+    };
   }
 
   componentDidMount() {
@@ -53,27 +55,25 @@ class ResultsList extends React.Component {
     this.setState({ featureFlagsStore: FeatureFlags.store.getState() });
   }
 
-  openForm(result) {
-    console.log('open form called');
-    this.setState({ requestedWork: result });
+  openForm(requestedWork, requestedEdition) {
+    this.setState({ requestedWork, requestedEdition });
   }
 
   closeForm() {
-    console.log('close form called');
-    this.setState({ requestedWork: null });
+    this.setState({ requestedWork: null, requestedEdition: null });
   }
 
   formatAllResultsData(results, origin, eReaderUrl, referrer) {
     const shouldShowRequest = FeatureFlags.store._isFeatureActive(config.requestDigital.experimentName);
 
     return results.map((result, index) => {
-      const showRequestButton = (
+      const showRequestButton = shouldShowRequest ? (
         <DS.Button
-          callback={() => this.openForm(result)}
+          callback={() => this.openForm(result, result.editions[0])}
           content="Request Digitization"
         >
         </DS.Button>
-      );
+      ) : undefined;
 
       const titleElement = EditionCard.generateTitleLinkElem(result.title, result.uuid);
       const authorLinkElement = EditionCard.getAuthorsList(EditionCard.getPreferredAgent(result.agents, 'author'), `${result.uuid}-author`);
@@ -88,7 +88,7 @@ class ResultsList extends React.Component {
         titleElement,
         subtitle: EditionCard.getSubtitleText(result.sub_title),
         authorElement: authorLinkElement ? joinArrayOfElements(authorLinkElement, ', ') : undefined,
-        editionInfo: EditionCard.getEditionData(previewEdition, origin, eReaderUrl, referrer, shouldShowRequest, showRequestButton),
+        editionInfo: EditionCard.getEditionData(previewEdition, origin, eReaderUrl, referrer, showRequestButton),
         editionsLinkElement: allEditionsLink,
       };
     });
@@ -116,6 +116,7 @@ class ResultsList extends React.Component {
         <RequestDigital
           closeForm={this.closeForm}
           requestedWork={this.state.requestedWork}
+          requestedEdition={this.state.requestedEdition}
         />
         )}
         <DS.SearchResultsList

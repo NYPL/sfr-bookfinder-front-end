@@ -7,7 +7,7 @@ import FocusTrap from 'focus-trap-react';
 import appConfig from '../../../../appConfig';
 
 const initialState = {
-  feedback: '',
+  comments: '',
   needsSpecific: null,
 };
 
@@ -40,10 +40,10 @@ class RequestDigital extends React.Component {
       },
       body: JSON.stringify({
         fields: {
-          Comments: this.state.feedback,
+          Comments: this.state.comments,
           Specific: this.state.needsSpecific,
           WorkUUID: this.props.requestedWork.uuid,
-          EditionID: this.props.requestedWork.editions[0].id.toString(),
+          EditionID: this.props.requestedEdition.id.toString(),
         },
       }),
     });
@@ -51,7 +51,7 @@ class RequestDigital extends React.Component {
   }
 
   handleFeedbackChange(e) {
-    this.setState({ feedback: e.target.value });
+    this.setState({ comments: e.target.value });
   }
 
   handleRadioChange(e) {
@@ -62,19 +62,21 @@ class RequestDigital extends React.Component {
     return (
       <FocusTrap
         focusTrapOptions={{
-          onDeactivate: this.deactivateForm,
+          onDeactivate: this.props.closeForm,
           clickOutsideDeactivates: true,
         }}
         active
       >
-
-        <div className="request-form-container">
+        <div
+          id="request-digitization"
+          className="request-form-container"
+        >
           <form onSubmit={e => this.onSubmitForm(e)}>
             <span>
     You are requesting
               {' '}
               <strong>
-                {this.props.requestedWork.editions[0].publication_date}
+                {this.props.requestedEdition.publication_date}
               </strong>
               {' '}
             edition of
@@ -88,8 +90,8 @@ class RequestDigital extends React.Component {
                   type="radio"
                   className="sfr-feedback-radio"
                   checked={this.state.needsSpecific === 'yes'}
-                  id="sfr-feedback-found-yes"
-                  name="feedback"
+                  id="sfr-edition-specific-yes"
+                  name="specificEdition"
                   value="yes"
                   onChange={e => this.handleRadioChange(e)}
                 />
@@ -107,7 +109,7 @@ class RequestDigital extends React.Component {
                   checked={this.state.needsSpecific === 'no'}
                   className="sfr-feedback-radio"
                   id="sfr-feedback-found-no"
-                  name="feedback"
+                  name="specificEdition"
                   value="no"
                   onChange={e => this.handleRadioChange(e)}
                 />
@@ -120,19 +122,19 @@ class RequestDigital extends React.Component {
               </div>
             </div>
             <div>
-              <label htmlFor="feedback-textarea-comment">
+              <label htmlFor="request-digital-textarea-comment">
                     Comments
               </label>
               <br />
               <textarea
-                id="feedback-textarea-comment"
+                id="request-digital-textarea-comment"
                 className="feedback-input"
-                name="sfr-general-feedback"
+                name="sfr-request-digital-comments"
                 rows="5"
                 aria-required="false"
                 tabIndex="0"
                 ref={(textarea) => { this.feedbackField = textarea; }}
-                value={this.state.feedback}
+                value={this.state.comments}
                 onChange={this.handleFeedbackChange}
               />
             </div>
@@ -141,7 +143,7 @@ class RequestDigital extends React.Component {
               type="button"
               className="cancel-button"
               onClick={this.props.closeForm}
-              aria-controls="feedback-menu"
+              aria-controls="request-digitization"
             >
                 Cancel
             </button>
@@ -161,11 +163,13 @@ class RequestDigital extends React.Component {
 
 RequestDigital.propTypes = {
   requestedWork: PropTypes.objectOf(PropTypes.any),
+  requestedEdition: PropTypes.objectOf(PropTypes.any),
   closeForm: PropTypes.func,
 };
 
 RequestDigital.defaultProps = {
   requestedWork: {},
+  requestedEdition: {},
   closeForm: () => { },
 };
 

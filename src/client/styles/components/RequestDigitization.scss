@@ -11,32 +11,6 @@
     background: #54514A;
     color: #000;
   }
-  
-  .cancel-button {
-    background: #d0343a;
-    display: inline-block;
-    color: #FFF;
-    cursor: pointer;
-    box-sizing: border-box;
-    border: 1px solid #d0343a;
-    text-align: center;
-    font-size: 1rem;
-    position: relative;
-    margin-right: 15px;
-  }
-  
-  .sfr-submit-feedback-button {
-    background: #000;
-    display: inline-block;
-    color: #FFF;
-    cursor: pointer;
-    box-sizing: border-box;
-    border: 1px solid #000;
-    text-align: center;
-    font-size: 1rem;
-    position: relative;
-    margin-right: 15px;
-  }
 
   .request-form-container {
     background: #efedeb;
@@ -44,7 +18,8 @@
     box-shadow: -1px 0 1px 0 rgba(0,0,0,0.3);
     padding: 0.35rem 0.5rem;
     text-align: left;
-  
+    position: fixed;
+    
     &.active {
       display: block;
     }
