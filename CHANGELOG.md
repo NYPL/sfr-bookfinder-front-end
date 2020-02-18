@@ -1,4 +1,22 @@
 # CHANGE LOG
+
+## PRERELEASE 
+### Fixed
+- Empty search redirects to homepage
+
+## [0.8.1] - 2020-02-03
+### Added 
+- https support
+
+### Changed
+- Breadcrumb appears on Read-Online page
+
+## [0.8.0] - 2020-01-20
+### Changed
+- Updated landing page, search results and work detail to new designs
+- Added Feedback form
+- Moved to API v3
+
 ## [0.3.3]
 ### Added
 - Pulls in Design System as a dependency
