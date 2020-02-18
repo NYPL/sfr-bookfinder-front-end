@@ -20,6 +20,10 @@ export default {
     apiUrl: '/utils/totals',
     experimentName: 'BooksCount',
   },
+  requestDigital: {
+    formUrl: 'https://api.airtable.com/v0/appFLZEc3LmVZCRxn/Requests',
+    experimentName: 'RequestDigital',
+  },
   analytics: {
     development: 'UA-1420324-149',
     production: 'UA-1420324-149',
