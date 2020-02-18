@@ -24,8 +24,7 @@ class EditionsList extends React.Component {
     return editions.map(
       (edition) => {
         const showRequestButton = this.props.getRequestEditionButton(edition);
-        const blah = EditionCard.getEditionData(edition, origin, eReaderUrl, referrer, showRequestButton);
-        return blah;
+        return EditionCard.getEditionData(edition, origin, eReaderUrl, referrer, showRequestButton);
       },
     );
   }
