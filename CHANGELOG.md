@@ -1,6 +1,9 @@
 # CHANGE LOG
 
 ## PRERELEASE 
+### Added
+- Form to request digitization that writes to an Airtable instance.  
+
 ### Fixed
 - Empty search redirects to homepage
 
