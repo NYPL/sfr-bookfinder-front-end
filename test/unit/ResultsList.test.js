@@ -4,7 +4,7 @@ import React from 'react';
 import { expect } from 'chai';
 import { shallow, mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import ResultsList, { getEditionsLinkElement, formatAllResultsData } from '../../src/app/components/SearchResults/ResultsList';
+import ResultsList, { getEditionsLinkElement } from '../../src/app/components/SearchResults/ResultsList';
 import results from '../fixtures/results-list.json';
 
 configure({ adapter: new Adapter() });
@@ -27,12 +27,12 @@ describe('Results List', () => {
 
   describe('Results behavior.', () => {
     before(() => {
-      component = shallow(<ResultsList results={results.data.works} />);
+      component = mount(<ResultsList results={results.data.works} />);
     });
 
     // It shouldn't check DS behavior, only that something comes back.
     it('should return results', () => {
-      expect(component.dive().find('ul')).to.have.length(1);
+      expect(component.find('ul')).to.have.length(1);
     });
   });
 
@@ -60,10 +60,14 @@ describe('Results List', () => {
   });
 
   describe('Format Results Data', () => {
+    before(() => {
+      component = shallow(<ResultsList results={results.data.works} />);
+    });
+
     describe('Complete Results Data', () => {
       let resultsData;
       before(() => {
-        resultsData = formatAllResultsData(results.data.works, 'origin', 'eReaderUrl', 'Referrer')[0];
+        resultsData = component.instance().formatAllResultsData(results.data.works, 'origin', 'eReaderUrl', 'Referrer')[0];
       });
       it('result data has id', () => {
         expect(resultsData.id).to.equal('search-result-07737109-2d77-4fb3-b23e-7991339216fb');
@@ -113,7 +117,7 @@ describe('Results List', () => {
     describe('Missing Results Data', () => {
       let resultsData;
       before(() => {
-        resultsData = formatAllResultsData([{}], 'origin', 'eReaderUrl', 'Referrer')[0];
+        resultsData = component.instance().formatAllResultsData([{}], 'origin', 'eReaderUrl', 'Referrer')[0];
       });
       it('Empty result data has id', () => {
         expect(resultsData.id).to.equal('search-result-undefined');

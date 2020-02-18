@@ -36,10 +36,10 @@ const ResultsHeader = props => (
     textFieldAriaLabel="Research Now"
     headingContent={(
       <span>
-                Research
+        Research
         <span className="rn-section-title__emphasis">Now</span>
       </span>
-            )}
+    )}
     headingId="researchNow-page-title-id"
     headingUrl="#research-now-url"
     headingBaseClass="rn-section-title"

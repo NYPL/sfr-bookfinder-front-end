@@ -17,9 +17,19 @@ if (global.loadA11y) {
 
 const appElement = global.document.getElementById('app');
 
-// Used to activate/deactivate AB tests on global namespace.
-if (!window.dgxFeatureFlags) {
-  window.dgxFeatureFlags = FeatureFlags.utils;
+// Activate or Deactivate feature flags
+const featureFlag = window.location.toString().split('feature=')[1];
+let activeFeatures = [];
+if (featureFlag) {
+  // eslint-disable-next-line no-underscore-dangle
+  if (!FeatureFlags.store._isFeatureActive(activeFeatures)) {
+    FeatureFlags.utils.activateFeature(featureFlag);
+    activeFeatures.push(featureFlag);
+  }
+// eslint-disable-next-line no-underscore-dangle
+} else if (FeatureFlags.store._isFeatureActive(activeFeatures)) {
+  FeatureFlags.utils.deactivateFeature(featureFlag);
+  activeFeatures = [];
 }
 
 browserHistory.listen(location => gaUtils.trackPageview(`${location.pathname}${location.search}`));
