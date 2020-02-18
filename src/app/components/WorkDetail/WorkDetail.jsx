@@ -100,10 +100,7 @@ class WorkDetail extends React.Component {
           />
           <div className="grid-row">
             <div className="sfr-center">
-              <SearchHeader
-                history={history}
-                {...this.boundActions}
-              />
+              <SearchHeader />
             </div>
           </div>
           { isValidWork

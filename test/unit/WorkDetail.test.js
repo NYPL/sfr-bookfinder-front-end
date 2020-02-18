@@ -62,8 +62,8 @@ describe.only('Work Detail Page Test', () => {
       // expect(container.find('Breadcrumbs').exists()).to.equal(true);
     });
 
-    it('should show searchHeader', () => {
-      expect(container.find('SearchHeader').exists()).to.equal(true);
+    it('should show ResultsHeader', () => {
+      expect(container.find('ResultsHeader').exists()).to.equal(true);
     });
     it('should show WorkHeader', () => {
       expect(container.find('WorkHeader').exists()).to.equal(true);

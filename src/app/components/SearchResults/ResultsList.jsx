@@ -19,7 +19,7 @@ export const getEditionsLinkElement = result => (result.edition_count > 1 ? (
 
 export const formatAllResultsData = (results, origin, eReaderUrl, referrer) => results.map((result, index) => {
   const titleElement = EditionCard.generateTitleLinkElem(result.title, result.uuid);
-  const authorLinkElement = EditionCard.getAuthorsList(EditionCard.getPreferredAgent(result.agents, 'author'));
+  const authorLinkElement = EditionCard.getAuthorsList(EditionCard.getPreferredAgent(result.agents, 'author'), `${result.uuid}-author`);
   // TODO: Editions Link Page
   const allEditionsLink = getEditionsLinkElement(result);
 

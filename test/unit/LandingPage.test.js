@@ -22,8 +22,8 @@ describe('Landing Page render', () => {
     expect(wrapper.find('Breadcrumbs').exists()).to.equal(true);
   });
 
-  it('contains an initialized <SearchForm /> component', () => {
-    expect(wrapper.find('SearchForm').exists()).to.equal(true);
+  it('contains an initialized <LandingPromo /> component', () => {
+    expect(wrapper.find('LandingPromo').exists()).to.equal(true);
   });
   it('contains a DS HeaderImgRight component', () => {
     expect(wrapper.find(DS.HeaderImgRight)).to.have.length(1);

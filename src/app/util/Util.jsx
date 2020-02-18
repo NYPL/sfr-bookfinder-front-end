@@ -30,11 +30,11 @@ export const joinArrayOfElements = (array, joiner) => {
   return array.map((item, idx) => {
     if (!item) return undefined;
     return ((idx < array.length - 1) ? (
-      <>
+      <React.Fragment key={`join-${item.key}`}>
         {item}
         {joiner}
-      </>
-    ) : <>{item}</>);
+      </React.Fragment>
+    ) : <React.Fragment key={`join-${item.key}`}>{item}</React.Fragment>);
   });
 };
 

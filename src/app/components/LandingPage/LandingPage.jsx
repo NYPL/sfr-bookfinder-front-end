@@ -9,7 +9,6 @@ import SearchForm from '../SearchForm/SearchForm';
 import Subjects from '../../../../subjectListConfig';
 import * as searchActions from '../../actions/SearchActions';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
-import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
 import { checkFeatureFlagActivated } from '../../util/Util';
 import TotalWorks from '../SearchForm/TotalWorks';
 
@@ -51,7 +50,7 @@ class LandingPage extends React.Component {
   }
 
   render() {
-    const { router, history } = this.context;
+    const { router } = this.context;
 
     return (
       <DS.Container>
@@ -80,10 +79,7 @@ class LandingPage extends React.Component {
             </div>
             <div className="grid-row">
               <div className="sfr-center">
-                <SearchForm
-                  history={history}
-                  {...this.boundActions}
-                />
+                <SearchForm />
                 {
                 // eslint-disable-next-line no-underscore-dangle
                 FeatureFlags.store._isFeatureActive(config.booksCount.experimentName)
@@ -108,18 +104,12 @@ class LandingPage extends React.Component {
 }
 
 LandingPage.propTypes = {
-  searchResults: PropTypes.objectOf(PropTypes.any),
-  searchQuery: searchQueryPropTypes,
   dispatch: PropTypes.func,
-  eReaderUrl: PropTypes.string,
   location: PropTypes.objectOf(PropTypes.any),
 };
 
 LandingPage.defaultProps = {
-  searchResults: {},
-  searchQuery: initialSearchQuery,
   dispatch: () => { },
-  eReaderUrl: '',
   location: {},
 };
 
