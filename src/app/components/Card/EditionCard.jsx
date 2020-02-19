@@ -5,6 +5,7 @@ import {
   MAX_TITLE_LENGTH, MAX_PUBLISHER_NAME_LENGTH, MAX_SUBTITILE_LENGTH, PLACEHOLDER_COVER_LINK,
 } from '../../constants/editioncard';
 import { formatUrl } from '../../util/Util';
+import { UnderlineLink } from '@nypl/design-system-react-components';
 
 const htmlEntities = new Html5Entities();
 
@@ -205,7 +206,7 @@ export default class EditionCard {
       publisherAndLocation: EditionCard.getPublisherAndLocation(edition),
       coverUrl: EditionCard.getCover(edition),
       language: EditionCard.getLanguageDisplayText(edition),
-      license: EditionCard.getLicense(editionItem),
+      license: <UnderlineLink><Link to="/license">{ EditionCard.getLicense(editionItem) }</Link></UnderlineLink>,
       readOnlineLink: EditionCard.getReadOnlineLink(origin, editionItem, eReaderUrl, referrer),
       downloadLink: EditionCard.getDownloadLink(editionItem),
     };
