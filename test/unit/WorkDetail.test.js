@@ -14,24 +14,24 @@ import { mockRouterContext } from '../helpers/routing';
 import WorkDetail from '../../src/app/components/WorkDetail/WorkDetail';
 
 configure({ adapter: new Adapter() });
-describe.only('Work Detail Page Test', () => {
+describe('Work Detail Page Test', () => {
   describe('WorkDetail Rendering with empty work', () => {
     let component;
     const store = configureStore(initialState);
     before(() => {
-      component = mount(
+      component = shallow(
         <WorkDetail
           store={store}
-        />,
-      );
+        />
+      ).dive().dive();
     });
 
     it('should show breadcrumb', () => {
       expect(component.find('Breadcrumbs').exists()).to.equal(true);
     });
 
-    it('should show searchHeader', () => {
-      expect(component.find('SearchHeader').exists()).to.equal(true);
+    it('should show ResultsHeader', () => {
+      expect(component.find('SearchComponent').dive().find("ResultsHeader").exists()).to.equal(true);
     });
   });
 
@@ -39,34 +39,32 @@ describe.only('Work Detail Page Test', () => {
     const store = configureStore(initialState);
     let container;
     before(() => {
-      store.dispatch = stub().callsFake(() => { console.log('dispatch called'); }).resolves('blahaaaaaa');
-      const props = { store, workResult: ['hello'] };
-      container = mount(<WorkDetail
+      const props = { store };
+      container = shallow(<WorkDetail
         {...props}
-      />);
-      container.setProps({
-        workResult: ['hello'],
-
-      }, () => { console.log('new props set'); });
+    />).dive().dive();
+    container.setProps({
+      workResult: detail
+    });
     });
 
     it('should show breadcrumb', () => {
-      console.log('setting props');
-      container.update();
-      console.log('done setting props');
-      // console.log('debug', container.debug());
-
-
-      expect(store.dispatch.calledOnce).to.equal(true);
-      // expect(loadWorkStub.calledOnce).to.equal(true);
-      // expect(container.find('Breadcrumbs').exists()).to.equal(true);
+      expect(container.find('Breadcrumbs').exists()).to.equal(true);
     });
 
     it('should show ResultsHeader', () => {
-      expect(container.find('ResultsHeader').exists()).to.equal(true);
+      expect(container.find('SearchComponent').dive().find("ResultsHeader").exists()).to.equal(true);
     });
+
     it('should show WorkHeader', () => {
       expect(container.find('WorkHeader').exists()).to.equal(true);
     });
+
+    it('should show a DefinitionList', () => {
+      expect(container.find('DefinitionList').exists()).to.equal(true);
+    });
+    it('should show EditionsList', () => {
+      expect(container.find('EditionsList').exists()).to.equal(true);
+    })
   });
 });
