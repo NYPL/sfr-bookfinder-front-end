@@ -10,6 +10,7 @@ const mockRouter = push => ({
   goForward: stub(),
   setRouteLeaveHook: stub(),
   isActive: stub(),
+  location: { location: "default" },
 });
 
 const mockRouterContext = push => ({
@@ -25,6 +26,7 @@ mockRouter.propTypes = {
   goForward: PropTypes.func,
   setRouteLeaveHook: PropTypes.func,
   isActive: PropTypes.func,
+  location: PropTypes.objectOf(PropTypes.any),
 };
 
 mockRouterContext.propTyps = {

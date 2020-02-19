@@ -113,6 +113,7 @@ describe('Search Results Page', () => {
       const store = configureStore(initialState);
       wrapper = mount(<SearchResultsPage store={store} />, { context, childContextTypes });
     });
+
     it('contains a <Breadcrumbs /> component', () => {
       expect(wrapper.find('Breadcrumbs').exists()).to.equal(true);
     });

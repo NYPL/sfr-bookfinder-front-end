@@ -68,11 +68,7 @@ class ResultsList extends React.Component {
 
     return results.map((result, index) => {
       const showRequestButton = shouldShowRequest ? (
-        <DS.Button
-          callback={() => this.openForm(result, result.editions[0])}
-          content="Request Digitization"
-        >
-        </DS.Button>
+        <a class="link" onClick={() => this.openForm(result, result.editions[0])}>Request Digitization</a>
       ) : undefined;
 
       const titleElement = EditionCard.generateTitleLinkElem(result.title, result.uuid);
