@@ -200,7 +200,8 @@ export default class EditionCard {
   static getNoLinkElement(showRequestButton) {
     return (
       <span>
-        Not Available Online.
+        Not Available Online. 
+        {" "}
         { showRequestButton }
       </span>
     );
