@@ -42,7 +42,7 @@ export default class EditionCard {
               {editionDisplay}
             </Link>
           )}
-        {!workUuid && <>{ editionDisplay }</>}
+        {!workUuid && <>{editionDisplay}</>}
       </span>
     );
   }
@@ -198,13 +198,17 @@ export default class EditionCard {
   }
 
   static getNoLinkElement(showRequestButton) {
-    return (
-      <span>
-        Not Available Online. 
+    if (showRequestButton) {
+      return (
+        <span>
+          Not Yet Available
         {" "}
-        { showRequestButton }
-      </span>
-    );
+          {showRequestButton}
+        </span>
+      );
+    } else {
+      return undefined;
+    }
   }
 
   static getEditionData(edition, origin, eReaderUrl, referrer, showRequestButton) {
