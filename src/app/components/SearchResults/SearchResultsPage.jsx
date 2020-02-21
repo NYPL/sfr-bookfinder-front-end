@@ -16,15 +16,18 @@ import config from '../../../../appConfig';
 import SearchHeader from '../SearchForm/SearchHeader';
 import SearchResults from './SearchResults';
 
-export const loadSearch = (props) => {
+export const isValidSearchQuery = query => !!query && !isEmpty(query) && !!query.queries && !isEmpty(query.queries);
+
+export const loadSearch = (props, context) => {
   const {
     location: { query },
     dispatch,
     searchQuery,
   } = props;
 
-  if (!query || isEmpty(query)) {
+  if (!isValidSearchQuery(query)) {
     dispatch(searchActions.resetSearch());
+    context.router.push('/');
   } else {
     let newQuery = Object.assign({}, query);
     if (query && query.filters) {
@@ -61,7 +64,7 @@ class SearchResultsPage extends React.Component {
   }
 
   componentDidMount() {
-    loadSearch(this.props);
+    loadSearch(this.props, this.context);
 
     FeatureFlags.store.listen(this.onFeatureFlagsChange.bind(this));
 
@@ -74,7 +77,7 @@ class SearchResultsPage extends React.Component {
     const { location } = this.props;
     if (!deepEqual(location.query, prevProps.location.query)) {
       global.window.scrollTo(0, 0);
-      loadSearch(this.props);
+      loadSearch(this.props, this.context);
     }
   }
 
@@ -113,14 +116,13 @@ class SearchResultsPage extends React.Component {
           <div
             aria-label="ResearchNow"
           >
-
             <div className="sfr-center">
               <SearchHeader />
               {
-              // eslint-disable-next-line no-underscore-dangle
-              FeatureFlags.store._isFeatureActive(config.booksCount.experimentName)
-              && <TotalWorks />
-            }
+                // eslint-disable-next-line no-underscore-dangle
+                FeatureFlags.store._isFeatureActive(config.booksCount.experimentName)
+                && <TotalWorks />
+              }
             </div>
             <div className="grid-row">
               <DS.Heading

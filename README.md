@@ -57,6 +57,11 @@ These types of combinations can be used with any available field selection.
 
 Advanced search to introduce multiple form inputs including field select.
 
+#### Feature Flag Testing
+To test Request Digitization, append to the url `feature=RequestDigital`
+To test Total Number of Works, append to the url `feature=BooksCount`
+Appending to URL doesn't work for more than one feature, to test more than one feature, edit the object in `featureFlagConfig.js`
+
 ### Test
 
 To run unit tests, run `npm test` in the terminal. Or run `npm run test-with-coverage` to run the test and see the test coverage.

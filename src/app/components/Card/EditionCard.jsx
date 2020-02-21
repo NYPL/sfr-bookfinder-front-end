@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { Html5Entities } from 'html-entities';
+import * as DS from '@nypl/design-system-react-components';
 import {
   MAX_TITLE_LENGTH, MAX_PUBLISHER_NAME_LENGTH, MAX_SUBTITILE_LENGTH, PLACEHOLDER_COVER_LINK,
 } from '../../constants/editioncard';
 import { formatUrl } from '../../util/Util';
 import { UnderlineLink } from '@nypl/design-system-react-components';
+
 
 const htmlEntities = new Html5Entities();
 
@@ -41,7 +43,7 @@ export default class EditionCard {
               {editionDisplay}
             </Link>
           )}
-        {!workUuid && <>{ editionDisplay }</>}
+        {!workUuid && <>{editionDisplay}</>}
       </span>
     );
   }
@@ -178,7 +180,6 @@ export default class EditionCard {
     return combined;
   }
 
-  // TODO: Local links should not have headers
   static getReadOnlineLink(origin, editionItem, eReaderUrl, referrer) {
     if (!editionItem || !editionItem.links) return undefined;
     // TODO: Revert after links fix
@@ -197,7 +198,21 @@ export default class EditionCard {
     return selectedLink && selectedLink.url ? formatUrl(selectedLink.url, process.env.APP_ENV) : undefined;
   }
 
-  static getEditionData(edition, origin, eReaderUrl, referrer) {
+  static getNoLinkElement(showRequestButton) {
+    if (showRequestButton) {
+      return (
+        <span>
+          Not Yet Available
+        {" "}
+          {showRequestButton}
+        </span>
+      );
+    } else {
+      return undefined;
+    }
+  }
+
+  static getEditionData(edition, origin, eReaderUrl, referrer, showRequestButton) {
     const editionYearHeadingElement = EditionCard.editionYearElem(edition);
     const editionItem = edition && edition.items ? edition.items[0] : undefined;
 
@@ -209,6 +224,7 @@ export default class EditionCard {
       license: <UnderlineLink><Link to="/license">{ EditionCard.getLicense(editionItem) }</Link></UnderlineLink>,
       readOnlineLink: EditionCard.getReadOnlineLink(origin, editionItem, eReaderUrl, referrer),
       downloadLink: EditionCard.getDownloadLink(editionItem),
+      noLinkElement: EditionCard.getNoLinkElement(showRequestButton),
     };
   }
 }
