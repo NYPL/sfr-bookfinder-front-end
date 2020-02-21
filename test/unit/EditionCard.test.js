@@ -652,7 +652,7 @@ describe('Edition Card', () => {
       });
       it('Edition has license', () => {
         let licenseElement = mount(editionData.license);
-        expect(licenseElement.find(".link").text()).to.equal('License: Unknown');
+        expect(licenseElement.find("a").text()).to.equal('License: Unknown');
       });
       it('Edition has Read Online Link', () => {
         expect(editionData.readOnlineLink).to.equal(
@@ -682,7 +682,6 @@ describe('Edition Card', () => {
       });
       it('Edition has license', () => {
         let licenseElement = mount(featuredEditionData.license);
-        console.log("debug", licenseElement);
         expect(licenseElement.find("a").text()).to.equal('License: Unknown');      });
       it('Edition has no Read Online Link', () => {
         expect(featuredEditionData.readOnlineLink).to.equal(undefined);
