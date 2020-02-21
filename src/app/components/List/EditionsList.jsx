@@ -19,8 +19,7 @@ class EditionsList extends React.Component {
     this.setState({ loaded: true });
   }
 
-  getAllEditionsData(work, editions, origin, eReaderUrl, referrer) {
-    /* eslint-disable-next-line no-underscore-dangle */
+  getAllEditionsData(editions, origin, eReaderUrl, referrer) {
     return editions.map(
       (edition) => {
         const showRequestButton = this.props.getRequestEditionButton(edition);
@@ -41,7 +40,7 @@ class EditionsList extends React.Component {
     const origin = this.state.loaded ? window.location.origin : '';
 
     return (
-      <DS.EditionsList editions={this.getAllEditionsData(work, editions, origin, eReaderUrl, referrer)} />
+      <DS.EditionsList editions={this.getAllEditionsData(editions, origin, eReaderUrl, referrer)} />
     );
   }
 }

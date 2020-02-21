@@ -55,7 +55,6 @@ const getAuthorsList = (agents) => {
  * @param {object} props
  */
 export const DefinitionList = ({ work }) => {
-  console.log("work", work);
   /**
    * Convert JSON object to array for parsing detail elements into
    * a definition list for display.
@@ -165,7 +164,6 @@ export const DefinitionList = ({ work }) => {
     if (!defsData || isEmpty(defsData)) {
       return null;
     }
-    console.log("defsData", defsData);
 
     return (
       <table className="nypl-details-table">

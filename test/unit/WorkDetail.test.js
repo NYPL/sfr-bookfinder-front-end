@@ -10,7 +10,6 @@ import initialState from '../../src/app/stores/InitialState';
 import detail from '../fixtures/work-detail.json';
 import { mockRouterContext } from '../helpers/routing';
 
-
 import WorkDetail from '../../src/app/components/WorkDetail/WorkDetail';
 
 configure({ adapter: new Adapter() });

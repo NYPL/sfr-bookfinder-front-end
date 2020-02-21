@@ -10,13 +10,11 @@ import work from '../fixtures/work-detail.json';
 
 configure({ adapter: new Adapter() });
 
-
-describe.only('DefinitionList', () => {
+describe('DefinitionList', () => {
   let component;
 
   before(() => {
     component = mount(<DefinitionList work={work.data} />);
-    console.log("debug", component.debug());
   });
 
   it('should display a definition list of detail elements', () => {
@@ -48,7 +46,7 @@ describe.only('DefinitionList', () => {
       subjects
         .find('Link')
         .first()
-        .getElements()[0].props.children,
+        .text()
     ).to.equal('Aufsatzsammlung.');
   });
 
