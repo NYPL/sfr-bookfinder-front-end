@@ -100,11 +100,7 @@ class WorkDetail extends React.Component {
 
   getRequestEditionButton(edition) {
     return (
-      <DS.Button
-        callback={() => this.openForm(edition)}
-        content="Request Digitization"
-      >
-      </DS.Button>
+      <a class="link" onClick={() => this.openForm(edition)}>Request Digitization</a>
     );
   }
 
