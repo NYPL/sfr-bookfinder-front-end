@@ -159,7 +159,7 @@ SearchResultsPage.propTypes = {
 SearchResultsPage.defaultProps = {
   searchResults: {},
   searchQuery: initialSearchQuery,
-  workResult: { instances: [], editions: [] },
+  workResult: {},
   dispatch: () => { },
   eReaderUrl: '',
   location: {},

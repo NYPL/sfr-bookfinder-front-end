@@ -6,7 +6,6 @@ import { stub } from 'sinon';
 import chai, { expect } from 'chai';
 import { mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import * as DS from '@nypl/design-system-react-components';
 import configureStore from '../../src/app/stores/configureStore';
 import initialState from '../../src/app/stores/InitialState';
 import SearchResultsPage, { loadSearch, isValidSearchQuery } from '../../src/app/components/SearchResults/SearchResultsPage';

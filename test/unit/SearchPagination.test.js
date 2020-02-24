@@ -9,15 +9,6 @@ import SearchPagination from '../../src/app/components/SearchResults/SearchPagin
 configure({ adapter: new Adapter() });
 
 describe('Search Pagination behavior', () => {
-  describe('Get Page List', () => {
-    it('returns list of pages', () => {});
-  });
-
-  describe('calling navigateToPage changes query and calls submit', () => {
-  });
-
-  describe('Changing select calls changes searchQuery', () => {});
-
   const query = { query: 'Chicago', field: 'keyword' };
   const component = mount(<SearchPagination
     totalItems={99}

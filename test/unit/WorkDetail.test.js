@@ -1,14 +1,12 @@
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-env mocha */
 import React from 'react';
-import { expect, spy } from 'chai';
-import { stub } from 'sinon';
-import { shallow, mount, configure } from 'enzyme';
+import { expect } from 'chai';
+import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import configureStore from '../../src/app/stores/configureStore';
 import initialState from '../../src/app/stores/InitialState';
 import detail from '../fixtures/work-detail.json';
-import { mockRouterContext } from '../helpers/routing';
 
 import WorkDetail from '../../src/app/components/WorkDetail/WorkDetail';
 
@@ -21,7 +19,7 @@ describe('Work Detail Page Test', () => {
       component = shallow(
         <WorkDetail
           store={store}
-        />
+        />,
       ).dive().dive();
     });
 
@@ -30,7 +28,7 @@ describe('Work Detail Page Test', () => {
     });
 
     it('should show ResultsHeader', () => {
-      expect(component.find('SearchComponent').dive().find("ResultsHeader").exists()).to.equal(true);
+      expect(component.find('SearchComponent').dive().find('ResultsHeader').exists()).to.equal(true);
     });
   });
 
@@ -41,10 +39,10 @@ describe('Work Detail Page Test', () => {
       const props = { store };
       container = shallow(<WorkDetail
         {...props}
-    />).dive().dive();
-    container.setProps({
-      workResult: detail
-    });
+      />).dive().dive();
+      container.setProps({
+        workResult: detail,
+      });
     });
 
     it('should show breadcrumb', () => {
@@ -52,7 +50,7 @@ describe('Work Detail Page Test', () => {
     });
 
     it('should show ResultsHeader', () => {
-      expect(container.find('SearchComponent').dive().find("ResultsHeader").exists()).to.equal(true);
+      expect(container.find('SearchComponent').dive().find('ResultsHeader').exists()).to.equal(true);
     });
 
     it('should show WorkHeader', () => {
@@ -64,6 +62,6 @@ describe('Work Detail Page Test', () => {
     });
     it('should show EditionsList', () => {
       expect(container.find('EditionsList').exists()).to.equal(true);
-    })
+    });
   });
 });
