@@ -651,7 +651,8 @@ describe('Edition Card', () => {
         expect(editionData.language).to.equal('Languages: English, German, Undetermined');
       });
       it('Edition has license', () => {
-        expect(editionData.license).to.equal('License: Unknown');
+        let licenseElement = mount(editionData.license);
+        expect(licenseElement.find("a").text()).to.equal('License: Unknown');
       });
       it('Edition has Read Online Link', () => {
         expect(editionData.readOnlineLink).to.equal(
@@ -680,12 +681,12 @@ describe('Edition Card', () => {
         expect(featuredEditionData.language).to.equal('Languages: Undetermined');
       });
       it('Edition has license', () => {
-        expect(featuredEditionData.license).to.equal('License: Unknown');
-      });
-      it('Edition has Read Online Link', () => {
+        let licenseElement = mount(featuredEditionData.license);
+        expect(licenseElement.find("a").text()).to.equal('License: Unknown');      });
+      it('Edition has no Read Online Link', () => {
         expect(featuredEditionData.readOnlineLink).to.equal(undefined);
       });
-      it('Edition has Download link', () => {
+      it('Edition has no Download link', () => {
         expect(featuredEditionData.downloadLink).to.equal(undefined);
       });
     });
