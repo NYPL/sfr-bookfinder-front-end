@@ -99,7 +99,7 @@ describe('Results List', () => {
         expect(resultsData.editionInfo.language).to.equal('Languages: English, German, Undetermined');
       });
       it('result data has license', () => {
-        expect(resultsData.editionInfo.license).to.equal('License: Unknown');
+        expect(mount(resultsData.editionInfo.license).find('a').text()).to.equal('License: Unknown');
       });
       it('result data has readOnlineLink', () => {
         expect(resultsData.editionInfo.readOnlineLink).to.equal(
@@ -147,7 +147,7 @@ describe('Results List', () => {
         expect(resultsData.editionInfo.language).to.equal('Languages: Undetermined');
       });
       it('result data has unknown license', () => {
-        expect(resultsData.editionInfo.license).to.equal('License: Unknown');
+        expect(mount(resultsData.editionInfo.license).find('a').text()).to.equal('License: Unknown');
       });
       it('result data has no readOnlineLink', () => {
         expect(resultsData.editionInfo.readOnlineLink).to.equal(undefined);
