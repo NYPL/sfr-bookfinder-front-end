@@ -72,7 +72,7 @@ class ResultsList extends React.Component {
           role="link"
           tabIndex="0"
           className="link"
-          onKeyDown={() => this.openForm(result, result.editions[0])}
+          onKeyDown={(event) => { if (event.keyCode === 13) { this.openForm(result, result.editions[0]); } }}
           onClick={() => this.openForm(result, result.editions[0])}
         >
         Request Digitization

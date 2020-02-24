@@ -104,7 +104,7 @@ class WorkDetail extends React.Component {
         role="link"
         tabIndex="0"
         className="link"
-        onKeyDown={() => this.openForm(edition)}
+        onKeyDown={(event) => { if (event.keyCode === 13) { this.openForm(edition); } }}
         onClick={() => this.openForm(edition)}
       >
       Request Digitization
