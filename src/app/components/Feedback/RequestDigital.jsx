@@ -73,7 +73,7 @@ class RequestDigital extends React.Component {
         >
           <form onSubmit={e => this.onSubmitForm(e)}>
             <span>
-    You are requesting
+    You are requesting a
               {' '}
               <strong>
                 {this.props.requestedEdition.publication_date}
@@ -94,6 +94,7 @@ class RequestDigital extends React.Component {
                   name="specificEdition"
                   value="yes"
                   onChange={e => this.handleRadioChange(e)}
+                  required
                 />
                 <label
                   htmlFor="sfr-feedback-found-yes"
