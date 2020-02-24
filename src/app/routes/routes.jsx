@@ -8,7 +8,7 @@ import WorkDetail from '../components/WorkDetail/WorkDetail';
 import EBookViewer from '../components/Viewer/EBookViewer';
 import SearchResultsPage from '../components/SearchResults/SearchResultsPage';
 import LandingPage from '../components/LandingPage/LandingPage';
-import { License } from '../components/License/License';
+import License from '../components/License/License';
 
 const routes = {
   default: (
@@ -33,9 +33,10 @@ const routes = {
         path="/read-online"
         component={EBookViewer}
       />
-      <Route 
+      <Route
         path="/license"
-        component={License} />
+        component={License}
+      />
       <Route
         path="/404"
         component={NotFound404}
