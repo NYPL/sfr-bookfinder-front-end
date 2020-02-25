@@ -68,7 +68,15 @@ class ResultsList extends React.Component {
 
     return results.map((result, index) => {
       const showRequestButton = shouldShowRequest ? (
-        <a class="link" onClick={() => this.openForm(result, result.editions[0])}>Request Digitization</a>
+        <a
+          role="link"
+          tabIndex="0"
+          className="link"
+          onKeyDown={(event) => { if (event.keyCode === 13) { this.openForm(result, result.editions[0]); } }}
+          onClick={() => this.openForm(result, result.editions[0])}
+        >
+        Request Digitization
+        </a>
       ) : undefined;
 
       const titleElement = EditionCard.generateTitleLinkElem(result.title, result.uuid);

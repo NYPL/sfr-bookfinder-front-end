@@ -100,7 +100,15 @@ class WorkDetail extends React.Component {
 
   getRequestEditionButton(edition) {
     return (
-      <a class="link" onClick={() => this.openForm(edition)}>Request Digitization</a>
+      <a
+        role="link"
+        tabIndex="0"
+        className="link"
+        onKeyDown={(event) => { if (event.keyCode === 13) { this.openForm(edition); } }}
+        onClick={() => this.openForm(edition)}
+      >
+      Request Digitization
+      </a>
     );
   }
 
