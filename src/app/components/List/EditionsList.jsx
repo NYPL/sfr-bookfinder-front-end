@@ -10,20 +10,13 @@ class EditionsList extends React.Component {
     this.props = props;
 
     this.getAllEditionsData = this.getAllEditionsData.bind(this);
-    this.state = {
-      loaded: false,
-    };
   }
 
-  componentDidMount() {
-    this.setState({ loaded: true });
-  }
-
-  getAllEditionsData(editions, origin, eReaderUrl, referrer) {
-    return editions.map(
+  getAllEditionsData(work, origin, eReaderUrl, referrer) {
+    return work.editions.map(
       (edition) => {
         const showRequestButton = this.props.getRequestEditionButton(edition);
-        return EditionCard.getEditionData(edition, origin, eReaderUrl, referrer, showRequestButton);
+        return EditionCard.getEditionData(work, edition, eReaderUrl, referrer, showRequestButton);
       },
     );
   }
@@ -37,10 +30,9 @@ class EditionsList extends React.Component {
     if (!editions || editions.length === 0) {
       return null;
     }
-    const origin = this.state.loaded ? window.location.origin : '';
 
     return (
-      <DS.EditionsList editions={this.getAllEditionsData(editions, origin, eReaderUrl, referrer)} />
+      <DS.EditionsList editions={this.getAllEditionsData(work, eReaderUrl, referrer)} />
     );
   }
 }

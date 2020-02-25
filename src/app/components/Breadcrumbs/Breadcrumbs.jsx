@@ -3,22 +3,19 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import * as DS from '@nypl/design-system-react-components';
-import { getQueryString } from '../../search/query';
 import * as searchActions from '../../actions/SearchActions';
+import { MAX_TITLE_LENGTH } from '../../constants/editioncard';
 
-export const getBreadcrumbLinks = (searchQuery, workDetail) => {
+export const getBreadcrumbLinks = (workDetail) => {
   const links = [];
-  if (searchQuery && searchQuery.queries
-    && searchQuery.queries.length && searchQuery.queries[0].query) {
-    links.push({
-      href: `/search?${getQueryString(searchQuery)}`,
-      text: 'Search Results',
-    });
-  }
-  if (workDetail && workDetail.uuid) {
+  if (workDetail && workDetail.title) {
+    const strippedSlashTitle = workDetail.title.indexOf('/') > 0
+      ? workDetail.title.substring(0, workDetail.title.indexOf('/')) : workDetail.title;
+    const breadcrumbTitle = strippedSlashTitle.length > MAX_TITLE_LENGTH
+      ? `${strippedSlashTitle.substring(0, MAX_TITLE_LENGTH)}...` : strippedSlashTitle;
     links.push({
       href: `/work?workId=${workDetail.uuid}`,
-      text: 'Item Detail',
+      text: `${breadcrumbTitle}`,
     });
   }
   return links;
@@ -60,8 +57,8 @@ class Breadcrumbs extends React.Component {
   }
 
   render() {
-    const { location, searchQuery, workDetail } = this.props;
-    const links = getBreadcrumbLinks(searchQuery, workDetail);
+    const { location, workDetail } = this.props;
+    const links = getBreadcrumbLinks(workDetail);
     const handleReset = (event) => {
       event.preventDefault();
 
@@ -77,14 +74,12 @@ class Breadcrumbs extends React.Component {
 
 Breadcrumbs.propTypes = {
   location: PropTypes.objectOf(PropTypes.any),
-  searchQuery: PropTypes.objectOf(PropTypes.any),
   workDetail: PropTypes.objectOf(PropTypes.any),
   dispatch: PropTypes.func,
 };
 
 Breadcrumbs.defaultProps = {
   location: {},
-  searchQuery: {},
   workDetail: {},
   dispatch: () => { },
 };

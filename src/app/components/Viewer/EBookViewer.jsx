@@ -15,6 +15,7 @@ class EBookViewer extends React.Component {
 
   componentDidMount() {
     this.parseQueryToState(this.props.location.query);
+
     this.handleIframeTask = this.handleIframeTask.bind(this);
     window.addEventListener('message', this.handleIframeTask, false);
   }
@@ -39,7 +40,7 @@ class EBookViewer extends React.Component {
 
   render() {
     const { router } = this.context;
-    const work = this.props.workResult && this.props.workResult.work ? this.props.workResult.work.data : undefined;
+    const work = this.props.location.state ? this.props.location.state.work : undefined;
     const bookUrl = this.state.bookUrl;
 
     return (
@@ -47,7 +48,6 @@ class EBookViewer extends React.Component {
         <Breadcrumbs
           router={router}
           location={this.props.location}
-          searchQuery={this.props.searchQuery}
           workDetail={work}
         />
         <span>
@@ -68,15 +68,11 @@ class EBookViewer extends React.Component {
 
 EBookViewer.propTypes = {
   location: PropTypes.objectOf(PropTypes.any),
-  workResult: PropTypes.objectOf(PropTypes.any),
-  searchQuery: PropTypes.objectOf(PropTypes.any),
   eReaderUrl: PropTypes.string,
 };
 
 EBookViewer.defaultProps = {
   location: {},
-  workResult: {},
-  searchQuery: {},
   eReaderUrl: appConfig.ereader[process.env.APP_ENV],
 };
 

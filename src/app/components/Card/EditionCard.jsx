@@ -6,7 +6,6 @@ import {
   MAX_TITLE_LENGTH, MAX_PUBLISHER_NAME_LENGTH, MAX_SUBTITILE_LENGTH, PLACEHOLDER_COVER_LINK,
 } from '../../constants/editioncard';
 import { formatUrl } from '../../util/Util';
-import { UnderlineLink } from '@nypl/design-system-react-components';
 
 
 const htmlEntities = new Html5Entities();
@@ -180,16 +179,30 @@ export default class EditionCard {
     return combined;
   }
 
-  static getReadOnlineLink(origin, editionItem, eReaderUrl, referrer) {
+  static getReadOnlineLink(work, editionItem, eReaderUrl, referrer) {
     if (!editionItem || !editionItem.links) return undefined;
     // TODO: Revert after links fix
     const selectedLink = editionItem.links.find(link => (!link.local && !link.download) || (link.local && link.download));
     if (!selectedLink || !selectedLink.url) return undefined;
     if (selectedLink.local) {
       const encodedUrl = EditionCard.generateStreamedReaderUrl(selectedLink.url, eReaderUrl, referrer);
-      return `${origin}/read-online?url=${encodeURI(encodedUrl)}`;
+      return (
+        <Link
+          className="edition-card__card-info-link"
+          to={{ pathname: '/read-online', search: `?url=${encodeURI(encodedUrl)}`, state: { work } }}
+        >
+          Read Online
+        </Link>
+      );
     }
-    return `${origin}/read-online?url=${formatUrl(selectedLink.url, process.env.APP_ENV)}`;
+    return (
+      <Link
+        className="edition-card__card-info-link"
+        to={{ pathname: '/read-online', search: `?url=${formatUrl(selectedLink.url, process.env.APP_ENV)}`, state: { work } }}
+      >
+        Read Online
+      </Link>
+    );
   }
 
   static getDownloadLink(editionItem) {
@@ -203,16 +216,15 @@ export default class EditionCard {
       return (
         <span>
           Not Yet Available
-        {" "}
+          {' '}
           {showRequestButton}
         </span>
       );
-    } else {
-      return undefined;
     }
+    return undefined;
   }
 
-  static getEditionData(edition, origin, eReaderUrl, referrer, showRequestButton) {
+  static getEditionData(work, edition, eReaderUrl, referrer, showRequestButton) {
     const editionYearHeadingElement = EditionCard.editionYearElem(edition);
     const editionItem = edition && edition.items ? edition.items[0] : undefined;
 
@@ -221,8 +233,8 @@ export default class EditionCard {
       publisherAndLocation: EditionCard.getPublisherAndLocation(edition),
       coverUrl: EditionCard.getCover(edition),
       language: EditionCard.getLanguageDisplayText(edition),
-      license: <UnderlineLink><Link to="/license">{ EditionCard.getLicense(editionItem) }</Link></UnderlineLink>,
-      readOnlineLink: EditionCard.getReadOnlineLink(origin, editionItem, eReaderUrl, referrer),
+      license: <DS.UnderlineLink><Link to="/license">{ EditionCard.getLicense(editionItem) }</Link></DS.UnderlineLink>,
+      readOnlineLink: EditionCard.getReadOnlineLink(work, editionItem, eReaderUrl, referrer),
       downloadLink: EditionCard.getDownloadLink(editionItem),
       noLinkElement: EditionCard.getNoLinkElement(showRequestButton),
     };

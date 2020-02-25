@@ -8,8 +8,7 @@ import Breadcrumbs, { getBreadcrumbLinks, getCrumbTrail } from '../../src/app/co
 import { initialSearchQuery } from '../../src/app/stores/InitialState';
 
 describe('Breadcrumb', () => {
-  const searchQuery = { queries: [{ query: 'snakes', field: 'keyword' }] };
-  const workDetail = { uuid: '12345' };
+  const workDetail = { uuid: '12345', title: 'random title' };
   const homeLocation = { pathname: '/' };
   const otherLocation = { pathName: '/other-location' };
 
@@ -18,19 +17,8 @@ describe('Breadcrumb', () => {
       expect(getBreadcrumbLinks(undefined, undefined)).to.eql([]);
     });
 
-    it('Gets a search link when passed a searchQuery', () => {
-      expect(getBreadcrumbLinks(searchQuery, undefined)).to.eql(
-        [
-          {
-            href: '/search?queries=%5B%7B%22query%22%3A%22snakes%22%2C%22field%22%3A%22keyword%22%7D%5D',
-            text: 'Search Results',
-          },
-        ],
-      );
-    });
-
     it("doesn't return a link when passed an empty search", () => {
-      expect(getBreadcrumbLinks({}, undefined)).to.eql([]);
+      expect(getBreadcrumbLinks(undefined)).to.eql([]);
     });
 
     it("doesn't return a link when passed a search with no query", () => {
@@ -38,11 +26,11 @@ describe('Breadcrumb', () => {
     });
 
     it('gets a work detail link when passed a work detail', () => {
-      expect(getBreadcrumbLinks({}, workDetail)).to.eql(
+      expect(getBreadcrumbLinks(workDetail)).to.eql(
         [
           {
             href: '/work?workId=12345',
-            text: 'Item Detail',
+            text: 'random title',
           },
         ],
       );
@@ -50,21 +38,6 @@ describe('Breadcrumb', () => {
 
     it("doesn't get a work detail link when passed an empty work", () => {
       expect(getBreadcrumbLinks({}, {})).to.eql([]);
-    });
-
-    it('gets search query and work detail when passed both', () => {
-      expect(getBreadcrumbLinks(searchQuery, workDetail)).to.eql(
-        [
-          {
-            href: '/search?queries=%5B%7B%22query%22%3A%22snakes%22%2C%22field%22%3A%22keyword%22%7D%5D',
-            text: 'Search Results',
-          },
-          {
-            href: '/work?workId=12345',
-            text: 'Item Detail',
-          },
-        ],
-      );
     });
   });
 
@@ -106,27 +79,12 @@ describe('Breadcrumb', () => {
       const wrapper = mount(<Breadcrumbs />);
       expect(wrapper.find('li')).to.have.lengthOf(1);
     });
-    it('returns a list with two items when passed a searchquery', () => {
-      const wrapper = mount(<Breadcrumbs
-        location={otherLocation}
-        searchQuery={searchQuery}
-      />);
-      expect(wrapper.find('li')).to.have.lengthOf(2);
-    });
     it('returns a list with two items when passed a work detail', () => {
       const wrapper = mount(<Breadcrumbs
         location={otherLocation}
         workDetail={workDetail}
       />);
       expect(wrapper.find('li')).to.have.lengthOf(2);
-    });
-    it('returns a list with three items when passed a work detail', () => {
-      const wrapper = mount(<Breadcrumbs
-        location={otherLocation}
-        searchQuery={searchQuery}
-        workDetail={workDetail}
-      />);
-      expect(wrapper.find('li')).to.have.lengthOf(3);
     });
   });
 });

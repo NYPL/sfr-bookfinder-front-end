@@ -536,7 +536,6 @@ describe('Edition Card', () => {
 
   // due to an error in link.download entries, we are using download=true links when local=true
   describe('get read online url', () => {
-    const origin = 'origin';
     const eReaderUrl = 'eReaderUrl';
     const referrer = 'referrer';
     it('should return appropriately formatted webpub-viewer link', () => {
@@ -551,11 +550,10 @@ describe('Edition Card', () => {
           images: true,
           ebook: true,
         }];
-      expect(EditionCard.getReadOnlineLink(origin, testItem, eReaderUrl, referrer))
-        .to.equal(
-          'origin/read-online?url=eReaderUrl/readerNYPL/?url=eReaderUrl'
-          + '/pub/aHR0cHM6Ly9yZWFkLW9ubGluZS11cmwtMQ%253D%253D/manifest.json#referrer',
-        );
+      const linkComponent = mount(EditionCard.getReadOnlineLink(work, testItem, eReaderUrl, referrer));
+      expect(linkComponent.prop('to').pathname).to.equal('/read-online');
+      expect(linkComponent.prop('to').search).to.equal('?url=eReaderUrl/readerNYPL/?url=eReaderUrl'
+      + '/pub/aHR0cHM6Ly9yZWFkLW9ubGluZS11cmwtMQ%253D%253D/manifest.json#referrer');
     });
 
     it('should return appropriately formatted non-webpub-viewer link', () => {
@@ -570,8 +568,9 @@ describe('Edition Card', () => {
           images: true,
           ebook: true,
         }];
-      expect(EditionCard.getReadOnlineLink(origin, testItem, eReaderUrl, referrer))
-        .to.equal('origin/read-online?url=https://read-online-url-1');
+      const linkComponent = mount(EditionCard.getReadOnlineLink(work, testItem, eReaderUrl, referrer));
+      expect(linkComponent.prop('to').pathname).to.equal('/read-online');
+      expect(linkComponent.prop('to').search).to.equal('?url=https://read-online-url-1');
     });
 
     it('should select the first read-online link', () => {
@@ -596,12 +595,13 @@ describe('Edition Card', () => {
           images: true,
           ebook: true,
         }];
-      expect(EditionCard.getReadOnlineLink(origin, testItem, eReaderUrl, referrer))
-        .to.equal('origin/read-online?url=https://read-online-url-1');
+      const linkComponent = mount(EditionCard.getReadOnlineLink(work, testItem, eReaderUrl, referrer));
+      expect(linkComponent.prop('to').pathname).to.equal('/read-online');
+      expect(linkComponent.prop('to').search).to.equal('?url=https://read-online-url-1');
     });
     it('returns undefined when no links are passed', () => {
       testItem.links = null;
-      expect(EditionCard.getReadOnlineLink(origin, testItem, eReaderUrl, referrer)).to.equal(undefined);
+      expect(EditionCard.getReadOnlineLink(work, testItem, eReaderUrl, referrer)).to.equal(undefined);
     });
   });
 
@@ -633,7 +633,7 @@ describe('Edition Card', () => {
   describe('getEditionData', () => {
     describe('Get Edition with Complete Data', () => {
       const edition = work.editions[0];
-      const editionData = EditionCard.getEditionData(edition, 'origin', 'eReaderUrl', 'referrer');
+      const editionData = EditionCard.getEditionData(work, edition, 'eReaderUrl', 'referrer');
       it('Edition has Year Heading Element', () => {
         expect(mount(<span>{editionData.editionYearHeading}</span>).text()).to.equal('1852 Edition');
       });
@@ -651,13 +651,13 @@ describe('Edition Card', () => {
         expect(editionData.language).to.equal('Languages: English, German, Undetermined');
       });
       it('Edition has license', () => {
-        let licenseElement = mount(editionData.license);
-        expect(licenseElement.find("a").text()).to.equal('License: Unknown');
+        const licenseElement = mount(editionData.license);
+        expect(licenseElement.find('a').text()).to.equal('License: Unknown');
       });
       it('Edition has Read Online Link', () => {
-        expect(editionData.readOnlineLink).to.equal(
-          'origin/read-online?url=https://archive.org/details/blithedaleromanc00hawtrich',
-        );
+        const linkComponent = mount(editionData.readOnlineLink);
+        expect(linkComponent.prop('to').pathname).to.equal('/read-online');
+        expect(linkComponent.prop('to').search).to.equal('?url=https://archive.org/details/blithedaleromanc00hawtrich');
       });
       it('Edition has Download link', () => {
         expect(editionData.downloadLink).to.equal('https://catalog.hathitrust.org/api/volumes/oclc/39113388.html');
@@ -665,7 +665,7 @@ describe('Edition Card', () => {
     });
 
     describe('Get Edition with Missing Data', () => {
-      const featuredEditionData = EditionCard.getEditionData([{}], 'origin', 'eReaderUrl', 'referrer');
+      const featuredEditionData = EditionCard.getEditionData(work, [{}], 'eReaderUrl', 'referrer');
       it('Edition has Year Heading Element', () => {
         expect(mount(<span>{featuredEditionData.editionYearHeading}</span>).text()).to.equal('Edition Year Unknown');
       });
@@ -681,8 +681,9 @@ describe('Edition Card', () => {
         expect(featuredEditionData.language).to.equal('Languages: Undetermined');
       });
       it('Edition has license', () => {
-        let licenseElement = mount(featuredEditionData.license);
-        expect(licenseElement.find("a").text()).to.equal('License: Unknown');      });
+        const licenseElement = mount(featuredEditionData.license);
+        expect(licenseElement.find('a').text()).to.equal('License: Unknown');
+      });
       it('Edition has no Read Online Link', () => {
         expect(featuredEditionData.readOnlineLink).to.equal(undefined);
       });

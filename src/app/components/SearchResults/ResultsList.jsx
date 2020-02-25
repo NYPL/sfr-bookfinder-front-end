@@ -83,7 +83,6 @@ class ResultsList extends React.Component {
       const authorLinkElement = EditionCard.getAuthorsList(EditionCard.getPreferredAgent(result.agents, 'author'), `${result.uuid}-author`);
       // TODO: Editions Link Page
       const allEditionsLink = getEditionsLinkElement(result);
-
       const previewEdition = result.editions && result.editions[0];
 
       return {
@@ -92,7 +91,7 @@ class ResultsList extends React.Component {
         titleElement,
         subtitle: EditionCard.getSubtitleText(result.sub_title),
         authorElement: authorLinkElement ? joinArrayOfElements(authorLinkElement, ', ') : undefined,
-        editionInfo: EditionCard.getEditionData(previewEdition, origin, eReaderUrl, referrer, showRequestButton),
+        editionInfo: EditionCard.getEditionData(result, previewEdition, eReaderUrl, referrer, showRequestButton),
         editionsLinkElement: allEditionsLink,
       };
     });

@@ -102,9 +102,9 @@ describe('Results List', () => {
         expect(mount(resultsData.editionInfo.license).find('a').text()).to.equal('License: Unknown');
       });
       it('result data has readOnlineLink', () => {
-        expect(resultsData.editionInfo.readOnlineLink).to.equal(
-          'origin/read-online?url=https://archive.org/details/blithedaleromanc00hawtrich',
-        );
+        const linkComponent = mount(resultsData.editionInfo.readOnlineLink);
+        expect(linkComponent.prop('to').pathname).to.equal('/read-online');
+        expect(linkComponent.prop('to').search).to.equal('?url=https://archive.org/details/blithedaleromanc00hawtrich');
       });
       it('result data has download link', () => {
         expect(resultsData.editionInfo.downloadLink).to.equal('https://catalog.hathitrust.org/api/volumes/oclc/39113388.html');
