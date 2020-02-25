@@ -209,7 +209,7 @@ WorkDetail.propTypes = {
 };
 
 WorkDetail.defaultProps = {
-  workResult: { data: { instances: [] } },
+  workResult: {},
   searchQuery: {},
   eReaderUrl: '',
   dispatch: () => { },

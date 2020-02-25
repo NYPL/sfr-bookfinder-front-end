@@ -2,20 +2,19 @@
 /* eslint-env mocha */
 import React from 'react';
 import { expect } from 'chai';
-import { shallow, configure } from 'enzyme';
+import { shallow, mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { DefinitionList } from '../../src/app/components/WorkDetail/DefinitionList';
 import { detailDefinitionLabels } from '../../src/app/constants/labels';
-import detail from '../fixtures/work-detail.json';
+import work from '../fixtures/work-detail.json';
 
 configure({ adapter: new Adapter() });
-
 
 describe('DefinitionList', () => {
   let component;
 
   before(() => {
-    component = shallow(<DefinitionList work={detail} />);
+    component = mount(<DefinitionList work={work.data} />);
   });
 
   it('should display a definition list of detail elements', () => {
@@ -47,7 +46,7 @@ describe('DefinitionList', () => {
       subjects
         .find('Link')
         .first()
-        .getElements()[0].props.children,
+        .text()
     ).to.equal('Aufsatzsammlung.');
   });
 

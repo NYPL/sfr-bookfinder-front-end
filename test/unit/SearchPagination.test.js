@@ -9,11 +9,14 @@ import SearchPagination from '../../src/app/components/SearchResults/SearchPagin
 configure({ adapter: new Adapter() });
 
 describe('Search Pagination behavior', () => {
-  const query = { query: 'Chicago', field: 'keyword' };
-  const component = mount(<SearchPagination
-    totalItems={99}
-    searchQuery={query}
-  />);
+  let component;
+  before(() => {
+    const query = { query: 'Chicago', field: 'keyword' };
+    component = mount(<SearchPagination
+      totalItems={99}
+      searchQuery={query}
+    />);
+  });
 
   it('should pass 10 pages into dropdownOptions', () => {
     expect(component.children().prop('paginationDropdownOptions')).to.have.length(10);

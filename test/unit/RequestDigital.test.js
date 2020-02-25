@@ -17,8 +17,8 @@ describe('RequestDigital', () => {
 
   before(() => {
     mockProps = {
-      requestedWork: work,
-      requestedEdition: work.editions[1],
+      requestedWork: work.data,
+      requestedEdition: work.data.editions[1],
       closeForm: stub(),
     };
     submitStub = stub(RequestDigital.prototype, 'sendFeedback');
