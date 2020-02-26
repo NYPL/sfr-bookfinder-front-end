@@ -71,7 +71,7 @@ class ResultsList extends React.Component {
         <a
           role="link"
           tabIndex="0"
-          className="link"
+          className="link request-digital-link"
           onKeyDown={(event) => { if (event.keyCode === 13) { this.openForm(result, result.editions[0]); } }}
           onClick={() => this.openForm(result, result.editions[0])}
         >
