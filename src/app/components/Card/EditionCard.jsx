@@ -2,11 +2,11 @@ import React from 'react';
 import { Link } from 'react-router';
 import { Html5Entities } from 'html-entities';
 import * as DS from '@nypl/design-system-react-components';
+import { UnderlineLink } from '@nypl/design-system-react-components';
 import {
   MAX_TITLE_LENGTH, MAX_PUBLISHER_NAME_LENGTH, MAX_SUBTITILE_LENGTH, PLACEHOLDER_COVER_LINK,
 } from '../../constants/editioncard';
 import { formatUrl } from '../../util/Util';
-import { UnderlineLink } from '@nypl/design-system-react-components';
 
 
 const htmlEntities = new Html5Entities();
@@ -203,13 +203,12 @@ export default class EditionCard {
       return (
         <span>
           Not Yet Available
-        {" "}
+          {' '}
           {showRequestButton}
         </span>
       );
-    } else {
-      return undefined;
     }
+    return undefined;
   }
 
   static getEditionData(edition, origin, eReaderUrl, referrer, showRequestButton) {
