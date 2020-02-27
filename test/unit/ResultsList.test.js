@@ -67,7 +67,7 @@ describe('Results List', () => {
     describe('Complete Results Data', () => {
       let resultsData;
       before(() => {
-        resultsData = component.instance().formatAllResultsData(results.data.works, 'origin', 'eReaderUrl', 'Referrer')[0];
+        resultsData = component.instance().formatAllResultsData(results.data.works, 'eReaderUrl', 'Referrer')[0];
       });
       it('result data has id', () => {
         expect(resultsData.id).to.equal('search-result-07737109-2d77-4fb3-b23e-7991339216fb');
@@ -102,9 +102,9 @@ describe('Results List', () => {
         expect(mount(resultsData.editionInfo.license).find('a').text()).to.equal('License: Unknown');
       });
       it('result data has readOnlineLink', () => {
-        expect(resultsData.editionInfo.readOnlineLink).to.equal(
-          'origin/read-online?url=https://archive.org/details/blithedaleromanc00hawtrich',
-        );
+        const linkComponent = mount(resultsData.editionInfo.readOnlineLink);
+        expect(linkComponent.prop('to').pathname).to.equal('/read-online');
+        expect(linkComponent.prop('to').search).to.equal('?url=https://archive.org/details/blithedaleromanc00hawtrich');
       });
       it('result data has download link', () => {
         expect(resultsData.editionInfo.downloadLink).to.equal('https://catalog.hathitrust.org/api/volumes/oclc/39113388.html');
@@ -117,7 +117,7 @@ describe('Results List', () => {
     describe('Missing Results Data', () => {
       let resultsData;
       before(() => {
-        resultsData = component.instance().formatAllResultsData([{}], 'origin', 'eReaderUrl', 'Referrer')[0];
+        resultsData = component.instance().formatAllResultsData([{}], 'eReaderUrl', 'Referrer')[0];
       });
       it('Empty result data has id', () => {
         expect(resultsData.id).to.equal('search-result-undefined');

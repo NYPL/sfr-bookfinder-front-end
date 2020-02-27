@@ -29,24 +29,6 @@ const scrollToHash = (hash) => {
   }
 };
 
-const getEditionCard = (work, origin, eReaderUrl, referrer) => {
-  if (!work.editions[0]) return null;
-  const getFirstReadableEdition = work.editions.find(edition => edition.items
-    && edition.items.length && edition.items[0].links && edition.items[0].links.length);
-  const featuredEditionData = EditionCard.getEditionData(getFirstReadableEdition, origin, eReaderUrl, referrer);
-  return (
-    <DS.EditionCard
-      id="featured-card"
-      coverUrl={featuredEditionData.coverUrl}
-      editionHeadingElement={featuredEditionData.editionYearHeading}
-      editionInfo={[featuredEditionData.publisherAndLocation, featuredEditionData.language, featuredEditionData.license]}
-      readOnlineLink={featuredEditionData.readOnlineLink}
-      downloadLink={featuredEditionData.downloadLink}
-      noLinkElement={featuredEditionData.noLinkElement}
-    />
-  );
-};
-
 class WorkDetail extends React.Component {
   constructor(props) {
     super(props);
@@ -86,6 +68,25 @@ class WorkDetail extends React.Component {
   onFeatureFlagsChange() {
     // eslint-disable-next-line react/no-unused-state
     this.setState({ featureFlagsStore: FeatureFlags.store.getState() });
+  }
+
+  getEditionCard(work, eReaderUrl, referrer) {
+    if (!work.editions[0]) return null;
+    const getFirstReadableEdition = work.editions.find(edition => edition.items
+      && edition.items.length && edition.items[0].links && edition.items[0].links.length);
+    const featuredEditionData = EditionCard.getEditionData(work, getFirstReadableEdition,
+      eReaderUrl, referrer, this.getRequestEditionButton(getFirstReadableEdition));
+    return (
+      <DS.EditionCard
+        id="featured-card"
+        coverUrl={featuredEditionData.coverUrl}
+        editionHeadingElement={featuredEditionData.editionYearHeading}
+        editionInfo={[featuredEditionData.publisherAndLocation, featuredEditionData.language, featuredEditionData.license]}
+        readOnlineLink={featuredEditionData.readOnlineLink}
+        downloadLink={featuredEditionData.downloadLink}
+        noLinkElement={featuredEditionData.noLinkElement}
+      />
+    );
   }
 
   getRequestDigital(work) {
@@ -134,7 +135,6 @@ class WorkDetail extends React.Component {
     const isValidWork = work && work.editions && !deepEqual(work, WorkDetail.defaultProps.workResult);
     const eReaderUrl = this.props.eReaderUrl;
     const referrer = this.props.location.pathname + this.props.location.search;
-    const origin = this.state.loaded ? window.location.origin : '';
     // eslint-disable-next-line no-underscore-dangle
     const shouldShowRequest = FeatureFlags.store._isFeatureActive(config.requestDigital.experimentName);
 
@@ -171,7 +171,7 @@ class WorkDetail extends React.Component {
             </div>
             <div className="grid-row">
               <div className="sfr-center">
-                {getEditionCard(work, origin, eReaderUrl, referrer)}
+                {this.getEditionCard(work, eReaderUrl, referrer)}
               </div>
             </div>
             <div className="grid-row">
