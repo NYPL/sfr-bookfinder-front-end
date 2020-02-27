@@ -70,7 +70,7 @@ class WorkDetail extends React.Component {
     this.setState({ featureFlagsStore: FeatureFlags.store.getState() });
   }
 
-  getEditionCard(work, origin, eReaderUrl, referrer) {
+  getEditionCard(work, eReaderUrl, referrer) {
     if (!work.editions[0]) return null;
     const getFirstReadableEdition = work.editions.find(edition => edition.items
       && edition.items.length && edition.items[0].links && edition.items[0].links.length);
@@ -135,7 +135,6 @@ class WorkDetail extends React.Component {
     const isValidWork = work && work.editions && !deepEqual(work, WorkDetail.defaultProps.workResult);
     const eReaderUrl = this.props.eReaderUrl;
     const referrer = this.props.location.pathname + this.props.location.search;
-    const origin = this.state.loaded ? window.location.origin : '';
     // eslint-disable-next-line no-underscore-dangle
     const shouldShowRequest = FeatureFlags.store._isFeatureActive(config.requestDigital.experimentName);
 
@@ -172,7 +171,7 @@ class WorkDetail extends React.Component {
             </div>
             <div className="grid-row">
               <div className="sfr-center">
-                {this.getEditionCard(work, origin, eReaderUrl, referrer)}
+                {this.getEditionCard(work, eReaderUrl, referrer)}
               </div>
             </div>
             <div className="grid-row">

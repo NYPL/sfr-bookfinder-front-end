@@ -37,7 +37,7 @@ class ResultsList extends React.Component {
     this.closeForm = this.closeForm.bind(this);
     this.formatAllResultsData = this.formatAllResultsData.bind(this);
     this.state = {
-      loaded: false, isFeatureFlagsActivated: {}, requestedWork: null, requestedEdition: null,
+      isFeatureFlagsActivated: {}, requestedWork: null, requestedEdition: null,
     };
   }
 
@@ -63,7 +63,7 @@ class ResultsList extends React.Component {
     this.setState({ requestedWork: null, requestedEdition: null });
   }
 
-  formatAllResultsData(results, origin, eReaderUrl, referrer) {
+  formatAllResultsData(results, eReaderUrl, referrer) {
     const shouldShowRequest = FeatureFlags.store._isFeatureActive(config.requestDigital.experimentName);
 
     return results.map((result, index) => {
@@ -100,7 +100,6 @@ class ResultsList extends React.Component {
   render() {
     const { eReaderUrl, results } = this.props;
     const referrer = this.context.router ? this.context.router.location.pathname + this.context.router.location.search : undefined;
-    const origin = this.state.loaded ? window.location.origin : '';
     if (isEmpty(this.props.results)) {
       return (
         <div className="grid-row margin-3">
@@ -123,7 +122,7 @@ class ResultsList extends React.Component {
         />
         )}
         <DS.SearchResultsList
-          searchResults={this.formatAllResultsData(results, origin, eReaderUrl, referrer)}
+          searchResults={this.formatAllResultsData(results, eReaderUrl, referrer)}
         >
         </DS.SearchResultsList>
       </>

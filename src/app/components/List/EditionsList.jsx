@@ -12,7 +12,7 @@ class EditionsList extends React.Component {
     this.getAllEditionsData = this.getAllEditionsData.bind(this);
   }
 
-  getAllEditionsData(work, origin, eReaderUrl, referrer) {
+  getAllEditionsData(work, eReaderUrl, referrer) {
     return work.editions.map(
       (edition) => {
         const showRequestButton = this.props.getRequestEditionButton(edition);
