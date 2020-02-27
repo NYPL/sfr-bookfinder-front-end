@@ -20,7 +20,7 @@ class RequestDigital extends React.Component {
     this.onSubmitForm = this.onSubmitForm.bind(this);
     this.handleFeedbackChange = this.handleFeedbackChange.bind(this);
     this.sendFeedback = this.sendFeedback.bind(this);
-    this.handleRadioChange = this.handleRadioChange.bind(this);
+    this.handleRadioChange = this.handleCheckboxClick.bind(this);
   }
 
   onSubmitForm(e) {
@@ -32,6 +32,7 @@ class RequestDigital extends React.Component {
   }
 
   sendFeedback() {
+    console.log('state', this.state);
     fetch(appConfig.requestDigital.formUrl, {
       method: 'POST',
       headers: {
@@ -54,8 +55,8 @@ class RequestDigital extends React.Component {
     this.setState({ comments: e.target.value });
   }
 
-  handleRadioChange(e) {
-    this.setState({ needsSpecific: e.target.value });
+  handleCheckboxClick(e) {
+    this.setState({ needsSpecific: e.target.checked.toString() });
   }
 
   render() {
@@ -87,13 +88,11 @@ class RequestDigital extends React.Component {
               <label id="sfr-request-specific"> Do you need this specific edition? </label>
               <div>
                 <input
-                  type="radio"
-                  className="sfr-feedback-radio"
-                  checked={this.state.needsSpecific === 'yes'}
+                  type="checkbox"
+                  className="sfr-feedback-checkbox"
                   id="sfr-edition-specific-yes"
                   name="specificEdition"
-                  value="yes"
-                  onChange={e => this.handleRadioChange(e)}
+                  onChange={e => this.handleCheckboxClick(e)}
                 />
                 <label
                   htmlFor="sfr-feedback-found-yes"
