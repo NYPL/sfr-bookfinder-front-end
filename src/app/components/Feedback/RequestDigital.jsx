@@ -94,31 +94,12 @@ class RequestDigital extends React.Component {
                   name="specificEdition"
                   value="yes"
                   onChange={e => this.handleRadioChange(e)}
-                  required
                 />
                 <label
                   htmlFor="sfr-feedback-found-yes"
                   className="sfr-radio-label"
                 >
                     I want only this edition
-                </label>
-              </div>
-
-              <div>
-                <input
-                  type="radio"
-                  checked={this.state.needsSpecific === 'no'}
-                  className="sfr-feedback-radio"
-                  id="sfr-feedback-found-no"
-                  name="specificEdition"
-                  value="no"
-                  onChange={e => this.handleRadioChange(e)}
-                />
-                <label
-                  htmlFor="sfr-feedback-found-no"
-                  className="sfr-radio-label"
-                >
-                    I want any edition
                 </label>
               </div>
             </div>

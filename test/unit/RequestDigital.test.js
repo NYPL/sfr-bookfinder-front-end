@@ -31,7 +31,7 @@ describe('RequestDigital', () => {
 
   describe('RequestDigital Form', () => {
     it('should have 2 radio buttons', () => {
-      expect(component.find('.sfr-feedback-radio')).to.have.length(2);
+      expect(component.find('.sfr-feedback-radio')).to.have.length(1);
       component.find('#sfr-edition-specific-yes').simulate('change', {
         target: { name: 'specificEdition', value: 'yes' },
       });
