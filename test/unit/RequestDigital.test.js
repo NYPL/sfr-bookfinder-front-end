@@ -30,12 +30,12 @@ describe('RequestDigital', () => {
   });
 
   describe('RequestDigital Form', () => {
-    it('should have 2 radio buttons', () => {
-      expect(component.find('.sfr-feedback-radio')).to.have.length(2);
+    it('should have 1 checkbox', () => {
+      expect(component.find('.sfr-feedback-checkbox')).to.have.length(1);
       component.find('#sfr-edition-specific-yes').simulate('change', {
-        target: { name: 'specificEdition', value: 'yes' },
+        target: { name: 'specificEdition', checked: true },
       });
-      expect(component.state('needsSpecific')).to.equal('yes');
+      expect(component.state('needsSpecific')).to.equal('true');
     });
 
     it('should have a textarea input for comments', () => {
