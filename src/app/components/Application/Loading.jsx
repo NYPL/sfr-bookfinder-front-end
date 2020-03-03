@@ -22,6 +22,7 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(
   (response) => {
+    dispatch(errorMsgAction(null));
     dispatch(loadingAction(false));
     return response;
   },
