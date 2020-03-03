@@ -1,10 +1,11 @@
 # CHANGE LOG
 
-## PRERELEASE 
+## [0.8.2] 
 ### Added
 - Form to request digitization that writes to an Airtable instance.  
 
 ### Fixed
+- Breadcrumbs reflects work titles
 - Empty search redirects to homepage
 
 ## [0.8.1] - 2020-02-03
