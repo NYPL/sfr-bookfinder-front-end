@@ -42,7 +42,6 @@ class ResultsList extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({ loaded: true });
     FeatureFlags.store.listen(this.onFeatureFlagsChange.bind(this));
 
     checkFeatureFlagActivated(
@@ -108,7 +107,6 @@ class ResultsList extends React.Component {
             <span>No results were found. Please try a different keyword or fewer filters.</span>
           </div>
         </div>
-
       );
     }
 
