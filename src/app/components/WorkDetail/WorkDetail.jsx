@@ -17,7 +17,6 @@ import RequestDigital from '../Feedback/RequestDigital';
 import featureFlagConfig from '../../../../featureFlagConfig';
 import config from '../../../../appConfig';
 
-
 const scrollToHash = (hash) => {
   const hashtag = hash && hash.replace(/#/, '');
   if (hashtag) {
@@ -33,9 +32,7 @@ class WorkDetail extends React.Component {
   constructor(props) {
     super(props);
     const { dispatch } = props;
-    this.state = {
-      loaded: false, requestedEdition: null, isFeatureFlagsActivated: {}, ...props,
-    };
+    this.state = { requestedEdition: null, isFeatureFlagsActivated: {}, ...props };
     this.openForm = this.openForm.bind(this);
     this.closeForm = this.closeForm.bind(this);
     this.getRequestEditionButton = this.getRequestEditionButton.bind(this);
@@ -46,7 +43,6 @@ class WorkDetail extends React.Component {
     const { query, hash } = this.props.location;
     const workId = query && query.workId;
     this.loadWork(workId, hash, this.boundActions);
-    this.setState({ loaded: true });
     FeatureFlags.store.listen(this.onFeatureFlagsChange.bind(this));
 
     checkFeatureFlagActivated(
@@ -125,7 +121,6 @@ class WorkDetail extends React.Component {
     global.window.scrollTo(0, 0);
     this.props.dispatch(searchActions.fetchWork(workId)).then(() => {
       scrollToHash(hash);
-      this.setState({ loaded: true });
     });
   }
 

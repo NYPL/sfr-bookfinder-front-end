@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router';
 import { Html5Entities } from 'html-entities';
 import * as DS from '@nypl/design-system-react-components';
-import { UnderlineLink } from '@nypl/design-system-react-components';
 import {
   MAX_TITLE_LENGTH, MAX_PUBLISHER_NAME_LENGTH, MAX_SUBTITILE_LENGTH, PLACEHOLDER_COVER_LINK,
 } from '../../constants/editioncard';
