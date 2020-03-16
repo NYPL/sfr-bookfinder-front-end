@@ -144,32 +144,30 @@ class WorkDetail extends React.Component {
             location={this.props.location}
             searchQuery={this.props.searchQuery}
           />
-          <div className="grid-row">
-            <div className="sfr-center">
-              <SearchHeader />
-            </div>
+          <div>
+            <SearchHeader />
           </div>
           { isValidWork
           && (
           <>
-            <div className="grid-row">
+            <div>
               <div className="nypl-item-header">
                 <WorkHeader data={work} />
               </div>
             </div>
-            <div className="grid-row">
+            <div>
               <DS.Heading
                 level={2}
                 id="featured-edition"
                 text="Featured Edition"
               />
             </div>
-            <div className="grid-row">
-              <div className="sfr-center">
+            <div>
+              <div>
                 {this.getEditionCard(work, eReaderUrl, referrer)}
               </div>
             </div>
-            <div className="grid-row">
+            <div>
               <div id="nypl-item-details">
                 <DefinitionList
                   work={work}

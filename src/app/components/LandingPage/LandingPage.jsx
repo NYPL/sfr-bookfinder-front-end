@@ -60,36 +60,40 @@ class LandingPage extends React.Component {
             location={this.props.location}
           />
           <div
-            aria-label="ResearchNow"
+            aria-label="Digital Research Books Beta"
           >
-            <div className="grid-row">
-              <div className="sfr-center">
-                <DS.HeaderImgRight
-                  headerId="ResearchNow-Main-Header"
-                  isImageDecorative
-                  pageTitleText="ResearchNow"
-                  imgUrl="https://placeimg.com/200/100/arch"
-                  bodyText={(
-                    <p>
-                      Find millions of digital books for research from multiple sources world-wide--all free to read, download, and keep. No library card required.
-                      This is an early beta test, so we want your feedback! <DS.UnderlineLink><Link to="/about">Read more about the project</Link></DS.UnderlineLink>. 
-                    </p>
+            <DS.HeaderImgRight
+              headerId="ResearchNow-Main-Header"
+              isImageDecorative
+              pageTitleText={(
+                <span>
+                  <span className="rn-section-title__emphasis">Digital Research Books</span>
+                  {' '}
+                  Beta
+                </span>
+              )}
+              imgUrl="https://placeimg.com/200/100/arch"
+              bodyText={(
+                <p>
+                      Find millions of digital books for research
+                      from multiple sources world-wide--all free to read, download, and keep. No library card required.
+                      This is an early beta test, so we want your feedback!
+                  {' '}
+                  <DS.UnderlineLink><Link to="/about">Read more about the project</Link></DS.UnderlineLink>
+.
+                </p>
                   )}
-                />
-              </div>
-            </div>
-            <div className="grid-row">
-              <div className="sfr-center">
-                <SearchForm />
-                {
+            />
+            <div>
+              <SearchForm />
+              {
                 // eslint-disable-next-line no-underscore-dangle
                 FeatureFlags.store._isFeatureActive(config.booksCount.experimentName)
                 && <TotalWorks />
               }
-              </div>
             </div>
             <div className="grid-row">
-              <div className="sfr-center">
+              <div>
                 <DS.IconLinkList
                   titleText="Browse By Subject"
                   titleId="subject-browse-list"

@@ -1,6 +1,6 @@
 export default {
-  appTitle: 'ResearchNow | NYPL',
-  appName: 'ResearchNow',
+  appTitle: 'Digital Research Books Beta | NYPL',
+  appName: 'Digital Research Books Beta',
   favIconPath: '//d2znry4lg8s0tq.cloudfront.net/images/favicon.ico',
   port: 3001,
   webpackDevServerPort: 3000,
