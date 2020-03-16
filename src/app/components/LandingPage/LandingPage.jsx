@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { withRouter } from 'react-router';
+import { withRouter, Link } from 'react-router';
 import * as DS from '@nypl/design-system-react-components';
 import FeatureFlags from 'dgx-feature-flags';
 import SearchForm from '../SearchForm/SearchForm';
@@ -71,7 +71,8 @@ class LandingPage extends React.Component {
                   imgUrl="https://placeimg.com/200/100/arch"
                   bodyText={(
                     <p>
-                      Find millions of free digital books from the world’s research libraries
+                      Find millions of digital books for research from multiple sources world-wide--all free to read, download, and keep. No library card required.
+                      This is an early beta test, so we want your feedback! <DS.UnderlineLink><Link to="/about">Read more about the project</Link></DS.UnderlineLink>. 
                     </p>
                   )}
                 />
