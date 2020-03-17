@@ -221,7 +221,9 @@ export default class EditionCard {
         </span>
       );
     }
-    return undefined;
+    return (
+      <>Not yet available</>
+    );
   }
 
   static getEditionData(work, edition, eReaderUrl, referrer, showRequestButton) {

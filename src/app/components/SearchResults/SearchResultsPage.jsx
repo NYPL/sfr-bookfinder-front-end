@@ -114,15 +114,23 @@ class SearchResultsPage extends React.Component {
             location={this.props.location}
           />
           <div
-            aria-label="ResearchNow"
+            aria-label="Digital Research Books Beta"
           >
-            <div className="sfr-center">
+            <div>
               <SearchHeader />
               {
                 // eslint-disable-next-line no-underscore-dangle
                 FeatureFlags.store._isFeatureActive(config.booksCount.experimentName)
                 && <TotalWorks />
               }
+            </div>
+            <div className="apology-message">
+              <p>
+                Since Digital Research Books is still in beta, we have not
+                yet optimized it for phones and other small screens so you may
+                find it difficult to use. We are sorry for the inconvenience.
+                Please check back for improvements!
+              </p>
             </div>
             <div className="grid-row">
               <DS.Heading

@@ -16,8 +16,9 @@ const ResultsHeader = props => (
         to="/"
       >
         <span id="research-now-title">
-                  Research
-          <span className="rn-section-title__emphasis">Now</span>
+          <span className="rn-section-title__emphasis">Digital Research Books</span>
+          {' '}
+          Beta
         </span>
       </Link>
             )}
@@ -33,11 +34,12 @@ const ResultsHeader = props => (
             )}
     searchBarId="searchBarId"
     dropdownId="dropdownId"
-    textFieldAriaLabel="Research Now"
+    textFieldAriaLabel="Digital Research Books Beta"
     headingContent={(
       <span>
-        Research
-        <span className="rn-section-title__emphasis">Now</span>
+        <span className="rn-section-title__emphasis">Digital Research Books</span>
+        {' '}
+        Beta
       </span>
     )}
     headingId="researchNow-page-title-id"

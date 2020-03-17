@@ -293,11 +293,11 @@ class AdvancedSearch extends React.Component {
             />
           </div>
           <div
-            aria-label="ResearchNow"
+            aria-label="Digital Research Books Beta"
             className="grid-col-12"
           >
             <div className="sfr-header-wrapper grid-col-10">
-              <h1 className="nypl-heading">ResearchNow</h1>
+              <h1 className="nypl-heading">Digital Research Books Beta</h1>
               <div id="tagline">Search the world&apos;s research collections and more for digital books you can use right now</div>
             </div>
             <div className="grid-col-10 margin-bottom-2 margin-x-auto">

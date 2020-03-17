@@ -16,7 +16,7 @@ const NotFound404 = () => (
           <p>The page you were looking for doesn&apos;t exist.</p>
           <p>
             Search&nbsp;
-            <Link to={`${appConfig.baseUrl}/`}>ResearchNow</Link>
+            <Link to={`${appConfig.baseUrl}/`}>Digital Research Books Beta</Link>
             {'.'}
           </p>
         </div>

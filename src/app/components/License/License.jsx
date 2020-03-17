@@ -46,7 +46,7 @@ class License extends React.Component {
           <dd>ShareAlike — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.</dd>
         </dl>
 
-        <p>The following Creative Commons licenses are applied to materials in ResearchNow. Refer to linked license descriptions for specifics:</p>
+        <p>The following Creative Commons licenses are applied to materials in Digital Research Books Beta. Refer to linked license descriptions for specifics:</p>
 
         <ul>
           <li><DS.UnderlineLink url="https://creativecommons.org/licenses/by/3.0/">Attribution 3.0 Unported (CC BY 3.0)</DS.UnderlineLink></li>
