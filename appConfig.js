@@ -6,13 +6,17 @@ export default {
   webpackDevServerPort: 3000,
   baseUrl: '',
   ereader: {
-    development: 'http://localhost:4444',
-    production: 'https://researchnow-reader.nypl.org',
+    local: 'http://localhost:4444',
+    development: 'https://researchnow-reader.nypl.org',
+    production: 'https://digital-research-books-reader.nypl.org',
   },
   api: {
     development: 'https://dev-platform.nypl.org/api/v0.1/research-now/v3',
-    production: 'https://dev-platform.nypl.org/api/v0.1/research-now/v3',
-    searchPath: '/search-api',
+    production: 'https://digital-research-books-api.nypl.org/v3/sfr',
+    searchPath: {
+      development: '/search-api',
+      production: '/search',
+    },
     recordPath: '/work',
     languagesPath: '/utils/languages',
   },
