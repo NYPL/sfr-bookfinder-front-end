@@ -95,7 +95,7 @@ class LandingPage extends React.Component {
             <div className="grid-row">
               <div>
                 <DS.IconLinkList
-                  titleText="Browse By Subject"
+                  titleText="Search Examples"
                   titleId="subject-browse-list"
                   textLinks={Subjects}
                 />
