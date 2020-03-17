@@ -111,12 +111,6 @@ body {
   margin: 0 auto;
 }
 
-.sfr-center {
-  margin-left: auto;
-  margin-right: auto;
-  width: $max-width;
-}
-
 .visuallyhidden {
   border: 0;
   clip: rect(0 0 0 0);
@@ -166,6 +160,16 @@ select {
 .header {
   .emailSubscription-wrapper {
     box-sizing: content-box;
+  }
+}
+
+.apology-message {
+  @media screen and (min-width: 520px) {
+    display: none;
+  }
+
+  @media screen and (max-width: 520px) {
+    background-color: #e0e0e0;
   }
 }
 

@@ -48,25 +48,25 @@ describe('Breadcrumb', () => {
       const crumbs = getCrumbTrail(undefined, validLinks, {});
       expect(crumbs.length).to.equal(1);
       const homeLink = shallow(crumbs[0]);
-      expect(homeLink.find('a').text()).to.equal('ResearchNow');
+      expect(homeLink.find('a').text()).to.equal('Digital Research Books Beta');
     });
     it('returns home when home location is passed', () => {
       const crumbs = getCrumbTrail(homeLocation, validLinks, {});
       expect(crumbs.length).to.equal(1);
       const homeLink = shallow(crumbs[0]);
-      expect(homeLink.find('a').text()).to.equal('ResearchNow');
+      expect(homeLink.find('a').text()).to.equal('Digital Research Books Beta');
     });
     it('returns home when no links are passed', () => {
       const crumbs = getCrumbTrail('not-home', [], {});
       expect(crumbs.length).to.equal(1);
       const homeLink = shallow(crumbs[0]);
-      expect(homeLink.find('a').text()).to.equal('ResearchNow');
+      expect(homeLink.find('a').text()).to.equal('Digital Research Books Beta');
     });
     it('returns an array of Link elements for every link passed', () => {
       const crumbs = getCrumbTrail(otherLocation, validLinks, {});
       expect(crumbs.length).to.equal(3);
       const homeLink = shallow(crumbs[0]);
-      expect(homeLink.find('a').text()).to.equal('ResearchNow');
+      expect(homeLink.find('a').text()).to.equal('Digital Research Books Beta');
       const firstLink = shallow(crumbs[1]);
       expect(firstLink.find('a').text()).to.equal('link 1');
       const secondLink = shallow(crumbs[2]);

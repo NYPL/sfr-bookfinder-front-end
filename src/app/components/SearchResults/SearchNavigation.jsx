@@ -48,7 +48,7 @@ const SearchNavigation = ({
         />
 
       </DS.Heading>
-      <div className="grid-row-right">
+      <div className="search-dropdowns">
         <DS.Dropdown
           dropdownId="items-per-page-select"
           isRequired={false}

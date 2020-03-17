@@ -23,13 +23,31 @@ class License extends React.Component {
           level={1}
           id="page-title-heading"
           blockName="page-title"
-          text="About ResearchNow"
-        />
+        >
+          <span>
+            <span className="rn-section-title__emphasis">Digital Research Books</span>
+            {' '}
+            Beta
+          </span>
+        </DS.Heading>
         <p>
-            ResearchNow is an experimental project, now in early Beta testing, that collects digital versions of research books from many different sources, including Open Access publications, into one convenient place to search.
+          Digital Research Books Beta is an experimental project, now in early Beta testing,
+          that collects digital versions of research books from many different sources, including Open
+          Access publications, into one convenient place to search.
         </p>
 
-        <p>All the materials in ResearchNow are completely free to read and most of them you can download and keep, with no library card required. The books are either in the public domain, with no restrictions on your use of them, or under Creative Commons licences that may have some conditions, but only on redistribution or adaptation.</p>
+        <p>
+All the materials in Digital Research Books Beta are completely free to read and most of them you
+          can download and keep, with no library card required. The books are either in the
+          {' '}
+          <Link to="/license">public domain</Link>
+          ,
+          with no restrictions on your use of them, or under
+          {' '}
+          <Link to="/license">Creative Commons licences</Link>
+          {' '}
+          that may have some conditions, but only on redistribution or adaptation.
+        </p>
         <p>
             In addition to collecting these digital editions, we group all the
             editions of the same thing together as a single “work.” For instance there
@@ -46,7 +64,7 @@ class License extends React.Component {
           text="Sources and Data"
         />
         <p>
-                    The material in ResearchNow are drawn from several
+                    The material in Digital Research Books Beta are drawn from several
                                         public sources, mainly
           {' '}
           <DS.UnderlineLink url="https://www.hathitrust.org/">HathiTrust</DS.UnderlineLink>
@@ -87,13 +105,13 @@ class License extends React.Component {
                     It also means that the project may change radically.
                                         We may change the URL. We may learn that a different approach is necessary.
                                         We may learn that it isn’t useful enough to anyone to continue. If you find books
-                                        in ResearchNow that are especially useful to you, you should download a copy so that
+                                        in Digital Research Books Beta that are especially useful to you, you should download a copy so that
                                          you have one no matter what becomes of this project.
 
         </p>
 
         <p>
-                    Most of all, it means your feedback is important!. Most pages have
+                    Most of all, it means your feedback is important! Most pages have
                                         a feedback button in the bottom right corner. We want to know what you think. If
                                          there are things you like or dislike, if there’s a feature missing, if you find
                                           an error please tell us in the feedback!

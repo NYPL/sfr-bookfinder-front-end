@@ -27,7 +27,7 @@ export const getCrumbTrail = (location, links, handleReset) => {
       to="/"
       onClick={event => handleReset(event)}
     >
-    ResearchNow
+    Digital Research Books Beta
     </Link>
   );
 

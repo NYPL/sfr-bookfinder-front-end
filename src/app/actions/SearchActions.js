@@ -53,7 +53,7 @@ const appEnv = process.env.APP_ENV || 'production';
 const apiUrl = appConfig.api[appEnv];
 const { searchPath, recordPath } = appConfig.api;
 const totalWorksPath = appConfig.booksCount.apiUrl;
-const searchUrl = apiUrl + searchPath;
+const searchUrl = apiUrl + searchPath[appEnv];
 const recordUrl = apiUrl + recordPath;
 const totalWorksUrl = apiUrl + totalWorksPath;
 

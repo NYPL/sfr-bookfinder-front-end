@@ -1,6 +1,5 @@
 .sfr-results-container {
   .nypl-results-main {
-    border-left: 1px solid black;
     h3 {
       margin: 0;
     }
@@ -15,11 +14,6 @@
 .advanced-search-tags { 
   justify-content: space-between;
   width: 100%;
-}
-
-.grid-row-right{ 
-  display: flex;
-  margin-left: auto;
 }
 
 .nypl-results-summary {
@@ -134,6 +128,15 @@ h1.nypl-heading {
     position: absolute;
     top: -1.5rem;
   }
+}
+
+.search-navigation {
+  display: flex;
+  justify-content: space-between;
+}
+
+.search-dropdowns{
+  display:flex;
 }
 
 .usa-button.sfr-search-button {
