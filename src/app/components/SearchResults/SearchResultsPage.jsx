@@ -124,14 +124,6 @@ class SearchResultsPage extends React.Component {
                 && <TotalWorks />
               }
             </div>
-            <div className="apology-message">
-              <p>
-                Since Digital Research Books is still in beta, we have not
-                yet optimized it for phones and other small screens so you may
-                find it difficult to use. We are sorry for the inconvenience.
-                Please check back for improvements!
-              </p>
-            </div>
             <div className="grid-row">
               <DS.Heading
                 level={1}
