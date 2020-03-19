@@ -87,7 +87,6 @@ class AdvancedSearch extends React.Component {
     this.onQueryChange = this.onQueryChange.bind(this);
     this.onLanguageChange = this.onLanguageChange.bind(this);
     this.parseStateToQuery = this.parseStateToQuery.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
     this.onChangeYears = this.onChangeYears.bind(this);
     this.onFormatChange = this.onFormatChange.bind(this);
@@ -164,12 +163,6 @@ class AdvancedSearch extends React.Component {
     });
   }
 
-  handleSubmit(event) {
-    if (event && event.charCode === 13) {
-      this.submitSearchRequest(event);
-    }
-  }
-
   parseStateToQuery() {
     const queries = Object.keys(this.state.queries)
       .map((q) => {
@@ -215,9 +208,21 @@ class AdvancedSearch extends React.Component {
     if (!searchQuery) {
       return;
     }
+    if (searchQuery.showField && searchQuery.showQuery) {
+      state.queries[searchQuery.showField] = searchQuery.showQuery;
+    }
+
     if (searchQuery.queries) {
       searchQuery.queries.forEach((q) => {
-        state.queries[q.field] = q.query;
+        const allowedFields = inputTerms.map(term => term.values.map(value => value.key)).flat();
+        if (allowedFields.indexOf(q.field) >= 0) {
+          // If field is already set (by showQuery), use the showQuery value.
+          if (!state.queries[q.field]) {
+            state.queries[q.field] = q.query;
+          }
+        } else {
+          state.queries[q.field] = '';
+        }
       });
     }
     if (searchQuery.filters) {
@@ -258,19 +263,12 @@ class AdvancedSearch extends React.Component {
       this.setState({ error: true, errorMsg: errorMessagesText.emptySearch });
       return;
     }
-    this.boundActions.userQuery(fullQuery);
-    this.boundActions.searchPost(fullQuery);
     const path = `/search?${getQueryString(fullQuery)}`;
     this.context.router.push(path);
   }
 
   clearForm() {
-    this.setState({
-      error: false,
-      errorMsg: '',
-      queries: {},
-      filters: { format: {}, language: [], years: {} },
-    });
+    this.setState(initialState);
   }
 
   render() {
@@ -303,8 +301,8 @@ class AdvancedSearch extends React.Component {
             <div className="grid-col-10 margin-bottom-2 margin-x-auto">
               <form
                 className="usa-form grid-container width-full margin-x-0 padding-x-0"
-                onSubmit={this.handleSubmit}
-                onKeyPress={this.handleSubmit}
+                onSubmit={this.submitSearchRequest}
+                onKeyPress={(event) => { if (event.keyCode === 13) { this.submitSearchRequest(); } }}
               >
                 <fieldset className="usa-fieldset ">
                   <legend className="usa-legend usa-sr-only">Advanced Search</legend>

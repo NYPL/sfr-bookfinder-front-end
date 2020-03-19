@@ -32,7 +32,6 @@ class RequestDigital extends React.Component {
   }
 
   sendFeedback() {
-    console.log('state', this.state);
     fetch(appConfig.requestDigital.formUrl, {
       method: 'POST',
       headers: {

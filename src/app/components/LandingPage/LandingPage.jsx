@@ -80,7 +80,7 @@ class LandingPage extends React.Component {
                       This is an early beta test, so we want your feedback!
                   {' '}
                   <DS.UnderlineLink><Link to="/about">Read more about the project</Link></DS.UnderlineLink>
-.
+                    .
                 </p>
                   )}
             />
