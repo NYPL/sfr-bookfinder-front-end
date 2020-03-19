@@ -200,3 +200,14 @@ select {
 h2#featured-edition {
   margin-top: 0.75em;
 }
+
+// Hotfixes that should be removed with DS hero work
+// Fixes issue where background color of header doesn't
+// extend to edges of screen
+.header-with-image-right {
+  box-shadow: inset 0 3.25rem #377f8b;
+}
+
+.header-with-image-right__content {
+  max-width: unset;
+}
