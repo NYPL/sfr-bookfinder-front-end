@@ -108,6 +108,11 @@ class AdvancedSearch extends React.Component {
     this.setState((prevState) => {
       const queries = prevState.queries;
       queries[name] = value;
+      if (name === 'author') {
+        // Changing author should clear viaf and lcnaf
+        queries.viaf = '';
+        queries.lcnaf = '';
+      }
       return { queries, error: false, errorMsg: '' };
     });
   }
@@ -214,17 +219,20 @@ class AdvancedSearch extends React.Component {
 
     if (searchQuery.queries) {
       searchQuery.queries.forEach((q) => {
-        const allowedFields = inputTerms.map(term => term.values.map(value => value.key)).flat();
-        if (allowedFields.indexOf(q.field) >= 0) {
-          // If field is already set (by showQuery), use the showQuery value.
-          if (!state.queries[q.field]) {
-            state.queries[q.field] = q.query;
-          }
-        } else {
-          state.queries[q.field] = '';
+        // If field is already set (by showQuery), use the showQuery value.
+        if (!state.queries[q.field]) {
+          state.queries[q.field] = q.query;
         }
       });
     }
+    // If viaf or lcnaf is set, but author is not set, they were publisher searches
+    // Since we don't give users a way to clear this, we should
+    // pre-emptively clear it.
+    if (!state.queries.author) {
+      state.queries.viaf = '';
+      state.queries.lcnaf = '';
+    }
+
     if (searchQuery.filters) {
       searchQuery.filters.forEach((q) => {
         if (q.field === 'format') {
