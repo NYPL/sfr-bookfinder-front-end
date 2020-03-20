@@ -20,7 +20,6 @@ function withSearch(WrappedComponent) {
 
       this.onFieldChange = this.onFieldChange.bind(this);
       this.onQueryChange = this.onQueryChange.bind(this);
-      this.handleSubmit = this.handleSubmit.bind(this);
       this.submitSearchRequest = this.submitSearchRequest.bind(this);
     }
 
@@ -63,16 +62,6 @@ function withSearch(WrappedComponent) {
       }
     }
 
-    handleSubmit(event) {
-      if (event && event.charCode === 13) {
-        this.props.userQuery(
-          Object.assign({}, initialSearchQuery, {
-            query: this.state.searchQuery.queries,
-          }),
-        );
-      }
-    }
-
     submitSearchRequest(event) {
       event.preventDefault();
       const query = this.state.searchQuery.queries[0].query.trim();
@@ -82,6 +71,7 @@ function withSearch(WrappedComponent) {
       }
 
       const path = `/search?${getQueryString(this.state.searchQuery)}`;
+
       this.context.router.push(path);
     }
 
