@@ -25,9 +25,9 @@ describe('Landing Page render', () => {
   it('contains an initialized <LandingPromo /> component', () => {
     expect(wrapper.find('LandingPromo').exists()).to.equal(true);
   });
-  it('contains a DS HeaderImgRight component', () => {
-    expect(wrapper.find(DS.HeaderImgRight)).to.have.length(1);
-  });
+  // it('contains a DS HeaderImgRight component', () => {
+  //   expect(wrapper.find(DS.HeaderImgRight)).to.have.length(1);
+  // });
   it('contains a DS IconLinkList component', () => {
     expect(wrapper.find(DS.IconLinkList)).to.have.length(1);
   });

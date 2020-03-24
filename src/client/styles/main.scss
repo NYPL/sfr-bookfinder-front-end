@@ -177,6 +177,19 @@ select {
 .header-with-image-right__image {
   display: none;
 }
+.main-promo {
+  // This is DS's Breakout mixin
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  padding-left:  calc(-50vw + 50%);
+  padding-right: calc(-50vw + 50%);
+}
+.main-promo-text {
+  display: block;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
 .search-header__promo-text {
   align-self: auto;
 }
