@@ -19,7 +19,7 @@ import FilterYears from '../SearchResults/FilterYears';
 import { searchFields } from '../../constants/fields';
 
 
-const initialState = {
+export const initialState = {
   error: false,
   errorMsg: '',
   languages: [],
@@ -302,7 +302,6 @@ class AdvancedSearch extends React.Component {
     const languagesSelected = this.state.languages.filter(language => this.state.filters.language.indexOf(language.value) > -1);
     const getQueryValue = key => this.state.showQueries[key];
     const getFilterValue = (filter, key) => this.state.filters[filter] && this.state.filters[filter][key];
-
     return (
       <main
         id="mainContent"

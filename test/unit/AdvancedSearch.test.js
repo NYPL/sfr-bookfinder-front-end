@@ -9,7 +9,7 @@ import Select from 'react-select';
 import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/core';
 import { mockRouterContext } from '../helpers/routing';
-import AdvancedSearch from '../../src/app/components/AdvancedSearch/AdvancedSearch';
+import AdvancedSearch, { initialState as initialAdvancedState } from '../../src/app/components/AdvancedSearch/AdvancedSearch';
 import TextInput from '../../src/app/components/Form/TextInput';
 import Checkbox from '../../src/app/components/Form/Checkbox';
 import configureStore from '../../src/app/stores/configureStore';
@@ -32,7 +32,7 @@ describe('Advanced Search Container interactions', () => {
   let childContextTypes;
   let push;
 
-  before(() => {
+  beforeEach(() => {
     const store = configureStore(initialState);
     push = stub();
     context = mockRouterContext(push);
@@ -41,7 +41,7 @@ describe('Advanced Search Container interactions', () => {
     wrapper = mount(withCacheProvider(<AdvancedSearch store={store} />), { context, childContextTypes });
   });
 
-  after(() => {
+  afterEach(() => {
     wrapper.unmount();
   });
 
@@ -92,6 +92,52 @@ describe('Advanced Search Container interactions', () => {
       .simulate('change', { target: { key: 'keyword', name: 'keyword', value: 'london' } });
     wrapper.find('.usa-button').find({ value: 'Search' }).simulate('click');
     expect(wrapper.find('.usa-alert__text').exists()).to.equal(false);
+  });
+});
+
+describe('Advanced Search Prepopulates based on query', () => {
+  let wrapper;
+  let context;
+  let childContextTypes;
+  let push;
+
+  before(() => {
+    const store = configureStore(initialState);
+    push = stub();
+    context = mockRouterContext(push);
+    childContextTypes = mockRouterContext(push);
+
+    wrapper = mount(withCacheProvider(<AdvancedSearch store={store} />), { context, childContextTypes });
+  });
+
+  after(() => {
+    wrapper.find('AdvancedSearch').setState(initialAdvancedState);
+    wrapper.unmount();
+  });
+
+  it('prepopulates field when passed showQuery without query', () => {
+    wrapper.find('AdvancedSearch').setState({ showQueries: { author: 'cat' } });
+    expect(wrapper.find('.usa-input').find({ name: 'author' }).prop('value')).to.equal('cat');
+  });
+});
+
+describe('Date Filter Validation', () => {
+  let wrapper;
+  let context;
+  let childContextTypes;
+  let push;
+
+  beforeEach(() => {
+    const store = configureStore(initialState);
+    push = stub();
+    context = mockRouterContext(push);
+    childContextTypes = mockRouterContext(push);
+
+    wrapper = mount(withCacheProvider(<AdvancedSearch store={store} />), { context, childContextTypes });
+  });
+
+  afterEach(() => {
+    wrapper.unmount();
   });
 
   it('no error on start date with no end date', () => {
