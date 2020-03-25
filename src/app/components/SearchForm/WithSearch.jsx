@@ -37,7 +37,7 @@ function withSearch(WrappedComponent) {
         };
         return ({
           searchQuery: Object.assign({}, initialSearchQuery,
-            { showField: '', showQuery: '' },
+            { showQueries: [].concat(advancedQuery) },
             { queries: [].concat(advancedQuery) }),
         });
       });
@@ -49,11 +49,12 @@ function withSearch(WrappedComponent) {
       this.setState((prevState) => {
         const advancedQuery = {
           query: querySelected,
-          field: prevState.searchQuery.showField ? prevState.searchQuery.showField : prevState.searchQuery.queries[0].field || 'keyword',
+          field: prevState.searchQuery.showQueries[0] ? prevState.searchQuery.showQueries[0].field : prevState.searchQuery.queries[0].field || 'keyword',
         };
 
         return ({
-          searchQuery: Object.assign({}, initialSearchQuery, { showField: '', showQuery: querySelected },
+          searchQuery: Object.assign({}, initialSearchQuery,
+            { showQueries: [].concat(advancedQuery) },
             { queries: [].concat(advancedQuery) }),
         });
       });

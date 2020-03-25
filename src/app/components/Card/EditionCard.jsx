@@ -91,8 +91,7 @@ export default class EditionCard {
         query: author[EditionCard.getAuthorIdentifier(author)[0]],
         field: EditionCard.getAuthorIdentifier(author)[1],
       }]),
-      showQuery: `"${author.name}"`,
-      showField: 'author',
+      showQueries: JSON.stringify([{ query: author.name, field: 'author' }]),
     });
   }
 
