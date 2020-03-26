@@ -16,9 +16,10 @@ import TextInput from '../Form/TextInput';
 import Checkbox from '../Form/Checkbox';
 import { inputTerms, formatTypes, errorMessagesText } from '../../constants/labels';
 import FilterYears from '../SearchResults/FilterYears';
+import { searchFields } from '../../constants/fields';
 
 
-const initialState = {
+export const initialState = {
   error: false,
   errorMsg: '',
   languages: [],
@@ -27,6 +28,7 @@ const initialState = {
     title: '',
     author: '',
     subject: '',
+    viaf: '',
   },
   filters: {
     format: {
@@ -39,6 +41,12 @@ const initialState = {
       start: '',
       end: '',
     },
+  },
+  showQueries: {
+    keyword: '',
+    title: '',
+    author: '',
+    subject: '',
   },
 };
 // style for the languages dropdown
@@ -106,14 +114,18 @@ class AdvancedSearch extends React.Component {
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
     this.setState((prevState) => {
+      const showQueries = prevState.showQueries;
       const queries = prevState.queries;
       queries[name] = value;
+      showQueries[name] = value;
       if (name === 'author') {
         // Changing author should clear viaf and lcnaf
         queries.viaf = '';
         queries.lcnaf = '';
       }
-      return { queries, error: false, errorMsg: '' };
+      return {
+        queries, showQueries, error: false, errorMsg: '',
+      };
     });
   }
 
@@ -176,6 +188,13 @@ class AdvancedSearch extends React.Component {
       })
       .filter(q => !!q.query);
 
+    const showQueries = Object.keys(this.state.showQueries)
+      .map((q) => {
+        const query = this.state.showQueries[q] && this.state.showQueries[q].replace(/^\s+/, '').replace(/\s+$/, '');
+        return { field: q, query };
+      })
+      .filter(q => !!q.query);
+
     const filters = [];
     if (this.state.filters.language && this.state.filters.language.length > 0) {
       Object.keys(this.state.filters.language).forEach((language) => {
@@ -202,19 +221,16 @@ class AdvancedSearch extends React.Component {
       });
     }
 
-    if ((!queries || queries.length < 1) && (!filters || filters.length < 1)) {
+    if ((!queries || queries.length < 1) && (!filters || filters.length < 1) && (!showQueries || showQueries.length < 1)) {
       return null;
     }
-    return Object.assign({}, { page: '0', per_page: '10', sort: [] }, { queries, filters });
+    return Object.assign({}, { page: '0', per_page: '10', sort: [] }, { queries, filters, showQueries });
   }
 
   parseQueryToState(searchQuery) {
-    const state = { queries: {}, filters: {} };
+    const state = { queries: {}, showQueries: {}, filters: {} };
     if (!searchQuery) {
       return;
-    }
-    if (searchQuery.showField && searchQuery.showQuery) {
-      state.queries[searchQuery.showField] = searchQuery.showQuery;
     }
 
     if (searchQuery.queries) {
@@ -225,13 +241,13 @@ class AdvancedSearch extends React.Component {
         }
       });
     }
-    // If viaf or lcnaf is set, but author is not set, they were publisher searches
-    // Since we don't give users a way to clear this, we should
-    // pre-emptively clear it.
-    if (!state.queries.author) {
-      state.queries.viaf = '';
-      state.queries.lcnaf = '';
-    }
+
+    const displaySearchQueries = searchQuery.queries.filter(query => searchFields.includes(query.field));
+    const displayQueries = searchQuery.showQueries.concat(displaySearchQueries);
+
+    displayQueries.forEach((query) => {
+      state.showQueries[query.field] = query.query;
+    });
 
     if (searchQuery.filters) {
       searchQuery.filters.forEach((q) => {
@@ -253,7 +269,8 @@ class AdvancedSearch extends React.Component {
     this.setState((prevState) => {
       const filters = { ...prevState.filters, ...state.filters };
       const queries = { ...prevState.queries, ...state.queries };
-      return { filters, queries };
+      const showQueries = { ...prevState.showQueries, ...state.showQueries };
+      return { filters, queries, showQueries };
     });
   }
 
@@ -283,9 +300,8 @@ class AdvancedSearch extends React.Component {
     const { searchQuery, location } = this.props;
     const { router } = this.context;
     const languagesSelected = this.state.languages.filter(language => this.state.filters.language.indexOf(language.value) > -1);
-    const getQueryValue = key => this.state.queries[key];
+    const getQueryValue = key => this.state.showQueries[key];
     const getFilterValue = (filter, key) => this.state.filters[filter] && this.state.filters[filter][key];
-
     return (
       <main
         id="mainContent"

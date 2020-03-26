@@ -6,10 +6,11 @@ import { Link } from 'react-router';
 import * as DS from '@nypl/design-system-react-components';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
 import withSearch from './WithSearch';
+import { searchFields } from '../../constants/fields';
 
 const LandingPromo = (props) => {
-  const selectedQuery = props.currentQuery.showQuery || props.currentQuery.queries[0].query;
-  const selectedField = props.currentQuery.showField || props.currentQuery.queries[0].field;
+  const selectedQuery = props.currentQuery.queries[0].query;
+  const selectedField = props.currentQuery.queries[0].field;
   const advancedSearchMessage = (
     <p>
         Use
@@ -58,7 +59,7 @@ LandingPromo.propTypes = {
 };
 
 LandingPromo.defaultProps = {
-  allowedFields: ['keyword', 'title', 'author', 'subject'],
+  allowedFields: searchFields,
   currentQuery: initialSearchQuery,
   submitSearchRequest: () => { },
   onQueryChange: () => { },

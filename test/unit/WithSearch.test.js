@@ -50,8 +50,7 @@ const testQuery = {
   page: '0',
   per_page: '10',
   queries: [{ field: 'keyword', query: 'cat' }],
-  showField: '',
-  showQuery: '',
+  showQueries: [{ field: 'keyword', query: 'cat' }],
   sort: '[]',
   total: '0',
 };
@@ -73,7 +72,8 @@ describe('With Search Component', () => {
   });
   it('should change state on queryChange', () => {
     wrapper.find('input').simulate('change', { target: { value: 'candles' } });
-    expect(wrapper.state().searchQuery.showQuery).to.equal('candles');
+    expect(wrapper.state().searchQuery.queries[0]).to.eql({ query: 'candles', field: 'keyword' });
+    expect(wrapper.state().searchQuery.showQueries[0]).to.eql({ query: 'candles', field: 'keyword' });
   });
 
   it('should change state on FieldChange', () => {

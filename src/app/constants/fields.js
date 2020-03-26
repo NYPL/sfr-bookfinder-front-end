@@ -1,4 +1,4 @@
-const fields = {
+export const fields = {
   author: 'author',
   title: 'title',
   subject: 'subject',
@@ -6,4 +6,4 @@ const fields = {
   lcnaf: 'lcnaf',
 };
 
-export default fields;
+export const searchFields = ['keyword', 'title', 'author', 'subject'];
