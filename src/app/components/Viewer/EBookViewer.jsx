@@ -55,7 +55,6 @@ class EBookViewer extends React.Component {
       && (
       <iframe
         allowFullScreen
-        scrolling="no"
         src={`${formatUrl(bookUrl, process.env.APP_ENV)}`}
         title="Ebook Frame"
       />
