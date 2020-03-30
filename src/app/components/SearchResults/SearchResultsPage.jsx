@@ -95,7 +95,7 @@ class SearchResultsPage extends React.Component {
   }
 
   getDisplayItemsHeading() {
-    const queriesToShow = this.props.searchQuery.showQueries
+    const queriesToShow = this.props.searchQuery && this.props.searchQuery.showQueries
       .filter(query => searchFields.includes(query.field));
     const queries = queriesToShow.map((query, index) => {
       const joiner = index < queriesToShow.length - 1 ? ' and ' : '';
