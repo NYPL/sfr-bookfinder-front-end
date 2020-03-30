@@ -19,6 +19,10 @@ export const getRequestParams = (query = {}) => {
     const queries = JSON.parse(query.queries);
     ret = Object.assign({}, ret, { queries });
   }
+  if (query.showQueries && typeof query.showQueries === 'string') {
+    const showQueries = JSON.parse(query.showQueries);
+    ret = Object.assign({}, ret, { showQueries });
+  }
 
   return ret;
 };
