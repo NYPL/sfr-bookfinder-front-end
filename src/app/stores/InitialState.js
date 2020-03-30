@@ -6,8 +6,8 @@ export const initialSearchQuery = {
   total: 0,
   filters: [],
   sort: [],
-  queries: [{ query: '', field: '' }],
-  showQueries: [],
+  queries: [{ query: '', field: 'keyword' }],
+  showQueries: [{ query: '', field: 'keyword' }],
 };
 
 export const searchQueryPropTypes = PropTypes.shape({
