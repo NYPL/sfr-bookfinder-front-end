@@ -224,3 +224,20 @@ h2#featured-edition {
 .header-with-image-right__content {
   max-width: unset;
 }
+
+// Items that use DS mixins
+.mobile-only {
+  display: inherit;
+
+  @include breakpoint($large) {
+    display: none;
+  }
+}
+
+.desktop-only { 
+  display: inherit;
+
+  @include breakpoint($large) {
+    display: none;
+  }
+}

@@ -3,30 +3,19 @@ import PropTypes from 'prop-types';
 import * as DS from '@nypl/design-system-react-components';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
 import { getQueryString } from '../../search/query';
-import {
-  yearsType, filtersLabels, formatTypes, errorMessagesText,
-} from '../../constants/labels';
-import * as searchActions from '../../actions/SearchActions';
+import FilterYears from './FilterYears';
+import { filtersLabels, formatTypes, errorMessagesText } from '../../constants/labels';
+import Checkbox from '../Form/Checkbox';
 
-
-const getYearsFilter = (searchQuery) => {
-  const yearsValues = {};
-  Object.keys(yearsType).forEach((yearType) => {
-    const yearValue = searchQuery && searchQuery.filters && searchQuery.filters.find(filter => filter.field === 'years');
-    yearsValues[yearType] = yearValue && yearValue.value[yearType] ? Number(yearValue.value[yearType]) : '';
-  });
-  return yearsValues;
-};
-
-class Filters extends React.Component {
+class FiltersMobile extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { errorMsg: '', error: false, ...getYearsFilter(props.searchQuery) };
+    this.state = { errorMsg: '', error: false };
     this.filtersArray = [];
 
     this.onChangeCheckbox = this.onChangeCheckbox.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.onChangeYear = this.onChangeYear.bind(this);
+    this.onChangeYears = this.onChangeYears.bind(this);
 
     this.isFilterChecked = this.isFilterChecked.bind(this);
     this.searchContains = this.searchContains.bind(this);
@@ -35,19 +24,11 @@ class Filters extends React.Component {
     this.doSearchWithFilters = this.doSearchWithFilters.bind(this);
   }
 
-  onChangeYear(e, yearType) {
-    const val = e.target.value && Number(e.target.value);
-    const obj = {};
-    obj[yearType] = val;
-    this.setState(state => Object.assign({}, state, obj));
-  }
-
   // on check of filter, add it or remove it from list and do the search
   onChangeCheckbox(e, field, value, negative) {
     if (this.state.error) {
       return;
     }
-    console.log('filtersArray', this.filtersArray);
     const matchIndex = this.filtersArray.findIndex(filter => filter.field === field && filter.value === value);
     if (negative) {
       if (!e.target.checked && matchIndex === -1) {
@@ -58,8 +39,7 @@ class Filters extends React.Component {
     } else if (e.target.checked && matchIndex === -1) {
       this.filtersArray.push({ field, value });
     } else if (matchIndex > -1) {
-      this.filtersArray = [];
-      // this.filtersArray.splice(matchIndex, 1);
+      this.filtersArray.splice(matchIndex, 1);
     }
     this.doSearchWithFilters(this.filtersArray);
   }
@@ -68,19 +48,8 @@ class Filters extends React.Component {
   onSubmit(e) {
     e.preventDefault();
     e.stopPropagation();
-    const currentYearsFilter = {
-      field: 'years',
-      value: { start: this.state.start, end: this.state.end },
-    };
-    const matchIndex = this.filtersArray.findIndex(filter => filter.field === 'years');
-    if (matchIndex === -1) {
-      this.filtersArray.push(currentYearsFilter);
-    } else if (matchIndex > -1) {
-      this.filtersArray[matchIndex] = currentYearsFilter;
-      if (!this.state.start && !this.state.end) {
-        this.filtersArray.splice(matchIndex, 1);
-      }
-    }
+
+    const currentYearsFilter = this.filtersArray.find(filter => filter.field === 'years');
 
     if (currentYearsFilter && currentYearsFilter.value) {
       if ((currentYearsFilter.value.start) && (currentYearsFilter.value.end)
@@ -91,6 +60,22 @@ class Filters extends React.Component {
       this.setState({ error: false, errorMsg: '' });
     }
     this.doSearchWithFilters(this.filtersArray);
+  }
+
+  onChangeYears(yearsFilter) {
+    const currentYearsFilter = {
+      field: 'years',
+      value: yearsFilter,
+    };
+    const matchIndex = this.filtersArray.findIndex(filter => filter.field === 'years');
+    if (matchIndex === -1) {
+      this.filtersArray.push(currentYearsFilter);
+    } else if (matchIndex > -1) {
+      this.filtersArray[matchIndex] = currentYearsFilter;
+      if (!yearsFilter.start && !yearsFilter.end) {
+        this.filtersArray.splice(matchIndex, 1);
+      }
+    }
   }
 
   onErrorYears(errorObj) {
@@ -118,8 +103,7 @@ class Filters extends React.Component {
   // update page in store and go to any page
   doSearchWithFilters(filters) {
     const newQuery = Object.assign({}, this.props.searchQuery, { filters }, { page: 0 });
-    console.log('newQuery', newQuery);
-    searchActions.userQuery(newQuery);
+    this.props.userQuery(newQuery);
     this.submit(newQuery);
   }
 
@@ -172,14 +156,12 @@ class Filters extends React.Component {
 
   render() {
     const {
-      data, searchQuery,
+      data, searchQuery, toggleMenu,
     } = this.props;
-    console.log('data', data);
     // add search filters
     if (searchQuery && searchQuery.filters && Array.isArray(searchQuery.filters)) {
       searchQuery.filters.forEach((filter) => {
         if (!this.filtersArray.find(filtArrEntry => filtArrEntry.field === filter.field)) {
-          console.log('pushing to filter');
           this.filtersArray.push({ field: filter.field, value: filter.value });
         }
       });
@@ -190,12 +172,23 @@ class Filters extends React.Component {
         <form
           className="filters usa-form"
           action="/search"
+          onSubmit={this.onSubmit}
         >
           <DS.Heading
             level={2}
-            id="filter-desktop-header"
+            id="filter-mobile-header"
           >
-          Refine Results
+            <>
+              {' '}
+                Refine Results
+              {' '}
+              <DS.Button
+                id="closeButton"
+                callback={toggleMenu}
+              >
+                Close
+              </DS.Button>
+            </>
           </DS.Heading>
           {this.showFields(data).map(field => (
             <fieldset
@@ -204,38 +197,30 @@ class Filters extends React.Component {
             >
               <legend className="filters-box-header">{filtersLabels[field]}</legend>
               {field === 'years' && (
-                <DS.DateRangeForm
-                  formLabel={<>Publication Year</>}
-
-                  fromLabelOpts={{ labelContent: <>From</>, id: 'FromLabel' }}
-                  fromInputOpts={{ inputId: 'fromInput', onInputChange: event => this.onChangeYear(event, 'start') }}
-                  fromHelper={{ content: <>EX. 1901</>, id: 'fromyearhelper', isError: false }}
-
-                  toLabelOpts={{ labelContent: <>To</>, id: 'ToLabel' }}
-                  toInputOpts={{ inputId: 'fromInput', onInputChange: event => this.onChangeYear(event, 'end') }}
-                  toHelper={{ content: <>EX. 2000</>, id: 'toYearHelper', isError: false }}
-
-                  showError={this.state.error}
-                  error={{ content: <>{this.state.errorMsg}</>, id: 'date-range-error', isError: true }}
-
-                  buttonProps={{ id: 'submitButtonId', callback: this.onSubmit, content: <>Apply</> }}
+                <FilterYears
+                  searchQuery={searchQuery}
+                  onChange={this.onChangeYears}
+                  onError={e => this.onErrorYears(e)}
+                  inputClassName="tablet:grid-col padding-right-4"
+                  className="grid-row"
                 />
               )}
               {field === 'show_all' && (
-                <DS.Checkbox
-                  checkboxId="show_all"
+                <Checkbox
+                  className="usa-checkbox"
+                  labelClass="usa-checkbox__label"
+                  inputClass="usa-checkbox__input"
+                  id="show_all"
                   isSelected={!this.isFilterChecked(field, true)}
                   onChange={e => this.onChangeCheckbox(e, field, true, true)}
-                  labelOptions={{ id: 'show_all_label', labelContent: <>Available Online</> }}
+                  label="Available Online"
                   name="show_all"
                 />
               )}
               {field === 'language'
                 && (
-                  <DS.UnorderedList
-                    id="checkbox-list"
-                    scroll
-                  >
+                <DS.Accordion buttonOptions={{ id: 'accordionBtn', content: <>Click to expand</> }}>
+                  <DS.UnorderedList id="checkbox-list">
                     {this.prepareFilters(data.facets[field], field).map(facet => (
                       <DS.Checkbox
                         className="usa-checkbox"
@@ -249,7 +234,7 @@ class Filters extends React.Component {
                           labelContent: <>
                             {facet.count > 0
                               ? `${facet.value} (${facet.count.toLocaleString()})` : `${facet.value}`}
-                                        </>,
+                          </>,
                         }}
                         name={`filters.${field}`}
                         key={`filters-${field}-${facet.value}`}
@@ -257,24 +242,48 @@ class Filters extends React.Component {
 
                     ))}
                   </DS.UnorderedList>
+                </DS.Accordion>
                 )
-              }
+                }
               {field === 'format'
                 && formatTypes.map(formatType => (
-                  <DS.Checkbox
+                  <Checkbox
                     className="usa-checkbox tablet:grid-col-12"
                     labelClass="usa-checkbox__label"
                     inputClass="usa-checkbox__input"
-                    checkboxId={`filters-${field}-${formatType.value}`}
+                    id={`filters-${field}-${formatType.value}`}
                     isSelected={this.isFilterChecked(field, formatType.value)}
                     onChange={e => this.onChangeCheckbox(e, field, formatType.value, false)}
-                    labelOptions={{ id: `filters-${field}-${formatType.value}=label`, labelContent: <>{formatType.label}</> }}
+                    label={formatType.label}
                     name={`filters.${field}`}
                     key={`facet-${field}-${formatType.value}`}
                   />
                 ))}
             </fieldset>
           ))}
+          {this.state.error && (
+            <div
+              className="usa-alert usa-alert--error"
+              role="alert"
+            >
+              <div className="usa-alert__body">
+                <h3 className="usa-alert__heading">Error</h3>
+                <p className="usa-alert__text">{this.state.errorMsg}</p>
+              </div>
+            </div>
+          )}
+          <div className="grid-row margin-top-1">
+            <button
+              className={
+                this.state.error
+                  ? 'usa-button usa-button--outline padding-x-4 usa-button--outline-disabled'
+                  : 'usa-button usa-button--outline padding-x-4'
+              }
+              type="submit"
+            >
+              Update
+            </button>
+          </div>
         </form>
       );
     }
@@ -282,16 +291,20 @@ class Filters extends React.Component {
   }
 }
 
-Filters.propTypes = {
+FiltersMobile.propTypes = {
   data: PropTypes.objectOf(PropTypes.any),
   searchQuery: searchQueryPropTypes,
+  userQuery: PropTypes.func,
+  toggleMenu: PropTypes.func,
   router: PropTypes.objectOf(PropTypes.any),
 };
 
-Filters.defaultProps = {
+FiltersMobile.defaultProps = {
   data: {},
   searchQuery: initialSearchQuery,
+  userQuery: () => { },
+  toggleMenu: () => { },
   router: {},
 };
 
-export default Filters;
+export default FiltersMobile;

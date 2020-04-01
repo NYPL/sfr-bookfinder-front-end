@@ -8,14 +8,21 @@ import FeatureFlags from 'dgx-feature-flags';
 import * as searchActions from '../../actions/SearchActions';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
-import { deepEqual, isEmpty, checkFeatureFlagActivated } from '../../util/Util';
+import {
+  deepEqual, isEmpty, getNumberOfPages, checkFeatureFlagActivated,
+} from '../../util/Util';
 import TotalWorks from '../SearchForm/TotalWorks';
 
 import featureFlagConfig from '../../../../featureFlagConfig';
 import config from '../../../../appConfig';
 import { searchFields } from '../../constants/fields';
 import SearchHeader from '../SearchForm/SearchHeader';
-import SearchResults from './SearchResults';
+import FiltersMobile from './FiltersMobile';
+import { getQueryString } from '../../search/query';
+import { sortMap, numbersPerPage } from '../../constants/sorts';
+import Filters from './Filters';
+import ResultsList from './ResultsList';
+import SearchPagination from './SearchPagination';
 
 export const isValidSearchQuery = query => !!query && !isEmpty(query) && !!query.queries && !isEmpty(query.queries);
 
@@ -49,6 +56,11 @@ export const loadSearch = (props, context) => {
     }
   }
 };
+// redirect to url with query params
+export const submit = (query, router) => {
+  const path = `/search?${getQueryString(query)}`;
+  router.push(path);
+};
 
 /**
  * Container class providing the Redux action creators
@@ -62,7 +74,7 @@ class SearchResultsPage extends React.Component {
   constructor(props) {
     super(props);
     const { dispatch } = props;
-    this.state = { ...props, isFeatureFlagsActivated: {} };
+    this.state = { ...props, isFilterMenuOpen: false, isFeatureFlagsActivated: {} };
 
     this.boundActions = bindActionCreators(searchActions, dispatch);
   }
@@ -104,9 +116,65 @@ class SearchResultsPage extends React.Component {
     return queries.join('');
   }
 
+  toggleFilterMenu() {
+    this.setState(prevState => ({ isFilterMenuOpen: !prevState.isFilterMenuOpen }));
+  }
+
   render() {
-    const { searchQuery, searchResults, eReaderUrl } = this.props;
-    const { router, history } = this.context;
+    const { searchQuery, eReaderUrl } = this.props;
+    const { router } = this.context;
+    const searchResults = this.props.searchResults && this.props.searchResults.data && this.props.searchResults.data.data;
+    console.log('searchResults', searchResults);
+    const numberOfWorks = searchResults && searchResults.totalWorks;
+    const works = searchResults && searchResults.works;
+
+    let message = 'Viewing 0 items';
+    let mobileMessage = '0 items';
+    const totalPages = getNumberOfPages(numberOfWorks, searchQuery.per_page);
+    const firstElement = (Number(searchQuery.per_page || 10) * Number(searchQuery.page || 0) || 0) + 1;
+    let lastElement = Number(searchQuery.per_page || 10) * (Number(searchQuery.page || 0) + 1) || 10;
+    if (searchQuery.page >= totalPages - 1 && lastElement > numberOfWorks) {
+      lastElement = numberOfWorks;
+    }
+    if (numberOfWorks > 0) {
+      message = `Viewing ${firstElement.toLocaleString()} - ${lastElement.toLocaleString()} of ${numberOfWorks.toLocaleString()} items`;
+      mobileMessage = (
+        <>
+          {numberOfWorks.toLocaleString()}
+          {' '}
+        items
+          <DS.Button
+            id="filter-button"
+            type="link"
+            callback={this.toggleFilterMenu}
+          >
+      Refine
+          </DS.Button>
+
+        </>
+      );
+    }
+
+    const onChangePerPage = (e) => {
+      const newPage = 0;
+      const newPerPage = e.target.value;
+      if (newPerPage !== searchQuery.per_page) {
+        const newQuery = Object.assign({}, searchQuery, { page: newPage, per_page: newPerPage, total: numberOfWorks || 0 });
+        // this.props.userQuery(newQuery);
+        submit(newQuery, router);
+      }
+    };
+
+    // click and navigate with different sort
+    const onChangeSort = (e) => {
+      if (e.target.value !== Object.keys(sortMap).find(key => sortMap[key] === searchQuery.sort)) {
+        const newQuery = Object.assign({}, searchQuery, { sort: sortMap[e.target.value], page: 0 });
+        // userQuery(newQuery);
+        submit(newQuery, router);
+      }
+    };
+
+
     return (
       <DS.Container>
         <main id="mainContent">
@@ -133,16 +201,85 @@ class SearchResultsPage extends React.Component {
                 text={`Search Results for ${this.getDisplayItemsHeading()}`}
               />
             </div>
-            <SearchResults
+            <DS.Heading
+              level={2}
+              id="page-title-heading"
+              blockName="page-title"
+            >
+              <>
+                <span className="desktop-only">{message}</span>
+                <span className="mobile-only">{mobileMessage}</span>
+              </>
+            </DS.Heading>
+            <div className="search-dropdowns">
+              <DS.Dropdown
+                dropdownId="items-per-page-select"
+                isRequired={false}
+                labelPosition="left"
+                labelText="Items Per Page"
+                labelId="nav-items-per-page"
+                selectedOption={searchQuery.per_page ? searchQuery.per_page : undefined}
+                dropdownOptions={numbersPerPage.map(number => number.toString())}
+                onSelectChange={onChangePerPage}
+                onSelectBlur={onChangePerPage}
+              />
+              <DS.Dropdown
+                dropdownId="sort-by-select"
+                isRequired={false}
+                labelPosition="left"
+                labelText="Sort By"
+                labelId="nav-sort-by"
+                selectedOption={searchQuery.sort ? Object.keys(sortMap).find(key => deepEqual(sortMap[key], searchQuery.sort)) : undefined}
+                dropdownOptions={Object.keys(sortMap).map(sortOption => sortOption)}
+                onSelectChange={onChangeSort}
+                onSelectBlur={onChangeSort}
+              />
+            </div>
+            <div className="grid-row sfr-results-container">
+              <div className="desktop-filter grid-col-3 nypl-results-column">
+                <Filters
+                  data={searchResults}
+                  searchQuery={searchQuery}
+                  // userQuery={searchQuery}
+                  router={router}
+                />
+              </div>
+              <div className="grid-col-9 nypl-results-main">
+                <ResultsList
+                  results={works}
+                  // fetchWork={props.fetchWork}
+                  eReaderUrl={eReaderUrl}
+                />
+              </div>
+            </div>
+            <div className="grid-row">
+              <SearchPagination
+                totalItems={numberOfWorks}
+                searchQuery={searchQuery}
+                // userQuery={props.userQuery}
+                router={router}
+              />
+            </div>
+
+            {/* <SearchResults
               searchQuery={searchQuery}
               results={searchResults.data}
               eReaderUrl={eReaderUrl}
               {...this.boundActions}
               history={history}
               router={router}
-            />
+            /> */}
           </div>
         </main>
+        <DS.Modal isActive={this.state.isFilterMenuOpen}>
+          <FiltersMobile
+            toggleMenu={this.toggleFilterMenu}
+            data={searchResults}
+            searchQuery={searchQuery}
+            // userQuery={props.userQuery}
+            router={router}
+          />
+        </DS.Modal>
       </DS.Container>
     );
   }
@@ -151,7 +288,7 @@ class SearchResultsPage extends React.Component {
 SearchResultsPage.propTypes = {
   searchResults: PropTypes.objectOf(PropTypes.any),
   searchQuery: searchQueryPropTypes,
-  workResult: PropTypes.objectOf(PropTypes.any),
+  // workResult: PropTypes.objectOf(PropTypes.any),
   dispatch: PropTypes.func,
   eReaderUrl: PropTypes.string,
   location: PropTypes.objectOf(PropTypes.any),
@@ -160,7 +297,7 @@ SearchResultsPage.propTypes = {
 SearchResultsPage.defaultProps = {
   searchResults: {},
   searchQuery: initialSearchQuery,
-  workResult: {},
+  // workResult: {},
   dispatch: () => { },
   eReaderUrl: '',
   location: {},

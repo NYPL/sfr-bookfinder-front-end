@@ -12,6 +12,7 @@ export const submit = (query, router) => {
   router.push(path);
 };
 
+
 const SearchNavigation = ({
   totalItems, searchQuery, userQuery, router,
 }) => {
