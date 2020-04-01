@@ -1,4 +1,8 @@
 # CHANGE LOG
+## [0.8.3] 
+### Fixed 
+- iframe scrolling
+- VIAF searches no longer visibly show on page. 
 
 ## [0.8.2] 
 ### Added
