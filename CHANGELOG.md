@@ -1,4 +1,9 @@
 # CHANGE LOG
+
+## [0.8.4]
+### Added
+- Production deployment step to TravisCI
+
 ## [0.8.3] 
 ### Fixed 
 - iframe scrolling
