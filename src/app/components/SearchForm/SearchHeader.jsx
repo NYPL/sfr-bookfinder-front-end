@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import * as DS from '@nypl/design-system-react-components';
 import withSearch from './WithSearch';
+import { searchFields } from '../../constants/fields';
 
 const ResultsHeader = props => (
   <DS.HeaderWithSearch
@@ -65,7 +66,7 @@ ResultsHeader.propTypes = {
 };
 
 ResultsHeader.defaultProps = {
-  allowedFields: ['keyword', 'title', 'author', 'subject'],
+  allowedFields: searchFields,
   submitSearchRequest: () => { },
   onQueryChange: () => { },
   onFieldChange: () => { },

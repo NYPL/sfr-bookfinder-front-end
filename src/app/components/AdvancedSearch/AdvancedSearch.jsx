@@ -16,9 +16,10 @@ import TextInput from '../Form/TextInput';
 import Checkbox from '../Form/Checkbox';
 import { inputTerms, formatTypes, errorMessagesText } from '../../constants/labels';
 import FilterYears from '../SearchResults/FilterYears';
+import { searchFields } from '../../constants/fields';
 
 
-const initialState = {
+export const initialState = {
   error: false,
   errorMsg: '',
   languages: [],
@@ -27,6 +28,7 @@ const initialState = {
     title: '',
     author: '',
     subject: '',
+    viaf: '',
   },
   filters: {
     format: {
@@ -39,6 +41,12 @@ const initialState = {
       start: '',
       end: '',
     },
+  },
+  showQueries: {
+    keyword: '',
+    title: '',
+    author: '',
+    subject: '',
   },
 };
 // style for the languages dropdown
@@ -87,7 +95,6 @@ class AdvancedSearch extends React.Component {
     this.onQueryChange = this.onQueryChange.bind(this);
     this.onLanguageChange = this.onLanguageChange.bind(this);
     this.parseStateToQuery = this.parseStateToQuery.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.submitSearchRequest = this.submitSearchRequest.bind(this);
     this.onChangeYears = this.onChangeYears.bind(this);
     this.onFormatChange = this.onFormatChange.bind(this);
@@ -107,9 +114,18 @@ class AdvancedSearch extends React.Component {
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
     this.setState((prevState) => {
+      const showQueries = prevState.showQueries;
       const queries = prevState.queries;
       queries[name] = value;
-      return { queries, error: false, errorMsg: '' };
+      showQueries[name] = value;
+      if (name === 'author') {
+        // Changing author should clear viaf and lcnaf
+        queries.viaf = '';
+        queries.lcnaf = '';
+      }
+      return {
+        queries, showQueries, error: false, errorMsg: '',
+      };
     });
   }
 
@@ -164,16 +180,17 @@ class AdvancedSearch extends React.Component {
     });
   }
 
-  handleSubmit(event) {
-    if (event && event.charCode === 13) {
-      this.submitSearchRequest(event);
-    }
-  }
-
   parseStateToQuery() {
     const queries = Object.keys(this.state.queries)
       .map((q) => {
         const query = this.state.queries[q] && this.state.queries[q].replace(/^\s+/, '').replace(/\s+$/, '');
+        return { field: q, query };
+      })
+      .filter(q => !!q.query);
+
+    const showQueries = Object.keys(this.state.showQueries)
+      .map((q) => {
+        const query = this.state.showQueries[q] && this.state.showQueries[q].replace(/^\s+/, '').replace(/\s+$/, '');
         return { field: q, query };
       })
       .filter(q => !!q.query);
@@ -204,22 +221,34 @@ class AdvancedSearch extends React.Component {
       });
     }
 
-    if ((!queries || queries.length < 1) && (!filters || filters.length < 1)) {
+    if ((!queries || queries.length < 1) && (!filters || filters.length < 1) && (!showQueries || showQueries.length < 1)) {
       return null;
     }
-    return Object.assign({}, { page: '0', per_page: '10', sort: [] }, { queries, filters });
+    return Object.assign({}, { page: '0', per_page: '10', sort: [] }, { queries, filters, showQueries });
   }
 
   parseQueryToState(searchQuery) {
-    const state = { queries: {}, filters: {} };
+    const state = { queries: {}, showQueries: {}, filters: {} };
     if (!searchQuery) {
       return;
     }
+
     if (searchQuery.queries) {
       searchQuery.queries.forEach((q) => {
-        state.queries[q.field] = q.query;
+        // If field is already set (by showQuery), use the showQuery value.
+        if (!state.queries[q.field]) {
+          state.queries[q.field] = q.query;
+        }
       });
     }
+
+    const displaySearchQueries = searchQuery.queries.filter(query => searchFields.includes(query.field));
+    const displayQueries = searchQuery.showQueries.concat(displaySearchQueries);
+
+    displayQueries.forEach((query) => {
+      state.showQueries[query.field] = query.query;
+    });
+
     if (searchQuery.filters) {
       searchQuery.filters.forEach((q) => {
         if (q.field === 'format') {
@@ -240,7 +269,8 @@ class AdvancedSearch extends React.Component {
     this.setState((prevState) => {
       const filters = { ...prevState.filters, ...state.filters };
       const queries = { ...prevState.queries, ...state.queries };
-      return { filters, queries };
+      const showQueries = { ...prevState.showQueries, ...state.showQueries };
+      return { filters, queries, showQueries };
     });
   }
 
@@ -258,28 +288,20 @@ class AdvancedSearch extends React.Component {
       this.setState({ error: true, errorMsg: errorMessagesText.emptySearch });
       return;
     }
-    this.boundActions.userQuery(fullQuery);
-    this.boundActions.searchPost(fullQuery);
     const path = `/search?${getQueryString(fullQuery)}`;
     this.context.router.push(path);
   }
 
   clearForm() {
-    this.setState({
-      error: false,
-      errorMsg: '',
-      queries: {},
-      filters: { format: {}, language: [], years: {} },
-    });
+    this.setState(initialState);
   }
 
   render() {
     const { searchQuery, location } = this.props;
     const { router } = this.context;
     const languagesSelected = this.state.languages.filter(language => this.state.filters.language.indexOf(language.value) > -1);
-    const getQueryValue = key => this.state.queries[key];
+    const getQueryValue = key => this.state.showQueries[key];
     const getFilterValue = (filter, key) => this.state.filters[filter] && this.state.filters[filter][key];
-
     return (
       <main
         id="mainContent"
@@ -303,8 +325,8 @@ class AdvancedSearch extends React.Component {
             <div className="grid-col-10 margin-bottom-2 margin-x-auto">
               <form
                 className="usa-form grid-container width-full margin-x-0 padding-x-0"
-                onSubmit={this.handleSubmit}
-                onKeyPress={this.handleSubmit}
+                onSubmit={this.submitSearchRequest}
+                onKeyPress={(event) => { if (event.keyCode === 13) { this.submitSearchRequest(); } }}
               >
                 <fieldset className="usa-fieldset ">
                   <legend className="usa-legend usa-sr-only">Advanced Search</legend>

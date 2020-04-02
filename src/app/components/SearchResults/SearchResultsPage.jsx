@@ -13,6 +13,7 @@ import TotalWorks from '../SearchForm/TotalWorks';
 
 import featureFlagConfig from '../../../../featureFlagConfig';
 import config from '../../../../appConfig';
+import { searchFields } from '../../constants/fields';
 import SearchHeader from '../SearchForm/SearchHeader';
 import SearchResults from './SearchResults';
 
@@ -38,6 +39,9 @@ export const loadSearch = (props, context) => {
     }
     if (query && query.queries) {
       newQuery = Object.assign({}, newQuery, { queries: JSON.parse(query.queries) });
+    }
+    if (query && query.showQueries) {
+      newQuery = Object.assign({}, newQuery, { showQueries: JSON.parse(query.showQueries) });
     }
     if (searchQuery && !deepEqual(newQuery, searchQuery)) {
       dispatch(searchActions.userQuery(newQuery));
@@ -91,13 +95,10 @@ class SearchResultsPage extends React.Component {
   }
 
   getDisplayItemsHeading() {
-    const showField = this.props.searchQuery.showField;
-    const showQuery = this.props.searchQuery.showQuery;
-    if (showField && showQuery) {
-      return `${showField}: ${showQuery}`;
-    }
-    const queries = this.props.searchQuery.queries.map((query, index) => {
-      const joiner = index < this.props.searchQuery.queries.length - 1 ? ' and ' : '';
+    const queriesToShow = this.props.searchQuery && this.props.searchQuery.showQueries
+      .filter(query => searchFields.includes(query.field));
+    const queries = queriesToShow.map((query, index) => {
+      const joiner = index < queriesToShow.length - 1 ? ' and ' : '';
       return `${query.field}: ${query.query}${joiner}`;
     });
     return queries.join('');

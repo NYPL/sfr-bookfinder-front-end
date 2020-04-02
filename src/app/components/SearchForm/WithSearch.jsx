@@ -20,7 +20,6 @@ function withSearch(WrappedComponent) {
 
       this.onFieldChange = this.onFieldChange.bind(this);
       this.onQueryChange = this.onQueryChange.bind(this);
-      this.handleSubmit = this.handleSubmit.bind(this);
       this.submitSearchRequest = this.submitSearchRequest.bind(this);
     }
 
@@ -38,7 +37,7 @@ function withSearch(WrappedComponent) {
         };
         return ({
           searchQuery: Object.assign({}, initialSearchQuery,
-            { showField: '', showQuery: '' },
+            { showQueries: [].concat(advancedQuery) },
             { queries: [].concat(advancedQuery) }),
         });
       });
@@ -50,26 +49,17 @@ function withSearch(WrappedComponent) {
       this.setState((prevState) => {
         const advancedQuery = {
           query: querySelected,
-          field: prevState.searchQuery.showField ? prevState.searchQuery.showField : prevState.searchQuery.queries[0].field || 'keyword',
+          field: prevState.searchQuery.showQueries[0] ? prevState.searchQuery.showQueries[0].field : prevState.searchQuery.queries[0].field || 'keyword',
         };
 
         return ({
-          searchQuery: Object.assign({}, initialSearchQuery, { showField: '', showQuery: querySelected },
+          searchQuery: Object.assign({}, initialSearchQuery,
+            { showQueries: [].concat(advancedQuery) },
             { queries: [].concat(advancedQuery) }),
         });
       });
       if (querySelected) {
         this.setState({ error: false, errorMsg: '' });
-      }
-    }
-
-    handleSubmit(event) {
-      if (event && event.charCode === 13) {
-        this.props.userQuery(
-          Object.assign({}, initialSearchQuery, {
-            query: this.state.searchQuery.queries,
-          }),
-        );
       }
     }
 
@@ -82,6 +72,7 @@ function withSearch(WrappedComponent) {
       }
 
       const path = `/search?${getQueryString(this.state.searchQuery)}`;
+
       this.context.router.push(path);
     }
 
