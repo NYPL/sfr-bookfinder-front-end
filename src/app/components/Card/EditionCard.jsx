@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { gaUtils } from 'dgx-react-ga';
 import { Html5Entities } from 'html-entities';
 import * as DS from '@nypl/design-system-react-components';
 import {
@@ -189,6 +190,7 @@ export default class EditionCard {
         <Link
           className="edition-card__card-info-link"
           to={{ pathname: '/read-online', search: `?url=${encodeURI(encodedUrl)}`, state: { work } }}
+          onClick={() => gaUtils.trackGeneralEvent('Read Online', editionItem.source, work.title, '')}
         >
           Read Online
         </Link>
@@ -198,6 +200,7 @@ export default class EditionCard {
       <Link
         className="edition-card__card-info-link"
         to={{ pathname: '/read-online', search: `?url=${formatUrl(selectedLink.url, process.env.APP_ENV)}`, state: { work } }}
+        onClick={() => gaUtils.trackGeneralEvent('Read Online', editionItem.source, work.title, '')}
       >
         Read Online
       </Link>
@@ -236,7 +239,7 @@ export default class EditionCard {
       language: EditionCard.getLanguageDisplayText(edition),
       license: <DS.UnderlineLink><Link to="/license">{ EditionCard.getLicense(editionItem) }</Link></DS.UnderlineLink>,
       readOnlineLink: EditionCard.getReadOnlineLink(work, editionItem, eReaderUrl, referrer),
-      downloadLink: EditionCard.getDownloadLink(editionItem),
+      downloadLink: EditionCard.getDownloadLink(work, editionItem),
       noLinkElement: EditionCard.getNoLinkElement(showRequestButton),
     };
   }
