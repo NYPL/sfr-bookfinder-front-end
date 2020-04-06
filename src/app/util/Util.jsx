@@ -5,20 +5,8 @@ import FeatureFlags from 'dgx-feature-flags';
 const entriesPolyFill = obj => Object.keys(obj).map(key => [key, obj[key]]);
 if (!Object.entries) Object.entries = entriesPolyFill;
 
-// Given a link, return the link with 'http' if on development, 'https' if on production.
-
-export const formatUrl = (link, env) => {
-  const prefix = env === 'development' ? 'http://' : 'https://';
-  if (env === 'development') {
-    // If passed https, change to http
-    if (link.startsWith('https://')) {
-      return `http://${link.substr(8)}`;
-    }
-  } else if (env !== 'production') {
-    console.warn(`Environment should be either "development" or "production" but got ${env}`);
-  }
-  return link.startsWith('http') ? link : prefix + link;
-};
+// Given a link ensure that it has an attached protocol and add https if none is found
+export const formatUrl = link => (link.startsWith('http') ? link : `https://${link}`);
 
 export const getNumberOfPages = (totalItems, perPage) => Math.floor((Number(totalItems || 0) - 1) / Number(perPage || 10)) + 1 || 1;
 
