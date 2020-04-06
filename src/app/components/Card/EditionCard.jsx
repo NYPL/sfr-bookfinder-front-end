@@ -118,7 +118,7 @@ export default class EditionCard {
     if (!previewEdition.covers || !previewEdition.covers.length) return PLACEHOLDER_COVER_LINK;
 
     const firstLocalCover = previewEdition.covers.find(cover => cover.flags.temporary === false);
-    return firstLocalCover ? formatUrl(firstLocalCover.url, process.env.APP_ENV) : PLACEHOLDER_COVER_LINK;
+    return firstLocalCover ? formatUrl(firstLocalCover.url) : PLACEHOLDER_COVER_LINK;
   }
 
   // Publisher Location and name
@@ -169,7 +169,7 @@ export default class EditionCard {
   // This is specific to and backwards-engineered from the webpub-viewer URLs.
   // and should be changed when webpub-viewer is able to generate more reasonable URLs.
   static generateStreamedReaderUrl(url, eReaderUrl, referrer) {
-    const base64BookUrl = Buffer.from(formatUrl(url, process.env.APP_ENV)).toString('base64');
+    const base64BookUrl = Buffer.from(formatUrl(url)).toString('base64');
     const encodedBookUrl = encodeURIComponent(`${base64BookUrl}`);
 
     let combined = `${eReaderUrl}/readerNYPL/?url=${eReaderUrl}/pub/${encodedBookUrl}/manifest.json`;
@@ -199,7 +199,7 @@ export default class EditionCard {
     return (
       <Link
         className="edition-card__card-info-link"
-        to={{ pathname: '/read-online', search: `?url=${formatUrl(selectedLink.url, process.env.APP_ENV)}`, state: { work } }}
+        to={{ pathname: '/read-online', search: `?url=${formatUrl(selectedLink.url)}`, state: { work } }}
         onClick={() => gaUtils.trackGeneralEvent('Read Online', editionItem.source, work.title, '')}
       >
         Read Online
@@ -222,8 +222,6 @@ export default class EditionCard {
         </a>
       );
     }
-
-    return undefined;
   }
 
   static getNoLinkElement(showRequestButton) {

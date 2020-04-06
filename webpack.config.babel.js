@@ -89,7 +89,7 @@ if (ENV === 'development') {
       new webpack.HotModuleReplacementPlugin(),
       new webpack.DefinePlugin({
         'process.env': {
-          APP_ENV: JSON.stringify('development'),
+          APP_ENV: JSON.stringify(appEnv),
           AIRTABLE_API_KEY: JSON.stringify(airtableKey),
         },
       }),
