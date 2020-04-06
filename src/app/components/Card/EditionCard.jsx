@@ -207,10 +207,23 @@ export default class EditionCard {
     );
   }
 
-  static getDownloadLink(editionItem) {
+  static getDownloadLink(work, editionItem) {
     if (!editionItem || !editionItem.links) return undefined;
     const selectedLink = editionItem.links.find(link => link.download);
-    return selectedLink && selectedLink.url ? formatUrl(selectedLink.url, process.env.APP_ENV) : undefined;
+
+    if (selectedLink && selectedLink.url) {
+      return (
+        <a
+          className="edition-card__card-info-link"
+          href={`${formatUrl(selectedLink.url, process.env.APP_ENV)}`}
+          onClick={() => gaUtils.trackGeneralEvent('Download', editionItem.source, work.title, '')}
+        >
+          Download
+        </a>
+      );
+    }
+
+    return undefined;
   }
 
   static getNoLinkElement(showRequestButton) {
