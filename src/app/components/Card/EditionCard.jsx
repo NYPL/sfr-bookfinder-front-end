@@ -170,7 +170,7 @@ export default class EditionCard {
   static generateStreamedReaderUrl(url, eReaderUrl, referrer) {
     const base64BookUrl = Buffer.from(formatUrl(url)).toString('base64');
     const encodedBookUrl = encodeURIComponent(`${base64BookUrl}`);
-    console.log(eReaderUrl)
+
     let combined = `${eReaderUrl}/readerNYPL/?url=${eReaderUrl}/pub/${encodedBookUrl}/manifest.json`;
     if (referrer) {
       combined += `#${referrer}`;
