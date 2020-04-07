@@ -1,5 +1,11 @@
 # CHANGE LOG
 
+## [0.8.5]
+### Added
+- Google Analytics Events for Read Online and Download links
+### Fixed
+- Local and development environments HTTP protocals
+
 ## [0.8.4]
 ### Added
 - Production deployment step to TravisCI

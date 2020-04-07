@@ -107,7 +107,7 @@ describe('Results List', () => {
         expect(linkComponent.prop('to').search).to.equal('?url=https://archive.org/details/blithedaleromanc00hawtrich');
       });
       it('result data has download link', () => {
-        expect(resultsData.editionInfo.downloadLink).to.equal('https://catalog.hathitrust.org/api/volumes/oclc/39113388.html');
+        expect(resultsData.editionInfo.downloadLink.props.href).to.equal('https://catalog.hathitrust.org/api/volumes/oclc/39113388.html');
       });
       it('result data has editions link', () => {
         expect(mount(<span>{resultsData.editionsLinkElement}</span>).text()).to.equal('View All 17 Editions');
