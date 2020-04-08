@@ -7,6 +7,8 @@ import {
   yearsType, filtersLabels, formatTypes, errorMessagesText,
 } from '../../constants/labels';
 import * as searchActions from '../../actions/SearchActions';
+import { sortMap, numbersPerPage } from '../../constants/sorts';
+import { deepEqual } from '../../util/Util';
 
 const getYearsFilter = (searchQuery) => {
   const yearsValues = {};
@@ -34,11 +36,13 @@ class Filters extends React.Component {
     this.doSearchWithFilters = this.doSearchWithFilters.bind(this);
   }
 
+  componentDidUpdate(prevProps) {
+    this.passYearSearchToState(prevProps);
+  }
+
   onChangeYear(e, yearType) {
     const val = e.target.value && Number(e.target.value);
-    const obj = {};
-    obj[yearType] = val;
-    this.setState(state => Object.assign({}, state, obj));
+    this.setState({ [yearType]: val });
   }
 
   // on check of filter, add it or remove it from list and do the search
@@ -64,7 +68,6 @@ class Filters extends React.Component {
   }
 
   onSubmit(e, toggleMenu) {
-    console.log('toggleMenu', toggleMenu);
     e.preventDefault();
     e.stopPropagation();
     const currentYearsFilter = {
@@ -89,12 +92,25 @@ class Filters extends React.Component {
       }
       this.setState({ error: false, errorMsg: '' });
     }
-    toggleMenu();
+    if (toggleMenu) {
+      toggleMenu();
+    }
     this.doSearchWithFilters(this.filtersArray);
   }
 
   onErrorYears(errorObj) {
     this.setState({ error: errorObj.error, errorMsg: errorObj.errorMsg });
+  }
+
+  passYearSearchToState(prevProps) {
+    const prevQueryYears = getYearsFilter(prevProps.searchQuery);
+    const queryYears = getYearsFilter(this.props.searchQuery);
+    if (prevQueryYears.start !== queryYears.start) {
+      this.setState({ start: queryYears.start });
+    }
+    if (prevQueryYears.end !== queryYears.end) {
+      this.setState({ end: queryYears.end });
+    }
   }
 
   // join current data filters with filters from previous search
@@ -130,7 +146,6 @@ class Filters extends React.Component {
     }
     return !!filterFound;
   }
-
 
   // sort filters by: included in search, then count, then alphabetically
   prepareFilters(facets, field) {
@@ -171,8 +186,10 @@ class Filters extends React.Component {
 
   render() {
     const {
-      data, toggleMenu, isMobile,
+      data, toggleMenu, isMobile, searchQuery, onChangeSort, onChangePerPage,
     } = this.props;
+    const start = this.state.start;
+    const end = this.state.end;
     if (this.showFields(data).length > 0) {
       return (
         <form
@@ -188,7 +205,8 @@ class Filters extends React.Component {
                 && (
                 <DS.Button
                   id="closeButton"
-                  callback={toggleMenu}
+                  buttonType="submit"
+                  callback={event => this.onSubmit(event, toggleMenu)}
                 >
                 Close
                 </DS.Button>
@@ -196,6 +214,33 @@ class Filters extends React.Component {
               }
             </>
           </DS.Heading>
+          {isMobile && (
+          <div className="search-dropdowns">
+            <DS.Dropdown
+              dropdownId="items-per-page-select"
+              isRequired={false}
+              labelPosition="left"
+              labelText="Items Per Page"
+              labelId="nav-items-per-page"
+              selectedOption={searchQuery.per_page ? searchQuery.per_page : undefined}
+              dropdownOptions={numbersPerPage.map(number => number.toString())}
+              onSelectChange={onChangePerPage}
+              onSelectBlur={onChangePerPage}
+            />
+            <DS.Dropdown
+              dropdownId="sort-by-select"
+              isRequired={false}
+              labelPosition="left"
+              labelText="Sort By"
+              labelId="nav-sort-by"
+              selectedOption={searchQuery.sort
+                ? Object.keys(sortMap).find(key => deepEqual(sortMap[key], searchQuery.sort)) : undefined}
+              dropdownOptions={Object.keys(sortMap).map(sortOption => sortOption)}
+              onSelectChange={onChangeSort}
+              onSelectBlur={onChangeSort}
+            />
+          </div>
+          )}
           {this.showFields(data).map(field => (
             <fieldset
               key={field}
@@ -207,17 +252,21 @@ class Filters extends React.Component {
                   formLabel={<>Publication Year</>}
 
                   fromLabelOpts={{ labelContent: <>From</>, id: 'FromLabel' }}
-                  fromInputOpts={{ inputId: 'fromInput', onInputChange: event => this.onChangeYear(event, 'start') }}
+                  fromInputOpts={{
+                    inputId: 'fromInput', inputValue: start, onInputChange: event => this.onChangeYear(event, 'start'),
+                  }}
                   fromHelper={{ content: <>EX. 1901</>, id: 'fromyearhelper', isError: false }}
 
                   toLabelOpts={{ labelContent: <>To</>, id: 'ToLabel' }}
-                  toInputOpts={{ inputId: 'fromInput', onInputChange: event => this.onChangeYear(event, 'end') }}
+                  toInputOpts={{ inputId: 'fromInput', inputValue: end, onInputChange: event => this.onChangeYear(event, 'end') }}
                   toHelper={{ content: <>EX. 2000</>, id: 'toYearHelper', isError: false }}
 
                   showError={this.state.error}
                   error={{ content: <>{this.state.errorMsg}</>, id: 'date-range-error', isError: true }}
 
-                  buttonProps={{ id: 'submitButtonId', callback: event => this.onSubmit(event, toggleMenu), content: <>Apply</> }}
+                  buttonProps={!isMobile
+                    ? { id: 'submitButtonId', callback: event => this.onSubmit(event, toggleMenu), content: <>Apply</> }
+                    : null}
                 />
               )}
               {field === 'show_all' && (
@@ -323,6 +372,8 @@ Filters.propTypes = {
   data: PropTypes.objectOf(PropTypes.any),
   searchQuery: searchQueryPropTypes,
   router: PropTypes.objectOf(PropTypes.any),
+  onChangeSort: PropTypes.func,
+  onChangePerPage: PropTypes.func,
 };
 
 Filters.defaultProps = {
@@ -331,6 +382,8 @@ Filters.defaultProps = {
   data: {},
   searchQuery: initialSearchQuery,
   router: {},
+  onChangeSort: () => {},
+  onChangePerPage: () => {},
 };
 
 export default Filters;

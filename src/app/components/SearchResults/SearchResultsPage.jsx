@@ -119,7 +119,6 @@ class SearchResultsPage extends React.Component {
       this.setState({ isMobile: false });
       this.setState({ isModalOpen: false });
     }
-    console.log('window resized', this.state);
   }
 
   getDisplayItemsHeading() {
@@ -133,7 +132,6 @@ class SearchResultsPage extends React.Component {
   }
 
   toggleFilterMenu() {
-    console.log('isModalOpen', this.state);
     this.setState(prevState => ({ isModalOpen: !prevState.isModalOpen }));
   }
 
@@ -144,20 +142,18 @@ class SearchResultsPage extends React.Component {
     const numberOfWorks = searchResults && searchResults.totalWorks;
     const works = searchResults && searchResults.works;
 
-    let message = (
-      <>
-Viewing 0 items
-        <DS.Button
-          id="filter-button"
-          type="link"
-          callback={this.toggleFilterMenu}
-        >
-Refine
-        </DS.Button>
+    let filterCount = 0;
+    if (searchQuery.filters) {
+      filterCount = searchQuery.filters.length;
 
-      </>
-    );
-    let mobileMessage = '0 items';
+      // "Show All" doesn't appear in Filters array, but counts as a filter when checked, and doesn't count when unchecked;
+      if (searchQuery.filters.find(filter => filter.field === 'show_all')) {
+        filterCount -= 1;
+      } else {
+        filterCount += 1;
+      }
+    }
+
     const totalPages = getNumberOfPages(numberOfWorks, searchQuery.per_page);
     const firstElement = (Number(searchQuery.per_page || 10) * Number(searchQuery.page || 0) || 0) + 1;
     let lastElement = Number(searchQuery.per_page || 10) * (Number(searchQuery.page || 0) + 1) || 10;
@@ -165,24 +161,28 @@ Refine
       lastElement = numberOfWorks;
     }
 
-    if (numberOfWorks > 0) {
-      message = `Viewing ${firstElement.toLocaleString()} - ${lastElement.toLocaleString()} of ${numberOfWorks.toLocaleString()} items`;
-      mobileMessage = (
+    const itemCount = (
+      <DS.Heading
+        level={2}
+        id="page-title-heading"
+        blockName="page-title"
+      >
+        {numberOfWorks > 0
+          ? `Viewing ${firstElement.toLocaleString()} - ${lastElement.toLocaleString()} of ${numberOfWorks.toLocaleString()} items`
+          : 'Viewing 0 items'}
+      </DS.Heading>
+    );
+    const mobileItemCount = (
+      <DS.Heading
+        level={2}
+        id="page-title-heading"
+        blockName="page-title"
+      >
         <>
-          {numberOfWorks.toLocaleString()}
-          {' '}
-        items
-          <DS.Button
-            id="filter-button"
-            type="link"
-            callback={this.toggleFilterMenu}
-          >
-      Refine
-          </DS.Button>
-
+          {numberOfWorks > 0 ? `${numberOfWorks.toLocaleString()} items` : '0 items'}
         </>
-      );
-    }
+      </DS.Heading>
+    );
 
     const onChangePerPage = (e) => {
       const newPage = 0;
@@ -232,52 +232,66 @@ Refine
                 text={`Search Results for ${this.getDisplayItemsHeading()}`}
               />
             </div>
-            <DS.Heading
-              level={2}
-              id="page-title-heading"
-              blockName="page-title"
-            >
-              <>
-                <span className="desktop-only">{message}</span>
-                <span className="mobile-only">{mobileMessage}</span>
-              </>
-            </DS.Heading>
-            <div className="search-dropdowns">
-              <DS.Dropdown
-                dropdownId="items-per-page-select"
-                isRequired={false}
-                labelPosition="left"
-                labelText="Items Per Page"
-                labelId="nav-items-per-page"
-                selectedOption={searchQuery.per_page ? searchQuery.per_page : undefined}
-                dropdownOptions={numbersPerPage.map(number => number.toString())}
-                onSelectChange={onChangePerPage}
-                onSelectBlur={onChangePerPage}
-              />
-              <DS.Dropdown
-                dropdownId="sort-by-select"
-                isRequired={false}
-                labelPosition="left"
-                labelText="Sort By"
-                labelId="nav-sort-by"
-                selectedOption={searchQuery.sort ? Object.keys(sortMap).find(key => deepEqual(sortMap[key], searchQuery.sort)) : undefined}
-                dropdownOptions={Object.keys(sortMap).map(sortOption => sortOption)}
-                onSelectChange={onChangeSort}
-                onSelectBlur={onChangeSort}
-              />
+            <div className="results-info grid-row">
+              {this.state.isMobile ? mobileItemCount : itemCount}
+              {this.state.isMobile && (
+                <div>
+                  <span className="filter-count">
+                    {filterCount}
+                    {' '}
+                    {filterCount === 1 ? 'filter' : 'filters'}
+                  </span>
+                  <DS.Button
+                    id="filter-button"
+                    type="link"
+                    callback={this.toggleFilterMenu}
+                  >
+                Refine
+                  </DS.Button>
+                </div>
+              )}
+              {!this.state.isMobile && (
+              <div className="search-dropdowns">
+                <DS.Dropdown
+                  dropdownId="items-per-page-select"
+                  isRequired={false}
+                  labelPosition="left"
+                  labelText="Items Per Page"
+                  labelId="nav-items-per-page"
+                  selectedOption={searchQuery.per_page ? searchQuery.per_page : undefined}
+                  dropdownOptions={numbersPerPage.map(number => number.toString())}
+                  onSelectChange={onChangePerPage}
+                  onSelectBlur={onChangePerPage}
+                />
+                <DS.Dropdown
+                  dropdownId="sort-by-select"
+                  isRequired={false}
+                  labelPosition="left"
+                  labelText="Sort By"
+                  labelId="nav-sort-by"
+                  selectedOption={searchQuery.sort
+                    ? Object.keys(sortMap).find(key => deepEqual(sortMap[key], searchQuery.sort)) : undefined}
+                  dropdownOptions={Object.keys(sortMap).map(sortOption => sortOption)}
+                  onSelectChange={onChangeSort}
+                  onSelectBlur={onChangeSort}
+                />
+              </div>
+              )}
             </div>
             <div className="grid-row sfr-results-container">
               <div className="desktop-filter grid-col-3 nypl-results-column">
                 <Filters
+                  toggleMenu={this.toggleFilterMenu}
                   data={searchResults}
                   searchQuery={searchQuery}
                   router={router}
+                  onChangeSort={onChangeSort}
+                  onChangePerPage={onChangePerPage}
                 />
               </div>
               <div className="grid-col-9 nypl-results-main">
                 <ResultsList
                   results={works}
-                  // fetchWork={props.fetchWork}
                   eReaderUrl={eReaderUrl}
                 />
               </div>
@@ -286,19 +300,9 @@ Refine
               <SearchPagination
                 totalItems={numberOfWorks}
                 searchQuery={searchQuery}
-                // userQuery={props.userQuery}
                 router={router}
               />
             </div>
-
-            {/* <SearchResults
-              searchQuery={searchQuery}
-              results={searchResults.data}
-              eReaderUrl={eReaderUrl}
-              {...this.boundActions}
-              history={history}
-              router={router}
-            /> */}
           </div>
         </main>
         {this.state.isMobile && this.state.isModalOpen && (
@@ -307,6 +311,8 @@ Refine
             toggleMenu={this.toggleFilterMenu}
             isMobile={this.state.isMobile}
             data={searchResults}
+            onChangeSort={onChangeSort}
+            onChangePerPage={onChangePerPage}
             searchQuery={searchQuery}
             router={router}
           />
