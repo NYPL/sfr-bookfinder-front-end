@@ -8,7 +8,6 @@ import {
 } from '../../constants/labels';
 import * as searchActions from '../../actions/SearchActions';
 
-
 const getYearsFilter = (searchQuery) => {
   const yearsValues = {};
   Object.keys(yearsType).forEach((yearType) => {
@@ -47,7 +46,7 @@ class Filters extends React.Component {
     if (this.state.error) {
       return;
     }
-    console.log('filtersArray', this.filtersArray);
+
     const matchIndex = this.filtersArray.findIndex(filter => filter.field === field && filter.value === value);
     if (negative) {
       if (!e.target.checked && matchIndex === -1) {
@@ -58,14 +57,14 @@ class Filters extends React.Component {
     } else if (e.target.checked && matchIndex === -1) {
       this.filtersArray.push({ field, value });
     } else if (matchIndex > -1) {
-      this.filtersArray = [];
-      // this.filtersArray.splice(matchIndex, 1);
+      this.filtersArray.splice(matchIndex, 1);
     }
+
     this.doSearchWithFilters(this.filtersArray);
   }
 
-  // beginning to prepare for not-js
-  onSubmit(e) {
+  onSubmit(e, toggleMenu) {
+    console.log('toggleMenu', toggleMenu);
     e.preventDefault();
     e.stopPropagation();
     const currentYearsFilter = {
@@ -90,6 +89,7 @@ class Filters extends React.Component {
       }
       this.setState({ error: false, errorMsg: '' });
     }
+    toggleMenu();
     this.doSearchWithFilters(this.filtersArray);
   }
 
@@ -118,7 +118,6 @@ class Filters extends React.Component {
   // update page in store and go to any page
   doSearchWithFilters(filters) {
     const newQuery = Object.assign({}, this.props.searchQuery, { filters }, { page: 0 });
-    console.log('newQuery', newQuery);
     searchActions.userQuery(newQuery);
     this.submit(newQuery);
   }
@@ -172,30 +171,30 @@ class Filters extends React.Component {
 
   render() {
     const {
-      data, searchQuery,
+      data, toggleMenu, isMobile,
     } = this.props;
-    console.log('data', data);
-    // add search filters
-    if (searchQuery && searchQuery.filters && Array.isArray(searchQuery.filters)) {
-      searchQuery.filters.forEach((filter) => {
-        if (!this.filtersArray.find(filtArrEntry => filtArrEntry.field === filter.field)) {
-          console.log('pushing to filter');
-          this.filtersArray.push({ field: filter.field, value: filter.value });
-        }
-      });
-    }
-
     if (this.showFields(data).length > 0) {
       return (
         <form
           className="filters usa-form"
-          action="/search"
         >
           <DS.Heading
             level={2}
             id="filter-desktop-header"
           >
+            <>
           Refine Results
+              {isMobile
+                && (
+                <DS.Button
+                  id="closeButton"
+                  callback={toggleMenu}
+                >
+                Close
+                </DS.Button>
+                )
+              }
+            </>
           </DS.Heading>
           {this.showFields(data).map(field => (
             <fieldset
@@ -218,7 +217,7 @@ class Filters extends React.Component {
                   showError={this.state.error}
                   error={{ content: <>{this.state.errorMsg}</>, id: 'date-range-error', isError: true }}
 
-                  buttonProps={{ id: 'submitButtonId', callback: this.onSubmit, content: <>Apply</> }}
+                  buttonProps={{ id: 'submitButtonId', callback: event => this.onSubmit(event, toggleMenu), content: <>Apply</> }}
                 />
               )}
               {field === 'show_all' && (
@@ -232,31 +231,67 @@ class Filters extends React.Component {
               )}
               {field === 'language'
                 && (
-                  <DS.UnorderedList
-                    id="checkbox-list"
-                    scroll
-                  >
-                    {this.prepareFilters(data.facets[field], field).map(facet => (
-                      <DS.Checkbox
-                        className="usa-checkbox"
-                        labelClass="usa-checkbox__label"
-                        inputClass="usa-checkbox__input"
-                        checkboxId={`filters-${field}-${facet.value}`}
-                        isSelected={this.isFilterChecked(field, facet.value)}
-                        onChange={e => this.onChangeCheckbox(e, field, facet.value, false)}
-                        labelOptions={{
-                          id: `filters-${field}-${facet.value}-label`,
-                          labelContent: <>
-                            {facet.count > 0
-                              ? `${facet.value} (${facet.count.toLocaleString()})` : `${facet.value}`}
-                                        </>,
-                        }}
-                        name={`filters.${field}`}
-                        key={`filters-${field}-${facet.value}`}
-                      />
+                  <>
+                    {isMobile
+                      && (
+                      <DS.Accordion
+                        buttonOptions={{ id: 'accordionBtn', content: <span>Click to expand</span> }}
+                      >
+                        <DS.UnorderedList id="checkbox-list">
+                          {this.prepareFilters(data.facets[field], field).map(facet => (
+                            <DS.Checkbox
+                              className="usa-checkbox"
+                              labelClass="usa-checkbox__label"
+                              inputClass="usa-checkbox__input"
+                              checkboxId={`filters-${field}-${facet.value}`}
+                              isSelected={this.isFilterChecked(field, facet.value)}
+                              onChange={e => this.onChangeCheckbox(e, field, facet.value, false)}
+                              labelOptions={{
+                                id: `filters-${field}-${facet.value}-label`,
+                                labelContent: <>
+                                  {facet.count > 0
+                                    ? `${facet.value} (${facet.count.toLocaleString()})` : `${facet.value}`}
+                                              </>,
+                              }}
+                              name={`filters.${field}`}
+                              key={`filters-${field}-${facet.value}`}
+                            />
 
-                    ))}
-                  </DS.UnorderedList>
+                          ))}
+                        </DS.UnorderedList>
+                      </DS.Accordion>
+                      )
+                    }
+                      {!isMobile
+                      && (
+                      <DS.UnorderedList
+                        id="checkbox-list"
+                        scroll
+                      >
+                        {this.prepareFilters(data.facets[field], field).map(facet => (
+                          <DS.Checkbox
+                            className="usa-checkbox"
+                            labelClass="usa-checkbox__label"
+                            inputClass="usa-checkbox__input"
+                            checkboxId={`filters-${field}-${facet.value}`}
+                            isSelected={this.isFilterChecked(field, facet.value)}
+                            onChange={e => this.onChangeCheckbox(e, field, facet.value, false)}
+                            labelOptions={{
+                              id: `filters-${field}-${facet.value}-label`,
+                              labelContent: <>
+                                {facet.count > 0
+                                  ? `${facet.value} (${facet.count.toLocaleString()})` : `${facet.value}`}
+                                            </>,
+                            }}
+                            name={`filters.${field}`}
+                            key={`filters-${field}-${facet.value}`}
+                          />
+
+                        ))}
+                      </DS.UnorderedList>
+                      )
+                      }
+                  </>
                 )
               }
               {field === 'format'
@@ -283,12 +318,16 @@ class Filters extends React.Component {
 }
 
 Filters.propTypes = {
+  toggleMenu: PropTypes.func,
+  isMobile: PropTypes.bool,
   data: PropTypes.objectOf(PropTypes.any),
   searchQuery: searchQueryPropTypes,
   router: PropTypes.objectOf(PropTypes.any),
 };
 
 Filters.defaultProps = {
+  toggleMenu: () => {},
+  isMobile: false,
   data: {},
   searchQuery: initialSearchQuery,
   router: {},

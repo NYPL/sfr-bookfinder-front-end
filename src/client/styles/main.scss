@@ -42,6 +42,7 @@ html {
 body {
   height: 100%;
 }
+
 #app {
   margin: 0;
   height: 100%;
@@ -233,11 +234,11 @@ h2#featured-edition {
     display: none;
   }
 }
-
+oda
 .desktop-only { 
-  display: inherit;
+  display: none;
 
   @include breakpoint($large) {
-    display: none;
+    display: inherit;
   }
 }

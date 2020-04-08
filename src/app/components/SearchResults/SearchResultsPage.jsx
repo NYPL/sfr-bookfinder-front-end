@@ -17,9 +17,9 @@ import featureFlagConfig from '../../../../featureFlagConfig';
 import config from '../../../../appConfig';
 import { searchFields } from '../../constants/fields';
 import SearchHeader from '../SearchForm/SearchHeader';
-import FiltersMobile from './FiltersMobile';
 import { getQueryString } from '../../search/query';
 import { sortMap, numbersPerPage } from '../../constants/sorts';
+import { breakpoints } from '../../constants/breakpoints';
 import Filters from './Filters';
 import ResultsList from './ResultsList';
 import SearchPagination from './SearchPagination';
@@ -74,15 +74,20 @@ class SearchResultsPage extends React.Component {
   constructor(props) {
     super(props);
     const { dispatch } = props;
-    this.state = { ...props, isFilterMenuOpen: false, isFeatureFlagsActivated: {} };
+    this.state = {
+      ...props, isMobile: false, isModalOpen: false, isFeatureFlagsActivated: {},
+    };
 
     this.boundActions = bindActionCreators(searchActions, dispatch);
+    this.toggleFilterMenu = this.toggleFilterMenu.bind(this);
   }
 
   componentDidMount() {
     loadSearch(this.props, this.context);
 
     FeatureFlags.store.listen(this.onFeatureFlagsChange.bind(this));
+    window.addEventListener('resize', this.onWindowResize.bind(this));
+    this.onWindowResize();
 
     checkFeatureFlagActivated(
       featureFlagConfig.featureFlagList, this.state.isFeatureFlagsActivated,
@@ -106,6 +111,17 @@ class SearchResultsPage extends React.Component {
     this.setState({ featureFlagsStore: FeatureFlags.store.getState() });
   }
 
+  onWindowResize() {
+    if (window.innerWidth < breakpoints.large) {
+      this.setState({ isMobile: true });
+      this.setState({ isModalOpen: false });
+    } else {
+      this.setState({ isMobile: false });
+      this.setState({ isModalOpen: false });
+    }
+    console.log('window resized', this.state);
+  }
+
   getDisplayItemsHeading() {
     const queriesToShow = this.props.searchQuery && this.props.searchQuery.showQueries
       .filter(query => searchFields.includes(query.field));
@@ -117,18 +133,30 @@ class SearchResultsPage extends React.Component {
   }
 
   toggleFilterMenu() {
-    this.setState(prevState => ({ isFilterMenuOpen: !prevState.isFilterMenuOpen }));
+    console.log('isModalOpen', this.state);
+    this.setState(prevState => ({ isModalOpen: !prevState.isModalOpen }));
   }
 
   render() {
     const { searchQuery, eReaderUrl } = this.props;
     const { router } = this.context;
     const searchResults = this.props.searchResults && this.props.searchResults.data && this.props.searchResults.data.data;
-    console.log('searchResults', searchResults);
     const numberOfWorks = searchResults && searchResults.totalWorks;
     const works = searchResults && searchResults.works;
 
-    let message = 'Viewing 0 items';
+    let message = (
+      <>
+Viewing 0 items
+        <DS.Button
+          id="filter-button"
+          type="link"
+          callback={this.toggleFilterMenu}
+        >
+Refine
+        </DS.Button>
+
+      </>
+    );
     let mobileMessage = '0 items';
     const totalPages = getNumberOfPages(numberOfWorks, searchQuery.per_page);
     const firstElement = (Number(searchQuery.per_page || 10) * Number(searchQuery.page || 0) || 0) + 1;
@@ -136,6 +164,7 @@ class SearchResultsPage extends React.Component {
     if (searchQuery.page >= totalPages - 1 && lastElement > numberOfWorks) {
       lastElement = numberOfWorks;
     }
+
     if (numberOfWorks > 0) {
       message = `Viewing ${firstElement.toLocaleString()} - ${lastElement.toLocaleString()} of ${numberOfWorks.toLocaleString()} items`;
       mobileMessage = (
@@ -177,7 +206,9 @@ class SearchResultsPage extends React.Component {
 
     return (
       <DS.Container>
-        <main id="mainContent">
+        <main
+          id="mainContent"
+        >
           <Breadcrumbs
             router={router}
             location={this.props.location}
@@ -240,7 +271,6 @@ class SearchResultsPage extends React.Component {
                 <Filters
                   data={searchResults}
                   searchQuery={searchQuery}
-                  // userQuery={searchQuery}
                   router={router}
                 />
               </div>
@@ -271,15 +301,17 @@ class SearchResultsPage extends React.Component {
             /> */}
           </div>
         </main>
-        <DS.Modal isActive={this.state.isFilterMenuOpen}>
-          <FiltersMobile
+        {this.state.isMobile && this.state.isModalOpen && (
+        <DS.Modal>
+          <Filters
             toggleMenu={this.toggleFilterMenu}
+            isMobile={this.state.isMobile}
             data={searchResults}
             searchQuery={searchQuery}
-            // userQuery={props.userQuery}
             router={router}
           />
         </DS.Modal>
+        )}
       </DS.Container>
     );
   }
