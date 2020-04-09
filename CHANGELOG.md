@@ -1,5 +1,9 @@
 # CHANGE LOG
 
+## [0.8.6]
+### Added
+- Updating @nypl/dgx-react-footer to 0.5.4.
+
 ## [0.8.5]
 ### Added
 - Google Analytics Events for Read Online and Download links
