@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import * as DS from '@nypl/design-system-react-components';
 import ResultsList from './ResultsList';
 import Filters from './Filters';
-import FiltersMobile from './FiltersMobile';
 import { sortMap, numbersPerPage } from '../../constants/sorts';
 import { getQueryString } from '../../search/query';
 import SearchPagination from './SearchPagination';

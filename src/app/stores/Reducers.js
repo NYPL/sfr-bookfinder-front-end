@@ -44,6 +44,7 @@ export const workResult = (state = null, action) => {
 
 export const searchQuery = (state = null, action) => {
   if (action.type === Actions.SET_QUERY) {
+    console.log('sending searchQuery action', action.searchQuery);
     return action.searchQuery;
   }
 

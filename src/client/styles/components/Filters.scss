@@ -4,14 +4,6 @@
     }
   }
 
-.desktop-filter  {
-    display: none;
-
-    @include breakpoint($large) {
-      display: block;
-    }
-}
-
 .filters {
   padding: 1rem 0 1rem 2rem;
   .filters-header {

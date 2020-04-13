@@ -232,7 +232,7 @@ class SearchResultsPage extends React.Component {
                 text={`Search Results for ${this.getDisplayItemsHeading()}`}
               />
             </div>
-            <div className="results-info grid-row">
+            <div className="search-navigation">
               {this.state.isMobile ? mobileItemCount : itemCount}
               {this.state.isMobile && (
                 <div>
@@ -279,7 +279,8 @@ class SearchResultsPage extends React.Component {
               )}
             </div>
             <div className="grid-row sfr-results-container">
-              <div className="desktop-filter grid-col-3 nypl-results-column">
+              <div className="grid-col-3 nypl-results-column">
+                {!this.state.isMobile && (
                 <Filters
                   toggleMenu={this.toggleFilterMenu}
                   data={searchResults}
@@ -288,6 +289,7 @@ class SearchResultsPage extends React.Component {
                   onChangeSort={onChangeSort}
                   onChangePerPage={onChangePerPage}
                 />
+                )}
               </div>
               <div className="grid-col-9 nypl-results-main">
                 <ResultsList

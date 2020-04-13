@@ -75,9 +75,15 @@ export default class EditionCard {
   }
 
   // Subtitle
-  static getSubtitleText(subtitle) {
+  static getSubtitle(subtitle) {
     return (subtitle && subtitle.length > MAX_SUBTITILE_LENGTH
-      ? `${subtitle.substring(0, MAX_SUBTITILE_LENGTH)}...` : subtitle);
+      ? (
+        <>
+        `$
+          {subtitle.substring(0, MAX_SUBTITILE_LENGTH)}
+        ...`
+        </>
+      ) : <>{subtitle}</>);
   }
 
   // Author

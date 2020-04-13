@@ -9,14 +9,26 @@ class EditionsList extends React.Component {
     super(props);
     this.props = props;
 
-    this.getAllEditionsData = this.getAllEditionsData.bind(this);
+    this.getAllEditionsData = this.getEditionCardList.bind(this);
   }
 
-  getAllEditionsData(work, eReaderUrl, referrer) {
+  getEditionCardList(work, eReaderUrl, referrer) {
     return work.editions.map(
-      (edition) => {
+      (edition, index) => {
         const showRequestButton = this.props.getRequestEditionButton(edition);
-        return EditionCard.getEditionData(work, edition, eReaderUrl, referrer, showRequestButton);
+        const editionData = EditionCard.getEditionData(work, edition, eReaderUrl, referrer, showRequestButton);
+        return (
+          <DS.EditionCard
+            id={`"editions-list-"${index}`}
+            coverUrl={editionData.coverUrl}
+            editionHeadingElement={editionData.editionYearHeading}
+            editionInfo={[editionData.publisherAndLocation, editionData.language, editionData.license]}
+            readOnlineLink={editionData.readOnlineLink}
+            downloadLink={editionData.downloadLink}
+            noLinkElement={editionData.noLinkElement}
+          >
+          </DS.EditionCard>
+        );
       },
     );
   }
@@ -32,7 +44,8 @@ class EditionsList extends React.Component {
     }
 
     return (
-      <DS.EditionsList editions={this.getAllEditionsData(work, eReaderUrl, referrer)} />
+      // <>{this.getEditionCardList(work, eReaderUrl, referrer)}</>
+      <DS.UnorderedList>{this.getEditionCardList(work, eReaderUrl, referrer)}</DS.UnorderedList>
     );
   }
 }

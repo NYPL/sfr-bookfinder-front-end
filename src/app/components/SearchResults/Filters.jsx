@@ -22,8 +22,9 @@ const getYearsFilter = (searchQuery) => {
 class Filters extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { errorMsg: '', error: false, ...getYearsFilter(props.searchQuery) };
-    this.filtersArray = [];
+    this.state = {
+      errorMsg: '', error: false, filtersArray: [], yearStart: '', yearEnd: '',
+    };
 
     this.onChangeCheckbox = this.onChangeCheckbox.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -36,13 +37,24 @@ class Filters extends React.Component {
     this.doSearchWithFilters = this.doSearchWithFilters.bind(this);
   }
 
-  componentDidUpdate(prevProps) {
-    this.passYearSearchToState(prevProps);
+  componentDidMount() {
+    const filters = this.props.searchQuery && this.props.searchQuery.filters;
+    const filtersWithoutYear = filters ? filters.filter(fil => fil.field !== 'years') : [];
+    const yearFilter = filters ? filters.find(fil => fil.field === 'years') : null;
+    this.setState({ filtersArray: filtersWithoutYear });
+    if (yearFilter) {
+      this.setState({ yearStart: yearFilter.value.start });
+      this.setState({ yearEnd: yearFilter.value.end });
+    }
   }
 
   onChangeYear(e, yearType) {
     const val = e.target.value && Number(e.target.value);
-    this.setState({ [yearType]: val });
+    if (yearType === 'start') {
+      this.setState({ yearStart: val });
+    } else {
+      this.setState({ yearEnd: val });
+    }
   }
 
   // on check of filter, add it or remove it from list and do the search
@@ -51,72 +63,51 @@ class Filters extends React.Component {
       return;
     }
 
-    const matchIndex = this.filtersArray.findIndex(filter => filter.field === field && filter.value === value);
+    const matchIndex = this.state.filtersArray.findIndex(filter => filter.field === field && filter.value === value);
     if (negative) {
       if (!e.target.checked && matchIndex === -1) {
-        this.filtersArray.push({ field, value });
+        this.setState(prevState => ({ filtersArray: [...prevState.filtersArray, { field, value }] }),
+          () => this.doSearchWithFilters());
       } else if (matchIndex > -1) {
-        this.filtersArray.splice(matchIndex, 1);
+        this.setState(prevState => ({
+          filtersArray: prevState.filtersArray.filter(fil => !(fil.field === field && fil.value === value)),
+        }),
+        () => this.doSearchWithFilters());
       }
     } else if (e.target.checked && matchIndex === -1) {
-      this.filtersArray.push({ field, value });
+      this.setState(prevState => ({ filtersArray: [...prevState.filtersArray, { field, value }] }),
+        () => this.doSearchWithFilters());
     } else if (matchIndex > -1) {
-      this.filtersArray.splice(matchIndex, 1);
+      this.setState(prevState => ({ filtersArray: prevState.filtersArray.filter(fil => !(fil.field === field && fil.value === value)) }),
+        () => this.doSearchWithFilters());
     }
-
-    this.doSearchWithFilters(this.filtersArray);
   }
 
   onSubmit(e, toggleMenu) {
     e.preventDefault();
     e.stopPropagation();
-    const currentYearsFilter = {
-      field: 'years',
-      value: { start: this.state.start, end: this.state.end },
-    };
-    const matchIndex = this.filtersArray.findIndex(filter => filter.field === 'years');
-    if (matchIndex === -1) {
-      this.filtersArray.push(currentYearsFilter);
-    } else if (matchIndex > -1) {
-      this.filtersArray[matchIndex] = currentYearsFilter;
-      if (!this.state.start && !this.state.end) {
-        this.filtersArray.splice(matchIndex, 1);
-      }
-    }
 
-    if (currentYearsFilter && currentYearsFilter.value) {
-      if ((currentYearsFilter.value.start) && (currentYearsFilter.value.end)
-        && Number(currentYearsFilter.value.start) > Number(currentYearsFilter.value.end)) {
-        this.setState({ error: true, errorMsg: errorMessagesText.invalidDate });
-        return;
-      }
-      this.setState({ error: false, errorMsg: '' });
-    }
     if (toggleMenu) {
       toggleMenu();
     }
-    this.doSearchWithFilters(this.filtersArray);
+
+    if (this.state.yearStart && this.state.yearEnd && Number(this.state.yearStart) > Number(this.state.yearEnd)) {
+      this.setState({ error: true, errorMsg: errorMessagesText.invalidDate });
+      return;
+    }
+    this.setState({ error: false, errorMsg: '' });
+
+    this.doSearchWithFilters();
   }
 
   onErrorYears(errorObj) {
     this.setState({ error: errorObj.error, errorMsg: errorObj.errorMsg });
   }
 
-  passYearSearchToState(prevProps) {
-    const prevQueryYears = getYearsFilter(prevProps.searchQuery);
-    const queryYears = getYearsFilter(this.props.searchQuery);
-    if (prevQueryYears.start !== queryYears.start) {
-      this.setState({ start: queryYears.start });
-    }
-    if (prevQueryYears.end !== queryYears.end) {
-      this.setState({ end: queryYears.end });
-    }
-  }
-
   // join current data filters with filters from previous search
   joinFacetsAndsearch(facets, field) {
     const missingFacets = [];
-    this.filtersArray.forEach((previousFilter) => {
+    this.state.filtersArray.forEach((previousFilter) => {
       const filterFound = facets.find(facet => facet.value === previousFilter.value && previousFilter.field === field);
       if (!filterFound && previousFilter.field === field) {
         missingFacets.push({ value: previousFilter.value, count: 0 });
@@ -132,8 +123,20 @@ class Filters extends React.Component {
   }
 
   // update page in store and go to any page
-  doSearchWithFilters(filters) {
+  doSearchWithFilters() {
+    let filters = [];
+    filters = this.state.filtersArray ? this.state.filtersArray : [];
+
+    // Combine year and filtersArray states
+    if (this.state.yearStart || this.state.yearEnd) {
+      const start = this.state.yearStart ? this.state.yearStart : null;
+      const end = this.state.yearEnd ? this.state.yearEnd : null;
+      const filterValue = { start, end };
+      filters = [...filters, { field: 'years', value: Object.assign({}, filterValue) }];
+    }
+
     const newQuery = Object.assign({}, this.props.searchQuery, { filters }, { page: 0 });
+
     searchActions.userQuery(newQuery);
     this.submit(newQuery);
   }
@@ -141,8 +144,8 @@ class Filters extends React.Component {
   // see if filter is checked in previous search
   isFilterChecked(field, value) {
     let filterFound;
-    if (this.props.searchQuery && this.props.searchQuery.filters) {
-      filterFound = this.props.searchQuery.filters.find(filter => filter.field === field && filter.value === value);
+    if (this.state.filtersArray) {
+      filterFound = this.state.filtersArray.find(filter => filter.field === field && filter.value === value);
     }
     return !!filterFound;
   }
@@ -188,32 +191,45 @@ class Filters extends React.Component {
     const {
       data, toggleMenu, isMobile, searchQuery, onChangeSort, onChangePerPage,
     } = this.props;
-    const start = this.state.start;
-    const end = this.state.end;
+    const start = this.state.yearStart;
+    const end = this.state.yearEnd;
+
+    const filtersHeader = isMobile
+      ? (
+        <div className="search-navigation">
+          <DS.Button
+            id="gobackButton"
+            type="link"
+            iconPosition="left"
+            iconName="arrow-xsmall"
+            iconModifiers={['left']}
+            callback={event => this.onSubmit(event, toggleMenu)}
+          >
+          Go Back
+          </DS.Button>
+          <DS.Button
+            id="closeButton"
+            buttonType="submit"
+            callback={event => this.onSubmit(event, toggleMenu)}
+          >
+          Show Results
+          </DS.Button>
+        </div>
+      ) : (
+        <DS.Heading
+          level={2}
+          id="filter-desktop-header"
+        >
+    Refine Results
+        </DS.Heading>
+      );
+
     if (this.showFields(data).length > 0) {
       return (
         <form
           className="filters usa-form"
         >
-          <DS.Heading
-            level={2}
-            id="filter-desktop-header"
-          >
-            <>
-          Refine Results
-              {isMobile
-                && (
-                <DS.Button
-                  id="closeButton"
-                  buttonType="submit"
-                  callback={event => this.onSubmit(event, toggleMenu)}
-                >
-                Close
-                </DS.Button>
-                )
-              }
-            </>
-          </DS.Heading>
+          {filtersHeader}
           {isMobile && (
           <div className="search-dropdowns">
             <DS.Dropdown
@@ -258,7 +274,7 @@ class Filters extends React.Component {
                   fromHelper={{ content: <>EX. 1901</>, id: 'fromyearhelper', isError: false }}
 
                   toLabelOpts={{ labelContent: <>To</>, id: 'ToLabel' }}
-                  toInputOpts={{ inputId: 'fromInput', inputValue: end, onInputChange: event => this.onChangeYear(event, 'end') }}
+                  toInputOpts={{ inputId: 'toInput', inputValue: end, onInputChange: event => this.onChangeYear(event, 'end') }}
                   toHelper={{ content: <>EX. 2000</>, id: 'toYearHelper', isError: false }}
 
                   showError={this.state.error}
@@ -289,9 +305,9 @@ class Filters extends React.Component {
                         <DS.UnorderedList id="checkbox-list">
                           {this.prepareFilters(data.facets[field], field).map(facet => (
                             <DS.Checkbox
-                              className="usa-checkbox"
-                              labelClass="usa-checkbox__label"
-                              inputClass="usa-checkbox__input"
+                              className="checkbox"
+                              labelClass="checkbox__label"
+                              inputClass="checkbox__input"
                               checkboxId={`filters-${field}-${facet.value}`}
                               isSelected={this.isFilterChecked(field, facet.value)}
                               onChange={e => this.onChangeCheckbox(e, field, facet.value, false)}
@@ -330,7 +346,7 @@ class Filters extends React.Component {
                               labelContent: <>
                                 {facet.count > 0
                                   ? `${facet.value} (${facet.count.toLocaleString()})` : `${facet.value}`}
-                                            </>,
+                              </>,
                             }}
                             name={`filters.${field}`}
                             key={`filters-${field}-${facet.value}`}

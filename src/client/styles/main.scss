@@ -174,10 +174,6 @@ select {
   }
 }
 
-.results-info {
-  justify-content: space-between;
-}
-
 .filter-count::after {
     content: "|";
     padding: 0 0.2em
@@ -193,9 +189,10 @@ select {
   padding-left:  calc(-50vw + 50%);
   padding-right: calc(-50vw + 50%);
 }
-.main-promo-text {
+.main-promo-text, .search-examples {
   display: block;
   max-width: 1280px;
+  min-width: 1280px;
   margin: 0 auto;
   padding: 0 1rem;
 }
