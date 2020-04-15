@@ -3,8 +3,9 @@
 import React from 'react';
 import { stub } from 'sinon';
 import { expect } from 'chai';
-import { shallow, configure } from 'enzyme';
+import { shallow, mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import * as DS from '@nypl/design-system-react-components';
 import { mockRouterContext } from '../helpers/routing';
 import Filters from '../../src/app/components/SearchResults/Filters';
 import results from '../fixtures/results-list.json';
@@ -31,7 +32,7 @@ const noResults = {
   },
 };
 
-describe.only('Filters', () => {
+describe('Filters', () => {
   let component;
 
   describe('No results behavior.', () => {
@@ -46,18 +47,27 @@ describe.only('Filters', () => {
   describe('No results behavior with searchQuery.', () => {
     before(() => {
       const searchQuery = { filters: [{ field: 'language', value: 'English' }] };
+      const push = stub();
+      const changeSort = stub();
+      const changePerPage = stub();
+      const toggleMenu = stub();
+      const context = mockRouterContext(push);
       component = shallow(<Filters
+        toggleMenu={toggleMenu}
         data={noResults}
+        router={context.router}
         searchQuery={searchQuery}
+        onChangeSort={changeSort}
+        onChangePerPage={changePerPage}
       />);
     });
 
     it('should not return null when there is no hits and there is a searchQuery.', () => {
-      expect(component.find('Heading').exists()).to.equal(true);
+      expect(component.find(DS.Heading).exists()).to.equal(true);
     });
   });
 
-  describe('Filters behavior.', () => {
+  describe('Filters Desktop Rendering.', () => {
     before(() => {
       const searchQuery = defaultQuery;
       component = shallow(<Filters
@@ -69,97 +79,151 @@ describe.only('Filters', () => {
     it('should display a list of fields (currently 4)', () => {
       expect(component.find('fieldset')).to.have.length(4);
     });
+
     it('should display a list of filters inside the language field', () => {
       expect(
         component
-          .find('UnorderedList')
-          .find('Checkbox'),
+          .find(DS.UnorderedList)
+          .find(DS.Checkbox),
       ).to.have.length(7);
     });
+
     it('should display the maximum count of language filter first', () => {
       expect(
         component
-          .find('UnorderedList')
-          .find('Checkbox')
+          .find(DS.UnorderedList)
+          .find(DS.Checkbox)
           .first()
           .props().labelOptions.labelContent.props.children,
       ).to.equal('English (2)');
     });
 
     it('should contain Years Filter (a DateRangeForm)', () => {
-      expect(component.find('DateRangeForm')).to.have.length(1);
+      expect(component.find(DS.DateRangeForm)).to.have.length(1);
     });
+
     it('should have a Read Now filter', () => {
-      console.log('debug', component.debug);
       expect(
         component
-          .find('Checkbox')
-          .props().id,
-      ).to.equal('show_all');
+          .find(DS.Checkbox)
+          .find('[name="show_all"]'),
+      ).to.have.lengthOf(1);
     });
-    // it('should have a Read Now filter checked by default', () => {
-    //   expect(
-    //     component
-    //       .find('fieldset')
-    //       .at(0)
-    //       .find(Checkbox)
-    //       .props().isSelected,
-    //   ).to.equal(true);
-    // });
+
+    it('should have a Read Now filter checked by default', () => {
+      expect(
+        component
+          .find('fieldset')
+          .at(0)
+          .find(DS.Checkbox)
+          .props().isSelected,
+      ).to.equal(true);
+    });
   });
 
-  describe('Filter Interactions', () => {
+  describe('Filter Mobile Rendering', () => {
+    before(() => {
+      const searchQuery = defaultQuery;
+      component = shallow(<Filters
+        data={results.data}
+        searchQuery={searchQuery}
+        isMobile
+      />);
+    });
+
+    it('should display sort dropdowns', () => {
+      expect(component.find('.search-dropdowns').find(DS.Dropdown)).to.have.length(2);
+    });
+
+    it('should display a list of fields (currently 4)', () => {
+      expect(component.find('fieldset')).to.have.length(4);
+    });
+
+    it('should display a list of filters inside the language field', () => {
+      expect(
+        component
+          .find(DS.UnorderedList)
+          .find(DS.Checkbox),
+      ).to.have.length(7);
+    });
+    it('should display the maximum count of language filter first', () => {
+      expect(
+        component
+          .find(DS.UnorderedList)
+          .find(DS.Checkbox)
+          .first()
+          .props().labelOptions.labelContent.props.children,
+      ).to.equal('English (2)');
+    });
+
+    it('should contain Years Filter (a DateRangeForm)', () => {
+      expect(component.find(DS.DateRangeForm)).to.have.length(1);
+    });
+
+    it('should have a Read Now filter', () => {
+      expect(
+        component
+          .find(DS.Checkbox)
+          .find('[name="show_all"]'),
+      ).to.have.lengthOf(1);
+    });
+    it('should have a Read Now filter checked by default', () => {
+      expect(
+        component
+          .find('fieldset')
+          .at(0)
+          .find(DS.Checkbox)
+          .props().isSelected,
+      ).to.equal(true);
+    });
+  });
+
+  describe('Filter Year Interactions', () => {
     let wrapper;
     let context;
     let childContextTypes;
     const push = stub();
     let start;
     let end;
+    let submitButton;
 
     before(() => {
       context = mockRouterContext(push);
       childContextTypes = mockRouterContext(push);
 
-      wrapper = shallow(<Filters
+      wrapper = mount(<Filters
         data={results.data}
         searchQuery={defaultQuery}
         router={context.router}
       />, { context, childContextTypes });
-      start = wrapper.find('FilterYears').dive().find({ name: 'filters.years.start' }).dive()
-        .find('.usa-input');
-      end = wrapper.find('FilterYears').dive().find({ name: 'filters.years.end' }).dive()
-        .find('.usa-input');
+      start = wrapper.find(DS.DateRangeForm).find('input#fromInput');
+      end = wrapper.find(DS.DateRangeForm).find('input#toInput');
+
+      submitButton = wrapper.find(DS.DateRangeForm).find('[type="submit"]');
     });
 
     it('no error on start date with no end date', () => {
       start.simulate('change', { target: { key: 'filters.years.start', name: 'filters.years.start', value: '1990' } });
 
-      wrapper.find('form').simulate('submit', {
-        preventDefault: () => { },
-        stopPropagation: () => { },
-      });
-      expect(wrapper.find('.usa-alert__text').exists()).to.equal(false);
+      submitButton.simulate('click');
+
+      expect(wrapper.find('#date-range-error').exists()).to.equal(false);
     });
 
     it('no error on end date with no start date', () => {
       end.simulate('change', { target: { key: 'filters.years.end', name: 'filters.years.end', value: '1990' } });
 
-      wrapper.find('form').simulate('submit', {
-        preventDefault: () => { },
-        stopPropagation: () => { },
-      });
-      expect(wrapper.find('.usa-alert__text').exists()).to.equal(false);
+      submitButton.simulate('click');
+
+      expect(wrapper.find('#date-range-error').exists()).to.equal(false);
     });
 
     it('displays error on invalid date range', () => {
-      wrapper.instance().onChangeYears({ start: 1992, end: 1990 });
+      start.simulate('change', { target: { key: 'filters.years.start', name: 'filters.years.start', value: '1992' } });
+      end.simulate('change', { target: { key: 'filters.years.end', name: 'filters.years.end', value: '1990' } });
 
-      wrapper.find('form').simulate('submit', {
-        preventDefault: () => { },
-        stopPropagation: () => { },
-      });
-
-      expect(wrapper.find('.usa-alert__text').exists()).to.equal(true);
+      submitButton.simulate('click', { target: {} });
+      expect(wrapper.find('#date-range-error').exists()).to.equal(true);
     });
   });
 });

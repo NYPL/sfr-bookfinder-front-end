@@ -130,7 +130,6 @@ class LandingPage extends React.Component {
                       url={sub.url}
                     >
                       {sub.text}
-
                     </DS.IconLink>
                   ))}
                 </DS.UnorderedList>

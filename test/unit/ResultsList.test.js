@@ -67,7 +67,7 @@ describe('Results List', () => {
     describe('Complete Results Data', () => {
       let resultsData;
       before(() => {
-        resultsData = component.instance().formatAllResultsData(results.data.works, 'eReaderUrl', 'Referrer')[0];
+        resultsData = component.instance().formatAllResultsData(results.data.works, 'eReaderUrl', 'Referrer')[0].props;
       });
       it('result data has id', () => {
         expect(resultsData.id).to.equal('search-result-07737109-2d77-4fb3-b23e-7991339216fb');
@@ -76,13 +76,13 @@ describe('Results List', () => {
         expect(resultsData.resultIndex).to.equal(0);
       });
       it('result data has title element', () => {
-        expect(mount(resultsData.titleElement).text()).to.equal('The Blithedale romance, by Nathaniel Hawthorne.');
+        expect(mount(<span>{resultsData.headingContent}</span>).text()).to.equal('The Blithedale romance, by Nathaniel Hawthorne.');
       });
       it('result data has subtitle text', () => {
-        expect(resultsData.subtitle).to.equal('subtitle subtitle subtitle subtitle subtitle');
+        expect(mount(resultsData.subtitleContent).text()).to.equal('subtitle subtitle subtitle subtitle subtitle');
       });
       it('result data has author element', () => {
-        expect(mount(<span>{resultsData.authorElement}</span>).text()).to.equal('Hawthorne, Nathaniel');
+        expect(mount(<span>{resultsData.authorLinkElement}</span>).text()).to.equal('Hawthorne, Nathaniel');
       });
       it('result data has year heading element', () => {
         expect(mount(<span>{resultsData.editionInfo.editionYearHeading}</span>).text()).to.equal('1852 Edition');
@@ -117,7 +117,7 @@ describe('Results List', () => {
     describe('Missing Results Data', () => {
       let resultsData;
       before(() => {
-        resultsData = component.instance().formatAllResultsData([{}], 'eReaderUrl', 'Referrer')[0];
+        resultsData = component.instance().formatAllResultsData([{}], 'eReaderUrl', 'Referrer')[0].props;
       });
       it('Empty result data has id', () => {
         expect(resultsData.id).to.equal('search-result-undefined');
@@ -126,7 +126,7 @@ describe('Results List', () => {
         expect(resultsData.resultIndex).to.equal(0);
       });
       it('Empty result data has unknown title', () => {
-        expect(mount(resultsData.titleElement).text()).to.equal('Title Unknown');
+        expect(mount(resultsData.headingContent).text()).to.equal('Title Unknown');
       });
       it('result data has no subtitle text', () => {
         expect(resultsData.subtitle).to.equal(undefined);

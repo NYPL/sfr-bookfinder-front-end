@@ -4,21 +4,10 @@ import * as DS from '@nypl/design-system-react-components';
 import { ButtonTypes, ButtonIconPositions } from '@nypl/design-system-react-components/lib/components/01-atoms/Button/ButtonTypes';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
 import { getQueryString } from '../../search/query';
-import {
-  yearsType, filtersLabels, formatTypes, errorMessagesText,
-} from '../../constants/labels';
+import { filtersLabels, formatTypes, errorMessagesText } from '../../constants/labels';
 import * as searchActions from '../../actions/SearchActions';
 import { sortMap, numbersPerPage } from '../../constants/sorts';
 import { deepEqual } from '../../util/Util';
-
-const getYearsFilter = (searchQuery) => {
-  const yearsValues = {};
-  Object.keys(yearsType).forEach((yearType) => {
-    const yearValue = searchQuery && searchQuery.filters && searchQuery.filters.find(filter => filter.field === 'years');
-    yearsValues[yearType] = yearValue && yearValue.value[yearType] ? Number(yearValue.value[yearType]) : '';
-  });
-  return yearsValues;
-};
 
 class Filters extends React.Component {
   constructor(props) {
@@ -91,7 +80,6 @@ class Filters extends React.Component {
     if (toggleMenu) {
       toggleMenu();
     }
-
     if (this.state.yearStart && this.state.yearEnd && Number(this.state.yearStart) > Number(this.state.yearEnd)) {
       this.setState({ error: true, errorMsg: errorMessagesText.invalidDate });
       return;
@@ -206,7 +194,7 @@ class Filters extends React.Component {
             iconModifiers={['left']}
             callback={event => this.onSubmit(event, toggleMenu)}
           >
-          Go Back
+            Go Back
           </DS.Button>
           <DS.Button
             id="closeButton"
@@ -221,7 +209,7 @@ class Filters extends React.Component {
           level={2}
           id="filter-desktop-header"
         >
-    Refine Results
+          Refine Results
         </DS.Heading>
       );
 
@@ -317,7 +305,7 @@ class Filters extends React.Component {
                                 labelContent: <>
                                   {facet.count > 0
                                     ? `${facet.value} (${facet.count.toLocaleString()})` : `${facet.value}`}
-                                              </>,
+                                </>,
                               }}
                               name={`filters.${field}`}
                               key={`filters-${field}-${facet.value}`}
@@ -347,7 +335,7 @@ class Filters extends React.Component {
                               labelContent: <>
                                 {facet.count > 0
                                   ? `${facet.value} (${facet.count.toLocaleString()})` : `${facet.value}`}
-                              </>,
+                                            </>,
                             }}
                             name={`filters.${field}`}
                             key={`filters-${field}-${facet.value}`}

@@ -6,6 +6,7 @@ import { stub } from 'sinon';
 import chai, { expect } from 'chai';
 import { mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import * as DS from '@nypl/design-system-react-components';
 import configureStore from '../../src/app/stores/configureStore';
 import initialState from '../../src/app/stores/InitialState';
 import SearchResultsPage, { loadSearch, isValidSearchQuery } from '../../src/app/components/SearchResults/SearchResultsPage';
@@ -123,8 +124,56 @@ describe('Search Results Page', () => {
     it('contains an <h1>', () => {
       expect(wrapper.find('h1')).to.have.length(1);
     });
-    it('contains a <SearchResults /> component', () => {
-      expect(wrapper.find('SearchResults').exists()).to.equal(true);
+    it('contains sort dropdowns', () => {
+      expect(wrapper.find('.search-dropdowns').find(DS.Dropdown)).to.have.length(2);
+    });
+    it('contains filters', () => {
+      expect(wrapper.find('Filters')).to.have.length(1);
+    });
+    it('contains pagination', () => {
+      expect(wrapper.find('SearchPagination')).to.have.length(1);
+    });
+    it('does not contain "Refine" button', () => {
+      expect(wrapper.find('.filter-refine').exists()).to.equal(false);
+    });
+  });
+
+  describe('Search Results Mobile view', () => {
+    let wrapper;
+
+    before(() => {
+      const push = stub();
+      const context = mockRouterContext(push);
+      const childContextTypes = mockRouterContext(push);
+
+      const store = configureStore(initialState);
+      wrapper = mount(<SearchResultsPage store={store} />, { context, childContextTypes });
+      wrapper.find('SearchResultsPage').setState({ isMobile: true });
+    });
+
+    it('contains "Refine" button in narrow screen', () => {
+      expect(wrapper.find('.filter-refine').exists()).to.equal(true);
+    });
+    it('Does not contain filters', () => {
+      expect(wrapper.find('Filters').exists()).to.equal(false);
+    });
+  });
+
+  describe('Filter show/hide interactions', () => {
+    let wrapper;
+
+    before(() => {
+      const push = stub();
+      const context = mockRouterContext(push);
+      const childContextTypes = mockRouterContext(push);
+
+      const store = configureStore(initialState);
+      wrapper = mount(<SearchResultsPage store={store} />, { context, childContextTypes });
+      wrapper.find('SearchResultsPage').setState({ isMobile: true });
+    });
+    it('Shows filter when "Refine" is clicked', () => {
+      wrapper.find('#btn-filter-button').simulate('click');
+      expect(wrapper.find('Filters').exists()).to.equal(true);
     });
   });
 });

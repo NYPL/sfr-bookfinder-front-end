@@ -234,20 +234,3 @@ h2#featured-edition {
 .page-title__heading {
   flex: 1 1 0;
 }
-
-// Items that use DS mixins
-.mobile-only {
-  display: inherit;
-
-  @include breakpoint($large) {
-    display: none;
-  }
-}
-
-.desktop-only { 
-  display: none;
-
-  @include breakpoint($large) {
-    display: inherit;
-  }
-}

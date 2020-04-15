@@ -32,7 +32,7 @@ describe('Landing Page render', () => {
     expect(wrapper.find(DS.UnorderedList)).to.have.length(1);
   });
   it('contains a list of subjects', () => {
-    const browseList = wrapper.find({ 'aria-labelledby': 'subject-browse-list' });
+    const browseList = wrapper.find(DS.UnorderedList);
     expect(browseList).to.have.length(1);
     expect(browseList.find('li')).to.have.length(5);
   });

@@ -203,8 +203,6 @@ class SearchResultsPage extends React.Component {
         submit(newQuery, router);
       }
     };
-
-
     return (
       <DS.Container>
         <main
@@ -236,12 +234,14 @@ class SearchResultsPage extends React.Component {
             <div className="search-navigation">
               {this.state.isMobile ? mobileItemCount : itemCount}
               {this.state.isMobile && (
-                <div>
+                <div className="filter-refine">
+                  {filterCount !== 0 && (
                   <span className="filter-count">
                     {filterCount}
                     {' '}
                     {filterCount === 1 ? 'filter' : 'filters'}
                   </span>
+                  )}
                   <DS.Button
                     id="filter-button"
                     buttonType={ButtonTypes.Link}
@@ -329,7 +329,6 @@ class SearchResultsPage extends React.Component {
 SearchResultsPage.propTypes = {
   searchResults: PropTypes.objectOf(PropTypes.any),
   searchQuery: searchQueryPropTypes,
-  // workResult: PropTypes.objectOf(PropTypes.any),
   dispatch: PropTypes.func,
   eReaderUrl: PropTypes.string,
   location: PropTypes.objectOf(PropTypes.any),
@@ -338,7 +337,6 @@ SearchResultsPage.propTypes = {
 SearchResultsPage.defaultProps = {
   searchResults: {},
   searchQuery: initialSearchQuery,
-  // workResult: {},
   dispatch: () => { },
   eReaderUrl: '',
   location: {},
