@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as DS from '@nypl/design-system-react-components';
+import { ButtonTypes, ButtonIconPositions } from '@nypl/design-system-react-components/lib/components/01-atoms/Button/ButtonTypes';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
 import { getQueryString } from '../../search/query';
 import {
@@ -199,8 +200,8 @@ class Filters extends React.Component {
         <div className="search-navigation">
           <DS.Button
             id="gobackButton"
-            type="link"
-            iconPosition="left"
+            buttonType={ButtonTypes.Link}
+            iconPosition={ButtonIconPositions.Left}
             iconName="arrow-xsmall"
             iconModifiers={['left']}
             callback={event => this.onSubmit(event, toggleMenu)}
@@ -209,7 +210,7 @@ class Filters extends React.Component {
           </DS.Button>
           <DS.Button
             id="closeButton"
-            buttonType="submit"
+            type="submit"
             callback={event => this.onSubmit(event, toggleMenu)}
           >
           Show Results
@@ -280,7 +281,7 @@ class Filters extends React.Component {
                   showError={this.state.error}
                   error={{ content: <>{this.state.errorMsg}</>, id: 'date-range-error', isError: true }}
 
-                  buttonProps={!isMobile
+                  buttonOpts={!isMobile
                     ? { id: 'submitButtonId', callback: event => this.onSubmit(event, toggleMenu), content: <>Apply</> }
                     : null}
                 />

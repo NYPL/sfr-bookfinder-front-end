@@ -119,7 +119,10 @@ class LandingPage extends React.Component {
                   headingText="Search Examples"
                 >
                 </DS.SectionTitle>
-                <DS.UnorderedList id="subject-list">
+                <DS.UnorderedList
+                  id="subject-list"
+                  blockName="list-iconLink"
+                >
                   {Subjects.map((sub, idx) => (
                     <DS.IconLink
                       // eslint-disable-next-line react/no-array-index-key

@@ -189,7 +189,7 @@ select {
   padding-left:  calc(-50vw + 50%);
   padding-right: calc(-50vw + 50%);
 }
-.main-promo-text, .search-examples {
+.main-promo-text, .search-examples, .header-with-image-right__text {
   display: block;
   max-width: 1280px;
   min-width: 1280px;
@@ -229,6 +229,10 @@ h2#featured-edition {
 
 .header-with-image-right__content {
   max-width: unset;
+}
+
+.page-title__heading {
+  flex: 1 1 0;
 }
 
 // Items that use DS mixins

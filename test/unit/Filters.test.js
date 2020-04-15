@@ -90,6 +90,7 @@ describe.only('Filters', () => {
       expect(component.find('DateRangeForm')).to.have.length(1);
     });
     it('should have a Read Now filter', () => {
+      console.log('debug', component.debug);
       expect(
         component
           .find('Checkbox')

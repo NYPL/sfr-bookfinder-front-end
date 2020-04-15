@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import * as DS from '@nypl/design-system-react-components';
+import { ButtonTypes } from '@nypl/design-system-react-components/lib/components/01-atoms/Button/ButtonTypes';
 import ResultsList from './ResultsList';
 import Filters from './Filters';
 import { sortMap, numbersPerPage } from '../../constants/sorts';
@@ -71,7 +72,7 @@ const SearchResults = (props) => {
         items
         <DS.Button
           id="filter-button"
-          type="link"
+          buttonType={ButtonTypes.Link}
           callback={onToggleMenu}
         >
       Refine
