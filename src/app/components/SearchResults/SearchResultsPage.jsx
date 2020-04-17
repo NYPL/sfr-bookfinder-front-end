@@ -280,8 +280,8 @@ class SearchResultsPage extends React.Component {
               )}
             </div>
             <div className="grid-row sfr-results-container">
-              <div className="grid-col-3 nypl-results-column">
-                {!this.state.isMobile && (
+              {!this.state.isMobile && (
+              <div className="nypl-results-column">
                 <Filters
                   toggleMenu={this.toggleFilterMenu}
                   data={searchResults}
@@ -290,9 +290,9 @@ class SearchResultsPage extends React.Component {
                   onChangeSort={onChangeSort}
                   onChangePerPage={onChangePerPage}
                 />
-                )}
               </div>
-              <div className="grid-col-9 nypl-results-main">
+              )}
+              <div className="nypl-results-main">
                 <ResultsList
                   results={works}
                   eReaderUrl={eReaderUrl}

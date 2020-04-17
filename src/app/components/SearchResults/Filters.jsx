@@ -267,7 +267,7 @@ class Filters extends React.Component {
                   toHelper={{ content: <>EX. 2000</>, id: 'toYearHelper', isError: false }}
 
                   showError={this.state.error}
-                  error={{ content: <>{this.state.errorMsg}</>, id: 'date-range-error', isError: true }}
+                  error={{ content: <div>{this.state.errorMsg}</div>, id: 'date-range-error', isError: true }}
 
                   buttonOpts={!isMobile
                     ? { id: 'submitButtonId', callback: event => this.onSubmit(event, toggleMenu), content: <>Apply</> }
@@ -305,7 +305,7 @@ class Filters extends React.Component {
                                 labelContent: <>
                                   {facet.count > 0
                                     ? `${facet.value} (${facet.count.toLocaleString()})` : `${facet.value}`}
-                                </>,
+                                              </>,
                               }}
                               name={`filters.${field}`}
                               key={`filters-${field}-${facet.value}`}
@@ -335,7 +335,7 @@ class Filters extends React.Component {
                               labelContent: <>
                                 {facet.count > 0
                                   ? `${facet.value} (${facet.count.toLocaleString()})` : `${facet.value}`}
-                                            </>,
+                              </>,
                             }}
                             name={`filters.${field}`}
                             key={`filters-${field}-${facet.value}`}

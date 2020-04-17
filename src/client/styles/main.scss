@@ -111,6 +111,10 @@ body {
   // width: 100%;
   margin: 0 auto;
 }
+.sfr-results-container { 
+  display: flex;
+  flex-flow: row;
+}
 
 .visuallyhidden {
   border: 0;
