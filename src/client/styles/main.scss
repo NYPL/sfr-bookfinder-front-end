@@ -42,6 +42,7 @@ html {
 body {
   height: 100%;
 }
+
 #app {
   margin: 0;
   height: 100%;
@@ -110,6 +111,10 @@ body {
   // width: 100%;
   margin: 0 auto;
 }
+.sfr-results-container { 
+  display: flex;
+  flex-flow: row;
+}
 
 .visuallyhidden {
   border: 0;
@@ -173,6 +178,10 @@ select {
   }
 }
 
+.filter-count::after {
+    content: "|";
+    padding: 0 0.2em
+}
 //DS Overrides: 
 .header-with-image-right__image {
   display: none;
@@ -184,9 +193,10 @@ select {
   padding-left:  calc(-50vw + 50%);
   padding-right: calc(-50vw + 50%);
 }
-.main-promo-text {
+.main-promo-text, .search-examples, .header-with-image-right__text {
   display: block;
   max-width: 1280px;
+  min-width: 1280px;
   margin: 0 auto;
   padding: 0 1rem;
 }
@@ -223,4 +233,8 @@ h2#featured-edition {
 
 .header-with-image-right__content {
   max-width: unset;
+}
+
+.page-title__heading {
+  flex: 1 1 0;
 }
