@@ -1,56 +1,40 @@
-.nypl-details-table {
+dl.nypl-details-table {
   width: 100%;
   margin: 0 0 40px 0;
-  thead {
-    tr {
-      border-bottom: 1px solid #5b616b;
-    }
+
+
+  border-bottom: 1px solid #5b616b;
+  display: flex;
+  flex-flow: column;
+
+  @include breakpoint($large) {
+    flex-flow: row wrap;
   }
-  tbody {
-    border-top: 1px solid black;
-    tr {
-      border-bottom: 1px solid #5b616b;
-      th {
-        width: 182px;
-        height: 24px;
-        text-align: left;
-        padding-top: 12px;
-        padding-bottom: 12px;
-        border-right: 1px solid #5b616b;
-        padding-left: 20px;
-        padding-right: 20px;
-        vertical-align: top;
+    dt {
+      @include space-inset-xs;
+
+      border-top: 1px solid #5b616b;
+      flex: 0 1 20%;
+      text-align: left;
+      font-weight: 500;
+    }
+    dd {
+      @include space-inset-xs;
+
+      flex: 0 1 80%;
+      text-align: left;
+      margin-left: 0;
+
+      @include breakpoint($large) {
+        border-top: 1px solid #5b616b;
       }
-      td {
-        height: 24px;
-        text-align: left;
-        border-right: 1px solid #5b616b;
-        padding-top: 12px;
-        padding-bottom: 12px;
-        padding-left: 20px;
-        padding-right: 20px;
-        vertical-align: top;
-        &:last-child {
-          border-right: none;
-        }
-        ul {
-          list-style: none;
-          padding: 0;
-          margin: 0;
-          li {
-            margin-left: 0;
-          }
-          &.sfr-inline-list {
-            display: inline;
-            white-space: normal;
-            li {
-              display: inline;
-            }
-          }
-        }
+
+      ul {
+        list-style: none;
+        padding: 0;
       }
     }
-  }
+  
 }
 .work-details-tag {
   a {
