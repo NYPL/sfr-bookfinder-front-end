@@ -12,17 +12,14 @@ import { formatUrl, joinArrayOfElements, getNumberOfPages } from '../../src/app/
 configure({ adapter: new Adapter() });
 
 describe('formatUrl', () => {
-  it('prefixes a url with http in development', () => {
-    expect(formatUrl('www.nypl.org', 'development')).to.equal('http://www.nypl.org');
+  it('prefixes a url with https in all environments', () => {
+    expect(formatUrl('www.nypl.org')).to.equal('https://www.nypl.org');
   });
-  it('prefixes a url with https in production', () => {
-    expect(formatUrl('www.nypl.org', 'production')).to.equal('https://www.nypl.org');
-  });
-  it('changes https to http in development', () => {
-    expect(formatUrl('https://nypl.org', 'development')).to.equal('http://nypl.org');
-  });
-  it('passes through http in production', () => {
+  it('passes through http', () => {
     expect(formatUrl('http://nypl.org', 'production')).to.equal('http://nypl.org');
+  });
+  it('passes through https', () => {
+    expect(formatUrl('https://nypl.org', 'production')).to.equal('https://nypl.org');
   });
 });
 

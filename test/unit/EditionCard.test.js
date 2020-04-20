@@ -477,7 +477,8 @@ describe('Edition Card', () => {
           images: true,
           ebook: true,
         }];
-      expect(EditionCard.getDownloadLink(testItem)).to.equal('https://download-url');
+      const downloadComponent = EditionCard.getDownloadLink(work, testItem);
+      expect(downloadComponent.props.href).to.equal('https://download-url');
     });
     it('should return the first link if multiple are downloadable', () => {
       testItem.links = [
@@ -501,7 +502,8 @@ describe('Edition Card', () => {
           images: true,
           ebook: true,
         }];
-      expect(EditionCard.getDownloadLink(testItem)).to.equal('https://download-url-1');
+      const downloadComponent = EditionCard.getDownloadLink(work, testItem);
+      expect(downloadComponent.props.href).to.equal('https://download-url-1');
     });
     it('should return undefined if links are null', () => {
       testItem.links = null;
@@ -662,7 +664,7 @@ describe('Edition Card', () => {
         expect(linkComponent.prop('to').search).to.equal('?url=https://archive.org/details/blithedaleromanc00hawtrich');
       });
       it('Edition has Download link', () => {
-        expect(editionData.downloadLink).to.equal('https://catalog.hathitrust.org/api/volumes/oclc/39113388.html');
+        expect(editionData.downloadLink.props.href).to.equal('https://catalog.hathitrust.org/api/volumes/oclc/39113388.html');
       });
     });
 

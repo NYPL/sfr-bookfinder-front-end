@@ -4,6 +4,21 @@
 - Filters now hide on mobile and show in sidebar.  
 - Updated to Design System 0.1.0
 
+## [0.8.5]
+### Added
+- Google Analytics Events for Read Online and Download links
+### Fixed
+- Local and development environments HTTP protocals
+
+## [0.8.4]
+### Added
+- Production deployment step to TravisCI
+
+## [0.8.3] 
+### Fixed 
+- iframe scrolling
+- VIAF searches no longer visibly show on page. 
+
 ## [0.8.2] 
 ### Added
 - Form to request digitization that writes to an Airtable instance.  

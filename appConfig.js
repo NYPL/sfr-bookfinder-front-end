@@ -11,9 +11,11 @@ export default {
     production: 'https://digital-research-books-reader.nypl.org',
   },
   api: {
+    local: 'https://dev-platform.nypl.org/api/v0.1/research-now/v3',
     development: 'https://dev-platform.nypl.org/api/v0.1/research-now/v3',
     production: 'https://digital-research-books-api.nypl.org/v3/sfr',
     searchPath: {
+      local: '/search-api',
       development: '/search-api',
       production: '/search',
     },
@@ -29,6 +31,7 @@ export default {
     experimentName: 'RequestDigital',
   },
   analytics: {
+    local: '',
     development: 'UA-1420324-149',
     production: 'UA-1420324-149',
   },

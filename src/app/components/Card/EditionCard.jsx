@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { gaUtils } from 'dgx-react-ga';
 import { Html5Entities } from 'html-entities';
 import * as DS from '@nypl/design-system-react-components';
 import {
@@ -123,7 +124,7 @@ export default class EditionCard {
     if (!previewEdition.covers || !previewEdition.covers.length) return PLACEHOLDER_COVER_LINK;
 
     const firstLocalCover = previewEdition.covers.find(cover => cover.flags.temporary === false);
-    return firstLocalCover ? formatUrl(firstLocalCover.url, process.env.APP_ENV) : PLACEHOLDER_COVER_LINK;
+    return firstLocalCover ? formatUrl(firstLocalCover.url) : PLACEHOLDER_COVER_LINK;
   }
 
   // Publisher Location and name
@@ -174,7 +175,7 @@ export default class EditionCard {
   // This is specific to and backwards-engineered from the webpub-viewer URLs.
   // and should be changed when webpub-viewer is able to generate more reasonable URLs.
   static generateStreamedReaderUrl(url, eReaderUrl, referrer) {
-    const base64BookUrl = Buffer.from(formatUrl(url, process.env.APP_ENV)).toString('base64');
+    const base64BookUrl = Buffer.from(formatUrl(url)).toString('base64');
     const encodedBookUrl = encodeURIComponent(`${base64BookUrl}`);
 
     let combined = `${eReaderUrl}/readerNYPL/?url=${eReaderUrl}/pub/${encodedBookUrl}/manifest.json`;
@@ -195,6 +196,7 @@ export default class EditionCard {
         <Link
           className="edition-card__card-info-link"
           to={{ pathname: '/read-online', search: `?url=${encodeURI(encodedUrl)}`, state: { work } }}
+          onClick={() => gaUtils.trackGeneralEvent('Read Online', editionItem.source, work.title, '')}
         >
           Read Online
         </Link>
@@ -203,17 +205,29 @@ export default class EditionCard {
     return (
       <Link
         className="edition-card__card-info-link"
-        to={{ pathname: '/read-online', search: `?url=${formatUrl(selectedLink.url, process.env.APP_ENV)}`, state: { work } }}
+        to={{ pathname: '/read-online', search: `?url=${formatUrl(selectedLink.url)}`, state: { work } }}
+        onClick={() => gaUtils.trackGeneralEvent('Read Online', editionItem.source, work.title, '')}
       >
         Read Online
       </Link>
     );
   }
 
-  static getDownloadLink(editionItem) {
+  static getDownloadLink(work, editionItem) {
     if (!editionItem || !editionItem.links) return undefined;
     const selectedLink = editionItem.links.find(link => link.download);
-    return selectedLink && selectedLink.url ? formatUrl(selectedLink.url, process.env.APP_ENV) : undefined;
+
+    if (selectedLink && selectedLink.url) {
+      return (
+        <a
+          className="edition-card__card-info-link"
+          href={`${formatUrl(selectedLink.url, process.env.APP_ENV)}`}
+          onClick={() => gaUtils.trackGeneralEvent('Download', editionItem.source, work.title, '')}
+        >
+          Download
+        </a>
+      );
+    }
   }
 
   static getNoLinkElement(showRequestButton) {
@@ -242,7 +256,7 @@ export default class EditionCard {
       language: EditionCard.getLanguageDisplayText(edition),
       license: <DS.UnderlineLink><Link to="/license">{ EditionCard.getLicense(editionItem) }</Link></DS.UnderlineLink>,
       readOnlineLink: EditionCard.getReadOnlineLink(work, editionItem, eReaderUrl, referrer),
-      downloadLink: EditionCard.getDownloadLink(editionItem),
+      downloadLink: EditionCard.getDownloadLink(work, editionItem),
       noLinkElement: EditionCard.getNoLinkElement(showRequestButton),
     };
   }
