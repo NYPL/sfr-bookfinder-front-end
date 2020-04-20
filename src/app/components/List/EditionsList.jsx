@@ -20,6 +20,8 @@ class EditionsList extends React.Component {
         return (
           <DS.EditionCard
             id={`"editions-list-"${index}`}
+            // eslint-disable-next-line react/no-array-index-key
+            key={`"editions-list-"${index}`}
             coverUrl={editionData.coverUrl}
             editionHeadingElement={editionData.editionYearHeading}
             editionInfo={[editionData.publisherAndLocation, editionData.language, editionData.license]}

@@ -87,6 +87,7 @@ class ResultsList extends React.Component {
       return (
         <DS.SearchResultItem
           id={`search-result-${result.uuid}`}
+          key={`search-result-${result.uuid}`}
           resultIndex={index}
           headingContent={titleElement}
           subtitleContent={EditionCard.getSubtitle(result.sub_title)}

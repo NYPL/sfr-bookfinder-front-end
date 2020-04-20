@@ -121,7 +121,7 @@ class Filters extends React.Component {
       const start = this.state.yearStart ? this.state.yearStart : null;
       const end = this.state.yearEnd ? this.state.yearEnd : null;
       const filterValue = { start, end };
-      filters = [...filters, { field: 'years', value: Object.assign({}, filterValue) }];
+      filters = [...filters, { field: 'years', value: filterValue }];
     }
 
     const newQuery = Object.assign({}, this.props.searchQuery, { filters }, { page: 0 });
@@ -213,6 +213,34 @@ class Filters extends React.Component {
         </DS.Heading>
       );
 
+    const languageList = (
+      <DS.UnorderedList
+        id="checkbox-list"
+        modifiers={isMobile ? ['scroll'] : null}
+      >
+        {data.facets && this.prepareFilters(data.facets.language, 'language').map(facet => (
+          <DS.Checkbox
+            className="checkbox"
+            labelClass="checkbox__label"
+            inputClass="checkbox__input"
+            checkboxId={`filters-${'language'}-${facet.value}`}
+            isSelected={this.isFilterChecked('language', facet.value)}
+            onChange={e => this.onChangeCheckbox(e, 'language', facet.value, false)}
+            labelOptions={{
+              id: `filters-${'language'}-${facet.value}-label`,
+              labelContent: <>
+                {facet.count > 0
+                  ? `${facet.value} (${facet.count.toLocaleString()})` : `${facet.value}`}
+              </>,
+            }}
+            name={`filters.${'language'}`}
+            key={`filters-${'language'}-${facet.value}`}
+          />
+
+        ))}
+      </DS.UnorderedList>
+    );
+
     if (this.showFields(data).length > 0) {
       return (
         <form
@@ -291,60 +319,11 @@ class Filters extends React.Component {
                       <DS.Accordion
                         buttonOptions={{ id: 'accordionBtn', content: <span>Click to expand</span> }}
                       >
-                        <DS.UnorderedList id="checkbox-list">
-                          {this.prepareFilters(data.facets[field], field).map(facet => (
-                            <DS.Checkbox
-                              className="checkbox"
-                              labelClass="checkbox__label"
-                              inputClass="checkbox__input"
-                              checkboxId={`filters-${field}-${facet.value}`}
-                              isSelected={this.isFilterChecked(field, facet.value)}
-                              onChange={e => this.onChangeCheckbox(e, field, facet.value, false)}
-                              labelOptions={{
-                                id: `filters-${field}-${facet.value}-label`,
-                                labelContent: <>
-                                  {facet.count > 0
-                                    ? `${facet.value} (${facet.count.toLocaleString()})` : `${facet.value}`}
-                                              </>,
-                              }}
-                              name={`filters.${field}`}
-                              key={`filters-${field}-${facet.value}`}
-                            />
-
-                          ))}
-                        </DS.UnorderedList>
+                        {languageList}
                       </DS.Accordion>
                       )
                     }
-                      {!isMobile
-                      && (
-                      <DS.UnorderedList
-                        id="checkbox-list"
-                        scroll
-                      >
-                        {this.prepareFilters(data.facets[field], field).map(facet => (
-                          <DS.Checkbox
-                            className="usa-checkbox"
-                            labelClass="usa-checkbox__label"
-                            inputClass="usa-checkbox__input"
-                            checkboxId={`filters-${field}-${facet.value}`}
-                            isSelected={this.isFilterChecked(field, facet.value)}
-                            onChange={e => this.onChangeCheckbox(e, field, facet.value, false)}
-                            labelOptions={{
-                              id: `filters-${field}-${facet.value}-label`,
-                              labelContent: <>
-                                {facet.count > 0
-                                  ? `${facet.value} (${facet.count.toLocaleString()})` : `${facet.value}`}
-                              </>,
-                            }}
-                            name={`filters.${field}`}
-                            key={`filters-${field}-${facet.value}`}
-                          />
-
-                        ))}
-                      </DS.UnorderedList>
-                      )
-                      }
+                      {!isMobile && languageList}
                   </>
                 )
               }
