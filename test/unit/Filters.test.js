@@ -196,8 +196,8 @@ describe('Filters', () => {
         searchQuery={defaultQuery}
         router={context.router}
       />, { context, childContextTypes });
-      start = wrapper.find(DS.DateRangeForm).find('input#fromInput');
-      end = wrapper.find(DS.DateRangeForm).find('input#toInput');
+      start = wrapper.find(DS.DateRangeForm).find('#input-fromInput');
+      end = wrapper.find(DS.DateRangeForm).find('#input-toInput');
 
       submitButton = wrapper.find(DS.DateRangeForm).find('[type="submit"]');
     });
