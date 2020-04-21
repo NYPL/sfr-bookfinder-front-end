@@ -18,21 +18,21 @@ describe('DefinitionList', () => {
   });
 
   it('should display a definition list of detail elements', () => {
-    expect(component.find('table')).to.have.length(1);
-    expect(component.find('tr')).to.have.length(5);
-    expect(component.find('td')).to.have.length(5);
-    const terms = component.find('th');
+    expect(component.find('dl')).to.have.length(1);
+    expect(component.find('dt')).to.have.length(4);
+    expect(component.find('dd')).to.have.length(4);
+    const terms = component.find('dt');
+    console.log('terms', terms.debug());
+    expect(terms.at(0).text()).to.equal(detailDefinitionLabels.series);
     expect(terms.at(1).text()).to.equal(detailDefinitionLabels.agents);
     expect(terms.at(2).text()).to.equal(detailDefinitionLabels.subjects);
-    expect(terms.at(3).text()).to.equal(detailDefinitionLabels.date_created);
-    expect(terms.at(4).text()).to.equal(detailDefinitionLabels.language);
+    expect(terms.at(3).text()).to.equal(detailDefinitionLabels.language);
   });
 
   it('should have a table of Items', () => {
-    expect(component.find('table')).to.have.length(1);
-    expect(component.find('tbody')).to.have.length(1);
-    expect(component.find('tbody tr')).to.have.length(5);
-    expect(component.find('tbody tr td')).to.have.length(5);
+    expect(component.find('dl')).to.have.length(1);
+    expect(component.find('dl dt')).to.have.length(4);
+    expect(component.find('dl dd')).to.have.length(4);
   });
 
   it('should have a list of Subjects', () => {
@@ -46,7 +46,7 @@ describe('DefinitionList', () => {
       subjects
         .find('Link')
         .first()
-        .text()
+        .text(),
     ).to.equal('Aufsatzsammlung.');
   });
 
