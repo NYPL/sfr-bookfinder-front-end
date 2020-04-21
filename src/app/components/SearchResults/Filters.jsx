@@ -231,7 +231,7 @@ class Filters extends React.Component {
               labelContent: <>
                 {facet.count > 0
                   ? `${facet.value} (${facet.count.toLocaleString()})` : `${facet.value}`}
-              </>,
+                            </>,
             }}
             name={`filters.${'language'}`}
             key={`filters-${'language'}-${facet.value}`}

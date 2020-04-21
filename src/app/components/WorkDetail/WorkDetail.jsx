@@ -175,13 +175,23 @@ class WorkDetail extends React.Component {
                   context={this.context}
                 />
                 {work.editions && (
-                <h3
-                  tabIndex="-1"
-                  id="all-editions"
-                  className="all-editions-tag bold"
-                >
+                  <div className="all-editions-header">
+                    <h3
+                      tabIndex="-1"
+                      id="all-editions"
+                      className="all-editions-tag bold"
+                    >
                 All Editions
-                </h3>
+                    </h3>
+                    <DS.Checkbox
+                      name="show-all"
+                      checkboxId="show-all-editions"
+                      labelOptions={{
+                        id: 'show-all-label',
+                        labelContent: <>Show only items currently available online</>,
+                      }}
+                    />
+                  </div>
                 )}
                 <EditionsList
                   referrer={referrer}
