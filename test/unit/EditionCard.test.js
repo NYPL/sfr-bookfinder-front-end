@@ -167,19 +167,21 @@ describe('Edition Card', () => {
     });
   });
 
-  describe('getSubtitleText', () => {
+  describe('getSubtitle', () => {
     it('returns subtitle', () => {
-      expect(EditionCard.getSubtitleText('Subtitle')).to.equal('Subtitle');
+      component = shallow((EditionCard.getSubtitle('Subtitle')));
+      expect(component.find('span').text()).to.equal('Subtitle');
     });
     it('should truncate the subtitle if it is too long', () => {
       const tooLongSubtitle = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. '
         + 'Aenean commodo ligula eget dolor. Aenean massa. Cum sociis nato';
+      component = shallow((EditionCard.getSubtitle(tooLongSubtitle)));
       const truncatedSubtitle = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. '
         + 'Aenean commodo ligula eget dolor. Aenean massa. Cum sociis nat...';
-      expect(EditionCard.getSubtitleText(tooLongSubtitle)).to.equal(truncatedSubtitle);
+      expect(component.find('span').text()).to.equal(truncatedSubtitle);
     });
     it('should return nothing if no subtitle is found', () => {
-      expect(EditionCard.getSubtitleText(undefined)).to.equal(undefined);
+      expect(EditionCard.getSubtitle(undefined)).to.equal(undefined);
     });
   });
 

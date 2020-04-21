@@ -24,7 +24,7 @@ export const getEditionsLinkElement = result => (result.edition_count > 1 ? (
 ) : undefined);
 
 /**
- * ResultsList takes the response and calls Design System's SearchResultsList
+ * ResultsList takes the response and calls Design System's UnorderedList with Search Result objects
  * with the correctly formatted properties
  *
  * @returns {string|null}
@@ -84,15 +84,18 @@ class ResultsList extends React.Component {
       const allEditionsLink = getEditionsLinkElement(result);
       const previewEdition = result.editions && result.editions[0];
 
-      return {
-        id: `search-result-${result.uuid}`,
-        resultIndex: index,
-        titleElement,
-        subtitle: EditionCard.getSubtitleText(result.sub_title),
-        authorElement: authorLinkElement ? joinArrayOfElements(authorLinkElement, ', ') : undefined,
-        editionInfo: EditionCard.getEditionData(result, previewEdition, eReaderUrl, referrer, showRequestButton),
-        editionsLinkElement: allEditionsLink,
-      };
+      return (
+        <DS.SearchResultItem
+          id={`search-result-${result.uuid}`}
+          key={`search-result-${result.uuid}`}
+          resultIndex={index}
+          headingContent={titleElement}
+          subtitleContent={EditionCard.getSubtitle(result.sub_title)}
+          authorLinkElement={authorLinkElement ? joinArrayOfElements(authorLinkElement, ', ') : undefined}
+          editionInfo={EditionCard.getEditionData(result, previewEdition, eReaderUrl, referrer, showRequestButton)}
+          editionsLinkElement={allEditionsLink}
+        />
+      );
     });
   }
 
@@ -109,7 +112,6 @@ class ResultsList extends React.Component {
         </div>
       );
     }
-
     return (
       <>
         {this.state.requestedWork && (
@@ -119,10 +121,9 @@ class ResultsList extends React.Component {
           requestedEdition={this.state.requestedEdition}
         />
         )}
-        <DS.SearchResultsList
-          searchResults={this.formatAllResultsData(results, eReaderUrl, referrer)}
-        >
-        </DS.SearchResultsList>
+        <DS.UnorderedList>
+          {this.formatAllResultsData(results, eReaderUrl, referrer)}
+        </DS.UnorderedList>
       </>
     );
   }

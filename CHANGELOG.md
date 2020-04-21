@@ -1,4 +1,8 @@
 # CHANGE LOG
+## [0.8.3] 
+### Changed
+- Filters now hide on mobile and show in sidebar.  
+- Updated to Design System 0.1.0
 
 ## [0.8.5]
 ### Added
