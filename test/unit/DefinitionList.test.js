@@ -22,7 +22,6 @@ describe('DefinitionList', () => {
     expect(component.find('dt')).to.have.length(4);
     expect(component.find('dd')).to.have.length(4);
     const terms = component.find('dt');
-    console.log('terms', terms.debug());
     expect(terms.at(0).text()).to.equal(detailDefinitionLabels.series);
     expect(terms.at(1).text()).to.equal(detailDefinitionLabels.agents);
     expect(terms.at(2).text()).to.equal(detailDefinitionLabels.subjects);
