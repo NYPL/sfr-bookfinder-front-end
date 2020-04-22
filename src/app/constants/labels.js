@@ -1,18 +1,10 @@
 export const detailDefinitionLabels = {
-  // also provides sort for DefinitionList
   alt_titles: 'Alternative Titles',
-  medium: 'Medium',
-  series: 'Series',
   summary: 'Summary',
+  series: 'Series',
   agents: 'Author',
   subjects: 'Subject',
-  date_created: 'Date Created',
-  issued_display: 'Date Issued',
   language: 'Language',
-  rights: 'Rights',
-  // measurements: 'Measurements',
-  // identifiers: 'Identifiers',
-  links: 'Links',
 };
 
 export const allWorkLabels = {
