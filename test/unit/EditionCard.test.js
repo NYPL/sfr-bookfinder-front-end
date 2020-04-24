@@ -377,8 +377,8 @@ describe('Edition Card', () => {
         ],
       }];
       testEdition.publication_place = 'London';
-      const publisherAndLocation = EditionCard.getPublisherAndLocation(testEdition);
-      expect(publisherAndLocation).to.equal('Published in London by publisher 1');
+      const publisherAndLocation = mount(<div>{EditionCard.getPublisherAndLocation(testEdition)}</div>);
+      expect(publisherAndLocation.text()).to.equal('Published in London by publisher 1');
     });
     it('Should return string with publisher when location is undefined', () => {
       testEdition.agents = [{
@@ -393,8 +393,8 @@ describe('Edition Card', () => {
         ],
       }];
       testEdition.publication_place = null;
-      const publisherAndLocation = EditionCard.getPublisherAndLocation(testEdition);
-      expect(publisherAndLocation).to.equal('Published by publisher 1');
+      const publisherAndLocation = mount(<div>{EditionCard.getPublisherAndLocation(testEdition)}</div>);
+      expect(publisherAndLocation.text()).to.equal('Published by publisher 1');
     });
     it('Should return string with location when publisher is not found', () => {
       testEdition.agents = [{
@@ -409,8 +409,8 @@ describe('Edition Card', () => {
         ],
       }];
       testEdition.publication_place = 'London';
-      const publisherAndLocation = EditionCard.getPublisherAndLocation(testEdition);
-      expect(publisherAndLocation).to.equal('Published in London');
+      const publisherAndLocation = mount(<div>{EditionCard.getPublisherAndLocation(testEdition)}</div>);
+      expect(publisherAndLocation.text()).to.equal('Published in London');
     });
     it('Should return undefined when neither publisher nor location are defined', () => {
       testEdition.agents = [];
@@ -423,17 +423,20 @@ describe('Edition Card', () => {
   describe('get languages', () => {
     it('Should return provided languages', () => {
       testEdition.languages = [{ language: 'English' }, { language: 'French' }];
-      expect(EditionCard.getLanguageDisplayText(testEdition)).to.equal('Languages: English, French');
+      const languages = mount(<div>{EditionCard.getLanguageDisplayText(testEdition)}</div>);
+      expect(languages.text()).to.equal('Languages: English, French');
     });
 
-    it('Should return "Undetermined" if no languages found', () => {
+    it('Should return "Undetermined" if invalid content is passed', () => {
       testEdition.languages = ['Not-A-Language'];
-      expect(EditionCard.getLanguageDisplayText(testEdition)).to.equal('Languages: Undetermined');
+      const languages = mount(<div>{EditionCard.getLanguageDisplayText(testEdition)}</div>);
+      expect(languages.text()).to.equal('Languages: Undetermined');
     });
 
     it('Should return "Undetermined" if no languages found', () => {
       testEdition.languages = null;
-      expect(EditionCard.getLanguageDisplayText(testEdition)).to.equal('Languages: Undetermined');
+      const languages = mount(<div>{EditionCard.getLanguageDisplayText(testEdition)}</div>);
+      expect(languages.text()).to.equal('Languages: Undetermined');
     });
   });
 
@@ -477,8 +480,8 @@ describe('Edition Card', () => {
           images: true,
           ebook: true,
         }];
-      const downloadComponent = EditionCard.getDownloadLink(work, testItem);
-      expect(downloadComponent.props.href).to.equal('https://download-url');
+      const downloadComponent = mount(EditionCard.getDownloadLink(work, testItem));
+      expect(downloadComponent.find('a').prop('href')).to.equal('https://download-url');
     });
     it('should return the first link if multiple are downloadable', () => {
       testItem.links = [
@@ -502,8 +505,8 @@ describe('Edition Card', () => {
           images: true,
           ebook: true,
         }];
-      const downloadComponent = EditionCard.getDownloadLink(work, testItem);
-      expect(downloadComponent.props.href).to.equal('https://download-url-1');
+      const downloadComponent = mount(EditionCard.getDownloadLink(work, testItem));
+      expect(downloadComponent.find('a').prop('href')).to.equal('https://download-url-1');
     });
     it('should return undefined if links are null', () => {
       testItem.links = null;
@@ -555,8 +558,8 @@ describe('Edition Card', () => {
           ebook: true,
         }];
       const linkComponent = mount(EditionCard.getReadOnlineLink(work, testItem, eReaderUrl, referrer));
-      expect(linkComponent.prop('to').pathname).to.equal('/read-online');
-      expect(linkComponent.prop('to').search).to.equal('?url=eReaderUrl/readerNYPL/?url=eReaderUrl'
+      expect(linkComponent.find('Link').prop('to').pathname).to.equal('/read-online');
+      expect(linkComponent.find('Link').prop('to').search).to.equal('?url=eReaderUrl/readerNYPL/?url=eReaderUrl'
       + '/pub/aHR0cHM6Ly9yZWFkLW9ubGluZS11cmwtMQ%253D%253D/manifest.json#referrer');
     });
 
@@ -573,8 +576,8 @@ describe('Edition Card', () => {
           ebook: true,
         }];
       const linkComponent = mount(EditionCard.getReadOnlineLink(work, testItem, eReaderUrl, referrer));
-      expect(linkComponent.prop('to').pathname).to.equal('/read-online');
-      expect(linkComponent.prop('to').search).to.equal('?url=https://read-online-url-1');
+      expect(linkComponent.find('Link').prop('to').pathname).to.equal('/read-online');
+      expect(linkComponent.find('Link').prop('to').search).to.equal('?url=https://read-online-url-1');
     });
 
     it('should select the first read-online link', () => {
@@ -600,8 +603,8 @@ describe('Edition Card', () => {
           ebook: true,
         }];
       const linkComponent = mount(EditionCard.getReadOnlineLink(work, testItem, eReaderUrl, referrer));
-      expect(linkComponent.prop('to').pathname).to.equal('/read-online');
-      expect(linkComponent.prop('to').search).to.equal('?url=https://read-online-url-1');
+      expect(linkComponent.find('Link').prop('to').pathname).to.equal('/read-online');
+      expect(linkComponent.find('Link').prop('to').search).to.equal('?url=https://read-online-url-1');
     });
     it('returns undefined when no links are passed', () => {
       testItem.links = null;
@@ -641,30 +644,34 @@ describe('Edition Card', () => {
       it('Edition has Year Heading Element', () => {
         expect(mount(<span>{editionData.editionYearHeading}</span>).text()).to.equal('1852 Edition');
       });
-      it('Edition has publisher and location', () => {
-        expect(editionData.publisherAndLocation).to.equal(
-          'Published in London by Chapman and Hall, London + 4 more',
-        );
-      });
       it('Edition has cover URL', () => {
         expect(editionData.coverUrl).to.equal(
           'https://test-sfr-covers.s3.amazonaws.com/hathitrust/077371092d774fb3b23e7991339216fb_nyp.33433076087844.jpg',
         );
       });
-      it('Edition has list of languages', () => {
-        expect(editionData.language).to.equal('Languages: English, German, Undetermined');
+      it('Edition has info with publisher and location', () => {
+        expect(mount(<span>{editionData.editionInfo[0]}</span>).text()).to.equal(
+          'Published in London by Chapman and Hall, London + 4 more',
+        );
       });
-      it('Edition has license', () => {
-        const licenseElement = mount(editionData.license);
-        expect(licenseElement.find('a').text()).to.equal('License: Unknown');
+      it('Edition info has list of languages', () => {
+        expect(mount(<span>{editionData.editionInfo[1]}</span>).text()).to.equal(
+          'Languages: English, German, Undetermined',
+        );
+      });
+      it('Edition info has license', () => {
+        expect(mount(<span>{editionData.editionInfo[2]}</span>).text()).to.equal(
+          'License: Unknown',
+        );
       });
       it('Edition has Read Online Link', () => {
         const linkComponent = mount(editionData.readOnlineLink);
-        expect(linkComponent.prop('to').pathname).to.equal('/read-online');
-        expect(linkComponent.prop('to').search).to.equal('?url=https://archive.org/details/blithedaleromanc00hawtrich');
+        expect(linkComponent.find('Link').prop('to').pathname).to.equal('/read-online');
+        expect(linkComponent.find('Link').prop('to').search).to.equal('?url=https://archive.org/details/blithedaleromanc00hawtrich');
       });
       it('Edition has Download link', () => {
-        expect(editionData.downloadLink.props.href).to.equal('https://catalog.hathitrust.org/api/volumes/oclc/39113388.html');
+        const linkComponent = mount(editionData.downloadLink);
+        expect(linkComponent.find('a').prop('href')).to.equal('https://catalog.hathitrust.org/api/volumes/oclc/39113388.html');
       });
     });
 
@@ -682,10 +689,10 @@ describe('Edition Card', () => {
         );
       });
       it('Edition has list of languages', () => {
-        expect(featuredEditionData.language).to.equal('Languages: Undetermined');
+        expect(mount(<span>{featuredEditionData.editionInfo[1]}</span>).text()).to.equal('Languages: Undetermined');
       });
       it('Edition has license', () => {
-        const licenseElement = mount(featuredEditionData.license);
+        const licenseElement = mount(featuredEditionData.editionInfo[2]);
         expect(licenseElement.find('a').text()).to.equal('License: Unknown');
       });
       it('Edition has no Read Online Link', () => {

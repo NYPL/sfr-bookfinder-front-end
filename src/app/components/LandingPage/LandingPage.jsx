@@ -63,47 +63,29 @@ class LandingPage extends React.Component {
             aria-label="Digital Research Books Beta"
             className="main-promo"
           >
-            <DS.Heading
-              level={1}
-              id="ResearchNow-Main-Header"
-              blockName="page-title"
-              modifiers={['block-color']}
-            >
-              <span className="main-promo-text">
-                <span className="rn-section-title__emphasis">Digital Research Books</span>
-                {' '}
-                  Beta
-              </span>
-            </DS.Heading>
-            <div className="header-with-image-right__text">
-              <p>
+            <DS.SectionName>
+              <DS.Hero
+                heroType={DS.HeroTypes.Secondary}
+                heading={(
+                  <DS.Heading
+                    level={1}
+                    id="1"
+                    text="Digital Research Books Beta"
+                    blockName="hero"
+                  />
+                )}
+                subHeaderText={(
+                  <p className="hero__body-text">
                   Find millions of digital books for research
                   from multiple sources world-wide--all free to read, download, and keep. No library card required.
                   This is an early beta test, so we want your feedback!
-                {' '}
-                <DS.UnderlineLink><Link to="/about">Read more about the project</Link></DS.UnderlineLink>
+                    {' '}
+                    <DS.UnderlineLink><Link to="/about">Read more about the project</Link></DS.UnderlineLink>
                   .
-              </p>
-            </div>
-            {/* TODO: Use DS again after Hero is re-written.
-              <DS.HeaderImgRight
-              headerId="ResearchNow-Main-Header"
-              isImageDecorative
-              pageTitleText={(
-
-              )}
-              imgUrl="https://placeimg.com/200/100/arch"
-              bodyText={(
-                <p>
-                      Find millions of digital books for research
-                      from multiple sources world-wide--all free to read, download, and keep. No library card required.
-                      This is an early beta test, so we want your feedback!
-                  {' '}
-                  <DS.UnderlineLink><Link to="/about">Read more about the project</Link></DS.UnderlineLink>
-                    .
-                </p>
-                  )}
-            /> */}
+                  </p>
+                )}
+              />
+            </DS.SectionName>
             <div>
               <SearchForm />
               {
