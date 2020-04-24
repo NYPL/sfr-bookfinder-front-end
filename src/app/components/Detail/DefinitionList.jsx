@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Html5Entities } from 'html-entities';
 import * as DS from '@nypl/design-system-react-components';
 import { Link } from 'react-router';
-import { detailDefinitionLabels } from '../../constants/labels';
+import { workDetailDefinitionLabels } from '../../constants/labels';
 import {
   unique, flattenDeep, isEmpty, uniqueAndSortByFrequency,
 } from '../../util/Util';
@@ -12,7 +12,7 @@ import EditionCard from '../Card/EditionCard';
 const htmlEntities = new Html5Entities();
 
 // provide the work item as an array
-const elements = Object.keys(detailDefinitionLabels);
+const elements = Object.keys(workDetailDefinitionLabels);
 
 // extract unique language array from instances of a work item
 const addLanguagestoWorkItem = work => work
@@ -150,7 +150,7 @@ export const DefinitionList = ({ work }) => {
         {defsData.map(
           (entry, i) => elements.includes(entry[0]) && entry[1] && (
           <React.Fragment key={`"entry"${i.toString()}`}>
-            <dt>{detailDefinitionLabels[entry[0]]}</dt>
+            <dt>{workDetailDefinitionLabels[entry[0]]}</dt>
             <dd>{parseEntries(entry[0], entry[1], workObj)}</dd>
           </React.Fragment>
           ),

@@ -20,6 +20,7 @@ export default {
       production: '/search',
     },
     recordPath: '/work',
+    editionPath: '/edition',
     languagesPath: '/utils/languages',
   },
   booksCount: {

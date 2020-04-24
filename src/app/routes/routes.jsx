@@ -4,12 +4,13 @@ import { Route, IndexRoute, Redirect } from 'react-router';
 import Application from '../components/Application/Application';
 import AdvancedSearch from '../components/AdvancedSearch/AdvancedSearch';
 import NotFound404 from '../components/Error/NotFound404';
-import WorkDetail from '../components/WorkDetail/WorkDetail';
 import EBookViewer from '../components/Viewer/EBookViewer';
 import SearchResultsPage from '../components/SearchResults/SearchResultsPage';
 import LandingPage from '../components/LandingPage/LandingPage';
 import License from '../components/License/License';
 import About from '../components/About/About';
+import WorkDetail from '../components/Detail/WorkDetail';
+import EditionDetail from '../components/Detail/EditionDetail';
 
 const routes = {
   default: (
@@ -25,6 +26,10 @@ const routes = {
       <Route
         path="/work"
         component={WorkDetail}
+      />
+      <Route
+        path="/edition"
+        component={EditionDetail}
       />
       <Route
         path="/advanced-search"

@@ -29,22 +29,16 @@ export default class EditionCard {
   // Edition Year
   // Note:  This link currently goes to the Work Detail page.
   // It should link to the Edition Detail page when it is implemented.
-  static editionYearElem(previewEdition, workUuid) {
+  static editionYearElem(previewEdition) {
     const editionDisplay = previewEdition && previewEdition.publication_date
       ? `${previewEdition.publication_date} Edition` : 'Edition Year Unknown';
     return (
-      <span>
-        {workUuid
-          && (
-            <Link
-              to={{ pathname: '/work', query: { workId: `${workUuid}` } }}
-              className="heading__link"
-            >
-              {editionDisplay}
-            </Link>
-          )}
-        {!workUuid && <>{editionDisplay}</>}
-      </span>
+      <Link
+        to={{ pathname: '/edition', query: { editionId: `${previewEdition.id}` } }}
+        className="heading__link"
+      >
+        {editionDisplay}
+      </Link>
     );
   }
 
@@ -213,6 +207,7 @@ export default class EditionCard {
     );
   }
 
+  // eslint-disable-next-line consistent-return
   static getDownloadLink(work, editionItem) {
     if (!editionItem || !editionItem.links) return undefined;
     const selectedLink = editionItem.links.find(link => link.download);
@@ -257,6 +252,22 @@ export default class EditionCard {
       license: <DS.UnderlineLink><Link to="/license">{ EditionCard.getLicense(editionItem) }</Link></DS.UnderlineLink>,
       readOnlineLink: EditionCard.getReadOnlineLink(work, editionItem, eReaderUrl, referrer),
       downloadLink: EditionCard.getDownloadLink(work, editionItem),
+      noLinkElement: EditionCard.getNoLinkElement(showRequestButton),
+    };
+  }
+
+  static getInstanceData(edition, eReaderUrl, referrer, showRequestButton) {
+    const editionYearHeadingElement = EditionCard.editionYearElem(edition);
+    const editionItem = edition && edition.items ? edition.items[0] : undefined;
+
+    return {
+      editionYearHeading: editionYearHeadingElement,
+      publisherAndLocation: EditionCard.getPublisherAndLocation(edition),
+      coverUrl: EditionCard.getCover(edition),
+      language: EditionCard.getLanguageDisplayText(edition),
+      license: <DS.UnderlineLink><Link to="/license">{ EditionCard.getLicense(editionItem) }</Link></DS.UnderlineLink>,
+      readOnlineLink: EditionCard.getReadOnlineLink(editionItem, editionItem, eReaderUrl, referrer),
+      downloadLink: EditionCard.getDownloadLink(editionItem, editionItem),
       noLinkElement: EditionCard.getNoLinkElement(showRequestButton),
     };
   }

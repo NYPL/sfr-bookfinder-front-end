@@ -8,7 +8,7 @@ import configureStore from '../../src/app/stores/configureStore';
 import initialState from '../../src/app/stores/InitialState';
 import detail from '../fixtures/work-detail.json';
 
-import WorkDetail from '../../src/app/components/WorkDetail/WorkDetail';
+import WorkDetail from '../../src/app/components/Detail/WorkDetail';
 
 configure({ adapter: new Adapter() });
 describe('Work Detail Page Test', () => {

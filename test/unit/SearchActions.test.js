@@ -37,4 +37,19 @@ describe('SearchActions', () => {
       expect(JSON.stringify(workDetailAction.work)).to.equal(JSON.stringify(details));
     });
   });
+
+  describe('editionDetail Action', () => {
+    it('should return an object with type and editionDetail', () => {
+      // details = {
+      //   work: {
+      //     title: 'The Tragedie of Hamlet, Prince of Denmark\nA Study with the Text of the Folio of 1623',
+      //     rights_stmt: 'Public domain in the USA.',
+      //   },
+      // };
+      // workDetailAction = workDetail(details);
+
+      // expect(workDetailAction.type).to.equal('FETCH_WORK');
+      // expect(JSON.stringify(workDetailAction.work)).to.equal(JSON.stringify(details));
+    });
+  });
 });
