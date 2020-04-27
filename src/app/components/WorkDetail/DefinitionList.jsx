@@ -114,26 +114,6 @@ export const DefinitionList = ({ work }) => {
               ))}
           </ul>
         );
-      case 'identifiers':
-        return (
-          <ul className="sfr-inline-list definitions-identifiers">
-            {list
-              .sort((a, b) => (a.id_type < b.id_type ? -1 : 1))
-              .map((identifier, i) => (
-                <li key={`identifiers${i.toString()}`}>{`${identifier.id_type}: ${identifier.identifier}; `}</li>
-              ))}
-          </ul>
-        );
-      case 'measurements':
-        return (
-          <ul className="sfr-inline-list definitions-measurements">
-            {list
-              .sort((a, b) => (a.value < b.value ? 1 : -1))
-              .map((measurement, i) => (
-                <li key={`measurements${i.toString()}`}>{`${measurement.quantity}: ${measurement.value}; `}</li>
-              ))}
-          </ul>
-        );
       case 'series':
         return (
           <span className="definitions-series">
@@ -166,18 +146,16 @@ export const DefinitionList = ({ work }) => {
     }
 
     return (
-      <table className="nypl-details-table">
-        <tbody>
-          {defsData.map(
-            (entry, i) => elements.includes(entry[0]) && entry[1] && (
-              <tr key={`entry${i.toString()}`}>
-                <th scope="row">{detailDefinitionLabels[entry[0]]}</th>
-                <td>{parseEntries(entry[0], entry[1], workObj)}</td>
-              </tr>
-            ),
-          )}
-        </tbody>
-      </table>
+      <dl className="nypl-details-table">
+        {defsData.map(
+          (entry, i) => elements.includes(entry[0]) && entry[1] && (
+          <React.Fragment key={`"entry"${i.toString()}`}>
+            <dt>{detailDefinitionLabels[entry[0]]}</dt>
+            <dd>{parseEntries(entry[0], entry[1], workObj)}</dd>
+          </React.Fragment>
+          ),
+        )}
+      </dl>
     );
   };
 

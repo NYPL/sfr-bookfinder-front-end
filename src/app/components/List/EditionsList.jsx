@@ -24,7 +24,7 @@ class EditionsList extends React.Component {
             key={`"editions-list-"${index}`}
             coverUrl={editionData.coverUrl}
             editionHeadingElement={editionData.editionYearHeading}
-            editionInfo={[editionData.publisherAndLocation, editionData.language, editionData.license]}
+            editionInfo={editionData.editionInfo}
             readOnlineLink={editionData.readOnlineLink}
             downloadLink={editionData.downloadLink}
             noLinkElement={editionData.noLinkElement}

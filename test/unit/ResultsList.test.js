@@ -87,27 +87,22 @@ describe('Results List', () => {
       it('result data has year heading element', () => {
         expect(mount(<span>{resultsData.editionInfo.editionYearHeading}</span>).text()).to.equal('1852 Edition');
       });
-      it('result data has publisher and location', () => {
-        expect(resultsData.editionInfo.publisherAndLocation).to.equal('Published in London by Chapman and Hall, London + 4 more');
+      it('result data has edition info', () => {
+        expect(resultsData.editionInfo.editionInfo.length).to.equal(3);
       });
       it('result data has coverUrl', () => {
         expect(resultsData.editionInfo.coverUrl).to.equal(
           'https://test-sfr-covers.s3.amazonaws.com/hathitrust/077371092d774fb3b23e7991339216fb_nyp.33433076087844.jpg',
         );
       });
-      it('result data has language', () => {
-        expect(resultsData.editionInfo.language).to.equal('Languages: English, German, Undetermined');
-      });
-      it('result data has license', () => {
-        expect(mount(resultsData.editionInfo.license).find('a').text()).to.equal('License: Unknown');
-      });
       it('result data has readOnlineLink', () => {
         const linkComponent = mount(resultsData.editionInfo.readOnlineLink);
-        expect(linkComponent.prop('to').pathname).to.equal('/read-online');
-        expect(linkComponent.prop('to').search).to.equal('?url=https://archive.org/details/blithedaleromanc00hawtrich');
+        expect(linkComponent.find('Link').prop('to').pathname).to.equal('/read-online');
+        expect(linkComponent.find('Link').prop('to').search).to.equal('?url=https://archive.org/details/blithedaleromanc00hawtrich');
       });
       it('result data has download link', () => {
-        expect(resultsData.editionInfo.downloadLink.props.href).to.equal('https://catalog.hathitrust.org/api/volumes/oclc/39113388.html');
+        expect(mount(<span>{resultsData.editionInfo.downloadLink}</span>)
+          .find('a').prop('href')).to.equal('https://catalog.hathitrust.org/api/volumes/oclc/39113388.html');
       });
       it('result data has editions link', () => {
         expect(mount(<span>{resultsData.editionsLinkElement}</span>).text()).to.equal('View All 17 Editions');
@@ -137,23 +132,17 @@ describe('Results List', () => {
       it('result data has unknown year heading eleemnt', () => {
         expect(mount(<span>{resultsData.editionInfo.editionYearHeading}</span>).text()).to.equal('Edition Year Unknown');
       });
-      it('result data has no publisher and location', () => {
-        expect(resultsData.editionInfo.publisherAndLocation).to.equal(undefined);
-      });
       it('result data has default coverUrl', () => {
         expect(resultsData.editionInfo.coverUrl).to.equal('https://test-sfr-covers.s3.amazonaws.com/default/defaultCover.png');
       });
-      it('result data has undetermined language', () => {
-        expect(resultsData.editionInfo.language).to.equal('Languages: Undetermined');
-      });
-      it('result data has unknown license', () => {
-        expect(mount(resultsData.editionInfo.license).find('a').text()).to.equal('License: Unknown');
+      it('result data has edition info', () => {
+        expect(resultsData.editionInfo.editionInfo.length).to.equal(3);
       });
       it('result data has no readOnlineLink', () => {
         expect(resultsData.editionInfo.readOnlineLink).to.equal(undefined);
       });
       it('result data has no download link', () => {
-        expect(resultsData.editionInfo.downloadLink).to.equal(undefined);
+        expect(mount(<span>{resultsData.editionInfo.downloadLink}</span>).text()).to.equal('');
       });
       it('result data has no editions link', () => {
         expect(mount(<span>{resultsData.editionsLinkElement}</span>).text()).to.equal('');

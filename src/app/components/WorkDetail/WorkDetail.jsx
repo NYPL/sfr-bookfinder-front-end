@@ -77,7 +77,7 @@ class WorkDetail extends React.Component {
         id="featured-card"
         coverUrl={featuredEditionData.coverUrl}
         editionHeadingElement={featuredEditionData.editionYearHeading}
-        editionInfo={[featuredEditionData.publisherAndLocation, featuredEditionData.language, featuredEditionData.license]}
+        editionInfo={featuredEditionData.editionInfo}
         readOnlineLink={featuredEditionData.readOnlineLink}
         downloadLink={featuredEditionData.downloadLink}
         noLinkElement={featuredEditionData.noLinkElement}
