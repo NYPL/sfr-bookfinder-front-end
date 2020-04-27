@@ -66,7 +66,7 @@ export default class EditionCard {
     }
     return (
       <Link
-        to={{ pathname: '/work', query: { workId: `${uuid}`, recordType: 'editions' } }}
+        to={{ pathname: '/work', query: { workId: `${uuid}`, recordType: 'editions', showAll: true } }}
         title={htmlEntities.decode(title)}
         className="link link--no-underline"
       >

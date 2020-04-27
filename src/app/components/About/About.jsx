@@ -53,7 +53,7 @@ All the materials in Digital Research Books Beta are completely free to read and
             editions of the same thing together as a single “work.” For instance there
             are many editions of
           {' '}
-          <DS.UnderlineLink><Link to="/work?recordType=editions&workId=e34d73df-f32b-49e1-8fdf-151db2a7806a">Mary Wollstonecraft’s A Vindication of the Rights of Woman</Link></DS.UnderlineLink>
+          <DS.UnderlineLink><Link to="/work?recordType=editions&workId=e34d73df-f32b-49e1-8fdf-151db2a7806a&showAll=true">Mary Wollstonecraft’s A Vindication of the Rights of Woman</Link></DS.UnderlineLink>
                     , many of them available digitally. We group them all together under a single search result and try to make the differences between them--years when and places where they were published, for instance--easy to understand.
 
         </p>
