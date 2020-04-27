@@ -150,8 +150,9 @@ export default class EditionCard {
     const displayLocation = EditionCard.publisherDisplayLocation(previewEdition);
     const displayName = EditionCard.publisherDisplayText(previewEdition);
     if (!displayLocation && !displayName) return undefined;
+    const publisherText = `Published${displayLocation}${displayName}`;
     return (
-      `Published${displayLocation}${displayName}`
+      <>{publisherText}</>
     );
   }
 
@@ -159,9 +160,12 @@ export default class EditionCard {
   static getLanguageDisplayText(previewEdition) {
     if (previewEdition && previewEdition.languages && previewEdition.languages.length) {
       const languagesTextList = previewEdition.languages.filter(lang => lang.language).map(lang => lang.language);
-      if (languagesTextList && languagesTextList.length) return `Languages: ${languagesTextList.join(', ')}`;
+      if (languagesTextList && languagesTextList.length) {
+        const languageText = `Languages: ${languagesTextList.join(', ')}`;
+        return <>{languageText}</>;
+      }
     }
-    return 'Languages: Undetermined';
+    return <>Languages: Undetermined</>;
   }
 
   // Rights
@@ -193,39 +197,48 @@ export default class EditionCard {
     if (selectedLink.local) {
       const encodedUrl = EditionCard.generateStreamedReaderUrl(selectedLink.url, eReaderUrl, referrer);
       return (
-        <Link
-          className="edition-card__card-info-link"
-          to={{ pathname: '/read-online', search: `?url=${encodeURI(encodedUrl)}`, state: { work } }}
-          onClick={() => gaUtils.trackGeneralEvent('Read Online', editionItem.source, work.title, '')}
-        >
+        <DS.BasicLink className="edition-card__card-button-link">
+          <Link
+            to={{ pathname: '/read-online', search: `?url=${encodeURI(encodedUrl)}`, state: { work } }}
+            onClick={() => gaUtils.trackGeneralEvent('Read Online', editionItem.source, work.title, '')}
+          >
           Read Online
-        </Link>
+          </Link>
+        </DS.BasicLink>
       );
     }
     return (
-      <Link
-        className="edition-card__card-info-link"
-        to={{ pathname: '/read-online', search: `?url=${formatUrl(selectedLink.url)}`, state: { work } }}
-        onClick={() => gaUtils.trackGeneralEvent('Read Online', editionItem.source, work.title, '')}
-      >
+      <DS.BasicLink className="edition-card__card-button-link">
+        <Link
+          to={{ pathname: '/read-online', search: `?url=${formatUrl(selectedLink.url)}`, state: { work } }}
+          onClick={() => gaUtils.trackGeneralEvent('Read Online', editionItem.source, work.title, '')}
+        >
         Read Online
-      </Link>
+        </Link>
+      </DS.BasicLink>
+
     );
   }
 
+  // eslint-disable-next-line consistent-return
   static getDownloadLink(work, editionItem) {
     if (!editionItem || !editionItem.links) return undefined;
     const selectedLink = editionItem.links.find(link => link.download);
 
     if (selectedLink && selectedLink.url) {
       return (
-        <a
-          className="edition-card__card-info-link"
-          href={`${formatUrl(selectedLink.url, process.env.APP_ENV)}`}
-          onClick={() => gaUtils.trackGeneralEvent('Download', editionItem.source, work.title, '')}
+        <DS.IconLink
+          iconName="download"
+          iconPosition="left"
+          iconModifiers={['icon-left']}
         >
+          <a
+            href={`${formatUrl(selectedLink.url, process.env.APP_ENV)}`}
+            onClick={() => gaUtils.trackGeneralEvent('Download', editionItem.source, work.title, '')}
+          >
           Download
-        </a>
+          </a>
+        </DS.IconLink>
       );
     }
   }
@@ -251,10 +264,10 @@ export default class EditionCard {
 
     return {
       editionYearHeading: editionYearHeadingElement,
-      publisherAndLocation: EditionCard.getPublisherAndLocation(edition),
       coverUrl: EditionCard.getCover(edition),
-      language: EditionCard.getLanguageDisplayText(edition),
-      license: <DS.UnderlineLink><Link to="/license">{ EditionCard.getLicense(editionItem) }</Link></DS.UnderlineLink>,
+      editionInfo: [EditionCard.getPublisherAndLocation(edition),
+        EditionCard.getLanguageDisplayText(edition),
+        <DS.UnderlineLink><Link to="/license">{ EditionCard.getLicense(editionItem) }</Link></DS.UnderlineLink>],
       readOnlineLink: EditionCard.getReadOnlineLink(work, editionItem, eReaderUrl, referrer),
       downloadLink: EditionCard.getDownloadLink(work, editionItem),
       noLinkElement: EditionCard.getNoLinkElement(showRequestButton),
