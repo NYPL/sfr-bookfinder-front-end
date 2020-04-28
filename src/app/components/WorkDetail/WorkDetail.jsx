@@ -15,6 +15,7 @@ import EditionCard from '../Card/EditionCard';
 import SearchHeader from '../SearchForm/SearchHeader';
 import RequestDigital from '../Feedback/RequestDigital';
 import featureFlagConfig from '../../../../featureFlagConfig';
+import { getQueryString } from '../../search/query';
 import config from '../../../../appConfig';
 
 const scrollToHash = (hash) => {
@@ -32,16 +33,20 @@ class WorkDetail extends React.Component {
   constructor(props) {
     super(props);
     const { dispatch } = props;
-    this.state = { requestedEdition: null, isFeatureFlagsActivated: {}, ...props };
+    this.state = {
+      shouldShowAll: true, requestedEdition: null, isFeatureFlagsActivated: {}, ...props,
+    };
     this.openForm = this.openForm.bind(this);
     this.closeForm = this.closeForm.bind(this);
     this.getRequestEditionButton = this.getRequestEditionButton.bind(this);
+    this.toggleReadOnline = this.toggleReadOnline.bind(this);
     this.boundActions = bindActionCreators(searchActions, dispatch);
   }
 
   componentDidMount() {
     const { query, hash } = this.props.location;
     const workId = query && query.workId;
+    this.setState({ shouldShowAll: query && query.showAll ? (query.showAll === 'true') : true });
     this.loadWork(workId, hash, this.boundActions);
     FeatureFlags.store.listen(this.onFeatureFlagsChange.bind(this));
 
@@ -124,6 +129,20 @@ class WorkDetail extends React.Component {
     });
   }
 
+  toggleReadOnline() {
+    const query = this.props.location.query;
+    if (query.showAll === 'true') {
+      query.showAll = 'false';
+      this.setState({ shouldShowAll: false });
+    } else if (query.showAll) {
+      query.showAll = 'true';
+      this.setState({ shouldShowAll: true });
+    }
+    this.props.dispatch(searchActions.detailRefinePost(query));
+    const path = `/work?${getQueryString(query)}`;
+    this.props.router.push(path);
+  }
+
   render() {
     const { router } = this.context;
     const work = this.props.workResult ? this.props.workResult.data : null;
@@ -132,7 +151,6 @@ class WorkDetail extends React.Component {
     const referrer = this.props.location.pathname + this.props.location.search;
     // eslint-disable-next-line no-underscore-dangle
     const shouldShowRequest = FeatureFlags.store._isFeatureActive(config.requestDigital.experimentName);
-
     return (
       <DS.Container>
         {this.state.requestedEdition && this.getRequestDigital(work)}
@@ -142,7 +160,6 @@ class WorkDetail extends React.Component {
           <Breadcrumbs
             router={router}
             location={this.props.location}
-            searchQuery={this.props.searchQuery}
           />
           <div>
             <SearchHeader />
@@ -175,13 +192,25 @@ class WorkDetail extends React.Component {
                   context={this.context}
                 />
                 {work.editions && (
-                <h3
-                  tabIndex="-1"
-                  id="all-editions"
-                  className="all-editions-tag bold"
-                >
+                  <div className="all-editions-header">
+                    <h3
+                      tabIndex="-1"
+                      id="all-editions"
+                      className="all-editions-tag bold"
+                    >
                 All Editions
-                </h3>
+                    </h3>
+                    <DS.Checkbox
+                      name="show-all"
+                      checkboxId="show-all-editions"
+                      labelOptions={{
+                        id: 'show-all-label',
+                        labelContent: <>Show only items currently available online</>,
+                      }}
+                      isSelected={!this.state.shouldShowAll}
+                      onChange={this.toggleReadOnline}
+                    />
+                  </div>
                 )}
                 <EditionsList
                   referrer={referrer}
@@ -203,16 +232,16 @@ class WorkDetail extends React.Component {
 
 WorkDetail.propTypes = {
   workResult: PropTypes.objectOf(PropTypes.any),
-  searchQuery: PropTypes.objectOf(PropTypes.any),
   eReaderUrl: PropTypes.string,
+  router: PropTypes.objectOf(PropTypes.any),
   dispatch: PropTypes.func,
   location: PropTypes.objectOf(PropTypes.any),
 };
 
 WorkDetail.defaultProps = {
   workResult: {},
-  searchQuery: {},
   eReaderUrl: '',
+  router: {},
   dispatch: () => { },
   location: {},
 };
@@ -222,9 +251,8 @@ WorkDetail.contextTypes = {
   history: PropTypes.objectOf(PropTypes.any),
 };
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = state => ({
   workResult: state.workResult && state.workResult.work,
-  searchQuery: state.searchQuery || ownProps.searchQuery,
 });
 
 WorkDetail.contextTypes = {
