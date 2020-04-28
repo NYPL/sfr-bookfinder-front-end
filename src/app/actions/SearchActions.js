@@ -2,7 +2,7 @@ import axios from 'axios';
 import appConfig from '../../../appConfig';
 import selectFields from '../constants/fields';
 import serverState from '../stores/InitialState';
-import { buildQueryBody } from '../search/query';
+import { buildSearchQuery } from '../search/query';
 
 export const Actions = {
   SEARCH: 'SEARCH',
@@ -68,10 +68,9 @@ export const searchPost = (query) => {
   const sField = query.field && selectFields[query.field];
   let queryBody;
   if (sField) {
-    queryBody = buildQueryBody(Object.assign({}, query, { field: sField }));
+    queryBody = buildSearchQuery(Object.assign({}, query, { field: sField }));
   }
-  queryBody = buildQueryBody(Object.assign({}, query));
-
+  queryBody = buildSearchQuery(Object.assign({}, query));
   return dispatch => axios
     .post(searchUrl, queryBody)
     .then((resp) => {
@@ -85,8 +84,25 @@ export const searchPost = (query) => {
     });
 };
 
+export const detailRefinePost = (query) => {
+  const queryBody = Object.assign({}, query);
+  queryBody.identifier = queryBody.workId;
+  delete queryBody.workId;
+  return dispatch => axios
+    .post(recordUrl, queryBody)
+    .then((resp) => {
+      if (resp.data) {
+        dispatch(workDetail(resp.data));
+      }
+    })
+    .catch((error) => {
+      console.log('An error occurred during detailRefinePost', error.message);
+      throw new Error('An error occurred during detailRefinePost', error.message);
+    });
+};
+
 export const fetchWork = workId => dispatch => axios
-  .get(recordUrl, { params: { identifier: workId, recordType: 'editions' } })
+  .get(recordUrl, { params: { identifier: workId, recordType: 'editions', showAll: true } })
   .then((resp) => {
     if (resp.data) {
       dispatch(workDetail(resp.data));
@@ -127,11 +143,11 @@ export const serverPost = (query) => {
   const sField = query.field && selectFields[query.field];
   let queryBody;
   if (sField) {
-    queryBody = buildQueryBody(Object.assign({}, query, { field: sField }));
+    queryBody = buildSearchQuery(Object.assign({}, query, { field: sField }));
   }
-  queryBody = buildQueryBody(Object.assign({}, query));
+  queryBody = buildSearchQuery(Object.assign({}, query));
   return axios
-    .post(searchUrl, queryBody)
+    .post(searchUrl, { query: queryBody })
     .then((resp) => {
       serverState.searchQuery = query;
       serverState.searchResults = { data: resp.data };
@@ -144,7 +160,7 @@ export const serverPost = (query) => {
 };
 
 export const serverFetchWork = workId => axios
-  .get(recordUrl, { params: { identifier: workId, recordType: 'editions' } })
+  .get(recordUrl, { params: { identifier: workId, recordType: 'editions', showAll: true } })
   .then((resp) => {
     serverState.workResult = { work: resp.data };
     return serverState;
@@ -171,6 +187,7 @@ export const error = errorMsg => dispatch => dispatch(errorState(errorMsg));
 
 export default {
   searchPost,
+  detailRefinePost,
   fetchWork,
   fetchTotalWorks,
   fetchEdition,

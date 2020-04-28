@@ -49,7 +49,7 @@ const parseQuery = (queryString) => {
  * @param {string} query, {string} field
  * @return {object}
  */
-export const buildQueryBody = (query) => {
+export const buildSearchQuery = (query) => {
   let ret = Object.assign({}, query);
   let queryField = query.field;
   if (Array.isArray(query.field)) {
@@ -96,5 +96,5 @@ export const getQueryString = query => query && Object.keys(query)
 
 export default {
   getRequestParams,
-  buildQueryBody,
+  buildSearchQuery,
 };
