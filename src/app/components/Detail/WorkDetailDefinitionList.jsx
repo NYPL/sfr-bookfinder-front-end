@@ -54,7 +54,7 @@ const getAuthorsList = (agents) => {
  *
  * @param {object} props
  */
-export const DefinitionList = ({ work }) => {
+export const WorkDetailDefinitionList = ({ work }) => {
   /**
    * Convert JSON object to array for parsing detail elements into
    * a definition list for display.
@@ -169,12 +169,12 @@ export const DefinitionList = ({ work }) => {
   );
 };
 
-DefinitionList.propTypes = {
+WorkDetailDefinitionList.propTypes = {
   work: PropTypes.objectOf(PropTypes.any),
 };
 
-DefinitionList.defaultProps = {
+WorkDetailDefinitionList.defaultProps = {
   work: {},
 };
 
-export default DefinitionList;
+export default WorkDetailDefinitionList;

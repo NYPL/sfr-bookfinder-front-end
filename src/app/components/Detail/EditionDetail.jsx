@@ -5,17 +5,18 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as DS from '@nypl/design-system-react-components';
 import FeatureFlags from 'dgx-feature-flags';
-import { DefinitionList } from './DefinitionList';
+import { join } from 'path';
+import { Link } from 'react-router';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import * as searchActions from '../../actions/SearchActions';
 import WorkHeader from './WorkHeader';
-import EditionsList from '../List/EditionsList';
-import { deepEqual, checkFeatureFlagActivated } from '../../util/Util';
+import { deepEqual } from '../../util/Util';
 import EditionCard from '../Card/EditionCard';
 import SearchHeader from '../SearchForm/SearchHeader';
-import RequestDigital from '../Feedback/RequestDigital';
-import featureFlagConfig from '../../../../featureFlagConfig';
 import config from '../../../../appConfig';
+import InstancesList from '../List/InstanceList';
+import { getQueryString } from '../../search/query';
+import EditionDetailDefinitionList from './EditionDetailDefinitionList';
 
 const scrollToHash = (hash) => {
   const hashtag = hash && hash.replace(/#/, '');
@@ -32,22 +33,17 @@ class EditionDetail extends React.Component {
   constructor(props) {
     super(props);
     const { dispatch } = props;
-    this.state = { requestedEdition: null, isFeatureFlagsActivated: {}, ...props };
-    this.openForm = this.openForm.bind(this);
-    this.closeForm = this.closeForm.bind(this);
-    this.getRequestEditionButton = this.getRequestEditionButton.bind(this);
+    this.state = {
+      shouldShowAll: true, ...props,
+    };
+    this.toggleReadOnline = this.toggleReadOnline.bind(this);
     this.boundActions = bindActionCreators(searchActions, dispatch);
   }
 
   componentDidMount() {
     const { query, hash } = this.props.location;
-    const editionId = query && query.editionId;
-    this.loadEdition(editionId, hash, this.boundActions);
-    FeatureFlags.store.listen(this.onFeatureFlagsChange.bind(this));
-
-    checkFeatureFlagActivated(
-      featureFlagConfig.featureFlagList, this.state.isFeatureFlagsActivated,
-    );
+    this.setState({ shouldShowAll: query && query.showAll ? (query.showAll === 'true') : true });
+    this.loadEdition(query, hash, this.boundActions);
   }
 
   componentDidUpdate(prevProps) {
@@ -61,35 +57,21 @@ class EditionDetail extends React.Component {
     }
   }
 
-  onFeatureFlagsChange() {
-    // eslint-disable-next-line react/no-unused-state
-    this.setState({ featureFlagsStore: FeatureFlags.store.getState() });
-  }
-
   getInstanceCard(edition, eReaderUrl, referrer) {
     if (!edition.instances || !edition.instances[0]) return null;
     const featuredInstance = edition.instances[0];
-    const featuredEditionData = EditionCard.getInstanceData(edition, featuredInstance,
-      eReaderUrl, referrer, this.getRequestEditionButton(getFirstReadableEdition));
+    const editionYearHeadingElement = <>{EditionCard.editionYearText(edition)}</>;
+    const featuredInstanceData = EditionCard.getInstanceData(edition, featuredInstance,
+      eReaderUrl, referrer, this.getRequestEditionButton(featuredInstance));
     return (
       <DS.EditionCard
         id="featured-card"
-        coverUrl={featuredInstance.coverUrl}
-        editionHeadingElement={featuredInstance.editionYearHeading}
-        editionInfo={[featuredInstance.publisherAndLocation, featuredInstance.language, featuredInstance.license]}
-        readOnlineLink={featuredInstance.readOnlineLink}
-        downloadLink={featuredInstance.downloadLink}
-        noLinkElement={featuredInstance.noLinkElement}
-      />
-    );
-  }
-
-  getRequestDigital(work) {
-    return (
-      <RequestDigital
-        closeForm={this.closeForm}
-        requestedWork={work}
-        requestedEdition={this.state.requestedEdition}
+        coverUrl={featuredInstanceData.coverUrl}
+        editionHeadingElement={editionYearHeadingElement}
+        editionInfo={featuredInstanceData.editionInfo}
+        readOnlineLink={featuredInstanceData.readOnlineLink}
+        downloadLink={featuredInstanceData.downloadLink}
+        noLinkElement={featuredInstanceData.noLinkElement}
       />
     );
   }
@@ -103,32 +85,39 @@ class EditionDetail extends React.Component {
         onKeyDown={(event) => { if (event.keyCode === 13) { this.openForm(edition); } }}
         onClick={() => this.openForm(edition)}
       >
-      Request Digitization
+        Request Digitization
       </a>
     );
   }
 
-  openForm(requestedEdition) {
-    this.setState({ requestedEdition });
+  toggleReadOnline() {
+    const query = this.props.location.query;
+    if (query.showAll === 'false') {
+      query.showAll = 'true';
+      this.setState({ shouldShowAll: true });
+    } else {
+      query.showAll = 'false';
+      this.setState({ shouldShowAll: false });
+    }
+    this.props.dispatch(searchActions.editionDetailRefinePost(query));
+    const path = `/edition?${getQueryString(query)}`;
+    this.props.router.push(path);
   }
 
-  closeForm() {
-    this.setState({ requestedEdition: null });
-  }
-
-  loadEdition(editionId, hash) {
-    console.log('edition loading');
+  loadEdition(query, hash) {
     global.window.scrollTo(0, 0);
-    this.props.dispatch(searchActions.fetchEdition(editionId)).then(() => {
+    this.props.dispatch(searchActions.fetchEdition(query)).then(() => {
       scrollToHash(hash);
     });
   }
 
   render() {
-    console.log('props', this.props);
     const { router } = this.context;
     const edition = this.props.editionResult && this.props.editionResult.data;
     const isValidEdition = edition && edition.instances && !deepEqual(edition, EditionDetail.defaultProps.editionResult);
+    const authorsList = edition
+    && EditionCard.getAuthorsList(EditionCard.getPreferredAgent(edition.agents, 'author'), 'work-detail-header');
+
     const eReaderUrl = this.props.eReaderUrl;
     const referrer = this.props.location.pathname + this.props.location.search;
 
@@ -137,65 +126,100 @@ class EditionDetail extends React.Component {
 
     return (
       <DS.Container>
-        {this.state.requestedEdition && this.getRequestDigital(edition)}
         <main
           id="mainContent"
         >
-          <Breadcrumbs
-            router={router}
-            location={this.props.location}
-          />
-          <div>
-            <SearchHeader />
-          </div>
-          { isValidEdition
-          && (
-          <>
-            <div>
-              <div className="nypl-item-header">
-                <WorkHeader data={edition} />
-              </div>
-            </div>
-            <div>
-              <DS.Heading
-                level={2}
-                id="featured-edition"
-                text="Featured Edition"
-              />
-            </div>
-            <div>
-              <div>
-                {this.getInstanceCard(edition, eReaderUrl, referrer)}
-              </div>
-            </div>
-            <div>
-              <div id="nypl-item-details">
-                <DefinitionList
-                  work={edition}
-                  dispatch={this.props.dispatch}
-                  context={this.context}
+          {isValidEdition
+            && (
+              <>
+                <Breadcrumbs
+                  router={router}
+                  location={this.props.location}
+                  workDetail={{ uuid: edition.work_uuid, title: edition.title }}
                 />
-                {edition.instances && (
-                <h3
-                  tabIndex="-1"
-                  id="all-editions"
-                  className="all-editions-tag bold"
-                >
-                All Editions
-                </h3>
-                )}
-                <div>Instance list</div>
-                <EditionsList
-                  referrer={referrer}
-                  eReaderUrl={this.props.eReaderUrl}
-                  work={edition}
-                  max={0}
-                  getRequestEditionButton={shouldShowRequest ? this.getRequestEditionButton : undefined}
-                />
-              </div>
-            </div>
-          </>
-          )
+                <div>
+                  <SearchHeader />
+                </div>
+                <div>
+                  <div className="nypl-item-header">
+                    {edition
+                      && (
+                        <DS.Heading
+                          level={1}
+                          id="work-title"
+                          blockName="page-title"
+                        >
+                          <Link
+                            to={{ pathname: '/work', query: { workId: `${edition.work_uuid}`, recordType: 'editions', showAll: true } }}
+                            title={edition.title}
+                            className="link link--no-underline"
+                          >
+                            {edition.title}
+                          </Link>
+                        </DS.Heading>
+                      )
+                    }
+                    {edition.subtitle && <div className="search-result-item__subtitle">{edition.subtitle}</div>}
+                    {authorsList && authorsList.length && (
+                      <span>
+                        By
+                        {' '}
+                        {join(authorsList, ', ')}
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <DS.Heading
+                    level={2}
+                    id="featured-edition"
+                    text="Featured Copy"
+                  />
+                </div>
+                <div>
+                  <div>
+                    {this.getInstanceCard(edition, eReaderUrl, referrer)}
+                  </div>
+                </div>
+                <div>
+                  <div id="nypl-item-details">
+                    <EditionDetailDefinitionList
+                      edition={edition}
+                      dispatch={this.props.dispatch}
+                      context={this.context}
+                    />
+                    {edition.instances && (
+                      <div className="all-instances-header">
+                        <h3
+                          tabIndex="-1"
+                          id="all-editions"
+                          className="all-editions-tag bold"
+                        >
+                          All Copies
+                        </h3>
+                        <DS.Checkbox
+                          name="show-all"
+                          checkboxId="show-all-editions"
+                          labelOptions={{
+                            id: 'show-all-label',
+                            labelContent: <>Show only items currently available online</>,
+                          }}
+                          isSelected={!this.state.shouldShowAll}
+                          onChange={this.toggleReadOnline}
+                        />
+                      </div>
+                    )}
+                    <InstancesList
+                      referrer={referrer}
+                      eReaderUrl={this.props.eReaderUrl}
+                      edition={edition}
+                      max={0}
+                      getRequestEditionButton={shouldShowRequest ? this.getRequestEditionButton : undefined}
+                    />
+                  </div>
+                </div>
+              </>
+            )
           }
         </main>
       </DS.Container>
@@ -206,6 +230,7 @@ class EditionDetail extends React.Component {
 EditionDetail.propTypes = {
   editionResult: PropTypes.objectOf(PropTypes.any),
   eReaderUrl: PropTypes.string,
+  router: PropTypes.objectOf(PropTypes.any),
   dispatch: PropTypes.func,
   location: PropTypes.objectOf(PropTypes.any),
 };
@@ -213,6 +238,7 @@ EditionDetail.propTypes = {
 EditionDetail.defaultProps = {
   editionResult: {},
   eReaderUrl: '',
+  router: {},
   dispatch: () => { },
   location: {},
 };

@@ -4,8 +4,8 @@ import React from 'react';
 import { expect } from 'chai';
 import { shallow, mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { DefinitionList } from '../../src/app/components/WorkDetail/DefinitionList';
-import { detailDefinitionLabels } from '../../src/app/constants/labels';
+import { WorkDetailDefinitionList } from '../../src/app/components/Detail/WorkDetailDefinitionList';
+import { workDetailDefinitionLabels } from '../../src/app/constants/labels';
 import work from '../fixtures/work-detail.json';
 
 configure({ adapter: new Adapter() });
@@ -14,7 +14,7 @@ describe('DefinitionList', () => {
   let component;
 
   before(() => {
-    component = mount(<DefinitionList work={work.data} />);
+    component = mount(<WorkDetailDefinitionList work={work.data} />);
   });
 
   it('should display a definition list of detail elements', () => {
@@ -22,10 +22,10 @@ describe('DefinitionList', () => {
     expect(component.find('dt')).to.have.length(4);
     expect(component.find('dd')).to.have.length(4);
     const terms = component.find('dt');
-    expect(terms.at(0).text()).to.equal(detailDefinitionLabels.series);
-    expect(terms.at(1).text()).to.equal(detailDefinitionLabels.agents);
-    expect(terms.at(2).text()).to.equal(detailDefinitionLabels.subjects);
-    expect(terms.at(3).text()).to.equal(detailDefinitionLabels.language);
+    expect(terms.at(0).text()).to.equal(workDetailDefinitionLabels.series);
+    expect(terms.at(1).text()).to.equal(workDetailDefinitionLabels.agents);
+    expect(terms.at(2).text()).to.equal(workDetailDefinitionLabels.subjects);
+    expect(terms.at(3).text()).to.equal(workDetailDefinitionLabels.language);
   });
 
   it('should have a table of Items', () => {

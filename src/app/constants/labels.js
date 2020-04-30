@@ -9,18 +9,18 @@ export const workDetailDefinitionLabels = {
 
 export const editionDetailDefinitionLabels = {
   title: 'Title',
-  pub_date: 'Publication Date',
-  pub_place: 'Publication Place',
-  publisher: 'Publisher(s)',
+  publication_date: 'Publication Date',
+  publication_place: 'Publication Place',
+  agents: 'Publisher(s)',
   edition_statement: 'Edition Statement',
-  toc: 'Table of Contents',
+  language: 'Language',
+  table_of_contents: 'Table of Contents',
   extent: 'Extent',
   volume: 'Volume',
   summary: 'Summary',
 };
 
 export const allWorkLabels = {
-  // for reference, not currently used
   title: 'Title',
   sub_title: 'Subtitle',
   alt_titles: 'Alternative Titles',

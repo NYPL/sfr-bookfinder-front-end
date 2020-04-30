@@ -101,8 +101,25 @@ export const detailRefinePost = (query) => {
     });
 };
 
-export const fetchWork = workId => dispatch => axios
-  .get(recordUrl, { params: { identifier: workId, recordType: 'editions', showAll: true } })
+export const editionDetailRefinePost = (query) => {
+  const queryBody = Object.assign({}, query);
+  queryBody.editionIdentifier = queryBody.editionId;
+  delete queryBody.editionId;
+  return dispatch => axios
+    .post(editionUrl, queryBody)
+    .then((resp) => {
+      if (resp.data) {
+        dispatch(editionDetail(resp.data));
+      }
+    })
+    .catch((error) => {
+      console.log('An error occurred during editionDetailRefinePost', error.message);
+      throw new Error('An error occurred during editionDetailRefinePost', error.message);
+    });
+};
+
+export const fetchWork = query => dispatch => axios
+  .get(recordUrl, { params: { identifier: query.workId, recordType: 'editions', showAll: query.showAll } })
   .then((resp) => {
     if (resp.data) {
       dispatch(workDetail(resp.data));
@@ -125,11 +142,10 @@ export const fetchTotalWorks = () => dispatch => axios
     throw new Error('An error occurred during fetchTotalWorks', error.message);
   });
 
-export const fetchEdition = editionId => dispatch => axios
-  .get(editionUrl, { params: { editionIdentifier: editionId } })
+export const fetchEdition = query => dispatch => axios
+  .get(editionUrl, { params: { editionIdentifier: query.editionId, showAll: query.showAll } })
   .then((resp) => {
     if (resp.data) {
-      console.log('resp.data', resp.data);
       dispatch(editionDetail(resp.data));
     }
   })
@@ -159,8 +175,8 @@ export const serverPost = (query) => {
     });
 };
 
-export const serverFetchWork = workId => axios
-  .get(recordUrl, { params: { identifier: workId, recordType: 'editions', showAll: true } })
+export const serverFetchWork = query => axios
+  .get(recordUrl, { params: { identifier: query.workId, recordType: 'editions', showAll: query.showAll } })
   .then((resp) => {
     serverState.workResult = { work: resp.data };
     return serverState;
@@ -170,10 +186,9 @@ export const serverFetchWork = workId => axios
     throw new Error('An error occurred during serverFetchWork', error.message);
   });
 
-export const serverFetchEdition = editionId => axios
-  .get(editionUrl, { params: { editionIdentifier: editionId } })
+export const serverFetchEdition = query => axios
+  .get(editionUrl, { params: { editionIdentifier: query.editionId, showAll: query.showAll } })
   .then((resp) => {
-    console.log('got herrrrrreee', resp);
     serverState.editionResult = { edition: resp.data };
     return serverState;
   })
@@ -188,6 +203,7 @@ export const error = errorMsg => dispatch => dispatch(errorState(errorMsg));
 export default {
   searchPost,
   detailRefinePost,
+  editionDetailRefinePost,
   fetchWork,
   fetchTotalWorks,
   fetchEdition,

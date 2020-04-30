@@ -5,18 +5,17 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as DS from '@nypl/design-system-react-components';
 import FeatureFlags from 'dgx-feature-flags';
-import { DefinitionList } from './DefinitionList';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import * as searchActions from '../../actions/SearchActions';
-import WorkHeader from './WorkHeader';
 import EditionsList from '../List/EditionsList';
-import { deepEqual, checkFeatureFlagActivated } from '../../util/Util';
+import { deepEqual, checkFeatureFlagActivated, joinArrayOfElements } from '../../util/Util';
 import EditionCard from '../Card/EditionCard';
 import SearchHeader from '../SearchForm/SearchHeader';
 import RequestDigital from '../Feedback/RequestDigital';
 import featureFlagConfig from '../../../../featureFlagConfig';
 import { getQueryString } from '../../search/query';
 import config from '../../../../appConfig';
+import WorkDetailDefinitionList from './WorkDetailDefinitionList';
 
 const scrollToHash = (hash) => {
   const hashtag = hash && hash.replace(/#/, '');
@@ -45,9 +44,10 @@ class WorkDetail extends React.Component {
 
   componentDidMount() {
     const { query, hash } = this.props.location;
-    const workId = query && query.workId;
     this.setState({ shouldShowAll: query && query.showAll ? (query.showAll === 'true') : true });
-    this.loadWork(workId, hash, this.boundActions);
+    if (query) {
+      this.loadWork(query, hash, this.boundActions);
+    }
     FeatureFlags.store.listen(this.onFeatureFlagsChange.bind(this));
 
     checkFeatureFlagActivated(
@@ -60,7 +60,7 @@ class WorkDetail extends React.Component {
     const workId = query && query.workId;
     const prevWorkId = prevProps.location && prevProps.location.query && prevProps.location.query.workId;
     if (workId && workId !== prevWorkId) {
-      this.loadWork(workId, hash);
+      this.loadWork(query, hash);
     } else if (hash) {
       scrollToHash(hash);
     }
@@ -109,7 +109,7 @@ class WorkDetail extends React.Component {
         onKeyDown={(event) => { if (event.keyCode === 13) { this.openForm(edition); } }}
         onClick={() => this.openForm(edition)}
       >
-      Request Digitization
+        Request Digitization
       </a>
     );
   }
@@ -122,9 +122,9 @@ class WorkDetail extends React.Component {
     this.setState({ requestedEdition: null });
   }
 
-  loadWork(workId, hash) {
+  loadWork(query, hash) {
     global.window.scrollTo(0, 0);
-    this.props.dispatch(searchActions.fetchWork(workId)).then(() => {
+    this.props.dispatch(searchActions.fetchWork(query)).then(() => {
       scrollToHash(hash);
     });
   }
@@ -147,6 +147,8 @@ class WorkDetail extends React.Component {
     const { router } = this.context;
     const work = this.props.workResult ? this.props.workResult.data : null;
     const isValidWork = work && work.editions && !deepEqual(work, WorkDetail.defaultProps.workResult);
+    const authorsList = work && EditionCard.getAuthorsList(EditionCard.getPreferredAgent(work.agents, 'author'), 'work-detail-header');
+
     const eReaderUrl = this.props.eReaderUrl;
     const referrer = this.props.location.pathname + this.props.location.search;
     // eslint-disable-next-line no-underscore-dangle
@@ -164,65 +166,80 @@ class WorkDetail extends React.Component {
           <div>
             <SearchHeader />
           </div>
-          { isValidWork
-          && (
-          <>
-            <div>
-              <div className="nypl-item-header">
-                <WorkHeader data={work} />
-              </div>
-            </div>
-            <div>
-              <DS.Heading
-                level={2}
-                id="featured-edition"
-                text="Featured Edition"
-              />
-            </div>
-            <div>
-              <div>
-                {this.getEditionCard(work, eReaderUrl, referrer)}
-              </div>
-            </div>
-            <div>
-              <div id="nypl-item-details">
-                <DefinitionList
-                  work={work}
-                  dispatch={this.props.dispatch}
-                  context={this.context}
-                />
-                {work.editions && (
-                  <div className="all-editions-header">
-                    <h3
-                      tabIndex="-1"
-                      id="all-editions"
-                      className="all-editions-tag bold"
-                    >
-                All Editions
-                    </h3>
-                    <DS.Checkbox
-                      name="show-all"
-                      checkboxId="show-all-editions"
-                      labelOptions={{
-                        id: 'show-all-label',
-                        labelContent: <>Show only items currently available online</>,
-                      }}
-                      isSelected={!this.state.shouldShowAll}
-                      onChange={this.toggleReadOnline}
+          {isValidWork
+            && (
+              <>
+                <div className="nypl-item-header">
+                  {work
+                    && (
+                      <DS.Heading
+                        level={1}
+                        id="work-title"
+                        blockName="page-title"
+                        text={work.title}
+                      />
+                    )
+                  }
+                  {work.subtitle && <div className="search-result-item__subtitle">{work.subtitle}</div>}
+                  {authorsList && authorsList.length && (
+                    <span>
+                      By
+                        {' '}
+                      {joinArrayOfElements(authorsList, ', ')}
+                    </span>
+                  )}
+                </div>
+                <div>
+                  <DS.Heading
+                    level={2}
+                    id="featured-edition"
+                    text="Featured Edition"
+                  />
+                </div>
+                <div>
+                  <div>
+                    {this.getEditionCard(work, eReaderUrl, referrer)}
+                  </div>
+                </div>
+                <div>
+                  <div id="nypl-item-details">
+                    <WorkDetailDefinitionList
+                      work={work}
+                      dispatch={this.props.dispatch}
+                      context={this.context}
+                    />
+                    {work.editions && (
+                      <div className="all-editions-header">
+                        <h3
+                          tabIndex="-1"
+                          id="all-editions"
+                          className="all-editions-tag bold"
+                        >
+                          All Editions
+                        </h3>
+                        <DS.Checkbox
+                          name="show-all"
+                          checkboxId="show-all-editions"
+                          labelOptions={{
+                            id: 'show-all-label',
+                            labelContent: <>Show only items currently available online</>,
+                          }}
+                          isSelected={!this.state.shouldShowAll}
+                          onChange={this.toggleReadOnline}
+                        />
+                      </div>
+                    )}
+                    <EditionsList
+                      referrer={referrer}
+                      eReaderUrl={this.props.eReaderUrl}
+                      work={work}
+                      max={0}
+                      getRequestEditionButton={shouldShowRequest ? this.getRequestEditionButton : undefined}
                     />
                   </div>
-                )}
-                <EditionsList
-                  referrer={referrer}
-                  eReaderUrl={this.props.eReaderUrl}
-                  work={work}
-                  max={0}
-                  getRequestEditionButton={shouldShowRequest ? this.getRequestEditionButton : undefined}
-                />
-              </div>
-            </div>
-          </>
-          )
+                </div>
+              </>
+            )
           }
         </main>
       </DS.Container>

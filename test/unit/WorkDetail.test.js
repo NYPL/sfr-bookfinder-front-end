@@ -54,12 +54,12 @@ describe('Work Detail Page Test', () => {
       expect(container.find('SearchComponent').dive().find('ResultsHeader').exists()).to.equal(true);
     });
 
-    it('should show WorkHeader', () => {
-      expect(container.find('WorkHeader').exists()).to.equal(true);
+    it('should show work header', () => {
+      expect(container.find('#work-title').exists()).to.equal(true);
     });
 
-    it('should show a DefinitionList', () => {
-      expect(container.find('DefinitionList').exists()).to.equal(true);
+    it('should show a WorkDetailDefinitionList', () => {
+      expect(container.find('WorkDetailDefinitionList').exists()).to.equal(true);
     });
     it('should show available items toggle checkbox', () => {
       expect(container.find(DS.Checkbox).exists()).to.equal(true);
