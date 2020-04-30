@@ -67,6 +67,12 @@ export const EditionDetailDefinitionList = ({ edition }) => {
             {getPublishersList(list, 'definitionList-publisher')}
           </ul>
         );
+      case 'language':
+        return (
+          <ul className="definitions-languages">
+            {list.map((language, i) => <li key={`language${i.toString()}`}>{language}</li>)}
+          </ul>
+        );
 
       default:
         return Array.isArray(entries) ? entries.map(entry => htmlEntities.decode(entry)).join(', ') : htmlEntities.decode(entries);

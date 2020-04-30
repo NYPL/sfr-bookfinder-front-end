@@ -2,7 +2,7 @@
 /* eslint-env mocha */
 import React from 'react';
 import { expect } from 'chai';
-import { shallow, mount, configure } from 'enzyme';
+import { mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { WorkDetailDefinitionList } from '../../src/app/components/Detail/WorkDetailDefinitionList';
 import { workDetailDefinitionLabels } from '../../src/app/constants/labels';
@@ -10,7 +10,7 @@ import work from '../fixtures/work-detail.json';
 
 configure({ adapter: new Adapter() });
 
-describe('DefinitionList', () => {
+describe('Work Detail Definition List', () => {
   let component;
 
   before(() => {

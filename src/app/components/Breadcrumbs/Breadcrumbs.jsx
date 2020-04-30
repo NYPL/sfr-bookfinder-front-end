@@ -89,8 +89,8 @@ class Breadcrumbs extends React.Component {
 
 Breadcrumbs.propTypes = {
   location: PropTypes.objectOf(PropTypes.any),
-  workDetail: PropTypes.objectOf({ uuid: string, title: string }),
-  editionDetail: PropTypes.objectOf({ id: string, publication_date: string }),
+  workDetail: PropTypes.shape({ uuid: PropTypes.string, title: PropTypes.string }),
+  editionDetail: PropTypes.shape({ id: PropTypes.string, publication_date: PropTypes.string }),
   dispatch: PropTypes.func,
 };
 

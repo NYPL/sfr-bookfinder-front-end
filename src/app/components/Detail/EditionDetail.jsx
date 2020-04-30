@@ -1,20 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router';
+import { withRouter, Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as DS from '@nypl/design-system-react-components';
 import FeatureFlags from 'dgx-feature-flags';
 import { join } from 'path';
-import { Link } from 'react-router';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import * as searchActions from '../../actions/SearchActions';
-import WorkHeader from './WorkHeader';
 import { deepEqual } from '../../util/Util';
 import EditionCard from '../Card/EditionCard';
 import SearchHeader from '../SearchForm/SearchHeader';
 import config from '../../../../appConfig';
-import InstancesList from '../List/InstanceList';
+import InstancesList from '../List/InstancesList';
 import { getQueryString } from '../../search/query';
 import EditionDetailDefinitionList from './EditionDetailDefinitionList';
 
@@ -42,8 +40,10 @@ class EditionDetail extends React.Component {
 
   componentDidMount() {
     const { query, hash } = this.props.location;
-    this.setState({ shouldShowAll: query && query.showAll ? (query.showAll === 'true') : true });
-    this.loadEdition(query, hash, this.boundActions);
+    if (query) {
+      this.setState({ shouldShowAll: query && query.showAll ? (query.showAll === 'true') : true });
+      this.loadEdition(query, hash, this.boundActions);
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -119,7 +119,7 @@ class EditionDetail extends React.Component {
     && EditionCard.getAuthorsList(EditionCard.getPreferredAgent(edition.agents, 'author'), 'work-detail-header');
 
     const eReaderUrl = this.props.eReaderUrl;
-    const referrer = this.props.location.pathname + this.props.location.search;
+    const referrer = `${this.props.location.pathname}${this.props.location.search}`;
 
     // eslint-disable-next-line no-underscore-dangle
     const shouldShowRequest = FeatureFlags.store._isFeatureActive(config.requestDigital.experimentName);
@@ -146,7 +146,7 @@ class EditionDetail extends React.Component {
                       && (
                         <DS.Heading
                           level={1}
-                          id="work-title"
+                          id="edition-title"
                           blockName="page-title"
                         >
                           <Link

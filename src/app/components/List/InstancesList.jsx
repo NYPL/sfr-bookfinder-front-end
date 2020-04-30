@@ -46,7 +46,6 @@ class InstancesList extends React.Component {
     }
 
     return (
-      // <>{this.getEditionCardList(work, eReaderUrl, referrer)}</>
       <DS.UnorderedList>{this.getInstanceCardList(edition, eReaderUrl, referrer)}</DS.UnorderedList>
     );
   }
