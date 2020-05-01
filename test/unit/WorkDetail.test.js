@@ -5,42 +5,51 @@ import { expect } from 'chai';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import * as DS from '@nypl/design-system-react-components';
+import { stub } from 'sinon';
 import configureStore from '../../src/app/stores/configureStore';
 import initialState from '../../src/app/stores/InitialState';
 import detail from '../fixtures/work-detail.json';
+import { mockRouterContext, mockRouter } from '../helpers/routing';
 
 import WorkDetail from '../../src/app/components/Detail/WorkDetail';
 
 configure({ adapter: new Adapter() });
 describe('Work Detail Page Test', () => {
+  let component;
+  const store = configureStore(initialState);
+  let push;
+  let router;
+
   describe('WorkDetail Rendering with empty work', () => {
-    let component;
-    const store = configureStore(initialState);
     before(() => {
+      push = stub();
+      router = mockRouter(push);
+      const context = mockRouterContext(push);
+
       component = shallow(
         <WorkDetail
           store={store}
-        />,
+        />, { context },
       ).dive().dive();
     });
 
-    it('should show breadcrumb', () => {
-      expect(component.find('Breadcrumbs').exists()).to.equal(true);
-    });
-
-    it('should show ResultsHeader', () => {
-      expect(component.find('SearchComponent').dive().find('ResultsHeader').exists()).to.equal(true);
+    it('should redirect to landing page', () => {
+      expect(component.exists()).to.equal(true);
+      expect(router.push.called).to.equal(true);
     });
   });
 
   describe('WorkDetail Rendering with valid work', () => {
-    const store = configureStore(initialState);
     let container;
     before(() => {
+      push = stub();
+      router = mockRouter(push);
+      const context = mockRouterContext(push);
+
       const props = { store };
       container = shallow(<WorkDetail
         {...props}
-      />).dive().dive();
+      />, { context }).dive().dive();
       container.setProps({
         workResult: detail,
       });

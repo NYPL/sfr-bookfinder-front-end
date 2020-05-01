@@ -38,4 +38,9 @@ describe('Edition Detail Definition List', () => {
     const languages = component.find('.definitions-languages');
     expect(languages.find('li')).to.have.length(2);
   });
+
+  it('should have a list of publishers', () => {
+    const languages = component.find('.definitions-publishers');
+    expect(languages.find('li')).to.have.length(3);
+  });
 });

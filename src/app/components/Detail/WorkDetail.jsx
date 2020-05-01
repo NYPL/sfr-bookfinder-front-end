@@ -43,11 +43,10 @@ class WorkDetail extends React.Component {
   }
 
   componentDidMount() {
-    const { query, hash } = this.props.location;
+    const { location } = this.props;
+    const { query, hash } = location;
     this.setState({ shouldShowAll: query && query.showAll ? (query.showAll === 'true') : true });
-    if (query) {
-      this.loadWork(query, hash, this.boundActions);
-    }
+    this.loadWork(query, hash, this.boundActions);
     FeatureFlags.store.listen(this.onFeatureFlagsChange.bind(this));
 
     checkFeatureFlagActivated(
@@ -124,9 +123,13 @@ class WorkDetail extends React.Component {
 
   loadWork(query, hash) {
     global.window.scrollTo(0, 0);
-    this.props.dispatch(searchActions.fetchWork(query)).then(() => {
-      scrollToHash(hash);
-    });
+    if (query && query.workId) {
+      this.props.dispatch(searchActions.fetchWork(query)).then(() => {
+        scrollToHash(hash);
+      });
+    } else {
+      this.props.router.push('/');
+    }
   }
 
   toggleReadOnline() {

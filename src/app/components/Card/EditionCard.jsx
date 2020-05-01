@@ -273,7 +273,7 @@ export default class EditionCard {
   static getWorldCatElem(instance) {
     const oclc = instance && instance.identifiers
       ? instance.identifiers.find(identifier => identifier.id_type === 'oclc').identifier : undefined;
-    const oclcLink = oclc ? `http://www.worldcat.org/oclc/${oclc}` : undefined;
+    const oclcLink = oclc ? `https://www.worldcat.org/oclc/${oclc}` : undefined;
     return (
       oclc
         ? (

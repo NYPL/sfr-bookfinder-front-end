@@ -40,10 +40,8 @@ class EditionDetail extends React.Component {
 
   componentDidMount() {
     const { query, hash } = this.props.location;
-    if (query) {
-      this.setState({ shouldShowAll: query && query.showAll ? (query.showAll === 'true') : true });
-      this.loadEdition(query, hash, this.boundActions);
-    }
+    this.setState({ shouldShowAll: query && query.showAll ? (query.showAll === 'true') : true });
+    this.loadEdition(query, hash, this.boundActions);
   }
 
   componentDidUpdate(prevProps) {
@@ -51,7 +49,7 @@ class EditionDetail extends React.Component {
     const editionId = query && query.editionId;
     const prevEditionId = prevProps.location && prevProps.location.query && prevProps.location.query.editionId;
     if (editionId && editionId !== prevEditionId) {
-      this.loadEdition(editionId, hash);
+      this.loadEdition(query, hash);
     } else if (hash) {
       scrollToHash(hash);
     }
@@ -106,9 +104,13 @@ class EditionDetail extends React.Component {
 
   loadEdition(query, hash) {
     global.window.scrollTo(0, 0);
-    this.props.dispatch(searchActions.fetchEdition(query)).then(() => {
-      scrollToHash(hash);
-    });
+    if (query && query.editionId) {
+      this.props.dispatch(searchActions.fetchEdition(query)).then(() => {
+        scrollToHash(hash);
+      });
+    } else {
+      this.props.router.push('/');
+    }
   }
 
   render() {

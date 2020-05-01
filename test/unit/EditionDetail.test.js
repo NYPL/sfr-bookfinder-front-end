@@ -5,38 +5,51 @@ import { expect } from 'chai';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import * as DS from '@nypl/design-system-react-components';
+import { stub } from 'sinon';
 import configureStore from '../../src/app/stores/configureStore';
 import initialState from '../../src/app/stores/InitialState';
 import detail from '../fixtures/edition-detail.json';
+import { mockRouterContext, mockRouter } from '../helpers/routing';
 
 import EditionDetail from '../../src/app/components/Detail/EditionDetail';
 
 configure({ adapter: new Adapter() });
 describe('Edition Detail Page Test', () => {
-  describe('EditionDetail Rendering with empty edition', () => {
-    let component;
-    const store = configureStore(initialState);
+  configure({ adapter: new Adapter() });
+  let component;
+  const store = configureStore(initialState);
+  let push;
+  let router;
+
+  describe('EditionDetail Rendering with empty work', () => {
     before(() => {
+      push = stub();
+      router = mockRouter(push);
+      const context = mockRouterContext(push);
+
       component = shallow(
         <EditionDetail
           store={store}
-        />,
+        />, { context },
       ).dive().dive();
     });
 
-    it('should mount', () => {
-      expect(component.find('#mainContent').exists()).to.equal(true);
+    it('should redirect to landing page', () => {
+      expect(component.exists()).to.equal(true);
+      expect(router.push.called).to.equal(true);
     });
   });
 
   describe('EditionDetail Rendering with valid edition', () => {
-    const store = configureStore(initialState);
     let container;
     before(() => {
       const props = { store };
+      push = stub();
+      router = mockRouter(push);
+      const context = mockRouterContext(push);
       container = shallow(<EditionDetail
         {...props}
-      />).dive().dive();
+      />, { context }).dive().dive();
       container.setProps({
         editionResult: detail,
       });
