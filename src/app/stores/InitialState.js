@@ -27,4 +27,9 @@ const initialState = {
   totalWorks: {},
 };
 
+export const initialEditionState = {
+  query: {},
+  editionResult: {},
+};
+
 export default initialState;

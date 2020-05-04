@@ -1,4 +1,4 @@
-export const detailDefinitionLabels = {
+export const workDetailDefinitionLabels = {
   alt_titles: 'Alternative Titles',
   summary: 'Summary',
   series: 'Series',
@@ -7,8 +7,20 @@ export const detailDefinitionLabels = {
   language: 'Language',
 };
 
+export const editionDetailDefinitionLabels = {
+  title: 'Title',
+  publication_date: 'Publication Date',
+  publication_place: 'Publication Place',
+  agents: 'Publisher(s)',
+  edition_statement: 'Edition Statement',
+  language: 'Language',
+  table_of_contents: 'Table of Contents',
+  extent: 'Extent',
+  volume: 'Volume',
+  summary: 'Summary',
+};
+
 export const allWorkLabels = {
-  // for reference, not currently used
   title: 'Title',
   sub_title: 'Subtitle',
   alt_titles: 'Alternative Titles',

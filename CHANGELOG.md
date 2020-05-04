@@ -1,9 +1,10 @@
 # CHANGE LOG
-## [0.8.3] 
+## [0.9.0] 
 ### Changed
 - Filters now hide on mobile and show in sidebar.  
 - Updated to Design System 0.1.0
 - Work Detail page has a Show All toggle
+- Edition Detail Page added
 
 ## [0.8.5]
 ### Added

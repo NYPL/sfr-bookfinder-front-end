@@ -1,12 +1,13 @@
 /* eslint-env mocha */
 import { expect } from 'chai';
-import { searchResults, workDetail } from '../../src/app/actions/SearchActions';
+import { searchResults, workDetail, editionDetail } from '../../src/app/actions/SearchActions';
 
 describe('SearchActions', () => {
   let results;
   let resultsAction;
   let details;
   let workDetailAction;
+  let editionDetailAction;
 
   describe('searchResults Action', () => {
     it('should return an object with type and results', () => {
@@ -35,6 +36,20 @@ describe('SearchActions', () => {
 
       expect(workDetailAction.type).to.equal('FETCH_WORK');
       expect(JSON.stringify(workDetailAction.work)).to.equal(JSON.stringify(details));
+    });
+  });
+
+  describe('editionDetail Action', () => {
+    it('should return an object with type and editionDetail', () => {
+      details = {
+        edition: {
+          title: 'The Tragedie of Hamlet, Prince of Denmark\nA Study with the Text of the Folio of 1623',
+        },
+      };
+      editionDetailAction = editionDetail(details);
+
+      expect(editionDetailAction.type).to.equal('FETCH_EDITION');
+      expect(JSON.stringify(editionDetailAction.edition)).to.equal(JSON.stringify(details));
     });
   });
 });

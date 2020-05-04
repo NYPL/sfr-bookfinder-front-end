@@ -7,6 +7,7 @@ import { buildSearchQuery } from '../search/query';
 export const Actions = {
   SEARCH: 'SEARCH',
   FETCH_WORK: 'FETCH_WORK',
+  FETCH_EDITION: 'FETCH_EDITION',
   SET_QUERY: 'SET_QUERY',
   RESET_SEARCH: 'RESET_SEARCH',
   GET_TOTAL_WORKS: 'GET_TOTAL_WORKS',
@@ -39,6 +40,11 @@ export const workDetail = work => ({
   work,
 });
 
+export const editionDetail = edition => ({
+  type: Actions.FETCH_EDITION,
+  edition,
+});
+
 export const resetSearch = () => ({
   type: Actions.RESET_SEARCH,
   reset: true,
@@ -51,10 +57,11 @@ export const totalWorks = total => ({
 
 const appEnv = process.env.APP_ENV || 'production';
 const apiUrl = appConfig.api[appEnv];
-const { searchPath, recordPath } = appConfig.api;
+const { searchPath, recordPath, editionPath } = appConfig.api;
 const totalWorksPath = appConfig.booksCount.apiUrl;
 const searchUrl = apiUrl + searchPath[appEnv];
 const recordUrl = apiUrl + recordPath;
+const editionUrl = apiUrl + editionPath;
 const totalWorksUrl = apiUrl + totalWorksPath;
 
 export const searchPost = (query) => {
@@ -94,8 +101,25 @@ export const detailRefinePost = (query) => {
     });
 };
 
-export const fetchWork = workId => dispatch => axios
-  .get(recordUrl, { params: { identifier: workId, recordType: 'editions', showAll: true } })
+export const editionDetailRefinePost = (query) => {
+  const queryBody = Object.assign({}, query);
+  queryBody.editionIdentifier = queryBody.editionId;
+  delete queryBody.editionId;
+  return dispatch => axios
+    .post(editionUrl, queryBody)
+    .then((resp) => {
+      if (resp.data) {
+        dispatch(editionDetail(resp.data));
+      }
+    })
+    .catch((error) => {
+      console.log('An error occurred during editionDetailRefinePost', error.message);
+      throw new Error('An error occurred during editionDetailRefinePost', error.message);
+    });
+};
+
+export const fetchWork = query => dispatch => axios
+  .get(recordUrl, { params: { identifier: query.workId, recordType: 'editions', showAll: query.showAll } })
   .then((resp) => {
     if (resp.data) {
       dispatch(workDetail(resp.data));
@@ -118,6 +142,19 @@ export const fetchTotalWorks = () => dispatch => axios
     throw new Error('An error occurred during fetchTotalWorks', error.message);
   });
 
+export const fetchEdition = query => dispatch => axios
+  .get(editionUrl, { params: { editionIdentifier: query.editionId, showAll: query.showAll } })
+  .then((resp) => {
+    if (resp.data) {
+      dispatch(editionDetail(resp.data));
+    }
+  })
+
+  .catch((error) => {
+    console.log('An error occurred during fetchEdition', error.message);
+    throw new Error('An error occurred during fetchEdition', error.message);
+  });
+
 export const serverPost = (query) => {
   const sField = query.field && selectFields[query.field];
   let queryBody;
@@ -138,8 +175,8 @@ export const serverPost = (query) => {
     });
 };
 
-export const serverFetchWork = workId => axios
-  .get(recordUrl, { params: { identifier: workId, recordType: 'editions', showAll: true } })
+export const serverFetchWork = query => axios
+  .get(recordUrl, { params: { identifier: query.workId, recordType: 'editions', showAll: query.showAll } })
   .then((resp) => {
     serverState.workResult = { work: resp.data };
     return serverState;
@@ -149,16 +186,30 @@ export const serverFetchWork = workId => axios
     throw new Error('An error occurred during serverFetchWork', error.message);
   });
 
+export const serverFetchEdition = query => axios
+  .get(editionUrl, { params: { editionIdentifier: query.editionId, showAll: query.showAll } })
+  .then((resp) => {
+    serverState.editionResult = { edition: resp.data };
+    return serverState;
+  })
+  .catch((error) => {
+    console.log('An error occurred during serverFetchEdition', error.message);
+    throw new Error('An error occurred during serverFetchEdition', error.message);
+  });
+
 export const loading = isLoading => dispatch => dispatch(loadingState(isLoading));
 export const error = errorMsg => dispatch => dispatch(errorState(errorMsg));
 
 export default {
   searchPost,
   detailRefinePost,
+  editionDetailRefinePost,
   fetchWork,
   fetchTotalWorks,
+  fetchEdition,
   serverPost,
   serverFetchWork,
+  serverFetchEdition,
   userQuery,
   resetSearch,
   loading,

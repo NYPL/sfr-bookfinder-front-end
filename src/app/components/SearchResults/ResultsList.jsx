@@ -78,9 +78,8 @@ class ResultsList extends React.Component {
         </a>
       ) : undefined;
 
-      const titleElement = EditionCard.generateTitleLinkElem(result.title, result.uuid);
+      const titleElement = EditionCard.generateTitleLinkElem(result);
       const authorLinkElement = EditionCard.getAuthorsList(EditionCard.getPreferredAgent(result.agents, 'author'), `${result.uuid}-author`);
-      // TODO: Editions Link Page
       const allEditionsLink = getEditionsLinkElement(result);
       const previewEdition = result.editions && result.editions[0];
 

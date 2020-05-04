@@ -139,30 +139,33 @@ describe('Edition Card', () => {
   });
 
   describe('gets Edition Year', () => {
-    it('If UUID is passed, it should display the year as a link', () => {
-      component = mount(EditionCard.editionYearElem(work.editions[0], work.uuid));
+    it('Should display the year as a link', () => {
+      component = mount(EditionCard.editionYearElem(work.editions[0]));
       expect(component.find('a').text()).to.equal('1852 Edition');
-    });
-
-    it('if UUID is not passed, should display the year in plain text', () => {
-      component = shallow(EditionCard.editionYearElem(work.editions[0]));
-      expect(component.find('span').text()).to.equal('1852 Edition');
     });
   });
 
   describe('displays title with link', () => {
     it('should display the title in a Link', () => {
-      component = shallow(EditionCard.generateTitleLinkElem('Test Title', work.uuid));
-      expect(component.find('a').text()).to.equal('Test Title');
+      component = shallow(EditionCard.generateTitleLinkElem(work));
+      expect(component.find('a').text()).to.equal('The Blithedale romance, by Nathaniel Hawthorne.');
     });
     it('should truncate the title if it is too long', () => {
       const tooLongTitle = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent consequat velit diam.';
+      const workWithTooLongTitle = {
+        title: tooLongTitle,
+        uuid: work.uuid,
+      };
       const truncatedTitle = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent consequat veli...';
-      component = shallow(EditionCard.generateTitleLinkElem(tooLongTitle, work.uuid));
+      component = shallow(EditionCard.generateTitleLinkElem(workWithTooLongTitle));
       expect(component.find('a').text()).to.equal(truncatedTitle);
     });
+
+    const workWithNoTitle = {
+      uuid: work.uuid,
+    };
     it("should display 'title unknown' when not passed a title", () => {
-      component = shallow(EditionCard.generateTitleLinkElem(undefined, work.uuid));
+      component = shallow(EditionCard.generateTitleLinkElem(workWithNoTitle));
       expect(component.find('a').text()).to.equal('Title Unknown');
     });
   });

@@ -4,15 +4,15 @@ import React from 'react';
 import { expect } from 'chai';
 import { mount } from 'enzyme';
 import * as DS from '@nypl/design-system-react-components';
-import EditionsList from '../../src/app/components/List/EditionsList';
-import workResult from '../fixtures/work-detail.json';
+import InstancesList from '../../src/app/components/List/InstancesList';
+import editionsResult from '../fixtures/edition-detail.json';
 
-describe('Editions List', () => {
+describe('Instances List', () => {
   let component;
 
-  describe('No editions behavior.', () => {
+  describe('No instance behavior.', () => {
     before(() => {
-      component = mount(<EditionsList
+      component = mount(<InstancesList
         work={{ instances: [] }}
       />);
     });
@@ -22,9 +22,9 @@ describe('Editions List', () => {
     });
   });
 
-  describe('Displays DS EditionsList if editions passed', () => {
+  describe('Displays DS EditionsList if instances passed', () => {
     before(() => {
-      component = mount(<EditionsList work={workResult.data} />);
+      component = mount(<InstancesList edition={editionsResult.data} />);
     });
 
     it('should return results', () => {

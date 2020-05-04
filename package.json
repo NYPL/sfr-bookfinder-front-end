@@ -1,6 +1,6 @@
 {
   "name": "rnw-front-end-development",
-  "version": "0.8.5",
+  "version": "0.9.0",
   "description": "ResearchNow front-end application for NYPL's newest search & retrieval platform.",
   "author": "NYPL Digital",
   "main": "index.js",

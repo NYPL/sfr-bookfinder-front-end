@@ -42,11 +42,21 @@ export const workResult = (state = null, action) => {
   }
 };
 
+export const editionResult = (state = null, action) => {
+  switch (action.type) {
+    case Actions.FETCH_EDITION:
+      return {
+        edition: action.edition,
+      };
+    default:
+      return state;
+  }
+};
+
 export const searchQuery = (state = null, action) => {
   if (action.type === Actions.SET_QUERY) {
     return action.searchQuery;
   }
-
   return state;
 };
 
@@ -64,6 +74,7 @@ const appReducer = combineReducers({
   searchQuery,
   sort,
   workResult,
+  editionResult,
   totalWorks,
   loading,
   errorMsg,
