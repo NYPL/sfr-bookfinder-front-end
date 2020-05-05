@@ -1,4 +1,8 @@
 # CHANGE LOG
+## [0.9.1] 
+### Changed
+- Updated dgx-global-footer to 0.5.5.
+
 ## [0.9.0] 
 ### Changed
 - Filters now hide on mobile and show in sidebar.  
