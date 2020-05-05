@@ -22,7 +22,9 @@ class Application extends React.Component {
     const { location } = this.props;
     if (location && location.query && location.query.workId) {
       global.document.title = documentTitles.workItem;
-    } else if (location && location.query && location.query.query) {
+    } else if (location && location.query && location.query.editionId) {
+      global.document.title = documentTitles.editionItem;
+    } else if (location && location.query && location.query.queries) {
       global.document.title = documentTitles.search;
     } else {
       global.document.title = documentTitles.home;

@@ -1,4 +1,7 @@
 # CHANGE LOG
+## [0.9.1] 
+- Edited some typos and added page title to Edition Detail
+
 ## [0.9.0] 
 ### Changed
 - Filters now hide on mobile and show in sidebar.  

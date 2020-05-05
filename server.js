@@ -76,6 +76,8 @@ app.get('/*', (req, res) => {
         appTitle = documentTitles.workItem;
       } else if (req.url && req.url.match(/search\?/)) {
         appTitle = documentTitles.search;
+      } else if (req.url && req.url.match(/edition\?/)) {
+        appTitle = documentTitles.editionITem;
       }
       // First parameter references the ejs filename
       res.render('index', {
