@@ -38,7 +38,8 @@ export const allWorkLabels = {
 export const documentTitles = {
   home: 'Digital Research Books Beta | NYPL',
   search: 'Search Results | Digital Research Books Beta | NYPL',
-  workItem: 'Item Details | Digital Research Books Beta Now | NYPL',
+  workItem: 'Item Details | Digital Research Books Beta | NYPL',
+  editionItem: 'Edition Details | Digital Research Books Beta | NYPL',
 };
 
 export const yearsType = { start: 'Start', end: 'End' };

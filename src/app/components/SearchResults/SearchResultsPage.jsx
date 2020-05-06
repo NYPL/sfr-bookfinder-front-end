@@ -229,7 +229,7 @@ class SearchResultsPage extends React.Component {
                 level={1}
                 id="page-title-heading"
                 blockName="page-title"
-                text={`Search Results for ${this.getDisplayItemsHeading()}`}
+                text={`Search results for ${this.getDisplayItemsHeading()}`}
               />
             </div>
             <div className="search-navigation">
