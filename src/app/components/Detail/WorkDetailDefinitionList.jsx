@@ -155,7 +155,7 @@ export const WorkDetailDefinitionList = ({ work }) => {
           (entry, i) => elements.includes(entry[0]) && entry[1] && (
           <React.Fragment key={`"entry"${i.toString()}`}>
             <dt>{workDetailDefinitionLabels[entry[0]]}</dt>
-            { parseEntries(entry[0], entry[1], workObj) && <dd>{parseEntries(entry[0], entry[1], workObj)}</dd> }
+            <dd>{parseEntries(entry[0], entry[1], workObj)}</dd>
           </React.Fragment>
           ),
         )}

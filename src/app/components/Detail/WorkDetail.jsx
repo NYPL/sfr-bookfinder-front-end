@@ -134,6 +134,8 @@ class WorkDetail extends React.Component {
 
   toggleReadOnline() {
     const query = this.props.location.query;
+    // query params are expressed as strings
+    // but are stored in state as booleans to simplify Checkbox.isSelected
     if (query.showAll === 'true') {
       query.showAll = 'false';
       this.setState({ shouldShowAll: false });
