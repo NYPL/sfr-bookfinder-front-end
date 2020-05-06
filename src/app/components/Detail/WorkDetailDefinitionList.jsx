@@ -82,20 +82,20 @@ export const WorkDetailDefinitionList = ({ work }) => {
     switch (type) {
       case 'language':
         return (
-          <ul className="definitions-languages">
+          <ul className="definitions definitions-languages">
             {list.map((language, i) => <li key={`language${i.toString()}`}>{language}</li>)}
           </ul>
         );
       case 'agents':
         return (
-          <ul className="definitions-authors">
+          <ul className="definitions definitions-authors">
             {getAuthorsList(list, 'definitionList-author')}
           </ul>
         );
 
       case 'subjects':
         return (
-          <ul className="definitions-subjects">
+          <ul className="definitions definitions-subjects">
             {unique(list, 'subject')
               .sort((a, b) => (a.subject && b.subject && a.subject.toLowerCase() < b.subject.toLowerCase() ? -1 : 1))
               .map((subject, i) => (
@@ -116,13 +116,17 @@ export const WorkDetailDefinitionList = ({ work }) => {
         );
       case 'series':
         return (
-          <span className="definitions-series">
+          <div className="definitions definitions-series">
             {entries}
             {workObj.series_position && ` ${workObj.series_position}`}
-          </span>
+          </div>
         );
       default:
-        return Array.isArray(entries) ? entries.map(entry => htmlEntities.decode(entry)).join(', ') : htmlEntities.decode(entries);
+        return (
+          <div className="definitiions">
+            {Array.isArray(entries) ? entries.map(entry => htmlEntities.decode(entry)).join(', ') : htmlEntities.decode(entries)}
+          </div>
+        );
     }
   };
 
@@ -151,7 +155,7 @@ export const WorkDetailDefinitionList = ({ work }) => {
           (entry, i) => elements.includes(entry[0]) && entry[1] && (
           <React.Fragment key={`"entry"${i.toString()}`}>
             <dt>{workDetailDefinitionLabels[entry[0]]}</dt>
-            <dd>{parseEntries(entry[0], entry[1], workObj)}</dd>
+            { parseEntries(entry[0], entry[1], workObj) && <dd>{parseEntries(entry[0], entry[1], workObj)}</dd> }
           </React.Fragment>
           ),
         )}
