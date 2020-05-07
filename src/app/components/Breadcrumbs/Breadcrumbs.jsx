@@ -13,8 +13,7 @@ const getLinkFromWork = (title, uuid) => {
 
   const strippedSlashTitle = workTitle.indexOf('/') > 0
     ? workTitle.substring(0, workTitle.indexOf('/')) : workTitle;
-  const breadcrumbTitle = strippedSlashTitle.length > MAX_TITLE_LENGTH
-    ? `${strippedSlashTitle.substring(0, MAX_TITLE_LENGTH)}...` : strippedSlashTitle;
+  const breadcrumbTitle = truncateStringOnWhitespace(strippedSlashTitle, MAX_TITLE_LENGTH);
   return {
     href: `/work?workId=${uuid}`,
     text: `${breadcrumbTitle}`,
