@@ -79,6 +79,14 @@ export const checkFeatureFlagActivated = (featureFlagList, componentStateObject)
   });
 };
 
+/**
+ * truncateStringOnWhitespace(str, maxLength)
+ * Return a version of the string shortened to the provided maxLength param. This includes
+ * the three characters for the ellipsis that is appended. If the string is shorter than the
+ * max length it is returned as is.
+ * @param {string} str - The string to be shortened (or returned without change)
+ * @param {int} maxLength - The maximum length of the returned string to be applied
+ */
 export const truncateStringOnWhitespace = (str, maxLength) => {
   if (str.length < maxLength) { return str; }
   const truncArray = str.substr(0, maxLength - 3).split(/\s+/).slice(0, -1);
