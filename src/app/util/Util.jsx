@@ -79,6 +79,12 @@ export const checkFeatureFlagActivated = (featureFlagList, componentStateObject)
   });
 };
 
+export const truncateStringOnWhitespace = (str, maxLength) => {
+  if (str.length < maxLength) { return str; }
+  const truncArray = str.substr(0, maxLength - 3).split(/\s+/).slice(0, -1);
+  return `${truncArray.join(' ')}...`;
+};
+
 export default {
   formatUrl,
   getNumberOfPages,
@@ -87,4 +93,5 @@ export default {
   isEmpty,
   deepEqual,
   uniqueAndSortByFrequency,
+  truncateStringOnWhitespace,
 };
