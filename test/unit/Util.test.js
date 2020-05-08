@@ -86,4 +86,10 @@ describe('truncateStringOnWhitespace()', () => {
     expect(truncStr).to.equal('Longer Title Break On...');
     expect(truncStr.length).to.be.lessThan(26);
   });
+
+  it('Should truncate single word title regardless of whitespace', () => {
+    const truncStr = truncateStringOnWhitespace('ThisIsAOneWordTitleWhichCouldExistOutThere', 25);
+    expect(truncStr).to.equal('ThisIsAOneWordTitleWhi...');
+    expect(truncStr.length).to.be.lessThan(26);
+  });
 });
