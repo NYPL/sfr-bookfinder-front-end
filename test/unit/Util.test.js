@@ -7,7 +7,7 @@ import React from 'react';
 import { expect } from 'chai';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { formatUrl, joinArrayOfElements, getNumberOfPages } from '../../src/app/util/Util';
+import { formatUrl, joinArrayOfElements, getNumberOfPages, truncateStringOnWhitespace } from '../../src/app/util/Util';
 
 configure({ adapter: new Adapter() });
 
@@ -67,5 +67,29 @@ describe('getNumberOfPages', () => {
 
   it('Returns 1 pages when there are no items', () => {
     expect(getNumberOfPages(0, 10)).to.equal(1);
+  });
+});
+
+describe('truncateStringOnWhitespace()', () => {
+  it('Should return a short title as-is', () => {
+    expect(truncateStringOnWhitespace('Test Title', 25)).to.equal('Test Title');
+  });
+
+  it('Should truncate a long title when break lands in the middle of a word', () => {
+    const truncStr = truncateStringOnWhitespace('Longer Title Here To Become Shorter', 25);
+    expect(truncStr).to.equal('Longer Title Here To...');
+    expect(truncStr.length).to.be.lessThan(26);
+  });
+
+  it('Should truncate a long title when break lands on a whitespace', () => {
+    const truncStr = truncateStringOnWhitespace('Longer Title Break On Whitespace', 25);
+    expect(truncStr).to.equal('Longer Title Break On...');
+    expect(truncStr.length).to.be.lessThan(26);
+  });
+
+  it('Should truncate single word title regardless of whitespace', () => {
+    const truncStr = truncateStringOnWhitespace('ThisIsAOneWordTitleWhichCouldExistOutThere', 25);
+    expect(truncStr).to.equal('ThisIsAOneWordTitleWhi...');
+    expect(truncStr.length).to.be.lessThan(26);
   });
 });

@@ -6,14 +6,14 @@ import * as DS from '@nypl/design-system-react-components';
 import * as searchActions from '../../actions/SearchActions';
 import { MAX_TITLE_LENGTH } from '../../constants/editioncard';
 import EditionCard from '../Card/EditionCard';
+import { truncateStringOnWhitespace } from '../../util/Util';
 
 const getLinkFromWork = (title, uuid) => {
   const workTitle = title || 'Title Unknown';
 
   const strippedSlashTitle = workTitle.indexOf('/') > 0
     ? workTitle.substring(0, workTitle.indexOf('/')) : workTitle;
-  const breadcrumbTitle = strippedSlashTitle.length > MAX_TITLE_LENGTH
-    ? `${strippedSlashTitle.substring(0, MAX_TITLE_LENGTH)}...` : strippedSlashTitle;
+  const breadcrumbTitle = truncateStringOnWhitespace(strippedSlashTitle, MAX_TITLE_LENGTH);
   return {
     href: `/work?workId=${uuid}`,
     text: `${breadcrumbTitle}`,

@@ -156,7 +156,7 @@ describe('Edition Card', () => {
         title: tooLongTitle,
         uuid: work.uuid,
       };
-      const truncatedTitle = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent consequat veli...';
+      const truncatedTitle = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent consequat...';
       component = shallow(EditionCard.generateTitleLinkElem(workWithTooLongTitle));
       expect(component.find('a').text()).to.equal(truncatedTitle);
     });
@@ -180,7 +180,7 @@ describe('Edition Card', () => {
         + 'Aenean commodo ligula eget dolor. Aenean massa. Cum sociis nato';
       component = shallow((EditionCard.getSubtitle(tooLongSubtitle)));
       const truncatedSubtitle = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. '
-        + 'Aenean commodo ligula eget dolor. Aenean massa. Cum sociis nat...';
+        + 'Aenean commodo ligula eget dolor. Aenean massa. Cum sociis...';
       expect(component.find('span').text()).to.equal(truncatedSubtitle);
     });
     it('should return nothing if no subtitle is found', () => {
@@ -357,7 +357,7 @@ describe('Edition Card', () => {
         ],
       }];
       const publishers = EditionCard.publisherDisplayText(testEdition);
-      expect(publishers).to.equal(' by Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo lig...');
+      expect(publishers).to.equal(' by Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo...');
     });
     it('Should return undefined if no publishers are found', () => {
       testEdition.agents = null;

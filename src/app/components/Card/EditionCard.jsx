@@ -6,7 +6,7 @@ import * as DS from '@nypl/design-system-react-components';
 import {
   MAX_TITLE_LENGTH, MAX_PUBLISHER_NAME_LENGTH, MAX_SUBTITILE_LENGTH, PLACEHOLDER_COVER_LINK,
 } from '../../constants/editioncard';
-import { formatUrl } from '../../util/Util';
+import { formatUrl, truncateStringOnWhitespace } from '../../util/Util';
 
 
 const htmlEntities = new Html5Entities();
@@ -69,10 +69,8 @@ export default class EditionCard {
     let displayTitle;
     if (!work.title) {
       displayTitle = 'Title Unknown';
-    } else if (work.title.length > MAX_TITLE_LENGTH) {
-      displayTitle = `${work.title.substring(0, MAX_TITLE_LENGTH)}...`;
     } else {
-      displayTitle = work.title;
+      displayTitle = truncateStringOnWhitespace(work.title, MAX_TITLE_LENGTH);
     }
     return displayTitle;
   }
@@ -80,13 +78,7 @@ export default class EditionCard {
   // Subtitle
   static getSubtitle(subtitle) {
     if (!subtitle) { return undefined; }
-    return (subtitle && subtitle.length > MAX_SUBTITILE_LENGTH
-      ? (
-        <span>
-          {subtitle.substring(0, MAX_SUBTITILE_LENGTH)}
-          ...
-        </span>
-      ) : <span>{subtitle}</span>);
+    return (<span>{truncateStringOnWhitespace(subtitle, MAX_SUBTITILE_LENGTH)}</span>);
   }
 
   // Author
@@ -142,10 +134,7 @@ export default class EditionCard {
     if (!preferredAgents) return '';
     const publisherNames = preferredAgents.map(pubAgent => pubAgent.name);
     const publisherText = ` by ${EditionCard.getFirstAndCountMore(publisherNames)}`;
-    if (publisherText.length > MAX_PUBLISHER_NAME_LENGTH) {
-      return `${publisherText.substring(0, MAX_PUBLISHER_NAME_LENGTH)}...`;
-    }
-    return publisherText;
+    return truncateStringOnWhitespace(publisherText, MAX_PUBLISHER_NAME_LENGTH);
   }
 
   static getPublisherAndLocation(previewEdition) {
