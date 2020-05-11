@@ -13,7 +13,7 @@ const ResultsHeader = props => (
     searchBarAriaLabel="Search research catalog"
     sectionTitle={(
       <Link
-        className="search-header__rn-section-title rn-section-title"
+        className="search-header__rn-section-title search-header__rn-section-title--dark-background rn-section-title"
         to="/"
       >
         <span id="research-now-title">
@@ -22,7 +22,7 @@ const ResultsHeader = props => (
           Beta
         </span>
       </Link>
-            )}
+    )}
     advancedSearchElem={(
       <DS.UnderlineLink>
         <Link

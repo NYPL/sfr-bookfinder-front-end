@@ -8,7 +8,6 @@ export const workDetailDefinitionLabels = {
 };
 
 export const editionDetailDefinitionLabels = {
-  title: 'Title',
   publication_date: 'Publication Date',
   publication_place: 'Publication Place',
   agents: 'Publisher(s)',

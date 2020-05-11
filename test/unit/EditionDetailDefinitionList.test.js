@@ -19,19 +19,18 @@ describe('Edition Detail Definition List', () => {
 
   it('should display a definition list of detail elements', () => {
     expect(component.find('dl')).to.have.length(1);
-    expect(component.find('dt')).to.have.length(8);
-    expect(component.find('dd')).to.have.length(8);
+    expect(component.find('dt')).to.have.length(7);
+    expect(component.find('dd')).to.have.length(7);
     const terms = component.find('dt');
-    expect(terms.at(0).text()).to.equal(editionDetailDefinitionLabels.title);
-    expect(terms.at(1).text()).to.equal(editionDetailDefinitionLabels.publication_date);
-    expect(terms.at(2).text()).to.equal(editionDetailDefinitionLabels.publication_place);
-    expect(terms.at(3).text()).to.equal(editionDetailDefinitionLabels.agents);
+    expect(terms.at(0).text()).to.equal(editionDetailDefinitionLabels.publication_date);
+    expect(terms.at(1).text()).to.equal(editionDetailDefinitionLabels.publication_place);
+    expect(terms.at(2).text()).to.equal(editionDetailDefinitionLabels.agents);
   });
 
   it('should have a table of Items', () => {
     expect(component.find('dl')).to.have.length(1);
-    expect(component.find('dl dt')).to.have.length(8);
-    expect(component.find('dl dd')).to.have.length(8);
+    expect(component.find('dl dt')).to.have.length(7);
+    expect(component.find('dl dd')).to.have.length(7);
   });
 
   it('should have a list of Languages', () => {
