@@ -140,7 +140,7 @@ export default class EditionCard {
   static getPublisherAndLocation(previewEdition) {
     const displayLocation = EditionCard.publisherDisplayLocation(previewEdition);
     const displayName = EditionCard.publisherDisplayText(previewEdition);
-    if (!displayLocation && !displayName) return undefined;
+    if (!displayLocation && !displayName) return <>Publisher and Location Unknown</>;
     const publisherText = `Published${displayLocation}${displayName}`;
     return (
       <>{publisherText}</>
