@@ -9,6 +9,7 @@ export const workDetailDefinitionLabels = {
 
 export const editionDetailDefinitionLabels = {
   title: 'Title',
+  sub_title: 'Subtitle',
   publication_date: 'Publication Date',
   publication_place: 'Publication Place',
   agents: 'Publisher(s)',
