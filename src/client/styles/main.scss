@@ -207,8 +207,8 @@ select {
   margin-top: 0;
 }
 
-.edition-card__card-image {
-  background-color: white;
+.edition-card {
+  background-color: $gray-warm-light;
 }
 
 .dropdown {
@@ -220,7 +220,12 @@ select {
 }
 
 .search-result-item {
-  margin: 2em 2em 0 2em;
+  .edition-card {
+    background-color: #fff;
+    .edition-card__card-image {
+      background-color: #fff;
+    }
+  }
 }
 
 h2#featured-edition {

@@ -11,7 +11,7 @@ dl.nypl-details-table {
     flex-flow: row wrap;
   }
     dt {
-      @include space-inset-xs;
+      @include space-stack-xs;
 
       border-top: 1px solid #5b616b;
       flex: 0 1 20%;
@@ -19,18 +19,20 @@ dl.nypl-details-table {
       font-weight: 500;
     }
     dd {
-      @include space-inset-xs;
+      @include space-stack-xs;
 
       flex: 0 1 80%;
       text-align: left;
       margin-left: 0;
+      padding: 0;
 
       @include breakpoint($large) {
         border-top: 1px solid #5b616b;
       }
-
       ul {
         list-style: none;
+        margin-block-start: 0;
+        margin-block-end: 0;
         padding: 0;
       }
     }

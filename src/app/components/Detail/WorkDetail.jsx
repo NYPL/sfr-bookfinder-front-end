@@ -33,7 +33,7 @@ class WorkDetail extends React.Component {
     super(props);
     const { dispatch } = props;
     this.state = {
-      shouldShowAll: true, requestedEdition: null, isFeatureFlagsActivated: {}, ...props,
+      shouldShowAll: 'true', requestedEdition: null, isFeatureFlagsActivated: {}, ...props,
     };
     this.openForm = this.openForm.bind(this);
     this.closeForm = this.closeForm.bind(this);
@@ -45,7 +45,7 @@ class WorkDetail extends React.Component {
   componentDidMount() {
     const { location } = this.props;
     const { query, hash } = location;
-    this.setState({ shouldShowAll: query && query.showAll ? (query.showAll === 'true') : true });
+    this.setState({ shouldShowAll: query && query.showAll ? (query.showAll === 'true') : 'true' });
     this.loadWork(query, hash, this.boundActions);
     FeatureFlags.store.listen(this.onFeatureFlagsChange.bind(this));
 
@@ -134,12 +134,18 @@ class WorkDetail extends React.Component {
 
   toggleReadOnline() {
     const query = this.props.location.query;
+    // query params are expressed as strings
+    // but are stored in state as booleans to simplify Checkbox.isSelected
     if (query.showAll === 'true') {
       query.showAll = 'false';
       this.setState({ shouldShowAll: false });
     } else if (query.showAll) {
       query.showAll = 'true';
       this.setState({ shouldShowAll: true });
+    } else {
+      // No showAll in query
+      query.showAll = 'false';
+      this.setState({ shouldShowAll: false });
     }
     this.props.dispatch(searchActions.detailRefinePost(query));
     const path = `/work?${getQueryString(query)}`;
