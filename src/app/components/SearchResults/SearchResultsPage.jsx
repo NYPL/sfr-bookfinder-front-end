@@ -217,7 +217,7 @@ class SearchResultsPage extends React.Component {
             aria-label="Digital Research Books Beta"
           >
             <div>
-              <SearchHeader />
+              <SearchHeader initialQuery={this.props.searchQuery} />
               {
                 // eslint-disable-next-line no-underscore-dangle
                 FeatureFlags.store._isFeatureActive(config.booksCount.experimentName)
@@ -337,7 +337,7 @@ SearchResultsPage.propTypes = {
 
 SearchResultsPage.defaultProps = {
   searchResults: {},
-  searchQuery: initialSearchQuery,
+  searchQuery: {},
   dispatch: () => { },
   eReaderUrl: '',
   location: {},

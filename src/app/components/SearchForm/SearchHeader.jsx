@@ -1,63 +1,77 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import * as DS from '@nypl/design-system-react-components';
 import withSearch from './WithSearch';
 import { searchFields } from '../../constants/fields';
 
-const ResultsHeader = props => (
-  <DS.HeaderWithSearch
-    searchButtonId="searchButtonId"
-    searchBarAriaLabel="Search research catalog"
-    sectionTitle={(
-      <Link
-        className="search-header__rn-section-title search-header__rn-section-title--dark-background rn-section-title"
-        to="/"
-      >
-        <span id="research-now-title">
+const ResultsHeader = (props) => {
+  const currentQuery = props.currentQuery;
+
+  // If using Advanced Search with multiple fields, don't prepopulate header.
+  const valueToPrepopulate = currentQuery.queries.length === 1
+    ? currentQuery.queries[0].query : '';
+
+  const fieldToPrepopulate = props.currentQuery && props.currentQuery.queries && props.currentQuery.queries.length === 1
+    ? props.currentQuery.queries[0].field : 'keyword';
+
+  return (
+    <DS.HeaderWithSearch
+      searchButtonId="searchButtonId"
+      searchBarAriaLabel="Search research catalog"
+      searchValue={valueToPrepopulate}
+      selectedField={fieldToPrepopulate}
+      sectionTitle={(
+        <Link
+          className="search-header__rn-section-title search-header__rn-section-title--dark-background rn-section-title"
+          to="/"
+        >
+          <span id="research-now-title">
+            <span className="rn-section-title__emphasis">Digital Research Books</span>
+            {' '}
+          Beta
+          </span>
+        </Link>
+    )}
+      advancedSearchElem={(
+        <DS.UnderlineLink>
+          <Link
+            to="advanced-search"
+            className="text-baseline"
+          >
+                  Advanced Search
+          </Link>
+        </DS.UnderlineLink>
+            )}
+      searchBarId="searchBarId"
+      dropdownId="dropdownId"
+      textFieldAriaLabel="Digital Research Books Beta"
+      headingContent={(
+        <span>
           <span className="rn-section-title__emphasis">Digital Research Books</span>
           {' '}
-          Beta
-        </span>
-      </Link>
-    )}
-    advancedSearchElem={(
-      <DS.UnderlineLink>
-        <Link
-          to="advanced-search"
-          className="text-baseline"
-        >
-                  Advanced Search
-        </Link>
-      </DS.UnderlineLink>
-            )}
-    searchBarId="searchBarId"
-    dropdownId="dropdownId"
-    textFieldAriaLabel="Digital Research Books Beta"
-    headingContent={(
-      <span>
-        <span className="rn-section-title__emphasis">Digital Research Books</span>
-        {' '}
         Beta
-      </span>
+        </span>
     )}
-    headingId="researchNow-page-title-id"
-    headingUrl="#research-now-url"
-    headingBaseClass="rn-section-title"
-    hasError={props.hasError}
-    errorMessage={props.errorMessage}
-    searchDropdownOptions={props.allowedFields}
-    searchSubmitHandler={props.submitSearchRequest}
-    textChangeHandler={props.onQueryChange}
-    selectChangeHandler={props.onFieldChange}
-    selectBlurHandler={props.onFieldChange}
-  />
-);
+      headingId="researchNow-page-title-id"
+      headingUrl="#research-now-url"
+      headingBaseClass="rn-section-title"
+      hasError={props.hasError}
+      errorMessage={props.errorMessage}
+      searchDropdownOptions={props.allowedFields}
+      searchSubmitHandler={props.submitSearchRequest}
+      textChangeHandler={props.onQueryChange}
+      selectChangeHandler={props.onFieldChange}
+      selectBlurHandler={props.onFieldChange}
+    />
+  );
+};
 
 ResultsHeader.propTypes = {
   allowedFields: PropTypes.arrayOf(PropTypes.any),
+  currentQuery: PropTypes.objectOf(PropTypes.any),
   submitSearchRequest: PropTypes.func,
   onQueryChange: PropTypes.func,
   onFieldChange: PropTypes.func,
@@ -67,6 +81,7 @@ ResultsHeader.propTypes = {
 
 ResultsHeader.defaultProps = {
   allowedFields: searchFields,
+  currentQuery: {},
   submitSearchRequest: () => { },
   onQueryChange: () => { },
   onFieldChange: () => { },
