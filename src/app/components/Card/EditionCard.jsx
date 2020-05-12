@@ -30,12 +30,13 @@ export default class EditionCard {
   static editionYearElem(edition) {
     const editionDisplay = EditionCard.editionYearText(edition);
     const editionElem = edition ? (
-      <Link
-        to={{ pathname: '/edition', query: { editionId: edition.id } }}
-        className="heading__link"
-      >
-        {editionDisplay}
-      </Link>
+      <DS.UnderlineLink>
+        <Link
+          to={{ pathname: '/edition', query: { editionId: edition.id } }}
+        >
+          {editionDisplay}
+        </Link>
+      </DS.UnderlineLink>
     ) : <>{editionDisplay}</>;
     return editionElem;
   }
