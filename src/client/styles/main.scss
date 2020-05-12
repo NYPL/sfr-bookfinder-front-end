@@ -26,6 +26,7 @@ $fontFamily: 'system-ui';
 
 @import './mixins/Mixins.scss';
 @import './components/Search.scss';
+@import './components/SearchResults.scss';
 @import './components/WorkDetail.scss';
 @import './components/EBookViewer.scss';
 @import './components/DefinitionList.scss';
@@ -111,10 +112,6 @@ body {
   // width: 100%;
   margin: 0 auto;
 }
-.sfr-results-container { 
-  display: flex;
-  flex-flow: row;
-}
 
 .visuallyhidden {
   border: 0;
@@ -192,6 +189,7 @@ select {
   padding-left:  calc(-50vw + 50%);
   padding-right: calc(-50vw + 50%);
 }
+
 .main-promo-text, .search-examples, .header-with-image-right__text {
   display: block;
   max-width: 1280px;

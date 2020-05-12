@@ -30,12 +30,13 @@ export default class EditionCard {
   static editionYearElem(edition) {
     const editionDisplay = EditionCard.editionYearText(edition);
     const editionElem = edition ? (
-      <Link
-        to={{ pathname: '/edition', query: { editionId: edition.id } }}
-        className="heading__link"
-      >
-        {editionDisplay}
-      </Link>
+      <DS.UnderlineLink>
+        <Link
+          to={{ pathname: '/edition', query: { editionId: edition.id } }}
+        >
+          {editionDisplay}
+        </Link>
+      </DS.UnderlineLink>
     ) : <>{editionDisplay}</>;
     return editionElem;
   }
@@ -140,7 +141,7 @@ export default class EditionCard {
   static getPublisherAndLocation(previewEdition) {
     const displayLocation = EditionCard.publisherDisplayLocation(previewEdition);
     const displayName = EditionCard.publisherDisplayText(previewEdition);
-    if (!displayLocation && !displayName) return undefined;
+    if (!displayLocation && !displayName) return <>Publisher and Location Unknown</>;
     const publisherText = `Published${displayLocation}${displayName}`;
     return (
       <>{publisherText}</>

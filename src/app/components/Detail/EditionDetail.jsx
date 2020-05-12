@@ -161,7 +161,7 @@ class EditionDetail extends React.Component {
                         </DS.Heading>
                       )
                     }
-                    {edition.subtitle && <div className="search-result-item__subtitle">{edition.subtitle}</div>}
+                    {edition.sub_title && <div className="search-result-item__subtitle">{edition.sub_title}</div>}
                     {authorsList && authorsList.length && (
                       <span>
                         By

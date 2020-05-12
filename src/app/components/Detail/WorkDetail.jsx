@@ -189,7 +189,7 @@ class WorkDetail extends React.Component {
                       />
                     )
                   }
-                  {work.subtitle && <div className="search-result-item__subtitle">{work.subtitle}</div>}
+                  {work.sub_title && <div className="search-result-item__subtitle">{work.sub_title}</div>}
                   {authorsList && authorsList.length && (
                     <span>
                       By
