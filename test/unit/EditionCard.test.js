@@ -415,11 +415,11 @@ describe('Edition Card', () => {
       const publisherAndLocation = mount(<div>{EditionCard.getPublisherAndLocation(testEdition)}</div>);
       expect(publisherAndLocation.text()).to.equal('Published in London');
     });
-    it('Should return undefined when neither publisher nor location are defined', () => {
+    it('Should return placeholder', () => {
       testEdition.agents = [];
       testEdition.publication_place = null;
-      const publisherAndLocation = EditionCard.getPublisherAndLocation(testEdition);
-      expect(publisherAndLocation).to.equal(undefined);
+      const publisherAndLocation = mount(<div>{EditionCard.getPublisherAndLocation(testEdition)}</div>);
+      expect(publisherAndLocation.text()).to.equal('Publisher and Location Unknown');
     });
   });
 
@@ -684,7 +684,7 @@ describe('Edition Card', () => {
         expect(mount(<span>{featuredEditionData.editionYearHeading}</span>).text()).to.equal('Edition Year Unknown');
       });
       it('Edition has publisher and location', () => {
-        expect(featuredEditionData.publisherAndLocation).to.equal(undefined);
+        expect(mount(<span>{featuredEditionData.editionInfo[0]}</span>).text()).to.equal('Publisher and Location Unknown');
       });
       it('Edition has cover URL', () => {
         expect(featuredEditionData.coverUrl).to.equal(

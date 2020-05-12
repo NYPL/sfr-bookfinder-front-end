@@ -5,19 +5,29 @@
   }
 
 .filters {
-  padding: 1rem 0 1rem 2rem;
+  padding: 1rem 2rem 1rem 2rem;
+  background-color: $gray-warm-xlight;
+
   .filters-header {
     font-weight: 700;
     font-size: 1.2rem;
   }
+
   .filters-box {
     margin-top: 1rem;
     .filters-box-header {
-      margin-bottom: 1rem;
-      text-transform: uppercase;
-      width: 100%;
+      font-weight: 500;
     }
   }
+
+  .accordion { 
+    background-color: white;
+
+    .unordered-list {
+      padding: 0 1em 0 1em;
+    }
+  }
+
   .usa-error-message {
     position: absolute;
     bottom: -2rem;

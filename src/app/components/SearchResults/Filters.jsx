@@ -73,20 +73,23 @@ class Filters extends React.Component {
     }
   }
 
-  onSubmit(e, toggleMenu) {
+  onSubmit(e, toggleMenu, allowEmpty) {
     e.preventDefault();
     e.stopPropagation();
 
-    if (toggleMenu) {
-      toggleMenu();
-    }
     if (this.state.yearStart && this.state.yearEnd && Number(this.state.yearStart) > Number(this.state.yearEnd)) {
       this.setState({ error: true, errorMsg: errorMessagesText.invalidDate });
-      return;
-    }
-    this.setState({ error: false, errorMsg: '' });
+    } else if (!allowEmpty && !this.state.yearStart && !this.state.yearEnd) {
+      console.log('hello');
+      this.setState({ error: true, errorMsg: errorMessagesText.emptySearch });
+    } else {
+      if (toggleMenu) {
+        toggleMenu();
+      }
+      this.setState({ error: false, errorMsg: '' });
 
-    this.doSearchWithFilters();
+      this.doSearchWithFilters();
+    }
   }
 
   onErrorYears(errorObj) {
@@ -192,14 +195,14 @@ class Filters extends React.Component {
             iconPosition={ButtonIconPositions.Left}
             iconName="arrow-xsmall"
             iconModifiers={['left']}
-            callback={event => this.onSubmit(event, toggleMenu)}
+            callback={event => this.onSubmit(event, toggleMenu, true)}
           >
             Go Back
           </DS.Button>
           <DS.Button
             id="closeButton"
             type="submit"
-            callback={event => this.onSubmit(event, toggleMenu)}
+            callback={event => this.onSubmit(event, toggleMenu, true)}
           >
           Show Results
           </DS.Button>
@@ -216,7 +219,7 @@ class Filters extends React.Component {
     const languageList = (
       <DS.UnorderedList
         id="checkbox-list"
-        modifiers={isMobile ? ['scroll'] : null}
+        modifiers={isMobile ? null : ['scroll']}
       >
         {data.facets && this.prepareFilters(data.facets.language, 'language').map(facet => (
           <DS.Checkbox
@@ -231,12 +234,11 @@ class Filters extends React.Component {
               labelContent: <>
                 {facet.count > 0
                   ? `${facet.value} (${facet.count.toLocaleString()})` : `${facet.value}`}
-              </>,
+                            </>,
             }}
             name={`filters.${'language'}`}
             key={`filters-${'language'}-${facet.value}`}
           />
-
         ))}
       </DS.UnorderedList>
     );
@@ -279,10 +281,9 @@ class Filters extends React.Component {
               key={field}
               className="filters-box usa-fieldset"
             >
-              <legend className="filters-box-header">{filtersLabels[field]}</legend>
               {field === 'years' && (
                 <DS.DateRangeForm
-                  formLabel={<>Publication Year</>}
+                  formLabel={<legend className="filters-box-header">{filtersLabels[field]}</legend>}
 
                   fromLabelOpts={{ labelContent: <>From</>, id: 'FromLabel' }}
                   fromInputOpts={{
@@ -298,49 +299,60 @@ class Filters extends React.Component {
                   error={{ content: <div>{this.state.errorMsg}</div>, id: 'date-range-error', isError: true }}
 
                   buttonOpts={!isMobile
-                    ? { id: 'submitButtonId', callback: event => this.onSubmit(event, toggleMenu), content: <>Apply</> }
+                    ? {
+                      id: 'submitButtonId',
+                      callback: event => this.onSubmit(event, toggleMenu, false),
+                      content: <>Apply</>,
+                    }
                     : null}
                 />
               )}
               {field === 'show_all' && (
-                <DS.Checkbox
-                  checkboxId="show_all"
-                  isSelected={!this.isFilterChecked(field, true)}
-                  onChange={e => this.onChangeCheckbox(e, field, true, true)}
-                  labelOptions={{ id: 'show_all_label', labelContent: <>Available Online</> }}
-                  name="show_all"
-                />
+                <>
+                  <legend className="filters-box-header">{filtersLabels[field]}</legend>
+                  <DS.Checkbox
+                    checkboxId="show_all"
+                    isSelected={!this.isFilterChecked(field, true)}
+                    onChange={e => this.onChangeCheckbox(e, field, true, true)}
+                    labelOptions={{ id: 'show_all_label', labelContent: <>Available Online</> }}
+                    name="show_all"
+                  />
+                </>
               )}
               {field === 'language'
                 && (
-                  <>
-                    {isMobile
-                      && (
-                      <DS.Accordion
-                        buttonOptions={{ id: 'accordionBtn', content: <span>Click to expand</span> }}
-                      >
-                        {languageList}
-                      </DS.Accordion>
-                      )
-                    }
-                      {!isMobile && languageList}
-                  </>
+
+                <>
+                  <legend className="filters-box-header">{filtersLabels[field]}</legend>
+                  <DS.Accordion
+                    buttonOptions={{ id: 'accordionBtn', content: <span>Click to expand</span> }}
+                  >
+                    {languageList}
+                  </DS.Accordion>
+                </>
                 )
               }
               {field === 'format'
-                && formatTypes.map(formatType => (
-                  <DS.Checkbox
-                    className="usa-checkbox tablet:grid-col-12"
-                    labelClass="usa-checkbox__label"
-                    inputClass="usa-checkbox__input"
-                    checkboxId={`filters-${field}-${formatType.value}`}
-                    isSelected={this.isFilterChecked(field, formatType.value)}
-                    onChange={e => this.onChangeCheckbox(e, field, formatType.value, false)}
-                    labelOptions={{ id: `filters-${field}-${formatType.value}=label`, labelContent: <>{formatType.label}</> }}
-                    name={`filters.${field}`}
-                    key={`facet-${field}-${formatType.value}`}
-                  />
-                ))}
+                && (
+                  <>
+                    <legend className="filters-box-header">{filtersLabels[field]}</legend>
+                    {formatTypes.map(formatType => (
+                      <>
+                        <DS.Checkbox
+                          className="usa-checkbox tablet:grid-col-12"
+                          labelClass="usa-checkbox__label"
+                          inputClass="usa-checkbox__input"
+                          checkboxId={`filters-${field}-${formatType.value}`}
+                          isSelected={this.isFilterChecked(field, formatType.value)}
+                          onChange={e => this.onChangeCheckbox(e, field, formatType.value, false)}
+                          labelOptions={{ id: `filters-${field}-${formatType.value}=label`, labelContent: <>{formatType.label}</> }}
+                          name={`filters.${field}`}
+                          key={`facet-${field}-${formatType.value}`}
+                        />
+                      </>
+                    ))}
+                  </>
+                )}
             </fieldset>
           ))}
         </form>

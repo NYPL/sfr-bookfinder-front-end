@@ -218,6 +218,11 @@ describe('Filters', () => {
       expect(wrapper.find('#date-range-error').exists()).to.equal(false);
     });
 
+    it('displays error on empty search', () => {
+      submitButton.simulate('click', { target: {} });
+      expect(wrapper.find('#date-range-error').exists()).to.equal(true);
+    });
+
     it('displays error on invalid date range', () => {
       start.simulate('change', { target: { key: 'filters.years.start', name: 'filters.years.start', value: '1992' } });
       end.simulate('change', { target: { key: 'filters.years.end', name: 'filters.years.end', value: '1990' } });
