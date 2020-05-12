@@ -80,7 +80,6 @@ class Filters extends React.Component {
     if (this.state.yearStart && this.state.yearEnd && Number(this.state.yearStart) > Number(this.state.yearEnd)) {
       this.setState({ error: true, errorMsg: errorMessagesText.invalidDate });
     } else if (!allowEmpty && !this.state.yearStart && !this.state.yearEnd) {
-      console.log('hello');
       this.setState({ error: true, errorMsg: errorMessagesText.emptySearch });
     } else {
       if (toggleMenu) {
@@ -234,7 +233,7 @@ class Filters extends React.Component {
               labelContent: <>
                 {facet.count > 0
                   ? `${facet.value} (${facet.count.toLocaleString()})` : `${facet.value}`}
-                            </>,
+              </>,
             }}
             name={`filters.${'language'}`}
             key={`filters-${'language'}-${facet.value}`}

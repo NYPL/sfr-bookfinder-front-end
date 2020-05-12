@@ -69,7 +69,7 @@ export const submit = (query, router) => {
  * including params set in location.
  *
  * Accessibility Note: Creates the <main> element for all
-* search pages with the corresponding <h1>.
+ * search pages with the corresponding <h1>.
  */
 class SearchResultsPage extends React.Component {
   constructor(props) {
