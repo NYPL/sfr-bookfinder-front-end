@@ -187,7 +187,7 @@ describe('Filters', () => {
     let end;
     let submitButton;
 
-    before(() => {
+    beforeEach(() => {
       context = mockRouterContext(push);
       childContextTypes = mockRouterContext(push);
 
@@ -215,6 +215,69 @@ describe('Filters', () => {
 
       submitButton.simulate('click');
 
+      expect(wrapper.find('#date-range-error').exists()).to.equal(false);
+    });
+
+    it('displays error on empty search', () => {
+      submitButton.simulate('click');
+      expect(wrapper.find('#date-range-error').exists()).to.equal(true);
+    });
+
+    it('displays error on invalid date range', () => {
+      start.simulate('change', { target: { key: 'filters.years.start', name: 'filters.years.start', value: '1992' } });
+      end.simulate('change', { target: { key: 'filters.years.end', name: 'filters.years.end', value: '1990' } });
+
+      submitButton.simulate('click', { target: {} });
+      expect(wrapper.find('#date-range-error').exists()).to.equal(true);
+    });
+  });
+
+  describe('Filter Year Mobile Interactions', () => {
+    let wrapper;
+    let context;
+    let childContextTypes;
+    const push = stub();
+    const toggle = stub();
+    let start;
+    let end;
+    let submitButton;
+
+    beforeEach(() => {
+      context = mockRouterContext(push);
+      childContextTypes = mockRouterContext(push);
+
+      wrapper = mount(<Filters
+        data={results.data}
+        toggleMenu={toggle}
+        isMobile
+        searchQuery={defaultQuery}
+        router={context.router}
+      />, { context, childContextTypes });
+
+      start = wrapper.find(DS.DateRangeForm).find('#input-fromInput');
+      end = wrapper.find(DS.DateRangeForm).find('#input-toInput');
+
+      submitButton = wrapper.find('#btn-closeButton');
+    });
+
+    it('no error on start date with no end date', () => {
+      start.simulate('change', { target: { key: 'filters.years.start', name: 'filters.years.start', value: '1990' } });
+
+      submitButton.simulate('click');
+
+      expect(wrapper.find('#date-range-error').exists()).to.equal(false);
+    });
+
+    it('no error on end date with no start date', () => {
+      end.simulate('change', { target: { key: 'filters.years.end', name: 'filters.years.end', value: '1990' } });
+
+      submitButton.simulate('click');
+
+      expect(wrapper.find('#date-range-error').exists()).to.equal(false);
+    });
+
+    it('No error on empty search', () => {
+      submitButton.simulate('click');
       expect(wrapper.find('#date-range-error').exists()).to.equal(false);
     });
 

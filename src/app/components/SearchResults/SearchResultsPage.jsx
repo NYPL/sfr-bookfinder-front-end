@@ -80,7 +80,8 @@ class SearchResultsPage extends React.Component {
     };
 
     this.boundActions = bindActionCreators(searchActions, dispatch);
-    this.toggleFilterMenu = this.toggleFilterMenu.bind(this);
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   componentDidMount() {
@@ -115,10 +116,9 @@ class SearchResultsPage extends React.Component {
   onWindowResize() {
     if (window.innerWidth < breakpoints.large) {
       this.setState({ isMobile: true });
-      this.setState({ isModalOpen: false });
     } else {
       this.setState({ isMobile: false });
-      this.setState({ isModalOpen: false });
+      this.closeModal();
     }
   }
 
@@ -133,8 +133,12 @@ class SearchResultsPage extends React.Component {
     return queries.join('');
   }
 
-  toggleFilterMenu() {
-    this.setState(prevState => ({ isModalOpen: !prevState.isModalOpen }));
+  openModal() {
+    this.setState({ isModalOpen: true });
+  }
+
+  closeModal() {
+    this.setState({ isModalOpen: false });
   }
 
   render() {
@@ -246,7 +250,7 @@ class SearchResultsPage extends React.Component {
                   <DS.Button
                     id="filter-button"
                     buttonType={ButtonTypes.Link}
-                    callback={this.toggleFilterMenu}
+                    callback={this.openModal}
                   >
                 Refine
                   </DS.Button>
@@ -284,7 +288,6 @@ class SearchResultsPage extends React.Component {
               {!this.state.isMobile && (
               <div className="nypl-results-column">
                 <Filters
-                  toggleMenu={this.toggleFilterMenu}
                   data={searchResults}
                   searchQuery={searchQuery}
                   router={router}
@@ -312,7 +315,7 @@ class SearchResultsPage extends React.Component {
         {this.state.isMobile && this.state.isModalOpen && (
         <DS.Modal>
           <Filters
-            toggleMenu={this.toggleFilterMenu}
+            toggleMenu={this.closeModal}
             isMobile={this.state.isMobile}
             data={searchResults}
             onChangeSort={onChangeSort}
