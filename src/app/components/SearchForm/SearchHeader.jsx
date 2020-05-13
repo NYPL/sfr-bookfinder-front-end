@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import * as DS from '@nypl/design-system-react-components';
@@ -11,10 +11,10 @@ const ResultsHeader = (props) => {
   const currentQuery = props.currentQuery;
 
   // If using Advanced Search with multiple fields, don't prepopulate header.
-  const valueToPrepopulate = currentQuery.queries.length === 1
+  const valueToPrepopulate = currentQuery && currentQuery.queries && currentQuery.queries.length === 1
     ? currentQuery.queries[0].query : '';
 
-  const fieldToPrepopulate = props.currentQuery && props.currentQuery.queries && props.currentQuery.queries.length === 1
+  const fieldToPrepopulate = currentQuery && currentQuery.queries && currentQuery.queries.length === 1
     ? props.currentQuery.queries[0].field : 'keyword';
 
   return (

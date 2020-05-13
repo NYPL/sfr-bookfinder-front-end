@@ -27,6 +27,7 @@ function withSearch(WrappedComponent) {
 
     componentDidMount() {
       global.window.scrollTo(0, 0);
+      this.setState({ searchQuery: this.props.initialQuery });
     }
 
     componentDidUpdate(prevProps) {
@@ -105,14 +106,12 @@ function withSearch(WrappedComponent) {
   }
 
   SearchComponent.propTypes = {
-    initialQuery: PropTypes.objectOf(PropTypes.any),
-    searchQuery: searchQueryPropTypes,
+    initialQuery: searchQueryPropTypes,
     userQuery: PropTypes.func,
   };
 
   SearchComponent.defaultProps = {
-    initialQuery: {},
-    searchQuery: initialSearchQuery,
+    initialQuery: initialSearchQuery,
     userQuery: () => { },
   };
 

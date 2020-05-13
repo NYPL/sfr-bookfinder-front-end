@@ -126,11 +126,11 @@ class SearchResultsPage extends React.Component {
     const showQueries = this.props.searchQuery && this.props.searchQuery.showQueries
       ? this.props.searchQuery.showQueries : this.props.searchQuery.queries;
     const queriesToShow = showQueries && showQueries.filter(query => searchFields.includes(query.field));
-    const queries = queriesToShow.map((query, index) => {
+    const queries = queriesToShow && queriesToShow.map((query, index) => {
       const joiner = index < queriesToShow.length - 1 ? ' and ' : '';
       return `${query.field}: ${query.query}${joiner}`;
     });
-    return queries.join('');
+    return queries && queries.join('');
   }
 
   openModal() {
@@ -220,22 +220,25 @@ class SearchResultsPage extends React.Component {
           <div
             aria-label="Digital Research Books Beta"
           >
-            <div>
+            {searchQuery && (
+            <>
               <SearchHeader initialQuery={this.props.searchQuery} />
               {
                 // eslint-disable-next-line no-underscore-dangle
                 FeatureFlags.store._isFeatureActive(config.booksCount.experimentName)
                 && <TotalWorks />
               }
-            </div>
-            <div className="grid-row">
-              <DS.Heading
-                level={1}
-                id="page-title-heading"
-                blockName="page-title"
-                text={`Search results for ${this.getDisplayItemsHeading()}`}
-              />
-            </div>
+              <div className="grid-row">
+                <DS.Heading
+                  level={1}
+                  id="page-title-heading"
+                  blockName="page-title"
+                  text={`Search results for ${this.getDisplayItemsHeading()}`}
+                />
+              </div>
+            </>
+            )
+            }
             <div className="search-navigation">
               {this.state.isMobile ? mobileItemCount : itemCount}
               {this.state.isMobile && (
