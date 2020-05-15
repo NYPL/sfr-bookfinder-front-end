@@ -16,7 +16,9 @@ function withSearch(WrappedComponent) {
     constructor(props) {
       super(props);
 
-      this.state = { error: false, errorMsg: '', ...props };
+      this.state = {
+        error: false, errorMsg: '', ...props,
+      };
 
       this.onFieldChange = this.onFieldChange.bind(this);
       this.onQueryChange = this.onQueryChange.bind(this);
@@ -25,6 +27,15 @@ function withSearch(WrappedComponent) {
 
     componentDidMount() {
       global.window.scrollTo(0, 0);
+      this.setState({ searchQuery: this.props.initialQuery });
+    }
+
+    componentDidUpdate(prevProps) {
+      // Wait for initial query to be returned before setting it in state
+      if (this.props.initialQuery && this.props.initialQuery !== prevProps.initialQuery) {
+        // eslint-disable-next-line react/no-did-update-set-state
+        this.setState({ searchQuery: this.props.initialQuery });
+      }
     }
 
     onFieldChange(event) {
@@ -49,15 +60,18 @@ function withSearch(WrappedComponent) {
       this.setState((prevState) => {
         const advancedQuery = {
           query: querySelected,
-          field: prevState.searchQuery.showQueries[0] ? prevState.searchQuery.showQueries[0].field : prevState.searchQuery.queries[0].field || 'keyword',
+          field: prevState.searchQuery.showQueries[0]
+            ? prevState.searchQuery.showQueries[0].field
+            : prevState.searchQuery.queries[0].field || 'keyword',
         };
 
-        return ({
-          searchQuery: Object.assign({}, initialSearchQuery,
-            { showQueries: [].concat(advancedQuery) },
-            { queries: [].concat(advancedQuery) }),
-        });
+        const newQuery = Object.assign({}, initialSearchQuery,
+          { showQueries: [].concat(advancedQuery) },
+          { queries: [].concat(advancedQuery) });
+
+        return ({ searchQuery: newQuery });
       });
+
       if (querySelected) {
         this.setState({ error: false, errorMsg: '' });
       }
@@ -92,12 +106,12 @@ function withSearch(WrappedComponent) {
   }
 
   SearchComponent.propTypes = {
-    searchQuery: searchQueryPropTypes,
+    initialQuery: searchQueryPropTypes,
     userQuery: PropTypes.func,
   };
 
   SearchComponent.defaultProps = {
-    searchQuery: initialSearchQuery,
+    initialQuery: initialSearchQuery,
     userQuery: () => { },
   };
 
