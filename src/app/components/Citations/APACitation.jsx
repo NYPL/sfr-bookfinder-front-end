@@ -91,9 +91,6 @@ class APACitation extends React.Component {
       this.title = `${this.title} (${this.translators})`;
     }
 
-    console.log(this.title)
-    console.log(this.pubYear)
-    console.log(responsibilityStatement)
     return (
       <>
         {`${responsibilityStatement}${this.pubYear}. `}
