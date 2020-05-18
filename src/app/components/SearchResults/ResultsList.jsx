@@ -9,6 +9,7 @@ import EmptySearchSvg from '../Svgs/EmptySearchSvg';
 import { isEmpty, joinArrayOfElements, checkFeatureFlagActivated } from '../../util/Util';
 
 import EditionCard from '../Card/EditionCard';
+import FormattedAPACitation from '../Citations/APACitation';
 
 import featureFlagConfig from '../../../../featureFlagConfig';
 import config from '../../../../appConfig';
@@ -64,6 +65,7 @@ class ResultsList extends React.Component {
 
   formatAllResultsData(results, eReaderUrl, referrer) {
     const shouldShowRequest = FeatureFlags.store._isFeatureActive(config.requestDigital.experimentName);
+    const shouldShowCitations = FeatureFlags.store._isFeatureActive(config.displayCitations.experimentName);
 
     return results.map((result, index) => {
       const showRequestButton = shouldShowRequest ? (
@@ -83,17 +85,29 @@ class ResultsList extends React.Component {
       const allEditionsLink = getEditionsLinkElement(result);
       const previewEdition = result.editions && result.editions[0];
 
-      return (
-        <DS.SearchResultItem
-          id={`search-result-${result.uuid}`}
-          key={`search-result-${result.uuid}`}
-          resultIndex={index}
-          headingContent={titleElement}
-          subtitleContent={EditionCard.getSubtitle(result.sub_title)}
-          authorLinkElement={authorLinkElement ? joinArrayOfElements(authorLinkElement, ', ') : undefined}
-          editionInfo={EditionCard.getEditionData(result, previewEdition, eReaderUrl, referrer, showRequestButton)}
-          editionsLinkElement={allEditionsLink}
+      const citationElement = shouldShowCitations ? (
+        <FormattedAPACitation
+          work={result}
+          edition={result.editions[0]}
         />
+      ) : undefined;
+
+
+      return (
+        <div
+          key={`search-result-${result.uuid}`}
+        >
+          <DS.SearchResultItem
+            id={`search-result-${result.uuid}`}
+            resultIndex={index}
+            headingContent={titleElement}
+            subtitleContent={EditionCard.getSubtitle(result.sub_title)}
+            authorLinkElement={authorLinkElement ? joinArrayOfElements(authorLinkElement, ', ') : undefined}
+            editionInfo={EditionCard.getEditionData(result, previewEdition, eReaderUrl, referrer, showRequestButton)}
+            editionsLinkElement={allEditionsLink}
+          />
+          {citationElement}
+        </div>
       );
     });
   }

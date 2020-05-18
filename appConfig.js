@@ -39,4 +39,7 @@ export default {
   feedback: {
     formURL: 'https://api.airtable.com/v0/appFLZEc3LmVZCRxn/Feedback',
   },
+  displayCitations: {
+    experimentName: 'DisplayCitations',
+  },
 };
