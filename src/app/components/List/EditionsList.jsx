@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FeatureFlags from 'dgx-feature-flags';
+import * as DS from '@nypl/design-system-react-components';
 import featureFlagConfig from '../../../../featureFlagConfig';
 import { checkFeatureFlagActivated } from '../../util/Util';
-import * as DS from '@nypl/design-system-react-components';
 import EditionCard from '../Card/EditionCard';
-import FormattedAPACitation from '../Citations/APACitation';
+import CitationFormatter from '../Citations/formatCitation';
+import APACitation from '../Citations/APACitation';
 
 import config from '../../../../appConfig';
 
@@ -39,12 +40,20 @@ class EditionsList extends React.Component {
       (edition, index) => {
         const showRequestButton = this.props.getRequestEditionButton(edition);
         const editionData = EditionCard.getEditionData(work, edition, eReaderUrl, referrer, showRequestButton);
+        const citationData = CitationFormatter.getCitationData(work, edition);
 
+        // eslint-disable-next-line no-underscore-dangle
         const shouldShowCitations = FeatureFlags.store._isFeatureActive(config.displayCitations.experimentName);
         const citationElement = shouldShowCitations ? (
-          <FormattedAPACitation
-            work={work}
-            edition={edition}
+          <APACitation
+            title={citationData.title}
+            subTitle={citationData.sub_title}
+            agents={citationData.agents}
+            publicationYear={citationData.publication_year}
+            edition={citationData.edition_statement}
+            volume={citationData.volume}
+            sourceLink={citationData.sourceLink.link}
+            isGovernmentDoc={citationData.isGovermentDoc}
           />
         ) : undefined;
 
@@ -61,7 +70,7 @@ class EditionsList extends React.Component {
               noLinkElement={editionData.noLinkElement}
             >
             </DS.EditionCard>
-            {citationElement} 
+            {citationElement}
           </div>
         );
       },

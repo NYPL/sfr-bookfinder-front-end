@@ -9,7 +9,8 @@ import EmptySearchSvg from '../Svgs/EmptySearchSvg';
 import { isEmpty, joinArrayOfElements, checkFeatureFlagActivated } from '../../util/Util';
 
 import EditionCard from '../Card/EditionCard';
-import FormattedAPACitation from '../Citations/APACitation';
+import CitationFormatter from '../Citations/formatCitation';
+import APACitation from '../Citations/APACitation';
 
 import featureFlagConfig from '../../../../featureFlagConfig';
 import config from '../../../../appConfig';
@@ -85,10 +86,17 @@ class ResultsList extends React.Component {
       const allEditionsLink = getEditionsLinkElement(result);
       const previewEdition = result.editions && result.editions[0];
 
+      const citationData = CitationFormatter.getCitationData(result, result.editions ? result.editions[0] : {});
       const citationElement = shouldShowCitations ? (
-        <FormattedAPACitation
-          work={result}
-          edition={result.editions[0]}
+        <APACitation
+          title={citationData.title}
+          subTitle={citationData.sub_title}
+          agents={citationData.agents}
+          publicationYear={citationData.publication_year}
+          edition={citationData.edition_statement}
+          volume={citationData.volume}
+          sourceLink={citationData.sourceLink.link}
+          isGovernmentDoc={citationData.isGovermentDoc}
         />
       ) : undefined;
 
