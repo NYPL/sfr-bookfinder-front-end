@@ -65,9 +65,11 @@ describe('Results List', () => {
     });
 
     describe('Complete Results Data', () => {
+      let resultsBlock;
       let resultsData;
       before(() => {
-        resultsData = component.instance().formatAllResultsData(results.data.works, 'eReaderUrl', 'Referrer')[0].props;
+        resultsBlock = component.instance().formatAllResultsData(results.data.works, 'eReaderUrl', 'Referrer')[0];
+        resultsData = resultsBlock.props.children[0].props;
       });
       it('result data has id', () => {
         expect(resultsData.id).to.equal('search-result-07737109-2d77-4fb3-b23e-7991339216fb');
@@ -110,9 +112,11 @@ describe('Results List', () => {
     });
 
     describe('Missing Results Data', () => {
+      let resultsBlock;
       let resultsData;
       before(() => {
-        resultsData = component.instance().formatAllResultsData([{}], 'eReaderUrl', 'Referrer')[0].props;
+        resultsBlock = component.instance().formatAllResultsData([{}], 'eReaderUrl', 'Referrer')[0];
+        resultsData = resultsBlock.props.children[0].props;
       });
       it('Empty result data has id', () => {
         expect(resultsData.id).to.equal('search-result-undefined');
