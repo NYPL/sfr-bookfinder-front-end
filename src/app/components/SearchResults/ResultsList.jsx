@@ -87,19 +87,6 @@ class ResultsList extends React.Component {
       const previewEdition = result.editions && result.editions[0];
 
       const citationData = CitationFormatter.getCitationData(result, result.editions ? result.editions[0] : {});
-      const citationElement = shouldShowCitations ? (
-        <APACitation
-          title={citationData.title}
-          subTitle={citationData.sub_title}
-          agents={citationData.agents}
-          publicationYear={citationData.publication_year}
-          edition={citationData.edition_statement}
-          volume={citationData.volume}
-          sourceLink={citationData.sourceLink.link}
-          isGovernmentDoc={citationData.isGovermentDoc}
-        />
-      ) : undefined;
-
 
       return (
         <div
@@ -114,7 +101,18 @@ class ResultsList extends React.Component {
             editionInfo={EditionCard.getEditionData(result, previewEdition, eReaderUrl, referrer, showRequestButton)}
             editionsLinkElement={allEditionsLink}
           />
-          {citationElement}
+          {shouldShowCitations && (
+            <APACitation
+              title={citationData.title}
+              subTitle={citationData.sub_title}
+              agents={citationData.agents}
+              publicationYear={citationData.publication_year}
+              edition={citationData.edition}
+              volume={citationData.volume}
+              sourceLink={citationData.sourceLink.link}
+              isGovernmentDoc={citationData.isGovernmentDoc}
+            />
+          )}
         </div>
       );
     });

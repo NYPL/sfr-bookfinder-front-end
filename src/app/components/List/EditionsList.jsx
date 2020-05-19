@@ -44,18 +44,6 @@ class EditionsList extends React.Component {
 
         // eslint-disable-next-line no-underscore-dangle
         const shouldShowCitations = FeatureFlags.store._isFeatureActive(config.displayCitations.experimentName);
-        const citationElement = shouldShowCitations ? (
-          <APACitation
-            title={citationData.title}
-            subTitle={citationData.sub_title}
-            agents={citationData.agents}
-            publicationYear={citationData.publication_year}
-            edition={citationData.edition_statement}
-            volume={citationData.volume}
-            sourceLink={citationData.sourceLink.link}
-            isGovernmentDoc={citationData.isGovermentDoc}
-          />
-        ) : undefined;
 
         return (
           // eslint-disable-next-line react/no-array-index-key
@@ -70,7 +58,18 @@ class EditionsList extends React.Component {
               noLinkElement={editionData.noLinkElement}
             >
             </DS.EditionCard>
-            {citationElement}
+            {shouldShowCitations && (
+              <APACitation
+                title={citationData.title}
+                subTitle={citationData.sub_title}
+                agents={citationData.agents}
+                publicationYear={citationData.publication_year}
+                edition={citationData.edition}
+                volume={citationData.volume}
+                sourceLink={citationData.sourceLink.link}
+                isGovernmentDoc={citationData.isGovernmentDoc}
+              />
+            )}
           </div>
         );
       },

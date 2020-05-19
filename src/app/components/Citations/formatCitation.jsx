@@ -32,7 +32,7 @@ export default class CitationFormatter {
     if (!agents) { return []; }
     const typeAgents = agents.filter(a => (
       (!includeType || a.roles.indexOf(includeType) > -1)
-      && (excludeTypes.length === 0 || a.roles.filter(r => !excludeTypes.includes(r)).length === 0)
+      && (excludeTypes.length === 0 || a.roles.filter(r => !excludeTypes.includes(r)).length > 0)
     ));
     return typeAgents.map(a => a.name);
   }

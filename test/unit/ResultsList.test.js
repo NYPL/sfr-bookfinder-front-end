@@ -6,6 +6,7 @@ import { shallow, mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import ResultsList, { getEditionsLinkElement } from '../../src/app/components/SearchResults/ResultsList';
 import results from '../fixtures/results-list.json';
+import FeatureFlags from 'dgx-feature-flags';
 
 configure({ adapter: new Adapter() });
 
@@ -150,6 +151,58 @@ describe('Results List', () => {
       });
       it('result data has no editions link', () => {
         expect(mount(<span>{resultsData.editionsLinkElement}</span>).text()).to.equal('');
+      });
+    });
+
+    describe('Complete Citation', () => {
+      let resultsBlock;
+      let citationData;
+      before(() => {
+        FeatureFlags.actions.activateFeature('DisplayCitations');
+        resultsBlock = component.instance().formatAllResultsData(results.data.works, 'eReaderUrl', 'Referrer')[0];
+        citationData = resultsBlock.props.children[1].props;
+      });
+
+      after(() => {
+        FeatureFlags.actions.deactivateFeature('DisplayCitations');
+      });
+
+      it('should contain a title', () => {
+        expect(citationData.title).to.equal('The Blithedale romance, by Nathaniel Hawthorne.');
+      });
+
+      it('should have a isGovernmentDoc flag', () => {
+        expect(citationData.isGovernmentDoc).to.equal(false);
+      });
+
+      it('should return an agents object', () => {
+        expect(citationData.agents.authors.length).to.equal(1);
+        expect(citationData.agents.authors[0]).to.equal('Hawthorne, Nathaniel');
+        expect(citationData.agents.editors.length).to.equal(1);
+        expect(citationData.agents.editors[0]).to.equal('Dugdale, John');
+        expect(citationData.agents.illustrators.length).to.equal(0);
+        expect(citationData.agents.translators.length).to.equal(0);
+        expect(citationData.agents.publishers.length).to.equal(6);
+      });
+
+      it('subtitle should be empty', () => {
+        expect(citationData.subTitle).to.equal('');
+      });
+
+      it('should have a publication year', () => {
+        expect(citationData.publicationYear).to.equal('1852');
+      });
+
+      it('should have an edition statement', () => {
+        expect(citationData.edition).to.equal('[Another ed.].');
+      });
+
+      it('volume should be null', () => {
+        expect(citationData.volume).to.equal(null);
+      });
+
+      it('should have a source link', () => {
+        expect(citationData.sourceLink).to.equal('archive.org/details/blithedaleromanc00hawtrich');
       });
     });
   });
