@@ -12,7 +12,6 @@ class APACitation extends React.Component {
   }
 
   formatCitationData() {
-    console.log(this.props)
     this.title = this.props.subTitle ? `${this.props.title}: ${this.props.subTitle}` : this.props.title;
 
     this.authors = this.formatAgentNames('authors');
