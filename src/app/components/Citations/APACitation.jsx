@@ -76,7 +76,7 @@ class APACitation extends React.Component {
     if (this.props.agents.authors.length > 0) {
       responsibilityStatement = this.authors;
       if (this.props.agents.editors.length > 0) {
-        this.formattedEdition = `${this.edition} (${this.editors}).`;
+        this.edition = `${this.edition} (${this.editors}).`;
       }
     } else if (this.props.agents.editors.length > 0) {
       responsibilityStatement = this.editors;
@@ -93,9 +93,9 @@ class APACitation extends React.Component {
     return (
       <>
         {`${responsibilityStatement}${this.pubYear}. `}
-        <em>{`${this.title} `}</em>
+        <em>{`${this.title}`}</em>
         {`${addVolume ? this.volume : ''}`}
-        {this.edition}
+        {`${this.edition} `}
         {`${this.publishers}. `}
         {this.link}
       </>

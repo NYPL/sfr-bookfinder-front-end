@@ -23,7 +23,7 @@ export default class CitationFormatter {
       volume: edition.volume,
       series: work.series,
       sourceLink: CitationFormatter.setLinkFields(edition.items),
-      isGovermentDoc: CitationFormatter.isGovernmentReport(work.measurements),
+      isGovernmentDoc: CitationFormatter.isGovernmentReport(work.measurements),
     };
   }
 
@@ -32,7 +32,7 @@ export default class CitationFormatter {
     if (!agents) { return []; }
     const typeAgents = agents.filter(a => (
       (!includeType || a.roles.indexOf(includeType) > -1)
-      && (excludeTypes.length === 0 || a.roles.filter(r => !excludeTypes.includes(r)).length > 0)
+      && (excludeTypes.length === 0 || a.roles.filter(r => excludeTypes.includes(r)).length === 0)
     ));
     return typeAgents.map(a => a.name);
   }
@@ -41,9 +41,9 @@ export default class CitationFormatter {
   static setLinkFields(items) {
     const linkFields = { link: null, link_date: null };
 
-    if (items) {
+    if (items && items.length > 0) {
       linkFields.link = items[0].links[0].url;
-      linkFields.link_date = items[0].modified;
+      linkFields.link_date = items[0].links[0].modified;
     }
 
     return linkFields;
