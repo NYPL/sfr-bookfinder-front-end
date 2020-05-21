@@ -142,7 +142,7 @@ class APACitation extends React.Component {
   render() {
     const volumeData = this.volume !== '';
     return (
-      <div className="apa-citation body-small">
+      <div className="apa-citation">
         <strong>APA</strong>
         <br />
         {this.govReportStatus && this.returnGovernmentReport()}
