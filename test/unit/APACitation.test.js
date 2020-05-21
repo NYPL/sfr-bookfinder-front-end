@@ -132,8 +132,8 @@ describe('APA Citation', () => {
         isGovernmentDoc={false}
       />);
       const citationText = component.find('.apa-citation').text();
-      // eslint-disable-next-line max-len
-      const outText = 'APAAuthor, T. (2020). Testing: subTest (T. Illustrator, Illus., T. Translator, Trans.) (Test Edition) (T. Editor, (Ed.)). Test Publisher. test_link';
+      const outText = 'APAAuthor, T. (2020). Testing: subTest (T. Illustrator, Illus., T. Translator, Trans.) '
+        + '(Test Edition) (T. Editor, (Ed.)). Test Publisher. test_link';
       expect(citationText).to.equal(outText);
     });
 
@@ -150,12 +150,10 @@ describe('APA Citation', () => {
         }}
         publicationYear="2020"
         edition="Test Edition"
-        volume={null}
         sourceLink="test_link"
         isGovernmentDoc={false}
       />);
       const citationText = component.find('.apa-citation').text();
-      // eslint-disable-next-line max-len
       const outText = 'APAEditor, T., (Ed.) (2020). Testing: subTest (T. Translator, Trans.) (Test Edition) Test Publisher. test_link';
       expect(citationText).to.equal(outText);
     });
@@ -172,13 +170,11 @@ describe('APA Citation', () => {
           publishers: ['Test Publisher'],
         }}
         publicationYear="2020"
-        edition={null}
         volume="Vol. 2"
         sourceLink="test_link"
         isGovernmentDoc={false}
       />);
       const citationText = component.find('.apa-citation').text();
-      // eslint-disable-next-line max-len
       const outText = 'APAAuthor, T. (2020). Testing: subTest (Vol. 2) Test Publisher. test_link';
       expect(citationText).to.equal(outText);
     });
@@ -197,12 +193,10 @@ describe('APA Citation', () => {
           }}
           publicationYear="2020"
           edition="Test Edition"
-          volume={null}
           sourceLink="test_link"
           isGovernmentDoc
         />);
         const citationText = component.find('.apa-citation').text();
-        // eslint-disable-next-line max-len
         const outText = 'APAAuthor, T. (2020). Testing: subTest Test Publisher. test_link';
         expect(citationText).to.equal(outText);
       });
@@ -220,12 +214,10 @@ describe('APA Citation', () => {
           }}
           publicationYear="2020"
           edition="Test Edition"
-          volume={null}
           sourceLink="test_link"
           isGovernmentDoc
         />);
         const citationText = component.find('.apa-citation').text();
-        // eslint-disable-next-line max-len
         const outText = 'APAEditor, T., (Ed.) (2020). Testing: subTest Test Publisher. test_link';
         expect(citationText).to.equal(outText);
       });

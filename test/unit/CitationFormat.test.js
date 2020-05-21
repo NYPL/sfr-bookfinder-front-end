@@ -1,7 +1,3 @@
-/* eslint-disable no-unused-expressions */
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable react/jsx-filename-extension */
-/* eslint-disable prefer-destructuring */
 /* eslint-env mocha */
 import { expect } from 'chai';
 import { configure } from 'enzyme';
@@ -106,26 +102,26 @@ describe('Formatted Citation', () => {
 
   describe('getAgentsOfType()', () => {
     const testAgents = [
-      { name: 'test1', roles: ['test', 'other_again'] },
-      { name: 'test2', roles: ['other'] },
-      { name: 'test3', roles: ['test', 'other'] },
-      { name: 'test4', roles: ['other_again'] },
+      { name: 'test1', roles: ['author', 'editor'] },
+      { name: 'test2', roles: ['editor'] },
+      { name: 'test3', roles: ['author'] },
+      { name: 'test4', roles: ['translator'] },
     ];
 
     it('should extract agents of type without exclude list', () => {
-      const testArray = CitationFormatter.getAgentsOfType(testAgents, 'test');
+      const testArray = CitationFormatter.getAgentsOfType(testAgents, 'author');
       expect(testArray.length).to.equal(2);
       expect(testArray).to.deep.equal(['test1', 'test3']);
     });
 
     it('should extract agents matching role, but without matching exclude roles', () => {
-      const testArray = CitationFormatter.getAgentsOfType(testAgents, 'other', ['test']);
+      const testArray = CitationFormatter.getAgentsOfType(testAgents, 'editor', ['author']);
       expect(testArray.length).to.equal(1);
       expect(testArray).to.deep.equal(['test2']);
     });
 
     it('should return agents with roles only not matching the exclude list', () => {
-      const testArray = CitationFormatter.getAgentsOfType(testAgents, null, ['test', 'other']);
+      const testArray = CitationFormatter.getAgentsOfType(testAgents, null, ['author', 'editor']);
       expect(testArray.length).to.equal(1);
       expect(testArray).to.deep.equal(['test4']);
     });
@@ -164,7 +160,7 @@ describe('Formatted Citation', () => {
 
     it('should return false if government_report measurement is 0', () => {
       const testMeasures = [
-        { quantity: 'testing', value: 0 },
+        { quantity: 'testing', value: 1 },
         { quantity: 'government_document', value: 0 },
       ];
       expect(CitationFormatter.isGovernmentReport(testMeasures)).to.equal(false);
