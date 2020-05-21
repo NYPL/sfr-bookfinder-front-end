@@ -1,7 +1,12 @@
 
-
+// Helper class to provide data to different citation formats
 export default class CitationFormatter {
-  // Retrieve all relevant citation Data
+  /** Generate metadata object containing all data for a citation to an edition
+   * @param {object} work The overall work record to cite
+   * @param {object} edition The specific edition record to cite
+   *
+   * @returns {object} Metadata block that can be consumed by citation components
+   */
   static getCitationData(work, edition) {
     const contributorExclusions = ['author', 'editor', 'translator', 'illustrator', 'publisher'];
     const workAgents = work.agents || [];
@@ -27,7 +32,13 @@ export default class CitationFormatter {
     };
   }
 
-  // Extract Agents with a specific role
+  /** Extract Agents with a specific role
+   * @param {array} agents Agent objects that have the roles attribute to be filtered
+   * @param {string} includeType Specific role to return agents for (e.g. author)
+   * @param {array} excludeTypes  List of roles to exclude agents for
+   *
+   * @returns {array} List of agent names that had matching role but none of the excluded roles
+   */
   static getAgentsOfType(agents, includeType, excludeTypes = []) {
     if (!agents) { return []; }
     const typeAgents = agents.filter(a => (
@@ -37,7 +48,11 @@ export default class CitationFormatter {
     return typeAgents.map(a => a.name);
   }
 
-  // Digital Resource Fields
+  /** Extract first available link to a digitized resource
+   * @param {array} items Items attached to the edition being cited
+   *
+   * @returns {object} Contains URI to first digital resource and date it was last modified in SFR
+   */
   static setLinkFields(items) {
     const linkFields = { link: null, link_date: null };
 
@@ -49,7 +64,11 @@ export default class CitationFormatter {
     return linkFields;
   }
 
-  // Report Fields
+  /** Set flag for if cited record is a government document
+   * @param {array} measurements Measurement objects attached to the work record
+   *
+   * @returns {boolean} Flag designating government report status
+   */
   static isGovernmentReport(measurements) {
     let govReport = measurements
       ? measurements.filter(m => m.quantity === 'government_document')[0] : { value: 0 };

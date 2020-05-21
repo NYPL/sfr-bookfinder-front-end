@@ -2,15 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 
+// This provides an APA citation as a formatted component for a specific edition of a work.
 class APACitation extends React.Component {
+  /** Transforms first names into capitalized initials
+   * @param {string} name First name(s) of an agent to be transformed
+   *
+   * @returns {string} Initials for the supplied names
+   */
   static getInitials(name) {
     return name.trim().split(/\s+/).map(i => `${i.substr(0, 1).toUpperCase()}.`).join(' ');
   }
 
+  // Invokes methods to format data received from props
   componentWillMount() {
     this.formatCitationData();
   }
 
+  // Set formatted string components to be combined into the full APA citation element
   formatCitationData() {
     this.title = this.props.subTitle ? `${this.props.title}: ${this.props.subTitle}` : this.props.title;
 
@@ -31,7 +39,12 @@ class APACitation extends React.Component {
     this.govReportStatus = this.props.isGovernmentDoc;
   }
 
-
+  /** Transform array of agents into a comma-delimited string
+   * @param {string} agentType Agent role (e.g. author) to format for display
+   * @param {boolean} nameFirst Sets to display names as Last, Initials or Initials Last. Defaults to false
+   *
+   * @returns {string} Comma delimited string of transformed agent names
+   */
   formatAgentNames(agentType, nameFirst = false) {
     return this.props.agents[agentType].map((a) => {
       let firstNames;
@@ -53,6 +66,15 @@ class APACitation extends React.Component {
     }).join(', ');
   }
 
+  /**
+   * Return a government report citation when govReportStatus is true
+   * Citations for these documents are somewhat simpler than for monographs
+   *
+   * Standard format
+   * Authors OR Editors (Ed.) (Publication Year) <em>Title: Subtitle</em> Publishers. Link
+   *
+   * @returns {object} Element to be displayed
+   */
   returnGovernmentReport() {
     let responsibilityStatement = '';
     if (this.props.agents.authors.length > 0) {
@@ -71,6 +93,20 @@ class APACitation extends React.Component {
     );
   }
 
+  /**
+   * Returns a formatted citation for a monograph, including the volume if present
+   * Monograph citations can include all metadata passed into this component. Importantly
+   * the editors block can change position depending on the presence of authors
+   *
+   * Authors Format
+   * Authors (Publication Year) <em>Title: SubTitle</em> (Volume) (Illustrators OR Translators) (Edition) (Editors) Publishers. Link
+   * No Authors Format
+   * Editors (Ed.) (Publication Year) <em>Title: SubTitle</em> (Volume) (Illustrators OR Translators) (Edition) Publishers. Link
+   *
+   * @param {boolean} addVolume Set if volume data is present to return in citation
+   *
+   * @returns {object} Formatted element to be displayed
+   */
   returnMonographCitation(addVolume = false) {
     let responsibilityStatement = '';
     if (this.props.agents.authors.length > 0) {
@@ -102,6 +138,7 @@ class APACitation extends React.Component {
     );
   }
 
+  // Returns appropriate APA citation version
   render() {
     const volumeData = this.volume !== '';
     return (
