@@ -9,6 +9,8 @@ import EmptySearchSvg from '../Svgs/EmptySearchSvg';
 import { isEmpty, joinArrayOfElements, checkFeatureFlagActivated } from '../../util/Util';
 
 import EditionCard from '../Card/EditionCard';
+import CitationFormatter from '../Citations/formatCitation';
+import APACitation from '../Citations/APACitation';
 
 import featureFlagConfig from '../../../../featureFlagConfig';
 import config from '../../../../appConfig';
@@ -64,6 +66,7 @@ class ResultsList extends React.Component {
 
   formatAllResultsData(results, eReaderUrl, referrer) {
     const shouldShowRequest = FeatureFlags.store._isFeatureActive(config.requestDigital.experimentName);
+    const shouldShowCitations = FeatureFlags.store._isFeatureActive(config.displayCitations.experimentName);
 
     return results.map((result, index) => {
       const showRequestButton = shouldShowRequest ? (
@@ -83,17 +86,34 @@ class ResultsList extends React.Component {
       const allEditionsLink = getEditionsLinkElement(result);
       const previewEdition = result.editions && result.editions[0];
 
+      const citationData = CitationFormatter.getCitationData(result, result.editions ? result.editions[0] : {});
+
       return (
-        <DS.SearchResultItem
-          id={`search-result-${result.uuid}`}
+        <div
           key={`search-result-${result.uuid}`}
-          resultIndex={index}
-          headingContent={titleElement}
-          subtitleContent={EditionCard.getSubtitle(result.sub_title)}
-          authorLinkElement={authorLinkElement ? joinArrayOfElements(authorLinkElement, ', ') : undefined}
-          editionInfo={EditionCard.getEditionData(result, previewEdition, eReaderUrl, referrer, showRequestButton)}
-          editionsLinkElement={allEditionsLink}
-        />
+        >
+          <DS.SearchResultItem
+            id={`search-result-${result.uuid}`}
+            resultIndex={index}
+            headingContent={titleElement}
+            subtitleContent={EditionCard.getSubtitle(result.sub_title)}
+            authorLinkElement={authorLinkElement ? joinArrayOfElements(authorLinkElement, ', ') : undefined}
+            editionInfo={EditionCard.getEditionData(result, previewEdition, eReaderUrl, referrer, showRequestButton)}
+            editionsLinkElement={allEditionsLink}
+          />
+          {shouldShowCitations && (
+            <APACitation
+              title={citationData.title}
+              subTitle={citationData.sub_title}
+              agents={citationData.agents}
+              publicationYear={citationData.publication_year}
+              edition={citationData.edition}
+              volume={citationData.volume}
+              sourceLink={citationData.sourceLink.link}
+              isGovernmentDoc={citationData.isGovernmentDoc}
+            />
+          )}
+        </div>
       );
     });
   }
