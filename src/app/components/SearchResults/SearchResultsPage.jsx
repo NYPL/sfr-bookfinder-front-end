@@ -222,7 +222,9 @@ class SearchResultsPage extends React.Component {
           >
             {searchQuery && (
             <>
-              <SearchHeader initialQuery={this.props.searchQuery} />
+              <SearchHeader
+                initialQuery={this.props.searchQuery}
+              />
               {
                 // eslint-disable-next-line no-underscore-dangle
                 FeatureFlags.store._isFeatureActive(config.booksCount.experimentName)
