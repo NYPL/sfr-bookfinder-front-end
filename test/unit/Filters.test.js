@@ -40,8 +40,8 @@ describe('Filters', () => {
       component = shallow(<Filters data={noResults} />);
     });
 
-    it('should return only the filter for read now when results object given is empty.', () => {
-      expect(component.find('fieldset')).to.have.length(1);
+    it('should show all filters even if results are empty', () => {
+      expect(component.find('fieldset')).to.have.length(4);
     });
   });
   describe('No results behavior with searchQuery.', () => {
@@ -216,11 +216,6 @@ describe('Filters', () => {
       submitButton.simulate('click');
 
       expect(wrapper.find('#date-range-error').exists()).to.equal(false);
-    });
-
-    it('displays error on empty search', () => {
-      submitButton.simulate('click');
-      expect(wrapper.find('#date-range-error').exists()).to.equal(true);
     });
 
     it('displays error on invalid date range', () => {

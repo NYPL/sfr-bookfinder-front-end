@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
 import * as DS from '@nypl/design-system-react-components';
 import FeatureFlags from 'dgx-feature-flags';
-import { ButtonTypes } from '@nypl/design-system-react-components/lib/components/01-atoms/Button/ButtonTypes';
 import * as searchActions from '../../actions/SearchActions';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
@@ -252,7 +251,7 @@ class SearchResultsPage extends React.Component {
                   )}
                   <DS.Button
                     id="filter-button"
-                    buttonType={ButtonTypes.Link}
+                    buttonType={DS.ButtonTypes.Link}
                     callback={this.openModal}
                   >
                 Refine

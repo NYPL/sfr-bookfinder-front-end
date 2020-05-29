@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as DS from '@nypl/design-system-react-components';
-import { ButtonTypes, ButtonIconPositions } from '@nypl/design-system-react-components/lib/components/01-atoms/Button/ButtonTypes';
 import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
 import { getQueryString } from '../../search/query';
 import { filtersLabels, formatTypes, errorMessagesText } from '../../constants/labels';
@@ -22,7 +21,6 @@ class Filters extends React.Component {
 
     this.isFilterChecked = this.isFilterChecked.bind(this);
     this.searchContains = this.searchContains.bind(this);
-    this.showFields = this.showFields.bind(this);
     this.joinFacetsAndsearch = this.joinFacetsAndsearch.bind(this);
     this.doSearchWithFilters = this.doSearchWithFilters.bind(this);
   }
@@ -166,18 +164,6 @@ class Filters extends React.Component {
       && this.props.searchQuery.filters.find(filter => filter.field === field);
   }
 
-  showFields(data) {
-    return Object.keys(filtersLabels)
-      .map(field => ((data.facets && data.facets[field] && data.facets[field].length > 0)
-        || this.searchContains(field)
-        || (field === 'years' && (this.searchContains(field) || (data.works && data.works.length > 0)))
-        || field === 'show_all'
-        || (field === 'format' && (this.searchContains(field) || (data.works && data.works.length > 0)))
-        ? field
-        : null))
-      .filter(x => x);
-  }
-
   render() {
     const {
       data, toggleMenu, isMobile, searchQuery, onChangeSort, onChangePerPage,
@@ -190,13 +176,15 @@ class Filters extends React.Component {
         <div className="search-navigation">
           <DS.Button
             id="gobackButton"
-            buttonType={ButtonTypes.Link}
-            iconPosition={ButtonIconPositions.Left}
-            iconName="arrow-xsmall"
+            type="button"
+            buttonType={DS.ButtonTypes.Link}
+            iconPosition={DS.ButtonIconPositions.Left}
+            iconName="arrow_xsmall"
             iconModifiers={['left']}
+            iconDecorative
             callback={event => this.onSubmit(event, toggleMenu, true)}
           >
-            Go Back
+            <span>Go Back</span>
           </DS.Button>
           <DS.Button
             id="closeButton"
@@ -242,7 +230,7 @@ class Filters extends React.Component {
       </DS.UnorderedList>
     );
 
-    if (this.showFields(data).length > 0) {
+    if (Object.keys(filtersLabels).length > 0) {
       return (
         <form
           className="filters usa-form"
@@ -275,7 +263,7 @@ class Filters extends React.Component {
             />
           </div>
           )}
-          {this.showFields(data).map(field => (
+          {Object.keys(filtersLabels).map(field => (
             <fieldset
               key={field}
               className="filters-box usa-fieldset"
@@ -300,7 +288,7 @@ class Filters extends React.Component {
                   buttonOpts={!isMobile
                     ? {
                       id: 'submitButtonId',
-                      callback: event => this.onSubmit(event, toggleMenu, false),
+                      callback: event => this.onSubmit(event, toggleMenu, true),
                       content: <>Apply</>,
                     }
                     : null}
