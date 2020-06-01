@@ -1,6 +1,6 @@
 import axios from 'axios';
 import appConfig from '../../../appConfig';
-import selectFields from '../constants/fields';
+import { fields } from '../constants/fields';
 import serverState from '../stores/InitialState';
 import { buildSearchQuery } from '../search/query';
 
@@ -65,7 +65,7 @@ const editionUrl = apiUrl + editionPath;
 const totalWorksUrl = apiUrl + totalWorksPath;
 
 export const searchPost = (query) => {
-  const sField = query.field && selectFields[query.field];
+  const sField = query.field && fields[query.field];
   let queryBody;
   if (sField) {
     queryBody = buildSearchQuery(Object.assign({}, query, { field: sField }));
@@ -156,7 +156,7 @@ export const fetchEdition = query => dispatch => axios
   });
 
 export const serverPost = (query) => {
-  const sField = query.field && selectFields[query.field];
+  const sField = query.field && fields[query.field];
   let queryBody;
   if (sField) {
     queryBody = buildSearchQuery(Object.assign({}, query, { field: sField }));
