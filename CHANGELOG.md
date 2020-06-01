@@ -5,6 +5,7 @@
 - Edited some typos and added page title to Edition Detail
 - String truncating now occurs on word boundaries
 - Add APA Citations under feature flag
+- Filters always show all filter options
 
 ## [0.9.0] 
 ### Changed
