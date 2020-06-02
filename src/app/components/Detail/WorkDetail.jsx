@@ -163,21 +163,24 @@ class WorkDetail extends React.Component {
     // eslint-disable-next-line no-underscore-dangle
     const shouldShowRequest = FeatureFlags.store._isFeatureActive(config.requestDigital.experimentName);
     return (
-      <DS.Container>
+      <div className="layout-container">
         {this.state.requestedEdition && this.getRequestDigital(work)}
         <main
           id="mainContent"
+          className="main"
         >
-          <Breadcrumbs
-            router={router}
-            location={this.props.location}
-          />
-          <div>
-            <SearchHeader />
+          <div className="content-header">
+            <Breadcrumbs
+              router={router}
+              location={this.props.location}
+            />
+            <div>
+              <SearchHeader />
+            </div>
           </div>
           {isValidWork
             && (
-              <>
+              <div className="content-primary">
                 <div className="nypl-item-header">
                   {work
                     && (
@@ -247,11 +250,11 @@ class WorkDetail extends React.Component {
                     />
                   </div>
                 </div>
-              </>
+              </div>
             )
           }
         </main>
-      </DS.Container>
+      </div>
     );
   }
 }

@@ -127,24 +127,26 @@ class EditionDetail extends React.Component {
     const shouldShowRequest = FeatureFlags.store._isFeatureActive(config.requestDigital.experimentName);
 
     return (
-      <DS.Container>
+      <div className="layout-container">
         <main
           id="mainContent"
+          className="main"
         >
           {isValidEdition
             && (
               <>
-                <Breadcrumbs
-                  router={router}
-                  location={this.props.location}
-                  workDetail={{ uuid: edition.work_uuid, title: edition.title }}
-                />
-                <div>
-                  <SearchHeader />
+                <div className="content-header">
+                  <Breadcrumbs
+                    router={router}
+                    location={this.props.location}
+                    workDetail={{ uuid: edition.work_uuid, title: edition.title }}
+                  />
+                  <div>
+                    <SearchHeader />
+                  </div>
                 </div>
-                <div>
-                  <div className="nypl-item-header">
-                    {edition
+                <div className="content-top">
+                  {edition
                       && (
                         <DS.Heading
                           level={1}
@@ -161,29 +163,24 @@ class EditionDetail extends React.Component {
                         </DS.Heading>
                       )
                     }
-                    {edition.sub_title && <div className="search-result-item__subtitle">{edition.sub_title}</div>}
-                    {authorsList && authorsList.length && (
-                      <span>
+                  {edition.sub_title && <div className="search-result-item__subtitle">{edition.sub_title}</div>}
+                  {authorsList && authorsList.length && (
+                  <span>
                         By
-                        {' '}
-                        {join(authorsList, ', ')}
-                      </span>
-                    )}
-                  </div>
+                    {' '}
+                    {join(authorsList, ', ')}
+                  </span>
+                  )}
                 </div>
-                <div>
+                <div className="content-primary">
                   <DS.Heading
                     level={2}
                     id="featured-edition"
                     text="Featured Copy"
                   />
-                </div>
-                <div>
-                  <div>
+                  <div id="featured-edition-card">
                     {this.getInstanceCard(edition, eReaderUrl, referrer)}
                   </div>
-                </div>
-                <div>
                   <div id="nypl-item-details">
                     <EditionDetailDefinitionList
                       edition={edition}
@@ -224,7 +221,7 @@ class EditionDetail extends React.Component {
             )
           }
         </main>
-      </DS.Container>
+      </div>
     );
   }
 }

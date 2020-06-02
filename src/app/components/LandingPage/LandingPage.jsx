@@ -53,48 +53,53 @@ class LandingPage extends React.Component {
     const { router } = this.context;
 
     return (
-      <DS.Container>
-        <main id="mainContent">
-          <Breadcrumbs
-            router={router}
-            location={this.props.location}
-          />
-          <div
-            aria-label="Digital Research Books Beta"
-            className="main-promo"
-          >
-            <DS.SectionName>
-              <DS.Hero
-                heroType={DS.HeroTypes.Secondary}
-                heading={(
-                  <DS.Heading
-                    level={1}
-                    id="1"
-                    text="Digital Research Books Beta"
-                    blockName="hero"
-                  />
+      <div className="layout-container">
+        <main
+          id="mainContent"
+          className="main"
+        >
+          <div className="content-header">
+            <Breadcrumbs
+              router={router}
+              location={this.props.location}
+            />
+            <div
+              aria-label="Digital Research Books Beta"
+              className="main-promo"
+            >
+              <DS.SectionName>
+                <DS.Hero
+                  heroType={DS.HeroTypes.Secondary}
+                  heading={(
+                    <DS.Heading
+                      level={1}
+                      id="1"
+                      text="Digital Research Books Beta"
+                      blockName="hero"
+                    />
                 )}
-                subHeaderText={(
-                  <p className="hero__body-text">
+                  subHeaderText={(
+                    <p className="hero__body-text">
                   Find millions of digital books for research
                   from multiple sources world-wide--all free to read, download, and keep. No library card required.
                   This is an early beta test, so we want your feedback!
-                    {' '}
-                    <DS.UnderlineLink><Link to="/about">Read more about the project</Link></DS.UnderlineLink>
+                      {' '}
+                      <DS.UnderlineLink><Link to="/about">Read more about the project</Link></DS.UnderlineLink>
                   .
-                  </p>
+                    </p>
                 )}
-              />
-            </DS.SectionName>
-            <div>
-              <SearchForm />
-              {
+                />
+              </DS.SectionName>
+              <div>
+                <SearchForm />
+                {
                 // eslint-disable-next-line no-underscore-dangle
                 FeatureFlags.store._isFeatureActive(config.booksCount.experimentName)
                 && <TotalWorks />
               }
+              </div>
             </div>
-            <div className="grid-row">
+            <div className="content-primary">
               <div className="search-examples">
                 <DS.SectionTitle
                   id="subject-browse-title"
@@ -119,7 +124,7 @@ class LandingPage extends React.Component {
             </div>
           </div>
         </main>
-      </DS.Container>
+      </div>
     );
   }
 }
