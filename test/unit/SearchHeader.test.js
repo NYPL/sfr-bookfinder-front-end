@@ -91,4 +91,57 @@ describe('SearchHeader', () => {
       expect(component.state('searchQuery').queries[0].query).to.equal('johnson');
     });
   });
+
+  describe('search term prepopulation', () => {
+    let component;
+    it('should prepopulate based on passed in value', () => {
+      component = mount(<SearchHeader initialQuery={{ queries: [{ field: 'author', query: 'melville' }] }} />);
+      expect(component.find('#searchBarId-input-textfield').prop('value')).to.equal('melville');
+      expect(component.find('#dropdownId').prop('value')).to.equal('author');
+    });
+
+    it('if there are multiple search terms, it should not prepopulate', () => {
+      component = mount(<SearchHeader
+        initialQuery={{
+          queries: [{ field: 'author', query: 'melville' },
+            { field: 'keyword', query: 'whale' }],
+        }}
+      />);
+      expect(component.find('#searchBarId-input-textfield').prop('value')).to.equal('');
+      expect(component.find('#dropdownId').prop('value')).to.equal('keyword');
+    });
+
+    it('should prepopulate based on viaf if the viaf is for author', () => {
+      component = mount(<SearchHeader
+        initialQuery={{
+          queries: [{ field: 'viaf', query: '12345' }],
+          showQueries: [{ field: 'author', query: 'shakespeare' }],
+        }}
+      />);
+      expect(component.find('#searchBarId-input-textfield').prop('value')).to.equal('shakespeare');
+      expect(component.find('#dropdownId').prop('value')).to.equal('author');
+    });
+
+    it('should not prepopulate if viaf is not for author', () => {
+      component = mount(<SearchHeader
+        initialQuery={{
+          queries: [{ field: 'viaf', query: '12345' }],
+          showQueries: [{ field: 'publisher', query: 'houghton' }],
+        }}
+      />);
+      expect(component.find('#searchBarId-input-textfield').prop('value')).to.equal('');
+      expect(component.find('#dropdownId').prop('value')).to.equal('keyword');
+    });
+
+    it('should not prepopulate if there are multiple showQueries', () => {
+      component = mount(<SearchHeader
+        initialQuery={{
+          queries: [{ field: 'viaf', query: '12345' }],
+          showQueries: [{ field: 'author', query: 'shakespeare' }, { field: 'keyword', query: 'witch' }],
+        }}
+      />);
+      expect(component.find('#searchBarId-input-textfield').prop('value')).to.equal('');
+      expect(component.find('#dropdownId').prop('value')).to.equal('keyword');
+    });
+  });
 });
