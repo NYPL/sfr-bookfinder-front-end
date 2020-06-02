@@ -11,12 +11,23 @@ const ResultsHeader = (props) => {
   const currentQuery = props.currentQuery;
 
   // If using Advanced Search with multiple fields, don't prepopulate header.
-  const valueToPrepopulate = currentQuery && currentQuery.queries && currentQuery.queries.length === 1
-    ? currentQuery.queries[0].query : '';
+  let valueToPrepopulate = '';
+  let fieldToPrepopulate = 'keyword';
 
-  const fieldToPrepopulate = currentQuery && currentQuery.queries && currentQuery.queries.length === 1
-    ? props.currentQuery.queries[0].field : 'keyword';
+  // Prepopulate search values
+  // If regular search, prepopulate as is.
+  // If searching by clicking on author name, prepopulate using the author name.
 
+  if (currentQuery && currentQuery.queries && currentQuery.queries.length === 1) {
+    const query = currentQuery.queries[0];
+    if (searchFields.includes(query.field)) {
+      valueToPrepopulate = query.query;
+      fieldToPrepopulate = query.field;
+    } else if (currentQuery.showQueries && currentQuery.showQueries.length === 1 && currentQuery.showQueries[0].field === 'author') {
+      valueToPrepopulate = currentQuery.showQueries[0].query;
+      fieldToPrepopulate = currentQuery.showQueries[0].field;
+    }
+  }
   return (
     <DS.HeaderWithSearch
       searchButtonId="searchButtonId"
