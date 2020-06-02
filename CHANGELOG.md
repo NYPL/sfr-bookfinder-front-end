@@ -1,5 +1,8 @@
 # CHANGE LOG
 
+## [0.9.2] 
+- Updated dgx-global-footer to 0.5.6.
+
 ## [0.9.1] 
 - Updated dgx-global-footer to 0.5.5.
 - Edited some typos and added page title to Edition Detail

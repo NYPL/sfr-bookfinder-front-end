@@ -97,6 +97,7 @@ body {
 }
 
 .footer {
+  box-sizing: content-box;
   .footerLinks {
     a {
       color: #fff;
