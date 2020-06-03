@@ -208,38 +208,41 @@ class SearchResultsPage extends React.Component {
       }
     };
     return (
-      <DS.Container>
+      <div className="layout-container">
         <main
           id="mainContent"
+          className="main main--with-sidebar"
         >
-          <Breadcrumbs
-            router={router}
-            location={this.props.location}
-          />
-          <div
-            aria-label="Digital Research Books Beta"
-          >
-            {searchQuery && (
-            <>
-              <SearchHeader
-                initialQuery={this.props.searchQuery}
-              />
-              {
+          <div className="content-header">
+            <Breadcrumbs
+              router={router}
+              location={this.props.location}
+            />
+            <div
+              aria-label="Digital Research Books Beta"
+            >
+              {searchQuery && (
+              <>
+                <SearchHeader initialQuery={this.props.searchQuery} />
+                {
                 // eslint-disable-next-line no-underscore-dangle
                 FeatureFlags.store._isFeatureActive(config.booksCount.experimentName)
                 && <TotalWorks />
               }
-              <div className="grid-row">
-                <DS.Heading
-                  level={1}
-                  id="page-title-heading"
-                  blockName="page-title"
-                  text={`Search results for ${this.getDisplayItemsHeading()}`}
-                />
-              </div>
-            </>
-            )
+              </>
+              )
             }
+            </div>
+          </div>
+          <div className="content-top">
+            <div className="search-heading">
+              <DS.Heading
+                level={1}
+                id="page-title-heading"
+                blockName="page-title"
+                text={`Search results for ${this.getDisplayItemsHeading()}`}
+              />
+            </div>
             <div className="search-navigation">
               {this.state.isMobile ? mobileItemCount : itemCount}
               {this.state.isMobile && (
@@ -261,75 +264,73 @@ class SearchResultsPage extends React.Component {
                 </div>
               )}
               {!this.state.isMobile && (
-              <div className="search-dropdowns">
-                <DS.Dropdown
-                  dropdownId="items-per-page-select"
-                  isRequired={false}
-                  labelPosition="left"
-                  labelText="Items Per Page"
-                  labelId="nav-items-per-page"
-                  selectedOption={searchQuery.per_page ? searchQuery.per_page : undefined}
-                  dropdownOptions={numbersPerPage.map(number => number.toString())}
-                  onSelectChange={onChangePerPage}
-                  onSelectBlur={onChangePerPage}
-                />
-                <DS.Dropdown
-                  dropdownId="sort-by-select"
-                  isRequired={false}
-                  labelPosition="left"
-                  labelText="Sort By"
-                  labelId="nav-sort-by"
-                  selectedOption={searchQuery.sort
-                    ? Object.keys(sortMap).find(key => deepEqual(sortMap[key], searchQuery.sort)) : undefined}
-                  dropdownOptions={Object.keys(sortMap).map(sortOption => sortOption)}
-                  onSelectChange={onChangeSort}
-                  onSelectBlur={onChangeSort}
-                />
-              </div>
+                <div className="search-dropdowns">
+                  <DS.Dropdown
+                    dropdownId="items-per-page-select"
+                    isRequired={false}
+                    labelPosition="left"
+                    labelText="Items Per Page"
+                    labelId="nav-items-per-page"
+                    selectedOption={searchQuery.per_page ? searchQuery.per_page : undefined}
+                    dropdownOptions={numbersPerPage.map(number => number.toString())}
+                    onSelectChange={onChangePerPage}
+                    onSelectBlur={onChangePerPage}
+                  />
+                  <DS.Dropdown
+                    dropdownId="sort-by-select"
+                    isRequired={false}
+                    labelPosition="left"
+                    labelText="Sort By"
+                    labelId="nav-sort-by"
+                    selectedOption={searchQuery.sort
+                      ? Object.keys(sortMap).find(key => deepEqual(sortMap[key], searchQuery.sort)) : undefined}
+                    dropdownOptions={Object.keys(sortMap).map(sortOption => sortOption)}
+                    onSelectChange={onChangeSort}
+                    onSelectBlur={onChangeSort}
+                  />
+                </div>
               )}
-            </div>
-            <div className="grid-row sfr-results-container">
-              {!this.state.isMobile && (
-              <div className="nypl-results-column">
-                <Filters
-                  data={searchResults}
-                  searchQuery={searchQuery}
-                  router={router}
-                  onChangeSort={onChangeSort}
-                  onChangePerPage={onChangePerPage}
-                />
-              </div>
-              )}
-              <div className="nypl-results-main">
-                <ResultsList
-                  results={works}
-                  eReaderUrl={eReaderUrl}
-                />
-              </div>
-            </div>
-            <div className="grid-row">
-              <SearchPagination
-                totalItems={numberOfWorks}
-                searchQuery={searchQuery}
-                router={router}
-              />
             </div>
           </div>
+          {!this.state.isMobile && (
+            <div className="content-secondary content-secondary--with-sidebar-left">
+              <Filters
+                data={searchResults}
+                searchQuery={searchQuery}
+                router={router}
+                onChangeSort={onChangeSort}
+                onChangePerPage={onChangePerPage}
+              />
+            </div>
+
+          )}
+          <div className="content-primary content-primary--with-sidebar-left">
+            <ResultsList
+              results={works}
+              eReaderUrl={eReaderUrl}
+            />
+            <SearchPagination
+              totalItems={numberOfWorks}
+              searchQuery={searchQuery}
+              router={router}
+            />
+          </div>
+
+          { this.state.isMobile && this.state.isModalOpen && (
+          <DS.Modal>
+            <Filters
+              toggleMenu={this.closeModal}
+              isMobile={this.state.isMobile}
+              data={searchResults}
+              onChangeSort={onChangeSort}
+              onChangePerPage={onChangePerPage}
+              searchQuery={searchQuery}
+              router={router}
+            />
+          </DS.Modal>
+          )}
         </main>
-        {this.state.isMobile && this.state.isModalOpen && (
-        <DS.Modal>
-          <Filters
-            toggleMenu={this.closeModal}
-            isMobile={this.state.isMobile}
-            data={searchResults}
-            onChangeSort={onChangeSort}
-            onChangePerPage={onChangePerPage}
-            searchQuery={searchQuery}
-            router={router}
-          />
-        </DS.Modal>
-        )}
-      </DS.Container>
+      </div>
     );
   }
 }
