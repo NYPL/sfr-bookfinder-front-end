@@ -1,7 +1,7 @@
 # CHANGE LOG
 
 ## [0.9.1] 
-- Updated dgx-global-footer to 0.5.5.
+- Updated dgx-global-footer to 0.5.6.
 - Edited some typos and added page title to Edition Detail
 - String truncating now occurs on word boundaries
 - Add APA Citations under feature flag
