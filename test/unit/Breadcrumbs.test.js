@@ -9,6 +9,7 @@ import { initialSearchQuery } from '../../src/app/stores/InitialState';
 
 describe('Breadcrumb', () => {
   const workDetail = { uuid: '12345', title: 'random title' };
+  const editionDetail = { id: '54321', publication_date: '2004' };
   const homeLocation = { pathname: '/' };
   const otherLocation = { pathName: '/other-location' };
 
@@ -35,9 +36,18 @@ describe('Breadcrumb', () => {
         ],
       );
     });
-
     it("doesn't get a work detail link when passed an empty work", () => {
       expect(getBreadcrumbLinks({}, {})).to.eql([]);
+    });
+    it('gets an edition detail link when passed an edition detail', () => {
+      expect(getBreadcrumbLinks(undefined, editionDetail)).to.eql(
+        [
+          {
+            href: '/edition?editionId=54321',
+            text: '2004 Edition',
+          },
+        ],
+      );
     });
   });
 
@@ -85,6 +95,14 @@ describe('Breadcrumb', () => {
         workDetail={workDetail}
       />);
       expect(wrapper.find('li')).to.have.lengthOf(2);
+    });
+    it('returns a list with three items when passed an edition detail', () => {
+      const wrapper = mount(<Breadcrumbs
+        location={otherLocation}
+        workDetail={workDetail}
+        editionDetail={editionDetail}
+      />);
+      expect(wrapper.find('li')).to.have.lengthOf(3);
     });
   });
 });

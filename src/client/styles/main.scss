@@ -26,6 +26,7 @@ $fontFamily: 'system-ui';
 
 @import './mixins/Mixins.scss';
 @import './components/Search.scss';
+@import './components/SearchResults.scss';
 @import './components/WorkDetail.scss';
 @import './components/EBookViewer.scss';
 @import './components/DefinitionList.scss';
@@ -34,6 +35,7 @@ $fontFamily: 'system-ui';
 @import './components/AdvancedSearch.scss';
 @import './components/Feedback.scss';
 @import './components/RequestDigitization.scss';
+@import './components/Citations.scss';
 
 html {
   font-family: $fontFamily;
@@ -42,6 +44,7 @@ html {
 body {
   height: 100%;
 }
+
 #app {
   margin: 0;
   height: 100%;
@@ -94,6 +97,7 @@ body {
 }
 
 .footer {
+  box-sizing: content-box;
   .footerLinks {
     a {
       color: #fff;
@@ -173,10 +177,13 @@ select {
   }
 }
 
-//DS Overrides: 
-.header-with-image-right__image {
-  display: none;
+.filter-count::after {
+    content: "|";
+    padding: 0 0.2em
 }
+
+//DS Overrides: 
+
 .main-promo {
   // This is DS's Breakout mixin
   margin-left: calc(-50vw + 50%);
@@ -184,9 +191,11 @@ select {
   padding-left:  calc(-50vw + 50%);
   padding-right: calc(-50vw + 50%);
 }
-.main-promo-text {
+
+.main-promo-text, .search-examples, .header-with-image-right__text {
   display: block;
   max-width: 1280px;
+  min-width: 1280px;
   margin: 0 auto;
   padding: 0 1rem;
 }
@@ -198,6 +207,10 @@ select {
   margin-top: 0;
 }
 
+.edition-card {
+  background-color: $gray-warm-light;
+}
+
 .dropdown {
   margin-right: 10px;
 }
@@ -207,20 +220,18 @@ select {
 }
 
 .search-result-item {
-  margin: 2em 2em 0 2em;
+  .edition-card {
+    background-color: #fff;
+    .edition-card__card-image {
+      background-color: #fff;
+    }
+  }
 }
 
 h2#featured-edition {
   margin-top: 0.75em;
 }
 
-// Hotfixes that should be removed with DS hero work
-// Fixes issue where background color of header doesn't
-// extend to edges of screen
-.header-with-image-right {
-  box-shadow: inset 0 3.25rem #377f8b;
-}
-
-.header-with-image-right__content {
-  max-width: unset;
+.page-title__heading {
+  flex: 1 1 0;
 }

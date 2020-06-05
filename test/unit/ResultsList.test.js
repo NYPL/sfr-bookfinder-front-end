@@ -6,6 +6,7 @@ import { shallow, mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import ResultsList, { getEditionsLinkElement } from '../../src/app/components/SearchResults/ResultsList';
 import results from '../fixtures/results-list.json';
+import FeatureFlags from 'dgx-feature-flags';
 
 configure({ adapter: new Adapter() });
 
@@ -65,9 +66,11 @@ describe('Results List', () => {
     });
 
     describe('Complete Results Data', () => {
+      let resultsBlock;
       let resultsData;
       before(() => {
-        resultsData = component.instance().formatAllResultsData(results.data.works, 'eReaderUrl', 'Referrer')[0];
+        resultsBlock = component.instance().formatAllResultsData(results.data.works, 'eReaderUrl', 'Referrer')[0];
+        resultsData = resultsBlock.props.children[0].props;
       });
       it('result data has id', () => {
         expect(resultsData.id).to.equal('search-result-07737109-2d77-4fb3-b23e-7991339216fb');
@@ -76,38 +79,33 @@ describe('Results List', () => {
         expect(resultsData.resultIndex).to.equal(0);
       });
       it('result data has title element', () => {
-        expect(mount(resultsData.titleElement).text()).to.equal('The Blithedale romance, by Nathaniel Hawthorne.');
+        expect(mount(<span>{resultsData.headingContent}</span>).text()).to.equal('The Blithedale romance, by Nathaniel Hawthorne.');
       });
       it('result data has subtitle text', () => {
-        expect(resultsData.subtitle).to.equal('subtitle subtitle subtitle subtitle subtitle');
+        expect(mount(resultsData.subtitleContent).text()).to.equal('subtitle subtitle subtitle subtitle subtitle');
       });
       it('result data has author element', () => {
-        expect(mount(<span>{resultsData.authorElement}</span>).text()).to.equal('Hawthorne, Nathaniel');
+        expect(mount(<span>{resultsData.authorLinkElement}</span>).text()).to.equal('Hawthorne, Nathaniel');
       });
       it('result data has year heading element', () => {
         expect(mount(<span>{resultsData.editionInfo.editionYearHeading}</span>).text()).to.equal('1852 Edition');
       });
-      it('result data has publisher and location', () => {
-        expect(resultsData.editionInfo.publisherAndLocation).to.equal('Published in London by Chapman and Hall, London + 4 more');
+      it('result data has edition info', () => {
+        expect(resultsData.editionInfo.editionInfo.length).to.equal(3);
       });
       it('result data has coverUrl', () => {
         expect(resultsData.editionInfo.coverUrl).to.equal(
           'https://test-sfr-covers.s3.amazonaws.com/hathitrust/077371092d774fb3b23e7991339216fb_nyp.33433076087844.jpg',
         );
       });
-      it('result data has language', () => {
-        expect(resultsData.editionInfo.language).to.equal('Languages: English, German, Undetermined');
-      });
-      it('result data has license', () => {
-        expect(mount(resultsData.editionInfo.license).find('a').text()).to.equal('License: Unknown');
-      });
       it('result data has readOnlineLink', () => {
         const linkComponent = mount(resultsData.editionInfo.readOnlineLink);
-        expect(linkComponent.prop('to').pathname).to.equal('/read-online');
-        expect(linkComponent.prop('to').search).to.equal('?url=https://archive.org/details/blithedaleromanc00hawtrich');
+        expect(linkComponent.find('Link').prop('to').pathname).to.equal('/read-online');
+        expect(linkComponent.find('Link').prop('to').search).to.equal('?url=https://archive.org/details/blithedaleromanc00hawtrich');
       });
       it('result data has download link', () => {
-        expect(resultsData.editionInfo.downloadLink.props.href).to.equal('https://catalog.hathitrust.org/api/volumes/oclc/39113388.html');
+        expect(mount(<span>{resultsData.editionInfo.downloadLink}</span>)
+          .find('a').prop('href')).to.equal('https://catalog.hathitrust.org/api/volumes/oclc/39113388.html');
       });
       it('result data has editions link', () => {
         expect(mount(<span>{resultsData.editionsLinkElement}</span>).text()).to.equal('View All 17 Editions');
@@ -115,9 +113,11 @@ describe('Results List', () => {
     });
 
     describe('Missing Results Data', () => {
+      let resultsBlock;
       let resultsData;
       before(() => {
-        resultsData = component.instance().formatAllResultsData([{}], 'eReaderUrl', 'Referrer')[0];
+        resultsBlock = component.instance().formatAllResultsData([{}], 'eReaderUrl', 'Referrer')[0];
+        resultsData = resultsBlock.props.children[0].props;
       });
       it('Empty result data has id', () => {
         expect(resultsData.id).to.equal('search-result-undefined');
@@ -126,7 +126,7 @@ describe('Results List', () => {
         expect(resultsData.resultIndex).to.equal(0);
       });
       it('Empty result data has unknown title', () => {
-        expect(mount(resultsData.titleElement).text()).to.equal('Title Unknown');
+        expect(mount(resultsData.headingContent).text()).to.equal('Title Unknown');
       });
       it('result data has no subtitle text', () => {
         expect(resultsData.subtitle).to.equal(undefined);
@@ -137,26 +137,72 @@ describe('Results List', () => {
       it('result data has unknown year heading eleemnt', () => {
         expect(mount(<span>{resultsData.editionInfo.editionYearHeading}</span>).text()).to.equal('Edition Year Unknown');
       });
-      it('result data has no publisher and location', () => {
-        expect(resultsData.editionInfo.publisherAndLocation).to.equal(undefined);
-      });
       it('result data has default coverUrl', () => {
         expect(resultsData.editionInfo.coverUrl).to.equal('https://test-sfr-covers.s3.amazonaws.com/default/defaultCover.png');
       });
-      it('result data has undetermined language', () => {
-        expect(resultsData.editionInfo.language).to.equal('Languages: Undetermined');
-      });
-      it('result data has unknown license', () => {
-        expect(mount(resultsData.editionInfo.license).find('a').text()).to.equal('License: Unknown');
+      it('result data has edition info', () => {
+        expect(resultsData.editionInfo.editionInfo.length).to.equal(3);
       });
       it('result data has no readOnlineLink', () => {
         expect(resultsData.editionInfo.readOnlineLink).to.equal(undefined);
       });
       it('result data has no download link', () => {
-        expect(resultsData.editionInfo.downloadLink).to.equal(undefined);
+        expect(mount(<span>{resultsData.editionInfo.downloadLink}</span>).text()).to.equal('');
       });
       it('result data has no editions link', () => {
         expect(mount(<span>{resultsData.editionsLinkElement}</span>).text()).to.equal('');
+      });
+    });
+
+    describe('Complete Citation', () => {
+      let resultsBlock;
+      let citationData;
+      before(() => {
+        FeatureFlags.actions.activateFeature('DisplayCitations');
+        resultsBlock = component.instance().formatAllResultsData(results.data.works, 'eReaderUrl', 'Referrer')[0];
+        citationData = resultsBlock.props.children[1].props;
+      });
+
+      after(() => {
+        FeatureFlags.actions.deactivateFeature('DisplayCitations');
+      });
+
+      it('should contain a title', () => {
+        expect(citationData.title).to.equal('The Blithedale romance, by Nathaniel Hawthorne.');
+      });
+
+      it('should have a isGovernmentDoc flag', () => {
+        expect(citationData.isGovernmentDoc).to.equal(false);
+      });
+
+      it('should return an agents object', () => {
+        expect(citationData.agents.authors.length).to.equal(1);
+        expect(citationData.agents.authors[0]).to.equal('Hawthorne, Nathaniel');
+        expect(citationData.agents.editors.length).to.equal(1);
+        expect(citationData.agents.editors[0]).to.equal('Dugdale, John');
+        expect(citationData.agents.illustrators.length).to.equal(0);
+        expect(citationData.agents.translators.length).to.equal(0);
+        expect(citationData.agents.publishers.length).to.equal(6);
+      });
+
+      it('subtitle should be empty', () => {
+        expect(citationData.subTitle).to.equal('');
+      });
+
+      it('should have a publication year', () => {
+        expect(citationData.publicationYear).to.equal('1852');
+      });
+
+      it('should have an edition statement', () => {
+        expect(citationData.edition).to.equal('[Another ed.].');
+      });
+
+      it('volume should be null', () => {
+        expect(citationData.volume).to.equal(null);
+      });
+
+      it('should have a source link', () => {
+        expect(citationData.sourceLink).to.equal('archive.org/details/blithedaleromanc00hawtrich');
       });
     });
   });

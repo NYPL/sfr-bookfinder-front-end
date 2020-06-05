@@ -1,5 +1,19 @@
 # CHANGE LOG
 
+## [0.9.1] 
+- Updated dgx-global-footer to 0.5.6.
+- Edited some typos and added page title to Edition Detail
+- String truncating now occurs on word boundaries
+- Add APA Citations under feature flag
+- Filters always show all filter options
+
+## [0.9.0] 
+### Changed
+- Filters now hide on mobile and show in sidebar.  
+- Updated to Design System 0.1.0
+- Work Detail page has a Show All toggle
+- Edition Detail Page added
+
 ## [0.8.5]
 ### Added
 - Google Analytics Events for Read Online and Download links

@@ -9,6 +9,8 @@ import EmptySearchSvg from '../Svgs/EmptySearchSvg';
 import { isEmpty, joinArrayOfElements, checkFeatureFlagActivated } from '../../util/Util';
 
 import EditionCard from '../Card/EditionCard';
+import CitationFormatter from '../Citations/formatCitation';
+import APACitation from '../Citations/APACitation';
 
 import featureFlagConfig from '../../../../featureFlagConfig';
 import config from '../../../../appConfig';
@@ -24,7 +26,7 @@ export const getEditionsLinkElement = result => (result.edition_count > 1 ? (
 ) : undefined);
 
 /**
- * ResultsList takes the response and calls Design System's SearchResultsList
+ * ResultsList takes the response and calls Design System's UnorderedList with Search Result objects
  * with the correctly formatted properties
  *
  * @returns {string|null}
@@ -64,6 +66,7 @@ class ResultsList extends React.Component {
 
   formatAllResultsData(results, eReaderUrl, referrer) {
     const shouldShowRequest = FeatureFlags.store._isFeatureActive(config.requestDigital.experimentName);
+    const shouldShowCitations = FeatureFlags.store._isFeatureActive(config.displayCitations.experimentName);
 
     return results.map((result, index) => {
       const showRequestButton = shouldShowRequest ? (
@@ -78,21 +81,40 @@ class ResultsList extends React.Component {
         </a>
       ) : undefined;
 
-      const titleElement = EditionCard.generateTitleLinkElem(result.title, result.uuid);
+      const titleElement = EditionCard.generateTitleLinkElem(result);
       const authorLinkElement = EditionCard.getAuthorsList(EditionCard.getPreferredAgent(result.agents, 'author'), `${result.uuid}-author`);
-      // TODO: Editions Link Page
       const allEditionsLink = getEditionsLinkElement(result);
       const previewEdition = result.editions && result.editions[0];
 
-      return {
-        id: `search-result-${result.uuid}`,
-        resultIndex: index,
-        titleElement,
-        subtitle: EditionCard.getSubtitleText(result.sub_title),
-        authorElement: authorLinkElement ? joinArrayOfElements(authorLinkElement, ', ') : undefined,
-        editionInfo: EditionCard.getEditionData(result, previewEdition, eReaderUrl, referrer, showRequestButton),
-        editionsLinkElement: allEditionsLink,
-      };
+      const citationData = CitationFormatter.getCitationData(result, result.editions ? result.editions[0] : {});
+
+      return (
+        <div
+          key={`search-result-${result.uuid}`}
+        >
+          <DS.SearchResultItem
+            id={`search-result-${result.uuid}`}
+            resultIndex={index}
+            headingContent={titleElement}
+            subtitleContent={EditionCard.getSubtitle(result.sub_title)}
+            authorLinkElement={authorLinkElement ? joinArrayOfElements(authorLinkElement, ', ') : undefined}
+            editionInfo={EditionCard.getEditionData(result, previewEdition, eReaderUrl, referrer, showRequestButton)}
+            editionsLinkElement={allEditionsLink}
+          />
+          {shouldShowCitations && (
+            <APACitation
+              title={citationData.title}
+              subTitle={citationData.sub_title}
+              agents={citationData.agents}
+              publicationYear={citationData.publication_year}
+              edition={citationData.edition}
+              volume={citationData.volume}
+              sourceLink={citationData.sourceLink.link}
+              isGovernmentDoc={citationData.isGovernmentDoc}
+            />
+          )}
+        </div>
+      );
     });
   }
 
@@ -109,7 +131,6 @@ class ResultsList extends React.Component {
         </div>
       );
     }
-
     return (
       <>
         {this.state.requestedWork && (
@@ -119,10 +140,9 @@ class ResultsList extends React.Component {
           requestedEdition={this.state.requestedEdition}
         />
         )}
-        <DS.SearchResultsList
-          searchResults={this.formatAllResultsData(results, eReaderUrl, referrer)}
-        >
-        </DS.SearchResultsList>
+        <DS.UnorderedList>
+          {this.formatAllResultsData(results, eReaderUrl, referrer)}
+        </DS.UnorderedList>
       </>
     );
   }

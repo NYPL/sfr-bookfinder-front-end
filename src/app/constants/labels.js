@@ -1,22 +1,25 @@
-export const detailDefinitionLabels = {
-  // also provides sort for DefinitionList
+export const workDetailDefinitionLabels = {
   alt_titles: 'Alternative Titles',
-  medium: 'Medium',
-  series: 'Series',
   summary: 'Summary',
+  series: 'Series',
   agents: 'Author',
   subjects: 'Subject',
-  date_created: 'Date Created',
-  issued_display: 'Date Issued',
   language: 'Language',
-  rights: 'Rights',
-  // measurements: 'Measurements',
-  // identifiers: 'Identifiers',
-  links: 'Links',
+};
+
+export const editionDetailDefinitionLabels = {
+  publication_date: 'Publication Date',
+  publication_place: 'Publication Place',
+  agents: 'Publisher(s)',
+  edition_statement: 'Edition Statement',
+  language: 'Language',
+  table_of_contents: 'Table of Contents',
+  extent: 'Extent',
+  volume: 'Volume',
+  summary: 'Summary',
 };
 
 export const allWorkLabels = {
-  // for reference, not currently used
   title: 'Title',
   sub_title: 'Subtitle',
   alt_titles: 'Alternative Titles',
@@ -34,7 +37,8 @@ export const allWorkLabels = {
 export const documentTitles = {
   home: 'Digital Research Books Beta | NYPL',
   search: 'Search Results | Digital Research Books Beta | NYPL',
-  workItem: 'Item Details | Digital Research Books Beta Now | NYPL',
+  workItem: 'Item Details | Digital Research Books Beta | NYPL',
+  editionItem: 'Edition Details | Digital Research Books Beta | NYPL',
 };
 
 export const yearsType = { start: 'Start', end: 'End' };

@@ -20,6 +20,7 @@ export default {
       production: '/search',
     },
     recordPath: '/work',
+    editionPath: '/edition',
     languagesPath: '/utils/languages',
   },
   booksCount: {
@@ -37,5 +38,8 @@ export default {
   },
   feedback: {
     formURL: 'https://api.airtable.com/v0/appFLZEc3LmVZCRxn/Feedback',
+  },
+  displayCitations: {
+    experimentName: 'DisplayCitations',
   },
 };

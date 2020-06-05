@@ -1,0 +1,13 @@
+.sfr-results-container { 
+    display: flex;
+    flex-flow: row;
+  }
+
+.nypl-results-main {
+    flex: auto;
+    margin: 1.5em;
+}
+
+.nypl-results-column {
+    flex: 0 0 300px;
+}

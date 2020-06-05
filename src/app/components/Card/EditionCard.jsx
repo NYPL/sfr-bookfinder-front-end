@@ -6,7 +6,7 @@ import * as DS from '@nypl/design-system-react-components';
 import {
   MAX_TITLE_LENGTH, MAX_PUBLISHER_NAME_LENGTH, MAX_SUBTITILE_LENGTH, PLACEHOLDER_COVER_LINK,
 } from '../../constants/editioncard';
-import { formatUrl } from '../../util/Util';
+import { formatUrl, truncateStringOnWhitespace } from '../../util/Util';
 
 
 const htmlEntities = new Html5Entities();
@@ -27,25 +27,23 @@ export default class EditionCard {
   }
 
   // Edition Year
-  // Note:  This link currently goes to the Work Detail page.
-  // It should link to the Edition Detail page when it is implemented.
-  static editionYearElem(previewEdition, workUuid) {
-    const editionDisplay = previewEdition && previewEdition.publication_date
-      ? `${previewEdition.publication_date} Edition` : 'Edition Year Unknown';
-    return (
-      <span>
-        {workUuid
-          && (
-            <Link
-              to={{ pathname: '/work', query: { workId: `${workUuid}` } }}
-              className="heading__link"
-            >
-              {editionDisplay}
-            </Link>
-          )}
-        {!workUuid && <>{editionDisplay}</>}
-      </span>
-    );
+  static editionYearElem(edition) {
+    const editionDisplay = EditionCard.editionYearText(edition);
+    const editionElem = edition ? (
+      <DS.UnderlineLink>
+        <Link
+          to={{ pathname: '/edition', query: { editionId: edition.id } }}
+        >
+          {editionDisplay}
+        </Link>
+      </DS.UnderlineLink>
+    ) : <>{editionDisplay}</>;
+    return editionElem;
+  }
+
+  static editionYearText(edition) {
+    return edition && edition.publication_date
+      ? `${edition.publication_date} Edition` : 'Edition Year Unknown';
   }
 
   static getFirstAndCountMore(array) {
@@ -55,19 +53,12 @@ export default class EditionCard {
   }
 
   // Title
-  static generateTitleLinkElem(title, uuid) {
-    let displayTitle;
-    if (!title) {
-      displayTitle = 'Title Unknown';
-    } else if (title.length > MAX_TITLE_LENGTH) {
-      displayTitle = `${title.substring(0, MAX_TITLE_LENGTH)}...`;
-    } else {
-      displayTitle = title;
-    }
+  static generateTitleLinkElem(work) {
+    const displayTitle = EditionCard.generateDisplayTitle(work);
     return (
       <Link
-        to={{ pathname: '/work', query: { workId: `${uuid}`, recordType: 'editions' } }}
-        title={htmlEntities.decode(title)}
+        to={{ pathname: '/work', query: { workId: `${work.uuid}`, recordType: 'editions', showAll: true } }}
+        title={htmlEntities.decode(displayTitle)}
         className="link link--no-underline"
       >
         {displayTitle}
@@ -75,10 +66,20 @@ export default class EditionCard {
     );
   }
 
+  static generateDisplayTitle(work) {
+    let displayTitle;
+    if (!work.title) {
+      displayTitle = 'Title Unknown';
+    } else {
+      displayTitle = truncateStringOnWhitespace(work.title, MAX_TITLE_LENGTH);
+    }
+    return displayTitle;
+  }
+
   // Subtitle
-  static getSubtitleText(subtitle) {
-    return (subtitle && subtitle.length > MAX_SUBTITILE_LENGTH
-      ? `${subtitle.substring(0, MAX_SUBTITILE_LENGTH)}...` : subtitle);
+  static getSubtitle(subtitle) {
+    if (!subtitle) { return undefined; }
+    return (<span>{truncateStringOnWhitespace(subtitle, MAX_SUBTITILE_LENGTH)}</span>);
   }
 
   // Author
@@ -134,18 +135,16 @@ export default class EditionCard {
     if (!preferredAgents) return '';
     const publisherNames = preferredAgents.map(pubAgent => pubAgent.name);
     const publisherText = ` by ${EditionCard.getFirstAndCountMore(publisherNames)}`;
-    if (publisherText.length > MAX_PUBLISHER_NAME_LENGTH) {
-      return `${publisherText.substring(0, MAX_PUBLISHER_NAME_LENGTH)}...`;
-    }
-    return publisherText;
+    return truncateStringOnWhitespace(publisherText, MAX_PUBLISHER_NAME_LENGTH);
   }
 
   static getPublisherAndLocation(previewEdition) {
     const displayLocation = EditionCard.publisherDisplayLocation(previewEdition);
     const displayName = EditionCard.publisherDisplayText(previewEdition);
-    if (!displayLocation && !displayName) return undefined;
+    if (!displayLocation && !displayName) return <>Publisher and Location Unknown</>;
+    const publisherText = `Published${displayLocation}${displayName}`;
     return (
-      `Published${displayLocation}${displayName}`
+      <>{publisherText}</>
     );
   }
 
@@ -153,9 +152,12 @@ export default class EditionCard {
   static getLanguageDisplayText(previewEdition) {
     if (previewEdition && previewEdition.languages && previewEdition.languages.length) {
       const languagesTextList = previewEdition.languages.filter(lang => lang.language).map(lang => lang.language);
-      if (languagesTextList && languagesTextList.length) return `Languages: ${languagesTextList.join(', ')}`;
+      if (languagesTextList && languagesTextList.length) {
+        const languageText = `Languages: ${languagesTextList.join(', ')}`;
+        return <>{languageText}</>;
+      }
     }
-    return 'Languages: Undetermined';
+    return <>Languages: Undetermined</>;
   }
 
   // Rights
@@ -179,47 +181,66 @@ export default class EditionCard {
     return combined;
   }
 
-  static getReadOnlineLink(work, editionItem, eReaderUrl, referrer) {
-    if (!editionItem || !editionItem.links) return undefined;
+  /** Generate Read Online Link
+   * @param edition The edition requested. Used to get information for breadcrumb and analytics.
+   * @param item The item of the edition requested
+   * @param eReaderUrl The link to the eReader
+   * @param referrer The referring site (to enable back button functionality)
+   * @param work (Optional) The work from the edition requested.
+   * This is used to get the work title for the breadcrumb and analytics if title isn't already passed in edition.
+  */
+  static getReadOnlineLink(edition, item, eReaderUrl, referrer, work) {
+    if (!item || !item.links) return undefined;
+    const editionWithTitle = edition;
+    editionWithTitle.title = edition.title || work.title;
     // TODO: Revert after links fix
-    const selectedLink = editionItem.links.find(link => (!link.local && !link.download) || (link.local && link.download));
+    const selectedLink = item.links.find(link => (!link.local && !link.download) || (link.local && link.download));
     if (!selectedLink || !selectedLink.url) return undefined;
     if (selectedLink.local) {
       const encodedUrl = EditionCard.generateStreamedReaderUrl(selectedLink.url, eReaderUrl, referrer);
       return (
-        <Link
-          className="edition-card__card-info-link"
-          to={{ pathname: '/read-online', search: `?url=${encodeURI(encodedUrl)}`, state: { work } }}
-          onClick={() => gaUtils.trackGeneralEvent('Read Online', editionItem.source, work.title, '')}
-        >
+        <DS.BasicLink className="edition-card__card-button-link">
+          <Link
+            to={{ pathname: '/read-online', search: `?url=${encodeURI(encodedUrl)}`, state: { edition: editionWithTitle } }}
+            onClick={() => gaUtils.trackGeneralEvent('Read Online', item.source, editionWithTitle.title, '')}
+          >
           Read Online
-        </Link>
+          </Link>
+        </DS.BasicLink>
       );
     }
     return (
-      <Link
-        className="edition-card__card-info-link"
-        to={{ pathname: '/read-online', search: `?url=${formatUrl(selectedLink.url)}`, state: { work } }}
-        onClick={() => gaUtils.trackGeneralEvent('Read Online', editionItem.source, work.title, '')}
-      >
+      <DS.BasicLink className="edition-card__card-button-link">
+        <Link
+          to={{ pathname: '/read-online', search: `?url=${formatUrl(selectedLink.url)}`, state: { edition: editionWithTitle } }}
+          onClick={() => gaUtils.trackGeneralEvent('Read Online', item.source, editionWithTitle.title, '')}
+        >
         Read Online
-      </Link>
+        </Link>
+      </DS.BasicLink>
+
     );
   }
 
+  // eslint-disable-next-line consistent-return
   static getDownloadLink(work, editionItem) {
     if (!editionItem || !editionItem.links) return undefined;
     const selectedLink = editionItem.links.find(link => link.download);
 
     if (selectedLink && selectedLink.url) {
       return (
-        <a
-          className="edition-card__card-info-link"
-          href={`${formatUrl(selectedLink.url, process.env.APP_ENV)}`}
-          onClick={() => gaUtils.trackGeneralEvent('Download', editionItem.source, work.title, '')}
+        <DS.IconLink
+          iconName="download"
+          iconPosition="left"
+          iconModifiers={['icon-left']}
         >
+          <a
+            href={`${formatUrl(selectedLink.url, process.env.APP_ENV)}`}
+            onClick={() => gaUtils.trackGeneralEvent('Download', editionItem.source, work.title, '')}
+          >
           Download
-        </a>
+          </a>
+        </DS.IconLink>
       );
     }
   }
@@ -239,19 +260,47 @@ export default class EditionCard {
     );
   }
 
+  static getWorldCatElem(instance) {
+    const oclc = instance && instance.identifiers
+      ? instance.identifiers.find(identifier => identifier.id_type === 'oclc').identifier : undefined;
+    const oclcLink = oclc ? `https://www.worldcat.org/oclc/${oclc}` : undefined;
+    return (
+      oclc
+        ? (
+          <a
+            href={oclcLink}
+            className="link"
+          >
+          Find in a library
+          </a>
+        ) : <>Find in Library Unavailable</>
+    );
+  }
+
   static getEditionData(work, edition, eReaderUrl, referrer, showRequestButton) {
     const editionYearHeadingElement = EditionCard.editionYearElem(edition);
     const editionItem = edition && edition.items ? edition.items[0] : undefined;
 
     return {
       editionYearHeading: editionYearHeadingElement,
-      publisherAndLocation: EditionCard.getPublisherAndLocation(edition),
       coverUrl: EditionCard.getCover(edition),
-      language: EditionCard.getLanguageDisplayText(edition),
-      license: <DS.UnderlineLink><Link to="/license">{ EditionCard.getLicense(editionItem) }</Link></DS.UnderlineLink>,
-      readOnlineLink: EditionCard.getReadOnlineLink(work, editionItem, eReaderUrl, referrer),
-      downloadLink: EditionCard.getDownloadLink(work, editionItem),
+      editionInfo: [EditionCard.getPublisherAndLocation(edition),
+        EditionCard.getLanguageDisplayText(edition),
+        <DS.UnderlineLink><Link to="/license">{ EditionCard.getLicense(editionItem) }</Link></DS.UnderlineLink>],
+      readOnlineLink: EditionCard.getReadOnlineLink(edition, editionItem, eReaderUrl, referrer, work),
+      downloadLink: EditionCard.getDownloadLink(edition, editionItem),
       noLinkElement: EditionCard.getNoLinkElement(showRequestButton),
+    };
+  }
+
+  static getInstanceData(edition, instance, eReaderUrl, referrer) {
+    const instanceItem = instance && instance.items ? instance.items[0] : undefined;
+    return {
+      coverUrl: EditionCard.getCover(instance),
+      editionInfo: [EditionCard.getPublisherAndLocation(instance), EditionCard.getWorldCatElem(instance)],
+      readOnlineLink: EditionCard.getReadOnlineLink(edition, instanceItem, eReaderUrl, referrer),
+      downloadLink: EditionCard.getDownloadLink(edition, instanceItem),
+      noLinkElement: EditionCard.getNoLinkElement(),
     };
   }
 }

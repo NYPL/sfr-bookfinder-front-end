@@ -1,21 +1,36 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { string } from 'prop-types';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import * as DS from '@nypl/design-system-react-components';
 import * as searchActions from '../../actions/SearchActions';
 import { MAX_TITLE_LENGTH } from '../../constants/editioncard';
+import EditionCard from '../Card/EditionCard';
+import { truncateStringOnWhitespace } from '../../util/Util';
 
-export const getBreadcrumbLinks = (workDetail) => {
+const getLinkFromWork = (title, uuid) => {
+  const workTitle = title || 'Title Unknown';
+
+  const strippedSlashTitle = workTitle.indexOf('/') > 0
+    ? workTitle.substring(0, workTitle.indexOf('/')) : workTitle;
+  const breadcrumbTitle = truncateStringOnWhitespace(strippedSlashTitle, MAX_TITLE_LENGTH);
+  return {
+    href: `/work?workId=${uuid}`,
+    text: `${breadcrumbTitle}`,
+  };
+};
+
+export const getBreadcrumbLinks = (workDetail, editionDetail) => {
   const links = [];
-  if (workDetail && workDetail.title) {
-    const strippedSlashTitle = workDetail.title.indexOf('/') > 0
-      ? workDetail.title.substring(0, workDetail.title.indexOf('/')) : workDetail.title;
-    const breadcrumbTitle = strippedSlashTitle.length > MAX_TITLE_LENGTH
-      ? `${strippedSlashTitle.substring(0, MAX_TITLE_LENGTH)}...` : strippedSlashTitle;
+  if (workDetail && workDetail.uuid) {
+    links.push(getLinkFromWork(workDetail.title, workDetail.uuid));
+  }
+
+  if (editionDetail && editionDetail.id) {
+    const editionYear = EditionCard.editionYearText(editionDetail);
     links.push({
-      href: `/work?workId=${workDetail.uuid}`,
-      text: `${breadcrumbTitle}`,
+      href: `/edition?editionId=${editionDetail.id}`,
+      text: `${editionYear}`,
     });
   }
   return links;
@@ -27,7 +42,7 @@ export const getCrumbTrail = (location, links, handleReset) => {
       to="/"
       onClick={event => handleReset(event)}
     >
-    Digital Research Books Beta
+      Digital Research Books Beta
     </Link>
   );
 
@@ -57,8 +72,8 @@ class Breadcrumbs extends React.Component {
   }
 
   render() {
-    const { location, workDetail } = this.props;
-    const links = getBreadcrumbLinks(workDetail);
+    const { location, workDetail, editionDetail } = this.props;
+    const links = getBreadcrumbLinks(workDetail, editionDetail);
     const handleReset = (event) => {
       event.preventDefault();
 
@@ -74,13 +89,15 @@ class Breadcrumbs extends React.Component {
 
 Breadcrumbs.propTypes = {
   location: PropTypes.objectOf(PropTypes.any),
-  workDetail: PropTypes.objectOf(PropTypes.any),
+  workDetail: PropTypes.shape({ uuid: PropTypes.string, title: PropTypes.string }),
+  editionDetail: PropTypes.shape({ id: PropTypes.string, publication_date: PropTypes.string }),
   dispatch: PropTypes.func,
 };
 
 Breadcrumbs.defaultProps = {
   location: {},
   workDetail: {},
+  editionDetail: {},
   dispatch: () => { },
 };
 

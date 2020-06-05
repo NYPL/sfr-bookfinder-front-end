@@ -8,26 +8,27 @@ import * as DS from '@nypl/design-system-react-components';
 import { stub } from 'sinon';
 import configureStore from '../../src/app/stores/configureStore';
 import initialState from '../../src/app/stores/InitialState';
-import detail from '../fixtures/work-detail.json';
+import detail from '../fixtures/edition-detail.json';
 import { mockRouterContext, mockRouter } from '../helpers/routing';
 
-import WorkDetail from '../../src/app/components/Detail/WorkDetail';
+import EditionDetail from '../../src/app/components/Detail/EditionDetail';
 
 configure({ adapter: new Adapter() });
-describe('Work Detail Page Test', () => {
+describe('Edition Detail Page Test', () => {
+  configure({ adapter: new Adapter() });
   let component;
   const store = configureStore(initialState);
   let push;
   let router;
 
-  describe('WorkDetail Rendering with empty work', () => {
+  describe('EditionDetail Rendering with empty work', () => {
     before(() => {
       push = stub();
       router = mockRouter(push);
       const context = mockRouterContext(push);
 
       component = shallow(
-        <WorkDetail
+        <EditionDetail
           store={store}
         />, { context },
       ).dive().dive();
@@ -39,19 +40,18 @@ describe('Work Detail Page Test', () => {
     });
   });
 
-  describe('WorkDetail Rendering with valid work', () => {
+  describe('EditionDetail Rendering with valid edition', () => {
     let container;
     before(() => {
+      const props = { store };
       push = stub();
       router = mockRouter(push);
       const context = mockRouterContext(push);
-
-      const props = { store };
-      container = shallow(<WorkDetail
+      container = shallow(<EditionDetail
         {...props}
       />, { context }).dive().dive();
       container.setProps({
-        workResult: detail,
+        editionResult: detail,
       });
     });
 
@@ -64,17 +64,17 @@ describe('Work Detail Page Test', () => {
     });
 
     it('should show work header', () => {
-      expect(container.find('#work-title').exists()).to.equal(true);
+      expect(container.find('#edition-title').exists()).to.equal(true);
     });
 
-    it('should show a WorkDetailDefinitionList', () => {
-      expect(container.find('WorkDetailDefinitionList').exists()).to.equal(true);
+    it('should show a EditionDetailDefinitionList', () => {
+      expect(container.find('EditionDetailDefinitionList').exists()).to.equal(true);
     });
     it('should show available items toggle checkbox', () => {
       expect(container.find(DS.Checkbox).exists()).to.equal(true);
     });
-    it('should show EditionsList', () => {
-      expect(container.find('EditionsList').exists()).to.equal(true);
+    it('should show InstancesList', () => {
+      expect(container.find('InstancesList').exists()).to.equal(true);
     });
   });
 });

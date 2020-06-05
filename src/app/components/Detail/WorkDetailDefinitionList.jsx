@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Html5Entities } from 'html-entities';
 import * as DS from '@nypl/design-system-react-components';
 import { Link } from 'react-router';
-import { detailDefinitionLabels } from '../../constants/labels';
+import { workDetailDefinitionLabels } from '../../constants/labels';
 import {
   unique, flattenDeep, isEmpty, uniqueAndSortByFrequency,
 } from '../../util/Util';
@@ -12,7 +12,7 @@ import EditionCard from '../Card/EditionCard';
 const htmlEntities = new Html5Entities();
 
 // provide the work item as an array
-const elements = Object.keys(detailDefinitionLabels);
+const elements = Object.keys(workDetailDefinitionLabels);
 
 // extract unique language array from instances of a work item
 const addLanguagestoWorkItem = work => work
@@ -54,7 +54,7 @@ const getAuthorsList = (agents) => {
  *
  * @param {object} props
  */
-export const DefinitionList = ({ work }) => {
+export const WorkDetailDefinitionList = ({ work }) => {
   /**
    * Convert JSON object to array for parsing detail elements into
    * a definition list for display.
@@ -82,20 +82,20 @@ export const DefinitionList = ({ work }) => {
     switch (type) {
       case 'language':
         return (
-          <ul className="definitions-languages">
+          <ul className="definitions definitions-languages">
             {list.map((language, i) => <li key={`language${i.toString()}`}>{language}</li>)}
           </ul>
         );
       case 'agents':
         return (
-          <ul className="definitions-authors">
+          <ul className="definitions definitions-authors">
             {getAuthorsList(list, 'definitionList-author')}
           </ul>
         );
 
       case 'subjects':
         return (
-          <ul className="definitions-subjects">
+          <ul className="definitions definitions-subjects">
             {unique(list, 'subject')
               .sort((a, b) => (a.subject && b.subject && a.subject.toLowerCase() < b.subject.toLowerCase() ? -1 : 1))
               .map((subject, i) => (
@@ -114,35 +114,19 @@ export const DefinitionList = ({ work }) => {
               ))}
           </ul>
         );
-      case 'identifiers':
-        return (
-          <ul className="sfr-inline-list definitions-identifiers">
-            {list
-              .sort((a, b) => (a.id_type < b.id_type ? -1 : 1))
-              .map((identifier, i) => (
-                <li key={`identifiers${i.toString()}`}>{`${identifier.id_type}: ${identifier.identifier}; `}</li>
-              ))}
-          </ul>
-        );
-      case 'measurements':
-        return (
-          <ul className="sfr-inline-list definitions-measurements">
-            {list
-              .sort((a, b) => (a.value < b.value ? 1 : -1))
-              .map((measurement, i) => (
-                <li key={`measurements${i.toString()}`}>{`${measurement.quantity}: ${measurement.value}; `}</li>
-              ))}
-          </ul>
-        );
       case 'series':
         return (
-          <span className="definitions-series">
+          <div className="definitions definitions-series">
             {entries}
             {workObj.series_position && ` ${workObj.series_position}`}
-          </span>
+          </div>
         );
       default:
-        return Array.isArray(entries) ? entries.map(entry => htmlEntities.decode(entry)).join(', ') : htmlEntities.decode(entries);
+        return (
+          <div className="definitiions">
+            {Array.isArray(entries) ? entries.map(entry => htmlEntities.decode(entry)).join(', ') : htmlEntities.decode(entries)}
+          </div>
+        );
     }
   };
 
@@ -166,18 +150,16 @@ export const DefinitionList = ({ work }) => {
     }
 
     return (
-      <table className="nypl-details-table">
-        <tbody>
-          {defsData.map(
-            (entry, i) => elements.includes(entry[0]) && entry[1] && (
-              <tr key={`entry${i.toString()}`}>
-                <th scope="row">{detailDefinitionLabels[entry[0]]}</th>
-                <td>{parseEntries(entry[0], entry[1], workObj)}</td>
-              </tr>
-            ),
-          )}
-        </tbody>
-      </table>
+      <dl className="nypl-details-table">
+        {defsData.map(
+          (entry, i) => elements.includes(entry[0]) && entry[1] && (
+          <React.Fragment key={`"entry"${i.toString()}`}>
+            <dt>{workDetailDefinitionLabels[entry[0]]}</dt>
+            <dd>{parseEntries(entry[0], entry[1], workObj)}</dd>
+          </React.Fragment>
+          ),
+        )}
+      </dl>
     );
   };
 
@@ -191,12 +173,12 @@ export const DefinitionList = ({ work }) => {
   );
 };
 
-DefinitionList.propTypes = {
+WorkDetailDefinitionList.propTypes = {
   work: PropTypes.objectOf(PropTypes.any),
 };
 
-DefinitionList.defaultProps = {
+WorkDetailDefinitionList.defaultProps = {
   work: {},
 };
 
-export default DefinitionList;
+export default WorkDetailDefinitionList;

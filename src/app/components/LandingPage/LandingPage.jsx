@@ -53,74 +53,78 @@ class LandingPage extends React.Component {
     const { router } = this.context;
 
     return (
-      <DS.Container>
-        <main id="mainContent">
-          <Breadcrumbs
-            router={router}
-            location={this.props.location}
-          />
-          <div
-            aria-label="Digital Research Books Beta"
-            className="main-promo">
-              <DS.Heading level={1}
-                id="ResearchNow-Main-Header"
-                blockName="page-title"
-                modifiers={["block-color"]}>
-                <span className="main-promo-text">
-                  <span className="rn-section-title__emphasis">Digital Research Books</span>
-                  {' '}
-                  Beta
-                </span>
-              </DS.Heading>
-              <div className="header-with-image-right__text">
-                <p>
+      <div className="layout-container">
+        <main
+          id="mainContent"
+          className="main"
+        >
+          <div className="content-header">
+            <Breadcrumbs
+              router={router}
+              location={this.props.location}
+            />
+            <div
+              aria-label="Digital Research Books Beta"
+              className="main-promo"
+            >
+              <DS.SectionName>
+                <DS.Hero
+                  heroType={DS.HeroTypes.Secondary}
+                  heading={(
+                    <DS.Heading
+                      level={1}
+                      id="1"
+                      text="Digital Research Books Beta"
+                      blockName="hero"
+                    />
+                )}
+                  subHeaderText={(
+                    <p className="hero__body-text">
                   Find millions of digital books for research
                   from multiple sources world-wide--all free to read, download, and keep. No library card required.
                   This is an early beta test, so we want your feedback!
-                  {' '}
-                  <DS.UnderlineLink><Link to="/about">Read more about the project</Link></DS.UnderlineLink>
+                      {' '}
+                      <DS.UnderlineLink><Link to="/about">Read more about the project</Link></DS.UnderlineLink>
                   .
-                </p>
-              </div>
-            {/* TODO: Use DS again after Hero is re-written. 
-              <DS.HeaderImgRight
-              headerId="ResearchNow-Main-Header"
-              isImageDecorative
-              pageTitleText={(
-
-              )}
-              imgUrl="https://placeimg.com/200/100/arch"
-              bodyText={(
-                <p>
-                      Find millions of digital books for research
-                      from multiple sources world-wide--all free to read, download, and keep. No library card required.
-                      This is an early beta test, so we want your feedback!
-                  {' '}
-                  <DS.UnderlineLink><Link to="/about">Read more about the project</Link></DS.UnderlineLink>
-                    .
-                </p>
-                  )}
-            /> */}
-            <div>
-              <SearchForm />
-              {
+                    </p>
+                )}
+                />
+              </DS.SectionName>
+              <div>
+                <SearchForm />
+                {
                 // eslint-disable-next-line no-underscore-dangle
                 FeatureFlags.store._isFeatureActive(config.booksCount.experimentName)
                 && <TotalWorks />
               }
+              </div>
             </div>
-            <div className="grid-row">
-              <div>
-                <DS.IconLinkList
-                  titleText="Search Examples"
-                  titleId="subject-browse-list"
-                  textLinks={Subjects}
-                />
+            <div className="content-primary">
+              <div className="search-examples">
+                <DS.SectionTitle
+                  id="subject-browse-title"
+                  headingText="Search Examples"
+                >
+                </DS.SectionTitle>
+                <DS.UnorderedList
+                  id="subject-list"
+                  blockName="list-iconLink"
+                >
+                  {Subjects.map((sub, idx) => (
+                    <DS.IconLink
+                      // eslint-disable-next-line react/no-array-index-key
+                      key={`subject-link${idx}`}
+                      url={sub.url}
+                    >
+                      {sub.text}
+                    </DS.IconLink>
+                  ))}
+                </DS.UnorderedList>
               </div>
             </div>
           </div>
         </main>
-      </DS.Container>
+      </div>
     );
   }
 }
