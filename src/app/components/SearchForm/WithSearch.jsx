@@ -40,10 +40,9 @@ function withSearch(WrappedComponent) {
 
     onFieldChange(event) {
       const fieldSelected = event.target.value;
-      this.setState((prevState) => {
+      this.setState(() => {
         const advancedQuery = {
-          query: prevState.searchQuery.showQuery
-            ? prevState.searchQuery.showQuery : prevState.searchQuery.queries[0].query,
+          query: '',
           field: fieldSelected,
         };
         return ({
