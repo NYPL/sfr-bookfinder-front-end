@@ -48,8 +48,8 @@ class EBookViewer extends React.Component {
         <Breadcrumbs
           router={router}
           location={this.props.location}
-          workDetail={{ uuid: edition.work_uuid, title: edition.title }}
-          editionDetail={{ id: edition.id, publication_date: edition.publication_date }}
+          workDetail={edition ? { uuid: edition.work_uuid, title: edition.title } : undefined}
+          editionDetail={edition ? { id: edition.id, publication_date: edition.publication_date } : undefined}
         />
         <span>
           {bookUrl
