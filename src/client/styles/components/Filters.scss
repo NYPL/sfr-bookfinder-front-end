@@ -1,12 +1,5 @@
-.mobile-filter {
-    @include breakpoint($large) {
-      display: none;
-    }
-  }
-
 .filters {
   padding: 1rem 2rem 1rem 2rem;
-  background-color: $gray-warm-xlight;
 
   .filters-header {
     font-weight: 700;

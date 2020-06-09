@@ -30,13 +30,13 @@ export default class EditionCard {
   static editionYearElem(edition) {
     const editionDisplay = EditionCard.editionYearText(edition);
     const editionElem = edition ? (
-      <DS.UnderlineLink>
+      <DS.Link>
         <Link
           to={{ pathname: '/edition', query: { editionId: edition.id } }}
         >
           {editionDisplay}
         </Link>
-      </DS.UnderlineLink>
+      </DS.Link>
     ) : <>{editionDisplay}</>;
     return editionElem;
   }
@@ -286,7 +286,7 @@ export default class EditionCard {
       coverUrl: EditionCard.getCover(edition),
       editionInfo: [EditionCard.getPublisherAndLocation(edition),
         EditionCard.getLanguageDisplayText(edition),
-        <DS.UnderlineLink><Link to="/license">{ EditionCard.getLicense(editionItem) }</Link></DS.UnderlineLink>],
+        <DS.Link><Link to="/license">{ EditionCard.getLicense(editionItem) }</Link></DS.Link>],
       readOnlineLink: EditionCard.getReadOnlineLink(edition, editionItem, eReaderUrl, referrer, work),
       downloadLink: EditionCard.getDownloadLink(edition, editionItem),
       noLinkElement: EditionCard.getNoLinkElement(showRequestButton),

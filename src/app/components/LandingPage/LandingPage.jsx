@@ -84,7 +84,7 @@ class LandingPage extends React.Component {
                   from multiple sources world-wide--all free to read, download, and keep. No library card required.
                   This is an early beta test, so we want your feedback!
                       {' '}
-                      <DS.UnderlineLink><Link to="/about">Read more about the project</Link></DS.UnderlineLink>
+                      <DS.Link><Link to="/about">Read more about the project</Link></DS.Link>
                   .
                     </p>
                 )}

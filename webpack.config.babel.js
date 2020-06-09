@@ -10,10 +10,6 @@ import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 
 const globImporter = require('node-sass-glob-importer');
 
-const designSystemStylePath = require.resolve('@nypl/design-system-styles');
-
-const sassPaths = ['node_modules', designSystemStylePath];
-
 dotenv.config();
 
 // References the application's root path
@@ -119,7 +115,7 @@ if (ENV === 'development') {
                 importer: globImporter(),
               },
             }],
-          include: [designSystemStylePath, path.resolve(ROOT_PATH, 'src')],
+          include: [path.resolve(ROOT_PATH, 'src')],
         },
         {
           test: /\.(gif|png|jp?g|svg)(\?v=\d+\.\d+\.\d+)?$/,
@@ -190,7 +186,6 @@ if (ENV === 'production') {
               loader: 'sass-loader',
               options: {
                 importer: globImporter(),
-                includePaths: sassPaths,
               },
             }],
           include: path.resolve(ROOT_PATH, 'src'),

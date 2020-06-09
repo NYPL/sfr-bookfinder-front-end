@@ -18,7 +18,7 @@ $nypl-dark-blue: #135772;
 $fontFamily: 'system-ui';
 
 /** Import Design System Styles */
-@import '~@nypl/design-system-styles/style';
+@import '~@nypl/design-system-react-components/dist/styles.css';
 
 /**
  * Import custom rules for this project.
@@ -205,10 +205,6 @@ select {
 
 .container {
   margin-top: 0;
-}
-
-.edition-card {
-  background-color: $gray-warm-light;
 }
 
 .dropdown {

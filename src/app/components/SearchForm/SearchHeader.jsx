@@ -47,14 +47,14 @@ const ResultsHeader = (props) => {
         </Link>
     )}
       advancedSearchElem={(
-        <DS.UnderlineLink>
+        <DS.Link>
           <Link
             to="advanced-search"
             className="text-baseline"
           >
                   Advanced Search
           </Link>
-        </DS.UnderlineLink>
+        </DS.Link>
             )}
       searchBarId="searchBarId"
       dropdownId="dropdownId"
