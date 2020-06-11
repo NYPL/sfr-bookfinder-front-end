@@ -79,11 +79,6 @@ body {
   }
 }
 
-#tagline {
-  text-align: left;
-  margin: 25px 0;
-}
-
 .nypl-page-header {
   background-color: white;
 }
@@ -199,8 +194,9 @@ select {
   margin: 0 auto;
   padding: 0 1rem;
 }
-.search-header__promo-text {
-  align-self: auto;
+
+.search-examples {
+  padding: 1rem;
 }
 
 .container {

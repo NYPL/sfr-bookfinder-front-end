@@ -50,7 +50,7 @@ const ResultsHeader = (props) => {
         <DS.Link>
           <Link
             to="advanced-search"
-            className="text-baseline"
+            className="text-baseline link--dark-background"
           >
                   Advanced Search
           </Link>

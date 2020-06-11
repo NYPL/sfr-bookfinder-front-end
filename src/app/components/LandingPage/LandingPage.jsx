@@ -90,37 +90,34 @@ class LandingPage extends React.Component {
                 )}
                 />
               </DS.SectionName>
-              <div>
-                <SearchForm />
-                {
+              <SearchForm />
+              {
                 // eslint-disable-next-line no-underscore-dangle
                 FeatureFlags.store._isFeatureActive(config.booksCount.experimentName)
                 && <TotalWorks />
               }
-              </div>
+
             </div>
-            <div className="content-primary">
-              <div className="search-examples">
-                <DS.SectionTitle
-                  id="subject-browse-title"
-                  headingText="Search Examples"
-                >
-                </DS.SectionTitle>
-                <DS.UnorderedList
-                  id="subject-list"
-                  blockName="list-iconLink"
-                >
-                  {Subjects.map((sub, idx) => (
-                    <DS.IconLink
+            <div className="content-primary search-examples">
+              <DS.SectionTitle
+                id="subject-browse-title"
+                headingText="Search Examples"
+              >
+              </DS.SectionTitle>
+              <DS.UnorderedList
+                id="subject-list"
+                blockName="list-iconLink"
+              >
+                {Subjects.map((sub, idx) => (
+                  <DS.Link
                       // eslint-disable-next-line react/no-array-index-key
-                      key={`subject-link${idx}`}
-                      url={sub.url}
-                    >
-                      {sub.text}
-                    </DS.IconLink>
-                  ))}
-                </DS.UnorderedList>
-              </div>
+                    key={`subject-link${idx}`}
+                    href={sub.url}
+                  >
+                    {sub.text}
+                  </DS.Link>
+                ))}
+              </DS.UnorderedList>
             </div>
           </div>
         </main>

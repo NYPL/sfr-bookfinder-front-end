@@ -118,7 +118,15 @@ h1.nypl-heading {
 }
 
 .search-dropdowns{
-  width: 100%;
+  display: flex;
+
+  &__mobile {
+    width: 100%;
+  }
+}
+
+.download-icon-link {
+  display: flex;
 }
 
 .usa-button.sfr-search-button {
