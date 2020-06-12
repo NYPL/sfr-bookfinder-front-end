@@ -199,7 +199,7 @@ export default class EditionCard {
     if (selectedLink.local) {
       const encodedUrl = EditionCard.generateStreamedReaderUrl(selectedLink.url, eReaderUrl, referrer);
       return (
-        <DS.Link className="edition-card__card-button-link">
+        <DS.Link linkType={DS.LinkTypes.Button}>
           <Link
             to={{ pathname: '/read-online', search: `?url=${encodeURI(encodedUrl)}`, state: { edition: editionWithTitle } }}
             onClick={() => gaUtils.trackGeneralEvent('Read Online', item.source, editionWithTitle.title, '')}
@@ -210,7 +210,9 @@ export default class EditionCard {
       );
     }
     return (
-      <DS.Link className="edition-card__card-button-link">
+      <DS.Link
+        linkType={DS.LinkTypes.Button}
+      >
         <Link
           to={{ pathname: '/read-online', search: `?url=${formatUrl(selectedLink.url)}`, state: { edition: editionWithTitle } }}
           onClick={() => gaUtils.trackGeneralEvent('Read Online', item.source, editionWithTitle.title, '')}
@@ -235,7 +237,6 @@ export default class EditionCard {
           <a
             href={`${formatUrl(selectedLink.url, process.env.APP_ENV)}`}
             onClick={() => gaUtils.trackGeneralEvent('Download', editionItem.source, work.title, '')}
-            className="download-icon-link"
           >
             <DS.Icon
               name="download"

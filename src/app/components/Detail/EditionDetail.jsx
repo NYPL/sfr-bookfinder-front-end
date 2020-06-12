@@ -156,7 +156,7 @@ class EditionDetail extends React.Component {
                           <Link
                             to={{ pathname: '/work', query: { workId: `${edition.work_uuid}`, recordType: 'editions', showAll: true } }}
                             title={edition.title}
-                            className="link link--no-underline download-icon-link"
+                            className="link link--no-underline"
                           >
                             {edition.title}
                           </Link>
