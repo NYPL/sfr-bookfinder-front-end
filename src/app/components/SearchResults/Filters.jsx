@@ -179,6 +179,7 @@ class Filters extends React.Component {
             type="button"
             buttonType={DS.ButtonTypes.Link}
             iconPosition={DS.ButtonIconPositions.Left}
+            iconRotation={DS.IconRotationTypes.rotate90}
             iconName="arrow_xsmall"
             iconModifiers={['left']}
             iconDecorative
@@ -237,7 +238,7 @@ class Filters extends React.Component {
         >
           {filtersHeader}
           {isMobile && (
-          <div className="search-dropdowns">
+          <div className="search-dropdowns__mobile">
             <DS.Dropdown
               dropdownId="items-per-page-select"
               isRequired={false}

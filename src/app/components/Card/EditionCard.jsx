@@ -30,13 +30,13 @@ export default class EditionCard {
   static editionYearElem(edition) {
     const editionDisplay = EditionCard.editionYearText(edition);
     const editionElem = edition ? (
-      <DS.UnderlineLink>
+      <DS.Link>
         <Link
           to={{ pathname: '/edition', query: { editionId: edition.id } }}
         >
           {editionDisplay}
         </Link>
-      </DS.UnderlineLink>
+      </DS.Link>
     ) : <>{editionDisplay}</>;
     return editionElem;
   }
@@ -199,25 +199,27 @@ export default class EditionCard {
     if (selectedLink.local) {
       const encodedUrl = EditionCard.generateStreamedReaderUrl(selectedLink.url, eReaderUrl, referrer);
       return (
-        <DS.BasicLink className="edition-card__card-button-link">
+        <DS.Link linkType={DS.LinkTypes.Button}>
           <Link
             to={{ pathname: '/read-online', search: `?url=${encodeURI(encodedUrl)}`, state: { edition: editionWithTitle } }}
             onClick={() => gaUtils.trackGeneralEvent('Read Online', item.source, editionWithTitle.title, '')}
           >
           Read Online
           </Link>
-        </DS.BasicLink>
+        </DS.Link>
       );
     }
     return (
-      <DS.BasicLink className="edition-card__card-button-link">
+      <DS.Link
+        linkType={DS.LinkTypes.Button}
+      >
         <Link
           to={{ pathname: '/read-online', search: `?url=${formatUrl(selectedLink.url)}`, state: { edition: editionWithTitle } }}
           onClick={() => gaUtils.trackGeneralEvent('Read Online', item.source, editionWithTitle.title, '')}
         >
         Read Online
         </Link>
-      </DS.BasicLink>
+      </DS.Link>
 
     );
   }
@@ -229,18 +231,24 @@ export default class EditionCard {
 
     if (selectedLink && selectedLink.url) {
       return (
-        <DS.IconLink
-          iconName="download"
-          iconPosition="left"
-          iconModifiers={['icon-left']}
+        <DS.Link
+          linkType={DS.LinkTypes.Action}
         >
           <a
             href={`${formatUrl(selectedLink.url, process.env.APP_ENV)}`}
             onClick={() => gaUtils.trackGeneralEvent('Download', editionItem.source, work.title, '')}
           >
+            <DS.Icon
+              name="download"
+              blockName="more-link"
+              modifiers={['left']}
+              decorative
+              iconRotation={DS.IconRotationTypes.rotate0}
+            />
           Download
           </a>
-        </DS.IconLink>
+
+        </DS.Link>
       );
     }
   }
@@ -286,7 +294,7 @@ export default class EditionCard {
       coverUrl: EditionCard.getCover(edition),
       editionInfo: [EditionCard.getPublisherAndLocation(edition),
         EditionCard.getLanguageDisplayText(edition),
-        <DS.UnderlineLink><Link to="/license">{ EditionCard.getLicense(editionItem) }</Link></DS.UnderlineLink>],
+        <DS.Link><Link to="/license">{ EditionCard.getLicense(editionItem) }</Link></DS.Link>],
       readOnlineLink: EditionCard.getReadOnlineLink(edition, editionItem, eReaderUrl, referrer, work),
       downloadLink: EditionCard.getDownloadLink(edition, editionItem),
       noLinkElement: EditionCard.getNoLinkElement(showRequestButton),

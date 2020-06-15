@@ -100,7 +100,7 @@ export const WorkDetailDefinitionList = ({ work }) => {
               .sort((a, b) => (a.subject && b.subject && a.subject.toLowerCase() < b.subject.toLowerCase() ? -1 : 1))
               .map((subject, i) => (
                 <li key={`subject${i.toString()}`}>
-                  <DS.UnderlineLink>
+                  <DS.Link>
                     <Link
                       to={{
                         pathname: '/search',
@@ -109,7 +109,7 @@ export const WorkDetailDefinitionList = ({ work }) => {
                     >
                       {htmlEntities.decode(subject.subject)}
                     </Link>
-                  </DS.UnderlineLink>
+                  </DS.Link>
                 </li>
               ))}
           </ul>

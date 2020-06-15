@@ -18,7 +18,7 @@ $nypl-dark-blue: #135772;
 $fontFamily: 'system-ui';
 
 /** Import Design System Styles */
-@import '~@nypl/design-system-styles/style';
+@import '~@nypl/design-system-react-components/dist/styles.css';
 
 /**
  * Import custom rules for this project.
@@ -77,11 +77,6 @@ body {
   .sfr-main {
     max-width: 1332px;
   }
-}
-
-#tagline {
-  text-align: left;
-  margin: 25px 0;
 }
 
 .nypl-page-header {
@@ -199,16 +194,13 @@ select {
   margin: 0 auto;
   padding: 0 1rem;
 }
-.search-header__promo-text {
-  align-self: auto;
+
+.search-examples {
+  padding: 1rem;
 }
 
-.container {
-  margin-top: 0;
-}
-
-.edition-card {
-  background-color: $gray-warm-light;
+.content-top, .content-primary {
+  padding: 0 1rem;
 }
 
 .dropdown {

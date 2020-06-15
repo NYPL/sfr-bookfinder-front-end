@@ -7,28 +7,18 @@ dl.nypl-details-table {
   display: flex;
   flex-flow: column;
 
-  @include breakpoint($large) {
-    flex-flow: row wrap;
-  }
     dt {
-      @include space-stack-xs;
-
       border-top: 1px solid #5b616b;
       flex: 0 1 20%;
       text-align: left;
       font-weight: 500;
     }
     dd {
-      @include space-stack-xs;
-
       flex: 0 1 80%;
       text-align: left;
       margin-left: 0;
       padding: 0;
 
-      @include breakpoint($large) {
-        border-top: 1px solid #5b616b;
-      }
       ul {
         list-style: none;
         margin-block-start: 0;
