@@ -5,7 +5,7 @@ import * as DS from '@nypl/design-system-react-components';
 import { Link } from 'react-router';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 
-class License extends React.Component {
+class About extends React.Component {
   componentDidMount() {
     global.window.scrollTo(0, 0);
   }
@@ -57,7 +57,7 @@ All the materials in Digital Research Books Beta are completely free to read and
             editions of the same thing together as a single “work.” For instance there
             are many editions of
               {' '}
-              <DS.UnderlineLink><Link to="/work?recordType=editions&workId=e34d73df-f32b-49e1-8fdf-151db2a7806a&showAll=true">Mary Wollstonecraft’s A Vindication of the Rights of Woman</Link></DS.UnderlineLink>
+              <DS.Link><Link to="/work?recordType=editions&workId=e34d73df-f32b-49e1-8fdf-151db2a7806a&showAll=true">Mary Wollstonecraft’s A Vindication of the Rights of Woman</Link></DS.Link>
                     , many of them available digitally. We group them all together under a single search result and try to make the differences between them--years when and places where they were published, for instance--easy to understand.
 
             </p>
@@ -71,21 +71,21 @@ All the materials in Digital Research Books Beta are completely free to read and
                     The material in Digital Research Books Beta are drawn from several
                                         public sources, mainly
               {' '}
-              <DS.UnderlineLink url="https://www.hathitrust.org/">HathiTrust</DS.UnderlineLink>
+              <DS.Link href="https://www.hathitrust.org/">HathiTrust</DS.Link>
                     ,
               {' '}
-              <DS.UnderlineLink url="https://doabooks.org/">The Directory of Open Access Books</DS.UnderlineLink>
+              <DS.Link href="https://doabooks.org/">The Directory of Open Access Books</DS.Link>
                     , and
               {' '}
-              <DS.UnderlineLink url="http://www.gutenberg.org/">Project Gutenberg</DS.UnderlineLink>
+              <DS.Link href="http://www.gutenberg.org/">Project Gutenberg</DS.Link>
           .
           We are continuously adding more books from these and other sources.
           We then cross-reference them with library records from NYPL and
               {' '}
-              <DS.UnderlineLink url="https://www.worldcat.org/">WorldCat</DS.UnderlineLink>
+              <DS.Link href="https://www.worldcat.org/">WorldCat</DS.Link>
           , using OCLC’s experimental
               {' '}
-              <DS.UnderlineLink url="http://classify.oclc.org/classify2/">Classify</DS.UnderlineLink>
+              <DS.Link href="http://classify.oclc.org/classify2/">Classify</DS.Link>
               {' '}
           service to make connections between different editions of the same work.
             </p>
@@ -128,16 +128,16 @@ All the materials in Digital Research Books Beta are completely free to read and
   }
 }
 
-License.propTypes = {
+About.propTypes = {
   location: PropTypes.objectOf(PropTypes.any),
 };
 
-License.defaultProps = {
+About.defaultProps = {
   location: {},
 };
 
-License.contextTypes = {
+About.contextTypes = {
   router: PropTypes.objectOf(PropTypes.any),
 };
 
-export default License;
+export default About;

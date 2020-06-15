@@ -132,7 +132,7 @@ describe('Filters', () => {
     });
 
     it('should display sort dropdowns', () => {
-      expect(component.find('.search-dropdowns').find(DS.Dropdown)).to.have.length(2);
+      expect(component.find('.search-dropdowns__mobile').find(DS.Dropdown)).to.have.length(2);
     });
 
     it('should display a list of fields (currently 4)', () => {

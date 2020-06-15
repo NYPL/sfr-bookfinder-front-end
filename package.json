@@ -1,6 +1,6 @@
 {
   "name": "rnw-front-end-development",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "ResearchNow front-end application for NYPL's newest search & retrieval platform.",
   "author": "NYPL Digital",
   "main": "index.js",
@@ -67,8 +67,7 @@
     "@babel/register": "^7.7.7",
     "@emotion/cache": "^10.0.27",
     "@emotion/core": "^10.0.27",
-    "@nypl/design-system-react-components": "0.3.7",
-    "@nypl/design-system-styles": "0.0.23",
+    "@nypl/design-system-react-components": "0.4.1",
     "@nypl/dgx-react-footer": "0.5.6",
     "@nypl/dgx-svg-icons": "0.3.9",
     "@nypl/nypl-data-api-client": "1.0.0",

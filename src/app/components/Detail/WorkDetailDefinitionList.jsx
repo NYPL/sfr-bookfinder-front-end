@@ -100,16 +100,16 @@ export const WorkDetailDefinitionList = ({ work }) => {
               .sort((a, b) => (a.subject && b.subject && a.subject.toLowerCase() < b.subject.toLowerCase() ? -1 : 1))
               .map((subject, i) => (
                 <li key={`subject${i.toString()}`}>
-                  <DS.UnderlineLink>
+                  <DS.Link>
                     <Link
                       to={{
                         pathname: '/search',
-                        query: { queries: `[{"query": "${subject.subject}", "field": "subject"}]` },
+                        query: { queries: `[{"query": "${subject.subject}", "field": "subject"}]`, showQueries: `[{"query": "${subject.subject}", "field": "subject"}]` },
                       }}
                     >
                       {htmlEntities.decode(subject.subject)}
                     </Link>
-                  </DS.UnderlineLink>
+                  </DS.Link>
                 </li>
               ))}
           </ul>

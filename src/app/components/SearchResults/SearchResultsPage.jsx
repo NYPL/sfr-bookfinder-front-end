@@ -7,9 +7,14 @@ import * as DS from '@nypl/design-system-react-components';
 import FeatureFlags from 'dgx-feature-flags';
 import * as searchActions from '../../actions/SearchActions';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
-import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
 import {
-  deepEqual, isEmpty, getNumberOfPages, checkFeatureFlagActivated,
+  searchQueryPropTypes,
+} from '../../stores/InitialState';
+import {
+  deepEqual,
+  isEmpty,
+  getNumberOfPages,
+  checkFeatureFlagActivated,
 } from '../../util/Util';
 import TotalWorks from '../SearchForm/TotalWorks';
 
@@ -39,16 +44,22 @@ export const loadSearch = (props, context) => {
   } else {
     let newQuery = Object.assign({}, query);
     if (query && query.filters) {
-      newQuery = Object.assign({}, newQuery, { filters: JSON.parse(query.filters) });
+      newQuery = Object.assign({}, newQuery, {
+        filters: JSON.parse(query.filters),
+      });
     }
     if (query && query.sort) {
       newQuery = Object.assign({}, newQuery, { sort: JSON.parse(query.sort) });
     }
     if (query && query.queries) {
-      newQuery = Object.assign({}, newQuery, { queries: JSON.parse(query.queries) });
+      newQuery = Object.assign({}, newQuery, {
+        queries: JSON.parse(query.queries),
+      });
     }
     if (query && query.showQueries) {
-      newQuery = Object.assign({}, newQuery, { showQueries: JSON.parse(query.showQueries) });
+      newQuery = Object.assign({}, newQuery, {
+        showQueries: JSON.parse(query.showQueries),
+      });
     }
     if (searchQuery && !deepEqual(newQuery, searchQuery)) {
       dispatch(searchActions.userQuery(newQuery));
@@ -75,7 +86,10 @@ class SearchResultsPage extends React.Component {
     super(props);
     const { dispatch } = props;
     this.state = {
-      ...props, isMobile: false, isModalOpen: false, isFeatureFlagsActivated: {},
+      ...props,
+      isMobile: false,
+      isModalOpen: false,
+      isFeatureFlagsActivated: {},
     };
 
     this.boundActions = bindActionCreators(searchActions, dispatch);
@@ -91,7 +105,8 @@ class SearchResultsPage extends React.Component {
     this.onWindowResize();
 
     checkFeatureFlagActivated(
-      featureFlagConfig.featureFlagList, this.state.isFeatureFlagsActivated,
+      featureFlagConfig.featureFlagList,
+      this.state.isFeatureFlagsActivated,
     );
   }
 
@@ -123,12 +138,15 @@ class SearchResultsPage extends React.Component {
 
   getDisplayItemsHeading() {
     const showQueries = this.props.searchQuery && this.props.searchQuery.showQueries
-      ? this.props.searchQuery.showQueries : this.props.searchQuery.queries;
-    const queriesToShow = showQueries && showQueries.filter(query => searchFields.includes(query.field));
-    const queries = queriesToShow && queriesToShow.map((query, index) => {
-      const joiner = index < queriesToShow.length - 1 ? ' and ' : '';
-      return `${query.field}: ${query.query}${joiner}`;
-    });
+      ? this.props.searchQuery.showQueries
+      : this.props.searchQuery.queries;
+    const queriesToShow = showQueries
+      && showQueries.filter(query => searchFields.includes(query.field));
+    const queries = queriesToShow
+      && queriesToShow.map((query, index) => {
+        const joiner = index < queriesToShow.length - 1 ? ' and ' : '';
+        return `${query.field}: ${query.query}${joiner}`;
+      });
     return queries && queries.join('');
   }
 
@@ -143,7 +161,9 @@ class SearchResultsPage extends React.Component {
   render() {
     const { searchQuery, eReaderUrl } = this.props;
     const { router } = this.context;
-    const searchResults = this.props.searchResults && this.props.searchResults.data && this.props.searchResults.data.data;
+    const searchResults = this.props.searchResults
+      && this.props.searchResults.data
+      && this.props.searchResults.data.data;
     const numberOfWorks = searchResults && searchResults.totalWorks;
     const works = searchResults && searchResults.works;
 
@@ -160,8 +180,9 @@ class SearchResultsPage extends React.Component {
     }
 
     const totalPages = getNumberOfPages(numberOfWorks, searchQuery.per_page);
-    const firstElement = (Number(searchQuery.per_page || 10) * Number(searchQuery.page || 0)) + 1;
-    let lastElement = Number(searchQuery.per_page || 10) * (Number(searchQuery.page || 0) + 1) || 10;
+    const firstElement = Number(searchQuery.per_page || 10) * Number(searchQuery.page || 0) + 1;
+    let lastElement = Number(searchQuery.per_page || 10)
+        * (Number(searchQuery.page || 0) + 1) || 10;
     if (searchQuery.page >= totalPages - 1 && lastElement > numberOfWorks) {
       lastElement = numberOfWorks;
     }
@@ -184,7 +205,9 @@ class SearchResultsPage extends React.Component {
         blockName="page-title"
       >
         <>
-          {numberOfWorks > 0 ? `${numberOfWorks.toLocaleString()} items` : '0 items'}
+          {numberOfWorks > 0
+            ? `${numberOfWorks.toLocaleString()} items`
+            : '0 items'}
         </>
       </DS.Heading>
     );
@@ -193,16 +216,25 @@ class SearchResultsPage extends React.Component {
       const newPage = 0;
       const newPerPage = e.target.value;
       if (newPerPage !== searchQuery.per_page) {
-        const newQuery = Object.assign({}, searchQuery, { page: newPage, per_page: newPerPage, total: numberOfWorks || 0 });
-        // this.props.userQuery(newQuery);
+        const newQuery = Object.assign({}, searchQuery, {
+          page: newPage,
+          per_page: newPerPage,
+          total: numberOfWorks || 0,
+        });
         submit(newQuery, router);
       }
     };
 
     // click and navigate with different sort
     const onChangeSort = (e) => {
-      if (e.target.value !== Object.keys(sortMap).find(key => sortMap[key] === searchQuery.sort)) {
-        const newQuery = Object.assign({}, searchQuery, { sort: sortMap[e.target.value], page: 0 });
+      if (
+        e.target.value
+        !== Object.keys(sortMap).find(key => sortMap[key] === searchQuery.sort)
+      ) {
+        const newQuery = Object.assign({}, searchQuery, {
+          sort: sortMap[e.target.value],
+          page: 0,
+        });
         // userQuery(newQuery);
         submit(newQuery, router);
       }
@@ -218,20 +250,16 @@ class SearchResultsPage extends React.Component {
               router={router}
               location={this.props.location}
             />
-            <div
-              aria-label="Digital Research Books Beta"
-            >
+            <div aria-label="Digital Research Books Beta">
               {searchQuery && (
-              <>
-                <SearchHeader initialQuery={this.props.searchQuery} />
-                {
-                // eslint-disable-next-line no-underscore-dangle
-                FeatureFlags.store._isFeatureActive(config.booksCount.experimentName)
-                && <TotalWorks />
-              }
-              </>
-              )
-            }
+                <>
+                  <SearchHeader initialQuery={this.props.searchQuery} />
+                  {// eslint-disable-next-line no-underscore-dangle
+                  FeatureFlags.store._isFeatureActive(
+                    config.booksCount.experimentName,
+                  ) && <TotalWorks />}
+                </>
+              )}
             </div>
           </div>
           <div className="content-top">
@@ -248,18 +276,18 @@ class SearchResultsPage extends React.Component {
               {this.state.isMobile && (
                 <div className="filter-refine">
                   {filterCount !== 0 && (
-                  <span className="filter-count">
-                    {filterCount}
-                    {' '}
-                    {filterCount === 1 ? 'filter' : 'filters'}
-                  </span>
+                    <span className="filter-count">
+                      {filterCount}
+                      {' '}
+                      {filterCount === 1 ? 'filter' : 'filters'}
+                    </span>
                   )}
                   <DS.Button
                     id="filter-button"
                     buttonType={DS.ButtonTypes.Link}
                     callback={this.openModal}
                   >
-                Refine
+                    Refine
                   </DS.Button>
                 </div>
               )}
@@ -271,7 +299,9 @@ class SearchResultsPage extends React.Component {
                     labelPosition="left"
                     labelText="Items Per Page"
                     labelId="nav-items-per-page"
-                    selectedOption={searchQuery.per_page ? searchQuery.per_page : undefined}
+                    selectedOption={
+                      searchQuery.per_page ? searchQuery.per_page : undefined
+                    }
                     dropdownOptions={numbersPerPage.map(number => number.toString())}
                     onSelectChange={onChangePerPage}
                     onSelectBlur={onChangePerPage}
@@ -282,9 +312,14 @@ class SearchResultsPage extends React.Component {
                     labelPosition="left"
                     labelText="Sort By"
                     labelId="nav-sort-by"
-                    selectedOption={searchQuery.sort
-                      ? Object.keys(sortMap).find(key => deepEqual(sortMap[key], searchQuery.sort)) : undefined}
-                    dropdownOptions={Object.keys(sortMap).map(sortOption => sortOption)}
+                    selectedOption={
+                      searchQuery.sort
+                        ? Object.keys(sortMap).find(key => deepEqual(sortMap[key], searchQuery.sort))
+                        : undefined
+                    }
+                    dropdownOptions={Object.keys(sortMap).map(
+                      sortOption => sortOption,
+                    )}
                     onSelectChange={onChangeSort}
                     onSelectBlur={onChangeSort}
                   />
@@ -302,7 +337,6 @@ class SearchResultsPage extends React.Component {
                 onChangePerPage={onChangePerPage}
               />
             </div>
-
           )}
           <div className="content-primary content-primary--with-sidebar-left">
             <ResultsList
@@ -315,19 +349,18 @@ class SearchResultsPage extends React.Component {
               router={router}
             />
           </div>
-
-          { this.state.isMobile && this.state.isModalOpen && (
-          <DS.Modal>
-            <Filters
-              toggleMenu={this.closeModal}
-              isMobile={this.state.isMobile}
-              data={searchResults}
-              onChangeSort={onChangeSort}
-              onChangePerPage={onChangePerPage}
-              searchQuery={searchQuery}
-              router={router}
-            />
-          </DS.Modal>
+          {this.state.isMobile && this.state.isModalOpen && (
+            <DS.Modal>
+              <Filters
+                toggleMenu={this.closeModal}
+                isMobile={this.state.isMobile}
+                data={searchResults}
+                onChangeSort={onChangeSort}
+                onChangePerPage={onChangePerPage}
+                searchQuery={searchQuery}
+                router={router}
+              />
+            </DS.Modal>
           )}
         </main>
       </div>
@@ -346,7 +379,7 @@ SearchResultsPage.propTypes = {
 SearchResultsPage.defaultProps = {
   searchResults: {},
   searchQuery: {},
-  dispatch: () => { },
+  dispatch: () => {},
   eReaderUrl: '',
   location: {},
 };
@@ -361,7 +394,4 @@ const mapStateToProps = (state, ownProps) => ({
   searchQuery: state.searchQuery || ownProps.searchQuery,
 });
 
-export default connect(
-  mapStateToProps,
-  null,
-)(withRouter(SearchResultsPage));
+export default connect(mapStateToProps, null)(withRouter(SearchResultsPage));

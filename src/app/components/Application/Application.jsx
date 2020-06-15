@@ -35,14 +35,6 @@ class Application extends React.Component {
     return (
       <div className="app-wrapper add-list-reset">
         <Loading />
-        <div className="apology-message">
-          <p>
-                Since Digital Research Books is still in beta, we have not
-                yet optimized it for phones and other small screens so you may
-                find it difficult to use. We are sorry for the inconvenience.
-                Please check back for improvements!
-          </p>
-        </div>
         {React.cloneElement(this.props.children, this.props)}
         <Footer />
         <Feedback location={this.props.location} />

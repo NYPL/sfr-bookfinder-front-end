@@ -84,43 +84,40 @@ class LandingPage extends React.Component {
                   from multiple sources world-wide--all free to read, download, and keep. No library card required.
                   This is an early beta test, so we want your feedback!
                       {' '}
-                      <DS.UnderlineLink><Link to="/about">Read more about the project</Link></DS.UnderlineLink>
+                      <DS.Link><Link to="/about">Read more about the project</Link></DS.Link>
                   .
                     </p>
                 )}
                 />
               </DS.SectionName>
-              <div>
-                <SearchForm />
-                {
+              <SearchForm />
+              {
                 // eslint-disable-next-line no-underscore-dangle
                 FeatureFlags.store._isFeatureActive(config.booksCount.experimentName)
                 && <TotalWorks />
               }
-              </div>
+
             </div>
-            <div className="content-primary">
-              <div className="search-examples">
-                <DS.SectionTitle
-                  id="subject-browse-title"
-                  headingText="Search Examples"
-                >
-                </DS.SectionTitle>
-                <DS.UnorderedList
-                  id="subject-list"
-                  blockName="list-iconLink"
-                >
-                  {Subjects.map((sub, idx) => (
-                    <DS.IconLink
+            <div className="content-primary search-examples">
+              <DS.SectionTitle
+                id="subject-browse-title"
+                headingText="Search Examples"
+              >
+              </DS.SectionTitle>
+              <DS.UnorderedList
+                id="subject-list"
+                blockName="list-iconLink"
+              >
+                {Subjects.map((sub, idx) => (
+                  <DS.Link
                       // eslint-disable-next-line react/no-array-index-key
-                      key={`subject-link${idx}`}
-                      url={sub.url}
-                    >
-                      {sub.text}
-                    </DS.IconLink>
-                  ))}
-                </DS.UnorderedList>
-              </div>
+                    key={`subject-link${idx}`}
+                    href={sub.url}
+                  >
+                    {sub.text}
+                  </DS.Link>
+                ))}
+              </DS.UnorderedList>
             </div>
           </div>
         </main>
