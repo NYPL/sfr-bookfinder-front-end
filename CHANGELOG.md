@@ -2,6 +2,7 @@
 ##[0.9.2]
 - Clears searchbar on field change
 - Fixed direct linking to reader page
+- Removed mobile apology
 
 ## [0.9.1] 
 - Updated dgx-global-footer to 0.5.6.
