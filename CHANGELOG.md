@@ -1,5 +1,9 @@
 # CHANGE LOG
-##[0.9.2]
+## [0.9.3] 
+- Updated dgx-global-footer to 0.5.7.
+- Adds the new urlType prop to the Footer component set to "absolute"
+
+## [0.9.2]
 - Clears searchbar on field change
 - Fixed direct linking to reader page
 - Removed mobile apology
