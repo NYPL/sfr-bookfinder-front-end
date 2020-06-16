@@ -36,7 +36,7 @@ class Application extends React.Component {
       <div className="app-wrapper add-list-reset">
         <Loading />
         {React.cloneElement(this.props.children, this.props)}
-        <Footer />
+        <Footer urlType="absolute" />
         <Feedback location={this.props.location} />
       </div>
     );
