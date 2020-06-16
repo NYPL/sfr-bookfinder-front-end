@@ -1,7 +1,7 @@
 ## NYPL ResearchNow
 
 ### Version
-> 0.9.2
+> 0.9.3
 
 ### ResearchNow Search & Retrieval Application
 [![GitHub version](https://badge.fury.io/gh/NYPL%2Fsfr-bookfinder-front-end.svg)](https://badge.fury.io/gh/NYPL%2Fsfr-bookfinder-front-end)
