@@ -54,7 +54,7 @@ All the materials in Digital Research Books Beta are completely free to read and
             </p>
             <p>
             In addition to collecting these digital editions, we group all the
-            editions of the same thing together as a single “work.” For instance there
+            editions of the same title together as a single “work.” For instance there
             are many editions of
               {' '}
               <DS.Link><Link to="/work?recordType=editions&workId=e34d73df-f32b-49e1-8fdf-151db2a7806a&showAll=true">Mary Wollstonecraft’s A Vindication of the Rights of Woman</Link></DS.Link>
