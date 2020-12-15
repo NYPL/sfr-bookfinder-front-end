@@ -1,20 +1,20 @@
-import React from 'react';
-import FocusTrap from 'focus-trap-react';
+import React from "react";
+import FocusTrap from "focus-trap-react";
 
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/config/appConfig' or its cor... Remove this comment to see the full error message
-import appConfig from '~/config/appConfig';
+import appConfig from "~/config/appConfig";
 
 const initialState = {
   showForm: false,
-  feedback: '',
+  feedback: "",
   success: null,
   commentStatus: false,
 };
 
 type OwnProps = {
-    location?: {
-        [key: string]: any;
-    };
+  location?: {
+    [key: string]: any;
+  };
 };
 
 type State = any;
@@ -23,7 +23,7 @@ type Props = OwnProps & typeof Feedback.defaultProps;
 
 class Feedback extends React.Component<Props, State> {
   static defaultProps = {
-      location: {},
+    location: {},
   };
 
   feedbackField: any;
@@ -50,21 +50,24 @@ class Feedback extends React.Component<Props, State> {
       this.feedbackField.focus();
       this.setState({ commentStatus: true });
     } else {
-      this.setState({
-        showForm: false,
-      // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'void' is not assignable to param... Remove this comment to see the full error message
-      }, this.sendFeedback());
+      this.setState(
+        {
+          showForm: false,
+          // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'void' is not assignable to param... Remove this comment to see the full error message
+        },
+        this.sendFeedback()
+      );
       // eslint-disable-next-line no-alert
-      alert('Thank you, your feedback has been submitted.');
+      alert("Thank you, your feedback has been submitted.");
     }
   }
 
   sendFeedback() {
     fetch(appConfig.feedback.formURL, {
-      method: 'POST',
+      method: "POST",
       headers: {
         Authorization: `Bearer ${process.env.AIRTABLE_API_KEY}`,
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         fields: {
@@ -102,9 +105,7 @@ class Feedback extends React.Component<Props, State> {
     const showForm = this.state.showForm;
 
     return (
-      // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
       <div className="feedback">
-        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
         <button
           type="button"
           className="feedback-button"
@@ -115,7 +116,7 @@ class Feedback extends React.Component<Props, State> {
         >
           Feedback
         </button>
-        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
         <FocusTrap
           focusTrapOptions={{
             onDeactivate: this.deactivateForm,
@@ -123,31 +124,28 @@ class Feedback extends React.Component<Props, State> {
           }}
           active={showForm}
         >
-          {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
           <div
             role="menu"
-            className={`feedback-form-container${showForm ? ' active' : ''}`}
+            className={`feedback-form-container${showForm ? " active" : ""}`}
             id="feedback-menu"
           >
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
-            <form onSubmit={e => this.onSubmitForm(e)}>
-              {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            <form onSubmit={(e) => this.onSubmitForm(e)}>
               <div>
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
-                <label id="sfr-feedback-success">Did you find what you were looking for?</label>
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                <label id="sfr-feedback-success">
+                  Did you find what you were looking for?
+                </label>
+
                 <div>
-                  {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                   <input
                     type="radio"
                     className="sfr-feedback-radio"
-                    checked={this.state.success === 'yes'}
+                    checked={this.state.success === "yes"}
                     id="sfr-feedback-found-yes"
                     name="feedback"
                     value="yes"
-                    onChange={e => this.handleRadioChange(e)}
+                    onChange={(e) => this.handleRadioChange(e)}
                   />
-                  {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
                   <label
                     htmlFor="sfr-feedback-found-yes"
                     className="sfr-radio-label"
@@ -156,19 +154,17 @@ class Feedback extends React.Component<Props, State> {
                   </label>
                 </div>
 
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                 <div>
-                  {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                   <input
                     type="radio"
-                    checked={this.state.success === 'no'}
+                    checked={this.state.success === "no"}
                     className="sfr-feedback-radio"
                     id="sfr-feedback-found-no"
                     name="feedback"
                     value="no"
-                    onChange={e => this.handleRadioChange(e)}
+                    onChange={(e) => this.handleRadioChange(e)}
                   />
-                  {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
                   <label
                     htmlFor="sfr-feedback-found-no"
                     className="sfr-radio-label"
@@ -177,35 +173,31 @@ class Feedback extends React.Component<Props, State> {
                   </label>
                 </div>
 
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                 <div>
-                  {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                   <input
                     type="radio"
-                    checked={this.state.success === 'browse'}
+                    checked={this.state.success === "browse"}
                     className="sfr-feedback-radio"
                     id="sfr-feedback-found-browse"
                     name="feedback"
                     value="browse"
-                    onChange={e => this.handleRadioChange(e)}
+                    onChange={(e) => this.handleRadioChange(e)}
                   />
-                  {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
                   <label
                     htmlFor="sfr-feedback-found-browse"
                     className="sfr-radio-label"
                   >
                     Just Browsing
-
                   </label>
                 </div>
               </div>
-              {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
               <div>
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                 <label htmlFor="feedback-textarea-comment">
                   Comments (Required)
                 </label>
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
                 <textarea
                   id="feedback-textarea-comment"
                   className="feedback-input"
@@ -215,18 +207,21 @@ class Feedback extends React.Component<Props, State> {
                   aria-required="true"
                   // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number | ... Remove this comment to see the full error message
                   tabIndex="0"
-                  ref={(textarea) => { this.feedbackField = textarea; }}
+                  ref={(textarea) => {
+                    this.feedbackField = textarea;
+                  }}
                   value={this.state.feedback}
                   onChange={this.handleFeedbackChange}
                 />
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
-                {this.state.commentStatus && <div id="textarea-status-note">Comment Required</div>}
+
+                {this.state.commentStatus && (
+                  <div id="textarea-status-note">Comment Required</div>
+                )}
               </div>
 
-              {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
               <button
                 type="button"
-                className={`cancel-button ${!showForm ? 'hidden' : ''}`}
+                className={`cancel-button ${!showForm ? "hidden" : ""}`}
                 onClick={this.closeForm}
                 aria-expanded={!showForm}
                 aria-controls="feedback-menu"
@@ -234,14 +229,9 @@ class Feedback extends React.Component<Props, State> {
                 Cancel
               </button>
 
-              {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
-              <button
-                className="sfr-submit-feedback-button"
-                type="submit"
-              >
+              <button className="sfr-submit-feedback-button" type="submit">
                 Submit
               </button>
-
             </form>
           </div>
         </FocusTrap>

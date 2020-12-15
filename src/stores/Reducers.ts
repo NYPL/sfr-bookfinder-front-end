@@ -1,6 +1,6 @@
-import { combineReducers } from 'redux';
-import { Actions } from '../actions/SearchActions';
-import initialState from './InitialState';
+import { combineReducers } from "redux";
+import { Actions } from "../actions/SearchActions";
+import initialState from "./InitialState";
 
 export const errorMsg = (state = null, action: any) => {
   switch (action.type) {
@@ -67,7 +67,8 @@ export const totalWorks = (state = null, action: any) => {
   return state;
 };
 
-export const sort = (state = null, action: any) => (action.sort ? action.sort : state);
+export const sort = (state = null, action: any) =>
+  action.sort ? action.sort : state;
 
 // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
 const appReducer = combineReducers({

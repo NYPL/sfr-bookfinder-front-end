@@ -1,10 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/util/SearchQuery' or its... Remove this comment to see the full error message
-import { getQueryString } from '~/src/util/SearchQuery';
-import { initialSearchQuery, searchQueryPropTypes } from '../../stores/InitialState';
-import { errorMessagesText } from '../../constants/labels';
-import Router, { withRouter } from 'next/router'
+import { getQueryString } from "~/src/util/SearchQuery";
+import {
+  initialSearchQuery,
+  searchQueryPropTypes,
+} from "../../stores/InitialState";
+import { errorMessagesText } from "../../constants/labels";
+import Router, { withRouter } from "next/router";
 /** Wrapper that adds search functionality
  It contains handling for changes in search field and search query, as well as submit handling
 
@@ -18,7 +21,9 @@ function withSearch(WrappedComponent: any) {
       super(props);
 
       this.state = {
-        error: false, errorMsg: '', ...props,
+        error: false,
+        errorMsg: "",
+        ...props,
       };
       this.router = router;
       this.onFieldChange = this.onFieldChange.bind(this);
@@ -35,7 +40,10 @@ function withSearch(WrappedComponent: any) {
     componentDidUpdate(prevProps: any) {
       // Wait for initial query to be returned before setting it in state
       // @ts-expect-error ts-migrate(2339) FIXME: Property 'initialQuery' does not exist on type 'Re... Remove this comment to see the full error message
-      if (this.props.initialQuery && this.props.initialQuery !== prevProps.initialQuery) {
+      if (
+        this.props.initialQuery &&
+        this.props.initialQuery !== prevProps.initialQuery
+      ) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'initialQuery' does not exist on type 'Re... Remove this comment to see the full error message
         // eslint-disable-next-line react/no-did-update-set-state
         this.setState({ searchQuery: this.props.initialQuery });
@@ -46,16 +54,19 @@ function withSearch(WrappedComponent: any) {
       const fieldSelected = event.target.value;
       this.setState(() => {
         const advancedQuery = {
-          query: '',
+          query: "",
           field: fieldSelected,
         };
-        return ({
-          searchQuery: Object.assign({}, initialSearchQuery,
+        return {
+          searchQuery: Object.assign(
+            {},
+            initialSearchQuery,
             // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
             { showQueries: [].concat(advancedQuery) },
             // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
-            { queries: [].concat(advancedQuery) }),
-        });
+            { queries: [].concat(advancedQuery) }
+          ),
+        };
       });
     }
 
@@ -70,20 +81,23 @@ function withSearch(WrappedComponent: any) {
             ? // @ts-expect-error ts-migrate(2339) FIXME: Property 'searchQuery' does not exist on type 'Rea... Remove this comment to see the full error message
               prevState.searchQuery.showQueries[0].field
             : // @ts-expect-error ts-migrate(2339) FIXME: Property 'searchQuery' does not exist on type 'Rea... Remove this comment to see the full error message
-              prevState.searchQuery.queries[0].field || 'keyword',
+              prevState.searchQuery.queries[0].field || "keyword",
         };
 
-        const newQuery = Object.assign({}, initialSearchQuery,
+        const newQuery = Object.assign(
+          {},
+          initialSearchQuery,
           // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
           { showQueries: [].concat(advancedQuery) },
           // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
-          { queries: [].concat(advancedQuery) });
+          { queries: [].concat(advancedQuery) }
+        );
 
-        return ({ searchQuery: newQuery });
+        return { searchQuery: newQuery };
       });
 
       if (querySelected) {
-        this.setState({ error: false, errorMsg: '' });
+        this.setState({ error: false, errorMsg: "" });
       }
     }
 
@@ -99,13 +113,12 @@ function withSearch(WrappedComponent: any) {
       Router.push({
         pathname: `/search`,
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'searchQuery' does not exist on type 'Rea... Remove this comment to see the full error message
-        query: getQueryString(this.state.searchQuery)
+        query: getQueryString(this.state.searchQuery),
       });
     }
 
     render() {
       return (
-        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <WrappedComponent
           onQueryChange={this.onQueryChange}
           onFieldChange={this.onFieldChange}
@@ -131,7 +144,7 @@ function withSearch(WrappedComponent: any) {
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultProps' does not exist on type 'ty... Remove this comment to see the full error message
   SearchComponent.defaultProps = {
     initialQuery: initialSearchQuery,
-    userQuery: () => { },
+    userQuery: () => {},
   };
 
   // @ts-expect-error ts-migrate(2551) FIXME: Property 'contextTypes' does not exist on type 'ty... Remove this comment to see the full error message

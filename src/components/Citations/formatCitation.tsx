@@ -1,4 +1,3 @@
-
 // Helper class to provide data to different citation formats
 export default class CitationFormatter {
   /** Generate metadata object containing all data for a citation to an edition
@@ -8,23 +7,46 @@ export default class CitationFormatter {
    * @returns {object} Metadata block that can be consumed by citation components
    */
   static getCitationData(work: any, edition: any) {
-    const contributorExclusions = ['author', 'editor', 'translator', 'illustrator', 'publisher'];
+    const contributorExclusions = [
+      "author",
+      "editor",
+      "translator",
+      "illustrator",
+      "publisher",
+    ];
     const workAgents = work.agents || [];
     const editionAgents = edition.agents || [];
     return {
       title: edition.title ? edition.title : work.title,
       sub_title: edition.sub_title,
       agents: {
-        authors: CitationFormatter.getAgentsOfType(workAgents, 'author'),
+        authors: CitationFormatter.getAgentsOfType(workAgents, "author"),
         // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'never'.
-        editors: CitationFormatter.getAgentsOfType(workAgents, 'editor', ['author']),
+        editors: CitationFormatter.getAgentsOfType(workAgents, "editor", [
+          "author",
+        ]),
         // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'never'.
-        illustrators: CitationFormatter.getAgentsOfType(workAgents, 'illustrator', ['author']),
+        illustrators: CitationFormatter.getAgentsOfType(
+          workAgents,
+          "illustrator",
+          ["author"]
+        ),
         // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'never'.
-        translators: CitationFormatter.getAgentsOfType(workAgents, 'translator', ['author']),
-        publishers: CitationFormatter.getAgentsOfType(editionAgents, 'publisher'),
+        translators: CitationFormatter.getAgentsOfType(
+          workAgents,
+          "translator",
+          ["author"]
+        ),
+        publishers: CitationFormatter.getAgentsOfType(
+          editionAgents,
+          "publisher"
+        ),
         // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'string[]' is not assignable to p... Remove this comment to see the full error message
-        contributors: CitationFormatter.getAgentsOfType([...workAgents, ...editionAgents], false, contributorExclusions),
+        contributors: CitationFormatter.getAgentsOfType(
+          [...workAgents, ...editionAgents],
+          false,
+          contributorExclusions
+        ),
       },
       publication_year: edition.publication_date,
       publication_place: edition.publication_place,
@@ -44,10 +66,16 @@ export default class CitationFormatter {
    * @returns {array} List of agent names that had matching role but none of the excluded roles
    */
   static getAgentsOfType(agents: any, includeType: any, excludeTypes = []) {
-    if (!agents) { return []; }
-    const typeAgents = agents.filter((a: any) => (!includeType || a.roles.indexOf(includeType) > -1)
-    // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'any' is not assignable to parame... Remove this comment to see the full error message
-    && (excludeTypes.length === 0 || a.roles.filter((r: any) => excludeTypes.includes(r)).length === 0));
+    if (!agents) {
+      return [];
+    }
+    const typeAgents = agents.filter(
+      (a: any) =>
+        (!includeType || a.roles.indexOf(includeType) > -1) &&
+        // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'any' is not assignable to parame... Remove this comment to see the full error message
+        (excludeTypes.length === 0 ||
+          a.roles.filter((r: any) => excludeTypes.includes(r)).length === 0)
+    );
     return typeAgents.map((a: any) => a.name);
   }
 
@@ -74,8 +102,11 @@ export default class CitationFormatter {
    */
   static isGovernmentReport(measurements: any) {
     let govReport = measurements
-      ? measurements.filter((m: any) => m.quantity === 'government_document')[0] : { value: 0 };
-    if (!govReport) { govReport = { value: 0 }; }
+      ? measurements.filter((m: any) => m.quantity === "government_document")[0]
+      : { value: 0 };
+    if (!govReport) {
+      govReport = { value: 0 };
+    }
 
     return !!govReport.value;
   }

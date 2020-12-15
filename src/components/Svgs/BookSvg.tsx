@@ -1,17 +1,16 @@
 /* eslint-disable max-len */
-import React from 'react';
+import React from "react";
 
 type OwnProps = {
-    className?: string;
-    fill?: string;
+  className?: string;
+  fill?: string;
 };
 
 // @ts-expect-error ts-migrate(2456) FIXME: Type alias 'Props' circularly references itself.
 type Props = OwnProps & typeof BookSvg.defaultProps;
 
 // @ts-expect-error ts-migrate(7022) FIXME: 'BookSvg' implicitly has type 'any' because it doe... Remove this comment to see the full error message
-const BookSvg = ({ fill = 'black', className }: Props) => (
-  // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+const BookSvg = ({ fill = "black", className }: Props) => (
   <svg
     width="99"
     height="118"
@@ -24,9 +23,8 @@ const BookSvg = ({ fill = 'black', className }: Props) => (
     role="img"
     aria-labelledby="BookIcon"
   >
-    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
     <title id="BookIcon">Book Icon</title>
-    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
     <path
       fillRule="evenodd"
       clipRule="evenodd"
@@ -37,8 +35,8 @@ const BookSvg = ({ fill = 'black', className }: Props) => (
 );
 
 BookSvg.defaultProps = {
-  className: '',
-  fill: 'black',
+  className: "",
+  fill: "black",
 };
 
 export default BookSvg;

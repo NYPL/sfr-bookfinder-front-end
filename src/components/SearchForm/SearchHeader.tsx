@@ -1,21 +1,21 @@
-import React from 'react';
+import React from "react";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Link/Link' or... Remove this comment to see the full error message
-import Link from '~/src/components/Link/Link';
-import * as DS from '@nypl/design-system-react-components';
+import Link from "~/src/components/Link/Link";
+import * as DS from "@nypl/design-system-react-components";
 // @ts-expect-error ts-migrate(6142) FIXME: Module './WithSearch' was resolved to '/Users/crys... Remove this comment to see the full error message
-import withSearch from './WithSearch';
-import { searchFields } from '../../constants/fields';
+import withSearch from "./WithSearch";
+import { searchFields } from "../../constants/fields";
 
 type OwnProps = {
-    allowedFields?: any[];
-    currentQuery?: {
-        [key: string]: any;
-    };
-    submitSearchRequest?: (...args: any[]) => any;
-    onQueryChange?: (...args: any[]) => any;
-    onFieldChange?: (...args: any[]) => any;
-    hasError?: boolean;
-    errorMessage?: string;
+  allowedFields?: any[];
+  currentQuery?: {
+    [key: string]: any;
+  };
+  submitSearchRequest?: (...args: any[]) => any;
+  onQueryChange?: (...args: any[]) => any;
+  onFieldChange?: (...args: any[]) => any;
+  hasError?: boolean;
+  errorMessage?: string;
 };
 
 // @ts-expect-error ts-migrate(2456) FIXME: Type alias 'Props' circularly references itself.
@@ -26,49 +26,52 @@ const ResultsHeader = (props: Props) => {
   const currentQuery = props.currentQuery;
 
   // If using Advanced Search with multiple fields, don't prepopulate header.
-  let valueToPrepopulate = '';
-  let fieldToPrepopulate = 'keyword';
+  let valueToPrepopulate = "";
+  let fieldToPrepopulate = "keyword";
 
   // Prepopulate search values
   // If regular search, prepopulate as is.
   // If searching by clicking on author name, prepopulate using the author name.
 
-  if (currentQuery && currentQuery.queries && currentQuery.queries.length === 1) {
+  if (
+    currentQuery &&
+    currentQuery.queries &&
+    currentQuery.queries.length === 1
+  ) {
     const query = currentQuery.queries[0];
     if (searchFields.includes(query.field)) {
       valueToPrepopulate = query.query;
       fieldToPrepopulate = query.field;
-    } else if (currentQuery.showQueries && currentQuery.showQueries.length === 1 && currentQuery.showQueries[0].field === 'author') {
+    } else if (
+      currentQuery.showQueries &&
+      currentQuery.showQueries.length === 1 &&
+      currentQuery.showQueries[0].field === "author"
+    ) {
       valueToPrepopulate = currentQuery.showQueries[0].query;
       fieldToPrepopulate = currentQuery.showQueries[0].field;
     }
   }
   return (
-    // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
     <DS.HeaderWithSearch
       searchButtonId="searchButtonId"
       searchBarAriaLabel="Search research catalog"
       searchValue={valueToPrepopulate}
       selectedField={fieldToPrepopulate}
-      sectionTitle={(
-        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+      sectionTitle={
         <Link
           className="search-header__rn-section-title search-header__rn-section-title--dark-background rn-section-title"
           to="/"
         >
-          {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
           <span id="research-now-title">
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
-            <span className="rn-section-title__emphasis">Digital Research Books</span>
-            {' '}
-          Beta
+            <span className="rn-section-title__emphasis">
+              Digital Research Books
+            </span>{" "}
+            Beta
           </span>
         </Link>
-    )}
-      advancedSearchElem={(
-        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+      }
+      advancedSearchElem={
         <DS.Link>
-          {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
           <Link
             to="/advanced-search"
             className="text-baseline link--dark-background"
@@ -76,20 +79,19 @@ const ResultsHeader = (props: Props) => {
             Advanced Search
           </Link>
         </DS.Link>
-            )}
+      }
       searchBarId="searchBarId"
       dropdownId="dropdownId"
       textFieldAriaLabel="Digital Research Books Beta"
       // @ts-expect-error ts-migrate(2322) FIXME: Type '{ searchButtonId: string; searchBarAriaLabel... Remove this comment to see the full error message
-      headingContent={(
-        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+      headingContent={
         <span>
-          {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
-          <span className="rn-section-title__emphasis">Digital Research Books</span>
-          {' '}
-        Beta
+          <span className="rn-section-title__emphasis">
+            Digital Research Books
+          </span>{" "}
+          Beta
         </span>
-    )}
+      }
       headingId="researchNow-page-title-id"
       headingUrl="#research-now-url"
       headingBaseClass="rn-section-title"
@@ -107,11 +109,11 @@ const ResultsHeader = (props: Props) => {
 ResultsHeader.defaultProps = {
   allowedFields: searchFields,
   currentQuery: {},
-  submitSearchRequest: () => { },
-  onQueryChange: () => { },
-  onFieldChange: () => { },
+  submitSearchRequest: () => {},
+  onQueryChange: () => {},
+  onFieldChange: () => {},
   hasError: false,
-  errorMessage: '',
+  errorMessage: "",
 };
 
 const SearchHeader = withSearch(ResultsHeader);

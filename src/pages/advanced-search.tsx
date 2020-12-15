@@ -1,45 +1,51 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import axios from 'axios';
+import React from "react";
+import PropTypes from "prop-types";
+import axios from "axios";
 // @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
-import Select from 'react-select';
+import Select from "react-select";
 // @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { withRouter } from 'next/router';
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { withRouter } from "next/router";
 
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/config/appConfig' or its cor... Remove this comment to see the full error message
-import appConfig from '~/config/appConfig';
+import appConfig from "~/config/appConfig";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/actions/SearchActions' o... Remove this comment to see the full error message
-import * as searchActions from '~/src/actions/SearchActions';
+import * as searchActions from "~/src/actions/SearchActions";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Breadcrumbs/B... Remove this comment to see the full error message
-import Breadcrumbs from '~/src/components/Breadcrumbs/Breadcrumbs';
+import Breadcrumbs from "~/src/components/Breadcrumbs/Breadcrumbs";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/util/SearchQuery' or its... Remove this comment to see the full error message
-import { getQueryString } from '~/src/util/SearchQuery';
+import { getQueryString } from "~/src/util/SearchQuery";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/stores/InitialState' or ... Remove this comment to see the full error message
-import { initialSearchQuery, searchQueryPropTypes } from '~/src/stores/InitialState';
+import {
+  initialSearchQuery,
+  searchQueryPropTypes,
+} from "~/src/stores/InitialState";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Form/TextInpu... Remove this comment to see the full error message
-import TextInput from '~/src/components/Form/TextInput';
+import TextInput from "~/src/components/Form/TextInput";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Form/Checkbox... Remove this comment to see the full error message
-import Checkbox from '~/src/components/Form/Checkbox';
+import Checkbox from "~/src/components/Form/Checkbox";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/constants/labels' or its... Remove this comment to see the full error message
-import { inputTerms, formatTypes, errorMessagesText } from '~/src/constants/labels';
+import {
+  inputTerms,
+  formatTypes,
+  errorMessagesText,
+} from "~/src/constants/labels";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/SearchResults... Remove this comment to see the full error message
-import FilterYears from '~/src/components/SearchResults/FilterYears';
+import FilterYears from "~/src/components/SearchResults/FilterYears";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/constants/fields' or its... Remove this comment to see the full error message
-import { searchFields } from '~/src/constants/fields';
-
+import { searchFields } from "~/src/constants/fields";
 
 export const initialState = {
   error: false,
-  errorMsg: '',
+  errorMsg: "",
   languages: [],
   queries: {
-    keyword: '',
-    title: '',
-    author: '',
-    subject: '',
-    viaf: '',
+    keyword: "",
+    title: "",
+    author: "",
+    subject: "",
+    viaf: "",
   },
   filters: {
     format: {
@@ -49,62 +55,63 @@ export const initialState = {
     },
     language: [],
     years: {
-      start: '',
-      end: '',
+      start: "",
+      end: "",
     },
   },
   showQueries: {
-    keyword: '',
-    title: '',
-    author: '',
-    subject: '',
+    keyword: "",
+    title: "",
+    author: "",
+    subject: "",
   },
 };
 // style for the languages dropdown
 const customStyles = {
   control: (base: any) => ({
     ...base,
-    minHeight: '2.5rem'
+    minHeight: "2.5rem",
   }),
   menu: (base: any) => ({
     ...base,
-    background: '#FFF',
+    background: "#FFF",
 
     // override border radius to match the box
     borderRadius: 0,
 
-    border: '1px solid black',
-    width: '100%',
+    border: "1px solid black",
+    width: "100%",
 
     // kill the gap
     marginTop: 0,
 
-    marginRigth: '2rem'
+    marginRigth: "2rem",
   }),
   menuList: (base: any) => ({
     ...base,
 
     // kill the white space on first and last option
-    padding: 0
+    padding: 0,
   }),
   option: (base: any, state: any) => ({
     ...base,
-    background: state.isFocused ? 'black' : 'white',
-    color: state.isFocused ? 'white' : 'black',
+    background: state.isFocused ? "black" : "white",
+    color: state.isFocused ? "white" : "black",
   }),
 };
 
 type OwnAdvancedSearchProps = {
-    location?: {
-        [key: string]: any;
-    };
-    searchQuery?: searchQueryPropTypes;
-    dispatch?: (...args: any[]) => any;
+  location?: {
+    [key: string]: any;
+  };
+  searchQuery?: searchQueryPropTypes;
+  dispatch?: (...args: any[]) => any;
 };
 
 type AdvancedSearchState = any;
 
-type AdvancedSearchProps = OwnAdvancedSearchProps & typeof AdvancedSearch.defaultProps;
+type AdvancedSearchProps = OwnAdvancedSearchProps &
+  typeof AdvancedSearch.defaultProps;
 
 /**
  * Container class providing the Redux action creators
@@ -114,16 +121,19 @@ type AdvancedSearchProps = OwnAdvancedSearchProps & typeof AdvancedSearch.defaul
  * Accessibility Note: Creates the <main> element for all
  * search pages with the corresponding <h1>.
  */
-class AdvancedSearch extends React.Component<AdvancedSearchProps, AdvancedSearchState> {
+class AdvancedSearch extends React.Component<
+  AdvancedSearchProps,
+  AdvancedSearchState
+> {
   static defaultProps = {
-      location: {},
-      searchQuery: initialSearchQuery,
-      dispatch: () => { },
+    location: {},
+    searchQuery: initialSearchQuery,
+    dispatch: () => {},
   };
 
   static contextTypes = {
-      router: PropTypes.objectOf(PropTypes.any),
-      history: PropTypes.objectOf(PropTypes.any),
+    router: PropTypes.objectOf(PropTypes.any),
+    history: PropTypes.objectOf(PropTypes.any),
   };
 
   boundActions: any;
@@ -153,26 +163,30 @@ class AdvancedSearch extends React.Component<AdvancedSearchProps, AdvancedSearch
 
   onQueryChange(event: any) {
     const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
     this.setState((prevState: any) => {
       const showQueries = prevState.showQueries;
       const queries = prevState.queries;
       queries[name] = value;
       showQueries[name] = value;
-      if (name === 'author') {
+      if (name === "author") {
         // Changing author should clear viaf and lcnaf
-        queries.viaf = '';
-        queries.lcnaf = '';
+        queries.viaf = "";
+        queries.lcnaf = "";
       }
       return {
-        queries, showQueries, error: false, errorMsg: '',
+        queries,
+        showQueries,
+        error: false,
+        errorMsg: "",
       };
     });
   }
 
   onLanguageChange(event: any) {
-    const value = event && !event.target && event.map((language: any) => language.value);
+    const value =
+      event && !event.target && event.map((language: any) => language.value);
     if (value) {
       this.setState((prevState: any) => {
         const filters = prevState.filters;
@@ -184,7 +198,7 @@ class AdvancedSearch extends React.Component<AdvancedSearchProps, AdvancedSearch
 
   onFormatChange(event: any) {
     const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
     this.setState((prevState: any) => {
       const filters = prevState.filters;
@@ -206,7 +220,7 @@ class AdvancedSearch extends React.Component<AdvancedSearchProps, AdvancedSearch
   }
 
   loadLanguages() {
-    const appEnv = process.env.APP_ENV || 'production';
+    const appEnv = process.env.APP_ENV || "production";
     const apiUrl = appConfig.api[appEnv];
     const { languagesPath } = appConfig.api;
     const langUrl = apiUrl + languagesPath;
@@ -214,12 +228,12 @@ class AdvancedSearch extends React.Component<AdvancedSearchProps, AdvancedSearch
     axios.get(langUrl).then((resp) => {
       this.setState({
         languages:
-          resp
-          && resp.data
-          && resp.data.data
-          && resp.data.data.languages.map((language: any) => ({
+          resp &&
+          resp.data &&
+          resp.data.data &&
+          resp.data.data.languages.map((language: any) => ({
             value: language.language,
-            label: language.language
+            label: language.language,
           })),
       });
     });
@@ -228,30 +242,37 @@ class AdvancedSearch extends React.Component<AdvancedSearchProps, AdvancedSearch
   parseStateToQuery() {
     const queries = Object.keys(this.state.queries)
       .map((q) => {
-        const query = this.state.queries[q] && this.state.queries[q].replace(/^\s+/, '').replace(/\s+$/, '');
+        const query =
+          this.state.queries[q] &&
+          this.state.queries[q].replace(/^\s+/, "").replace(/\s+$/, "");
         return { field: q, query };
       })
-      .filter(q => !!q.query);
+      .filter((q) => !!q.query);
 
     const showQueries = Object.keys(this.state.showQueries)
       .map((q) => {
-        const query = this.state.showQueries[q] && this.state.showQueries[q].replace(/^\s+/, '').replace(/\s+$/, '');
+        const query =
+          this.state.showQueries[q] &&
+          this.state.showQueries[q].replace(/^\s+/, "").replace(/\s+$/, "");
         return { field: q, query };
       })
-      .filter(q => !!q.query);
+      .filter((q) => !!q.query);
 
     const filters = [];
     if (this.state.filters.language && this.state.filters.language.length > 0) {
       Object.keys(this.state.filters.language).forEach((language) => {
-        filters.push({ field: 'language', value: this.state.filters.language[language] });
+        filters.push({
+          field: "language",
+          value: this.state.filters.language[language],
+        });
       });
     }
     if (this.state.filters.years.start || this.state.filters.years.end) {
       filters.push({
-        field: 'years',
+        field: "years",
         value: {
-          start: this.state.filters.years.start || '',
-          end: this.state.filters.years.end || '',
+          start: this.state.filters.years.start || "",
+          end: this.state.filters.years.end || "",
         },
       });
     }
@@ -259,17 +280,25 @@ class AdvancedSearch extends React.Component<AdvancedSearchProps, AdvancedSearch
       Object.keys(this.state.filters.format).forEach((format) => {
         if (this.state.filters.format[format]) {
           filters.push({
-            field: 'format',
+            field: "format",
             value: format,
           });
         }
       });
     }
 
-    if ((!queries || queries.length < 1) && (!filters || filters.length < 1) && (!showQueries || showQueries.length < 1)) {
+    if (
+      (!queries || queries.length < 1) &&
+      (!filters || filters.length < 1) &&
+      (!showQueries || showQueries.length < 1)
+    ) {
       return null;
     }
-    return Object.assign({}, { page: '0', per_page: '10', sort: [] }, { queries, filters, showQueries });
+    return Object.assign(
+      {},
+      { page: "0", per_page: "10", sort: [] },
+      { queries, filters, showQueries }
+    );
   }
 
   parseQueryToState(searchQuery: any) {
@@ -289,7 +318,9 @@ class AdvancedSearch extends React.Component<AdvancedSearchProps, AdvancedSearch
       });
     }
 
-    const displaySearchQueries = searchQuery.queries.filter((query: any) => searchFields.includes(query.field));
+    const displaySearchQueries = searchQuery.queries.filter((query: any) =>
+      searchFields.includes(query.field)
+    );
     const displayQueries = searchQuery.showQueries.concat(displaySearchQueries);
 
     displayQueries.forEach((query: any) => {
@@ -299,7 +330,7 @@ class AdvancedSearch extends React.Component<AdvancedSearchProps, AdvancedSearch
 
     if (searchQuery.filters) {
       searchQuery.filters.forEach((q: any) => {
-        if (q.field === 'format') {
+        if (q.field === "format") {
           // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
           if (!state.filters[q.field]) {
             // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
@@ -307,7 +338,7 @@ class AdvancedSearch extends React.Component<AdvancedSearchProps, AdvancedSearch
           }
           // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
           state.filters[q.field][q.value] = true;
-        } else if (q.field === 'language') {
+        } else if (q.field === "language") {
           // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
           if (!state.filters[q.field]) {
             // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
@@ -332,9 +363,14 @@ class AdvancedSearch extends React.Component<AdvancedSearchProps, AdvancedSearch
   submitSearchRequest(event: any) {
     event.preventDefault();
     event.stopPropagation();
-    if (this.state.filters && this.state.filters.years
-      && this.state.filters.years.start && this.state.filters.years.end
-      && Number(this.state.filters.years.start) > Number(this.state.filters.years.end)) {
+    if (
+      this.state.filters &&
+      this.state.filters.years &&
+      this.state.filters.years.start &&
+      this.state.filters.years.end &&
+      Number(this.state.filters.years.start) >
+        Number(this.state.filters.years.end)
+    ) {
       this.setState({ error: true, errorMsg: errorMessagesText.invalidDate });
       return;
     }
@@ -354,86 +390,80 @@ class AdvancedSearch extends React.Component<AdvancedSearchProps, AdvancedSearch
   render() {
     const { searchQuery, location } = this.props;
     const { router } = this.context;
-    const languagesSelected = this.state.languages.filter((language: any) => this.state.filters.language.indexOf(language.value) > -1);
+    const languagesSelected = this.state.languages.filter(
+      (language: any) =>
+        this.state.filters.language.indexOf(language.value) > -1
+    );
     const getQueryValue = (key: any) => this.state.showQueries[key];
-    const getFilterValue = (filter: any, key: any) => this.state.filters[filter] && this.state.filters[filter][key];
+    const getFilterValue = (filter: any, key: any) =>
+      this.state.filters[filter] && this.state.filters[filter][key];
     return (
-      // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-      <main
-        id="mainContent"
-        className="main-content grid-container padding-0"
-      >
-        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+      <main id="mainContent" className="main-content grid-container padding-0">
         <div className="grid-row">
-          {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
           <div className="sfr-header-wrapper tablet:grid-col-12">
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
-            <Breadcrumbs
-              router={router}
-              location={location}
-            />
+            <Breadcrumbs router={router} location={location} />
           </div>
-          {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
-          <div
-            aria-label="Digital Research Books Beta"
-            className="grid-col-12"
-          >
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
+          <div aria-label="Digital Research Books Beta" className="grid-col-12">
             <div className="sfr-header-wrapper grid-col-10">
-              {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
               <h1 className="nypl-heading">Digital Research Books Beta</h1>
-              {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
-              <div id="tagline">Search the world&apos;s research collections and more for digital books you can use right now</div>
+
+              <div id="tagline">
+                Search the world&apos;s research collections and more for
+                digital books you can use right now
+              </div>
             </div>
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
             <div className="grid-col-10 margin-bottom-2 margin-x-auto">
-              {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
               <form
                 className="usa-form grid-container width-full margin-x-0 padding-x-0"
                 onSubmit={this.submitSearchRequest}
                 // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
-                onKeyPress={(event) => { if (event.keyCode === 13) { this.submitSearchRequest(); } }}
+                onKeyPress={(event) => {
+                  if (event.keyCode === 13) {
+                    this.submitSearchRequest();
+                  }
+                }}
               >
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                 <fieldset className="usa-fieldset ">
-                  {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
-                  <legend className="usa-legend usa-sr-only">Advanced Search</legend>
-                  {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
-                  {inputTerms.map((line: any) => <div
-                    className="grid-row grid-gap"
-                    key={line.key}
-                  >
-                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
-                    {line.values.map((term: any) => <TextInput
-                      className="tablet:grid-col-6"
-                      ariaLabel={`Search for ${term.label}`}
-                      labelClass="usa-label"
-                      id={term.key}
-                      type="text"
-                      inputClass="usa-input"
-                      name={term.key}
-                      onChange={this.onQueryChange}
-                      label={term.label}
-                      key={term.key}
-                      value={getQueryValue(term.key)}
-                    />)}
-                  </div>)}
+                  <legend className="usa-legend usa-sr-only">
+                    Advanced Search
+                  </legend>
+
+                  {inputTerms.map((line: any) => (
+                    <div className="grid-row grid-gap" key={line.key}>
+                      {line.values.map((term: any) => (
+                        <TextInput
+                          className="tablet:grid-col-6"
+                          ariaLabel={`Search for ${term.label}`}
+                          labelClass="usa-label"
+                          id={term.key}
+                          type="text"
+                          inputClass="usa-input"
+                          name={term.key}
+                          onChange={this.onQueryChange}
+                          label={term.label}
+                          key={term.key}
+                          value={getQueryValue(term.key)}
+                        />
+                      ))}
+                    </div>
+                  ))}
                 </fieldset>
 
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                 <fieldset className="usa-fieldset">
-                  {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
-                  <legend className="usa-legend usa-sr-only">Language Search</legend>
-                  {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                  <legend className="usa-legend usa-sr-only">
+                    Language Search
+                  </legend>
+
                   <label
                     htmlFor="language"
                     className="usa-label width-full margin-bottom-1"
                   >
                     Language
                   </label>
-                  {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
                   <div className="grid-row nypl-select">
-                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                     <Select
                       options={this.state.languages}
                       className="tablet:grid-col-6 position-relative padding-x-0 margin-x-0"
@@ -451,25 +481,24 @@ class AdvancedSearch extends React.Component<AdvancedSearchProps, AdvancedSearch
 
                         colors: {
                           ...theme.colores,
-                          primary: 'black',
-                        }
+                          primary: "black",
+                        },
                       })}
                       styles={customStyles}
                       classNamePrefix="nypl-select"
                     />
-                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
                     <div className="tablet:grid-col-6" />
                   </div>
                 </fieldset>
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
                 <div className="grid-row margin-top-4 grid-gap">
-                  {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                   <div className="tablet:grid-col-6">
-                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                     <fieldset className="usa-fieldset grid-container width-full margin-x-0 padding-x-0 margin-bottom-2">
-                      {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
-                      <legend className="usa-legend font-sans-lg sub-legend">Publication Year</legend>
-                      {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                      <legend className="usa-legend font-sans-lg sub-legend">
+                        Publication Year
+                      </legend>
+
                       <FilterYears
                         searchQuery={searchQuery}
                         onChange={(e: any) => this.onChangeYears(e)}
@@ -480,36 +509,36 @@ class AdvancedSearch extends React.Component<AdvancedSearchProps, AdvancedSearch
                     </fieldset>
                   </div>
 
-                  {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                   <div className="tablet:grid-col-6">
-                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                     <fieldset className="usa-fieldset grid-container width-full margin-x-0 padding-x-0">
-                      {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
-                      <legend className="usa-legend font-sans-lg sub-legend margin-bottom-3">Format</legend>
-                      {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
-                      {formatTypes.map((formatType: any) => <Checkbox
-                        className="usa-checkbox tablet:grid-col-12"
-                        labelClass="usa-checkbox__label"
-                        inputClass="usa-checkbox__input"
-                        id={`filters-format-${formatType.value}`}
-                        isSelected={getFilterValue('format', formatType.value)}
-                        onChange={this.onFormatChange}
-                        label={formatType.label}
-                        name={formatType.value}
-                        key={`facet-format-${formatType.value}`}
-                      />)}
+                      <legend className="usa-legend font-sans-lg sub-legend margin-bottom-3">
+                        Format
+                      </legend>
+
+                      {formatTypes.map((formatType: any) => (
+                        <Checkbox
+                          className="usa-checkbox tablet:grid-col-12"
+                          labelClass="usa-checkbox__label"
+                          inputClass="usa-checkbox__input"
+                          id={`filters-format-${formatType.value}`}
+                          isSelected={getFilterValue(
+                            "format",
+                            formatType.value
+                          )}
+                          onChange={this.onFormatChange}
+                          label={formatType.label}
+                          name={formatType.value}
+                          key={`facet-format-${formatType.value}`}
+                        />
+                      ))}
                     </fieldset>
                   </div>
                 </div>
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
                 <div className="grid-row grid-gap">
-                  {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                   <div className="tablet:grid-col-6">
-                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                     <div className="grid-row grid-gap">
-                      {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                       <div className="tablet:grid-col-6">
-                        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                         <input
                           className="usa-button width-full margin-top-1"
                           type="submit"
@@ -518,9 +547,8 @@ class AdvancedSearch extends React.Component<AdvancedSearchProps, AdvancedSearch
                           onClick={this.submitSearchRequest}
                         />
                       </div>
-                      {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
                       <div className="tablet:grid-col-6">
-                        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                         <input
                           className="usa-button usa-button--outline width-full margin-top-1"
                           type="clear"
@@ -531,17 +559,13 @@ class AdvancedSearch extends React.Component<AdvancedSearchProps, AdvancedSearch
                       </div>
                     </div>
                     {this.state.error && (
-                      // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-                      <div
-                        className="usa-alert usa-alert--error"
-                        role="alert"
-                      >
-                        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                      <div className="usa-alert usa-alert--error" role="alert">
                         <div className="usa-alert__body">
-                          {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                           <h3 className="usa-alert__heading">Error</h3>
-                          {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
-                          <p className="usa-alert__text">{this.state.errorMsg}</p>
+
+                          <p className="usa-alert__text">
+                            {this.state.errorMsg}
+                          </p>
                         </div>
                       </div>
                     )}
@@ -560,6 +584,6 @@ const mapStateToProps = (state: any) => state;
 
 export default connect(
   mapStateToProps,
-  null,
-// @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof AdvancedSearch' is not as... Remove this comment to see the full error message
+  null
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof AdvancedSearch' is not as... Remove this comment to see the full error message
 )(withRouter(AdvancedSearch));

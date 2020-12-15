@@ -80,28 +80,26 @@ export const getCrumbTrail = (location, links, handleReset) => {
 };
 
 type BreadcrumbsProps = {
-    location?: {
-        [key: string]: any;
-    };
-    workDetail?: {
-        uuid?: string;
-        title?: string;
-    };
-    editionDetail?: {
-        id?: string;
-        publication_date?: string;
-    };
-    dispatch?: (...args: any[]) => any;
+  location?: {
+    [key: string]: any;
+  };
+  workDetail?: {
+    uuid?: string;
+    title?: string;
+  };
+  editionDetail?: {
+    id?: string;
+    publication_date?: string;
+  };
+  dispatch?: (...args: any[]) => any;
 };
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'props'.
-const Breadcrumbs =props: BreadcrumbsProps => {
+const Breadcrumbs = (props: BreadcrumbsProps) => {
   const boundActions = useRef();
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'props'.
   const links = getBreadcrumbLinks(props.workDetail, props.editionDetail);
 
   // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'event' implicitly has an 'any' type.
-  const handleReset = event => {
+  const handleReset = (event) => {
     event.preventDefault();
     // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
     boundActions.current.resetSearch();
@@ -109,9 +107,12 @@ const Breadcrumbs =props: BreadcrumbsProps => {
     Router.push("/");
   };
 
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'props'.
   console.log("blah", getCrumbTrail(props.location, links, handleReset));
-  return <DS.Breadcrumbs breadcrumbs={getCrumbTrail(props.location, links, handleReset)} />;
+  return (
+    <DS.Breadcrumbs
+      breadcrumbs={getCrumbTrail(props.location, links, handleReset)}
+    />
+  );
 };
 
 Breadcrumbs.defaultProps = {

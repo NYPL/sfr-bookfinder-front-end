@@ -1,21 +1,24 @@
-import React from 'react';
+import React from "react";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Link/Link' or... Remove this comment to see the full error message
-import Link from '~/src/components/Link/Link';
-import * as DS from '@nypl/design-system-react-components';
+import Link from "~/src/components/Link/Link";
+import * as DS from "@nypl/design-system-react-components";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/stores/InitialState' or ... Remove this comment to see the full error message
-import { initialSearchQuery, searchQueryPropTypes } from '~/src/stores/InitialState';
+import {
+  initialSearchQuery,
+  searchQueryPropTypes,
+} from "~/src/stores/InitialState";
 // @ts-expect-error ts-migrate(6142) FIXME: Module './WithSearch' was resolved to '/Users/crys... Remove this comment to see the full error message
-import withSearch from './WithSearch';
-import { searchFields } from '../../constants/fields';
+import withSearch from "./WithSearch";
+import { searchFields } from "../../constants/fields";
 
 type OwnProps = {
-    allowedFields?: any[];
-    currentQuery?: searchQueryPropTypes;
-    submitSearchRequest?: (...args: any[]) => any;
-    onQueryChange?: (...args: any[]) => any;
-    onFieldChange?: (...args: any[]) => any;
-    hasError?: boolean;
-    errorMessage?: string;
+  allowedFields?: any[];
+  currentQuery?: searchQueryPropTypes;
+  submitSearchRequest?: (...args: any[]) => any;
+  onQueryChange?: (...args: any[]) => any;
+  onFieldChange?: (...args: any[]) => any;
+  hasError?: boolean;
+  errorMessage?: string;
 };
 
 // @ts-expect-error ts-migrate(2456) FIXME: Type alias 'Props' circularly references itself.
@@ -26,24 +29,16 @@ const LandingPromo = (props: Props) => {
   const selectedQuery = props.currentQuery.queries[0].query;
   const selectedField = props.currentQuery.queries[0].field;
   const advancedSearchMessage = (
-    // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
     <p>
-        Use
-      {' '}
-      {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
-      <Link
-        to="/advanced-search"
-        className="link"
-      >
+      Use{" "}
+      <Link to="/advanced-search" className="link">
         Advanced Search
-      </Link>
-      {' '}
-        to narrow your results.
+      </Link>{" "}
+      to narrow your results.
     </p>
   );
 
   return (
-    // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
     <DS.SearchPromo
       headingText="Search the World's Research Collections"
       titleId="tagline"
@@ -68,11 +63,11 @@ const LandingPromo = (props: Props) => {
 LandingPromo.defaultProps = {
   allowedFields: searchFields,
   currentQuery: initialSearchQuery,
-  submitSearchRequest: () => { },
-  onQueryChange: () => { },
-  onFieldChange: () => { },
+  submitSearchRequest: () => {},
+  onQueryChange: () => {},
+  onFieldChange: () => {},
   hasError: false,
-  errorMessage: '',
+  errorMessage: "",
 };
 
 const SearchForm = withSearch(LandingPromo);

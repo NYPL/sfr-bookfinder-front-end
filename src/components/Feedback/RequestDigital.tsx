@@ -1,22 +1,22 @@
-import React from 'react';
-import FocusTrap from 'focus-trap-react';
+import React from "react";
+import FocusTrap from "focus-trap-react";
 
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/config/appConfig' or its cor... Remove this comment to see the full error message
-import appConfig from '~/config/appConfig';
+import appConfig from "~/config/appConfig";
 
 const initialState = {
-  comments: '',
+  comments: "",
   needsSpecific: null,
 };
 
 type OwnProps = {
-    requestedWork?: {
-        [key: string]: any;
-    };
-    requestedEdition?: {
-        [key: string]: any;
-    };
-    closeForm?: (...args: any[]) => any;
+  requestedWork?: {
+    [key: string]: any;
+  };
+  requestedEdition?: {
+    [key: string]: any;
+  };
+  closeForm?: (...args: any[]) => any;
 };
 
 type State = any;
@@ -25,9 +25,9 @@ type Props = OwnProps & typeof RequestDigital.defaultProps;
 
 class RequestDigital extends React.Component<Props, State> {
   static defaultProps = {
-      requestedWork: {},
-      requestedEdition: {},
-      closeForm: () => { },
+    requestedWork: {},
+    requestedEdition: {},
+    closeForm: () => {},
   };
 
   feedbackField: any;
@@ -49,15 +49,15 @@ class RequestDigital extends React.Component<Props, State> {
 
     this.sendFeedback();
     // eslint-disable-next-line no-alert
-    alert('Thank you, your request for digitization has been logged.');
+    alert("Thank you, your request for digitization has been logged.");
   }
 
   sendFeedback() {
     fetch(appConfig.requestDigital.formUrl, {
-      method: 'POST',
+      method: "POST",
       headers: {
         Authorization: `Bearer ${process.env.AIRTABLE_API_KEY}`,
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         fields: {
@@ -81,7 +81,6 @@ class RequestDigital extends React.Component<Props, State> {
 
   render() {
     return (
-      // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
       <FocusTrap
         focusTrapOptions={{
           onDeactivate: this.props.closeForm,
@@ -89,59 +88,43 @@ class RequestDigital extends React.Component<Props, State> {
         }}
         active
       >
-        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
-        <div
-          id="request-digitization"
-          className="request-form-container"
-        >
-          {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
-          <form onSubmit={e => this.onSubmitForm(e)}>
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+        <div id="request-digitization" className="request-form-container">
+          <form onSubmit={(e) => this.onSubmitForm(e)}>
             <span>
-    You are requesting a
-              {' '}
-              {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
-              <strong>
-                {this.props.requestedEdition.publication_date}
-              </strong>
-              {' '}
-            edition of
-              {' '}
-              {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
-              <strong>{this.props.requestedWork.title}</strong>
+              You are requesting a{" "}
+              <strong>{this.props.requestedEdition.publication_date}</strong>{" "}
+              edition of <strong>{this.props.requestedWork.title}</strong>
             </span>
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
             <div>
-              {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
-              <label id="sfr-request-specific"> Do you need this specific edition? </label>
-              {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+              <label id="sfr-request-specific">
+                {" "}
+                Do you need this specific edition?{" "}
+              </label>
+
               <div>
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                 <input
                   type="checkbox"
                   className="sfr-feedback-checkbox"
                   id="sfr-edition-specific-yes"
                   name="specificEdition"
-                  onChange={e => this.handleCheckboxClick(e)}
+                  onChange={(e) => this.handleCheckboxClick(e)}
                 />
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
                 <label
                   htmlFor="sfr-feedback-found-yes"
                   className="sfr-radio-label"
                 >
-                    I want only this edition
+                  I want only this edition
                 </label>
               </div>
             </div>
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
             <div>
-              {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
-              <label htmlFor="request-digital-textarea-comment">
-                    Comments
-              </label>
-              {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+              <label htmlFor="request-digital-textarea-comment">Comments</label>
+
               <br />
-              {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
               <textarea
                 id="request-digital-textarea-comment"
                 className="feedback-input"
@@ -151,28 +134,25 @@ class RequestDigital extends React.Component<Props, State> {
                 aria-required="false"
                 // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number | ... Remove this comment to see the full error message
                 tabIndex="0"
-                ref={(textarea) => { this.feedbackField = textarea; }}
+                ref={(textarea) => {
+                  this.feedbackField = textarea;
+                }}
                 value={this.state.comments}
                 onChange={this.handleFeedbackChange}
               />
             </div>
 
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
             <button
               type="button"
               className="cancel-button"
               onClick={this.props.closeForm}
               aria-controls="request-digitization"
             >
-                Cancel
+              Cancel
             </button>
 
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
-            <button
-              className="sfr-submit-feedback-button"
-              type="submit"
-            >
-                Submit
+            <button className="sfr-submit-feedback-button" type="submit">
+              Submit
             </button>
           </form>
         </div>

@@ -12,14 +12,14 @@ import * as searchActions from "~/src/actions/SearchActions";
 import Breadcrumbs from "~/src/components/Breadcrumbs/Breadcrumbs";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/stores/InitialState' or ... Remove this comment to see the full error message
 import { searchQueryPropTypes } from "~/src/stores/InitialState";
-import Router, { withRouter } from 'next/router'
+import Router, { withRouter } from "next/router";
 
 import {
   deepEqual,
   isEmpty,
   getNumberOfPages,
   checkFeatureFlagActivated,
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/util/Util' or its corres... Remove this comment to see the full error message
+  // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/util/Util' or its corres... Remove this comment to see the full error message
 } from "~/src/util/Util";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/SearchForm/To... Remove this comment to see the full error message
 import TotalWorks from "~/src/components/SearchForm/TotalWorks";
@@ -27,7 +27,7 @@ import TotalWorks from "~/src/components/SearchForm/TotalWorks";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/config/featureFlagConfig' or... Remove this comment to see the full error message
 import featureFlagConfig from "~/config/featureFlagConfig";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/config/appConfig' or its cor... Remove this comment to see the full error message
-import config from '~/config/appConfig';
+import config from "~/config/appConfig";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/constants/fields' or its... Remove this comment to see the full error message
 import { searchFields } from "~/src/constants/fields";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/SearchForm/Se... Remove this comment to see the full error message
@@ -44,13 +44,11 @@ import Filters from "~/src/components/SearchResults/Filters";
 import ResultsList from "~/src/components/SearchResults/ResultsList";
 // import SearchPagination from "~/src/components/SearchResults/SearchPagination";
 
-const isValidSearchQuery = (query: any) => !!query && !isEmpty(query) && !!query.queries && !isEmpty(query.queries);
+const isValidSearchQuery = (query: any) =>
+  !!query && !isEmpty(query) && !!query.queries && !isEmpty(query.queries);
 
 const loadSearch = (props: any, context: any) => {
-  const {
-    dispatch,
-    searchQuery,
-  } = props;
+  const { dispatch, searchQuery } = props;
 
   const query = Router.query;
 
@@ -94,20 +92,21 @@ export const submit = (query: any, router: any) => {
 };
 
 type OwnSearchResultsPageProps = {
-    searchResults?: {
-        [key: string]: any;
-    };
-    searchQuery?: searchQueryPropTypes;
-    dispatch?: (...args: any[]) => any;
-    eReaderUrl?: string;
-    location?: {
-        [key: string]: any;
-    };
+  searchResults?: {
+    [key: string]: any;
+  };
+  searchQuery?: searchQueryPropTypes;
+  dispatch?: (...args: any[]) => any;
+  eReaderUrl?: string;
+  location?: {
+    [key: string]: any;
+  };
 };
 
 type SearchResultsPageState = any;
 
-type SearchResultsPageProps = OwnSearchResultsPageProps & typeof SearchResultsPage.defaultProps;
+type SearchResultsPageProps = OwnSearchResultsPageProps &
+  typeof SearchResultsPage.defaultProps;
 
 /**
  * Container class providing the Redux action creators
@@ -117,18 +116,21 @@ type SearchResultsPageProps = OwnSearchResultsPageProps & typeof SearchResultsPa
  * Accessibility Note: Creates the <main> element for all
  * search pages with the corresponding <h1>.
  */
-class SearchResultsPage extends React.Component<SearchResultsPageProps, SearchResultsPageState> {
+class SearchResultsPage extends React.Component<
+  SearchResultsPageProps,
+  SearchResultsPageState
+> {
   static defaultProps = {
-      searchResults: {},
-      searchQuery: {},
-      dispatch: () => { },
-      eReaderUrl: "",
-      location: {},
+    searchResults: {},
+    searchQuery: {},
+    dispatch: () => {},
+    eReaderUrl: "",
+    location: {},
   };
 
   static contextTypes = {
-      router: PropTypes.objectOf(PropTypes.any),
-      history: PropTypes.objectOf(PropTypes.any),
+    router: PropTypes.objectOf(PropTypes.any),
+    history: PropTypes.objectOf(PropTypes.any),
   };
 
   boundActions: any;
@@ -227,7 +229,9 @@ class SearchResultsPage extends React.Component<SearchResultsPageProps, SearchRe
       filterCount = searchQuery.filters.length;
 
       // "Show All" doesn't appear in Filters array, but counts as a filter when checked, and doesn't count when unchecked;
-      if (searchQuery.filters.find((filter: any) => filter.field === "show_all")) {
+      if (
+        searchQuery.filters.find((filter: any) => filter.field === "show_all")
+      ) {
         filterCount -= 1;
       } else {
         filterCount += 1;
@@ -245,7 +249,6 @@ class SearchResultsPage extends React.Component<SearchResultsPageProps, SearchRe
     }
 
     const itemCount = (
-      // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
       <DS.Heading level={2} id="page-title-heading" blockName="page-title">
         {numberOfWorks > 0
           ? `Viewing ${firstElement.toLocaleString()} - ${lastElement.toLocaleString()} of ${numberOfWorks.toLocaleString()} items`
@@ -253,9 +256,7 @@ class SearchResultsPage extends React.Component<SearchResultsPageProps, SearchRe
       </DS.Heading>
     );
     const mobileItemCount = (
-      // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
       <DS.Heading level={2} id="page-title-heading" blockName="page-title">
-        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
         <>
           {numberOfWorks > 0
             ? `${numberOfWorks.toLocaleString()} items`
@@ -291,39 +292,30 @@ class SearchResultsPage extends React.Component<SearchResultsPageProps, SearchRe
         submit(newQuery, router);
       }
     };
-    
+
     return (
-      // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
       <div className="layout-container">
-        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
         <main id="mainContent" className="main main--with-sidebar">
-          {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
           <div className="content-header">
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
             <Breadcrumbs location={Router.pathname} />
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
             <div aria-label="Digital Research Books Beta">
               {searchQuery && (
-                // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                 <>
-                  {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                   <SearchHeader initialQuery={this.props.searchQuery} />
                   {
                     // eslint-disable-next-line no-underscore-dangle
                     FeatureFlags.store._isFeatureActive(
                       config.booksCount.experimentName
-                    // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                     ) && <TotalWorks />
                   }
                 </>
               )}
             </div>
           </div>
-          {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
           <div className="content-top">
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
             <div className="search-heading">
-              {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
               <DS.Heading
                 level={1}
                 id="page-title-heading"
@@ -331,19 +323,17 @@ class SearchResultsPage extends React.Component<SearchResultsPageProps, SearchRe
                 text={`Search results for ${this.getDisplayItemsHeading()}`}
               />
             </div>
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
             <div className="search-navigation">
               {this.state.isMobile ? mobileItemCount : itemCount}
               {this.state.isMobile && (
-                // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                 <div className="filter-refine">
                   {filterCount !== 0 && (
-                    // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                     <span className="filter-count">
                       {filterCount} {filterCount === 1 ? "filter" : "filters"}
                     </span>
                   )}
-                  {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
                   <DS.Button
                     id="filter-button"
                     buttonType={DS.ButtonTypes.Link}
@@ -354,9 +344,7 @@ class SearchResultsPage extends React.Component<SearchResultsPageProps, SearchRe
                 </div>
               )}
               {!this.state.isMobile && (
-                // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                 <div className="search-dropdowns">
-                  {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                   <DS.Dropdown
                     dropdownId="items-per-page-select"
                     isRequired={false}
@@ -366,12 +354,13 @@ class SearchResultsPage extends React.Component<SearchResultsPageProps, SearchRe
                     selectedOption={
                       searchQuery.per_page ? searchQuery.per_page : undefined
                     }
-                    dropdownOptions={numbersPerPage.map((number: any) => number.toString()
+                    dropdownOptions={numbersPerPage.map((number: any) =>
+                      number.toString()
                     )}
                     onSelectChange={onChangePerPage}
                     onSelectBlur={onChangePerPage}
                   />
-                  {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
                   <DS.Dropdown
                     dropdownId="sort-by-select"
                     isRequired={false}
@@ -396,9 +385,7 @@ class SearchResultsPage extends React.Component<SearchResultsPageProps, SearchRe
             </div>
           </div>
           {!this.state.isMobile && (
-            // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <div className="content-secondary content-secondary--with-sidebar-left">
-              {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
               <Filters
                 data={searchResults}
                 searchQuery={searchQuery}
@@ -408,20 +395,17 @@ class SearchResultsPage extends React.Component<SearchResultsPageProps, SearchRe
               />
             </div>
           )}
-          {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
           <div className="content-primary content-primary--with-sidebar-left">
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
             <ResultsList results={works} eReaderUrl={eReaderUrl} />
-           {/*  <SearchPagination
+            {/*  <SearchPagination
               totalItems={numberOfWorks}
               searchQuery={searchQuery}
               router={router}
             />*/}
-          </div> 
+          </div>
           {this.state.isMobile && this.state.isModalOpen && (
-            // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <DS.Modal>
-              {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
               <Filters
                 toggleMenu={this.closeModal}
                 isMobile={this.state.isMobile}

@@ -1,39 +1,43 @@
-import React from 'react';
+import React from "react";
 
 type OwnProps = {
-    title?: string;
-    subTitle?: string;
-    agents?: {
-        authors?: string[];
-        editors?: string[];
-        translators?: string[];
-        illustrators?: string[];
-        publishers?: string[];
-        contributors?: string[];
-    };
-    publicationYear?: string;
-    edition?: string;
-    volume?: string;
-    sourceLink?: string;
-    isGovernmentDoc?: boolean;
+  title?: string;
+  subTitle?: string;
+  agents?: {
+    authors?: string[];
+    editors?: string[];
+    translators?: string[];
+    illustrators?: string[];
+    publishers?: string[];
+    contributors?: string[];
+  };
+  publicationYear?: string;
+  edition?: string;
+  volume?: string;
+  sourceLink?: string;
+  isGovernmentDoc?: boolean;
 };
 
 type Props = OwnProps & typeof APACitation.defaultProps;
 
-
 // This provides an APA citation as a formatted component for a specific edition of a work.
 class APACitation extends React.Component<Props> {
   static defaultProps = {
-      title: '',
-      subTitle: '',
-      agents: {
-          authors: [], editors: [], translators: [], contributors: [], publishers: [], illustrators: [],
-      },
-      publicationYear: null,
-      edition: '',
-      volume: '',
-      sourceLink: '',
-      isGovernmentDoc: false,
+    title: "",
+    subTitle: "",
+    agents: {
+      authors: [],
+      editors: [],
+      translators: [],
+      contributors: [],
+      publishers: [],
+      illustrators: [],
+    },
+    publicationYear: null,
+    edition: "",
+    volume: "",
+    sourceLink: "",
+    isGovernmentDoc: false,
   };
 
   authors: any;
@@ -55,7 +59,11 @@ class APACitation extends React.Component<Props> {
    * @returns {string} Initials for the supplied names
    */
   static getInitials(name: any) {
-    return name.trim().split(/\s+/).map((i: any) => `${i.substr(0, 1).toUpperCase()}.`).join(' ');
+    return name
+      .trim()
+      .split(/\s+/)
+      .map((i: any) => `${i.substr(0, 1).toUpperCase()}.`)
+      .join(" ");
   }
 
   // Invokes methods to format data received from props
@@ -66,28 +74,44 @@ class APACitation extends React.Component<Props> {
   // Set formatted string components to be combined into the full APA citation element
   formatCitationData() {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'subTitle' does not exist on type 'never'... Remove this comment to see the full error message
-    this.title = this.props.subTitle ? `${this.props.title}: ${this.props.subTitle}` : this.props.title;
+    this.title = this.props.subTitle
+      ? `${this.props.title}: ${this.props.subTitle}`
+      : this.props.title;
 
-    this.authors = this.formatAgentNames('authors');
+    this.authors = this.formatAgentNames("authors");
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'agents' does not exist on type 'never'.
-    const rawEditors = this.formatAgentNames('editors', this.props.agents.authors.length > 0);
+    const rawEditors = this.formatAgentNames(
+      "editors",
+      this.props.agents.authors.length > 0
+    );
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'agents' does not exist on type 'never'.
-    this.editors = `${rawEditors}, (Ed${this.props.agents.editors.length === 1 ? '.' : 's.'})`;
-    this.translators = `${this.formatAgentNames('translators', true)}, Trans.`;
-    this.illustrators = `${this.formatAgentNames('illustrators', true)}, Illus.`;
+    this.editors = `${rawEditors}, (Ed${
+      this.props.agents.editors.length === 1 ? "." : "s."
+    })`;
+    this.translators = `${this.formatAgentNames("translators", true)}, Trans.`;
+    this.illustrators = `${this.formatAgentNames(
+      "illustrators",
+      true
+    )}, Illus.`;
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'publicationYear' does not exist on type ... Remove this comment to see the full error message
-    this.pubYear = this.props.publicationYear ? ` (${this.props.publicationYear})` : '';
+    this.pubYear = this.props.publicationYear
+      ? ` (${this.props.publicationYear})`
+      : "";
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'agents' does not exist on type 'never'.
-    this.publishers = this.props.agents.publishers.join(', ');
+    this.publishers = this.props.agents.publishers.join(", ");
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'edition' does not exist on type 'never'.
-    this.edition = this.props.edition ? ` (${this.props.edition})` : '';
+    this.edition = this.props.edition ? ` (${this.props.edition})` : "";
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'volume' does not exist on type 'never'.
-    this.volume = this.props.volume ? ` (${this.props.volume})` : '';
+    this.volume = this.props.volume ? ` (${this.props.volume})` : "";
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'sourceLink' does not exist on type 'neve... Remove this comment to see the full error message
-    this.link = this.props.sourceLink ? <a href={`https://${this.props.sourceLink}`}>{this.props.sourceLink}</a> : '';
+    this.link = this.props.sourceLink ? (
+      <a href={`https://${this.props.sourceLink}`}>{this.props.sourceLink}</a>
+    ) : (
+      ""
+    );
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'isGovernmentDoc' does not exist on type ... Remove this comment to see the full error message
     this.govReportStatus = this.props.isGovernmentDoc;
@@ -101,24 +125,26 @@ class APACitation extends React.Component<Props> {
    */
   formatAgentNames(agentType: any, nameFirst = false) {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'agents' does not exist on type 'never'.
-    return this.props.agents[agentType].map((a: any) => {
-      let firstNames;
-      let lastName;
-      const cleanName = a.replace(/\(.+\)/, '');
-      if (a.indexOf(',') > -1) {
-        [lastName, firstNames] = cleanName.split(',');
-      } else {
-        firstNames = cleanName.split(/\s+/);
-        lastName = firstNames.pop();
-        firstNames = firstNames.join(' ');
-      }
-      firstNames = firstNames || '';
-      if (nameFirst) {
-        return `${APACitation.getInitials(firstNames)} ${lastName}`;
-      }
+    return this.props.agents[agentType]
+      .map((a: any) => {
+        let firstNames;
+        let lastName;
+        const cleanName = a.replace(/\(.+\)/, "");
+        if (a.indexOf(",") > -1) {
+          [lastName, firstNames] = cleanName.split(",");
+        } else {
+          firstNames = cleanName.split(/\s+/);
+          lastName = firstNames.pop();
+          firstNames = firstNames.join(" ");
+        }
+        firstNames = firstNames || "";
+        if (nameFirst) {
+          return `${APACitation.getInitials(firstNames)} ${lastName}`;
+        }
 
-      return `${lastName}, ${APACitation.getInitials(firstNames)}`;
-    }).join(', ');
+        return `${lastName}, ${APACitation.getInitials(firstNames)}`;
+      })
+      .join(", ");
   }
 
   /**
@@ -131,20 +157,19 @@ class APACitation extends React.Component<Props> {
    * @returns {object} Element to be displayed
    */
   returnGovernmentReport() {
-    let responsibilityStatement = '';
+    let responsibilityStatement = "";
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'agents' does not exist on type 'never'.
     if (this.props.agents.authors.length > 0) {
       responsibilityStatement = this.authors;
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'agents' does not exist on type 'never'.
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'agents' does not exist on type 'never'.
     } else if (this.props.agents.editors.length > 0) {
       responsibilityStatement = this.editors;
     }
 
     return (
-      // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
       <>
         {`${responsibilityStatement}${this.pubYear}. `}
-        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
         <em>{`${this.title} `}</em>
         {`${this.publishers}. `}
         {this.link}
@@ -167,7 +192,7 @@ class APACitation extends React.Component<Props> {
    * @returns {object} Formatted element to be displayed
    */
   returnMonographCitation(addVolume = false) {
-    let responsibilityStatement = '';
+    let responsibilityStatement = "";
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'agents' does not exist on type 'never'.
     if (this.props.agents.authors.length > 0) {
       responsibilityStatement = this.authors;
@@ -175,29 +200,31 @@ class APACitation extends React.Component<Props> {
       if (this.props.agents.editors.length > 0) {
         this.edition = `${this.edition} (${this.editors}).`;
       }
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'agents' does not exist on type 'never'.
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'agents' does not exist on type 'never'.
     } else if (this.props.agents.editors.length > 0) {
       responsibilityStatement = this.editors;
     }
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'agents' does not exist on type 'never'.
-    if (this.props.agents.illustrators.length > 0 && this.props.agents.translators.length > 0) {
+    if (
+      this.props.agents.illustrators.length > 0 &&
+      this.props.agents.translators.length > 0
+    ) {
       this.title = `${this.title} (${this.illustrators}, ${this.translators})`;
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'agents' does not exist on type 'never'.
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'agents' does not exist on type 'never'.
     } else if (this.props.agents.illustrators.length > 0) {
       this.title = `${this.title} (${this.illustators})`;
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'agents' does not exist on type 'never'.
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'agents' does not exist on type 'never'.
     } else if (this.props.agents.translators.length > 0) {
       this.title = `${this.title} (${this.translators})`;
     }
 
     return (
-      // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
       <>
         {`${responsibilityStatement}${this.pubYear}. `}
-        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
         <em>{`${this.title}`}</em>
-        {`${addVolume ? this.volume : ''}`}
+        {`${addVolume ? this.volume : ""}`}
         {`${this.edition} `}
         {`${this.publishers}. `}
         {this.link}
@@ -207,13 +234,11 @@ class APACitation extends React.Component<Props> {
 
   // Returns appropriate APA citation version
   render() {
-    const volumeData = this.volume !== '';
+    const volumeData = this.volume !== "";
     return (
-      // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
       <div className="apa-citation">
-        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
         <strong>APA</strong>
-        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
         <br />
         {this.govReportStatus && this.returnGovernmentReport()}
         {!this.govReportStatus && this.returnMonographCitation(volumeData)}

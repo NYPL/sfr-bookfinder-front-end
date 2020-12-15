@@ -1,23 +1,22 @@
-import React from 'react';
-import { bindActionCreators } from 'redux';
+import React from "react";
+import { bindActionCreators } from "redux";
 // @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
-import { connect } from 'react-redux';
-import * as searchActions from '../../actions/SearchActions';
+import { connect } from "react-redux";
+import * as searchActions from "../../actions/SearchActions";
 
 type OwnTotalWorksProps = {
-    totalWorks?: {
-        [key: string]: any;
-    };
-    dispatch?: (...args: any[]) => any;
+  totalWorks?: {
+    [key: string]: any;
+  };
+  dispatch?: (...args: any[]) => any;
 };
 
 type TotalWorksProps = OwnTotalWorksProps & typeof TotalWorks.defaultProps;
 
-
 class TotalWorks extends React.Component<TotalWorksProps> {
   static defaultProps = {
-      totalWorks: { data: { counts: { works: 0 } } },
-      dispatch: () => { },
+    totalWorks: { data: { counts: { works: 0 } } },
+    dispatch: () => {},
   };
 
   boundActions: any;
@@ -41,22 +40,16 @@ class TotalWorks extends React.Component<TotalWorksProps> {
     const { totalWorks } = this.props;
 
     return (
-      // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
       <div>
         {totalWorks && (
-          // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-          <span>
-            Total number of works:
-            {' '}
-            {totalWorks.data.counts.works}
-          </span>
+          <span>Total number of works: {totalWorks.data.counts.works}</span>
         )}
       </div>
     );
   }
 }
 const mapStateToProps = (state: any) => ({
-  totalWorks: state.totalWorks
+  totalWorks: state.totalWorks,
 });
 
 export default connect(mapStateToProps, null)(TotalWorks);
