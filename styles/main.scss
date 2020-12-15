@@ -1,0 +1,229 @@
+/**
+ * Import style from NYPL's global footer.
+ */
+@import '~@nypl/dgx-react-footer/dist/styles/styles';
+
+/**
+ * Import style rules for US.gov Web Design System.
+ */
+@import './core/rnw_variables';
+// @import '~uswds/src/stylesheets/uswds';
+
+/**
+* Import font
+*/
+@import '~system-font-css/system-font';
+
+$nypl-dark-blue: #135772;
+$fontFamily: 'system-ui';
+
+/** Import Design System Styles */
+@import '~@nypl/design-system-react-components/dist/styles.css';
+
+/**
+ * Import custom rules for this project.
+ */
+
+@import './mixins/Mixins.scss';
+@import './components/Search.scss';
+@import './components/SearchResults.scss';
+@import './components/WorkDetail.scss';
+@import './components/EBookViewer.scss';
+@import './components/DefinitionList.scss';
+@import './components/Loading.scss';
+@import './components/Filters.scss';
+@import './components/AdvancedSearch.scss';
+@import './components/Feedback.scss';
+@import './components/RequestDigitization.scss';
+@import './components/Citations.scss';
+
+html {
+  font-family: $fontFamily;
+  height: 100%;
+}
+body {
+  height: 100%;
+}
+
+#app {
+  margin: 0;
+  height: 100%;
+}
+
+.nypl-header-img {
+  background: url('./img/header.png') no-repeat center;
+  border-bottom: 2px solid #d0343a;
+
+  @media screen and (min-width: 1024px) {
+    min-height: 230px;
+  }
+
+  @media screen and (max-width: 1024px) {
+    background: url('./img/header-md.png') no-repeat center;
+    min-height: 180px;
+  }
+
+  @media screen and (max-width: 520px) {
+    background: url('./img/header-sm.png') no-repeat center;
+    min-height: 70px;
+  }
+}
+
+.main-content {
+  margin: 0 auto;
+  width: 100%;
+  min-height: 400px;
+  max-width: 1332px;
+  .sfr-main {
+    max-width: 1332px;
+  }
+}
+
+.nypl-page-header {
+  background-color: white;
+}
+.nypl-full-width-wrapper {
+  max-width: 1332px;
+  margin: 0 auto;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.footer {
+  box-sizing: content-box;
+  .footerLinks {
+    a {
+      color: #fff;
+    }
+  }
+}
+
+.app-wrapper {
+  height: 100%
+}
+
+.sfr-header-wrapper {
+  // max-width: 840px;
+  // width: 100%;
+  margin: 0 auto;
+}
+
+.visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.usa-form {
+  a {
+    text-decoration: none;
+    &:hover {
+      color: #005ea2;
+    }
+  }
+}
+
+
+select {
+  position: relative;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.grid-col {
+  flex: 1;
+}
+
+@-ms-viewport {
+  width: device-width;
+}
+
+.usa-form {
+  @media (min-width: 30em) {
+    max-width: inherit;
+  }
+}
+.usa-select {
+  &.multiple {
+    height: inherit;
+  }
+}
+
+.header {
+  .emailSubscription-wrapper {
+    box-sizing: content-box;
+  }
+}
+
+.apology-message {
+  @media screen and (min-width: 520px) {
+    display: none;
+  }
+
+  @media screen and (max-width: 520px) {
+    background-color: #e0e0e0;
+  }
+}
+
+.filter-count::after {
+    content: "|";
+    padding: 0 0.2em
+}
+
+//DS Overrides: 
+
+.main-promo {
+  // This is DS's Breakout mixin
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  padding-left:  calc(-50vw + 50%);
+  padding-right: calc(-50vw + 50%);
+}
+
+.main-promo-text, .search-examples, .header-with-image-right__text {
+  display: block;
+  max-width: 1280px;
+  min-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.search-examples {
+  padding: 1rem;
+}
+
+.content-top, .content-primary {
+  padding: 0 1rem;
+}
+
+.dropdown {
+  margin-right: 10px;
+}
+
+.iconlink-list {
+  margin-top: 0.5em;
+}
+
+.search-result-item {
+  .edition-card {
+    background-color: #fff;
+    .edition-card__card-image {
+      background-color: #fff;
+    }
+  }
+}
+
+h2#featured-edition {
+  margin-top: 0.75em;
+}
+
+.page-title__heading {
+  flex: 1 1 0;
+}

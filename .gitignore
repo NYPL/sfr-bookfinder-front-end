@@ -1,10 +1,12 @@
 dist
 node_modules
 npm-debug.log
+.next
 .DS_STORE
 .nyc_output
 coverage
 .env
+build
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
