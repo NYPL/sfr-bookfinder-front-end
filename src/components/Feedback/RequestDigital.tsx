@@ -1,7 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import FocusTrap from 'focus-trap-react';
 
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/config/appConfig' or its cor... Remove this comment to see the full error message
 import appConfig from '~/config/appConfig';
 
 const initialState = {
@@ -9,8 +9,31 @@ const initialState = {
   needsSpecific: null,
 };
 
-class RequestDigital extends React.Component {
-  constructor(props) {
+type OwnProps = {
+    requestedWork?: {
+        [key: string]: any;
+    };
+    requestedEdition?: {
+        [key: string]: any;
+    };
+    closeForm?: (...args: any[]) => any;
+};
+
+type State = any;
+
+type Props = OwnProps & typeof RequestDigital.defaultProps;
+
+class RequestDigital extends React.Component<Props, State> {
+  static defaultProps = {
+      requestedWork: {},
+      requestedEdition: {},
+      closeForm: () => { },
+  };
+
+  feedbackField: any;
+  handleRadioChange: any;
+
+  constructor(props: Props) {
     super(props);
     this.feedbackField = React.createRef();
     this.state = initialState;
@@ -21,7 +44,7 @@ class RequestDigital extends React.Component {
     this.handleRadioChange = this.handleCheckboxClick.bind(this);
   }
 
-  onSubmitForm(e) {
+  onSubmitForm(e: any) {
     e.preventDefault();
 
     this.sendFeedback();
@@ -48,16 +71,17 @@ class RequestDigital extends React.Component {
     this.props.closeForm();
   }
 
-  handleFeedbackChange(e) {
+  handleFeedbackChange(e: any) {
     this.setState({ comments: e.target.value });
   }
 
-  handleCheckboxClick(e) {
+  handleCheckboxClick(e: any) {
     this.setState({ needsSpecific: e.target.checked.toString() });
   }
 
   render() {
     return (
+      // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
       <FocusTrap
         focusTrapOptions={{
           onDeactivate: this.props.closeForm,
@@ -65,25 +89,34 @@ class RequestDigital extends React.Component {
         }}
         active
       >
+        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
         <div
           id="request-digitization"
           className="request-form-container"
         >
+          {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
           <form onSubmit={e => this.onSubmitForm(e)}>
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
             <span>
     You are requesting a
               {' '}
+              {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
               <strong>
                 {this.props.requestedEdition.publication_date}
               </strong>
               {' '}
             edition of
               {' '}
+              {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
               <strong>{this.props.requestedWork.title}</strong>
             </span>
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
             <div>
+              {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
               <label id="sfr-request-specific"> Do you need this specific edition? </label>
+              {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
               <div>
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                 <input
                   type="checkbox"
                   className="sfr-feedback-checkbox"
@@ -91,6 +124,7 @@ class RequestDigital extends React.Component {
                   name="specificEdition"
                   onChange={e => this.handleCheckboxClick(e)}
                 />
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                 <label
                   htmlFor="sfr-feedback-found-yes"
                   className="sfr-radio-label"
@@ -99,17 +133,23 @@ class RequestDigital extends React.Component {
                 </label>
               </div>
             </div>
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
             <div>
+              {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
               <label htmlFor="request-digital-textarea-comment">
                     Comments
               </label>
+              {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
               <br />
+              {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
               <textarea
                 id="request-digital-textarea-comment"
                 className="feedback-input"
                 name="sfr-request-digital-comments"
+                // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number | ... Remove this comment to see the full error message
                 rows="5"
                 aria-required="false"
+                // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number | ... Remove this comment to see the full error message
                 tabIndex="0"
                 ref={(textarea) => { this.feedbackField = textarea; }}
                 value={this.state.comments}
@@ -117,6 +157,7 @@ class RequestDigital extends React.Component {
               />
             </div>
 
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
             <button
               type="button"
               className="cancel-button"
@@ -126,6 +167,7 @@ class RequestDigital extends React.Component {
                 Cancel
             </button>
 
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
             <button
               className="sfr-submit-feedback-button"
               type="submit"
@@ -138,17 +180,5 @@ class RequestDigital extends React.Component {
     );
   }
 }
-
-RequestDigital.propTypes = {
-  requestedWork: PropTypes.objectOf(PropTypes.any),
-  requestedEdition: PropTypes.objectOf(PropTypes.any),
-  closeForm: PropTypes.func,
-};
-
-RequestDigital.defaultProps = {
-  requestedWork: {},
-  requestedEdition: {},
-  closeForm: () => { },
-};
 
 export default RequestDigital;

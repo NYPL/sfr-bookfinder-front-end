@@ -1,11 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import * as DS from '@nypl/design-system-react-components';
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '.~/src/stores/InitialState' or... Remove this comment to see the full error message
 import { initialSearchQuery, searchQueryPropTypes } from '.~/src/stores/InitialState';
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/util/searchQuery' or its... Remove this comment to see the full error message
 import { getQueryString } from '~/src/util/searchQuery';
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/util/Util' or its corres... Remove this comment to see the full error message
 import { getNumberOfPages } from '~/src/util/Util';
 
-const getPageList = (totalPages) => {
+const getPageList = (totalPages: any) => {
   const pageList = [];
   for (let i = 1; i <= totalPages; i += 1) {
     const currentPage = `${i.toLocaleString()} of ${totalPages.toLocaleString()}`;
@@ -14,19 +16,30 @@ const getPageList = (totalPages) => {
   return pageList;
 };
 
-const SearchPagination = ({
-  totalItems, searchQuery, userQuery, router,
-}) => {
+type OwnSearchPaginationProps = {
+    totalItems?: number;
+    searchQuery?: searchQueryPropTypes;
+    userQuery?: (...args: any[]) => any;
+    router?: {
+        [key: string]: any;
+    };
+};
+
+// @ts-expect-error ts-migrate(2456) FIXME: Type alias 'SearchPaginationProps' circularly refe... Remove this comment to see the full error message
+type SearchPaginationProps = OwnSearchPaginationProps & typeof SearchPagination.defaultProps;
+
+// @ts-expect-error ts-migrate(7022) FIXME: 'SearchPagination' implicitly has type 'any' becau... Remove this comment to see the full error message
+const SearchPagination = ({ totalItems, searchQuery, userQuery, router, }: SearchPaginationProps) => {
   const totalPages = getNumberOfPages(totalItems, searchQuery.per_page);
   const pageList = getPageList(totalPages);
   // redirect to url with query params
-  const submit = (query) => {
+  const submit = (query: any) => {
     const path = `/search?${getQueryString(query)}`;
     router.push(path);
   };
 
   // update page in store and go to any page
-  const goToPage = (newPageNumber) => {
+  const goToPage = (newPageNumber: any) => {
     const perPage = searchQuery.per_page || initialSearchQuery.per_page;
     if (Number(searchQuery.page) === newPageNumber) {
       return;
@@ -37,7 +50,7 @@ const SearchPagination = ({
   };
 
   // click and navigate to any page number
-  const navigateToPage = (e, pageNumber) => {
+  const navigateToPage = (e: any, pageNumber: any) => {
     e.preventDefault();
     e.stopPropagation();
     let page = pageNumber;
@@ -51,12 +64,13 @@ const SearchPagination = ({
   };
 
   // update page in store when select of pages change
-  const onChangePage = (e) => {
+  const onChangePage = (e: any) => {
     const pageIndex = pageList.findIndex(pageValue => pageValue === e.target.value);
     goToPage(pageIndex);
   };
 
   return (
+    // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
     <DS.Pagination
       paginationDropdownOptions={pageList}
       previousPageHandler={e => navigateToPage(e, Number(searchQuery.page) - 1)}
@@ -66,13 +80,6 @@ const SearchPagination = ({
       onSelectBlur={onChangePage}
     />
   );
-};
-
-SearchPagination.propTypes = {
-  totalItems: PropTypes.number,
-  searchQuery: searchQueryPropTypes,
-  userQuery: PropTypes.func,
-  router: PropTypes.objectOf(PropTypes.any),
 };
 
 SearchPagination.defaultProps = {

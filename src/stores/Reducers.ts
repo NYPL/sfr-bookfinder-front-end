@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import { Actions } from '../actions/SearchActions';
 import initialState from './InitialState';
 
-export const errorMsg = (state = null, action) => {
+export const errorMsg = (state = null, action: any) => {
   switch (action.type) {
     case Actions.ERRORMSG:
       return action.errorMsg;
@@ -11,7 +11,7 @@ export const errorMsg = (state = null, action) => {
   }
 };
 
-export const loading = (state = null, action) => {
+export const loading = (state = null, action: any) => {
   switch (action.type) {
     case Actions.LOADING:
       return action.loading;
@@ -20,7 +20,7 @@ export const loading = (state = null, action) => {
   }
 };
 
-export const searchResults = (state = null, action) => {
+export const searchResults = (state = null, action: any) => {
   switch (action.type) {
     case Actions.SEARCH:
       return {
@@ -31,7 +31,7 @@ export const searchResults = (state = null, action) => {
   }
 };
 
-export const workResult = (state = null, action) => {
+export const workResult = (state = null, action: any) => {
   switch (action.type) {
     case Actions.FETCH_WORK:
       return {
@@ -42,7 +42,7 @@ export const workResult = (state = null, action) => {
   }
 };
 
-export const editionResult = (state = null, action) => {
+export const editionResult = (state = null, action: any) => {
   switch (action.type) {
     case Actions.FETCH_EDITION:
       return {
@@ -53,22 +53,23 @@ export const editionResult = (state = null, action) => {
   }
 };
 
-export const searchQuery = (state = null, action) => {
+export const searchQuery = (state = null, action: any) => {
   if (action.type === Actions.SET_QUERY) {
     return action.searchQuery;
   }
   return state;
 };
 
-export const totalWorks = (state = null, action) => {
+export const totalWorks = (state = null, action: any) => {
   if (action.type === Actions.GET_TOTAL_WORKS) {
     return action.total;
   }
   return state;
 };
 
-export const sort = (state = null, action) => (action.sort ? action.sort : state);
+export const sort = (state = null, action: any) => (action.sort ? action.sort : state);
 
+// @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
 const appReducer = combineReducers({
   searchResults,
   searchQuery,
@@ -80,7 +81,7 @@ const appReducer = combineReducers({
   errorMsg,
 });
 
-export const rootReducer = (state, action) => {
+export const rootReducer = (state: any, action: any) => {
   if (action.type === Actions.RESET_SEARCH) {
     // Reset everything except total books
     return Object.assign({}, initialState, {

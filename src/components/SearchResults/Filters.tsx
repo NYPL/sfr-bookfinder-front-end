@@ -1,16 +1,50 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import * as DS from '@nypl/design-system-react-components';
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/stores/InitialState' or ... Remove this comment to see the full error message
 import { initialSearchQuery, searchQueryPropTypes } from '~/src/stores/InitialState';
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/util/SearchQuery' or its... Remove this comment to see the full error message
 import { getQueryString } from '~/src/util/SearchQuery';
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/constants/labels' or its... Remove this comment to see the full error message
 import { filtersLabels, formatTypes, errorMessagesText } from '~/src/constants/labels';
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/actions/SearchActions' o... Remove this comment to see the full error message
 import * as searchActions from '~/src/actions/SearchActions';
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/constants/sorts' or its ... Remove this comment to see the full error message
 import { sortMap, numbersPerPage } from '~/src/constants/sorts';
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/util/Util' or its corres... Remove this comment to see the full error message
 import { deepEqual } from '~/src/util/Util';
 import Router from 'next/router'
 
-class Filters extends React.Component {
-  constructor(props) {
+type OwnProps = {
+    toggleMenu?: (...args: any[]) => any;
+    isMobile?: boolean;
+    data?: {
+        [key: string]: any;
+    };
+    searchQuery?: searchQueryPropTypes;
+    router?: {
+        [key: string]: any;
+    };
+    onChangeSort?: (...args: any[]) => any;
+    onChangePerPage?: (...args: any[]) => any;
+};
+
+type State = any;
+
+type Props = OwnProps & typeof Filters.defaultProps;
+
+class Filters extends React.Component<Props, State> {
+
+static defaultProps = {
+    toggleMenu: () => { },
+    isMobile: false,
+    data: {},
+    searchQuery: initialSearchQuery,
+    router: {},
+    onChangeSort: () => { },
+    onChangePerPage: () => { },
+};
+
+  constructor(props: Props) {
     super(props);
     this.state = {
       errorMsg: '', error: false, filtersArray: [], yearStart: '', yearEnd: '',
@@ -28,8 +62,8 @@ class Filters extends React.Component {
 
   componentDidMount() {
     const filters = this.props.searchQuery && this.props.searchQuery.filters;
-    const filtersWithoutYear = filters ? filters.filter(fil => fil.field !== 'years') : [];
-    const yearFilter = filters ? filters.find(fil => fil.field === 'years') : null;
+    const filtersWithoutYear = filters ? filters.filter((fil: any) => fil.field !== 'years') : [];
+    const yearFilter = filters ? filters.find((fil: any) => fil.field === 'years') : null;
     this.setState({ filtersArray: filtersWithoutYear });
     if (yearFilter) {
       this.setState({ yearStart: yearFilter.value.start });
@@ -37,7 +71,7 @@ class Filters extends React.Component {
     }
   }
 
-  onChangeYear(e, yearType) {
+  onChangeYear(e: any, yearType: any) {
     const val = e.target.value && Number(e.target.value);
     if (yearType === 'start') {
       this.setState({ yearStart: val });
@@ -47,32 +81,38 @@ class Filters extends React.Component {
   }
 
   // on check of filter, add it or remove it from list and do the search
-  onChangeCheckbox(e, field, value, negative) {
+  onChangeCheckbox(e: any, field: any, value: any, negative: any) {
     if (this.state.error) {
       return;
     }
 
-    const matchIndex = this.state.filtersArray.findIndex(filter => filter.field === field && filter.value === value);
+    const matchIndex = this.state.filtersArray.findIndex((filter: any) => filter.field === field && filter.value === value);
     if (negative) {
       if (!e.target.checked && matchIndex === -1) {
-        this.setState(prevState => ({ filtersArray: [...prevState.filtersArray, { field, value }] }),
+        this.setState((prevState: any) => ({
+          filtersArray: [...prevState.filtersArray, { field, value }]
+        }),
           () => this.doSearchWithFilters());
       } else if (matchIndex > -1) {
-        this.setState(prevState => ({
-          filtersArray: prevState.filtersArray.filter(fil => !(fil.field === field && fil.value === value)),
+        this.setState((prevState: any) => ({
+          filtersArray: prevState.filtersArray.filter((fil: any) => !(fil.field === field && fil.value === value))
         }),
         () => this.doSearchWithFilters());
       }
     } else if (e.target.checked && matchIndex === -1) {
-      this.setState(prevState => ({ filtersArray: [...prevState.filtersArray, { field, value }] }),
+      this.setState((prevState: any) => ({
+        filtersArray: [...prevState.filtersArray, { field, value }]
+      }),
         () => this.doSearchWithFilters());
     } else if (matchIndex > -1) {
-      this.setState(prevState => ({ filtersArray: prevState.filtersArray.filter(fil => !(fil.field === field && fil.value === value)) }),
+      this.setState((prevState: any) => ({
+        filtersArray: prevState.filtersArray.filter((fil: any) => !(fil.field === field && fil.value === value))
+      }),
         () => this.doSearchWithFilters());
     }
   }
 
-  onSubmit(e, toggleMenu, allowEmpty) {
+  onSubmit(e: any, toggleMenu: any, allowEmpty: any) {
     e.preventDefault();
     e.stopPropagation();
 
@@ -90,15 +130,15 @@ class Filters extends React.Component {
     }
   }
 
-  onErrorYears(errorObj) {
+  onErrorYears(errorObj: any) {
     this.setState({ error: errorObj.error, errorMsg: errorObj.errorMsg });
   }
 
   // join current data filters with filters from previous search
-  joinFacetsAndsearch(facets, field) {
-    const missingFacets = [];
-    this.state.filtersArray.forEach((previousFilter) => {
-      const filterFound = facets.find(facet => facet.value === previousFilter.value && previousFilter.field === field);
+  joinFacetsAndsearch(facets: any, field: any) {
+    const missingFacets: any = [];
+    this.state.filtersArray.forEach((previousFilter: any) => {
+      const filterFound = facets.find((facet: any) => facet.value === previousFilter.value && previousFilter.field === field);
       if (!filterFound && previousFilter.field === field) {
         missingFacets.push({ value: previousFilter.value, count: 0 });
       }
@@ -107,7 +147,7 @@ class Filters extends React.Component {
   }
 
   // redirect to url with query params
-  submit(query) {
+  submit(query: any) {
     const path = `/search?${getQueryString(query)}`;
     Router.push(path);
   }
@@ -132,18 +172,18 @@ class Filters extends React.Component {
   }
 
   // see if filter is checked in previous search
-  isFilterChecked(field, value) {
+  isFilterChecked(field: any, value: any) {
     let filterFound;
     if (this.state.filtersArray) {
-      filterFound = this.state.filtersArray.find(filter => filter.field === field && filter.value === value);
+      filterFound = this.state.filtersArray.find((filter: any) => filter.field === field && filter.value === value);
     }
     return !!filterFound;
   }
 
   // sort filters by: included in search, then count, then alphabetically
-  prepareFilters(facets, field) {
+  prepareFilters(facets: any, field: any) {
     return this.joinFacetsAndsearch(facets, field)
-      .sort((a, b) => {
+      .sort((a: any, b: any) => {
         if (!this.isFilterChecked(field, a.value) && this.isFilterChecked(field, b.value)) {
           return 1;
         }
@@ -160,9 +200,9 @@ class Filters extends React.Component {
       });
   }
 
-  searchContains(field) {
+  searchContains(field: any) {
     return this.props.searchQuery && this.props.searchQuery.filters
-      && this.props.searchQuery.filters.find(filter => filter.field === field);
+      && this.props.searchQuery.filters.find((filter: any) => filter.field === field);
   }
 
   render() {
@@ -174,7 +214,9 @@ class Filters extends React.Component {
 
     const filtersHeader = isMobile
       ? (
+        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <div className="search-navigation">
+          {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
           <DS.Button
             id="gobackButton"
             type="button"
@@ -186,8 +228,10 @@ class Filters extends React.Component {
             iconDecorative
             callback={event => this.onSubmit(event, toggleMenu, true)}
           >
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
             <span>Go Back</span>
           </DS.Button>
+          {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
           <DS.Button
             id="closeButton"
             type="submit"
@@ -197,6 +241,7 @@ class Filters extends React.Component {
           </DS.Button>
         </div>
       ) : (
+        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <DS.Heading
           level={2}
           id="filter-desktop-header"
@@ -206,40 +251,46 @@ class Filters extends React.Component {
       );
 
     const languageList = (
+      // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
       <DS.UnorderedList
         id="checkbox-list"
+        // @ts-expect-error ts-migrate(2322) FIXME: Type 'string[] | null' is not assignable to type '... Remove this comment to see the full error message
         modifiers={isMobile ? null : ['scroll']}
       >
-        {data.facets && this.prepareFilters(data.facets.language, 'language').map(facet => (
-          <DS.Checkbox
-            className="checkbox"
-            labelClass="checkbox__label"
-            inputClass="checkbox__input"
-            checkboxId={`filters-${'language'}-${facet.value}`}
-            isSelected={this.isFilterChecked('language', facet.value)}
-            onChange={e => this.onChangeCheckbox(e, 'language', facet.value, false)}
-            labelOptions={{
-              id: `filters-${'language'}-${facet.value}-label`,
-              labelContent: <>
-                {facet.count > 0
-                  ? `${facet.value} (${facet.count.toLocaleString()})` : `${facet.value}`}
-              </>,
-            }}
-            name={`filters.${'language'}`}
-            key={`filters-${'language'}-${facet.value}`}
-          />
-        ))}
+        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+        {data.facets && this.prepareFilters(data.facets.language, 'language').map((facet: any) => <DS.Checkbox
+          // @ts-expect-error ts-migrate(2322) FIXME: Type '{ className: string; labelClass: string; inp... Remove this comment to see the full error message
+          className="checkbox"
+          labelClass="checkbox__label"
+          inputClass="checkbox__input"
+          checkboxId={`filters-${'language'}-${facet.value}`}
+          isSelected={this.isFilterChecked('language', facet.value)}
+          onChange={e => this.onChangeCheckbox(e, 'language', facet.value, false)}
+          labelOptions={{
+            id: `filters-${'language'}-${facet.value}-label`,
+            // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+            labelContent: <>
+              {facet.count > 0
+                ? `${facet.value} (${facet.count.toLocaleString()})` : `${facet.value}`}
+            </>,
+          }}
+          name={`filters.${'language'}`}
+          key={`filters-${'language'}-${facet.value}`}
+        />)}
       </DS.UnorderedList>
     );
 
     if (Object.keys(filtersLabels).length > 0) {
       return (
+        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <form
           className="filters usa-form"
         >
           {filtersHeader}
           {isMobile && (
+          // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <div className="search-dropdowns__mobile">
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
             <DS.Dropdown
               dropdownId="items-per-page-select"
               isRequired={false}
@@ -247,10 +298,11 @@ class Filters extends React.Component {
               labelText="Items Per Page"
               labelId="nav-items-per-page"
               selectedOption={searchQuery.per_page ? searchQuery.per_page : undefined}
-              dropdownOptions={numbersPerPage.map(number => number.toString())}
+              dropdownOptions={numbersPerPage.map((number: any) => number.toString())}
               onSelectChange={onChangePerPage}
               onSelectBlur={onChangePerPage}
             />
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
             <DS.Dropdown
               dropdownId="sort-by-select"
               isRequired={false}
@@ -266,43 +318,57 @@ class Filters extends React.Component {
           </div>
           )}
           {Object.keys(filtersLabels).map(field => (
+            // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <fieldset
               key={field}
               className="filters-box usa-fieldset"
             >
               {field === 'years' && (
+                // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                 <DS.DateRangeForm
+                  // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                   formLabel={<legend className="filters-box-header">{filtersLabels[field]}</legend>}
 
+                  // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                   fromLabelOpts={{ labelContent: <>From</>, id: 'FromLabel' }}
                   fromInputOpts={{
                     inputId: 'fromInput', inputValue: start, onInputChange: event => this.onChangeYear(event, 'start'),
                   }}
+                  // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                   fromHelper={{ content: <>EX. 1901</>, id: 'fromyearhelper', isError: false }}
 
+                  // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                   toLabelOpts={{ labelContent: <>To</>, id: 'ToLabel' }}
                   toInputOpts={{ inputId: 'toInput', inputValue: end, onInputChange: event => this.onChangeYear(event, 'end') }}
+                  // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                   toHelper={{ content: <>EX. 2000</>, id: 'toYearHelper', isError: false }}
 
                   showError={this.state.error}
+                  // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                   error={{ content: <div>{this.state.errorMsg}</div>, id: 'date-range-error', isError: true }}
 
+                  // @ts-expect-error ts-migrate(2322) FIXME: Type '{ id: string; callback: (event: MouseEvent<E... Remove this comment to see the full error message
                   buttonOpts={!isMobile
                     ? {
                       id: 'submitButtonId',
                       callback: event => this.onSubmit(event, toggleMenu, true),
+                      // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                       content: <>Apply</>,
                     }
                     : null}
                 />
               )}
               {field === 'show_all' && (
+                // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                 <>
+                  {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                   <legend className="filters-box-header">{filtersLabels[field]}</legend>
+                  {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                   <DS.Checkbox
                     checkboxId="show_all"
                     isSelected={!this.isFilterChecked(field, true)}
                     onChange={e => this.onChangeCheckbox(e, field, true, true)}
+                    // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                     labelOptions={{ id: 'show_all_label', labelContent: <>Available Online</> }}
                     name="show_all"
                   />
@@ -311,9 +377,13 @@ class Filters extends React.Component {
               {field === 'language'
                 && (
 
+                // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                 <>
+                  {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                   <legend className="filters-box-header">{filtersLabels[field]}</legend>
+                  {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                   <DS.Accordion
+                    // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                     buttonOptions={{ id: 'accordionBtn', content: <span>Click to expand</span> }}
                   >
                     {languageList}
@@ -323,23 +393,27 @@ class Filters extends React.Component {
               }
               {field === 'format'
                 && (
+                  // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                   <>
+                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                     <legend className="filters-box-header">{filtersLabels[field]}</legend>
-                    {formatTypes.map(formatType => (
-                      <>
-                        <DS.Checkbox
-                          className="usa-checkbox tablet:grid-col-12"
-                          labelClass="usa-checkbox__label"
-                          inputClass="usa-checkbox__input"
-                          checkboxId={`filters-${field}-${formatType.value}`}
-                          isSelected={this.isFilterChecked(field, formatType.value)}
-                          onChange={e => this.onChangeCheckbox(e, field, formatType.value, false)}
-                          labelOptions={{ id: `filters-${field}-${formatType.value}=label`, labelContent: <>{formatType.label}</> }}
-                          name={`filters.${field}`}
-                          key={`facet-${field}-${formatType.value}`}
-                        />
-                      </>
-                    ))}
+                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                    {formatTypes.map((formatType: any) => <>
+                      {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                      <DS.Checkbox
+                        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ className: string; labelClass: string; inp... Remove this comment to see the full error message
+                        className="usa-checkbox tablet:grid-col-12"
+                        labelClass="usa-checkbox__label"
+                        inputClass="usa-checkbox__input"
+                        checkboxId={`filters-${field}-${formatType.value}`}
+                        isSelected={this.isFilterChecked(field, formatType.value)}
+                        onChange={e => this.onChangeCheckbox(e, field, formatType.value, false)}
+                        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+                        labelOptions={{ id: `filters-${field}-${formatType.value}=label`, labelContent: <>{formatType.label}</> }}
+                        name={`filters.${field}`}
+                        key={`facet-${field}-${formatType.value}`}
+                      />
+                    </>)}
                   </>
                 )}
             </fieldset>
@@ -350,25 +424,5 @@ class Filters extends React.Component {
     return null;
   }
 }
-
-Filters.propTypes = {
-  toggleMenu: PropTypes.func,
-  isMobile: PropTypes.bool,
-  data: PropTypes.objectOf(PropTypes.any),
-  searchQuery: searchQueryPropTypes,
-  router: PropTypes.objectOf(PropTypes.any),
-  onChangeSort: PropTypes.func,
-  onChangePerPage: PropTypes.func,
-};
-
-Filters.defaultProps = {
-  toggleMenu: () => {},
-  isMobile: false,
-  data: {},
-  searchQuery: initialSearchQuery,
-  router: {},
-  onChangeSort: () => {},
-  onChangePerPage: () => {},
-};
 
 export default Filters;

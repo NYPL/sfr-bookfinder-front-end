@@ -1,7 +1,11 @@
 import axios from 'axios';
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/config/appConfig' or its cor... Remove this comment to see the full error message
 import appConfig from '~/config/appConfig';
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/constants/fields' or its... Remove this comment to see the full error message
 import { fields } from '~/src/constants/fields';
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/stores/InitialState' or ... Remove this comment to see the full error message
 import serverState from '~/src/stores/InitialState';
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/util/SearchQuery' or its... Remove this comment to see the full error message
 import { buildSearchQuery } from '~/src/util/SearchQuery';
 
 export const Actions = {
@@ -15,34 +19,34 @@ export const Actions = {
   ERRORMSG: 'ERRORMSG',
 };
 
-export const errorState = errorMsg => ({
+export const errorState = (errorMsg: any) => ({
   type: Actions.ERRORMSG,
-  errorMsg,
+  errorMsg
 });
 
-export const loadingState = loading => ({
+export const loadingState = (loading: any) => ({
   type: Actions.LOADING,
-  loading,
+  loading
 });
 
-export const userQuery = query => ({
+export const userQuery = (query: any) => ({
   type: Actions.SET_QUERY,
-  searchQuery: query,
+  searchQuery: query
 });
 
-export const searchResults = results => ({
+export const searchResults = (results: any) => ({
   type: Actions.SEARCH,
-  results,
+  results
 });
 
-export const workDetail = work => ({
+export const workDetail = (work: any) => ({
   type: Actions.FETCH_WORK,
-  work,
+  work
 });
 
-export const editionDetail = edition => ({
+export const editionDetail = (edition: any) => ({
   type: Actions.FETCH_EDITION,
-  edition,
+  edition
 });
 
 export const resetSearch = () => ({
@@ -50,9 +54,9 @@ export const resetSearch = () => ({
   reset: true,
 });
 
-export const totalWorks = total => ({
+export const totalWorks = (total: any) => ({
   type: Actions.GET_TOTAL_WORKS,
-  total,
+  total
 });
 
 const appEnv = process.env.APP_ENV || 'production';
@@ -64,14 +68,14 @@ const recordUrl = apiUrl + recordPath;
 const editionUrl = apiUrl + editionPath;
 const totalWorksUrl = apiUrl + totalWorksPath;
 
-export const searchPost = (query) => {
+export const searchPost = (query: any) => {
   const sField = query.field && fields[query.field];
-  let queryBody;
+  let queryBody: any;
   if (sField) {
     queryBody = buildSearchQuery(Object.assign({}, query, { field: sField }));
   }
   queryBody = buildSearchQuery(Object.assign({}, query));
-  return dispatch => axios
+  return (dispatch: any) => axios
     .post(searchUrl, queryBody)
     .then((resp) => {
       if (resp.data) {
@@ -81,15 +85,16 @@ export const searchPost = (query) => {
     })
     .catch((error) => {
       console.log('An error occurred during searchPost', error.message);
+      // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
       throw new Error('An error occurred during searchPost', error.message);
     });
 };
 
-export const detailRefinePost = (query) => {
+export const detailRefinePost = (query: any) => {
   const queryBody = Object.assign({}, query);
   queryBody.identifier = queryBody.workId;
   delete queryBody.workId;
-  return dispatch => axios
+  return (dispatch: any) => axios
     .post(recordUrl, queryBody)
     .then((resp) => {
       if (resp.data) {
@@ -98,15 +103,16 @@ export const detailRefinePost = (query) => {
     })
     .catch((error) => {
       console.log('An error occurred during detailRefinePost', error.message);
+      // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
       throw new Error('An error occurred during detailRefinePost', error.message);
     });
 };
 
-export const editionDetailRefinePost = (query) => {
+export const editionDetailRefinePost = (query: any) => {
   const queryBody = Object.assign({}, query);
   queryBody.editionIdentifier = queryBody.editionId;
   delete queryBody.editionId;
-  return dispatch => axios
+  return (dispatch: any) => axios
     .post(editionUrl, queryBody)
     .then((resp) => {
       if (resp.data) {
@@ -115,11 +121,12 @@ export const editionDetailRefinePost = (query) => {
     })
     .catch((error) => {
       console.log('An error occurred during editionDetailRefinePost', error.message);
+      // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
       throw new Error('An error occurred during editionDetailRefinePost', error.message);
     });
 };
 
-export const fetchWork = query => dispatch => axios
+export const fetchWork = (query: any) => (dispatch: any) => axios
   .get(recordUrl, { params: { identifier: query.workId, recordType: 'editions', showAll: query.showAll } })
   .then((resp) => {
     if (resp.data) {
@@ -128,10 +135,11 @@ export const fetchWork = query => dispatch => axios
   })
   .catch((error) => {
     console.log('An error occurred during fetchWork', error.message);
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
     throw new Error('An error occurred during fetchWork', error.message);
   });
 
-export const fetchTotalWorks = () => dispatch => axios
+export const fetchTotalWorks = () => (dispatch: any) => axios
   .get(totalWorksUrl)
   .then((resp) => {
     if (resp.data) {
@@ -140,10 +148,11 @@ export const fetchTotalWorks = () => dispatch => axios
   })
   .catch((error) => {
     console.log('An error occurred during fetchTotalWorks', error.message);
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
     throw new Error('An error occurred during fetchTotalWorks', error.message);
   });
 
-export const fetchEdition = query => dispatch => axios
+export const fetchEdition = (query: any) => (dispatch: any) => axios
   .get(editionUrl, { params: { editionIdentifier: query.editionId, showAll: query.showAll } })
   .then((resp) => {
     if (resp.data) {
@@ -153,10 +162,11 @@ export const fetchEdition = query => dispatch => axios
 
   .catch((error) => {
     console.log('An error occurred during fetchEdition', error.message);
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
     throw new Error('An error occurred during fetchEdition', error.message);
   });
 
-export const serverPost = (query) => {
+export const serverPost = (query: any) => {
   const sField = query.field && fields[query.field];
   let queryBody;
   if (sField) {
@@ -172,11 +182,12 @@ export const serverPost = (query) => {
     })
     .catch((error) => {
       console.log('An error occurred during serverPost', error.message);
+      // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
       throw new Error('An error occurred during serverPost', error.message);
     });
 };
 
-export const serverFetchWork = query => axios
+export const serverFetchWork = (query: any) => axios
   .get(recordUrl, { params: { identifier: query.workId, recordType: 'editions', showAll: query.showAll } })
   .then((resp) => {
     serverState.workResult = { work: resp.data };
@@ -184,10 +195,11 @@ export const serverFetchWork = query => axios
   })
   .catch((error) => {
     console.log('An error occurred during serverFetchWork', error.message);
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
     throw new Error('An error occurred during serverFetchWork', error.message);
   });
 
-export const serverFetchEdition = query => axios
+export const serverFetchEdition = (query: any) => axios
   .get(editionUrl, { params: { editionIdentifier: query.editionId, showAll: query.showAll } })
   .then((resp) => {
     serverState.editionResult = { edition: resp.data };
@@ -195,11 +207,12 @@ export const serverFetchEdition = query => axios
   })
   .catch((error) => {
     console.log('An error occurred during serverFetchEdition', error.message);
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
     throw new Error('An error occurred during serverFetchEdition', error.message);
   });
 
-export const loading = isLoading => dispatch => dispatch(loadingState(isLoading));
-export const error = errorMsg => dispatch => dispatch(errorState(errorMsg));
+export const loading = (isLoading: any) => (dispatch: any) => dispatch(loadingState(isLoading));
+export const error = (errorMsg: any) => (dispatch: any) => dispatch(errorState(errorMsg));
 
 export default {
   searchPost,

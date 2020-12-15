@@ -1,11 +1,28 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Link/Link' or... Remove this comment to see the full error message
 import Link from '~/src/components/Link/Link';
 import * as DS from '@nypl/design-system-react-components';
+// @ts-expect-error ts-migrate(6142) FIXME: Module './WithSearch' was resolved to '/Users/crys... Remove this comment to see the full error message
 import withSearch from './WithSearch';
 import { searchFields } from '../../constants/fields';
 
-const ResultsHeader = (props) => {
+type OwnProps = {
+    allowedFields?: any[];
+    currentQuery?: {
+        [key: string]: any;
+    };
+    submitSearchRequest?: (...args: any[]) => any;
+    onQueryChange?: (...args: any[]) => any;
+    onFieldChange?: (...args: any[]) => any;
+    hasError?: boolean;
+    errorMessage?: string;
+};
+
+// @ts-expect-error ts-migrate(2456) FIXME: Type alias 'Props' circularly references itself.
+type Props = OwnProps & typeof ResultsHeader.defaultProps;
+
+// @ts-expect-error ts-migrate(7022) FIXME: 'ResultsHeader' implicitly has type 'any' because ... Remove this comment to see the full error message
+const ResultsHeader = (props: Props) => {
   const currentQuery = props.currentQuery;
 
   // If using Advanced Search with multiple fields, don't prepopulate header.
@@ -27,17 +44,21 @@ const ResultsHeader = (props) => {
     }
   }
   return (
+    // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
     <DS.HeaderWithSearch
       searchButtonId="searchButtonId"
       searchBarAriaLabel="Search research catalog"
       searchValue={valueToPrepopulate}
       selectedField={fieldToPrepopulate}
       sectionTitle={(
+        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <Link
           className="search-header__rn-section-title search-header__rn-section-title--dark-background rn-section-title"
           to="/"
         >
+          {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
           <span id="research-now-title">
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
             <span className="rn-section-title__emphasis">Digital Research Books</span>
             {' '}
           Beta
@@ -45,7 +66,9 @@ const ResultsHeader = (props) => {
         </Link>
     )}
       advancedSearchElem={(
+        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <DS.Link>
+          {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
           <Link
             to="/advanced-search"
             className="text-baseline link--dark-background"
@@ -57,8 +80,11 @@ const ResultsHeader = (props) => {
       searchBarId="searchBarId"
       dropdownId="dropdownId"
       textFieldAriaLabel="Digital Research Books Beta"
+      // @ts-expect-error ts-migrate(2322) FIXME: Type '{ searchButtonId: string; searchBarAriaLabel... Remove this comment to see the full error message
       headingContent={(
+        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <span>
+          {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
           <span className="rn-section-title__emphasis">Digital Research Books</span>
           {' '}
         Beta
@@ -76,16 +102,6 @@ const ResultsHeader = (props) => {
       selectBlurHandler={props.onFieldChange}
     />
   );
-};
-
-ResultsHeader.propTypes = {
-  allowedFields: PropTypes.arrayOf(PropTypes.any),
-  currentQuery: PropTypes.objectOf(PropTypes.any),
-  submitSearchRequest: PropTypes.func,
-  onQueryChange: PropTypes.func,
-  onFieldChange: PropTypes.func,
-  hasError: PropTypes.bool,
-  errorMessage: PropTypes.string,
 };
 
 ResultsHeader.defaultProps = {

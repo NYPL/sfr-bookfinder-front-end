@@ -1,13 +1,33 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module 'change-case' or its correspond... Remove this comment to see the full error message
 import { titleCase } from 'change-case';
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/util/Util' or its corres... Remove this comment to see the full error message
 import { isEmpty } from '~/src/util/Util';
 
-const Select = ({
-  className, id, labelClass, label, selectClass, value, onChange, onBlur, options, ariaLabel, disabled, name,
-}) => (
+type OwnProps = {
+    label?: string;
+    labelClass?: string;
+    id?: string;
+    className?: string;
+    selectClass?: string;
+    options?: any[];
+    value?: string | number;
+    onChange?: (...args: any[]) => any;
+    onBlur?: (...args: any[]) => any;
+    ariaLabel?: string;
+    disabled?: boolean;
+    name?: string;
+};
+
+// @ts-expect-error ts-migrate(2456) FIXME: Type alias 'Props' circularly references itself.
+type Props = OwnProps & typeof Select.defaultProps;
+
+// @ts-expect-error ts-migrate(7022) FIXME: 'Select' implicitly has type 'any' because it does... Remove this comment to see the full error message
+const Select = ({ className, id, labelClass, label, selectClass, value, onChange, onBlur, options, ariaLabel, disabled, name, }: Props) => (
+  // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
   <div className={className}>
     {label && (
+      // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
       <label
         htmlFor={id}
         className={labelClass}
@@ -15,6 +35,7 @@ const Select = ({
         {label}
       </label>
     )}
+    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
     <select
       className={selectClass}
       id={id}
@@ -26,7 +47,8 @@ const Select = ({
       name={name}
     >
       {!isEmpty(options) ? (
-        options.map((opt, key) => (
+        options.map((opt: any, key: any) => (
+          // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <option
             key={key.toString()}
             value={opt && opt.value ? opt.value : opt}
@@ -35,6 +57,7 @@ const Select = ({
           </option>
         ))
       ) : (
+        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <option
           key="default"
           value=""
@@ -45,21 +68,6 @@ const Select = ({
     </select>
   </div>
 );
-
-Select.propTypes = {
-  label: PropTypes.string,
-  labelClass: PropTypes.string,
-  id: PropTypes.string,
-  className: PropTypes.string,
-  selectClass: PropTypes.string,
-  options: PropTypes.arrayOf(PropTypes.any),
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  onChange: PropTypes.func,
-  onBlur: PropTypes.func,
-  ariaLabel: PropTypes.string,
-  disabled: PropTypes.bool,
-  name: PropTypes.string,
-};
 
 Select.defaultProps = {
   label: 'Choice List',

@@ -7,7 +7,7 @@ export default class CitationFormatter {
    *
    * @returns {object} Metadata block that can be consumed by citation components
    */
-  static getCitationData(work, edition) {
+  static getCitationData(work: any, edition: any) {
     const contributorExclusions = ['author', 'editor', 'translator', 'illustrator', 'publisher'];
     const workAgents = work.agents || [];
     const editionAgents = edition.agents || [];
@@ -16,10 +16,14 @@ export default class CitationFormatter {
       sub_title: edition.sub_title,
       agents: {
         authors: CitationFormatter.getAgentsOfType(workAgents, 'author'),
+        // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'never'.
         editors: CitationFormatter.getAgentsOfType(workAgents, 'editor', ['author']),
+        // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'never'.
         illustrators: CitationFormatter.getAgentsOfType(workAgents, 'illustrator', ['author']),
+        // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'never'.
         translators: CitationFormatter.getAgentsOfType(workAgents, 'translator', ['author']),
         publishers: CitationFormatter.getAgentsOfType(editionAgents, 'publisher'),
+        // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'string[]' is not assignable to p... Remove this comment to see the full error message
         contributors: CitationFormatter.getAgentsOfType([...workAgents, ...editionAgents], false, contributorExclusions),
       },
       publication_year: edition.publication_date,
@@ -39,13 +43,12 @@ export default class CitationFormatter {
    *
    * @returns {array} List of agent names that had matching role but none of the excluded roles
    */
-  static getAgentsOfType(agents, includeType, excludeTypes = []) {
+  static getAgentsOfType(agents: any, includeType: any, excludeTypes = []) {
     if (!agents) { return []; }
-    const typeAgents = agents.filter(a => (
-      (!includeType || a.roles.indexOf(includeType) > -1)
-      && (excludeTypes.length === 0 || a.roles.filter(r => excludeTypes.includes(r)).length === 0)
-    ));
-    return typeAgents.map(a => a.name);
+    const typeAgents = agents.filter((a: any) => (!includeType || a.roles.indexOf(includeType) > -1)
+    // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'any' is not assignable to parame... Remove this comment to see the full error message
+    && (excludeTypes.length === 0 || a.roles.filter((r: any) => excludeTypes.includes(r)).length === 0));
+    return typeAgents.map((a: any) => a.name);
   }
 
   /** Extract first available link to a digitized resource
@@ -53,7 +56,7 @@ export default class CitationFormatter {
    *
    * @returns {object} Contains URI to first digital resource and date it was last modified in SFR
    */
-  static setLinkFields(items) {
+  static setLinkFields(items: any) {
     const linkFields = { link: null, link_date: null };
 
     if (items && items.length > 0) {
@@ -69,9 +72,9 @@ export default class CitationFormatter {
    *
    * @returns {boolean} Flag designating government report status
    */
-  static isGovernmentReport(measurements) {
+  static isGovernmentReport(measurements: any) {
     let govReport = measurements
-      ? measurements.filter(m => m.quantity === 'government_document')[0] : { value: 0 };
+      ? measurements.filter((m: any) => m.quantity === 'government_document')[0] : { value: 0 };
     if (!govReport) { govReport = { value: 0 }; }
 
     return !!govReport.value;

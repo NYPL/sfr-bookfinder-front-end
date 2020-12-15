@@ -1,29 +1,49 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Link/Link' or... Remove this comment to see the full error message
 import Link from "~/src/components/Link/Link";
 
 import PropTypes from 'prop-types';
 import * as DS from '@nypl/design-system-react-components';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'dgx-... Remove this comment to see the full error message
 import FeatureFlags from 'dgx-feature-flags';
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Svgs/EmptySea... Remove this comment to see the full error message
 import EmptySearchSvg from '~/src/components/Svgs/EmptySearchSvg';
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/util/Util' or its corres... Remove this comment to see the full error message
 import { isEmpty, joinArrayOfElements, checkFeatureFlagActivated } from '~/src/util/Util';
 
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Card/EditionC... Remove this comment to see the full error message
 import EditionCard from '~/src/components/Card/EditionCard';
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Citations/for... Remove this comment to see the full error message
 import CitationFormatter from '~/src/components/Citations/formatCitation';
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Citations/APA... Remove this comment to see the full error message
 import APACitation from '~/src/components/Citations/APACitation';
 
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/config/featureFlagConfig' or... Remove this comment to see the full error message
 import featureFlagConfig from '~/config/featureFlagConfig';
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/config/appConfig' or its cor... Remove this comment to see the full error message
 import config from '~/config/appConfig';
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Feedback/Requ... Remove this comment to see the full error message
 import RequestDigital from '~/src/components/Feedback/RequestDigital';
 
-export const getEditionsLinkElement = result => (result.edition_count > 1 ? (
+export const getEditionsLinkElement = (result: any) => result.edition_count > 1 ? (
+  // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
   <Link
     className="link"
     to={{ pathname: '/work', query: { workId: `${result.uuid}` }, hash: '#all-editions' }}
   >
    {`View All ${result.edition_count} Editions`}
   </Link>
-) : undefined);
+) : undefined;
+
+type OwnResultsListProps = {
+    eReaderUrl?: string;
+    results?: any[];
+};
+
+type ResultsListState = any;
+
+type ResultsListProps = OwnResultsListProps & typeof ResultsList.defaultProps;
 
 /**
  * ResultsList takes the response and calls Design System's UnorderedList with Search Result objects
@@ -31,9 +51,20 @@ export const getEditionsLinkElement = result => (result.edition_count > 1 ? (
  *
  * @returns {string|null}
  */
-class ResultsList extends React.Component {
-  constructor(props) {
+class ResultsList extends React.Component<ResultsListProps, ResultsListState> {
+
+static defaultProps = {
+    eReaderUrl: '',
+    results: [],
+};
+
+static contextTypes = {
+    router: PropTypes.objectOf(PropTypes.any),
+};
+
+  constructor(props: ResultsListProps) {
     super(props);
+    // @ts-expect-error ts-migrate(2540) FIXME: Cannot assign to 'props' because it is a read-only... Remove this comment to see the full error message
     this.props = props;
     this.openForm = this.openForm.bind(this);
     this.closeForm = this.closeForm.bind(this);
@@ -56,7 +87,7 @@ class ResultsList extends React.Component {
     this.setState({ featureFlagsStore: FeatureFlags.store.getState() });
   }
 
-  openForm(requestedWork, requestedEdition) {
+  openForm(requestedWork: any, requestedEdition: any) {
     this.setState({ requestedWork, requestedEdition });
   }
 
@@ -64,14 +95,16 @@ class ResultsList extends React.Component {
     this.setState({ requestedWork: null, requestedEdition: null });
   }
 
-  formatAllResultsData(results, eReaderUrl, referrer) {
+  formatAllResultsData(results: any, eReaderUrl: any, referrer: any) {
     const shouldShowRequest = FeatureFlags.store._isFeatureActive(config.requestDigital.experimentName);
     const shouldShowCitations = FeatureFlags.store._isFeatureActive(config.displayCitations.experimentName);
 
-    return results.map((result, index) => {
+    return results.map((result: any, index: any) => {
       const showRequestButton = shouldShowRequest ? (
+        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <a
           role="link"
+          // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number | ... Remove this comment to see the full error message
           tabIndex="0"
           className="link request-digital-link"
           onKeyDown={(event) => { if (event.keyCode === 13) { this.openForm(result, result.editions[0]); } }}
@@ -89,9 +122,11 @@ class ResultsList extends React.Component {
       const citationData = CitationFormatter.getCitationData(result, result.editions ? result.editions[0] : {});
 
       return (
+        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <div
           key={`search-result-${result.uuid}`}
         >
+          {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
           <DS.SearchResultItem
             id={`search-result-${result.uuid}`}
             resultIndex={index}
@@ -99,9 +134,11 @@ class ResultsList extends React.Component {
             subtitleContent={EditionCard.getSubtitle(result.sub_title)}
             authorLinkElement={authorLinkElement ? joinArrayOfElements(authorLinkElement, ', ') : undefined}
             editionInfo={EditionCard.getEditionData(result, previewEdition, eReaderUrl, referrer, showRequestButton)}
+            // @ts-expect-error ts-migrate(2322) FIXME: Type 'Element | undefined' is not assignable to ty... Remove this comment to see the full error message
             editionsLinkElement={allEditionsLink}
           />
           {shouldShowCitations && (
+            // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <APACitation
               title={citationData.title}
               subTitle={citationData.sub_title}
@@ -123,23 +160,30 @@ class ResultsList extends React.Component {
     const referrer = this.context.router ? this.context.router.location.pathname + this.context.router.location.search : undefined;
     if (isEmpty(this.props.results)) {
       return (
+        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <div className="grid-row margin-3">
+          {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
           <EmptySearchSvg className="grid-col-1" />
+          {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
           <div className="grid-col-9 margin-x-3 margin-y-2">
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
             <span>No results were found. Please try a different keyword or fewer filters.</span>
           </div>
         </div>
       );
     }
     return (
+      // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
       <>
         {this.state.requestedWork && (
+        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <RequestDigital
           closeForm={this.closeForm}
           requestedWork={this.state.requestedWork}
           requestedEdition={this.state.requestedEdition}
         />
         )}
+        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
         <DS.UnorderedList>
           {this.formatAllResultsData(results, eReaderUrl, referrer)}
         </DS.UnorderedList>
@@ -147,19 +191,5 @@ class ResultsList extends React.Component {
     );
   }
 }
-
-ResultsList.propTypes = {
-  eReaderUrl: PropTypes.string,
-  results: PropTypes.arrayOf(PropTypes.any),
-};
-
-ResultsList.defaultProps = {
-  eReaderUrl: '',
-  results: [],
-};
-
-ResultsList.contextTypes = {
-  router: PropTypes.objectOf(PropTypes.any),
-};
 
 export default ResultsList;

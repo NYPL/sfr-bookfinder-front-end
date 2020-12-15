@@ -1,6 +1,7 @@
 /* eslint-env browser */
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'redu... Remove this comment to see the full error message
 import persistState from 'redux-sessionstorage';
 import { rootReducer } from './Reducers';
 
@@ -13,7 +14,7 @@ import { rootReducer } from './Reducers';
  * @param {object} preloadedState
  * @return {object}
  */
-export default function configureStore(preloadedState) {
+export default function configureStore(preloadedState: any) {
   const middlewares = [thunk];
   const middlewareEnhancer = applyMiddleware(...middlewares);
 
@@ -22,8 +23,10 @@ export default function configureStore(preloadedState) {
     enhancers.push(persistState());
   }
   /* eslint-disable no-underscore-dangle */
+  // @ts-expect-error ts-migrate(2339) FIXME: Property 'window' does not exist on type 'Global'.
   const composedEnhancers = global.window && global.window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    ? global.window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(...enhancers)
+    ? // @ts-expect-error ts-migrate(2339) FIXME: Property 'window' does not exist on type 'Global'.
+      global.window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(...enhancers)
     : compose(...enhancers);
   /* eslint-enable */
 

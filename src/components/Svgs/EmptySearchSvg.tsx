@@ -1,8 +1,16 @@
 /* eslint-disable max-len */
 import React from 'react';
-import PropTypes from 'prop-types';
 
-const EmptySearchSvg = ({ className }) => (
+type OwnProps = {
+    className?: string;
+};
+
+// @ts-expect-error ts-migrate(2456) FIXME: Type alias 'Props' circularly references itself.
+type Props = OwnProps & typeof EmptySearchSvg.defaultProps;
+
+// @ts-expect-error ts-migrate(7022) FIXME: 'EmptySearchSvg' implicitly has type 'any' because... Remove this comment to see the full error message
+const EmptySearchSvg = ({ className }: Props) => (
+  // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
   <svg
     width="99"
     height="118"
@@ -13,7 +21,9 @@ const EmptySearchSvg = ({ className }) => (
     role="img"
     aria-labelledby="SearchBookIcon"
   >
+    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
     <title id="SearchBookIcon">No Search Results Icon</title>
+    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
     <path
       fillRule="evenodd"
       clipRule="evenodd"
@@ -22,9 +32,6 @@ const EmptySearchSvg = ({ className }) => (
     />
   </svg>
 );
-EmptySearchSvg.propTypes = {
-  className: PropTypes.string,
-};
 
 EmptySearchSvg.defaultProps = {
   className: '',

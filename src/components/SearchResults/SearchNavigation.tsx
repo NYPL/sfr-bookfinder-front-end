@@ -1,22 +1,37 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import * as DS from '@nypl/design-system-react-components';
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/stores/InitialState' or ... Remove this comment to see the full error message
 import { initialSearchQuery, searchQueryPropTypes } from '~/src/stores/InitialState';
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/util/searchQuery' or its... Remove this comment to see the full error message
 import { getQueryString } from '~/src/util/searchQuery';
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/constants/sorts' or its ... Remove this comment to see the full error message
 import { sortMap, numbersPerPage } from '~/src/constants/sorts';
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/util/Util' or its corres... Remove this comment to see the full error message
 import { deepEqual } from '~/src/util/Util';
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/SearchResults... Remove this comment to see the full error message
 import ResultsMetadata from '~/src/components/SearchResults/ResultsMetadata';
 // redirect to url with query params
-export const submit = (query, router) => {
+export const submit = (query: any, router: any) => {
   const path = `/search?${getQueryString(query)}`;
   router.push(path);
 };
 
-const SearchNavigation = ({
-  totalItems, searchQuery, userQuery, router,
-}) => {
+type OwnSearchNavigationProps = {
+    totalItems?: number;
+    searchQuery?: searchQueryPropTypes;
+    userQuery?: (...args: any[]) => any;
+    router?: {
+        [key: string]: any;
+    };
+};
+
+// @ts-expect-error ts-migrate(2456) FIXME: Type alias 'SearchNavigationProps' circularly refe... Remove this comment to see the full error message
+type SearchNavigationProps = OwnSearchNavigationProps & typeof SearchNavigation.defaultProps;
+
+// @ts-expect-error ts-migrate(7022) FIXME: 'SearchNavigation' implicitly has type 'any' becau... Remove this comment to see the full error message
+const SearchNavigation = ({ totalItems, searchQuery, userQuery, router, }: SearchNavigationProps) => {
   // update per_page in store when select of per_page changes
-  const onChangePerPage = (e) => {
+  const onChangePerPage = (e: any) => {
     const newPage = 0;
     const newPerPage = e.target.value;
     if (newPerPage !== searchQuery.per_page) {
@@ -27,7 +42,7 @@ const SearchNavigation = ({
   };
 
   // click and navigate with different sort
-  const onChangeSort = (e) => {
+  const onChangeSort = (e: any) => {
     if (e.target.value !== Object.keys(sortMap).find(key => sortMap[key] === searchQuery.sort)) {
       const newQuery = Object.assign({}, searchQuery, { sort: sortMap[e.target.value], page: 0 });
       userQuery(newQuery);
@@ -36,19 +51,24 @@ const SearchNavigation = ({
   };
 
   return (
+    // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
     <div className="search-navigation grid-row">
+      {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
       <DS.Heading
         level={2}
         id="page-title-heading"
         blockName="page-title"
       >
+        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
         <ResultsMetadata
           totalItems={totalItems}
           searchQuery={searchQuery}
         />
 
       </DS.Heading>
+      {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
       <div className="search-dropdowns">
+        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
         <DS.Dropdown
           dropdownId="items-per-page-select"
           isRequired={false}
@@ -56,10 +76,11 @@ const SearchNavigation = ({
           labelText="Items Per Page"
           labelId="nav-items-per-page"
           selectedOption={searchQuery.per_page ? searchQuery.per_page : undefined}
-          dropdownOptions={numbersPerPage.map(number => number.toString())}
+          dropdownOptions={numbersPerPage.map((number: any) => number.toString())}
           onSelectChange={onChangePerPage}
           onSelectBlur={onChangePerPage}
         />
+        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
         <DS.Dropdown
           dropdownId="sort-by-select"
           isRequired={false}
@@ -74,13 +95,6 @@ const SearchNavigation = ({
       </div>
     </div>
   );
-};
-
-SearchNavigation.propTypes = {
-  totalItems: PropTypes.number,
-  searchQuery: searchQueryPropTypes,
-  userQuery: PropTypes.func,
-  router: PropTypes.objectOf(PropTypes.any),
 };
 
 SearchNavigation.defaultProps = {

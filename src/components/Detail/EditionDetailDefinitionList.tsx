@@ -1,8 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Html5Entities } from 'html-entities';
 import * as DS from '@nypl/design-system-react-components';
 import { editionDetailDefinitionLabels } from '../../constants/labels';
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/util/Util' or its corres... Remove this comment to see the full error message
 import { isEmpty } from '~/src/util/Util';
 
 const htmlEntities = new Html5Entities();
@@ -11,30 +11,43 @@ const htmlEntities = new Html5Entities();
 const elements = Object.keys(editionDetailDefinitionLabels);
 
 // Get List of Publishers and their Roles
-const getPublishersList = (agents) => {
+const getPublishersList = (agents: any) => {
   if (!agents || !agents.length) return null;
 
-  const publisherList = agents.map((agent) => {
-    const authorLabel = `${agent.name}${agent.roles.map(role => `, ${role} `)}`;
+  const publisherList = agents.map((agent: any) => {
+    const authorLabel = `${agent.name}${agent.roles.map((role: any) => `, ${role} `)}`;
     return (
+      // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
       <>{authorLabel}</>
     );
   });
 
   if (publisherList && publisherList.length) {
-    return publisherList.map((authorItem, i) => (
+    return publisherList.map((authorItem: any, i: any) => (
+      // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
       <li key={`publisher-${i.toString()}`}>{authorItem}</li>
     ));
   }
+  // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
   return <li key="publisher-no-publisher">Publisher Unavailable</li>;
 };
+
+type OwnEditionDetailDefinitionListProps = {
+    edition?: {
+        [key: string]: any;
+    };
+};
+
+// @ts-expect-error ts-migrate(2456) FIXME: Type alias 'EditionDetailDefinitionListProps' circ... Remove this comment to see the full error message
+type EditionDetailDefinitionListProps = OwnEditionDetailDefinitionListProps & typeof EditionDetailDefinitionList.defaultProps;
 /**
  * Build a definition list of elements from a bibliographic record provided
  * by Elastisearch.
  *
  * @param {object} props
  */
-export const EditionDetailDefinitionList = ({ edition }) => {
+// @ts-expect-error ts-migrate(7022) FIXME: 'EditionDetailDefinitionList' implicitly has type ... Remove this comment to see the full error message
+export const EditionDetailDefinitionList = ({ edition }: EditionDetailDefinitionListProps) => {
   /**
    * Convert JSON object to array for parsing detail elements into
    * a definition list for display.
@@ -42,7 +55,7 @@ export const EditionDetailDefinitionList = ({ edition }) => {
    * @param {object} edition
    * @return {string|null}
    */
-  const editionDetailsObject = edObj => Object.keys(edObj).map(key => [key, edObj[key]]);
+  const editionDetailsObject = (edObj: any) => Object.keys(edObj).map(key => [key, edObj[key]]);
 
   /**
    * Handle elements with array values as definitions. Authorities are linked to
@@ -57,19 +70,23 @@ export const EditionDetailDefinitionList = ({ edition }) => {
    * @param {array} entries
    * @return {string|null}
    */
-  const parseEntries = (type, entries) => {
+  const parseEntries = (type: any, entries: any) => {
     const list = entries ? [...entries] : [];
 
     switch (type) {
       case 'agents':
         return (
+          // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <ul className="definitions-publishers">
+            {/* @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 2. */}
             {getPublishersList(list, 'definitionList-publisher')}
           </ul>
         );
       case 'language':
         return (
+          // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <ul className="definitions-languages">
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
             {list.map((language, i) => <li key={`language${i.toString()}`}>{language}</li>)}
           </ul>
         );
@@ -84,9 +101,9 @@ export const EditionDetailDefinitionList = ({ edition }) => {
      * @param {array} data
      * @return {string}
      */
-  const getDefinitions = (editionObj) => {
+  const getDefinitions = (editionObj: any) => {
     let defsData;
-    const languageList = editionObj.languages.map(language => language.language);
+    const languageList = editionObj.languages.map((language: any) => language.language);
     if (languageList) {
       defsData = editionDetailsObject({ ...editionObj, ...{ language: languageList } });
     } else {
@@ -97,11 +114,15 @@ export const EditionDetailDefinitionList = ({ edition }) => {
       return null;
     }
     return (
+      // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
       <dl className="nypl-details-table">
         {defsData.map(
           (entry, i) => elements.includes(entry[0]) && entry[1] && (
+            // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <React.Fragment key={`"entry"${i.toString()}`}>
+              {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
               <dt>{editionDetailDefinitionLabels[entry[0]]}</dt>
+              {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
               <dd>{parseEntries(entry[0], entry[1])}</dd>
             </React.Fragment>
           ),
@@ -111,7 +132,9 @@ export const EditionDetailDefinitionList = ({ edition }) => {
   };
 
   return (
+    // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
     <div>
+      {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
       <DS.Heading
         level={3}
         id="work-details"
@@ -121,10 +144,6 @@ export const EditionDetailDefinitionList = ({ edition }) => {
       {getDefinitions(edition)}
     </div>
   );
-};
-
-EditionDetailDefinitionList.propTypes = {
-  edition: PropTypes.objectOf(PropTypes.any),
 };
 
 EditionDetailDefinitionList.defaultProps = {

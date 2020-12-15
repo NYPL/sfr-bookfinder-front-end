@@ -1,13 +1,19 @@
 import React, { useRef } from "react";
-import PropTypes, { string } from "prop-types";
+import PropTypes from "prop-types";
+// @ts-expect-error ts-migrate(2614) FIXME: Module '"../../../node_modules/next/link"' has no ... Remove this comment to see the full error message
 import { Link } from "next/link";
 import { bindActionCreators } from "redux";
 import * as DS from "@nypl/design-system-react-components";
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/actions/SearchActions' o... Remove this comment to see the full error message
 import * as searchActions from "~/src/actions/SearchActions";
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/constants/editioncard' o... Remove this comment to see the full error message
 import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Card/EditionC... Remove this comment to see the full error message
 import EditionCard from "~/src/components/Card/EditionCard";
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/util/Util' or its corres... Remove this comment to see the full error message
 import { truncateStringOnWhitespace } from "~/src/util/Util";
 
+// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'title' implicitly has an 'any' type.
 const getLinkFromWork = (title, uuid) => {
   const workTitle = title || "Title Unknown";
 
@@ -25,6 +31,7 @@ const getLinkFromWork = (title, uuid) => {
   };
 };
 
+// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'workDetail' implicitly has an 'any' typ... Remove this comment to see the full error message
 export const getBreadcrumbLinks = (workDetail, editionDetail) => {
   const links = [];
   if (workDetail && workDetail.uuid) {
@@ -41,6 +48,7 @@ export const getBreadcrumbLinks = (workDetail, editionDetail) => {
   return links;
 };
 
+// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'location' implicitly has an 'any' type.
 export const getCrumbTrail = (location, links, handleReset) => {
   const homeLink = {
     url: "/",
@@ -71,31 +79,39 @@ export const getCrumbTrail = (location, links, handleReset) => {
   return crumbs;
 };
 
-const Breadcrumbs = props => {
+type BreadcrumbsProps = {
+    location?: {
+        [key: string]: any;
+    };
+    workDetail?: {
+        uuid?: string;
+        title?: string;
+    };
+    editionDetail?: {
+        id?: string;
+        publication_date?: string;
+    };
+    dispatch?: (...args: any[]) => any;
+};
+
+// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'props'.
+const Breadcrumbs =props: BreadcrumbsProps => {
   const boundActions = useRef();
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'props'.
   const links = getBreadcrumbLinks(props.workDetail, props.editionDetail);
 
+  // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'event' implicitly has an 'any' type.
   const handleReset = event => {
     event.preventDefault();
+    // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
     boundActions.current.resetSearch();
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'Router'.
     Router.push("/");
   };
 
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'props'.
   console.log("blah", getCrumbTrail(props.location, links, handleReset));
   return <DS.Breadcrumbs breadcrumbs={getCrumbTrail(props.location, links, handleReset)} />;
-};
-
-Breadcrumbs.propTypes = {
-  location: PropTypes.objectOf(PropTypes.any),
-  workDetail: PropTypes.shape({
-    uuid: PropTypes.string,
-    title: PropTypes.string,
-  }),
-  editionDetail: PropTypes.shape({
-    id: PropTypes.string,
-    publication_date: PropTypes.string,
-  }),
-  dispatch: PropTypes.func,
 };
 
 Breadcrumbs.defaultProps = {
