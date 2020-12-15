@@ -17,41 +17,33 @@ import config from '~/config/appConfig';
 import Layout from '~/src/components/Application/Layout';
 import Link from '~/src/components/Link/Link';
 
-/**
- * Container class providing the Redux action creators
- * to its child components. State data is passed along
- * including params set in location.
- *
- * Accessibility Note: Creates the <main> element for all
- * search pages with the corresponding <h1>.
- */
+
 class LandingPage extends React.Component {
   
   constructor(props) {
     super(props);
-    const { dispatch } = props;
     this.state = { ...props, isFeatureFlagsActivated: {} };
 
-    this.boundActions = bindActionCreators(searchActions, dispatch);
+    this.boundActions = bindActionCreators(searchActions, this.props.dispatch);
   }
 
   componentDidMount() {
     this.boundActions.resetSearch();
-    FeatureFlags.store.listen(this.onFeatureFlagsChange.bind(this));
+    // FeatureFlags.store.listen(this.onFeatureFlagsChange.bind(this));
 
-    checkFeatureFlagActivated(
-      featureFlagConfig.featureFlagList, this.state.isFeatureFlagsActivated,
-    );
+    // checkFeatureFlagActivated(
+    //   featureFlagConfig.featureFlagList, this.state.isFeatureFlagsActivated,
+    // );
   }
 
-  componentWillUnmount() {
-    FeatureFlags.store.unlisten(this.onFeatureFlagsChange.bind(this));
-  }
+  // componentWillUnmount() {
+  //   FeatureFlags.store.unlisten(this.onFeatureFlagsChange.bind(this));
+  // }
 
-  onFeatureFlagsChange() {
-    // eslint-disable-next-line react/no-unused-state
-    this.setState({ featureFlagsStore: FeatureFlags.store.getState() });
-  }
+  // onFeatureFlagsChange() {
+  //   // eslint-disable-next-line react/no-unused-state
+  //   this.setState({ featureFlagsStore: FeatureFlags.store.getState() });
+  // }
 
   render() {
     const router = Router;

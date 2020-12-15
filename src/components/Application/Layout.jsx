@@ -11,6 +11,11 @@ import { documentTitles } from '~/src/constants/labels';
 import Feedback from '~/src/components/Feedback/Feedback';
 import { useEffect } from 'react';
 
+/**
+ * Container class providing headers, config 
+ * and other set up information to all its children.
+ */
+
 class Layout extends React.Component {
 
   componentDidMount() {
@@ -22,7 +27,7 @@ class Layout extends React.Component {
   }
 
   setTitle() {
-    const { location } = this.props;
+    const location = this.props.location;
     if (location && location.query && location.query.workId) {
       global.document.title = documentTitles.workItem;
     } else if (location && location.query && location.query.editionId) {

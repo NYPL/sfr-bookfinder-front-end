@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import PropTypes, { string } from "prop-types";
 import { Link } from "next/link";
 import { bindActionCreators } from "redux";
@@ -71,32 +71,19 @@ export const getCrumbTrail = (location, links, handleReset) => {
   return crumbs;
 };
 
-class Breadcrumbs extends React.Component {
-  constructor(props) {
-    super(props);
-    const { dispatch } = props;
+const Breadcrumbs = props => {
+  const boundActions = useRef();
+  const links = getBreadcrumbLinks(props.workDetail, props.editionDetail);
 
-    this.boundActions = bindActionCreators(searchActions, dispatch);
-  }
+  const handleReset = event => {
+    event.preventDefault();
+    boundActions.current.resetSearch();
+    Router.push("/");
+  };
 
-  render() {
-    const { location, workDetail, editionDetail } = this.props;
-    console.log("location", location);
-    const links = getBreadcrumbLinks(workDetail, editionDetail);
-    const handleReset = (event) => {
-      event.preventDefault();
-
-      this.boundActions.resetSearch();
-      Router.push("/");
-    };
-    console.log("blah", getCrumbTrail(location, links, handleReset));
-    return (
-      <DS.Breadcrumbs
-        breadcrumbs={getCrumbTrail(location, links, handleReset)}
-      />
-    );
-  }
-}
+  console.log("blah", getCrumbTrail(props.location, links, handleReset));
+  return <DS.Breadcrumbs breadcrumbs={getCrumbTrail(props.location, links, handleReset)} />;
+};
 
 Breadcrumbs.propTypes = {
   location: PropTypes.objectOf(PropTypes.any),
