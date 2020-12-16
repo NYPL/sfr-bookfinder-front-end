@@ -1,0 +1,4363 @@
+{
+  "took": 107,
+  "timed_out": false,
+  "_shards": {
+    "total": 5,
+    "successful": 5,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": 2181,
+    "max_score": null,
+    "hits": [
+      {
+        "_index": "sfr_test",
+        "_type": "doc",
+        "_id": "b310f501-c813-4426-bd28-0c3e02f75e99",
+        "_score": 37.134808,
+        "_source": {
+          "uuid": "b310f501-c813-4426-bd28-0c3e02f75e99",
+          "title": "Actable one-act plays. The Chicago public library. Comp. by Samuel Kaplan of the library staff.",
+          "date_modified": "2019-04-04T02:45:51.676185",
+          "alt_titles": ["Actable one-act plays : The Chicago public library"],
+          "subjects": [
+            {
+              "authority": "gnd",
+              "uri": "(DE-588)4009921-0",
+              "subject": "Chicago, Ill."
+            },
+            {
+              "authority": "fast",
+              "uri": "897468",
+              "subject": "Drama"
+            },
+            {
+              "authority": "fast",
+              "uri": "(OCoLC)fst01922492",
+              "subject": "One-act plays."
+            },
+            {
+              "authority": "fast",
+              "uri": "(OCoLC)fst01423717",
+              "subject": "Bibliography."
+            },
+            {
+              "authority": "lcsh",
+              "subject": "One-act plays -- Bibliography."
+            },
+            {
+              "authority": "gnd",
+              "uri": "(DE-588)4001670-5",
+              "subject": "Amerika"
+            },
+            {
+              "authority": "lcsh",
+              "subject": "Drama -- Bibliography."
+            },
+            {
+              "authority": "fast",
+              "uri": "(OCoLC)fst01423879",
+              "subject": "Drama."
+            },
+            {
+              "authority": "lcgft",
+              "subject": "Bibliographies."
+            },
+            {
+              "authority": "gnd",
+              "uri": "(DE-588)4043141-1",
+              "subject": "Öffentliche Bibliothek"
+            }
+          ],
+          "agents": [
+            {
+              "name": "Chicago Public Library",
+              "sort_name": "Chicago Public Library",
+              "lcnaf": "n79043473",
+              "viaf": "156023090",
+              "roles": ["author"]
+            }
+          ],
+          "identifiers": [
+            {
+              "id_type": "hathi",
+              "identifier": "001171616"
+            },
+            {
+              "id_type": "generic",
+              "identifier": "2318842"
+            },
+            {
+              "id_type": "lccn",
+              "identifier": "16010269"
+            },
+            {
+              "id_type": "owi",
+              "identifier": "15029258"
+            },
+            {
+              "id_type": "hathi",
+              "identifier": "njp.32101076082005"
+            },
+            {
+              "id_type": "oclc",
+              "identifier": "4724164"
+            }
+          ],
+          "measurements": [
+            {
+              "quantity": "government_document",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-04-03T21:10:34"
+            },
+            {
+              "quantity": "editions",
+              "value": 4,
+              "weight": 1,
+              "taken_at": "2019-04-03T21:30:48"
+            },
+            {
+              "quantity": "eholdings",
+              "value": 14,
+              "weight": 1,
+              "taken_at": "2019-04-03T21:30:48"
+            },
+            {
+              "quantity": "holdings",
+              "value": 12,
+              "weight": 1,
+              "taken_at": "2019-04-03T21:30:48"
+            }
+          ],
+          "instances": [
+            {
+              "title": "Actable One-Act Plays",
+              "pub_place": "(Chicago",
+              "extent": "15 Seiten; 8°",
+              "agents": [
+                {
+                  "name": "Chicago Publ. Libr",
+                  "sort_name": "Chicago Publ. Libr",
+                  "roles": ["publisher"]
+                }
+              ]
+            },
+            {
+              "title": "Actable one-act plays",
+              "sub_title": "The Chicago public library.",
+              "pub_place": "[Chicago]",
+              "extent": "1 online resource (15 pages)",
+              "pub_date": {
+                "gte": "1916-01-01",
+                "lte": "1916-12-31"
+              },
+              "pub_date_display": "1916",
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Actable One-Act Plays :",
+              "sub_title": "the Chicago Public Library /",
+              "pub_place": "Chicago",
+              "extent": "15 Seiten",
+              "pub_date": {
+                "gte": "1916-01-01",
+                "lte": "1916-12-31"
+              },
+              "pub_date_display": "1916",
+              "agents": [
+                {
+                  "name": "Chicago Publ. Libr",
+                  "sort_name": "Chicago Publ. Libr",
+                  "roles": ["publisher"]
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Actable one-act plays.",
+              "sub_title": "The Chicago public library.",
+              "pub_place": "[Chicago]",
+              "extent": "15 pages; 17 cm",
+              "volume": "",
+              "pub_date": {
+                "gte": "1916-01-01",
+                "lte": "1916-12-31"
+              },
+              "pub_date_display": "1916",
+              "items": [
+                {
+                  "source": "hathitrust",
+                  "content_type": "ebook",
+                  "modified": "2019-04-03T21:10:34",
+                  "identifiers": [
+                    {
+                      "id_type": "hathi",
+                      "identifier": "njp.32101076082005"
+                    }
+                  ],
+                  "links": [
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/pt?id=njp.32101076082005",
+                      "media_type": "text/html",
+                      "local": false,
+                      "download": false,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101076082005 - eBook - images"
+                    },
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=njp.32101076082005",
+                      "media_type": "application/pdf",
+                      "local": false,
+                      "download": true,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101076082005 - eBook - images"
+                    }
+                  ]
+                }
+              ],
+              "rights": [
+                {
+                  "source": "hathi_trust",
+                  "license": "public_domain",
+                  "rights_statement": "Public Domain",
+                  "rights_reason": "bibliographically-dervied by automatic processes",
+                  "determination_date": {
+                    "gte": "2013-10-30",
+                    "lte": null
+                  },
+                  "determination_date_display": "2013-10-30 13:10:17",
+                  "copyright_date": {
+                    "gte": "1916-01-01",
+                    "lte": "1916-12-31"
+                  },
+                  "copyright_date_display": "1916"
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            }
+          ]
+        },
+        "sort": [37.134808, "b310f501-c813-4426-bd28-0c3e02f75e99"]
+      },
+      {
+        "_index": "sfr_test",
+        "_type": "doc",
+        "_id": "516ab4c1-2b16-4bfa-8bda-c9e905def334",
+        "_score": 35.288128,
+        "_source": {
+          "uuid": "516ab4c1-2b16-4bfa-8bda-c9e905def334",
+          "title": "Americanization in Chicago; the report of a survey made by authority and under direction of the Chicago Community Trust, prepared by Frank D. Loomis, Acting Secretary.",
+          "date_modified": "2019-03-30T02:30:42.421515",
+          "alt_titles": [
+            "Americanization in Chicago; : the report of a survey made by authority and under direction of the Chicago Community Trust,"
+          ],
+          "subjects": [
+            {
+              "authority": "fast",
+              "uri": "908690",
+              "subject": "Emigration and immigration"
+            },
+            {
+              "authority": "fast",
+              "uri": "(OCoLC)fst01204048",
+              "subject": "Illinois -- Chicago."
+            },
+            {
+              "authority": "fast",
+              "uri": "1204048",
+              "subject": "Illinois--Chicago"
+            },
+            {
+              "authority": "lcsh",
+              "subject": "Chicago (Ill.) -- Emigration and immigration."
+            },
+            {
+              "authority": "lcsh",
+              "subject": "Minorities -- Illinois"
+            },
+            {
+              "authority": "fast",
+              "uri": "807485",
+              "subject": "Americanization"
+            },
+            {
+              "authority": "fast",
+              "uri": "(OCoLC)fst00908690",
+              "subject": "Emigration and immigration."
+            },
+            {
+              "authority": "fast",
+              "uri": "(OCoLC)fst01023088",
+              "subject": "Minorities."
+            },
+            {
+              "authority": "fast",
+              "uri": "(OCoLC)fst00967712",
+              "subject": "Immigrants."
+            },
+            {
+              "authority": "fast",
+              "uri": "967712",
+              "subject": "Immigrants"
+            },
+            {
+              "authority": "lcsh",
+              "subject": "Americanization."
+            },
+            {
+              "authority": "fast",
+              "uri": "1023088",
+              "subject": "Minorities"
+            },
+            {
+              "authority": "lcsh",
+              "subject": "Immigrants -- Illinois"
+            }
+          ],
+          "agents": [
+            {
+              "name": "Chicago Community Trust",
+              "sort_name": "Chicago Community Trust",
+              "lcnaf": "n84130498",
+              "viaf": "143119047",
+              "roles": ["author"]
+            }
+          ],
+          "identifiers": [
+            {
+              "id_type": "hathi",
+              "identifier": "uc1.$b565093"
+            },
+            {
+              "id_type": "lccn",
+              "identifier": "21001233"
+            },
+            {
+              "id_type": "owi",
+              "identifier": "20220734"
+            },
+            {
+              "id_type": "generic",
+              "identifier": ".b146696852"
+            },
+            {
+              "id_type": "oclc",
+              "identifier": "5887156"
+            },
+            {
+              "id_type": "hathi",
+              "identifier": "008718063"
+            }
+          ],
+          "measurements": [
+            {
+              "quantity": "editions",
+              "value": 7,
+              "weight": 1,
+              "taken_at": "2019-03-29T06:32:46"
+            },
+            {
+              "quantity": "government_document",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-03-29T06:06:10"
+            },
+            {
+              "quantity": "eholdings",
+              "value": 18,
+              "weight": 1,
+              "taken_at": "2019-03-29T06:32:46"
+            },
+            {
+              "quantity": "holdings",
+              "value": 39,
+              "weight": 1,
+              "taken_at": "2019-03-29T06:32:46"
+            }
+          ],
+          "instances": [
+            {
+              "title": "Americanization in Chicago :",
+              "sub_title": "the report of a survey made by authority and under direction of the Chicago Community Trust /",
+              "pub_place": "Chicago, Ill.",
+              "extent": "1 online resource (40 pages) :; illustrations",
+              "agents": [
+                {
+                  "name": "The Chicago Community Trust",
+                  "sort_name": "The Chicago Community Trust",
+                  "roles": ["publisher"]
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Americanization in Chicago :",
+              "sub_title": "the report of a survey made by authority and under direction of the Chicago Community Trust /",
+              "pub_place": "[Whitefish, Mont.]",
+              "extent": "40 pages :; illustrations ;; 23 cm.",
+              "agents": [
+                {
+                  "name": "Kessinger Pub",
+                  "sort_name": "Kessinger Pub",
+                  "roles": ["publisher"]
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Americanization in Chicago;",
+              "sub_title": "the report of a survey made by authority and under direction of the Chicago Community Trust,",
+              "pub_place": "Chicago",
+              "extent": "40 pages; double diagram; 24 cm",
+              "agents": [
+                {
+                  "name": "The Chicago Community Trust",
+                  "sort_name": "The Chicago Community Trust",
+                  "roles": ["publisher"]
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Americanization in Chicago : the report of a survey made by authority and under direction of the Chicago Community Trust",
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Americanization in Chicago :",
+              "sub_title": "the report of a survey made by authority and under direction of The Chicago Community Trust /",
+              "pub_place": "Chicago",
+              "extent": "40 pages ;; 23 cm",
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Americanization in Chicago :",
+              "sub_title": "the report of a survey made by authority and under direction of the Chicago Community Trust /",
+              "pub_place": "Chicago, Ill.",
+              "extent": "40 pages :; illustrations ;; 23 cm",
+              "volume": "",
+              "agents": [
+                {
+                  "name": "The Chicago Community Trust",
+                  "sort_name": "The Chicago Community Trust",
+                  "roles": ["publisher"]
+                },
+                {
+                  "name": "Chicago Community Trust",
+                  "sort_name": "Chicago Community Trust",
+                  "lcnaf": "n84130498",
+                  "viaf": "143119047",
+                  "roles": ["publisher"]
+                }
+              ],
+              "items": [
+                {
+                  "source": "hathitrust",
+                  "content_type": "ebook",
+                  "modified": "2019-03-29T06:06:10",
+                  "identifiers": [
+                    {
+                      "id_type": "hathi",
+                      "identifier": "uc1.$b565093"
+                    }
+                  ],
+                  "links": [
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/pt?id=uc1.$b565093",
+                      "media_type": "text/html",
+                      "local": false,
+                      "download": false,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - uc1.$b565093 - eBook - images"
+                    },
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=uc1.$b565093",
+                      "media_type": "application/pdf",
+                      "local": false,
+                      "download": true,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - uc1.$b565093 - eBook - images"
+                    }
+                  ]
+                }
+              ],
+              "rights": [
+                {
+                  "source": "hathi_trust",
+                  "license": "public_domain",
+                  "rights_statement": "Public Domain",
+                  "rights_reason": "bibliographically-dervied by automatic processes",
+                  "copyright_date": {
+                    "gte": "1920-01-01",
+                    "lte": "1920-12-31"
+                  },
+                  "copyright_date_display": "1920",
+                  "determination_date": {
+                    "gte": "2010-11-09",
+                    "lte": null
+                  },
+                  "determination_date_display": "2010-11-09 20:33:44"
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Americanization in Chicago, the report of a survey.",
+              "pub_place": "Chicago",
+              "extent": "40 pages",
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            }
+          ]
+        },
+        "sort": [35.288128, "516ab4c1-2b16-4bfa-8bda-c9e905def334"]
+      },
+      {
+        "_index": "sfr_test",
+        "_type": "doc",
+        "_id": "513d5d54-0271-4571-9b51-64bca4465ecd",
+        "_score": 35.136543,
+        "_source": {
+          "uuid": "513d5d54-0271-4571-9b51-64bca4465ecd",
+          "title": "Growth and redistribution of the resident population in the Chicago Standard Metropolitan area : a report / by the Chicago Community Inventory, University of Chicago to the Office of the Housing and Redevelopment Coordinator and the Chicago Plan Commission.",
+          "date_modified": "2019-04-21T15:11:39.442756",
+          "alt_titles": ["Growth and redistribution of the resident population in the Chicago standard metropolitan area : a report"],
+          "subjects": [
+            {
+              "authority": "fast",
+              "uri": "1204048",
+              "subject": "Illinois--Chicago"
+            },
+            {
+              "authority": "lcsh",
+              "subject": "Chicago (Ill.) -- Population."
+            },
+            {
+              "authority": "fast",
+              "uri": "(OCoLC)fst01204048",
+              "subject": "Illinois -- Chicago."
+            },
+            {
+              "authority": "fast",
+              "uri": "1071476",
+              "subject": "Population"
+            },
+            {
+              "authority": "fast",
+              "uri": "(OCoLC)fst01071476",
+              "subject": "Population."
+            }
+          ],
+          "agents": [
+            {
+              "name": "Chicago Community Inventory",
+              "sort_name": "Chicago Community Inventory",
+              "lcnaf": "no98050922",
+              "viaf": "159758567",
+              "roles": ["author"]
+            }
+          ],
+          "identifiers": [
+            {
+              "id_type": "hathi",
+              "identifier": "coo.31924018934426"
+            },
+            {
+              "id_type": "generic",
+              "identifier": "1778361"
+            },
+            {
+              "id_type": "hathi",
+              "identifier": "009064197"
+            },
+            {
+              "id_type": "oclc",
+              "identifier": "3575846"
+            },
+            {
+              "id_type": "owi",
+              "identifier": "997984802"
+            }
+          ],
+          "measurements": [
+            {
+              "quantity": "eholdings",
+              "value": 13,
+              "weight": 1,
+              "taken_at": "2019-04-21T11:41:09"
+            },
+            {
+              "quantity": "holdings",
+              "value": 19,
+              "weight": 1,
+              "taken_at": "2019-04-21T11:41:09"
+            },
+            {
+              "quantity": "editions",
+              "value": 2,
+              "weight": 1,
+              "taken_at": "2019-04-21T11:41:09"
+            },
+            {
+              "quantity": "government_document",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-04-21T06:06:35"
+            }
+          ],
+          "instances": [
+            {
+              "title": "Growth and redistribution of the resident population in the Chicago standard metropolitan area :",
+              "sub_title": "a report /",
+              "pub_place": "Chicago",
+              "extent": "21 pages :; illustrations ;; 28 cm",
+              "volume": "",
+              "pub_date": {
+                "gte": "1954-01-01",
+                "lte": "1954-12-31"
+              },
+              "pub_date_display": "1954",
+              "agents": [
+                {
+                  "name": "Chicago Community Inventory",
+                  "sort_name": "Chicago Community Inventory",
+                  "lcnaf": "no98050922",
+                  "viaf": "159758567",
+                  "roles": ["publisher"]
+                }
+              ],
+              "items": [
+                {
+                  "source": "hathitrust",
+                  "content_type": "ebook",
+                  "modified": "2019-04-21T06:06:35",
+                  "identifiers": [
+                    {
+                      "id_type": "hathi",
+                      "identifier": "coo.31924018934426"
+                    }
+                  ],
+                  "links": [
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/pt?id=coo.31924018934426",
+                      "media_type": "text/html",
+                      "local": false,
+                      "download": false,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - coo.31924018934426 - eBook - images"
+                    },
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=coo.31924018934426",
+                      "media_type": "application/pdf",
+                      "local": false,
+                      "download": true,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - coo.31924018934426 - eBook - images"
+                    }
+                  ]
+                }
+              ],
+              "rights": [
+                {
+                  "source": "hathi_trust",
+                  "license": "public_domain",
+                  "rights_statement": "Public Domain",
+                  "rights_reason": "copyright renewal research was conducted",
+                  "determination_date": {
+                    "gte": "2013-01-19",
+                    "lte": null
+                  },
+                  "determination_date_display": "2013-01-19 05:30:08",
+                  "copyright_date": {
+                    "gte": "1954-01-01",
+                    "lte": "1954-12-31"
+                  },
+                  "copyright_date_display": "1954"
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            }
+          ]
+        },
+        "sort": [35.136543, "513d5d54-0271-4571-9b51-64bca4465ecd"]
+      },
+      {
+        "_index": "sfr_test",
+        "_type": "doc",
+        "_id": "9561dfa9-2cac-4780-bc73-8ac99c412098",
+        "_score": 31.574764,
+        "_source": {
+          "uuid": "9561dfa9-2cac-4780-bc73-8ac99c412098",
+          "title": "Chicago theatre diagrams / The Drake Hotel Company.",
+          "date_modified": "2019-03-21T15:10:39.725420",
+          "alt_titles": ["Chicago theatre diagrams"],
+          "subjects": [
+            {
+              "authority": "fast",
+              "uri": "(OCoLC)fst01423796",
+              "subject": "Directories."
+            },
+            {
+              "authority": "fast",
+              "uri": "(OCoLC)fst01149370",
+              "subject": "Theaters"
+            },
+            {
+              "authority": "fast",
+              "uri": "(OCoLC)fst01204048",
+              "subject": "Illinois -- Chicago."
+            },
+            {
+              "authority": "fast",
+              "uri": "(OCoLC)fst01149370",
+              "subject": "Theaters."
+            },
+            {
+              "authority": "fast",
+              "uri": "1204048",
+              "subject": "Illinois--Chicago"
+            },
+            {
+              "authority": "lcsh",
+              "subject": "Chicago (Ill.) -- Directories. -- Theaters"
+            }
+          ],
+          "agents": [
+            {
+              "name": "Drake Hotel Company, Chicago",
+              "sort_name": "Drake Hotel Company, Chicago",
+              "roles": ["author"]
+            }
+          ],
+          "identifiers": [
+            {
+              "id_type": "hathi",
+              "identifier": "102560811"
+            },
+            {
+              "id_type": "owi",
+              "identifier": "12772854"
+            },
+            {
+              "id_type": "generic",
+              "identifier": "2940740"
+            },
+            {
+              "id_type": "oclc",
+              "identifier": "3818869"
+            },
+            {
+              "id_type": "hathi",
+              "identifier": "uiuo.ark:/13960/t3hx8t99x"
+            }
+          ],
+          "measurements": [
+            {
+              "quantity": "eholdings",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-03-21T06:06:18"
+            },
+            {
+              "quantity": "editions",
+              "value": 2,
+              "weight": 1,
+              "taken_at": "2019-03-21T06:06:18"
+            },
+            {
+              "quantity": "government_document",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-03-21T06:16:49"
+            },
+            {
+              "quantity": "holdings",
+              "value": 7,
+              "weight": 1,
+              "taken_at": "2019-03-21T06:06:18"
+            }
+          ],
+          "instances": [
+            {
+              "title": "Chicago theatre diagrams /",
+              "pub_place": "Chicago, Ill.",
+              "extent": "36 pages :; illustrations, diagrams ;; 27 cm",
+              "pub_date": {
+                "gte": "1929-03-21",
+                "lte": null
+              },
+              "pub_date_display": "1929.",
+              "agents": [
+                {
+                  "name": "Drake Hotel Co",
+                  "sort_name": "Drake Hotel Co",
+                  "roles": ["publisher"]
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Chicago theatre diagrams /",
+              "pub_place": "Chicago",
+              "extent": "33 pages :; illustrations, diagrams ;; 29 cm",
+              "volume": "",
+              "pub_date": {
+                "gte": "1922-03-21",
+                "lte": null
+              },
+              "pub_date_display": "1922.",
+              "agents": [
+                {
+                  "name": "The Drake Hotel Company",
+                  "sort_name": "The Drake Hotel Company",
+                  "roles": ["publisher"]
+                },
+                {
+                  "name": "Drake Hotel Co",
+                  "sort_name": "Drake Hotel Co",
+                  "roles": ["publisher"]
+                }
+              ],
+              "items": [
+                {
+                  "source": "hathitrust",
+                  "content_type": "ebook",
+                  "modified": "2019-03-21T06:16:49",
+                  "identifiers": [
+                    {
+                      "id_type": "hathi",
+                      "identifier": "uiuo.ark:/13960/t3hx8t99x"
+                    }
+                  ],
+                  "links": [
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/pt?id=uiuo.ark:/13960/t3hx8t99x",
+                      "media_type": "text/html",
+                      "local": false,
+                      "download": false,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - uiuo.ark:/13960/t3hx8t99x - eBook - images"
+                    },
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=uiuo.ark:/13960/t3hx8t99x",
+                      "media_type": "application/pdf",
+                      "local": false,
+                      "download": true,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - uiuo.ark:/13960/t3hx8t99x - eBook - images"
+                    }
+                  ]
+                }
+              ],
+              "rights": [
+                {
+                  "source": "hathi_trust",
+                  "license": "public_domain",
+                  "rights_statement": "Public Domain",
+                  "rights_reason": "bibliographically-dervied by automatic processes",
+                  "copyright_date": {
+                    "gte": "1922-01-01",
+                    "lte": "1922-12-31"
+                  },
+                  "copyright_date_display": "1922",
+                  "determination_date": {
+                    "gte": "2019-03-20",
+                    "lte": null
+                  },
+                  "determination_date_display": "2019-03-20 03:14:51"
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            }
+          ]
+        },
+        "sort": [31.574764, "9561dfa9-2cac-4780-bc73-8ac99c412098"]
+      },
+      {
+        "_index": "sfr_test",
+        "_type": "doc",
+        "_id": "b5e204bf-4115-4ec3-af17-820fcedaa19f",
+        "_score": 31.138433,
+        "_source": {
+          "uuid": "b5e204bf-4115-4ec3-af17-820fcedaa19f",
+          "title": "Annual report of Board of Supervising Engineers, Chicago Traction.",
+          "date_modified": "2019-04-14T04:53:54.984684",
+          "alt_titles": ["Annual report of Board of Supervising Engineers, Chicago Traction", "Annual report"],
+          "subjects": [
+            {
+              "authority": "fast",
+              "uri": "(OCoLC)fst01411641",
+              "subject": "Periodicals."
+            },
+            {
+              "authority": "fast",
+              "uri": "(OCoLC)fst01134731",
+              "subject": "Street-railroads."
+            },
+            {
+              "authority": "fast",
+              "uri": "1134731",
+              "subject": "Street-railroads"
+            },
+            {
+              "authority": "fast",
+              "uri": "(OCoLC)fst01204048",
+              "subject": "Illinois -- Chicago."
+            },
+            {
+              "authority": "lcsh",
+              "subject": "Street-railroads -- Illinois"
+            },
+            {
+              "authority": "fast",
+              "uri": "1204048",
+              "subject": "Illinois--Chicago"
+            },
+            {
+              "authority": "lcsh",
+              "subject": "Street-railroads -- Periodicals. -- Illinois"
+            }
+          ],
+          "agents": [
+            {
+              "name": "Board of Supervising Engineers. Chicago Traction",
+              "sort_name": "Board of Supervising Engineers. Chicago Traction",
+              "lcnaf": "no2016039040",
+              "viaf": "369146094366700332667",
+              "roles": ["author"]
+            }
+          ],
+          "identifiers": [
+            {
+              "id_type": "hathi",
+              "identifier": "njp.32101076429230"
+            },
+            {
+              "id_type": "hathi",
+              "identifier": "njp.32101076429180"
+            },
+            {
+              "id_type": "generic",
+              "identifier": "2446438"
+            },
+            {
+              "id_type": "hathi",
+              "identifier": "njp.32101076429263"
+            },
+            {
+              "id_type": "lccn",
+              "identifier": "10001249"
+            },
+            {
+              "id_type": "hathi",
+              "identifier": "njp.32101076429123"
+            },
+            {
+              "id_type": "hathi",
+              "identifier": "njp.32101076429271"
+            },
+            {
+              "id_type": "oclc",
+              "identifier": "488837222"
+            },
+            {
+              "id_type": "hathi",
+              "identifier": "njp.32101076429198"
+            },
+            {
+              "id_type": "hathi",
+              "identifier": "njp.32101076429214"
+            },
+            {
+              "id_type": "hathi",
+              "identifier": "njp.32101076429222"
+            },
+            {
+              "id_type": "hathi",
+              "identifier": "njp.32101076429255"
+            },
+            {
+              "id_type": "owi",
+              "identifier": "3373973741"
+            },
+            {
+              "id_type": "hathi",
+              "identifier": "njp.32101076429131"
+            },
+            {
+              "id_type": "hathi",
+              "identifier": "njp.32101076429206"
+            },
+            {
+              "id_type": "hathi",
+              "identifier": "njp.32101076429164"
+            },
+            {
+              "id_type": "hathi",
+              "identifier": "000505279"
+            },
+            {
+              "id_type": "hathi",
+              "identifier": "njp.32101076429156"
+            },
+            {
+              "id_type": "owi",
+              "identifier": "1150957269"
+            },
+            {
+              "id_type": "hathi",
+              "identifier": "njp.32101076429248"
+            },
+            {
+              "id_type": "hathi",
+              "identifier": "njp.32101076429172"
+            },
+            {
+              "id_type": "hathi",
+              "identifier": "njp.32101076429149"
+            },
+            {
+              "id_type": "oclc",
+              "identifier": "1777429"
+            }
+          ],
+          "measurements": [
+            {
+              "quantity": "editions",
+              "value": 1,
+              "weight": 1,
+              "taken_at": "2019-04-12T06:09:14"
+            },
+            {
+              "quantity": "eholdings",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-04-12T06:09:14"
+            },
+            {
+              "quantity": "government_document",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-04-12T06:06:04"
+            },
+            {
+              "quantity": "government_document",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-04-12T06:06:04"
+            },
+            {
+              "quantity": "eholdings",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-04-12T07:56:02"
+            },
+            {
+              "quantity": "government_document",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-04-12T06:06:04"
+            },
+            {
+              "quantity": "government_document",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-04-12T06:06:04"
+            },
+            {
+              "quantity": "government_document",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-04-12T06:06:04"
+            },
+            {
+              "quantity": "government_document",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-04-12T06:06:04"
+            },
+            {
+              "quantity": "government_document",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-04-12T06:06:04"
+            },
+            {
+              "quantity": "government_document",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-04-12T06:06:03"
+            },
+            {
+              "quantity": "government_document",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-04-12T06:06:04"
+            },
+            {
+              "quantity": "government_document",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-04-12T06:06:04"
+            },
+            {
+              "quantity": "government_document",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-04-12T06:06:04"
+            },
+            {
+              "quantity": "holdings",
+              "value": 3,
+              "weight": 1,
+              "taken_at": "2019-04-12T06:09:14"
+            },
+            {
+              "quantity": "government_document",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-04-12T06:06:04"
+            },
+            {
+              "quantity": "government_document",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-04-12T06:06:03"
+            },
+            {
+              "quantity": "holdings",
+              "value": 206,
+              "weight": 1,
+              "taken_at": "2019-04-12T07:56:02"
+            },
+            {
+              "quantity": "government_document",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-04-13T06:12:06"
+            },
+            {
+              "quantity": "government_document",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-04-12T06:06:04"
+            },
+            {
+              "quantity": "government_document",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-04-12T06:06:04"
+            },
+            {
+              "quantity": "editions",
+              "value": 4,
+              "weight": 1,
+              "taken_at": "2019-04-12T07:56:02"
+            }
+          ],
+          "instances": [
+            {
+              "title": "Annual report of Board of Supervising Engineers, Chicago Traction.",
+              "pub_place": "Illinois",
+              "volume": "1910/11 (4th)",
+              "agents": [
+                {
+                  "name": "The Board, [1947",
+                  "sort_name": "The Board, [1947",
+                  "roles": ["publisher"]
+                }
+              ],
+              "items": [
+                {
+                  "source": "hathitrust",
+                  "content_type": "ebook",
+                  "modified": "2019-04-12T06:06:04",
+                  "identifiers": [
+                    {
+                      "id_type": "hathi",
+                      "identifier": "njp.32101076429156"
+                    }
+                  ],
+                  "links": [
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=njp.32101076429156",
+                      "media_type": "application/pdf",
+                      "local": false,
+                      "download": true,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101076429156 - eBook - images"
+                    },
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/pt?id=njp.32101076429156",
+                      "media_type": "text/html",
+                      "local": false,
+                      "download": false,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101076429156 - eBook - images"
+                    }
+                  ]
+                }
+              ],
+              "rights": [
+                {
+                  "source": "hathi_trust",
+                  "license": "public_domain",
+                  "rights_statement": "Public Domain",
+                  "rights_reason": "bibliographically-dervied by automatic processes",
+                  "determination_date": {
+                    "gte": "2010-11-18",
+                    "lte": null
+                  },
+                  "determination_date_display": "2010-11-18 19:30:37",
+                  "copyright_date": {
+                    "gte": "1911-01-01",
+                    "lte": "1911-12-31"
+                  },
+                  "copyright_date_display": "1911"
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Annual report of Board of Supervising Engineers, Chicago Traction",
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Annual report of Board of Supervising Engineers, Chicago Traction",
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Annual report",
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Annual report of Board of Supervising Engineers, Chicago Traction.",
+              "pub_place": "Illinois",
+              "volume": "1911/12 (5th)",
+              "agents": [
+                {
+                  "name": "The Board, [1947",
+                  "sort_name": "The Board, [1947",
+                  "roles": ["publisher"]
+                }
+              ],
+              "items": [
+                {
+                  "source": "hathitrust",
+                  "content_type": "ebook",
+                  "modified": "2019-04-12T06:06:04",
+                  "identifiers": [
+                    {
+                      "id_type": "hathi",
+                      "identifier": "njp.32101076429164"
+                    }
+                  ],
+                  "links": [
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=njp.32101076429164",
+                      "media_type": "application/pdf",
+                      "local": false,
+                      "download": true,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101076429164 - eBook - images"
+                    },
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/pt?id=njp.32101076429164",
+                      "media_type": "text/html",
+                      "local": false,
+                      "download": false,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101076429164 - eBook - images"
+                    }
+                  ]
+                }
+              ],
+              "rights": [
+                {
+                  "source": "hathi_trust",
+                  "license": "public_domain",
+                  "rights_statement": "Public Domain",
+                  "rights_reason": "bibliographically-dervied by automatic processes",
+                  "determination_date": {
+                    "gte": "2010-11-18",
+                    "lte": null
+                  },
+                  "determination_date_display": "2010-11-18 19:30:18",
+                  "copyright_date": {
+                    "gte": "1912-01-01",
+                    "lte": "1912-12-31"
+                  },
+                  "copyright_date_display": "1912"
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "... annual report of Board of Supervising Engineers, Chicago Traction",
+              "pub_place": "Chicago",
+              "extent": "volumes :; illustrations, plates, maps, tables, diagrams ;; 23 cm",
+              "volume": "1909/10 (3rd)",
+              "pub_date": {
+                "gte": "1908-04-12",
+                "lte": null
+              },
+              "pub_date_display": "1908-",
+              "agents": [
+                {
+                  "name": "The Board, [1947",
+                  "sort_name": "The Board, [1947",
+                  "roles": ["publisher"]
+                },
+                {
+                  "name": "Pub. by the Board",
+                  "sort_name": "Pub. by the Board",
+                  "roles": ["publisher"]
+                }
+              ],
+              "items": [
+                {
+                  "source": "hathitrust",
+                  "content_type": "ebook",
+                  "modified": "2019-04-12T06:06:03",
+                  "identifiers": [
+                    {
+                      "id_type": "hathi",
+                      "identifier": "njp.32101076429149"
+                    }
+                  ],
+                  "links": [
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=njp.32101076429149",
+                      "media_type": "application/pdf",
+                      "local": false,
+                      "download": true,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101076429149 - eBook - images"
+                    },
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/pt?id=njp.32101076429149",
+                      "media_type": "text/html",
+                      "local": false,
+                      "download": false,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101076429149 - eBook - images"
+                    }
+                  ]
+                }
+              ],
+              "rights": [
+                {
+                  "source": "hathi_trust",
+                  "license": "public_domain",
+                  "rights_statement": "Public Domain",
+                  "rights_reason": "bibliographically-dervied by automatic processes",
+                  "copyright_date": {
+                    "gte": "1910-01-01",
+                    "lte": "1910-12-31"
+                  },
+                  "copyright_date_display": "1910",
+                  "determination_date": {
+                    "gte": "2010-11-18",
+                    "lte": null
+                  },
+                  "determination_date_display": "2010-11-18 19:31:09"
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Annual report of Board of Supervising Engineers, Chicago Traction.",
+              "pub_place": "Illinois",
+              "volume": "1913/14 (7th)",
+              "agents": [
+                {
+                  "name": "The Board, [1947",
+                  "sort_name": "The Board, [1947",
+                  "roles": ["publisher"]
+                }
+              ],
+              "items": [
+                {
+                  "source": "hathitrust",
+                  "content_type": "ebook",
+                  "modified": "2019-04-12T06:06:04",
+                  "identifiers": [
+                    {
+                      "id_type": "hathi",
+                      "identifier": "njp.32101076429180"
+                    }
+                  ],
+                  "links": [
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/pt?id=njp.32101076429180",
+                      "media_type": "text/html",
+                      "local": false,
+                      "download": false,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101076429180 - eBook - images"
+                    },
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=njp.32101076429180",
+                      "media_type": "application/pdf",
+                      "local": false,
+                      "download": true,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101076429180 - eBook - images"
+                    }
+                  ]
+                }
+              ],
+              "rights": [
+                {
+                  "source": "hathi_trust",
+                  "license": "public_domain",
+                  "rights_statement": "Public Domain",
+                  "rights_reason": "bibliographically-dervied by automatic processes",
+                  "determination_date": {
+                    "gte": "2010-11-18",
+                    "lte": null
+                  },
+                  "determination_date_display": "2010-11-18 20:30:53",
+                  "copyright_date": {
+                    "gte": "1914-01-01",
+                    "lte": "1914-12-31"
+                  },
+                  "copyright_date_display": "1914"
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Annual report of Board of Supervising Engineers, Chicago Traction.",
+              "pub_place": "Illinois",
+              "volume": "1912/13 (6th)",
+              "agents": [
+                {
+                  "name": "The Board, [1947",
+                  "sort_name": "The Board, [1947",
+                  "roles": ["publisher"]
+                }
+              ],
+              "items": [
+                {
+                  "source": "hathitrust",
+                  "content_type": "ebook",
+                  "modified": "2019-04-12T06:06:04",
+                  "identifiers": [
+                    {
+                      "id_type": "hathi",
+                      "identifier": "njp.32101076429172"
+                    }
+                  ],
+                  "links": [
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/pt?id=njp.32101076429172",
+                      "media_type": "text/html",
+                      "local": false,
+                      "download": false,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101076429172 - eBook - images"
+                    },
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=njp.32101076429172",
+                      "media_type": "application/pdf",
+                      "local": false,
+                      "download": true,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101076429172 - eBook - images"
+                    }
+                  ]
+                }
+              ],
+              "rights": [
+                {
+                  "source": "hathi_trust",
+                  "license": "public_domain",
+                  "rights_statement": "Public Domain",
+                  "rights_reason": "bibliographically-dervied by automatic processes",
+                  "determination_date": {
+                    "gte": "2010-11-18",
+                    "lte": null
+                  },
+                  "determination_date_display": "2010-11-18 19:31:09",
+                  "copyright_date": {
+                    "gte": "1913-01-01",
+                    "lte": "1913-12-31"
+                  },
+                  "copyright_date_display": "1913"
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Annual report of Board of Supervising Engineers, Chicago Traction.",
+              "pub_place": "Illinois",
+              "volume": "1917/18 (11th)",
+              "agents": [
+                {
+                  "name": "The Board, [1947",
+                  "sort_name": "The Board, [1947",
+                  "roles": ["publisher"]
+                }
+              ],
+              "items": [
+                {
+                  "source": "hathitrust",
+                  "content_type": "ebook",
+                  "modified": "2019-04-12T06:06:04",
+                  "identifiers": [
+                    {
+                      "id_type": "hathi",
+                      "identifier": "njp.32101076429222"
+                    }
+                  ],
+                  "links": [
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=njp.32101076429222",
+                      "media_type": "application/pdf",
+                      "local": false,
+                      "download": true,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101076429222 - eBook - images"
+                    },
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/pt?id=njp.32101076429222",
+                      "media_type": "text/html",
+                      "local": false,
+                      "download": false,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101076429222 - eBook - images"
+                    }
+                  ]
+                }
+              ],
+              "rights": [
+                {
+                  "source": "hathi_trust",
+                  "license": "public_domain",
+                  "rights_statement": "Public Domain",
+                  "rights_reason": "bibliographically-dervied by automatic processes",
+                  "copyright_date": {
+                    "gte": "1918-01-01",
+                    "lte": "1918-12-31"
+                  },
+                  "copyright_date_display": "1918",
+                  "determination_date": {
+                    "gte": "2010-11-18",
+                    "lte": null
+                  },
+                  "determination_date_display": "2010-11-18 20:30:53"
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "... annual report of Board of Supervising Engineers, Chicago Traction.",
+              "pub_place": "Chicago",
+              "extent": "40 volumes :; illustrations, maps ;; 23 cm",
+              "volume": "1908/09 (2nd)",
+              "pub_date": {
+                "gte": "1908-01-01",
+                "lte": "1947-12-31"
+              },
+              "pub_date_display": "1908-1947",
+              "agents": [
+                {
+                  "name": "The Board, [1947",
+                  "sort_name": "The Board, [1947",
+                  "roles": ["publisher"]
+                },
+                {
+                  "name": "Board of Supervising Engineers. Chicago Traction",
+                  "sort_name": "Board of Supervising Engineers. Chicago Traction",
+                  "lcnaf": "no2016039040",
+                  "viaf": "369146094366700332667",
+                  "roles": ["publisher"]
+                }
+              ],
+              "items": [
+                {
+                  "source": "hathitrust",
+                  "content_type": "ebook",
+                  "modified": "2019-04-12T06:06:03",
+                  "identifiers": [
+                    {
+                      "id_type": "hathi",
+                      "identifier": "njp.32101076429131"
+                    }
+                  ],
+                  "links": [
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=njp.32101076429131",
+                      "media_type": "application/pdf",
+                      "local": false,
+                      "download": true,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101076429131 - eBook - images"
+                    },
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/pt?id=njp.32101076429131",
+                      "media_type": "text/html",
+                      "local": false,
+                      "download": false,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101076429131 - eBook - images"
+                    }
+                  ]
+                }
+              ],
+              "rights": [
+                {
+                  "source": "hathi_trust",
+                  "license": "public_domain",
+                  "rights_statement": "Public Domain",
+                  "rights_reason": "bibliographically-dervied by automatic processes",
+                  "copyright_date": {
+                    "gte": "1909-01-01",
+                    "lte": "1909-12-31"
+                  },
+                  "copyright_date_display": "1909",
+                  "determination_date": {
+                    "gte": "2010-11-18",
+                    "lte": null
+                  },
+                  "determination_date_display": "2010-11-18 20:30:18"
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Annual report of Board of Supervising Engineers, Chicago Traction.",
+              "pub_place": "Illinois",
+              "volume": "1918/19 (12th)",
+              "agents": [
+                {
+                  "name": "The Board, [1947",
+                  "sort_name": "The Board, [1947",
+                  "roles": ["publisher"]
+                }
+              ],
+              "items": [
+                {
+                  "source": "hathitrust",
+                  "content_type": "ebook",
+                  "modified": "2019-04-12T06:06:04",
+                  "identifiers": [
+                    {
+                      "id_type": "hathi",
+                      "identifier": "njp.32101076429230"
+                    }
+                  ],
+                  "links": [
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=njp.32101076429230",
+                      "media_type": "application/pdf",
+                      "local": false,
+                      "download": true,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101076429230 - eBook - images"
+                    },
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/pt?id=njp.32101076429230",
+                      "media_type": "text/html",
+                      "local": false,
+                      "download": false,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101076429230 - eBook - images"
+                    }
+                  ]
+                }
+              ],
+              "rights": [
+                {
+                  "source": "hathi_trust",
+                  "license": "public_domain",
+                  "rights_statement": "Public Domain",
+                  "rights_reason": "bibliographically-dervied by automatic processes",
+                  "copyright_date": {
+                    "gte": "1919-01-01",
+                    "lte": "1919-12-31"
+                  },
+                  "copyright_date_display": "1919",
+                  "determination_date": {
+                    "gte": "2010-11-18",
+                    "lte": null
+                  },
+                  "determination_date_display": "2010-11-18 20:30:53"
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Annual report of Board of Supervising Engineers, Chicago Traction.",
+              "pub_place": "Illinois",
+              "volume": "1916/17 (10th)",
+              "agents": [
+                {
+                  "name": "The Board, [1947",
+                  "sort_name": "The Board, [1947",
+                  "roles": ["publisher"]
+                }
+              ],
+              "items": [
+                {
+                  "source": "hathitrust",
+                  "content_type": "ebook",
+                  "modified": "2019-04-12T06:06:04",
+                  "identifiers": [
+                    {
+                      "id_type": "hathi",
+                      "identifier": "njp.32101076429214"
+                    }
+                  ],
+                  "links": [
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=njp.32101076429214",
+                      "media_type": "application/pdf",
+                      "local": false,
+                      "download": true,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101076429214 - eBook - images"
+                    },
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/pt?id=njp.32101076429214",
+                      "media_type": "text/html",
+                      "local": false,
+                      "download": false,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101076429214 - eBook - images"
+                    }
+                  ]
+                }
+              ],
+              "rights": [
+                {
+                  "source": "hathi_trust",
+                  "license": "public_domain",
+                  "rights_statement": "Public Domain",
+                  "rights_reason": "bibliographically-dervied by automatic processes",
+                  "determination_date": {
+                    "gte": "2010-11-18",
+                    "lte": null
+                  },
+                  "determination_date_display": "2010-11-18 19:30:37",
+                  "copyright_date": {
+                    "gte": "1917-01-01",
+                    "lte": "1917-12-31"
+                  },
+                  "copyright_date_display": "1917"
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Annual report of Board of Supervising Engineers, Chicago Traction.",
+              "pub_place": "Illinois",
+              "volume": "1919/20 (13th)",
+              "agents": [
+                {
+                  "name": "The Board, [1947",
+                  "sort_name": "The Board, [1947",
+                  "roles": ["publisher"]
+                }
+              ],
+              "items": [
+                {
+                  "source": "hathitrust",
+                  "content_type": "ebook",
+                  "modified": "2019-04-12T06:06:04",
+                  "identifiers": [
+                    {
+                      "id_type": "hathi",
+                      "identifier": "njp.32101076429248"
+                    }
+                  ],
+                  "links": [
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=njp.32101076429248",
+                      "media_type": "application/pdf",
+                      "local": false,
+                      "download": true,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101076429248 - eBook - images"
+                    },
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/pt?id=njp.32101076429248",
+                      "media_type": "text/html",
+                      "local": false,
+                      "download": false,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101076429248 - eBook - images"
+                    }
+                  ]
+                }
+              ],
+              "rights": [
+                {
+                  "source": "hathi_trust",
+                  "license": "public_domain",
+                  "rights_statement": "Public Domain",
+                  "rights_reason": "bibliographically-dervied by automatic processes",
+                  "determination_date": {
+                    "gte": "2010-11-18",
+                    "lte": null
+                  },
+                  "determination_date_display": "2010-11-18 19:31:09",
+                  "copyright_date": {
+                    "gte": "1920-01-01",
+                    "lte": "1920-12-31"
+                  },
+                  "copyright_date_display": "1920"
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Annual report of Board of Supervising Engineers, Chicago Traction.",
+              "pub_place": "Illinois",
+              "volume": "1920/21 (14th)",
+              "agents": [
+                {
+                  "name": "The Board, [1947",
+                  "sort_name": "The Board, [1947",
+                  "roles": ["publisher"]
+                }
+              ],
+              "items": [
+                {
+                  "source": "hathitrust",
+                  "content_type": "ebook",
+                  "modified": "2019-04-12T06:06:04",
+                  "identifiers": [
+                    {
+                      "id_type": "hathi",
+                      "identifier": "njp.32101076429255"
+                    }
+                  ],
+                  "links": [
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/pt?id=njp.32101076429255",
+                      "media_type": "text/html",
+                      "local": false,
+                      "download": false,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101076429255 - eBook - images"
+                    },
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=njp.32101076429255",
+                      "media_type": "application/pdf",
+                      "local": false,
+                      "download": true,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101076429255 - eBook - images"
+                    }
+                  ]
+                }
+              ],
+              "rights": [
+                {
+                  "source": "hathi_trust",
+                  "license": "public_domain",
+                  "rights_statement": "Public Domain",
+                  "rights_reason": "bibliographically-dervied by automatic processes",
+                  "copyright_date": {
+                    "gte": "1921-01-01",
+                    "lte": "1921-12-31"
+                  },
+                  "copyright_date_display": "1921",
+                  "determination_date": {
+                    "gte": "2010-11-18",
+                    "lte": null
+                  },
+                  "determination_date_display": "2010-11-18 20:30:18"
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Annual report of Board of Supervising Engineers, Chicago Traction.",
+              "pub_place": "Illinois",
+              "volume": "1921/22 (15th)",
+              "agents": [
+                {
+                  "name": "The Board, [1947",
+                  "sort_name": "The Board, [1947",
+                  "roles": ["publisher"]
+                }
+              ],
+              "items": [
+                {
+                  "source": "hathitrust",
+                  "content_type": "ebook",
+                  "modified": "2019-04-12T06:06:04",
+                  "identifiers": [
+                    {
+                      "id_type": "hathi",
+                      "identifier": "njp.32101076429263"
+                    }
+                  ],
+                  "links": [
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/pt?id=njp.32101076429263",
+                      "media_type": "text/html",
+                      "local": false,
+                      "download": false,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101076429263 - eBook - images"
+                    },
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=njp.32101076429263",
+                      "media_type": "application/pdf",
+                      "local": false,
+                      "download": true,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101076429263 - eBook - images"
+                    }
+                  ]
+                }
+              ],
+              "rights": [
+                {
+                  "source": "hathi_trust",
+                  "license": "public_domain",
+                  "rights_statement": "Public Domain",
+                  "rights_reason": "bibliographically-dervied by automatic processes",
+                  "copyright_date": {
+                    "gte": "1922-01-01",
+                    "lte": "1922-12-31"
+                  },
+                  "copyright_date_display": "1922",
+                  "determination_date": {
+                    "gte": "2010-11-18",
+                    "lte": null
+                  },
+                  "determination_date_display": "2010-11-18 20:30:18"
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Annual report of Board of Supervising Engineers, Chicago Traction.",
+              "pub_place": "Illinois",
+              "volume": "1915/16 (9th)",
+              "agents": [
+                {
+                  "name": "The Board, [1947",
+                  "sort_name": "The Board, [1947",
+                  "roles": ["publisher"]
+                }
+              ],
+              "items": [
+                {
+                  "source": "hathitrust",
+                  "content_type": "ebook",
+                  "modified": "2019-04-12T06:06:04",
+                  "identifiers": [
+                    {
+                      "id_type": "hathi",
+                      "identifier": "njp.32101076429206"
+                    }
+                  ],
+                  "links": [
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/pt?id=njp.32101076429206",
+                      "media_type": "text/html",
+                      "local": false,
+                      "download": false,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101076429206 - eBook - images"
+                    },
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=njp.32101076429206",
+                      "media_type": "application/pdf",
+                      "local": false,
+                      "download": true,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101076429206 - eBook - images"
+                    }
+                  ]
+                }
+              ],
+              "rights": [
+                {
+                  "source": "hathi_trust",
+                  "license": "public_domain",
+                  "rights_statement": "Public Domain",
+                  "rights_reason": "bibliographically-dervied by automatic processes",
+                  "determination_date": {
+                    "gte": "2010-11-18",
+                    "lte": null
+                  },
+                  "determination_date_display": "2010-11-18 19:30:37",
+                  "copyright_date": {
+                    "gte": "1916-01-01",
+                    "lte": "1916-12-31"
+                  },
+                  "copyright_date_display": "1916"
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Annual report of Board of Supervising Engineers, Chicago Traction.",
+              "pub_place": "Illinois",
+              "volume": "1914/15 (8th)",
+              "agents": [
+                {
+                  "name": "The Board, [1947",
+                  "sort_name": "The Board, [1947",
+                  "roles": ["publisher"]
+                }
+              ],
+              "items": [
+                {
+                  "source": "hathitrust",
+                  "content_type": "ebook",
+                  "modified": "2019-04-12T06:06:04",
+                  "identifiers": [
+                    {
+                      "id_type": "hathi",
+                      "identifier": "njp.32101076429198"
+                    }
+                  ],
+                  "links": [
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/pt?id=njp.32101076429198",
+                      "media_type": "text/html",
+                      "local": false,
+                      "download": false,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101076429198 - eBook - images"
+                    },
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=njp.32101076429198",
+                      "media_type": "application/pdf",
+                      "local": false,
+                      "download": true,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101076429198 - eBook - images"
+                    }
+                  ]
+                }
+              ],
+              "rights": [
+                {
+                  "source": "hathi_trust",
+                  "license": "public_domain",
+                  "rights_statement": "Public Domain",
+                  "rights_reason": "bibliographically-dervied by automatic processes",
+                  "copyright_date": {
+                    "gte": "1915-01-01",
+                    "lte": "1915-12-31"
+                  },
+                  "copyright_date_display": "1915",
+                  "determination_date": {
+                    "gte": "2010-11-18",
+                    "lte": null
+                  },
+                  "determination_date_display": "2010-11-18 20:30:53"
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Annual report of Board of Supervising Engineers, Chicago Traction.",
+              "pub_place": "Illinois",
+              "volume": "1907/08 (1st)",
+              "agents": [
+                {
+                  "name": "The Board, [1947",
+                  "sort_name": "The Board, [1947",
+                  "roles": ["publisher"]
+                }
+              ],
+              "items": [
+                {
+                  "source": "hathitrust",
+                  "content_type": "ebook",
+                  "modified": "2019-04-13T06:12:06",
+                  "identifiers": [
+                    {
+                      "id_type": "hathi",
+                      "identifier": "njp.32101076429123"
+                    }
+                  ],
+                  "links": [
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=njp.32101076429123",
+                      "media_type": "application/pdf",
+                      "local": false,
+                      "download": true,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101076429123 - eBook - images"
+                    },
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/pt?id=njp.32101076429123",
+                      "media_type": "text/html",
+                      "local": false,
+                      "download": false,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101076429123 - eBook - images"
+                    }
+                  ]
+                }
+              ],
+              "rights": [
+                {
+                  "source": "hathi_trust",
+                  "license": "public_domain",
+                  "rights_statement": "Public Domain",
+                  "rights_reason": "bibliographically-dervied by automatic processes",
+                  "copyright_date": {
+                    "gte": "1908-01-01",
+                    "lte": "1908-12-31"
+                  },
+                  "copyright_date_display": "1908",
+                  "determination_date": {
+                    "gte": "2010-11-19",
+                    "lte": null
+                  },
+                  "determination_date_display": "2010-11-19 19:30:19"
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Annual report of Board of Supervising Engineers, Chicago Traction.",
+              "pub_place": "Illinois",
+              "volume": "1922/23 (16th)",
+              "agents": [
+                {
+                  "name": "The Board, [1947",
+                  "sort_name": "The Board, [1947",
+                  "roles": ["publisher"]
+                }
+              ],
+              "items": [
+                {
+                  "source": "hathitrust",
+                  "content_type": "ebook",
+                  "modified": "2019-04-12T06:06:04",
+                  "identifiers": [
+                    {
+                      "id_type": "hathi",
+                      "identifier": "njp.32101076429271"
+                    }
+                  ],
+                  "links": [
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/pt?id=njp.32101076429271",
+                      "media_type": "text/html",
+                      "local": false,
+                      "download": false,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101076429271 - eBook - images"
+                    },
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=njp.32101076429271",
+                      "media_type": "application/pdf",
+                      "local": false,
+                      "download": true,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101076429271 - eBook - images"
+                    }
+                  ]
+                }
+              ],
+              "rights": [
+                {
+                  "source": "hathi_trust",
+                  "license": "public_domain",
+                  "rights_statement": "Public Domain",
+                  "rights_reason": "bibliographically-dervied by automatic processes",
+                  "determination_date": {
+                    "gte": "2019-01-01",
+                    "lte": null
+                  },
+                  "determination_date_display": "2019-01-01 07:25:58",
+                  "copyright_date": {
+                    "gte": "1923-01-01",
+                    "lte": "1923-12-31"
+                  },
+                  "copyright_date_display": "1923"
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            }
+          ]
+        },
+        "sort": [31.138433, "b5e204bf-4115-4ec3-af17-820fcedaa19f"]
+      },
+      {
+        "_index": "sfr_test",
+        "_type": "doc",
+        "_id": "c6113b99-afe1-48a8-a215-083ccf6ac25a",
+        "_score": 31.04435,
+        "_source": {
+          "uuid": "c6113b99-afe1-48a8-a215-083ccf6ac25a",
+          "title": "Annual report of West Chicago Park Commissioners.",
+          "date_modified": "2019-04-24T12:55:47.018552",
+          "alt_titles": ["Annual report of West Chicago Park Commissioners"],
+          "subjects": [
+            {
+              "authority": "fast",
+              "uri": "(OCoLC)fst00773164",
+              "subject": "Chicago (Ill.)., West Chicago Park Commissioners."
+            },
+            {
+              "authority": "fast",
+              "uri": "(OCoLC)fst01411641",
+              "subject": "Periodicals."
+            },
+            {
+              "authority": "lcsh",
+              "subject": "Parks -- Periodicals. -- Illinois"
+            },
+            {
+              "authority": "fast",
+              "uri": "1204048",
+              "subject": "Illinois--Chicago"
+            },
+            {
+              "authority": "fast",
+              "uri": "(OCoLC)fst01204048",
+              "subject": "Illinois -- Chicago."
+            },
+            {
+              "authority": "lcsh",
+              "subject": "Parkways -- Periodicals. -- Illinois"
+            },
+            {
+              "authority": "fast",
+              "uri": "1053786",
+              "subject": "Parkways"
+            },
+            {
+              "authority": "fast",
+              "uri": "773164",
+              "subject": "Chicago (Ill.). West Chicago Park Commissioners"
+            },
+            {
+              "authority": "lcsh",
+              "subject": "Chicago (Ill.)., West Chicago Park Commissioners -- Periodicals."
+            },
+            {
+              "authority": "fast",
+              "uri": "(OCoLC)fst01053786",
+              "subject": "Parkways."
+            },
+            {
+              "authority": "fast",
+              "uri": "(OCoLC)fst01053705",
+              "subject": "Parks."
+            },
+            {
+              "authority": "fast",
+              "uri": "1053705",
+              "subject": "Parks"
+            }
+          ],
+          "agents": [
+            {
+              "name": "Chicago (Ill.). West Chicago Park Commissioners",
+              "sort_name": "Chicago (Ill.). West Chicago Park Commissioners",
+              "lcnaf": "no2002057056",
+              "viaf": "125825280",
+              "roles": ["author"]
+            }
+          ],
+          "identifiers": [
+            {
+              "id_type": "hathi",
+              "identifier": "uiug.30112051916242"
+            },
+            {
+              "id_type": "hathi",
+              "identifier": "uiug.30112051916234"
+            },
+            {
+              "id_type": "generic",
+              "identifier": "5195462"
+            },
+            {
+              "id_type": "owi",
+              "identifier": "17429871"
+            },
+            {
+              "id_type": "hathi",
+              "identifier": "uiug.30112051916226"
+            },
+            {
+              "id_type": "hathi",
+              "identifier": "uiug.30112051916283"
+            },
+            {
+              "id_type": "hathi",
+              "identifier": "uiug.30112051916275"
+            },
+            {
+              "id_type": "hathi",
+              "identifier": "008698747"
+            },
+            {
+              "id_type": "hathi",
+              "identifier": "uiug.30112051916218"
+            },
+            {
+              "id_type": "hathi",
+              "identifier": "uiug.30112051916291"
+            },
+            {
+              "id_type": "oclc",
+              "identifier": "18511124"
+            }
+          ],
+          "measurements": [
+            {
+              "quantity": "government_document",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-04-24T06:06:25"
+            },
+            {
+              "quantity": "government_document",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-04-24T06:06:25"
+            },
+            {
+              "quantity": "government_document",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-04-24T06:06:25"
+            },
+            {
+              "quantity": "holdings",
+              "value": 31,
+              "weight": 1,
+              "taken_at": "2019-04-14T06:39:44"
+            },
+            {
+              "quantity": "government_document",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-04-24T06:06:25"
+            },
+            {
+              "quantity": "editions",
+              "value": 4,
+              "weight": 1,
+              "taken_at": "2019-04-14T06:39:44"
+            },
+            {
+              "quantity": "eholdings",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-04-14T06:39:44"
+            },
+            {
+              "quantity": "government_document",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-04-14T06:06:08"
+            },
+            {
+              "quantity": "government_document",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-04-24T06:06:25"
+            },
+            {
+              "quantity": "government_document",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-04-24T06:06:25"
+            }
+          ],
+          "instances": [
+            {
+              "title": "Annual report of West Chicago Park Commissioners.",
+              "pub_place": "Illinois",
+              "volume": "v.34-36(1902-1904)",
+              "agents": [
+                {
+                  "name": "The Commission",
+                  "sort_name": "The Commission",
+                  "roles": ["publisher"]
+                }
+              ],
+              "items": [
+                {
+                  "source": "hathitrust",
+                  "content_type": "ebook",
+                  "modified": "2019-04-24T06:06:25",
+                  "identifiers": [
+                    {
+                      "id_type": "hathi",
+                      "identifier": "uiug.30112051916291"
+                    }
+                  ],
+                  "links": [
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/pt?id=uiug.30112051916291",
+                      "media_type": "text/html",
+                      "local": false,
+                      "download": false,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - uiug.30112051916291 - eBook - images"
+                    },
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=uiug.30112051916291",
+                      "media_type": "application/pdf",
+                      "local": false,
+                      "download": true,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - uiug.30112051916291 - eBook - images"
+                    }
+                  ]
+                }
+              ],
+              "rights": [
+                {
+                  "source": "hathi_trust",
+                  "license": "public_domain",
+                  "rights_statement": "Public Domain",
+                  "rights_reason": "bibliographically-dervied by automatic processes",
+                  "copyright_date": {
+                    "gte": "1904-01-01",
+                    "lte": "1904-12-31"
+                  },
+                  "copyright_date_display": "1904",
+                  "determination_date": {
+                    "gte": "2015-10-06",
+                    "lte": null
+                  },
+                  "determination_date_display": "2015-10-06 03:25:46"
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Annual report of West Chicago Park Commissioners.",
+              "pub_place": "Chicago",
+              "extent": "volumes :; illustrations, maps (some color, folded), portraits ;; 24 cm",
+              "agents": [
+                {
+                  "name": "The Commission",
+                  "sort_name": "The Commission",
+                  "roles": ["publisher"]
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Annual report of West Chicago Park Commissioners.",
+              "pub_place": "Chicago",
+              "extent": "volumes :; illustrations, maps (some color, folded), portraits ;; 24 cm",
+              "agents": [
+                {
+                  "name": "The Commission",
+                  "sort_name": "The Commission",
+                  "roles": ["publisher"]
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Annual report of West Chicago Park Commissioners.",
+              "pub_place": "Illinois",
+              "volume": "v.32",
+              "agents": [
+                {
+                  "name": "The Commission",
+                  "sort_name": "The Commission",
+                  "roles": ["publisher"]
+                }
+              ],
+              "items": [
+                {
+                  "source": "hathitrust",
+                  "content_type": "ebook",
+                  "modified": "2019-04-24T06:06:25",
+                  "identifiers": [
+                    {
+                      "id_type": "hathi",
+                      "identifier": "uiug.30112051916218"
+                    }
+                  ],
+                  "links": [
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=uiug.30112051916218",
+                      "media_type": "application/pdf",
+                      "local": false,
+                      "download": true,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - uiug.30112051916218 - eBook - images"
+                    },
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/pt?id=uiug.30112051916218",
+                      "media_type": "text/html",
+                      "local": false,
+                      "download": false,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - uiug.30112051916218 - eBook - images"
+                    }
+                  ]
+                }
+              ],
+              "rights": [
+                {
+                  "source": "hathi_trust",
+                  "license": "public_domain (us_only)",
+                  "rights_statement": "Public Domain when viewed in the US",
+                  "rights_reason": "Google viewability set at VIEW_FULL",
+                  "copyright_date": {
+                    "gte": "1999-01-01",
+                    "lte": "1999-12-31"
+                  },
+                  "copyright_date_display": "1999",
+                  "determination_date": {
+                    "gte": "2015-10-29",
+                    "lte": null
+                  },
+                  "determination_date_display": "2015-10-29 01:03:03"
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Annual report of West Chicago Park Commissioners.",
+              "pub_place": "Illinois",
+              "volume": "v.41(1909)",
+              "agents": [
+                {
+                  "name": "The Commission",
+                  "sort_name": "The Commission",
+                  "roles": ["publisher"]
+                }
+              ],
+              "items": [
+                {
+                  "source": "hathitrust",
+                  "content_type": "ebook",
+                  "modified": "2019-04-24T06:06:25",
+                  "identifiers": [
+                    {
+                      "id_type": "hathi",
+                      "identifier": "uiug.30112051916275"
+                    }
+                  ],
+                  "links": [
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/pt?id=uiug.30112051916275",
+                      "media_type": "text/html",
+                      "local": false,
+                      "download": false,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - uiug.30112051916275 - eBook - images"
+                    },
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=uiug.30112051916275",
+                      "media_type": "application/pdf",
+                      "local": false,
+                      "download": true,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - uiug.30112051916275 - eBook - images"
+                    }
+                  ]
+                }
+              ],
+              "rights": [
+                {
+                  "source": "hathi_trust",
+                  "license": "public_domain",
+                  "rights_statement": "Public Domain",
+                  "rights_reason": "bibliographically-dervied by automatic processes",
+                  "determination_date": {
+                    "gte": "2015-10-06",
+                    "lte": null
+                  },
+                  "determination_date_display": "2015-10-06 03:25:46",
+                  "copyright_date": {
+                    "gte": "1909-01-01",
+                    "lte": "1909-12-31"
+                  },
+                  "copyright_date_display": "1909"
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Annual report of West Chicago Park Commissioners",
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Annual report of West Chicago Park Commissioners.",
+              "pub_place": "Chicago",
+              "extent": "volumes :; illustrations, maps (some color, folded), portraits ;; 24 cm",
+              "volume": "v.39-40(1907-1908)",
+              "agents": [
+                {
+                  "name": "The Commission",
+                  "sort_name": "The Commission",
+                  "roles": ["publisher"]
+                }
+              ],
+              "items": [
+                {
+                  "source": "hathitrust",
+                  "content_type": "ebook",
+                  "modified": "2019-04-14T06:06:08",
+                  "identifiers": [
+                    {
+                      "id_type": "hathi",
+                      "identifier": "uiug.30112051916283"
+                    }
+                  ],
+                  "links": [
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/pt?id=uiug.30112051916283",
+                      "media_type": "text/html",
+                      "local": false,
+                      "download": false,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - uiug.30112051916283 - eBook - images"
+                    },
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=uiug.30112051916283",
+                      "media_type": "application/pdf",
+                      "local": false,
+                      "download": true,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - uiug.30112051916283 - eBook - images"
+                    }
+                  ]
+                }
+              ],
+              "rights": [
+                {
+                  "source": "hathi_trust",
+                  "license": "public_domain",
+                  "rights_statement": "Public Domain",
+                  "rights_reason": "bibliographically-dervied by automatic processes",
+                  "determination_date": {
+                    "gte": "2015-09-27",
+                    "lte": null
+                  },
+                  "determination_date_display": "2015-09-27 03:25:07",
+                  "copyright_date": {
+                    "gte": "1908-01-01",
+                    "lte": "1908-12-31"
+                  },
+                  "copyright_date_display": "1908"
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Annual report of West Chicago Park Commissioners.",
+              "pub_place": "Illinois",
+              "volume": "v.30(1898)",
+              "agents": [
+                {
+                  "name": "The Commission",
+                  "sort_name": "The Commission",
+                  "roles": ["publisher"]
+                }
+              ],
+              "items": [
+                {
+                  "source": "hathitrust",
+                  "content_type": "ebook",
+                  "modified": "2019-04-24T06:06:25",
+                  "identifiers": [
+                    {
+                      "id_type": "hathi",
+                      "identifier": "uiug.30112051916226"
+                    }
+                  ],
+                  "links": [
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/pt?id=uiug.30112051916226",
+                      "media_type": "text/html",
+                      "local": false,
+                      "download": false,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - uiug.30112051916226 - eBook - images"
+                    },
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=uiug.30112051916226",
+                      "media_type": "application/pdf",
+                      "local": false,
+                      "download": true,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - uiug.30112051916226 - eBook - images"
+                    }
+                  ]
+                }
+              ],
+              "rights": [
+                {
+                  "source": "hathi_trust",
+                  "license": "public_domain",
+                  "rights_statement": "Public Domain",
+                  "rights_reason": "bibliographically-dervied by automatic processes",
+                  "copyright_date": {
+                    "gte": "1898-01-01",
+                    "lte": "1898-12-31"
+                  },
+                  "copyright_date_display": "1898",
+                  "determination_date": {
+                    "gte": "2015-10-06",
+                    "lte": null
+                  },
+                  "determination_date_display": "2015-10-06 03:25:46"
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Annual report of West Chicago Park Commissioners.",
+              "pub_place": "Illinois",
+              "volume": "v.12-19 1880/81-1887/88 (BD W/O 16,17)",
+              "agents": [
+                {
+                  "name": "The Commission",
+                  "sort_name": "The Commission",
+                  "roles": ["publisher"]
+                }
+              ],
+              "items": [
+                {
+                  "source": "hathitrust",
+                  "content_type": "ebook",
+                  "modified": "2019-04-24T06:06:25",
+                  "identifiers": [
+                    {
+                      "id_type": "hathi",
+                      "identifier": "uiug.30112051916234"
+                    }
+                  ],
+                  "links": [
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/pt?id=uiug.30112051916234",
+                      "media_type": "text/html",
+                      "local": false,
+                      "download": false,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - uiug.30112051916234 - eBook - images"
+                    },
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=uiug.30112051916234",
+                      "media_type": "application/pdf",
+                      "local": false,
+                      "download": true,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - uiug.30112051916234 - eBook - images"
+                    }
+                  ]
+                }
+              ],
+              "rights": [
+                {
+                  "source": "hathi_trust",
+                  "license": "public_domain",
+                  "rights_statement": "Public Domain",
+                  "rights_reason": "bibliographically-dervied by automatic processes",
+                  "copyright_date": {
+                    "gte": "1887-01-01",
+                    "lte": "1887-12-31"
+                  },
+                  "copyright_date_display": "1887",
+                  "determination_date": {
+                    "gte": "2015-10-06",
+                    "lte": null
+                  },
+                  "determination_date_display": "2015-10-06 03:25:46"
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Annual report of West Chicago Park Commissioners.",
+              "pub_place": "Illinois",
+              "volume": "v.23-28 1891/92-1896 (BD W/O 27)",
+              "agents": [
+                {
+                  "name": "The Commission",
+                  "sort_name": "The Commission",
+                  "roles": ["publisher"]
+                }
+              ],
+              "items": [
+                {
+                  "source": "hathitrust",
+                  "content_type": "ebook",
+                  "modified": "2019-04-24T06:06:25",
+                  "identifiers": [
+                    {
+                      "id_type": "hathi",
+                      "identifier": "uiug.30112051916242"
+                    }
+                  ],
+                  "links": [
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=uiug.30112051916242",
+                      "media_type": "application/pdf",
+                      "local": false,
+                      "download": true,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - uiug.30112051916242 - eBook - images"
+                    },
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/pt?id=uiug.30112051916242",
+                      "media_type": "text/html",
+                      "local": false,
+                      "download": false,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - uiug.30112051916242 - eBook - images"
+                    }
+                  ]
+                }
+              ],
+              "rights": [
+                {
+                  "source": "hathi_trust",
+                  "license": "public_domain",
+                  "rights_statement": "Public Domain",
+                  "rights_reason": "bibliographically-dervied by automatic processes",
+                  "copyright_date": {
+                    "gte": "1896-01-01",
+                    "lte": "1896-12-31"
+                  },
+                  "copyright_date_display": "1896",
+                  "determination_date": {
+                    "gte": "2015-10-06",
+                    "lte": null
+                  },
+                  "determination_date_display": "2015-10-06 03:25:46"
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            }
+          ]
+        },
+        "sort": [31.04435, "c6113b99-afe1-48a8-a215-083ccf6ac25a"]
+      },
+      {
+        "_index": "sfr_test",
+        "_type": "doc",
+        "_id": "86aae3dc-aaeb-4baf-9334-9ea798faf775",
+        "_score": 29.329731,
+        "_source": {
+          "uuid": "86aae3dc-aaeb-4baf-9334-9ea798faf775",
+          "title": "Census statistics on housing for Chicago: 1950, 1940; a report by the Chicago Community Inventory to the Housing and Redevelopment Coordinator and the Chicago Plan Commission.",
+          "date_modified": "2019-04-24T08:30:12.451211",
+          "alt_titles": [
+            "Census statistics on housing for Chicago: 1950, 1940; : a report to the Housing and Redevelopment Coordinator and the Chicago Plan Commission"
+          ],
+          "subjects": [
+            {
+              "authority": "fast",
+              "uri": "(OCoLC)fst01204048",
+              "subject": "Illinois -- Chicago."
+            },
+            {
+              "authority": "lcsh",
+              "subject": "Housing -- Illinois"
+            },
+            {
+              "authority": "fast",
+              "uri": "962245",
+              "subject": "Housing"
+            },
+            {
+              "authority": "fast",
+              "uri": "(OCoLC)fst00962245",
+              "subject": "Housing."
+            },
+            {
+              "authority": "fast",
+              "uri": "1204048",
+              "subject": "Illinois--Chicago"
+            }
+          ],
+          "agents": [
+            {
+              "name": "Chicago Community Inventory",
+              "sort_name": "Chicago Community Inventory",
+              "lcnaf": "no98050922",
+              "viaf": "159758567",
+              "roles": ["author"]
+            }
+          ],
+          "identifiers": [
+            {
+              "id_type": "oclc",
+              "identifier": "2830246"
+            },
+            {
+              "id_type": "hathi",
+              "identifier": "001342601"
+            },
+            {
+              "id_type": "owi",
+              "identifier": "6391043"
+            },
+            {
+              "id_type": "hathi",
+              "identifier": "coo.31924019258296"
+            },
+            {
+              "id_type": "lccn",
+              "identifier": "A  56000621"
+            },
+            {
+              "id_type": "generic",
+              "identifier": "1835315"
+            }
+          ],
+          "measurements": [
+            {
+              "quantity": "eholdings",
+              "value": 14,
+              "weight": 1,
+              "taken_at": "2019-04-24T07:11:48"
+            },
+            {
+              "quantity": "government_document",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-04-24T06:06:01"
+            },
+            {
+              "quantity": "holdings",
+              "value": 23,
+              "weight": 1,
+              "taken_at": "2019-04-24T07:11:48"
+            },
+            {
+              "quantity": "editions",
+              "value": 2,
+              "weight": 1,
+              "taken_at": "2019-04-24T07:11:48"
+            }
+          ],
+          "instances": [
+            {
+              "title": "Census statistics on housing for Chicago: 1950, 1940;",
+              "sub_title": "a report to the Housing and Redevelopment Coordinator and the Chicago Plan Commission.",
+              "pub_place": "[Chicago]",
+              "extent": "iv, 68 leaves; map; 28 cm",
+              "pub_date": {
+                "gte": "1954-01-01",
+                "lte": "1954-12-31"
+              },
+              "pub_date_display": "1954",
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Census statistics on housing for Chicago: 1950, 1940; : a report to the Housing and Redevelopment Coordinator and the Chicago Plan Commission",
+              "pub_place": "Illinois",
+              "volume": "",
+              "items": [
+                {
+                  "source": "hathitrust",
+                  "content_type": "ebook",
+                  "modified": "2019-04-24T06:06:01",
+                  "identifiers": [
+                    {
+                      "id_type": "hathi",
+                      "identifier": "coo.31924019258296"
+                    }
+                  ],
+                  "links": [
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/pt?id=coo.31924019258296",
+                      "media_type": "text/html",
+                      "local": false,
+                      "download": false,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - coo.31924019258296 - eBook - images"
+                    },
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=coo.31924019258296",
+                      "media_type": "application/pdf",
+                      "local": false,
+                      "download": true,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - coo.31924019258296 - eBook - images"
+                    }
+                  ]
+                }
+              ],
+              "rights": [
+                {
+                  "source": "hathi_trust",
+                  "license": "public_domain",
+                  "rights_statement": "Public Domain",
+                  "rights_reason": "copyright renewal research was conducted",
+                  "copyright_date": {
+                    "gte": "1954-01-01",
+                    "lte": "1954-12-31"
+                  },
+                  "copyright_date_display": "1954",
+                  "determination_date": {
+                    "gte": "2012-09-06",
+                    "lte": null
+                  },
+                  "determination_date_display": "2012-09-06 05:30:05"
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            }
+          ]
+        },
+        "sort": [29.329731, "86aae3dc-aaeb-4baf-9334-9ea798faf775"]
+      },
+      {
+        "_index": "sfr_test",
+        "_type": "doc",
+        "_id": "2f0cf5aa-6b1a-4600-a316-7f23c9e94312",
+        "_score": 29.15456,
+        "_source": {
+          "uuid": "2f0cf5aa-6b1a-4600-a316-7f23c9e94312",
+          "title": "Annual register.",
+          "date_modified": "2019-03-30T18:50:59.710864",
+          "alt_titles": ["Annual register : with announcements for 1912", "Annual register"],
+          "subjects": [
+            {
+              "authority": "fast",
+              "uri": "(OCoLC)fst01411641",
+              "subject": "Periodicals."
+            },
+            {
+              "authority": "fast",
+              "uri": "(OCoLC)fst00533088",
+              "subject": "University of Chicago."
+            },
+            {
+              "authority": "lcsh",
+              "subject": "University of Chicago -- Periodicals."
+            },
+            {
+              "authority": "embucm",
+              "subject": "University of Chicago (Estados Unidos) -- Guías"
+            },
+            {
+              "authority": "fast",
+              "uri": "533088",
+              "subject": "University of Chicago"
+            }
+          ],
+          "agents": [
+            {
+              "name": "University of Chicago",
+              "sort_name": "University of Chicago",
+              "lcnaf": "n79058404",
+              "viaf": "143657677",
+              "aliases": ["Chicago (Ill.)"],
+              "roles": ["author"]
+            }
+          ],
+          "identifiers": [
+            {
+              "id_type": "hathi",
+              "identifier": "uiug.30112111532229"
+            },
+            {
+              "id_type": "owi",
+              "identifier": "3866647"
+            },
+            {
+              "id_type": "hathi",
+              "identifier": "uiug.30112111532161"
+            },
+            {
+              "id_type": "lccn",
+              "identifier": "08011821"
+            },
+            {
+              "id_type": "generic",
+              "identifier": "2350750"
+            },
+            {
+              "id_type": "hathi",
+              "identifier": "000051072"
+            },
+            {
+              "id_type": "oclc",
+              "identifier": "2068936"
+            },
+            {
+              "id_type": "oclc",
+              "identifier": "606594062"
+            },
+            {
+              "id_type": "owi",
+              "identifier": "45093594"
+            }
+          ],
+          "measurements": [
+            {
+              "quantity": "eholdings",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-03-30T13:28:28"
+            },
+            {
+              "quantity": "government_document",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-03-30T06:05:49"
+            },
+            {
+              "quantity": "editions",
+              "value": 1,
+              "weight": 1,
+              "taken_at": "2019-03-30T13:28:28"
+            },
+            {
+              "quantity": "holdings",
+              "value": 1,
+              "weight": 1,
+              "taken_at": "2019-03-30T13:28:28"
+            },
+            {
+              "quantity": "eholdings",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-03-30T13:28:28"
+            },
+            {
+              "quantity": "government_document",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-03-30T06:05:49"
+            },
+            {
+              "quantity": "editions",
+              "value": 8,
+              "weight": 1,
+              "taken_at": "2019-03-30T13:28:28"
+            },
+            {
+              "quantity": "holdings",
+              "value": 68,
+              "weight": 1,
+              "taken_at": "2019-03-30T13:28:28"
+            }
+          ],
+          "instances": [
+            {
+              "title": "Annual register.",
+              "pub_place": "Chicago",
+              "extent": "volumes :; folded maps, diagrams ;; 24-25 cm",
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Annual register : with announcements for 1912",
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Annual register.",
+              "pub_place": "Chicago",
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Annual register ...",
+              "pub_place": "Chicago",
+              "extent": "volumes ;; octavo"
+            },
+            {
+              "title": "Annual register [of the University of Chicago].",
+              "pub_place": "Chicago",
+              "pub_date": {
+                "gte": "1892-01-01",
+                "lte": "1930-12-31"
+              },
+              "pub_date_display": "1892-1930",
+              "agents": [
+                {
+                  "name": "The University Press of Washington",
+                  "sort_name": "The University Press of Washington",
+                  "roles": ["publisher"]
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Annual register.",
+              "pub_place": "Chicago",
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Annual register /",
+              "pub_place": "Chicago",
+              "extent": "v. ;; 24 cm",
+              "agents": [
+                {
+                  "name": "University of Chicago",
+                  "sort_name": "University of Chicago",
+                  "lcnaf": "n79058404",
+                  "viaf": "143657677",
+                  "aliases": ["Chicago (Ill.)"],
+                  "roles": ["publisher"]
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Annual register.",
+              "pub_place": "Chicago",
+              "extent": "volumes; folded maps, diagrams; 24-25 cm",
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Annual register.",
+              "sub_title": "with announcements for 1912.",
+              "pub_place": "Chicago",
+              "extent": "volumes; folded maps, diagram",
+              "volume": "1897/98",
+              "pub_date": {
+                "gte": "1912-01-01",
+                "lte": "1912-12-31"
+              },
+              "pub_date_display": "1912",
+              "agents": [
+                {
+                  "name": "18",
+                  "sort_name": "18",
+                  "roles": ["publisher"]
+                }
+              ],
+              "items": [
+                {
+                  "source": "hathitrust",
+                  "content_type": "ebook",
+                  "modified": "2019-03-30T06:05:49",
+                  "identifiers": [
+                    {
+                      "id_type": "hathi",
+                      "identifier": "uiug.30112111532161"
+                    }
+                  ],
+                  "links": [
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/pt?id=uiug.30112111532161",
+                      "media_type": "text/html",
+                      "local": false,
+                      "download": false,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - uiug.30112111532161 - eBook - images"
+                    },
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=uiug.30112111532161",
+                      "media_type": "application/pdf",
+                      "local": false,
+                      "download": true,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - uiug.30112111532161 - eBook - images"
+                    }
+                  ]
+                }
+              ],
+              "rights": [
+                {
+                  "source": "hathi_trust",
+                  "license": "public_domain",
+                  "rights_statement": "Public Domain",
+                  "rights_reason": "bibliographically-dervied by automatic processes",
+                  "determination_date": {
+                    "gte": "2019-03-29",
+                    "lte": null
+                  },
+                  "determination_date_display": "2019-03-29 03:15:00",
+                  "copyright_date": {
+                    "gte": "1898-01-01",
+                    "lte": "1898-12-31"
+                  },
+                  "copyright_date_display": "1898"
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Annual register.",
+              "pub_place": "Illinois",
+              "volume": "1905/06",
+              "agents": [
+                {
+                  "name": "18",
+                  "sort_name": "18",
+                  "roles": ["publisher"]
+                }
+              ],
+              "items": [
+                {
+                  "source": "hathitrust",
+                  "content_type": "ebook",
+                  "modified": "2019-03-30T06:05:49",
+                  "identifiers": [
+                    {
+                      "id_type": "hathi",
+                      "identifier": "uiug.30112111532229"
+                    }
+                  ],
+                  "links": [
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=uiug.30112111532229",
+                      "media_type": "application/pdf",
+                      "local": false,
+                      "download": true,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - uiug.30112111532229 - eBook - images"
+                    },
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/pt?id=uiug.30112111532229",
+                      "media_type": "text/html",
+                      "local": false,
+                      "download": false,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - uiug.30112111532229 - eBook - images"
+                    }
+                  ]
+                }
+              ],
+              "rights": [
+                {
+                  "source": "hathi_trust",
+                  "license": "public_domain",
+                  "rights_statement": "Public Domain",
+                  "rights_reason": "bibliographically-dervied by automatic processes",
+                  "determination_date": {
+                    "gte": "2019-03-29",
+                    "lte": null
+                  },
+                  "determination_date_display": "2019-03-29 03:15:00",
+                  "copyright_date": {
+                    "gte": "1906-01-01",
+                    "lte": "1906-12-31"
+                  },
+                  "copyright_date_display": "1906"
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            }
+          ]
+        },
+        "sort": [29.15456, "2f0cf5aa-6b1a-4600-a316-7f23c9e94312"]
+      },
+      {
+        "_index": "sfr_test",
+        "_type": "doc",
+        "_id": "de79e475-a4bd-4172-bfd3-a0e7f008e8e6",
+        "_score": 29.020592,
+        "_source": {
+          "uuid": "de79e475-a4bd-4172-bfd3-a0e7f008e8e6",
+          "title": "Theses of the University of Chicago doctors of philosophy, June 1893-December 1921, for sale ... by the Department of Duplicates and Maps.",
+          "date_modified": "2019-04-14T07:36:13.856320",
+          "alt_titles": ["Theses of the University of Chicago doctors of philosophy, : June 1893-December 1921,"],
+          "subjects": [
+            {
+              "authority": "fast",
+              "uri": "533088",
+              "subject": "University of Chicago"
+            },
+            {
+              "authority": "fast",
+              "uri": "1204155",
+              "subject": "United States"
+            },
+            {
+              "authority": "fast",
+              "uri": "(OCoLC)fst01204155",
+              "subject": "United States."
+            },
+            {
+              "authority": "fast",
+              "uri": "(OCoLC)fst00895423",
+              "subject": "Dissertations, Academic."
+            },
+            {
+              "authority": "lcsh",
+              "subject": "University of Chicago -- Bibliography."
+            },
+            {
+              "authority": "fast",
+              "uri": "(OCoLC)fst01423717",
+              "subject": "Bibliography."
+            },
+            {
+              "authority": "fast",
+              "uri": "(OCoLC)fst00533088",
+              "subject": "University of Chicago."
+            },
+            {
+              "authority": "lcsh",
+              "subject": "Dissertations, Academic -- Bibliography. -- United States"
+            },
+            {
+              "authority": "fast",
+              "uri": "895423",
+              "subject": "Dissertations, Academic"
+            }
+          ],
+          "agents": [
+            {
+              "name": "University of Chicago. Library",
+              "sort_name": "University of Chicago. Library",
+              "lcnaf": "n79139284",
+              "viaf": "312727347",
+              "roles": ["author"]
+            }
+          ],
+          "identifiers": [
+            {
+              "id_type": "hathi",
+              "identifier": "njp.32101074694579"
+            },
+            {
+              "id_type": "lccn",
+              "identifier": "23010826"
+            },
+            {
+              "id_type": "hathi",
+              "identifier": "009023428"
+            },
+            {
+              "id_type": "generic",
+              "identifier": "2309912"
+            },
+            {
+              "id_type": "oclc",
+              "identifier": "3592160"
+            },
+            {
+              "id_type": "owi",
+              "identifier": "11432039"
+            }
+          ],
+          "measurements": [
+            {
+              "quantity": "government_document",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-04-14T06:05:59"
+            },
+            {
+              "quantity": "eholdings",
+              "value": 14,
+              "weight": 1,
+              "taken_at": "2019-04-14T06:09:22"
+            },
+            {
+              "quantity": "editions",
+              "value": 3,
+              "weight": 1,
+              "taken_at": "2019-04-14T06:09:22"
+            },
+            {
+              "quantity": "holdings",
+              "value": 28,
+              "weight": 1,
+              "taken_at": "2019-04-14T06:09:22"
+            }
+          ],
+          "instances": [
+            {
+              "title": "Theses of the University of Chicago Doctors of philosophy, June, 1893 - December, 1921 ...",
+              "pub_place": "Chicago",
+              "extent": "96 pages ;; 23 cm",
+              "agents": [
+                {
+                  "name": "The University of Chicago",
+                  "sort_name": "The University of Chicago",
+                  "roles": ["publisher"]
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Theses of the University of Chicago doctors of philosophy,",
+              "sub_title": "June 1893-December 1921,",
+              "pub_place": "Chicago, Ill.",
+              "extent": "96 pages; 23 cm",
+              "volume": "",
+              "agents": [
+                {
+                  "name": "M26, Harper Memorial Library, the University of Chicago",
+                  "sort_name": "M26, Harper Memorial Library, the University of Chicago",
+                  "roles": ["publisher"]
+                }
+              ],
+              "items": [
+                {
+                  "source": "hathitrust",
+                  "content_type": "ebook",
+                  "modified": "2019-04-14T06:05:59",
+                  "identifiers": [
+                    {
+                      "id_type": "hathi",
+                      "identifier": "njp.32101074694579"
+                    }
+                  ],
+                  "links": [
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/pt?id=njp.32101074694579",
+                      "media_type": "text/html",
+                      "local": false,
+                      "download": false,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101074694579 - eBook - images"
+                    },
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=njp.32101074694579",
+                      "media_type": "application/pdf",
+                      "local": false,
+                      "download": true,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101074694579 - eBook - images"
+                    }
+                  ]
+                }
+              ],
+              "rights": [
+                {
+                  "source": "hathi_trust",
+                  "license": "public_domain",
+                  "rights_statement": "Public Domain",
+                  "rights_reason": "bibliographically-dervied by automatic processes",
+                  "copyright_date": {
+                    "gte": "1922-01-01",
+                    "lte": "1922-12-31"
+                  },
+                  "copyright_date_display": "1922",
+                  "determination_date": {
+                    "gte": "2010-11-21",
+                    "lte": null
+                  },
+                  "determination_date_display": "2010-11-21 20:30:23"
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "Theses of the University of Chicago doctors of philosophy",
+              "sub_title": "June 1893-December 1921,",
+              "pub_place": "Chicago, Ill.",
+              "extent": "1 online resource (96 pages)",
+              "agents": [
+                {
+                  "name": "M26, Harper Memorial Library, the University of Chicago",
+                  "sort_name": "M26, Harper Memorial Library, the University of Chicago",
+                  "roles": ["publisher"]
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            }
+          ]
+        },
+        "sort": [29.020592, "de79e475-a4bd-4172-bfd3-a0e7f008e8e6"]
+      },
+      {
+        "_index": "sfr_test",
+        "_type": "doc",
+        "_id": "702fa3d6-ba51-4616-a48a-9b5f7ed23b87",
+        "_score": 28.769302,
+        "_source": {
+          "uuid": "702fa3d6-ba51-4616-a48a-9b5f7ed23b87",
+          "title": "Annual report of the Chicago Great Western Railway Company : for the year ending June 30 ...",
+          "date_modified": "2019-03-31T16:58:43.898264",
+          "alt_titles": ["... Annual report of the Chicago Great Western Railway Company ."],
+          "subjects": [
+            {
+              "authority": "fast",
+              "uri": "(OCoLC)fst00584669",
+              "subject": "Chicago Great Western Railway Company (1892-1909)"
+            },
+            {
+              "authority": "fast",
+              "uri": "(OCoLC)fst01204155",
+              "subject": "United States."
+            },
+            {
+              "authority": "fast",
+              "uri": "1204155",
+              "subject": "United States"
+            },
+            {
+              "authority": "fast",
+              "uri": "(OCoLC)fst01411641",
+              "subject": "Periodicals."
+            },
+            {
+              "authority": "fast",
+              "uri": "1088711",
+              "subject": "Railroads"
+            },
+            {
+              "authority": "lcsh",
+              "subject": "Chicago Great Western Railway Company (1892-1909) -- Periodicals."
+            },
+            {
+              "authority": "lcsh",
+              "subject": "Railroads -- Periodicals. -- United States"
+            },
+            {
+              "authority": "fast",
+              "uri": "(OCoLC)fst01088711",
+              "subject": "Railroads."
+            }
+          ],
+          "agents": [
+            {
+              "name": "Chicago Great Western Railroad Company",
+              "sort_name": "Chicago Great Western Railroad Company",
+              "lcnaf": "n83190584",
+              "viaf": "141935475",
+              "death_date": {
+                "gte": "1909-01-01",
+                "lte": "1909-12-31"
+              },
+              "death_date_display": "1909",
+              "birth_date": {
+                "gte": "1892-01-01",
+                "lte": "1892-12-31"
+              },
+              "birth_date_display": "1892",
+              "roles": ["author"]
+            }
+          ],
+          "identifiers": [
+            {
+              "id_type": "oclc",
+              "identifier": "1554159"
+            },
+            {
+              "id_type": "generic",
+              "identifier": "2445335"
+            },
+            {
+              "id_type": "owi",
+              "identifier": "3374972967"
+            },
+            {
+              "id_type": "hathi",
+              "identifier": "njp.32101068312337"
+            },
+            {
+              "id_type": "hathi",
+              "identifier": "njp.32101068312345"
+            },
+            {
+              "id_type": "hathi",
+              "identifier": "008969994"
+            }
+          ],
+          "measurements": [
+            {
+              "quantity": "editions",
+              "value": 3,
+              "weight": 1,
+              "taken_at": "2019-03-30T13:28:28"
+            },
+            {
+              "quantity": "eholdings",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-03-30T13:28:28"
+            },
+            {
+              "quantity": "government_document",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-03-30T06:06:26"
+            },
+            {
+              "quantity": "government_document",
+              "value": 0,
+              "weight": 1,
+              "taken_at": "2019-03-30T06:06:26"
+            },
+            {
+              "quantity": "holdings",
+              "value": 31,
+              "weight": 1,
+              "taken_at": "2019-03-30T13:28:28"
+            }
+          ],
+          "instances": [
+            {
+              "title": "Annual report of the Chicago Great Western Railway Company : for the year ending June 30 ...",
+              "pub_place": "Illinois",
+              "volume": "1892-1899",
+              "agents": [
+                {
+                  "name": "Chicago Great Western Railway Co., [/1893]-1907",
+                  "sort_name": "Chicago Great Western Railway Co., [/1893]-1907",
+                  "roles": ["publisher"]
+                }
+              ],
+              "items": [
+                {
+                  "source": "hathitrust",
+                  "content_type": "ebook",
+                  "modified": "2019-03-30T06:06:26",
+                  "identifiers": [
+                    {
+                      "id_type": "hathi",
+                      "identifier": "njp.32101068312345"
+                    }
+                  ],
+                  "links": [
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=njp.32101068312345",
+                      "media_type": "application/pdf",
+                      "local": false,
+                      "download": true,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101068312345 - eBook - images"
+                    },
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/pt?id=njp.32101068312345",
+                      "media_type": "text/html",
+                      "local": false,
+                      "download": false,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101068312345 - eBook - images"
+                    }
+                  ]
+                }
+              ],
+              "rights": [
+                {
+                  "source": "hathi_trust",
+                  "license": "public_domain",
+                  "rights_statement": "Public Domain",
+                  "rights_reason": "bibliographically-dervied by automatic processes",
+                  "copyright_date": {
+                    "gte": "1899-01-01",
+                    "lte": "1899-12-31"
+                  },
+                  "copyright_date_display": "1899",
+                  "determination_date": {
+                    "gte": "2012-06-28",
+                    "lte": null
+                  },
+                  "determination_date_display": "2012-06-28 04:30:37"
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "... Annual report of the Chicago Great Western Railway Company ...",
+              "pub_place": "[Chicago?]",
+              "extent": "15 volumes ;; 23 cm",
+              "agents": [
+                {
+                  "name": "Chicago Great Western Railroad Company",
+                  "sort_name": "Chicago Great Western Railroad Company",
+                  "lcnaf": "n83190584",
+                  "viaf": "141935475",
+                  "death_date": {
+                    "gte": "1909-01-01",
+                    "lte": "1909-12-31"
+                  },
+                  "death_date_display": "1909",
+                  "birth_date": {
+                    "gte": "1892-01-01",
+                    "lte": "1892-12-31"
+                  },
+                  "birth_date_display": "1892",
+                  "roles": ["publisher"]
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "... Annual report of the Chicago Great Western Railway Company ...",
+              "pub_place": "[Chicago?]",
+              "extent": "15 volumes ;; 23 cm",
+              "volume": "1899-1906/07",
+              "agents": [
+                {
+                  "name": "Chicago Great Western Railway Co., [/1893]-1907",
+                  "sort_name": "Chicago Great Western Railway Co., [/1893]-1907",
+                  "roles": ["publisher"]
+                },
+                {
+                  "name": "Chicago Great Western Railroad Company",
+                  "sort_name": "Chicago Great Western Railroad Company",
+                  "lcnaf": "n83190584",
+                  "viaf": "141935475",
+                  "death_date": {
+                    "gte": "1909-01-01",
+                    "lte": "1909-12-31"
+                  },
+                  "death_date_display": "1909",
+                  "birth_date": {
+                    "gte": "1892-01-01",
+                    "lte": "1892-12-31"
+                  },
+                  "birth_date_display": "1892",
+                  "roles": ["publisher"]
+                }
+              ],
+              "items": [
+                {
+                  "source": "hathitrust",
+                  "content_type": "ebook",
+                  "modified": "2019-03-30T06:06:26",
+                  "identifiers": [
+                    {
+                      "id_type": "hathi",
+                      "identifier": "njp.32101068312337"
+                    }
+                  ],
+                  "links": [
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=njp.32101068312337",
+                      "media_type": "application/pdf",
+                      "local": false,
+                      "download": true,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101068312337 - eBook - images"
+                    },
+                    {
+                      "url": "https://babel.hathitrust.org/cgi/pt?id=njp.32101068312337",
+                      "media_type": "text/html",
+                      "local": false,
+                      "download": false,
+                      "images": true,
+                      "ebook": true,
+                      "label": "hathitrust - njp.32101068312337 - eBook - images"
+                    }
+                  ]
+                }
+              ],
+              "rights": [
+                {
+                  "source": "hathi_trust",
+                  "license": "public_domain",
+                  "rights_statement": "Public Domain",
+                  "rights_reason": "bibliographically-dervied by automatic processes",
+                  "determination_date": {
+                    "gte": "2012-06-28",
+                    "lte": null
+                  },
+                  "determination_date_display": "2012-06-28 04:30:15",
+                  "copyright_date": {
+                    "gte": "1907-01-01",
+                    "lte": "1907-12-31"
+                  },
+                  "copyright_date_display": "1907"
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            },
+            {
+              "title": "... Annual report of the Chicago Great Western Railway Company ...",
+              "pub_place": "[Chicago?]",
+              "extent": "15 volumes ;; 23 cm",
+              "agents": [
+                {
+                  "name": "Chicago Great Western Railroad Company",
+                  "sort_name": "Chicago Great Western Railroad Company",
+                  "lcnaf": "n83190584",
+                  "viaf": "141935475",
+                  "death_date": {
+                    "gte": "1909-01-01",
+                    "lte": "1909-12-31"
+                  },
+                  "death_date_display": "1909",
+                  "birth_date": {
+                    "gte": "1892-01-01",
+                    "lte": "1892-12-31"
+                  },
+                  "birth_date_display": "1892",
+                  "roles": ["publisher"]
+                }
+              ],
+              "language": [
+                {
+                  "language": "English",
+                  "iso_2": "en",
+                  "iso_3": "eng"
+                }
+              ]
+            }
+          ]
+        },
+        "sort": [28.769302, "702fa3d6-ba51-4616-a48a-9b5f7ed23b87"]
+      }
+    ]
+  },
+  "paging": {
+    "prev_page_sort": [37.134808, "b310f501-c813-4426-bd28-0c3e02f75e99"],
+    "next_page_sort": [28.769302, "702fa3d6-ba51-4616-a48a-9b5f7ed23b87"]
+  },
+  "facets": {
+    "language": [
+      {
+        "value": "German",
+        "count": 246
+      },
+      {
+        "value": "English",
+        "count": 2148
+      },
+      {
+        "value": "French",
+        "count": 215
+      },
+      {
+        "value": "Spanish",
+        "count": 182
+      },
+      {
+        "value": "Italian",
+        "count": 118
+      },
+      {
+        "value": "Chinese",
+        "count": 88
+      },
+      {
+        "value": "Russian",
+        "count": 65
+      },
+      {
+        "value": "Polish",
+        "count": 43
+      },
+      {
+        "value": "Hebrew",
+        "count": 41
+      },
+      {
+        "value": "Latin",
+        "count": 37
+      }
+    ]
+  }
+}

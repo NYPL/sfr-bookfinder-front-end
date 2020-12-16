@@ -1,0 +1,4594 @@
+{
+	"data": {
+		"date_created": "2019-12-29T01:38:58.397Z",
+		"date_modified": "2020-01-08T16:44:23.555Z",
+		"id": 56071,
+		"uuid": "07737109-2d77-4fb3-b23e-7991339216fb",
+		"title": "The Blithedale romance, by Nathaniel Hawthorne.",
+		"sort_title": null,
+		"sub_title": null,
+		"medium": null,
+		"series": "The modern library classics",
+		"series_position": "vol. VIII",
+		"agents": [
+			{
+				"name": "Hawthorne, Nathaniel",
+				"sort_name": "hawthorne, nathaniel",
+				"viaf": null,
+				"lcnaf": null,
+				"birth_date_display": "1804",
+				"death_date_display": "1864",
+				"roles": [
+					"author"
+				]
+			},
+			{
+				"name": "Dugdale, John",
+				"sort_name": "dugdale, john",
+				"viaf": "57970242",
+				"lcnaf": "n82142775",
+				"roles": [
+					"editor",
+					"author of introduction"
+				]
+			}
+		],
+		"subjects": [
+			{
+				"subject": "United States",
+				"authority": "fast",
+				"uri": "1204155"
+			},
+			{
+				"subject": "Blithedale romance (Hawthorne, Nathaniel)",
+				"authority": "fast",
+				"uri": "1359666"
+			},
+			{
+				"subject": "Collective settlements",
+				"authority": "fast",
+				"uri": "867585"
+			},
+			{
+				"subject": "Collective farms",
+				"authority": "fast",
+				"uri": "867364"
+			},
+			{
+				"subject": "Aufsatzsammlung.",
+				"authority": "gnd",
+				"uri": "(DE-588)4143413-4."
+			},
+			{
+				"subject": "Aufsatzsammlung.",
+				"authority": null,
+				"uri": null
+			},
+			{
+				"subject": "Collective settlements -- Fiction. -- Boston -- Massachusetts",
+				"authority": null,
+				"uri": null
+			},
+			{
+				"subject": "Hawthorne, Nathaniel, 1804-1864",
+				"authority": "gnd",
+				"uri": null
+			},
+			{
+				"subject": "Powieść autobiograficzna amerykańska -- 19 w.",
+				"authority": null,
+				"uri": null
+			}
+		],
+		"languages": null,
+		"alt_titles": null,
+		"identifiers": [
+			{
+				"id_type": "hathi",
+				"identifier": "nyp.33433076087844"
+			},
+			{
+				"id_type": "hathi",
+				"identifier": "008590608"
+			},
+			{
+				"id_type": "hathi",
+				"identifier": "008665619"
+			}
+		],
+		"instances": null,
+		"editions": [
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33285,
+				"publication_place": "London",
+				"publication_date": "1854",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "W. Scott",
+						"sort_name": "w. scott",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33282,
+				"publication_place": "London",
+				"publication_date": "1852",
+				"edition": null,
+				"edition_statement": "[Another ed.].",
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					},
+					{
+						"language": "German",
+						"iso_2": "de",
+						"iso_3": "deu"
+					},
+					{
+						"language": "Undetermined",
+						"iso_2": null,
+						"iso_3": "und"
+					}
+				],
+				"agents": [
+					{
+						"name": "C.E. Kollmann",
+						"sort_name": "c.e. kollmann",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher",
+							"manufacturer"
+						]
+					},
+					{
+						"name": "Chapman & Hall British publishing house",
+						"sort_name": "chapman & hall british publishing house",
+						"viaf": "151283596",
+						"lcnaf": "n81117573",
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "Houghton, Mifflin and Company",
+						"sort_name": "houghton, mifflin and company",
+						"viaf": "131449065",
+						"lcnaf": "n88002745",
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "Houghton Mifflin, Medical Division",
+						"sort_name": "houghton mifflin, medical division",
+						"viaf": "262140940",
+						"lcnaf": "n85316845",
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "James R. Osgood and Company",
+						"sort_name": "james r. osgood and company",
+						"viaf": "148236742",
+						"lcnaf": "no96013109",
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "Thompson & Thomas",
+						"sort_name": "thompson & thomas",
+						"viaf": "151563992",
+						"lcnaf": "no94039933",
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": [
+					{
+						"source": "internetarchive",
+						"content_type": "ebook",
+						"modified": null,
+						"drm": null,
+						"links": [
+							{
+								"url": "archive.org/details/blithedaleromanc00hawtrich",
+								"media_type": "text/html",
+								"content": null,
+								"thumbnail": null,
+								"local": false,
+								"download": false,
+								"images": false,
+								"ebook": true
+							},
+							{
+								"url": "catalog.hathitrust.org/api/volumes/oclc/39113388.html",
+								"media_type": "text/html",
+								"content": null,
+								"thumbnail": null,
+								"local": false,
+								"download": true,
+								"images": false,
+								"ebook": true
+							}
+						],
+						"rights": null
+					},
+					{
+						"source": "hathitrust",
+						"content_type": "ebook",
+						"modified": null,
+						"drm": null,
+						"links": [
+							{
+								"url": "catalog.hathitrust.org/api/volumes/oclc/39113388.html",
+								"media_type": "text/html",
+								"content": null,
+								"thumbnail": null,
+								"local": false,
+								"download": false,
+								"images": false,
+								"ebook": true
+							}
+						],
+						"rights": null
+					},
+					{
+						"source": "hathitrust",
+						"content_type": "ebook",
+						"modified": null,
+						"drm": null,
+						"links": [
+							{
+								"url": "catalog.hathitrust.org/api/volumes/oclc/3285916.html",
+								"media_type": "text/html",
+								"content": null,
+								"thumbnail": null,
+								"local": false,
+								"download": false,
+								"images": false,
+								"ebook": true
+							}
+						],
+						"rights": null
+					},
+					{
+						"source": "hathitrust",
+						"content_type": "ebook",
+						"modified": null,
+						"drm": null,
+						"links": [
+							{
+								"url": "catalog.hathitrust.org/api/volumes/oclc/223199908.html",
+								"media_type": "text/html",
+								"content": null,
+								"thumbnail": null,
+								"local": false,
+								"download": true,
+								"images": false,
+								"ebook": true
+							}
+						],
+						"rights": null
+					},
+					{
+						"source": "hathitrust",
+						"content_type": "ebook",
+						"modified": null,
+						"drm": null,
+						"links": [
+							{
+								"url": "catalog.hathitrust.org/api/volumes/oclc/274739.html",
+								"media_type": "text/html",
+								"content": null,
+								"thumbnail": null,
+								"local": false,
+								"download": false,
+								"images": false,
+								"ebook": true
+							}
+						],
+						"rights": null
+					},
+					{
+						"source": "hathitrust",
+						"content_type": "ebook",
+						"modified": "2020-01-04T00:34:35",
+						"drm": null,
+						"links": [
+							{
+								"url": "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=nyp.33433074852991",
+								"media_type": "application/pdf",
+								"content": null,
+								"thumbnail": null,
+								"local": false,
+								"download": true,
+								"images": true,
+								"ebook": true
+							},
+							{
+								"url": "babel.hathitrust.org/cgi/pt?id=nyp.33433074852991",
+								"media_type": "text/html",
+								"content": null,
+								"thumbnail": null,
+								"local": false,
+								"download": false,
+								"images": true,
+								"ebook": true
+							}
+						],
+						"rights": [
+							{
+								"license": "public_domain",
+								"rights_statement": "Public Domain"
+							}
+						]
+					},
+					{
+						"source": "hathitrust",
+						"content_type": "ebook",
+						"modified": "2019-12-29T01:44:46",
+						"drm": null,
+						"links": [
+							{
+								"url": "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=nyp.33433076087844",
+								"media_type": "application/pdf",
+								"content": null,
+								"thumbnail": null,
+								"local": false,
+								"download": true,
+								"images": true,
+								"ebook": true
+							},
+							{
+								"url": "babel.hathitrust.org/cgi/pt?id=nyp.33433076087844",
+								"media_type": "text/html",
+								"content": null,
+								"thumbnail": null,
+								"local": false,
+								"download": false,
+								"images": true,
+								"ebook": true
+							}
+						],
+						"rights": [
+							{
+								"license": "public_domain",
+								"rights_statement": "Public Domain"
+							}
+						]
+					}
+				],
+				"covers": [
+					{
+						"url": "babel.hathitrust.org/cgi/htd/volume/pageimage/nyp.33433074852991/1?format=jpeg&v=2",
+						"media_type": "image/jpeg",
+						"flags": {
+							"cover": true,
+							"temporary": true
+						}
+					},
+					{
+						"url": "test-sfr-covers.s3.amazonaws.com/hathitrust/077371092d774fb3b23e7991339216fb_nyp.33433076087844.jpg",
+						"media_type": "image/jpeg",
+						"flags": {
+							"cover": true,
+							"temporary": false
+						}
+					}
+				]
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33283,
+				"publication_place": "New York",
+				"publication_date": "1852",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Burt",
+						"sort_name": "burt",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33284,
+				"publication_place": "London",
+				"publication_date": "1854",
+				"edition": null,
+				"edition_statement": "2nd ed.",
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Chapman & Hall British publishing house",
+						"sort_name": "chapman & hall british publishing house",
+						"viaf": "151283596",
+						"lcnaf": "n81117573",
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33286,
+				"publication_place": "Germany",
+				"publication_date": "1855",
+				"edition": null,
+				"edition_statement": "Authorized ed.",
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					},
+					{
+						"language": "German",
+						"iso_2": "de",
+						"iso_3": "deu"
+					}
+				],
+				"agents": [
+					{
+						"name": "Chapman and Hall",
+						"sort_name": "chapman and hall",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "Houghton Mifflin, Medical Division",
+						"sort_name": "houghton mifflin, medical division",
+						"viaf": "262140940",
+						"lcnaf": "n85316845",
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": [
+					{
+						"source": "hathitrust",
+						"content_type": "ebook",
+						"modified": "2020-01-08T15:42:14",
+						"drm": null,
+						"links": [
+							{
+								"url": "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=nyp.33433112004662",
+								"media_type": "application/pdf",
+								"content": null,
+								"thumbnail": null,
+								"local": false,
+								"download": true,
+								"images": true,
+								"ebook": true
+							},
+							{
+								"url": "babel.hathitrust.org/cgi/pt?id=nyp.33433112004662",
+								"media_type": "text/html",
+								"content": null,
+								"thumbnail": null,
+								"local": false,
+								"download": false,
+								"images": true,
+								"ebook": true
+							}
+						],
+						"rights": [
+							{
+								"license": "public_domain",
+								"rights_statement": "Public Domain"
+							}
+						]
+					},
+					{
+						"source": "hathitrust",
+						"content_type": "ebook",
+						"modified": null,
+						"drm": null,
+						"links": [
+							{
+								"url": "catalog.hathitrust.org/api/volumes/oclc/19344994.html",
+								"media_type": "text/html",
+								"content": null,
+								"thumbnail": null,
+								"local": false,
+								"download": false,
+								"images": false,
+								"ebook": true
+							}
+						],
+						"rights": null
+					}
+				],
+				"covers": [
+					{
+						"url": "babel.hathitrust.org/cgi/htd/volume/pageimage/nyp.33433112004662/1?format=jpeg&v=2",
+						"media_type": "image/jpeg",
+						"flags": {
+							"cover": true,
+							"temporary": true
+						}
+					}
+				]
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33287,
+				"publication_place": "Leipzig",
+				"publication_date": "1858",
+				"edition": null,
+				"edition_statement": "Authorized edition",
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "German",
+						"iso_2": "de",
+						"iso_3": "deu"
+					}
+				],
+				"agents": null,
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33288,
+				"publication_place": "Boston",
+				"publication_date": "1859",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Houghton Mifflin, Medical Division",
+						"sort_name": "houghton mifflin, medical division",
+						"viaf": "262140940",
+						"lcnaf": "n85316845",
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": [
+					{
+						"source": "hathitrust",
+						"content_type": "ebook",
+						"modified": null,
+						"drm": null,
+						"links": [
+							{
+								"url": "catalog.hathitrust.org/api/volumes/oclc/29455607.html",
+								"media_type": "text/html",
+								"content": null,
+								"thumbnail": null,
+								"local": false,
+								"download": false,
+								"images": false,
+								"ebook": true
+							}
+						],
+						"rights": null
+					}
+				],
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33289,
+				"publication_place": "Boston",
+				"publication_date": "1860",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Houghton Mifflin, Medical Division",
+						"sort_name": "houghton mifflin, medical division",
+						"viaf": "262140940",
+						"lcnaf": "n85316845",
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "Norton",
+						"sort_name": "norton",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33290,
+				"publication_place": "Boston",
+				"publication_date": "1862",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Houghton Mifflin, Medical Division",
+						"sort_name": "houghton mifflin, medical division",
+						"viaf": "262140940",
+						"lcnaf": "n85316845",
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": [
+					{
+						"source": "hathitrust",
+						"content_type": "ebook",
+						"modified": null,
+						"drm": null,
+						"links": [
+							{
+								"url": "catalog.hathitrust.org/api/volumes/oclc/15798205.html",
+								"media_type": "text/html",
+								"content": null,
+								"thumbnail": null,
+								"local": false,
+								"download": false,
+								"images": false,
+								"ebook": true
+							}
+						],
+						"rights": null
+					}
+				],
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33291,
+				"publication_place": "Boston",
+				"publication_date": "1863",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Houghton Mifflin, Medical Division",
+						"sort_name": "houghton mifflin, medical division",
+						"viaf": "262140940",
+						"lcnaf": "n85316845",
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33292,
+				"publication_place": "Boston",
+				"publication_date": "1865",
+				"edition": null,
+				"edition_statement": "A new ed.",
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Houghton Mifflin, Medical Division",
+						"sort_name": "houghton mifflin, medical division",
+						"viaf": "262140940",
+						"lcnaf": "n85316845",
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "Ticknor and Fields",
+						"sort_name": "ticknor and fields",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": [
+					{
+						"source": "hathitrust",
+						"content_type": "ebook",
+						"modified": null,
+						"drm": null,
+						"links": [
+							{
+								"url": "catalog.hathitrust.org/api/volumes/oclc/7259486.html",
+								"media_type": "text/html",
+								"content": null,
+								"thumbnail": null,
+								"local": false,
+								"download": false,
+								"images": false,
+								"ebook": true
+							}
+						],
+						"rights": null
+					},
+					{
+						"source": "hathitrust",
+						"content_type": "ebook",
+						"modified": "2020-01-07T16:22:27",
+						"drm": null,
+						"links": [
+							{
+								"url": "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=nyp.33433112005321",
+								"media_type": "application/pdf",
+								"content": null,
+								"thumbnail": null,
+								"local": false,
+								"download": true,
+								"images": true,
+								"ebook": true
+							},
+							{
+								"url": "babel.hathitrust.org/cgi/pt?id=nyp.33433112005321",
+								"media_type": "text/html",
+								"content": null,
+								"thumbnail": null,
+								"local": false,
+								"download": false,
+								"images": true,
+								"ebook": true
+							}
+						],
+						"rights": [
+							{
+								"license": "public_domain",
+								"rights_statement": "Public Domain"
+							}
+						]
+					}
+				],
+				"covers": [
+					{
+						"url": "babel.hathitrust.org/cgi/htd/volume/pageimage/nyp.33433112005321/1?format=jpeg&v=2",
+						"media_type": "image/jpeg",
+						"flags": {
+							"cover": true,
+							"temporary": true
+						}
+					}
+				]
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33293,
+				"publication_place": "Boston",
+				"publication_date": "1866",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Houghton Mifflin, Medical Division",
+						"sort_name": "houghton mifflin, medical division",
+						"viaf": "262140940",
+						"lcnaf": "n85316845",
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33294,
+				"publication_place": "Boston",
+				"publication_date": "1868",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Houghton Mifflin, Medical Division",
+						"sort_name": "houghton mifflin, medical division",
+						"viaf": "262140940",
+						"lcnaf": "n85316845",
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33295,
+				"publication_place": "Boston",
+				"publication_date": "1870",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Fields, Osgood, & Co",
+						"sort_name": "fields, osgood, & co",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": [
+					{
+						"source": "hathitrust",
+						"content_type": "ebook",
+						"modified": null,
+						"drm": null,
+						"links": [
+							{
+								"url": "catalog.hathitrust.org/api/volumes/oclc/703516646.html",
+								"media_type": "text/html",
+								"content": null,
+								"thumbnail": null,
+								"local": false,
+								"download": false,
+								"images": false,
+								"ebook": true
+							}
+						],
+						"rights": null
+					},
+					{
+						"source": "hathitrust",
+						"content_type": "ebook",
+						"modified": null,
+						"drm": null,
+						"links": [
+							{
+								"url": "catalog.hathitrust.org/api/volumes/oclc/8987785.html",
+								"media_type": "text/html",
+								"content": null,
+								"thumbnail": null,
+								"local": false,
+								"download": false,
+								"images": false,
+								"ebook": true
+							}
+						],
+						"rights": null
+					}
+				],
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33296,
+				"publication_place": "Boston",
+				"publication_date": "1871",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "Undetermined",
+						"iso_2": null,
+						"iso_3": "und"
+					}
+				],
+				"agents": [
+					{
+						"name": "J.R. Osgood",
+						"sort_name": "j.r. osgood",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33297,
+				"publication_place": "Boston",
+				"publication_date": "1873",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "James R. Osgood and Co",
+						"sort_name": "james r. osgood and co",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33298,
+				"publication_place": "Boston",
+				"publication_date": "1876",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "James R. Osgood and Co",
+						"sort_name": "james r. osgood and co",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": [
+					{
+						"source": "hathitrust",
+						"content_type": "ebook",
+						"modified": null,
+						"drm": null,
+						"links": [
+							{
+								"url": "catalog.hathitrust.org/api/volumes/oclc/9010995.html",
+								"media_type": "text/html",
+								"content": null,
+								"thumbnail": null,
+								"local": false,
+								"download": false,
+								"images": false,
+								"ebook": true
+							}
+						],
+						"rights": null
+					}
+				],
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33299,
+				"publication_place": "Boston",
+				"publication_date": "1880",
+				"edition": null,
+				"edition_statement": "8th ed.",
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					},
+					{
+						"language": "Undetermined",
+						"iso_2": null,
+						"iso_3": "und"
+					}
+				],
+				"agents": [
+					{
+						"name": "Chapman and Hell",
+						"sort_name": "chapman and hell",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "Houghton, Mifflin and Company",
+						"sort_name": "houghton, mifflin and company",
+						"viaf": "131449065",
+						"lcnaf": "n88002745",
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "Houghton Mifflin, Medical Division",
+						"sort_name": "houghton mifflin, medical division",
+						"viaf": "262140940",
+						"lcnaf": "n85316845",
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "J.M. Dent & Sons LTD",
+						"sort_name": "j.m. dent & sons ltd",
+						"viaf": "140758077",
+						"lcnaf": "n83139041",
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33300,
+				"publication_place": "Boston",
+				"publication_date": "1881",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Houghton, Mifflin",
+						"sort_name": "houghton, mifflin",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": [
+					{
+						"source": "hathitrust",
+						"content_type": "ebook",
+						"modified": null,
+						"drm": null,
+						"links": [
+							{
+								"url": "catalog.hathitrust.org/api/volumes/oclc/236058503.html",
+								"media_type": "text/html",
+								"content": null,
+								"thumbnail": null,
+								"local": false,
+								"download": false,
+								"images": false,
+								"ebook": true
+							}
+						],
+						"rights": null
+					}
+				],
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33301,
+				"publication_place": "London",
+				"publication_date": "1884",
+				"edition": null,
+				"edition_statement": "Seventh ed.",
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": null,
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33302,
+				"publication_place": "Edinburgh",
+				"publication_date": "1885",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "publisher not identified",
+						"sort_name": "publisher not identified",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33309,
+				"publication_place": "New York",
+				"publication_date": "1894",
+				"edition": null,
+				"edition_statement": "Ed. de luxe.",
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Caxton Society",
+						"sort_name": "caxton society",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33304,
+				"publication_place": "New York",
+				"publication_date": "1890",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "A.L. Burt Company",
+						"sort_name": "a.l. burt company",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33303,
+				"publication_place": null,
+				"publication_date": "1890",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Scott",
+						"sort_name": "scott",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33305,
+				"publication_place": "London",
+				"publication_date": "1891",
+				"edition": null,
+				"edition_statement": "Wayside ed.",
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Houghton, Mifflin and Company",
+						"sort_name": "houghton, mifflin and company",
+						"viaf": "131449065",
+						"lcnaf": "n88002745",
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "J.M. Dent & Sons LTD",
+						"sort_name": "j.m. dent & sons ltd",
+						"viaf": "140758077",
+						"lcnaf": "n83139041",
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "W. Paterson",
+						"sort_name": "w. paterson",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33306,
+				"publication_place": "London",
+				"publication_date": "1893",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Scott",
+						"sort_name": "scott",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33307,
+				"publication_place": "London",
+				"publication_date": "1894",
+				"edition": null,
+				"edition_statement": "Salem ed.",
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Houghton, Mifflin and Company",
+						"sort_name": "houghton, mifflin and company",
+						"viaf": "131449065",
+						"lcnaf": "n88002745",
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "Scott",
+						"sort_name": "scott",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33308,
+				"publication_place": "New York",
+				"publication_date": "1894",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Hurst and Co",
+						"sort_name": "hurst and co",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33310,
+				"publication_place": "New York",
+				"publication_date": "1895",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Houghton, Mifflin and Co",
+						"sort_name": "houghton, mifflin and co",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33312,
+				"publication_place": "New York",
+				"publication_date": "1899",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Crowell & Co",
+						"sort_name": "crowell & co",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": [
+					{
+						"source": "hathitrust",
+						"content_type": "ebook",
+						"modified": "2020-01-08T15:42:09",
+						"drm": null,
+						"links": [
+							{
+								"url": "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=nyp.33433112004688",
+								"media_type": "application/pdf",
+								"content": null,
+								"thumbnail": null,
+								"local": false,
+								"download": true,
+								"images": true,
+								"ebook": true
+							},
+							{
+								"url": "babel.hathitrust.org/cgi/pt?id=nyp.33433112004688",
+								"media_type": "text/html",
+								"content": null,
+								"thumbnail": null,
+								"local": false,
+								"download": false,
+								"images": true,
+								"ebook": true
+							}
+						],
+						"rights": [
+							{
+								"license": "public_domain",
+								"rights_statement": "Public Domain"
+							}
+						]
+					},
+					{
+						"source": "hathitrust",
+						"content_type": "ebook",
+						"modified": null,
+						"drm": null,
+						"links": [
+							{
+								"url": "catalog.hathitrust.org/api/volumes/oclc/2943784.html",
+								"media_type": "text/html",
+								"content": null,
+								"thumbnail": null,
+								"local": false,
+								"download": false,
+								"images": false,
+								"ebook": true
+							}
+						],
+						"rights": null
+					}
+				],
+				"covers": [
+					{
+						"url": "babel.hathitrust.org/cgi/htd/volume/pageimage/nyp.33433112004688/1?format=jpeg&v=2",
+						"media_type": "image/jpeg",
+						"flags": {
+							"cover": true,
+							"temporary": true
+						}
+					}
+				]
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33311,
+				"publication_place": "Boston",
+				"publication_date": "1899",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					},
+					{
+						"language": "Undetermined",
+						"iso_2": null,
+						"iso_3": "und"
+					}
+				],
+				"agents": [
+					{
+						"name": "Desmond",
+						"sort_name": "desmond",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": [
+					{
+						"source": "hathitrust",
+						"content_type": "ebook",
+						"modified": null,
+						"drm": null,
+						"links": [
+							{
+								"url": "catalog.hathitrust.org/api/volumes/oclc/37003753.html",
+								"media_type": "text/html",
+								"content": null,
+								"thumbnail": null,
+								"local": false,
+								"download": false,
+								"images": false,
+								"ebook": true
+							}
+						],
+						"rights": null
+					},
+					{
+						"source": "hathitrust",
+						"content_type": "ebook",
+						"modified": null,
+						"drm": null,
+						"links": [
+							{
+								"url": "catalog.hathitrust.org/api/volumes/oclc/4484311.html",
+								"media_type": "text/html",
+								"content": null,
+								"thumbnail": null,
+								"local": false,
+								"download": false,
+								"images": false,
+								"ebook": true
+							}
+						],
+						"rights": null
+					}
+				],
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33313,
+				"publication_place": "Boston",
+				"publication_date": "1900",
+				"edition": null,
+				"edition_statement": "Autograph ed.",
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Altemus",
+						"sort_name": "altemus",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "Houghton, Mifflin and Company",
+						"sort_name": "houghton, mifflin and company",
+						"viaf": "131449065",
+						"lcnaf": "n88002745",
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "Houghton, Mifflin & Co., Paris",
+						"sort_name": "houghton, mifflin & co., paris",
+						"viaf": "1139145857122522922745",
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "W.B. Conkey Company",
+						"sort_name": "w.b. conkey company",
+						"viaf": "127999600",
+						"lcnaf": "n94121554",
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33314,
+				"publication_place": "New York",
+				"publication_date": "1900",
+				"edition": null,
+				"edition_statement": "Ed. deluxe,; limited to one thousand sets printed for subscribers only.",
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "A.L. Burt",
+						"sort_name": "a.l. burt",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33333,
+				"publication_place": "Boston.",
+				"publication_date": "1949",
+				"edition": null,
+				"edition_statement": "Salem ed.",
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "J.M. Dent & Sons LTD",
+						"sort_name": "j.m. dent & sons ltd",
+						"viaf": "140758077",
+						"lcnaf": "n83139041",
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "S.C. Brown, Langham & Co",
+						"sort_name": "s.c. brown, langham & co",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33335,
+				"publication_place": "New York",
+				"publication_date": "1949",
+				"edition": null,
+				"edition_statement": "Ed. deluxe,; limited to one thousand sets printed for subscribers only.",
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Nottingham Society",
+						"sort_name": "nottingham society",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33315,
+				"publication_place": "London",
+				"publication_date": "1901",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "James Nisbet",
+						"sort_name": "james nisbet",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33316,
+				"publication_place": null,
+				"publication_date": "1902",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "T.Y. Crowell & Co",
+						"sort_name": "t.y. crowell & co",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": [
+					{
+						"source": "hathitrust",
+						"content_type": "ebook",
+						"modified": null,
+						"drm": null,
+						"links": [
+							{
+								"url": "catalog.hathitrust.org/api/volumes/oclc/319796.html",
+								"media_type": "text/html",
+								"content": null,
+								"thumbnail": null,
+								"local": false,
+								"download": false,
+								"images": false,
+								"ebook": true
+							}
+						],
+						"rights": null
+					}
+				],
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33317,
+				"publication_place": "New York",
+				"publication_date": "1902",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Crowell",
+						"sort_name": "crowell",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": [
+					{
+						"source": "hathitrust",
+						"content_type": "ebook",
+						"modified": null,
+						"drm": null,
+						"links": [
+							{
+								"url": "catalog.hathitrust.org/api/volumes/oclc/29287530.html",
+								"media_type": "text/html",
+								"content": null,
+								"thumbnail": null,
+								"local": false,
+								"download": false,
+								"images": false,
+								"ebook": true
+							}
+						],
+						"rights": null
+					}
+				],
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33318,
+				"publication_place": "Boston",
+				"publication_date": "1903",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Houghton Mifflin, Medical Division",
+						"sort_name": "houghton mifflin, medical division",
+						"viaf": "262140940",
+						"lcnaf": "n85316845",
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33319,
+				"publication_place": "New York",
+				"publication_date": "1910",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "A.L. Burt",
+						"sort_name": "a.l. burt",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33320,
+				"publication_place": "Pp. xi. 250. [1912]",
+				"publication_date": "1912",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "J.M. Dent & Sons LTD",
+						"sort_name": "j.m. dent & sons ltd",
+						"viaf": "140758077",
+						"lcnaf": "n83139041",
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": [
+					{
+						"source": "hathitrust",
+						"content_type": "ebook",
+						"modified": null,
+						"drm": null,
+						"links": [
+							{
+								"url": "catalog.hathitrust.org/api/volumes/oclc/2872675.html",
+								"media_type": "text/html",
+								"content": null,
+								"thumbnail": null,
+								"local": false,
+								"download": false,
+								"images": false,
+								"ebook": true
+							}
+						],
+						"rights": null
+					}
+				],
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33321,
+				"publication_place": "New York",
+				"publication_date": "1920",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "A.L. Burt Company",
+						"sort_name": "a.l. burt company",
+						"viaf": "136499357",
+						"lcnaf": "nr99039665",
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": [
+					{
+						"source": "hathitrust",
+						"content_type": "ebook",
+						"modified": null,
+						"drm": null,
+						"links": [
+							{
+								"url": "catalog.hathitrust.org/api/volumes/oclc/15530958.html",
+								"media_type": "text/html",
+								"content": null,
+								"thumbnail": null,
+								"local": false,
+								"download": false,
+								"images": false,
+								"ebook": true
+							}
+						],
+						"rights": null
+					}
+				],
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33322,
+				"publication_place": "Berlin",
+				"publication_date": "1921",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					},
+					{
+						"language": "German",
+						"iso_2": "de",
+						"iso_3": "deu"
+					}
+				],
+				"agents": [
+					{
+						"name": "Internat. Bibliothek",
+						"sort_name": "internat. bibliothek",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "Internationale Bibliothek für Zukunftsfragen",
+						"sort_name": "internationale bibliothek für zukunftsfragen",
+						"viaf": "146317650",
+						"lcnaf": "n2009013578",
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33323,
+				"publication_place": "Potsdam",
+				"publication_date": "1923",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "German",
+						"iso_2": "de",
+						"iso_3": "deu"
+					}
+				],
+				"agents": [
+					{
+						"name": "Martin Maschler",
+						"sort_name": "martin maschler",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "Müller & Co. AG",
+						"sort_name": "müller & co. ag",
+						"viaf": "705145857132722922878",
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33325,
+				"publication_place": "New York",
+				"publication_date": "1925",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "J.H. Sears",
+						"sort_name": "j.h. sears",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33324,
+				"publication_place": "Berlin",
+				"publication_date": "1925",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "German",
+						"iso_2": "de",
+						"iso_3": "deu"
+					}
+				],
+				"agents": [
+					{
+						"name": "Maschler",
+						"sort_name": "maschler",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33328,
+				"publication_place": "New York",
+				"publication_date": "1926",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "E. P. Dutton, foilsitheoir Meiriceánach i mBostún, Massachusetts",
+						"sort_name": "e. p. dutton, foilsitheoir meiriceánach i mbostún, massachusetts",
+						"viaf": "266034617",
+						"lcnaf": "n88072124",
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "J.M. Dent",
+						"sort_name": "j.m. dent",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "J.M. Dent & Sons LTD",
+						"sort_name": "j.m. dent & sons ltd",
+						"viaf": "140758077",
+						"lcnaf": "n83139041",
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33326,
+				"publication_place": "London",
+				"publication_date": "1926",
+				"edition": null,
+				"edition_statement": "Reprint.",
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Dent",
+						"sort_name": "dent",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "J.M. Dent & Sons LTD",
+						"sort_name": "j.m. dent & sons ltd",
+						"viaf": "140758077",
+						"lcnaf": "n83139041",
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": [
+					{
+						"source": "hathitrust",
+						"content_type": "ebook",
+						"modified": null,
+						"drm": null,
+						"links": [
+							{
+								"url": "catalog.hathitrust.org/api/volumes/oclc/11174171.html",
+								"media_type": "text/html",
+								"content": null,
+								"thumbnail": null,
+								"local": false,
+								"download": false,
+								"images": false,
+								"ebook": true
+							}
+						],
+						"rights": null
+					}
+				],
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33329,
+				"publication_place": "London",
+				"publication_date": "1931",
+				"edition": null,
+				"edition_statement": "New Wayside ed.",
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Standard",
+						"sort_name": "standard",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33331,
+				"publication_place": "Estados Unidos",
+				"publication_date": "1937",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Modern Library, an imprint of The Random House Publishing Group, a division of Random House",
+						"sort_name": "modern library, an imprint of the random house publishing group, a division of random house",
+						"viaf": "153153594",
+						"lcnaf": "n80051803",
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33336,
+				"publication_place": "Boston",
+				"publication_date": "1952",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Ticknor, Reed, and Fields",
+						"sort_name": "ticknor, reed, and fields",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33338,
+				"publication_place": null,
+				"publication_date": "1958",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": null,
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33339,
+				"publication_place": "New York (N.Y.)",
+				"publication_date": "1958",
+				"edition": null,
+				"edition_statement": "[Repr.].",
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Norton",
+						"sort_name": "norton",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "W.W. Norton & Company",
+						"sort_name": "w.w. norton & company",
+						"viaf": "127676589",
+						"lcnaf": "n87837068",
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33341,
+				"publication_place": "New York",
+				"publication_date": "1960",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Dell Pub",
+						"sort_name": "dell pub",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": [
+					{
+						"source": "internetarchive",
+						"content_type": "ebook",
+						"modified": null,
+						"drm": null,
+						"links": [
+							{
+								"url": "archive.org/details/blithedaleromanc00hawt",
+								"media_type": "text/html",
+								"content": null,
+								"thumbnail": null,
+								"local": false,
+								"download": false,
+								"images": false,
+								"ebook": true
+							}
+						],
+						"rights": null
+					}
+				],
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33342,
+				"publication_place": "Garden City, N.Y.",
+				"publication_date": "1961",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Doubleday",
+						"sort_name": "doubleday",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33345,
+				"publication_place": "New York",
+				"publication_date": "1961",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Doubleday & Co",
+						"sort_name": "doubleday & co",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "Permabooks",
+						"sort_name": "permabooks",
+						"viaf": "294994700",
+						"lcnaf": "n79107731",
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33347,
+				"publication_place": "New York",
+				"publication_date": "1962",
+				"edition": null,
+				"edition_statement": "Repr.",
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Dell",
+						"sort_name": "dell",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33348,
+				"publication_place": "Columbus]",
+				"publication_date": "1965",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Ohio State University Press",
+						"sort_name": "ohio state university press",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33350,
+				"publication_place": "New York",
+				"publication_date": "1968",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Dell Publishing Co",
+						"sort_name": "dell publishing co",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33352,
+				"publication_place": "Boston, Mass.",
+				"publication_date": "1970",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Ticknor, Reed and Fields",
+						"sort_name": "ticknor, reed and fields",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33354,
+				"publication_place": "Columbus",
+				"publication_date": "1971",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Ohio State University Press",
+						"sort_name": "ohio state university press",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33356,
+				"publication_place": "New-York",
+				"publication_date": "1974",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Dell",
+						"sort_name": "dell",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33357,
+				"publication_place": "New York",
+				"publication_date": "1978",
+				"edition": null,
+				"edition_statement": "1st ed.",
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "A.L. Burt Co",
+						"sort_name": "a.l. burt co",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "W.W. Norton & Company",
+						"sort_name": "w.w. norton & company",
+						"viaf": "127676589",
+						"lcnaf": "n87837068",
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": [
+					{
+						"source": "internetarchive",
+						"content_type": "ebook",
+						"modified": null,
+						"drm": null,
+						"links": [
+							{
+								"url": "archive.org/details/blithedaleroman00hawt",
+								"media_type": "text/html",
+								"content": null,
+								"thumbnail": null,
+								"local": false,
+								"download": false,
+								"images": false,
+								"ebook": true
+							}
+						],
+						"rights": null
+					},
+					{
+						"source": "internetarchive",
+						"content_type": "ebook",
+						"modified": null,
+						"drm": null,
+						"links": [
+							{
+								"url": "archive.org/details/blithedaleromanc00hawtuoft",
+								"media_type": "text/html",
+								"content": null,
+								"thumbnail": null,
+								"local": false,
+								"download": false,
+								"images": false,
+								"ebook": true
+							}
+						],
+						"rights": null
+					}
+				],
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33358,
+				"publication_place": "Boston",
+				"publication_date": "1981",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Ticknor, Reed, and Fields",
+						"sort_name": "ticknor, reed, and fields",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33359,
+				"publication_place": "New York",
+				"publication_date": "1981",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "New American Library, New York, NY",
+						"sort_name": "new american library, new york, ny",
+						"viaf": "134925004",
+						"lcnaf": "n84236547",
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33360,
+				"publication_place": "[Erscheinungsort nicht ermittelbar]",
+				"publication_date": "1983",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Penguin, (Firm)",
+						"sort_name": "penguin, (firm)",
+						"viaf": "264398567",
+						"lcnaf": "n50010791",
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "Verlag nicht ermittelbar",
+						"sort_name": "verlag nicht ermittelbar",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33361,
+				"publication_place": "New York",
+				"publication_date": "1983",
+				"edition": null,
+				"edition_statement": "Reprinted.",
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Allen Lane Book",
+						"sort_name": "allen lane book",
+						"viaf": "134443168",
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "Norton",
+						"sort_name": "norton",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "Penguin, (Firm)",
+						"sort_name": "penguin, (firm)",
+						"viaf": "264398567",
+						"lcnaf": "n50010791",
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33362,
+				"publication_place": "Toronto [etc.]",
+				"publication_date": "1986",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Bantam Books, Inc. Division of Bantam Doubleday Dell",
+						"sort_name": "bantam books, inc. division of bantam doubleday dell",
+						"viaf": "313442819",
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33363,
+				"publication_place": "Oxford",
+				"publication_date": "1991",
+				"edition": null,
+				"edition_statement": "Reissued",
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Clarendon press",
+						"sort_name": "clarendon press",
+						"viaf": "140705396",
+						"lcnaf": "n80126136",
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "Oxford University Press",
+						"sort_name": "oxford university press",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33364,
+				"publication_place": "Oxford",
+				"publication_date": "1992",
+				"edition": null,
+				"edition_statement": "Repr.",
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Clarendon press",
+						"sort_name": "clarendon press",
+						"viaf": "140705396",
+						"lcnaf": "n80126136",
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "Oxford University Press",
+						"sort_name": "oxford university press",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33365,
+				"publication_place": "London",
+				"publication_date": "1993",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Everyman",
+						"sort_name": "everyman",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "J.M. Dent & Sons LTD",
+						"sort_name": "j.m. dent & sons ltd",
+						"viaf": "140758077",
+						"lcnaf": "n83139041",
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33366,
+				"publication_place": "Waltham, Mass.",
+				"publication_date": "1994",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "OmniSys Corp., Needham Heights",
+						"sort_name": "omnisys corp., needham heights",
+						"viaf": "128683238",
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33367,
+				"publication_place": "Boston",
+				"publication_date": "1996",
+				"edition": null,
+				"edition_statement": "Bedford cultural ed.",
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Bedford Books of St Martin's Press",
+						"sort_name": "bedford books of st martin's press",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "St. Martin's Press, Verlag",
+						"sort_name": "st. martin's press, verlag",
+						"viaf": "134878895",
+						"lcnaf": "n81091143",
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33368,
+				"publication_place": "Thorndike, Me.",
+				"publication_date": "1998",
+				"edition": null,
+				"edition_statement": "Reissued as an Oxford world's Classics paperback.",
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Clarendon press",
+						"sort_name": "clarendon press",
+						"viaf": "140705396",
+						"lcnaf": "n80126136",
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "G. K. Hall, Boston, Mass",
+						"sort_name": "g. k. hall, boston, mass",
+						"viaf": "157127303",
+						"lcnaf": "n82069519",
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "Oxford Paperbacks",
+						"sort_name": "oxford paperbacks",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33369,
+				"publication_place": "New York",
+				"publication_date": "1999",
+				"edition": null,
+				"edition_statement": "Large print ed.",
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "G. K. Hall, Boston, Mass",
+						"sort_name": "g. k. hall, boston, mass",
+						"viaf": "157127303",
+						"lcnaf": "n82069519",
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33370,
+				"publication_place": "[S.l.]",
+				"publication_date": "2000",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Fictionwise, Inc",
+						"sort_name": "fictionwise, inc",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33371,
+				"publication_place": "Wickford, RI",
+				"publication_date": "2001",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					},
+					{
+						"language": "Spanish",
+						"iso_2": "es",
+						"iso_3": "spa"
+					}
+				],
+				"agents": [
+					{
+						"name": "Abraxas",
+						"sort_name": "abraxas",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "Abraxas, groupe allemand",
+						"sort_name": "abraxas, groupe allemand",
+						"viaf": "140336679",
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33372,
+				"publication_place": "New York",
+				"publication_date": "2001",
+				"edition": null,
+				"edition_statement": "Modern Library ed.",
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Modern Library",
+						"sort_name": "modern library",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "Modern Library, an imprint of The Random House Publishing Group, a division of Random House",
+						"sort_name": "modern library, an imprint of the random house publishing group, a division of random house",
+						"viaf": "153153594",
+						"lcnaf": "n80051803",
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33373,
+				"publication_place": "Charlottesville, Va.",
+				"publication_date": "2003",
+				"edition": null,
+				"edition_statement": "First published.",
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Chadwyck-Healey, Inc",
+						"sort_name": "chadwyck-healey, inc",
+						"viaf": "121555578",
+						"lcnaf": "n85266699",
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "Dover Publications, inc",
+						"sort_name": "dover publications, inc",
+						"viaf": "147108050",
+						"lcnaf": "n79123650",
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "Proquest LLC",
+						"sort_name": "proquest llc",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "University of Virginia, Universität in den Vereinigten Staaten",
+						"sort_name": "university of virginia, universität in den vereinigten staaten",
+						"viaf": "126085929",
+						"lcnaf": "n79053979",
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33374,
+				"publication_place": "McLean, Va.",
+				"publication_date": "2004",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "IndyPublish.com",
+						"sort_name": "indypublish.com",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33376,
+				"publication_place": "New York",
+				"publication_date": "2005",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Pavilion Press",
+						"sort_name": "pavilion press",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33375,
+				"publication_place": "[United States]",
+				"publication_date": "2005",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Dodo Press",
+						"sort_name": "dodo press",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33377,
+				"publication_place": "[Place of publication not identified]",
+				"publication_date": "2007",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Aegypan",
+						"sort_name": "aegypan",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33378,
+				"publication_place": "[United States]",
+				"publication_date": "2008",
+				"edition": null,
+				"edition_statement": "Large print ed.",
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "BiblioBazaar",
+						"sort_name": "bibliobazaar",
+						"viaf": "351144783009044873501",
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "Tark Classic Fiction",
+						"sort_name": "tark classic fiction",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33379,
+				"publication_place": "S.l.",
+				"publication_date": "2009",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Clarendon press",
+						"sort_name": "clarendon press",
+						"viaf": "140705396",
+						"lcnaf": "n80126136",
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "Floating Press",
+						"sort_name": "floating press",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33380,
+				"publication_place": "Cambridge, Mass.",
+				"publication_date": "2010",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Belknap Press of Harvard University Press",
+						"sort_name": "belknap press of harvard university press",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "BiblioBazaar",
+						"sort_name": "bibliobazaar",
+						"viaf": "351144783009044873501",
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33381,
+				"publication_place": "New York",
+				"publication_date": "2010",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Norton",
+						"sort_name": "norton",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33382,
+				"publication_place": "Ann Arbor, Mich.",
+				"publication_date": "2011",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Proquest LLC",
+						"sort_name": "proquest llc",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "Tredition GmbH",
+						"sort_name": "tredition gmbh",
+						"viaf": "160563720",
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33383,
+				"publication_place": "New York, NY",
+				"publication_date": "2011",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Barnes & Noble Digital Library",
+						"sort_name": "barnes & noble digital library",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33384,
+				"publication_place": "[Place of publication not identified]",
+				"publication_date": "2012",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Dover Publications, inc",
+						"sort_name": "dover publications, inc",
+						"viaf": "147108050",
+						"lcnaf": "n79123650",
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "Duke Classics",
+						"sort_name": "duke classics",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33385,
+				"publication_place": "S.l.",
+				"publication_date": "2013",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "epubBooks",
+						"sort_name": "epubbooks",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "Merton Institute for Contemplative Living",
+						"sort_name": "merton institute for contemplative living",
+						"viaf": "129227904",
+						"lcnaf": "n2007056911",
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33386,
+				"publication_place": "[Place of publication not identified]",
+				"publication_date": "2014",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "BOTTOM OF THE HILL PUBLIS",
+						"sort_name": "bottom of the hill publis",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33387,
+				"publication_place": "[United States]",
+				"publication_date": "2015",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Project Gutenberg",
+						"sort_name": "project gutenberg",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33388,
+				"publication_place": null,
+				"publication_date": "2016",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": null,
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33389,
+				"publication_place": "Aarhus",
+				"publication_date": "2018",
+				"edition": null,
+				"edition_statement": "1. udgave",
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "Danish",
+						"iso_2": "da",
+						"iso_3": "dan"
+					},
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Blurb, Inc",
+						"sort_name": "blurb, inc",
+						"viaf": "170708176",
+						"lcnaf": "no2011070559",
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "Klimont, I. (Isidor)",
+						"sort_name": "klimont, i. (isidor)",
+						"viaf": "118688331",
+						"lcnaf": "n91097034",
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "LULU COM",
+						"sort_name": "lulu com",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33390,
+				"publication_place": "[S.l.]",
+				"publication_date": "2019",
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Blurb, Inc",
+						"sort_name": "blurb, inc",
+						"viaf": "170708176",
+						"lcnaf": "no2011070559",
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33280,
+				"publication_place": "[Place of publication not identified]",
+				"publication_date": null,
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "Dent",
+						"sort_name": "dent",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "Henry Altemus Company",
+						"sort_name": "henry altemus company",
+						"viaf": "139835362",
+						"lcnaf": "no91015241",
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "Research Publications, inc",
+						"sort_name": "research publications, inc",
+						"viaf": "152390128",
+						"lcnaf": "n79045449",
+						"roles": [
+							"publisher"
+						]
+					},
+					{
+						"name": "Trajectory, Inc",
+						"sort_name": "trajectory, inc",
+						"viaf": "310632355",
+						"lcnaf": "no2014118180",
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			},
+			{
+				"date_created": "2020-01-14T15:49:48.646Z",
+				"date_modified": "2020-01-14T15:49:48.646Z",
+				"id": 33281,
+				"publication_place": "New York",
+				"publication_date": null,
+				"edition": null,
+				"edition_statement": null,
+				"volume": null,
+				"table_of_contents": null,
+				"extent": null,
+				"summary": null,
+				"work_id": 56071,
+				"languages": [
+					{
+						"language": "English",
+						"iso_2": "en",
+						"iso_3": "eng"
+					}
+				],
+				"agents": [
+					{
+						"name": "F.M. Lupton Publ. Co",
+						"sort_name": "f.m. lupton publ. co",
+						"viaf": null,
+						"lcnaf": null,
+						"roles": [
+							"publisher"
+						]
+					}
+				],
+				"items": null,
+				"covers": null
+			}
+		],
+		"edition_count": 98,
+		"edition_range": "1850 - 2019"
+	}
+}

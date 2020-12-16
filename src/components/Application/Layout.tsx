@@ -3,8 +3,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import Footer from "@nypl/dgx-react-footer";
 
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/config/appConfig' or its cor... Remove this comment to see the full error message
-import appConfig from "~/config/appConfig";
+import appConfig from "../../../config/appConfig";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Application/L... Remove this comment to see the full error message
 import Loading from "~/src/components/Application/Loading";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/constants/labels' or its... Remove this comment to see the full error message
