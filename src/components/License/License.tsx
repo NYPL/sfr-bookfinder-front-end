@@ -2,7 +2,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import * as DS from "@nypl/design-system-react-components";
-// @ts-expect-error ts-migrate(6142) FIXME: Module '../Breadcrumbs/Breadcrumbs' was resolved t... Remove this comment to see the full error message
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 
 type OwnProps = {

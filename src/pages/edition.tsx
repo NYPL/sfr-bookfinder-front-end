@@ -1,11 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Router, { withRouter } from "next/router";
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as DS from "@nypl/design-system-react-components";
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'dgx-... Remove this comment to see the full error message
 import FeatureFlags from "dgx-feature-flags";
 import { join } from "path";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Breadcrumbs/B... Remove this comment to see the full error message
@@ -332,8 +330,5 @@ const mapStateToProps = (state: any) => ({
   editionResult: state.editionResult && state.editionResult.edition,
 });
 
-export default connect(
-  mapStateToProps,
-  null
-  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof EditionDetail' is not ass... Remove this comment to see the full error message
-)(withRouter(EditionDetail));
+// @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof EditionDetail' is not ass... Remove this comment to see the full error message
+export default connect(mapStateToProps, null)(withRouter(EditionDetail));

@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { connect } from "react-redux";
 import Router, { withRouter } from "next/router";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/util/Util' or its corres... Remove this comment to see the full error message

@@ -2,6 +2,11 @@
   "compilerOptions": {
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["*"]
+    },
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -9,7 +14,6 @@
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "outDir": "dist",
@@ -17,7 +21,7 @@
   },
   "include": [
     "next-env.d.ts",
-    "global.d.ts",
+    "decs.d.ts",
     "**/*.ts",
     "**/*.tsx",
     "next.config.js"

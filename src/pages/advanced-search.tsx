@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import axios from "axios";
 // @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import Select from "react-select";
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { withRouter } from "next/router";
@@ -16,20 +15,20 @@ import * as searchActions from "~/src/actions/SearchActions";
 import Breadcrumbs from "~/src/components/Breadcrumbs/Breadcrumbs";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/util/SearchQuery' or its... Remove this comment to see the full error message
 import { getQueryString } from "~/src/util/SearchQuery";
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/stores/InitialState' or ... Remove this comment to see the full error message
 import {
   initialSearchQuery,
   searchQueryPropTypes,
+  // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/stores/InitialState' or ... Remove this comment to see the full error message
 } from "~/src/stores/InitialState";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Form/TextInpu... Remove this comment to see the full error message
 import TextInput from "~/src/components/Form/TextInput";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Form/Checkbox... Remove this comment to see the full error message
 import Checkbox from "~/src/components/Form/Checkbox";
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/constants/labels' or its... Remove this comment to see the full error message
 import {
   inputTerms,
   formatTypes,
   errorMessagesText,
+  // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/constants/labels' or its... Remove this comment to see the full error message
 } from "~/src/constants/labels";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/SearchResults... Remove this comment to see the full error message
 import FilterYears from "~/src/components/SearchResults/FilterYears";
@@ -418,9 +417,9 @@ class AdvancedSearch extends React.Component<
               <form
                 className="usa-form grid-container width-full margin-x-0 padding-x-0"
                 onSubmit={this.submitSearchRequest}
-                // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
                 onKeyPress={(event) => {
                   if (event.keyCode === 13) {
+                    // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
                     this.submitSearchRequest();
                   }
                 }}
@@ -582,8 +581,5 @@ class AdvancedSearch extends React.Component<
 
 const mapStateToProps = (state: any) => state;
 
-export default connect(
-  mapStateToProps,
-  null
-  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof AdvancedSearch' is not as... Remove this comment to see the full error message
-)(withRouter(AdvancedSearch));
+// @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof AdvancedSearch' is not as... Remove this comment to see the full error message
+export default connect(mapStateToProps, null)(withRouter(AdvancedSearch));

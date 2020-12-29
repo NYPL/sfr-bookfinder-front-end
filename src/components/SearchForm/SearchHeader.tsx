@@ -2,7 +2,6 @@ import React from "react";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Link/Link' or... Remove this comment to see the full error message
 import Link from "~/src/components/Link/Link";
 import * as DS from "@nypl/design-system-react-components";
-// @ts-expect-error ts-migrate(6142) FIXME: Module './WithSearch' was resolved to '/Users/crys... Remove this comment to see the full error message
 import withSearch from "./WithSearch";
 import { searchFields } from "../../constants/fields";
 

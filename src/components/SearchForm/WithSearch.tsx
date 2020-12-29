@@ -39,9 +39,10 @@ function withSearch(WrappedComponent: any) {
 
     componentDidUpdate(prevProps: any) {
       // Wait for initial query to be returned before setting it in state
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'initialQuery' does not exist on type 'Re... Remove this comment to see the full error message
       if (
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'initialQuery' does not exist on type 'Re... Remove this comment to see the full error message
         this.props.initialQuery &&
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'initialQuery' does not exist on type 'Re... Remove this comment to see the full error message
         this.props.initialQuery !== prevProps.initialQuery
       ) {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'initialQuery' does not exist on type 'Re... Remove this comment to see the full error message

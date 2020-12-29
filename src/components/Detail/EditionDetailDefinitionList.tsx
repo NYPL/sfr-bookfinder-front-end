@@ -128,6 +128,7 @@ export const EditionDetailDefinitionList = ({
             elements.includes(entry[0]) &&
             entry[1] && (
               <React.Fragment key={`"entry"${i.toString()}`}>
+                {/* @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message */}
                 <dt>{editionDetailDefinitionLabels[entry[0]]}</dt>
 
                 <dd>{parseEntries(entry[0], entry[1])}</dd>

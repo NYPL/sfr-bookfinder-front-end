@@ -1,11 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Router, { withRouter } from "next/router";
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as DS from "@nypl/design-system-react-components";
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'dgx-... Remove this comment to see the full error message
 import FeatureFlags from "dgx-feature-flags";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Breadcrumbs/B... Remove this comment to see the full error message
 import Breadcrumbs from "~/src/components/Breadcrumbs/Breadcrumbs";
@@ -13,18 +11,18 @@ import Breadcrumbs from "~/src/components/Breadcrumbs/Breadcrumbs";
 import * as searchActions from "~/src/actions/SearchActions";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/List/Editions... Remove this comment to see the full error message
 import EditionsList from "~/src/components/List/EditionsList";
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/util/Util' or its corres... Remove this comment to see the full error message
 import {
   deepEqual,
   checkFeatureFlagActivated,
   joinArrayOfElements,
+  // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/util/Util' or its corres... Remove this comment to see the full error message
 } from "~/src/util/Util";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Card/EditionC... Remove this comment to see the full error message
 import EditionCard from "~/src/components/Card/EditionCard";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/SearchForm/Se... Remove this comment to see the full error message
 import SearchHeader from "~/src/components/SearchForm/SearchHeader";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Feedback/Requ... Remove this comment to see the full error message
-import RequestDigital from "~/src/components/Feedback/RequestDigital";
+import RequestDigital from "~/src/components/RequestDigital/RequestDigital";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/config/featureFlagConfig' or... Remove this comment to see the full error message
 import featureFlagConfig from "~/config/featureFlagConfig";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/util/SearchQuery' or its... Remove this comment to see the full error message
@@ -248,10 +246,8 @@ class WorkDetail extends React.Component<WorkDetailProps, WorkDetailState> {
 
         <main id="mainContent" className="main">
           <div className="content-header">
-            <Breadcrumbs
-              // @ts-expect-error ts-migrate(2339) FIXME: Property 'location' does not exist on type 'Single... Remove this comment to see the full error message
-              location={Router.location}
-            />
+            {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'location' does not exist on type 'Single... Remove this comment to see the full error message */}
+            <Breadcrumbs location={Router.location} />
 
             <div>
               <SearchHeader />
@@ -350,8 +346,5 @@ const mapStateToProps = (state: any) => ({
   workResult: state.workResult && state.workResult.work,
 });
 
-export default connect(
-  mapStateToProps,
-  null
-  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof WorkDetail' is not assign... Remove this comment to see the full error message
-)(withRouter(WorkDetail));
+// @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof WorkDetail' is not assign... Remove this comment to see the full error message
+export default connect(mapStateToProps, null)(withRouter(WorkDetail));

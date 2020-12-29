@@ -105,9 +105,9 @@ export const detailRefinePost = (query: any) => {
       })
       .catch((error) => {
         console.log("An error occurred during detailRefinePost", error.message);
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
         throw new Error(
           "An error occurred during detailRefinePost",
+          // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
           error.message
         );
       });
@@ -130,9 +130,9 @@ export const editionDetailRefinePost = (query: any) => {
           "An error occurred during editionDetailRefinePost",
           error.message
         );
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
         throw new Error(
           "An error occurred during editionDetailRefinePost",
+          // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
           error.message
         );
       });
@@ -168,9 +168,9 @@ export const fetchTotalWorks = () => (dispatch: any) =>
     })
     .catch((error) => {
       console.log("An error occurred during fetchTotalWorks", error.message);
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
       throw new Error(
         "An error occurred during fetchTotalWorks",
+        // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
         error.message
       );
     });
@@ -228,9 +228,9 @@ export const serverFetchWork = (query: any) =>
     })
     .catch((error) => {
       console.log("An error occurred during serverFetchWork", error.message);
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
       throw new Error(
         "An error occurred during serverFetchWork",
+        // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
         error.message
       );
     });
@@ -246,9 +246,9 @@ export const serverFetchEdition = (query: any) =>
     })
     .catch((error) => {
       console.log("An error occurred during serverFetchEdition", error.message);
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
       throw new Error(
         "An error occurred during serverFetchEdition",
+        // @ts-expect-error ts-migrate(2554) FIXME: Expected 0-1 arguments, but got 2.
         error.message
       );
     });

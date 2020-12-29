@@ -1,6 +1,5 @@
 import React from "react";
 import * as DS from "@nypl/design-system-react-components";
-// @ts-expect-error ts-migrate(6142) FIXME: Module '../Card/EditionCard' was resolved to '/Use... Remove this comment to see the full error message
 import EditionCard from "../Card/EditionCard";
 
 type OwnProps = {
@@ -42,6 +41,7 @@ class InstancesList extends React.Component<Props> {
         instance,
         eReaderUrl,
         referrer,
+        // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 5.
         showRequestButton
       );
       return (

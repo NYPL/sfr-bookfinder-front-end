@@ -1,13 +1,10 @@
 import React from "react";
 import * as DS from "@nypl/design-system-react-components";
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '.~/src/stores/InitialState' or... Remove this comment to see the full error message
 import {
   initialSearchQuery,
   searchQueryPropTypes,
-} from ".~/src/stores/InitialState";
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/util/searchQuery' or its... Remove this comment to see the full error message
-import { getQueryString } from "~/src/util/searchQuery";
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/util/Util' or its corres... Remove this comment to see the full error message
+} from "~/src/stores/InitialState";
+import { getQueryString } from "~/src/util/SearchQuery";
 import { getNumberOfPages } from "~/src/util/Util";
 
 const getPageList = (totalPages: any) => {

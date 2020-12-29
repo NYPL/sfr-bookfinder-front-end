@@ -23,8 +23,8 @@ export default function configureStore(preloadedState: any) {
     enhancers.push(persistState());
   }
   /* eslint-disable no-underscore-dangle */
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'window' does not exist on type 'Global'.
   const composedEnhancers =
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'window' does not exist on type 'Global'.
     global.window && global.window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
       ? // @ts-expect-error ts-migrate(2339) FIXME: Property 'window' does not exist on type 'Global'.
         global.window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(...enhancers)

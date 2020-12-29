@@ -1,31 +1,13 @@
-/* eslint-disable react/no-unused-prop-types */
 import React from "react";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import Footer from "@nypl/dgx-react-footer";
 
-import appConfig from "../../../config/appConfig";
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Application/L... Remove this comment to see the full error message
+import appConfig from "~/config/appConfig";
 import Loading from "~/src/components/Application/Loading";
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/constants/labels' or its... Remove this comment to see the full error message
 import { documentTitles } from "~/src/constants/labels";
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Feedback/Feed... Remove this comment to see the full error message
 import Feedback from "~/src/components/Feedback/Feedback";
 
-const setTitle = (location: any) => {
-  if (location && location.query && location.query.workId) {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'document' does not exist on type 'Global... Remove this comment to see the full error message
-    global.document.title = documentTitles.workItem;
-  } else if (location && location.query && location.query.editionId) {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'document' does not exist on type 'Global... Remove this comment to see the full error message
-    global.document.title = documentTitles.editionItem;
-  } else if (location && location.query && location.query.queries) {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'document' does not exist on type 'Global... Remove this comment to see the full error message
-    global.document.title = documentTitles.search;
-  } else {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'document' does not exist on type 'Global... Remove this comment to see the full error message
-    global.document.title = documentTitles.home;
-  }
-};
 /**
  * Container class providing header, footer,
  * and other set up information to all its children.
@@ -33,16 +15,32 @@ const setTitle = (location: any) => {
 
 const Layout: React.FC<any> = ({ children }) => {
   const router = useRouter();
-  setTitle(router);
+
+  const setTitle = (location: any) => {
+    if (location && location.query && location.query.workId) {
+      return documentTitles.workItem;
+    } else if (location && location.query && location.query.editionId) {
+      return documentTitles.editionItem;
+    } else if (location && location.query && location.query.queries) {
+      return documentTitles.search;
+    } else {
+      return documentTitles.home;
+    }
+  };
 
   return (
-    <div className="app-wrapper add-list-reset">
-      <Loading />
-      {children}
+    <div>
+      <Head>
+        <title>{setTitle(router)}</title>
+      </Head>
+      <div className="app-wrapper add-list-reset">
+        <Loading />
+        {children}
 
-      <Footer urlType="absolute" />
+        <Footer urlType="absolute" />
 
-      <Feedback location={router.pathname} />
+        <Feedback location={router.pathname} />
+      </div>
     </div>
   );
 };

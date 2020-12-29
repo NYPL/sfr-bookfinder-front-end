@@ -1,7 +1,8 @@
-import { stub } from 'sinon';
-import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module 'sinon' or its corresponding ty... Remove this comment to see the full error message
+import { stub } from "sinon";
+import PropTypes from "prop-types";
 
-const mockRouter = push => ({
+const mockRouter = (push: any) => ({
   push,
   createHref: stub(),
   replace: stub(),
@@ -13,7 +14,7 @@ const mockRouter = push => ({
   location: { location: "default" },
 });
 
-const mockRouterContext = push => ({
+const mockRouterContext = (push: any) => ({
   router: mockRouter(push || stub()),
 });
 

@@ -75,17 +75,19 @@ class APACitation extends React.Component<Props> {
   formatCitationData() {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'subTitle' does not exist on type 'never'... Remove this comment to see the full error message
     this.title = this.props.subTitle
-      ? `${this.props.title}: ${this.props.subTitle}`
-      : this.props.title;
+      ? // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type 'never'.
+        `${this.props.title}: ${this.props.subTitle}`
+      : // @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type 'never'.
+        this.props.title;
 
     this.authors = this.formatAgentNames("authors");
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'agents' does not exist on type 'never'.
     const rawEditors = this.formatAgentNames(
       "editors",
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'agents' does not exist on type 'never'.
       this.props.agents.authors.length > 0
     );
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'agents' does not exist on type 'never'.
     this.editors = `${rawEditors}, (Ed${
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'agents' does not exist on type 'never'.
       this.props.agents.editors.length === 1 ? "." : "s."
     })`;
     this.translators = `${this.formatAgentNames("translators", true)}, Trans.`;
@@ -96,7 +98,8 @@ class APACitation extends React.Component<Props> {
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'publicationYear' does not exist on type ... Remove this comment to see the full error message
     this.pubYear = this.props.publicationYear
-      ? ` (${this.props.publicationYear})`
+      ? // @ts-expect-error ts-migrate(2339) FIXME: Property 'publicationYear' does not exist on type ... Remove this comment to see the full error message
+        ` (${this.props.publicationYear})`
       : "";
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'agents' does not exist on type 'never'.
     this.publishers = this.props.agents.publishers.join(", ");
@@ -108,6 +111,7 @@ class APACitation extends React.Component<Props> {
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'sourceLink' does not exist on type 'neve... Remove this comment to see the full error message
     this.link = this.props.sourceLink ? (
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'sourceLink' does not exist on type 'neve... Remove this comment to see the full error message
       <a href={`https://${this.props.sourceLink}`}>{this.props.sourceLink}</a>
     ) : (
       ""
@@ -205,9 +209,10 @@ class APACitation extends React.Component<Props> {
       responsibilityStatement = this.editors;
     }
 
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'agents' does not exist on type 'never'.
     if (
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'agents' does not exist on type 'never'.
       this.props.agents.illustrators.length > 0 &&
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'agents' does not exist on type 'never'.
       this.props.agents.translators.length > 0
     ) {
       this.title = `${this.title} (${this.illustrators}, ${this.translators})`;

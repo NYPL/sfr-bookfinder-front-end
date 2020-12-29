@@ -21,30 +21,30 @@ export default class CitationFormatter {
       sub_title: edition.sub_title,
       agents: {
         authors: CitationFormatter.getAgentsOfType(workAgents, "author"),
-        // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'never'.
         editors: CitationFormatter.getAgentsOfType(workAgents, "editor", [
+          // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'never'.
           "author",
         ]),
-        // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'never'.
         illustrators: CitationFormatter.getAgentsOfType(
           workAgents,
           "illustrator",
+          // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'never'.
           ["author"]
         ),
-        // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'never'.
         translators: CitationFormatter.getAgentsOfType(
           workAgents,
           "translator",
+          // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'never'.
           ["author"]
         ),
         publishers: CitationFormatter.getAgentsOfType(
           editionAgents,
           "publisher"
         ),
-        // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'string[]' is not assignable to p... Remove this comment to see the full error message
         contributors: CitationFormatter.getAgentsOfType(
           [...workAgents, ...editionAgents],
           false,
+          // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'string[]' is not assignable to p... Remove this comment to see the full error message
           contributorExclusions
         ),
       },
@@ -72,8 +72,8 @@ export default class CitationFormatter {
     const typeAgents = agents.filter(
       (a: any) =>
         (!includeType || a.roles.indexOf(includeType) > -1) &&
-        // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'any' is not assignable to parame... Remove this comment to see the full error message
         (excludeTypes.length === 0 ||
+          // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'any' is not assignable to parame... Remove this comment to see the full error message
           a.roles.filter((r: any) => excludeTypes.includes(r)).length === 0)
     );
     return typeAgents.map((a: any) => a.name);

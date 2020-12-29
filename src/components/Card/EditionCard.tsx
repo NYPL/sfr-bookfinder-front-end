@@ -1,5 +1,4 @@
 import React from "react";
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'dgx-... Remove this comment to see the full error message
 import { gaUtils } from "dgx-react-ga";
 import { Html5Entities } from "html-entities";
 import * as DS from "@nypl/design-system-react-components";
@@ -269,12 +268,13 @@ export default class EditionCard {
         referrer
       );
       return (
-        <DS.Link linkType={DS.LinkTypes.Button}>
+        <DS.Link>
+          {/* linkType={DS.LinkTypes.Button} */}
           <Link
             to={{
               pathname: "/read-online",
               search: `?url=${encodeURI(encodedUrl)}`,
-              state: { edition: editionWithTitle },
+              // state: { edition: editionWithTitle },
             }}
             onClick={() =>
               gaUtils.trackGeneralEvent(
@@ -291,12 +291,13 @@ export default class EditionCard {
       );
     }
     return (
-      <DS.Link linkType={DS.LinkTypes.Button}>
+      <DS.Link>
+        {/*  linkType={DS.LinkTypes.Button}> */}
         <Link
           to={{
             pathname: "/read-online",
             search: `?url=${formatUrl(selectedLink.url)}`,
-            state: { edition: editionWithTitle },
+            // state: { edition: editionWithTitle },
           }}
           onClick={() =>
             gaUtils.trackGeneralEvent(
@@ -320,8 +321,10 @@ export default class EditionCard {
 
     if (selectedLink && selectedLink.url) {
       return (
-        <DS.Link linkType={DS.LinkTypes.Action}>
+        <DS.Link>
+          {/* linkType={DS.LinkTypes.Action}> */}
           <a
+            // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 2.
             href={`${formatUrl(selectedLink.url, process.env.APP_ENV)}`}
             onClick={() =>
               gaUtils.trackGeneralEvent(

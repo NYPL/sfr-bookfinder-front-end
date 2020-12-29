@@ -13,8 +13,7 @@ import EditionCard from "~/src/components/Card/EditionCard";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/util/Util' or its corres... Remove this comment to see the full error message
 import { truncateStringOnWhitespace } from "~/src/util/Util";
 
-// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'title' implicitly has an 'any' type.
-const getLinkFromWork = (title, uuid) => {
+const getLinkFromWork = (title: any, uuid: any) => {
   const workTitle = title || "Title Unknown";
 
   const strippedSlashTitle =
@@ -31,8 +30,7 @@ const getLinkFromWork = (title, uuid) => {
   };
 };
 
-// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'workDetail' implicitly has an 'any' typ... Remove this comment to see the full error message
-export const getBreadcrumbLinks = (workDetail, editionDetail) => {
+export const getBreadcrumbLinks = (workDetail: any, editionDetail: any) => {
   const links = [];
   if (workDetail && workDetail.uuid) {
     links.push(getLinkFromWork(workDetail.title, workDetail.uuid));
@@ -48,8 +46,7 @@ export const getBreadcrumbLinks = (workDetail, editionDetail) => {
   return links;
 };
 
-// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'location' implicitly has an 'any' type.
-export const getCrumbTrail = (location, links, handleReset) => {
+export const getCrumbTrail = (location: any, links: any, handleReset: any) => {
   const homeLink = {
     url: "/",
     text: "Home",
@@ -79,7 +76,7 @@ export const getCrumbTrail = (location, links, handleReset) => {
   return crumbs;
 };
 
-type BreadcrumbsProps = {
+type OwnBreadcrumbsProps = {
   location?: {
     [key: string]: any;
   };
@@ -94,12 +91,15 @@ type BreadcrumbsProps = {
   dispatch?: (...args: any[]) => any;
 };
 
+// @ts-expect-error ts-migrate(2456) FIXME: Type alias 'BreadcrumbsProps' circularly reference... Remove this comment to see the full error message
+type BreadcrumbsProps = OwnBreadcrumbsProps & typeof Breadcrumbs.defaultProps;
+
+// @ts-expect-error ts-migrate(7022) FIXME: 'Breadcrumbs' implicitly has type 'any' because it... Remove this comment to see the full error message
 const Breadcrumbs = (props: BreadcrumbsProps) => {
   const boundActions = useRef();
   const links = getBreadcrumbLinks(props.workDetail, props.editionDetail);
 
-  // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'event' implicitly has an 'any' type.
-  const handleReset = (event) => {
+  const handleReset = (event: any) => {
     event.preventDefault();
     // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
     boundActions.current.resetSearch();

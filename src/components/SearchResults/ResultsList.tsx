@@ -5,15 +5,14 @@ import Link from "~/src/components/Link/Link";
 
 import PropTypes from "prop-types";
 import * as DS from "@nypl/design-system-react-components";
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'dgx-... Remove this comment to see the full error message
 import FeatureFlags from "dgx-feature-flags";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Svgs/EmptySea... Remove this comment to see the full error message
 import EmptySearchSvg from "~/src/components/Svgs/EmptySearchSvg";
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/util/Util' or its corres... Remove this comment to see the full error message
 import {
   isEmpty,
   joinArrayOfElements,
   checkFeatureFlagActivated,
+  // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/util/Util' or its corres... Remove this comment to see the full error message
 } from "~/src/util/Util";
 
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Card/EditionC... Remove this comment to see the full error message
@@ -28,7 +27,7 @@ import featureFlagConfig from "~/config/featureFlagConfig";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/config/appConfig' or its cor... Remove this comment to see the full error message
 import config from "~/config/appConfig";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Feedback/Requ... Remove this comment to see the full error message
-import RequestDigital from "~/src/components/Feedback/RequestDigital";
+import RequestDigital from "~/src/components/RequestDigital/RequestDigital";
 
 export const getEditionsLinkElement = (result: any) =>
   result.edition_count > 1 ? (

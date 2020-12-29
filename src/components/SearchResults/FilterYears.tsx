@@ -3,7 +3,6 @@ import {
   initialSearchQuery,
   searchQueryPropTypes,
 } from "../../stores/InitialState";
-// @ts-expect-error ts-migrate(6142) FIXME: Module '../Form/TextInput' was resolved to '/Users... Remove this comment to see the full error message
 import TextInput from "../Form/TextInput";
 
 import { yearsType, errorMessagesText } from "../../constants/labels";

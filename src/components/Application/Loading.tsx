@@ -1,9 +1,7 @@
 import React from "react";
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { connect } from "react-redux";
 import axios from "axios";
 import store from "../../stores/Store";
-// @ts-expect-error ts-migrate(6142) FIXME: Module '../Svgs/BookSvg' was resolved to '/Users/c... Remove this comment to see the full error message
 import BookSvg from "../Svgs/BookSvg";
 import {
   loading as loadingAction,

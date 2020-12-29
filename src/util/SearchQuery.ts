@@ -1,3 +1,5 @@
+import { ApiSearchQuery, SearchQuery } from "../types/SearchQuery";
+
 export const getRequestParams = (query = {}) => {
   let ret = Object.assign({}, query);
   // @ts-expect-error ts-migrate(2339) FIXME: Property 'query' does not exist on type '{}'.
