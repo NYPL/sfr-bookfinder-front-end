@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "~/src/components/Application/Layout";
-import WebpubViewer from "~/src/components/WebpubViewer";
+import WebpubViewer from "~/src/components/WebpubViewer/WebpubViewer";
 
 const WebReaderPage: React.FC<any> = () => {
   return (

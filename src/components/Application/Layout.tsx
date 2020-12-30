@@ -33,6 +33,13 @@ const Layout: React.FC<any> = ({ children }) => {
       <Head>
         <title>{setTitle(router)}</title>
       </Head>
+      <div>
+        <script
+          type="text/javascript"
+          src="https://header.nypl.org/dgx-header.min.js?skipNav=mainContent&urls=absolute"
+          async
+        ></script>
+      </div>
       <div className="app-wrapper add-list-reset">
         <Loading />
         {children}
