@@ -10,6 +10,7 @@ import {
 } from "../../../src/constants/editioncard";
 import { formatUrl, truncateStringOnWhitespace } from "../../util/Util";
 import Link from "../Link/Link";
+import { Item, ItemLink } from "~/src/types/DataModel";
 
 const htmlEntities = new Html5Entities();
 
@@ -225,97 +226,82 @@ export default class EditionCard {
       : "License: Unknown";
   }
 
-  // Read Online and Download Urls
-  // Generate URL of the format that is served by Ereader streamed server.
-  // This is specific to and backwards-engineered from the webpub-viewer URLs.
-  // and should be changed when webpub-viewer is able to generate more reasonable URLs.
-  static generateStreamedReaderUrl(url: any, eReaderUrl: any, referrer: any) {
-    const base64BookUrl = Buffer.from(formatUrl(url)).toString("base64");
-    const encodedBookUrl = encodeURIComponent(`${base64BookUrl}`);
+  static getReadOnlineLink = (item: Item) => {
+    const getEmbeddedReaedLink = (item: Item) => {
+      if (!item || !item.links) return undefined;
+      //handle error
 
-    let combined = `${eReaderUrl}/readerNYPL/?url=${eReaderUrl}/pub/${encodedBookUrl}/manifest.json`;
-    if (referrer) {
-      combined += `#${referrer}`;
-    }
-    return combined;
-  }
-
-  /** Generate Read Online Link
-   * @param edition The edition requested. Used to get information for breadcrumb and analytics.
-   * @param item The item of the edition requested
-   * @param eReaderUrl The link to the eReader
-   * @param referrer The referring site (to enable back button functionality)
-   * @param work (Optional) The work from the edition requested.
-   * This is used to get the work title for the breadcrumb and analytics if title isn't already passed in edition.
-   */
-  static getReadOnlineLink(
-    edition: any,
-    item: any,
-    eReaderUrl: any,
-    referrer: any,
-    work: any
-  ) {
-    if (!item || !item.links) return undefined;
-    const editionWithTitle = edition;
-    editionWithTitle.title = edition.title || work.title;
-    // TODO: Revert after links fix
-    const selectedLink = item.links.find(
-      (link: any) =>
-        (!link.local && !link.download) || (link.local && link.download)
-    );
-    if (!selectedLink || !selectedLink.url) return undefined;
-    if (selectedLink.local) {
-      const encodedUrl = EditionCard.generateStreamedReaderUrl(
-        selectedLink.url,
-        eReaderUrl,
-        referrer
+      const selectedLink = item.links.find(
+        (link: ItemLink) => !link.local && !link.download
       );
+      return selectedLink;
+    };
+
+    //The local read link is locally hosted and should be read via webpub viewer.
+    const getLocalReadLink = (item: Item) => {
+      console.log("getting link", item);
+      if (!item || !item.links) return undefined;
+      //handle error
+
+      const selectedLink = item.links.find(
+        (link: ItemLink) => link.local && link.url.endsWith(".opf")
+      );
+      return selectedLink;
+    };
+
+    const localLink = getLocalReadLink(item);
+    const embeddedLink = getEmbeddedReaedLink(item);
+
+    if (localLink) {
       return (
         <DS.Link>
           {/* linkType={DS.LinkTypes.Button} */}
           <Link
             to={{
-              pathname: "/read-online",
-              search: `?url=${encodeURI(encodedUrl)}`,
-              // state: { edition: editionWithTitle },
+              pathname: `/read-local/${encodeURIComponent(localLink.url)}`,
             }}
-            onClick={() =>
-              gaUtils.trackGeneralEvent(
-                "Read Online",
-                item.source,
-                editionWithTitle.title,
-                ""
-              )
-            }
+            //TODO: Tracking
+            // onClick={() =>
+            //   gaUtils.trackGeneralEvent(
+            //     "Read Online",
+            //     item.source,
+            //     editionWithTitle.title,
+            //     ""
+            //   )
+            // }
           >
             Read Online
           </Link>
         </DS.Link>
       );
     }
-    return (
-      <DS.Link>
-        {/*  linkType={DS.LinkTypes.Button}> */}
-        <Link
-          to={{
-            pathname: "/read-online",
-            search: `?url=${formatUrl(selectedLink.url)}`,
-            // state: { edition: editionWithTitle },
-          }}
-          onClick={() =>
-            gaUtils.trackGeneralEvent(
-              "Read Online",
-              item.source,
-              editionWithTitle.title,
-              ""
-            )
-          }
-        >
-          <div>Read Online</div>
-        </Link>
-      </DS.Link>
-    );
-  }
+
+    if (embeddedLink) {
+      return (
+        <DS.Link>
+          {/* linkType={DS.LinkTypes.Button} */}
+          <Link
+            to={{
+              pathname: `/read-embed/${encodeURIComponent(embeddedLink.url)}`,
+            }}
+            //TODO: Tracking
+            // onClick={() =>
+            //   gaUtils.trackGeneralEvent(
+            //     "Read Online",
+            //     item.source,
+            //     editionWithTitle.title,
+            //     ""
+            //   )
+            // }
+          >
+            Read Online
+          </Link>
+        </DS.Link>
+      );
+    }
+
+    return undefined;
+  };
 
   // eslint-disable-next-line consistent-return
   static getDownloadLink(work: any, editionItem: any) {
@@ -398,13 +384,7 @@ export default class EditionCard {
           <Link to="/license">{EditionCard.getLicense(editionItem)}</Link>
         </DS.Link>,
       ],
-      readOnlineLink: EditionCard.getReadOnlineLink(
-        edition,
-        editionItem,
-        eReaderUrl,
-        referrer,
-        work
-      ),
+      readOnlineLink: EditionCard.getReadOnlineLink(editionItem),
       downloadLink: EditionCard.getDownloadLink(edition, editionItem),
       noLinkElement: EditionCard.getNoLinkElement(showRequestButton),
     };
@@ -424,13 +404,7 @@ export default class EditionCard {
         EditionCard.getPublisherAndLocation(instance),
         EditionCard.getWorldCatElem(instance),
       ],
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 5 arguments, but got 4.
-      readOnlineLink: EditionCard.getReadOnlineLink(
-        edition,
-        instanceItem,
-        eReaderUrl,
-        referrer
-      ),
+      readOnlineLink: EditionCard.getReadOnlineLink(instanceItem),
       downloadLink: EditionCard.getDownloadLink(edition, instanceItem),
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
       noLinkElement: EditionCard.getNoLinkElement(),

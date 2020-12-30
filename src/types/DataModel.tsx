@@ -78,18 +78,18 @@ export type Item = {
   content_type?: string;
   modified?: string;
   drm?: string;
-  links?: [
-    {
-      url?: string;
-      media_type?: string;
-      content?: string;
-      thumbnail?: string;
-      local?: true;
-      download?: true;
-      images?: true;
-      ebook?: true;
-    }
-  ];
+  links?: ItemLink[];
+};
+
+export type ItemLink = {
+  url?: string;
+  media_type?: string;
+  content?: string;
+  thumbnail?: string;
+  local?: boolean;
+  download?: boolean;
+  images?: boolean;
+  ebook?: boolean;
 };
 
 export type Language = {
