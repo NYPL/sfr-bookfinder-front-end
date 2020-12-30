@@ -5,11 +5,8 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as DS from "@nypl/design-system-react-components";
 import FeatureFlags from "dgx-feature-flags";
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Breadcrumbs/B... Remove this comment to see the full error message
 import Breadcrumbs from "~/src/components/Breadcrumbs/Breadcrumbs";
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/actions/SearchActions' o... Remove this comment to see the full error message
 import * as searchActions from "~/src/actions/SearchActions";
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/List/Editions... Remove this comment to see the full error message
 import EditionsList from "~/src/components/List/EditionsList";
 import {
   deepEqual,
@@ -33,9 +30,7 @@ import config from "~/config/appConfig";
 import WorkDetailDefinitionList from "~/src/components/Detail/WorkDetailDefinitionList";
 
 type OwnWorkDetailProps = {
-  workResult?: {
-    [key: string]: any;
-  };
+  workResult?: any;
   eReaderUrl?: string;
   router?: {
     [key: string]: any;
@@ -62,7 +57,7 @@ type WorkDetailProps = OwnWorkDetailProps & typeof WorkDetail.defaultProps;
 //   }
 // };
 
-class WorkDetail extends React.Component<WorkDetailProps, WorkDetailState> {
+class WorkDetail extends React.Component<any, any> {
   static defaultProps = {
     workResult: {},
     eReaderUrl: "",
@@ -85,6 +80,7 @@ class WorkDetail extends React.Component<WorkDetailProps, WorkDetailState> {
   boundActions: any;
 
   constructor(props: WorkDetailProps) {
+    console.log("result", props.workResult);
     super(props);
     const { dispatch } = props;
     this.state = {

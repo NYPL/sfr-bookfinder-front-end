@@ -34,8 +34,7 @@ export const getEditionsLinkElement = (result: any) =>
     <Link
       className="link"
       to={{
-        pathname: "/work",
-        query: { workId: `${result.uuid}` },
+        pathname:`work/${result.uuid}`,
         hash: "#all-editions",
       }}
     >

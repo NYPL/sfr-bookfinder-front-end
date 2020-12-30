@@ -25,7 +25,7 @@ const getLinkFromWork = (title: any, uuid: any) => {
     MAX_TITLE_LENGTH
   );
   return {
-    url: `/work?workId=${uuid}`,
+    url: `/work/${uuid}`,
     text: `${breadcrumbTitle}`,
   };
 };
@@ -39,7 +39,7 @@ export const getBreadcrumbLinks = (workDetail: any, editionDetail: any) => {
   if (editionDetail && editionDetail.id) {
     const editionYear = EditionCard.editionYearText(editionDetail);
     links.push({
-      url: `/edition?editionId=${editionDetail.id}`,
+      url: `/edition/${editionDetail.id}`,
       text: `${editionYear}`,
     });
   }

@@ -39,7 +39,11 @@ export default class EditionCard {
     const editionDisplay = EditionCard.editionYearText(edition);
     const editionElem = edition ? (
       <DS.Link>
-        <Link to={{ pathname: "/edition", query: { editionId: edition.id } }}>
+        <Link
+          to={{
+            pathname: `/edition/${edition.id}`,
+          }}
+        >
           {editionDisplay}
         </Link>
       </DS.Link>
@@ -71,9 +75,8 @@ export default class EditionCard {
     return (
       <Link
         to={{
-          pathname: "/work",
+          pathname: `/work/${work.uuid}`,
           query: {
-            workId: `${work.uuid}`,
             recordType: "editions",
             showAll: true,
           },

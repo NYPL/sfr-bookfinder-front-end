@@ -5,7 +5,7 @@ import Search from "../components/Search/Search";
 import { parseLocationQuery } from "../util/SearchUtils";
 // import { searchResultsFetcher } from "../hooks/useSearch";
 import { ApiSearchQuery } from "../types/SearchQuery";
-import { searchResultsFetcher } from "../hooks/useSearch";
+import { searchResultsFetcher } from "../lib/api/SearchApi";
 
 export async function getServerSideProps(context: any) {
   // NextJS passes context.query as an object { querystring : ''}

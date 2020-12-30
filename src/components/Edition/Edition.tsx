@@ -28,9 +28,7 @@ import EditionDetailDefinitionList from "~/src/components/Detail/EditionDetailDe
 import Link from "~/src/components/Link/Link";
 
 type OwnEditionDetailProps = {
-  editionResult?: {
-    [key: string]: any;
-  };
+  editionResult?: any;
   eReaderUrl?: string;
   router?: {
     [key: string]: any;
@@ -57,10 +55,7 @@ type EditionDetailProps = OwnEditionDetailProps &
 //   }
 // };
 
-class EditionDetail extends React.Component<
-  EditionDetailProps,
-  EditionDetailState
-> {
+class EditionDetail extends React.Component<any, any> {
   static defaultProps = {
     editionResult: {},
     eReaderUrl: "",
@@ -236,9 +231,8 @@ class EditionDetail extends React.Component<
                   >
                     <Link
                       to={{
-                        pathname: "/work",
+                        pathname: `/work/${edition.work_uuid}`,
                         query: {
-                          workId: `${edition.work_uuid}`,
                           recordType: "editions",
                           showAll: true,
                         },

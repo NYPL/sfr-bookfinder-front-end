@@ -2,9 +2,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import * as DS from "@nypl/design-system-react-components";
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Link/Link' or... Remove this comment to see the full error message
 import Link from "~/src/components/Link/Link";
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Breadcrumbs/B... Remove this comment to see the full error message
 import Breadcrumbs from "~/src/components/Breadcrumbs/Breadcrumbs";
 
 type OwnProps = {
@@ -79,7 +77,7 @@ class About extends React.Component<Props> {
               editions of the same title together as a single “work.” For
               instance there are many editions of{" "}
               <DS.Link>
-                <Link to="/work?recordType=editions&workId=e34d73df-f32b-49e1-8fdf-151db2a7806a&showAll=true">
+                <Link to="/work/e34d73df-f32b-49e1-8fdf-151db2a7806a">
                   <a>
                     Mary Wollstonecraft’s A Vindication of the Rights of Woman
                   </a>

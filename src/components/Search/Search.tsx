@@ -3,7 +3,7 @@ import { mutate } from "swr";
 import * as DS from "@nypl/design-system-react-components";
 import { useRouter } from "next/router";
 import { searchFields } from "~/src/constants/fields";
-import { ApiSearchResult } from "~/src/types/SearchResults";
+import { ApiSearchResult } from "~/src/types/DataModel";
 import { deepEqual, isEmpty, getNumberOfPages } from "~/src/util/Util";
 import { ApiSearchQuery, Filter, SearchQuery } from "~/src/types/SearchQuery";
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
@@ -13,7 +13,7 @@ import Filters from "../SidebarFilter/SidebarFilters";
 import appConfig from "~/config/appConfig";
 import { parseLocationQuery, queryToString } from "~/src/util/SearchUtils";
 import ResultsList from "../SearchResults/ResultsList";
-import { searchResultsFetcher } from "~/src/hooks/useSearch";
+import { searchResultsFetcher } from "~/src/lib/api/SearchApi";
 import { breakpoints } from "~/src/constants/breakpoints";
 import SearchPagination from "~/src/components/SearchResults/SearchPagination";
 

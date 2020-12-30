@@ -49,8 +49,28 @@ export type Instance = {
   edition_id?: number;
   agents?: Agent[];
   items?: Item[];
+  rights?: Rights[];
   languages?: Language[];
   identifiers?: Identifier[];
+  covers?: Covers[];
+};
+
+export type Covers = {
+  url: string;
+  media_type: string;
+};
+
+export type Rights = {
+  source: string;
+  license: string;
+  rights_statement: string;
+  rights_reason: string;
+  determination_date_display: string;
+  copyright_date: {
+    gte: string;
+    lte: string;
+  };
+  copyright_date_display: string;
 };
 
 export type Item = {

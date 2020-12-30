@@ -2,7 +2,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import * as DS from "@nypl/design-system-react-components";
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Breadcrumbs/B... Remove this comment to see the full error message
 import Breadcrumbs from "~/src/components/Breadcrumbs/Breadcrumbs";
 
 type OwnProps = {
