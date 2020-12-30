@@ -3,23 +3,14 @@ import * as DS from "@nypl/design-system-react-components";
 import {
   initialSearchQuery,
   searchQueryPropTypes,
-  // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/stores/InitialState' or ... Remove this comment to see the full error message
 } from "~/src/stores/InitialState";
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/util/SearchQuery' or its... Remove this comment to see the full error message
 import { getQueryString } from "~/src/util/SearchQuery";
 import {
   filtersLabels,
   formatTypes,
   errorMessagesText,
-  // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/constants/labels' or its... Remove this comment to see the full error message
 } from "~/src/constants/labels";
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/actions/SearchActions' o... Remove this comment to see the full error message
-import * as searchActions from "~/src/actions/SearchActions";
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/constants/sorts' or its ... Remove this comment to see the full error message
-import { sortMap, numbersPerPage } from "~/src/constants/sorts";
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/util/Util' or its corres... Remove this comment to see the full error message
-import { deepEqual } from "~/src/util/Util";
-import Router from "next/router";
+import { Filter } from "~/src/types/SearchQuery";
 
 type OwnProps = {
   toggleMenu?: (...args: any[]) => any;
@@ -28,34 +19,24 @@ type OwnProps = {
     [key: string]: any;
   };
   searchQuery?: searchQueryPropTypes;
-  router?: {
-    [key: string]: any;
-  };
-  onChangeSort?: (...args: any[]) => any;
-  onChangePerPage?: (...args: any[]) => any;
+  onFiltersChange: (...args: any[]) => any;
 };
 
-type State = any;
+type State = {
+  filters: Filters[];
+  errorMsg: string;
+  error: boolean;
+  yearStart: string;
+  yearEnd: string;
+};
 
-type Props = OwnProps & typeof Filters.defaultProps;
-
-class Filters extends React.Component<Props, State> {
-  static defaultProps = {
-    toggleMenu: () => {},
-    isMobile: false,
-    data: {},
-    searchQuery: initialSearchQuery,
-    router: {},
-    onChangeSort: () => {},
-    onChangePerPage: () => {},
-  };
-
-  constructor(props: Props) {
+class Filters extends React.Component<any, State> {
+  constructor(props) {
     super(props);
     this.state = {
       errorMsg: "",
       error: false,
-      filtersArray: [],
+      filters: props.filters,
       yearStart: "",
       yearEnd: "",
     };
@@ -67,7 +48,6 @@ class Filters extends React.Component<Props, State> {
     this.isFilterChecked = this.isFilterChecked.bind(this);
     this.searchContains = this.searchContains.bind(this);
     this.joinFacetsAndsearch = this.joinFacetsAndsearch.bind(this);
-    this.doSearchWithFilters = this.doSearchWithFilters.bind(this);
   }
 
   componentDidMount() {
@@ -78,65 +58,64 @@ class Filters extends React.Component<Props, State> {
     const yearFilter = filters
       ? filters.find((fil: any) => fil.field === "years")
       : null;
-    this.setState({ filtersArray: filtersWithoutYear });
     if (yearFilter) {
       this.setState({ yearStart: yearFilter.value.start });
       this.setState({ yearEnd: yearFilter.value.end });
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.filters !== this.props.filters) {
+      this.setState({ filters: this.props.filters });
+    }
+  }
+
   onChangeYear(e: any, yearType: any) {
     const val = e.target.value && Number(e.target.value);
     if (yearType === "start") {
-      this.setState({ yearStart: val });
+      this.setState({ yearStart: val.toString() });
     } else {
-      this.setState({ yearEnd: val });
+      this.setState({ yearEnd: val.toString() });
     }
   }
 
   // on check of filter, add it or remove it from list and do the search
   onChangeCheckbox(e: any, field: any, value: any, negative: any) {
+    const changedFilter: Filter = { field: field, value: value };
+
     if (this.state.error) {
       return;
     }
-
-    const matchIndex = this.state.filtersArray.findIndex(
+    console.log("filters", changedFilter);
+    const matchIndex = this.state.filters.findIndex(
       (filter: any) => filter.field === field && filter.value === value
     );
+
+    //if it is negative, unchecking it should add it to the filter array
     if (negative) {
-      if (!e.target.checked && matchIndex === -1) {
-        this.setState(
-          (prevState: any) => ({
-            filtersArray: [...prevState.filtersArray, { field, value }],
-          }),
-          () => this.doSearchWithFilters()
-        );
-      } else if (matchIndex > -1) {
-        this.setState(
-          (prevState: any) => ({
-            filtersArray: prevState.filtersArray.filter(
-              (fil: any) => !(fil.field === field && fil.value === value)
-            ),
-          }),
-          () => this.doSearchWithFilters()
-        );
-      }
+      // if (!e.target.checked && matchIndex === -1) {
+      //   this.setState(
+      //     (prevState: any) => ({
+      //       filtersArray: [...prevState.filtersArray, { field, value }],
+      //     }),
+      //     () => this.props.onFiltersChange(this.state.filters)
+      //   );
+      // } else if (matchIndex > -1) {
+      //   this.setState(
+      //     (prevState: any) => ({
+      //       filtersArray: prevState.filtersArray.filter(
+      //         (fil: any) => !(fil.field === field && fil.value === value)
+      //       ),
+      //     }),
+      //     () => this.props.onFiltersChange(this.state.filters)
+      //   );
+      // }
     } else if (e.target.checked && matchIndex === -1) {
-      this.setState(
-        (prevState: any) => ({
-          filtersArray: [...prevState.filtersArray, { field, value }],
-        }),
-        () => this.doSearchWithFilters()
-      );
+      const newFilters = [changedFilter, ...this.state.filters];
+      this.props.onFiltersChange(newFilters);
     } else if (matchIndex > -1) {
-      this.setState(
-        (prevState: any) => ({
-          filtersArray: prevState.filtersArray.filter(
-            (fil: any) => !(fil.field === field && fil.value === value)
-          ),
-        }),
-        () => this.doSearchWithFilters()
-      );
+      const newFilters = this.state.filters.filter((_, i) => i !== matchIndex);
+      this.props.onFiltersChange(newFilters);
     }
   }
 
@@ -158,7 +137,7 @@ class Filters extends React.Component<Props, State> {
       }
       this.setState({ error: false, errorMsg: "" });
 
-      this.doSearchWithFilters();
+      this.props.onFiltersChange(this.state.filters);
     }
   }
 
@@ -169,7 +148,7 @@ class Filters extends React.Component<Props, State> {
   // join current data filters with filters from previous search
   joinFacetsAndsearch(facets: any, field: any) {
     const missingFacets: any = [];
-    this.state.filtersArray.forEach((previousFilter: any) => {
+    this.state.filters.forEach((previousFilter: any) => {
       const filterFound = facets.find(
         (facet: any) =>
           facet.value === previousFilter.value && previousFilter.field === field
@@ -181,45 +160,15 @@ class Filters extends React.Component<Props, State> {
     return facets.concat(missingFacets);
   }
 
-  // redirect to url with query params
-  submit(query: any) {
-    const path = `/search?${getQueryString(query)}`;
-    Router.push(path);
-  }
-
-  // update page in store and go to any page
-  doSearchWithFilters() {
-    let filters = [];
-    filters = this.state.filtersArray ? this.state.filtersArray : [];
-
-    // Combine year and filtersArray states
-    if (this.state.yearStart || this.state.yearEnd) {
-      const start = this.state.yearStart ? this.state.yearStart : null;
-      const end = this.state.yearEnd ? this.state.yearEnd : null;
-      const filterValue = { start, end };
-      filters = [...filters, { field: "years", value: filterValue }];
-    }
-
-    const newQuery = Object.assign(
-      {},
-      this.props.searchQuery,
-      { filters },
-      { page: 0 }
-    );
-
-    searchActions.userQuery(newQuery);
-    this.submit(newQuery);
-  }
-
   // see if filter is checked in previous search
   isFilterChecked(field: any, value: any) {
     let filterFound;
-    if (this.state.filtersArray) {
-      filterFound = this.state.filtersArray.find(
+    if (this.state.filters) {
+      filterFound = this.state.filters.findIndex(
         (filter: any) => filter.field === field && filter.value === value
       );
     }
-    return !!filterFound;
+    return filterFound > -1;
   }
 
   // sort filters by: included in search, then count, then alphabetically
@@ -258,58 +207,21 @@ class Filters extends React.Component<Props, State> {
   }
 
   render() {
-    const {
-      data,
-      toggleMenu,
-      isMobile,
-      searchQuery,
-      onChangeSort,
-      onChangePerPage,
-    } = this.props;
+    console.log("state filters", this.state.filters);
+
+    const { data, toggleMenu, isMobile, searchQuery } = this.props;
     const start = this.state.yearStart;
     const end = this.state.yearEnd;
-
-    const filtersHeader = isMobile ? (
-      <div className="search-navigation">
-        <DS.Button
-          id="gobackButton"
-          type="button"
-          buttonType={DS.ButtonTypes.Link}
-          iconPosition={DS.ButtonIconPositions.Left}
-          iconRotation={DS.IconRotationTypes.rotate90}
-          iconName="arrow_xsmall"
-          iconModifiers={["left"]}
-          iconDecorative
-          callback={(event) => this.onSubmit(event, toggleMenu, true)}
-        >
-          <span>Go Back</span>
-        </DS.Button>
-
-        <DS.Button
-          id="closeButton"
-          type="submit"
-          callback={(event) => this.onSubmit(event, toggleMenu, true)}
-        >
-          Show Results
-        </DS.Button>
-      </div>
-    ) : (
-      <DS.Heading level={2} id="filter-desktop-header">
-        Refine Results
-      </DS.Heading>
-    );
 
     const languageList = (
       <DS.UnorderedList
         id="checkbox-list"
-        // @ts-expect-error ts-migrate(2322) FIXME: Type 'string[] | null' is not assignable to type '... Remove this comment to see the full error message
         modifiers={isMobile ? null : ["scroll"]}
       >
         {data.facets &&
           this.prepareFilters(data.facets.language, "language").map(
             (facet: any) => (
               <DS.Checkbox
-                // @ts-expect-error ts-migrate(2322) FIXME: Type '{ className: string; labelClass: string; inp... Remove this comment to see the full error message
                 className="checkbox"
                 labelClass="checkbox__label"
                 inputClass="checkbox__input"
@@ -340,46 +252,6 @@ class Filters extends React.Component<Props, State> {
     if (Object.keys(filtersLabels).length > 0) {
       return (
         <form className="filters usa-form">
-          {filtersHeader}
-          {isMobile && (
-            <div className="search-dropdowns__mobile">
-              <DS.Dropdown
-                dropdownId="items-per-page-select"
-                isRequired={false}
-                labelPosition="left"
-                labelText="Items Per Page"
-                labelId="nav-items-per-page"
-                selectedOption={
-                  searchQuery.per_page ? searchQuery.per_page : undefined
-                }
-                dropdownOptions={numbersPerPage.map((number: any) =>
-                  number.toString()
-                )}
-                onSelectChange={onChangePerPage}
-                onSelectBlur={onChangePerPage}
-              />
-
-              <DS.Dropdown
-                dropdownId="sort-by-select"
-                isRequired={false}
-                labelPosition="left"
-                labelText="Sort By"
-                labelId="nav-sort-by"
-                selectedOption={
-                  searchQuery.sort
-                    ? Object.keys(sortMap).find((key) =>
-                        deepEqual(sortMap[key], searchQuery.sort)
-                      )
-                    : undefined
-                }
-                dropdownOptions={Object.keys(sortMap).map(
-                  (sortOption) => sortOption
-                )}
-                onSelectChange={onChangeSort}
-                onSelectBlur={onChangeSort}
-              />
-            </div>
-          )}
           {Object.keys(filtersLabels).map((field) => (
             <fieldset key={field} className="filters-box usa-fieldset">
               {field === "years" && (
@@ -417,7 +289,6 @@ class Filters extends React.Component<Props, State> {
                     id: "date-range-error",
                     isError: true,
                   }}
-                  // @ts-expect-error ts-migrate(2322) FIXME: Type '{ id: string; callback: (event: MouseEvent<E... Remove this comment to see the full error message
                   buttonOpts={
                     !isMobile
                       ? {
@@ -470,13 +341,12 @@ class Filters extends React.Component<Props, State> {
               {field === "format" && (
                 <>
                   <legend className="filters-box-header">
-                    {filtersLabels[field]}
+                    {filtersLabels["format"]}
                   </legend>
 
                   {formatTypes.map((formatType: any) => (
                     <>
                       <DS.Checkbox
-                        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ className: string; labelClass: string; inp... Remove this comment to see the full error message
                         className="usa-checkbox tablet:grid-col-12"
                         labelClass="usa-checkbox__label"
                         inputClass="usa-checkbox__input"

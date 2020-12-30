@@ -5,11 +5,11 @@ import { useRouter } from "next/router";
 import { searchFields } from "~/src/constants/fields";
 import { ApiSearchResult } from "~/src/types/SearchResults";
 import { deepEqual, isEmpty, getNumberOfPages } from "~/src/util/Util";
-import { ApiSearchQuery, SearchQuery } from "~/src/types/SearchQuery";
+import { ApiSearchQuery, Filter, SearchQuery } from "~/src/types/SearchQuery";
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 import SearchHeader from "../SearchForm/SearchHeader";
 import { sortMap, numbersPerPage } from "~/src/constants/sorts";
-import Filters from "../SearchResults/Filters";
+import Filters from "../SidebarFilter/SidebarFilters";
 import appConfig from "~/config/appConfig";
 import { parseLocationQuery, queryToString } from "~/src/util/SearchUtils";
 import ResultsList from "../SearchResults/ResultsList";
@@ -17,14 +17,13 @@ import { searchResultsFetcher } from "~/src/hooks/useSearch";
 import { breakpoints } from "~/src/constants/breakpoints";
 import SearchPagination from "~/src/components/SearchResults/SearchPagination";
 
-const SearchResults: React.FC<any> = (props) => {
+const SearchResults: React.FC<{
+  searchQuery: SearchQuery;
+  searchResults: ApiSearchResult;
+}> = (props) => {
   const [searchQuery, setSearchQuery] = useState(props.searchQuery);
   const [searchResults, setSearchResults] = useState(props.searchResults);
-  //TODO: use initial search query;
-  // const { searchResults, isLoading } = useSearch(
-  //   searchQuery,
-  //   props.searchResults
-  // );
+
   const [isMobile, setMobile] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
 
@@ -32,7 +31,6 @@ const SearchResults: React.FC<any> = (props) => {
 
   useEffect(() => {
     function handleResize() {
-      console.log("handle resize called", isMobile);
       if (window.innerWidth < breakpoints.large) {
         setMobile(true);
       } else {
@@ -48,13 +46,26 @@ const SearchResults: React.FC<any> = (props) => {
     };
   }, []);
 
+  // Because everything, from filters to pagination, is done on the server side
+  // All changes require a new search submit.
   const submit = async (query: SearchQuery) => {
-    console.log("submit called", query);
     const searchResults = await searchResultsFetcher(query);
+    console.log("search results got");
     setSearchResults(searchResults);
     const path = `/search?${queryToString(query)}`;
     setSearchQuery(query);
     router.push(path);
+  };
+
+  const updateFilters = (newFilters: Filter[]) => {
+    console.log("filters updating", searchQuery.filters, newFilters);
+    if (!deepEqual(searchQuery.filters, newFilters)) {
+      const newQuery: SearchQuery = Object.assign({}, searchQuery, {
+        filters: newFilters,
+      });
+      console.log("newQuery", newQuery);
+      submit(newQuery);
+    }
   };
 
   const getDisplayItemsHeading = (searchQuery: SearchQuery) => {
@@ -119,7 +130,6 @@ const SearchResults: React.FC<any> = (props) => {
   );
 
   const onChangePerPage = (e: any) => {
-    console.log("changed per page", searchQuery);
     const newPage = 0;
     const newPerPage = e.target.value;
     if (newPerPage !== searchQuery.perPage) {
@@ -132,7 +142,6 @@ const SearchResults: React.FC<any> = (props) => {
     }
   };
 
-  // click and navigate with different sort
   const onChangeSort = (e: any) => {
     if (
       e.target.value !==
@@ -146,8 +155,7 @@ const SearchResults: React.FC<any> = (props) => {
     }
   };
 
-  console.log("query state change", searchQuery);
-
+  console.log("SearchQuery filters", searchQuery.filters);
   return (
     <div className="layout-container">
       <main id="mainContent" className="main main--with-sidebar">
@@ -241,12 +249,14 @@ const SearchResults: React.FC<any> = (props) => {
         </div>
         {!isMobile && (
           <div className="content-secondary content-secondary--with-sidebar-left">
+            <DS.Heading level={2} id="filter-desktop-header">
+              Refine Results
+            </DS.Heading>
             <Filters
               data={searchResults}
-              searchQuery={searchQuery}
-              router={router}
-              onChangeSort={() => onChangeSort}
-              onChangePerPage={() => onChangePerPage}
+              filters={searchQuery.filters}
+              isMobile={isMobile}
+              onFiltersChange={(filters) => updateFilters(filters)}
             />
           </div>
         )}
@@ -261,6 +271,66 @@ const SearchResults: React.FC<any> = (props) => {
         </div>
         {/* {isMobile && isModalOpen && (
           <DS.Modal>
+      <div className="search-navigation">
+        <DS.Button
+          id="gobackButton"
+          type="button"
+          buttonType={DS.ButtonTypes.Link}
+          iconPosition={DS.ButtonIconPositions.Left}
+          iconRotation={DS.IconRotationTypes.rotate90}
+          iconName="arrow_xsmall"
+          iconModifiers={["left"]}
+          iconDecorative
+          callback={(event) => this.onSubmit(event, toggleMenu, true)}
+        >
+          <span>Go Back</span>
+        </DS.Button>
+
+        <DS.Button
+          id="closeButton"
+          type="submit"
+          callback={(event) => this.onSubmit(event, toggleMenu, true)}
+        >
+          Show Results
+        </DS.Button>
+      </div>
+              <div className="search-dropdowns__mobile">
+              <DS.Dropdown
+                dropdownId="items-per-page-select"
+                isRequired={false}
+                labelPosition="left"
+                labelText="Items Per Page"
+                labelId="nav-items-per-page"
+                selectedOption={
+                  searchQuery.per_page ? searchQuery.per_page : undefined
+                }
+                dropdownOptions={numbersPerPage.map((number: any) =>
+                  number.toString()
+                )}
+                onSelectChange={onChangePerPage}
+                onSelectBlur={onChangePerPage}
+              />
+
+              <DS.Dropdown
+                dropdownId="sort-by-select"
+                isRequired={false}
+                labelPosition="left"
+                labelText="Sort By"
+                labelId="nav-sort-by"
+                selectedOption={
+                  searchQuery.sort
+                    ? Object.keys(sortMap).find((key) =>
+                        deepEqual(sortMap[key], searchQuery.sort)
+                      )
+                    : undefined
+                }
+                dropdownOptions={Object.keys(sortMap).map(
+                  (sortOption) => sortOption
+                )}
+                onSelectChange={onChangeSort}
+                onSelectBlur={onChangeSort}
+              />
+            </div>
             <Filters
               toggleMenu={this.closeModal}
               isMobile={isMobile}

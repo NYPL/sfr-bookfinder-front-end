@@ -27,8 +27,8 @@ export interface Query {
 }
 
 export type Filter = {
-  query: string;
-  field: string | DateRange;
+  field: string;
+  value: string | DateRange;
 };
 
 export type DateRange = {
