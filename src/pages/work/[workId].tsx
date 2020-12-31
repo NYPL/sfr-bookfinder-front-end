@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import Layout from "~/src/components/Application/Layout";
 import WorkDetail from "~/src/components/Work/Work";

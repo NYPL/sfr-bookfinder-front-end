@@ -10,7 +10,7 @@ import {
 } from "../../../src/constants/editioncard";
 import { formatUrl, truncateStringOnWhitespace } from "../../util/Util";
 import Link from "../Link/Link";
-import { Item, ItemLink } from "~/src/types/DataModel";
+import { Edition, Item, ItemLink } from "~/src/types/DataModel";
 
 const htmlEntities = new Html5Entities();
 
@@ -226,7 +226,7 @@ export default class EditionCard {
       : "License: Unknown";
   }
 
-  static getReadOnlineLink = (item: Item) => {
+  static getReadOnlineLink = (editionId: number, item: Item) => {
     const getEmbeddedReaedLink = (item: Item) => {
       if (!item || !item.links) return undefined;
       //handle error
@@ -258,7 +258,9 @@ export default class EditionCard {
           {/* linkType={DS.LinkTypes.Button} */}
           <Link
             to={{
-              pathname: `/read-local/${encodeURIComponent(localLink.url)}`,
+              pathname: `/edition/${editionId}/read-local/${encodeURIComponent(
+                localLink.url
+              )}`,
             }}
             //TODO: Tracking
             // onClick={() =>
@@ -282,7 +284,9 @@ export default class EditionCard {
           {/* linkType={DS.LinkTypes.Button} */}
           <Link
             to={{
-              pathname: `/read-embed/${encodeURIComponent(embeddedLink.url)}`,
+              pathname: `/edition/${editionId}/read-embed/${encodeURIComponent(
+                embeddedLink.url
+              )}`,
             }}
             //TODO: Tracking
             // onClick={() =>
@@ -364,7 +368,7 @@ export default class EditionCard {
 
   static getEditionData(
     work: any,
-    edition: any,
+    edition: Edition,
     eReaderUrl: any,
     referrer: any,
     showRequestButton: any
@@ -384,7 +388,7 @@ export default class EditionCard {
           <Link to="/license">{EditionCard.getLicense(editionItem)}</Link>
         </DS.Link>,
       ],
-      readOnlineLink: EditionCard.getReadOnlineLink(editionItem),
+      readOnlineLink: EditionCard.getReadOnlineLink(edition.id, editionItem),
       downloadLink: EditionCard.getDownloadLink(edition, editionItem),
       noLinkElement: EditionCard.getNoLinkElement(showRequestButton),
     };
