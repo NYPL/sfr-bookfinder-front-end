@@ -9,7 +9,7 @@ import {
   isEmpty,
   uniqueAndSortByFrequency,
 } from "~/src/util/Util";
-import { EditionCardUtils } from "~/src/components/Card/EditionCard";
+import { EditionCardUtils } from "~/src/components/EditionCard/EditionCard";
 
 const htmlEntities = new Html5Entities();
 

@@ -9,7 +9,7 @@ import * as searchActions from "~/src/actions/SearchActions";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/constants/editioncard' o... Remove this comment to see the full error message
 import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
 import { truncateStringOnWhitespace } from "~/src/util/Util";
-import { EditionCardUtils } from "../Card/EditionCard";
+import { EditionCardUtils } from "../EditionCard/EditionCard";
 
 const getLinkFromWork = (title: any, uuid: any) => {
   const workTitle = title || "Title Unknown";

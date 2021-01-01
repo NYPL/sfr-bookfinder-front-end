@@ -7,15 +7,21 @@ import {
   MAX_PUBLISHER_NAME_LENGTH,
   MAX_SUBTITILE_LENGTH,
   PLACEHOLDER_COVER_LINK,
-} from "../../../src/constants/editioncard";
+} from "../../constants/editioncard";
 import { formatUrl, truncateStringOnWhitespace } from "../../util/Util";
 import Link from "../Link/Link";
-import { Edition, Item, ItemLink } from "~/src/types/DataModel";
+import {
+  WorkEdition,
+  Item,
+  ItemLink,
+  Cover,
+  Agent,
+} from "~/src/types/DataModel";
 
 const htmlEntities = new Html5Entities();
 
-export const EditionCard: React.FC<{ edition: Edition }> = (props) => {
-  const edition: Edition = props.edition;
+export const EditionCard: React.FC<{ edition: WorkEdition }> = (props) => {
+  const edition: WorkEdition = props.edition;
   const previewItem = edition && edition.items ? edition.items[0] : undefined;
 
   const readOnlineLink = EditionCardUtils.getReadOnlineLink(
@@ -32,9 +38,7 @@ export const EditionCard: React.FC<{ edition: Edition }> = (props) => {
       heading={editionYear}
       image={
         <DS.Image
-          src={EditionCardUtils.getCover(
-            EditionCardUtils.editionYearElem(edition)
-          )}
+          src={EditionCardUtils.getCover(edition.covers)}
           alt={`Cover for Edition ${EditionCardUtils.editionYearText(edition)}`}
         ></DS.Image>
       }
@@ -50,7 +54,12 @@ export const EditionCard: React.FC<{ edition: Edition }> = (props) => {
         )
       }
     >
-      <div>{EditionCardUtils.getPublisherAndLocation(edition)}</div>
+      <div>
+        {EditionCardUtils.getPublisherAndLocation(
+          edition.publication_place,
+          edition.agents
+        )}
+      </div>
       <div>{EditionCardUtils.getLanguageDisplayText(edition)}</div>
       <DS.Link>
         <Link to="/license">{EditionCardUtils.getLicense(previewItem)}</Link>
@@ -81,7 +90,7 @@ export class EditionCardUtils {
   }
 
   // Edition Year
-  static editionYearElem(edition: Edition) {
+  static editionYearElem(edition: WorkEdition) {
     const editionDisplay = EditionCardUtils.editionYearText(edition);
     const editionElem = edition ? (
       <DS.Link>
@@ -196,13 +205,15 @@ export class EditionCardUtils {
     });
   }
 
-  // Cover
-  static getCover(previewEdition: any) {
-    if (!previewEdition) return PLACEHOLDER_COVER_LINK;
-    if (!previewEdition.covers || !previewEdition.covers.length)
-      return PLACEHOLDER_COVER_LINK;
+  /** Get Cover Image
+   * @param covers - The list of covers
+   * @returns The URL of the cover that should be displayed.
+   */
 
-    const firstLocalCover = previewEdition.covers.find(
+  static getCover(covers: Cover[]): string {
+    if (!covers || !covers.length) return PLACEHOLDER_COVER_LINK;
+
+    const firstLocalCover = covers.find(
       (cover: any) => cover.flags.temporary === false
     );
     return firstLocalCover
@@ -210,34 +221,42 @@ export class EditionCardUtils {
       : PLACEHOLDER_COVER_LINK;
   }
 
-  // Publisher Location and name
-  static publisherDisplayLocation(previewEdition: any) {
-    return previewEdition && previewEdition.publication_place
-      ? ` in ${previewEdition.publication_place}`
-      : "";
-  }
+  /**
+   * Get publisher and publish location
+   * @param pubPlace - The display name of the place of publication
+   * @param agents - an array of Agents
+   * @returns A display element for publisher and location
+   */
+  static getPublisherAndLocation(
+    pubPlace: string,
+    agents: Agent[]
+  ): JSX.Element {
+    const publisherDisplayLocation = (pubPlace: string) => {
+      return pubPlace ? ` in ${pubPlace}` : "";
+    };
 
-  static publisherDisplayText(previewEdition: any) {
-    if (!previewEdition) return "";
-    const preferredAgents = EditionCardUtils.getPreferredAgent(
-      previewEdition.agents,
-      "publisher"
-    );
-    if (!preferredAgents) return "";
-    const publisherNames = preferredAgents.map(
-      (pubAgent: any) => pubAgent.name
-    );
-    const publisherText = ` by ${EditionCardUtils.getFirstAndCountMore(
-      publisherNames
-    )}`;
-    return truncateStringOnWhitespace(publisherText, MAX_PUBLISHER_NAME_LENGTH);
-  }
+    const publisherDisplayText = (agents: Agent[]) => {
+      if (!agents) return "";
+      const preferredAgents = EditionCardUtils.getPreferredAgent(
+        agents,
+        "publisher"
+      );
+      if (!preferredAgents) return "";
+      const publisherNames = preferredAgents.map(
+        (pubAgent: any) => pubAgent.name
+      );
+      const publisherText = ` by ${EditionCardUtils.getFirstAndCountMore(
+        publisherNames
+      )}`;
 
-  static getPublisherAndLocation(previewEdition: any) {
-    const displayLocation = EditionCardUtils.publisherDisplayLocation(
-      previewEdition
-    );
-    const displayName = EditionCardUtils.publisherDisplayText(previewEdition);
+      return truncateStringOnWhitespace(
+        publisherText,
+        MAX_PUBLISHER_NAME_LENGTH
+      );
+    };
+
+    const displayLocation = publisherDisplayLocation(pubPlace);
+    const displayName = publisherDisplayText(agents);
     if (!displayLocation && !displayName)
       return <>Publisher and Location Unknown</>;
     const publisherText = `Published${displayLocation}${displayName}`;
@@ -403,54 +422,5 @@ export class EditionCardUtils {
     ) : (
       <>Find in Library Unavailable</>
     );
-  }
-
-  static getEditionData(
-    work: any,
-    edition: Edition,
-    eReaderUrl: any,
-    referrer: any,
-    showRequestButton: any
-  ) {
-    const editionYearHeadingElement = EditionCardUtils.editionYearElem(edition);
-    const editionItem = edition && edition.items ? edition.items[0] : undefined;
-
-    return {
-      editionYearHeading: editionYearHeadingElement,
-      coverUrl: EditionCardUtils.getCover(edition),
-      editionInfo: [
-        EditionCardUtils.getPublisherAndLocation(edition),
-        EditionCardUtils.getLanguageDisplayText(edition),
-
-        // eslint-disable-next-line react/jsx-key
-        <DS.Link>
-          <Link to="/license">{EditionCard.getLicense(editionItem)}</Link>
-        </DS.Link>,
-      ],
-      readOnlineLink: EditionCardUtils.getReadOnlineLink(edition.id, editionItem),
-      downloadLink: EditionCardUtils.getDownloadLink(edition, editionItem),
-      noLinkElement: EditionCardUtils.getNoLinkElement(showRequestButton),
-    };
-  }
-
-  static getInstanceData(
-    edition: any,
-    instance: any,
-    eReaderUrl: any,
-    referrer: any
-  ) {
-    const instanceItem =
-      instance && instance.items ? instance.items[0] : undefined;
-    return {
-      coverUrl: EditionCardUtils.getCover(instance),
-      editionInfo: [
-        EditionCardUtils.getPublisherAndLocation(instance),
-        EditionCardUtils.getWorldCatElem(instance),
-      ],
-      readOnlineLink: EditionCardUtils.getReadOnlineLink(edition.id, instanceItem),
-      downloadLink: EditionCardUtils.getDownloadLink(edition, instanceItem),
-      // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
-      noLinkElement: EditionCardUtils.getNoLinkElement(),
-    };
   }
 }

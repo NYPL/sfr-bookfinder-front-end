@@ -7,7 +7,7 @@ import * as DS from "@nypl/design-system-react-components";
 import {
   EditionCard,
   EditionCardUtils,
-} from "~/src/components/Card/EditionCard";
+} from "~/src/components/EditionCard/EditionCard";
 import { ApiWork } from "~/src/types/DataModel";
 
 export const getEditionsLinkElement = (result: any) =>

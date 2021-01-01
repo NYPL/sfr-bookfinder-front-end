@@ -30,6 +30,7 @@ export type Agent = {
   death_date_display?: string;
 };
 
+//This Instance is from the instances of the Edition endpoint
 export type Instance = {
   date_modified?: string;
   date_created?: string;
@@ -37,7 +38,6 @@ export type Instance = {
   title?: string;
   sort_title?: string;
   sub_title?: string;
-  pub_place?: string;
   edition?: string;
   edition_statement?: string;
   volume?: string;
@@ -47,15 +47,19 @@ export type Instance = {
   summary?: string;
   work_id?: number;
   edition_id?: number;
+  measurements?: Measurement[];
   agents?: Agent[];
   items?: Item[];
-  rights?: Rights[];
   languages?: Language[];
+  covers?: Cover[];
+  rights?: Rights[];
   identifiers?: Identifier[];
-  covers?: Covers[];
+  publication_place?: string;
+  pub_date?: string;
+  pub_date_display?: string;
 };
 
-export type Covers = {
+export type Cover = {
   url: string;
   media_type: string;
 };
@@ -103,7 +107,7 @@ export type Identifier = {
   identifier?: string;
 };
 
-export type Edition = {
+export type WorkEdition = {
   date_modified?: string;
   date_created?: string;
   id?: number;
@@ -118,6 +122,8 @@ export type Edition = {
   work_id?: number;
   agents?: Agent[];
   items?: Item[];
+  covers?: Cover[];
+  work_uuid?: string;
 };
 
 export type Subject = {
@@ -151,7 +157,7 @@ export type ApiWork = {
   alt_titles?: string[];
   instances?: Instance[];
   languages?: Language[];
-  editions?: Edition[];
+  editions?: WorkEdition[];
   identifiers?: Identifier[];
   subjects?: Subject[];
   measurements?: Measurement[];

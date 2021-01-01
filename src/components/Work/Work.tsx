@@ -6,7 +6,7 @@ import { joinArrayOfElements } from "~/src/util/Util";
 import {
   EditionCard,
   EditionCardUtils,
-} from "~/src/components/Card/EditionCard";
+} from "~/src/components/EditionCard/EditionCard";
 import WorkDetailDefinitionList from "~/src/components/Detail/WorkDetailDefinitionList";
 import { WorkQuery, WorkResult } from "~/src/types/WorkQuery";
 import { ApiWork } from "~/src/types/DataModel";
@@ -25,7 +25,6 @@ import SearchForm from "../SearchForm/SearchForm";
 // };
 
 const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
-  console.log("props", props);
   const router = useRouter();
 
   //TODO: Loading
