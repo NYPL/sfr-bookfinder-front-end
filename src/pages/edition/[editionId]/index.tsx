@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import Layout from "~/src/components/Application/Layout";
-import EditionDetail from "~/src/EditionDetail/EditionDetail";
+import EditionDetail from "~/src/components/EditionDetail/EditionDetail";
 import { editionFetcher } from "~/src/lib/api/SearchApi";
 import { EditionQuery, EditionResult } from "~/src/types/EditionQuery";
 import { WorkQuery } from "~/src/types/WorkQuery";

@@ -16,9 +16,9 @@ import { deepEqual } from "~/src/util/Util";
 import { EditionCardUtils } from "~/src/components/EditionCard/EditionCard";
 import EditionDetailDefinitionList from "~/src/components/Detail/EditionDetailDefinitionList";
 import Link from "~/src/components/Link/Link";
-import SearchForm from "../components/SearchForm/SearchForm";
-import { WorkEdition } from "../types/DataModel";
-import { InstanceCard } from "../components/InstanceCard/InstanceCard";
+import SearchForm from "../SearchForm/SearchForm";
+import { WorkEdition } from "../../types/DataModel";
+import { InstanceCard } from "../InstanceCard/InstanceCard";
 
 // const scrollToHash = (hash) => {
 //   const hashtag = hash && hash.replace(/#/, '');

@@ -6,7 +6,6 @@ import { bindActionCreators } from "redux";
 import * as DS from "@nypl/design-system-react-components";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/actions/SearchActions' o... Remove this comment to see the full error message
 import * as searchActions from "~/src/actions/SearchActions";
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/constants/editioncard' o... Remove this comment to see the full error message
 import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
 import { truncateStringOnWhitespace } from "~/src/util/Util";
 import { EditionCardUtils } from "../EditionCard/EditionCard";
