@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as DS from "@nypl/design-system-react-components";
 import {
   initialSearchQuery,
@@ -28,6 +28,33 @@ type State = {
   error: boolean;
   yearStart: string;
   yearEnd: string;
+};
+
+type FilterProps = {
+  filters: Filters[]
+}
+const Filters2:React.FC<{props: FilterProps, state: any}> = (props:FilterProps) => {
+  const [filters, setFilters] = useState(props.filters);
+
+  filterAvailable()
+  
+  filterLanguage()
+
+  filterFormat()
+
+  filterDate()
+
+  return (
+    <div>
+      <div>Available to Read</div>
+
+      <div>Language</div>
+
+      <div>Format</div>
+
+      <div>DateRange</div>
+    </div>
+  );
 };
 
 class Filters extends React.Component<any, State> {
@@ -207,15 +234,14 @@ class Filters extends React.Component<any, State> {
   }
 
   render() {
-    console.log("state filters", this.state.filters);
-
     const { data, toggleMenu, isMobile, searchQuery } = this.props;
     const start = this.state.yearStart;
     const end = this.state.yearEnd;
 
     const languageList = (
-      <DS.UnorderedList
+      <DS.List
         id="checkbox-list"
+        type={DS.ListTypes.Unordered}
         modifiers={isMobile ? null : ["scroll"]}
       >
         {data.facets &&
@@ -246,7 +272,7 @@ class Filters extends React.Component<any, State> {
               />
             )
           )}
-      </DS.UnorderedList>
+      </DS.List>
     );
 
     if (Object.keys(filtersLabels).length > 0) {
@@ -254,7 +280,7 @@ class Filters extends React.Component<any, State> {
         <form className="filters usa-form">
           {Object.keys(filtersLabels).map((field) => (
             <fieldset key={field} className="filters-box usa-fieldset">
-              {field === "years" && (
+              {/* {field === "years" && (
                 <DS.DateRangeForm
                   formLabel={
                     <legend className="filters-box-header">
@@ -301,7 +327,7 @@ class Filters extends React.Component<any, State> {
                       : null
                   }
                 />
-              )}
+              )} */}
               {field === "show_all" && (
                 <>
                   <legend className="filters-box-header">
@@ -328,14 +354,7 @@ class Filters extends React.Component<any, State> {
                     {filtersLabels[field]}
                   </legend>
 
-                  <DS.Accordion
-                    buttonOptions={{
-                      id: "accordionBtn",
-                      content: <span>Click to expand</span>,
-                    }}
-                  >
-                    {languageList}
-                  </DS.Accordion>
+                  <DS.Accordion>{languageList}</DS.Accordion>
                 </>
               )}
               {field === "format" && (
@@ -348,8 +367,6 @@ class Filters extends React.Component<any, State> {
                     <>
                       <DS.Checkbox
                         className="usa-checkbox tablet:grid-col-12"
-                        labelClass="usa-checkbox__label"
-                        inputClass="usa-checkbox__input"
                         checkboxId={`filters-${field}-${formatType.value}`}
                         isSelected={this.isFilterChecked(
                           field,

@@ -14,69 +14,68 @@ const LandingPage: React.FC<any> = () => {
   const router = useRouter();
 
   return (
-    <div className="layout-container">
-      <main id="mainContent" className="main">
-        <div className="content-header">
-          <Breadcrumbs location={router} />
+    <main className="main">
+      <div className="content-header">
+        <Breadcrumbs location={router} />
 
-          <div aria-label="Digital Research Books Beta" className="main-promo">
-            <DS.SectionName>
-              <DS.Hero
-                heroType={DS.HeroTypes.Secondary}
-                heading={
-                  <DS.Heading
-                    level={1}
-                    id="1"
-                    text="Digital Research Books Beta"
-                    blockName="hero"
-                  />
-                }
-                subHeaderText={
-                  <p className="hero__body-text">
-                    Find millions of digital books for research from multiple
-                    sources world-wide--all free to read, download, and keep. No
-                    library card required. This is an early beta test, so we
-                    want your feedback!{" "}
-                    <DS.Link>
-                      <Link to="/about">
-                        <>Read more about the project</>
-                      </Link>
-                    </DS.Link>
-                    .
-                  </p>
-                }
+        <div aria-label="Digital Research Books Beta" className="main-promo">
+          <DS.Hero
+            heroType={DS.HeroTypes.Secondary}
+            heading={
+              <DS.Heading
+                level={1}
+                id="1"
+                text="Digital Research Books Beta"
+                blockName="hero"
               />
-            </DS.SectionName>
-
-            <SearchForm />
-            {
-              // eslint-disable-next-line no-underscore-dangle
-              FeatureFlags.store._isFeatureActive(
-                config.booksCount.experimentName
-              ) && <TotalWorks />
             }
-          </div>
-
-          <div className="content-primary search-examples">
-            <DS.SectionTitle
-              id="subject-browse-title"
-              headingText="Search Examples"
-            ></DS.SectionTitle>
-
-            <DS.UnorderedList id="subject-list" blockName="list-iconLink">
-              {Subjects.map((sub: any, idx: any) => (
-                <DS.Link
-                  // eslint-disable-next-line react/no-array-index-key
-                  key={`subject-link${idx}`}
-                >
-                  <Link to={sub.url}>{sub.text}</Link>
+            subHeaderText={
+              <div className="hero__body-text">
+                Find millions of digital books for research from multiple
+                sources world-wide--all free to read, download, and keep. No
+                library card required. This is an early beta test, so we want
+                your feedback!{" "}
+                <DS.Link>
+                  <Link to="/about">
+                    <>Read more about the project</>
+                  </Link>
                 </DS.Link>
-              ))}
-            </DS.UnorderedList>
-          </div>
+                .
+              </div>
+            }
+          />
         </div>
-      </main>
-    </div>
+      </div>
+      <div className="content-primary">
+        <SearchForm />
+        {
+          // eslint-disable-next-line no-underscore-dangle
+          FeatureFlags.store._isFeatureActive(
+            config.booksCount.experimentName
+          ) && <TotalWorks />
+        }
+      </div>
+      <div className="content-primary search-examples">
+        <DS.SectionTitle
+          id="subject-browse-title"
+          headingText="Search Examples"
+        ></DS.SectionTitle>
+
+        <DS.List
+          type={DS.ListTypes.Unordered}
+          id="subject-list"
+          modifiers={["no-list-styling"]}
+        >
+          {Subjects.map((sub: any, idx: any) => (
+            <li>
+              <DS.Link key={`subject-link-${sub.url}`}>
+                <Link to={sub.url}>{sub.text}</Link>
+              </DS.Link>
+            </li>
+          ))}
+        </DS.List>
+      </div>
+    </main>
   );
 };
 

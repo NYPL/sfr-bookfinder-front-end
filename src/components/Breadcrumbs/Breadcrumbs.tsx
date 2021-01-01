@@ -8,10 +8,8 @@ import * as DS from "@nypl/design-system-react-components";
 import * as searchActions from "~/src/actions/SearchActions";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/constants/editioncard' o... Remove this comment to see the full error message
 import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Card/EditionC... Remove this comment to see the full error message
-import EditionCard from "~/src/components/Card/EditionCard";
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/util/Util' or its corres... Remove this comment to see the full error message
 import { truncateStringOnWhitespace } from "~/src/util/Util";
+import { EditionCardUtils } from "../Card/EditionCard";
 
 const getLinkFromWork = (title: any, uuid: any) => {
   const workTitle = title || "Title Unknown";
@@ -37,7 +35,7 @@ export const getBreadcrumbLinks = (workDetail: any, editionDetail: any) => {
   }
 
   if (editionDetail && editionDetail.id) {
-    const editionYear = EditionCard.editionYearText(editionDetail);
+    const editionYear = EditionCardUtils.editionYearText(editionDetail);
     links.push({
       url: `/edition/${editionDetail.id}`,
       text: `${editionYear}`,

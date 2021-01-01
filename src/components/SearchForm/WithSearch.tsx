@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/util/SearchQuery' or its... Remove this comment to see the full error message
 import { getQueryString } from "~/src/util/SearchQuery";
 import {
   initialSearchQuery,

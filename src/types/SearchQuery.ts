@@ -40,6 +40,6 @@ export interface SearchQuery {
   page?: number;
   perPage?: number;
   queries: Query[];
-  showQueries: Query[];
+  showQueries?: Query[];
   sort?: Sort[];
 }

@@ -1,19 +1,15 @@
 import React from "react";
 import { Html5Entities } from "html-entities";
 import * as DS from "@nypl/design-system-react-components";
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Link/Link' or... Remove this comment to see the full error message
 import Link from "~/src/components/Link/Link";
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/constants/labels' or its... Remove this comment to see the full error message
 import { workDetailDefinitionLabels } from "~/src/constants/labels";
 import {
   unique,
   flattenDeep,
   isEmpty,
   uniqueAndSortByFrequency,
-  // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/util/Util' or its corres... Remove this comment to see the full error message
 } from "~/src/util/Util";
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Card/EditionC... Remove this comment to see the full error message
-import EditionCard from "~/src/components/Card/EditionCard";
+import { EditionCardUtils } from "~/src/components/Card/EditionCard";
 
 const htmlEntities = new Html5Entities();
 
@@ -48,7 +44,7 @@ const getAuthorsList = (agents: any) => {
         key={agent.name}
         to={{
           pathname: "/search",
-          query: EditionCard.getLinkToAuthorSearch(agent),
+          query: EditionCardUtils.getLinkToAuthorSearch(agent),
         }}
         className="link"
       >
@@ -81,7 +77,6 @@ type WorkDetailDefinitionListProps = OwnWorkDetailDefinitionListProps &
  *
  * @param {object} props
  */
-// @ts-expect-error ts-migrate(7022) FIXME: 'WorkDetailDefinitionList' implicitly has type 'an... Remove this comment to see the full error message
 export const WorkDetailDefinitionList = ({
   work,
 }: WorkDetailDefinitionListProps) => {

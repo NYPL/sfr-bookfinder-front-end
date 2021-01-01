@@ -3,19 +3,26 @@ import { mutate } from "swr";
 import * as DS from "@nypl/design-system-react-components";
 import { useRouter } from "next/router";
 import { searchFields } from "~/src/constants/fields";
-import { ApiSearchResult } from "~/src/types/DataModel";
+import { ApiSearchResult, ApiWork } from "~/src/types/DataModel";
 import { deepEqual, isEmpty, getNumberOfPages } from "~/src/util/Util";
-import { ApiSearchQuery, Filter, SearchQuery } from "~/src/types/SearchQuery";
+import {
+  ApiSearchQuery,
+  Filter,
+  SearchQuery,
+  Sort,
+} from "~/src/types/SearchQuery";
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 import SearchHeader from "../SearchForm/SearchHeader";
 import { sortMap, numbersPerPage } from "~/src/constants/sorts";
-import Filters from "../SidebarFilter/SidebarFilters";
+import Filters from "~/src/components/Filters/Filters";
 import appConfig from "~/config/appConfig";
 import { parseLocationQuery, queryToString } from "~/src/util/SearchUtils";
 import ResultsList from "../SearchResults/ResultsList";
 import { searchResultsFetcher } from "~/src/lib/api/SearchApi";
 import { breakpoints } from "~/src/constants/breakpoints";
 import SearchPagination from "~/src/components/SearchResults/SearchPagination";
+import Select from "~/src/components/Select/Select";
+import SearchForm from "~/src/components/SearchForm/SearchForm";
 
 const SearchResults: React.FC<{
   searchQuery: SearchQuery;
@@ -86,7 +93,7 @@ const SearchResults: React.FC<{
   };
 
   const numberOfWorks = searchResults.data.totalWorks;
-  const works = searchResults.data.works;
+  const works: ApiWork[] = searchResults.data.works;
 
   let filterCount = 0;
   if (searchQuery.filters) {
@@ -155,7 +162,6 @@ const SearchResults: React.FC<{
     }
   };
 
-  console.log("SearchQuery filters", searchQuery.filters);
   return (
     <div className="layout-container">
       <main id="mainContent" className="main main--with-sidebar">
@@ -163,17 +169,7 @@ const SearchResults: React.FC<{
           <Breadcrumbs />
 
           <div aria-label="Digital Research Books Beta">
-            {searchQuery && (
-              <>
-                <SearchHeader initialQuery={searchQuery} />
-                {/* TODO Feature Flag {
-                  // eslint-disable-next-line no-underscore-dangle
-                  FeatureFlags.store._isFeatureActive(
-                    config.booksCount.experimentName
-                  ) && <TotalWorks />
-                } */}
-              </>
-            )}
+            <SearchForm searchQuery={searchQuery} />
           </div>
         </div>
 
@@ -200,7 +196,7 @@ const SearchResults: React.FC<{
                 <DS.Button
                   id="filter-button"
                   buttonType={DS.ButtonTypes.Link}
-                  callback={() => setModalOpen(true)}
+                  // callback={() => setModalOpen(true)}
                 >
                   Refine
                 </DS.Button>
@@ -208,28 +204,33 @@ const SearchResults: React.FC<{
             )}
             {!isMobile && (
               <div className="search-dropdowns">
-                <DS.Dropdown
-                  dropdownId="items-per-page-select"
+                <DS.Label htmlFor="items-per-page" id="per-page-label">
+                  Items Per Page
+                </DS.Label>
+                <Select
+                  id="items-per-page"
+                  name="ItemsPerPageSelect"
                   isRequired={false}
-                  labelPosition="left"
-                  labelText="Items Per Page"
-                  labelId="nav-items-per-page"
-                  selectedOption={
-                    searchQuery.perPage ? searchQuery.perPage : undefined
-                  }
-                  dropdownOptions={numbersPerPage.map((number: any) =>
-                    number.toString()
-                  )}
-                  onSelectChange={(e) => onChangePerPage(e)}
-                  onSelectBlur={(e) => onChangePerPage(e)}
-                />
+                  ariaLabel="Items Per Page Select"
+                  labelId="per-page-label"
+                  selectedOption={searchQuery.perPage.toString()}
+                  onChange={(e) => onChangePerPage(e)}
+                  onBlur={(e) => onChangePerPage(e)}
+                >
+                  {numbersPerPage.map((number: string) => {
+                    return <option>{number}</option>;
+                  })}
+                </Select>
 
-                <DS.Dropdown
-                  dropdownId="sort-by-select"
+                <DS.Label htmlFor="items-sort-by" id="sort-by-label">
+                  Sort By
+                </DS.Label>
+                <Select
+                  id="sort-by"
+                  name="SortBySelect"
                   isRequired={false}
-                  labelPosition="left"
-                  labelText="Sort By"
-                  labelId="nav-sort-by"
+                  ariaLabel="Sort By Select"
+                  labelId="sort-by-label"
                   selectedOption={
                     searchQuery.sort
                       ? Object.keys(sortMap).find((key) =>
@@ -237,12 +238,13 @@ const SearchResults: React.FC<{
                         )
                       : undefined
                   }
-                  dropdownOptions={Object.keys(sortMap).map(
-                    (sortOption) => sortOption
-                  )}
-                  onSelectChange={(e) => onChangeSort(e)}
-                  onSelectBlur={(e) => onChangeSort(e)}
-                />
+                  onChange={(e) => onChangeSort(e)}
+                  onBlur={(e) => onChangeSort(e)}
+                >
+                  {Object.keys(sortMap).map((sortOption: string) => {
+                    return <option>{sortOption}</option>;
+                  })}
+                </Select>
               </div>
             )}
           </div>
@@ -262,7 +264,7 @@ const SearchResults: React.FC<{
         )}
 
         <div className="content-primary content-primary--with-sidebar-left">
-          <ResultsList results={works} />
+          <ResultsList works={works} />
           <SearchPagination
             totalItems={numberOfWorks}
             searchQuery={searchQuery}

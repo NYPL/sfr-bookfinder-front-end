@@ -14,8 +14,53 @@ import { Edition, Item, ItemLink } from "~/src/types/DataModel";
 
 const htmlEntities = new Html5Entities();
 
+export const EditionCard: React.FC<{ edition: Edition }> = (props) => {
+  const edition: Edition = props.edition;
+  const previewItem = edition && edition.items ? edition.items[0] : undefined;
+
+  const readOnlineLink = EditionCardUtils.getReadOnlineLink(
+    edition.id,
+    previewItem
+  );
+
+  const downloadLink = EditionCardUtils.getDownloadLink(previewItem);
+
+  const editionYear = EditionCardUtils.editionYearElem(edition);
+  return (
+    <DS.Card
+      id={`card-${edition.id}`}
+      heading={editionYear}
+      image={
+        <DS.Image
+          src={EditionCardUtils.getCover(
+            EditionCardUtils.editionYearElem(edition)
+          )}
+          alt={`Cover for Edition ${EditionCardUtils.editionYearText(edition)}`}
+        ></DS.Image>
+      }
+      ctas={
+        readOnlineLink || downloadLink ? (
+          <>
+            {readOnlineLink}
+            {downloadLink}
+          </>
+        ) : (
+          //TODO feature flags: Request button
+          <>{EditionCardUtils.getNoLinkElement(false)}</>
+        )
+      }
+    >
+      <div>{EditionCardUtils.getPublisherAndLocation(edition)}</div>
+      <div>{EditionCardUtils.getLanguageDisplayText(edition)}</div>
+      <DS.Link>
+        <Link to="/license">{EditionCardUtils.getLicense(previewItem)}</Link>
+      </DS.Link>
+    </DS.Card>
+  );
+};
+
 // EditionCard holds all the methods needed to build an Edition Card
-export default class EditionCard {
+export class EditionCardUtils {
   static getPreferredAgent(agents: any, role: any) {
     if (!agents || !agents.length) return undefined;
 
@@ -36,8 +81,8 @@ export default class EditionCard {
   }
 
   // Edition Year
-  static editionYearElem(edition: any) {
-    const editionDisplay = EditionCard.editionYearText(edition);
+  static editionYearElem(edition: Edition) {
+    const editionDisplay = EditionCardUtils.editionYearText(edition);
     const editionElem = edition ? (
       <DS.Link>
         <Link
@@ -72,7 +117,7 @@ export default class EditionCard {
 
   // Title
   static generateTitleLinkElem(work: any) {
-    const displayTitle = EditionCard.generateDisplayTitle(work);
+    const displayTitle = EditionCardUtils.generateDisplayTitle(work);
     return (
       <Link
         to={{
@@ -90,24 +135,22 @@ export default class EditionCard {
     );
   }
 
-  static generateDisplayTitle(work: any) {
+  static generateDisplayTitle(title: string | undefined): string {
     let displayTitle;
-    if (!work.title) {
+    if (!title) {
       displayTitle = "Title Unknown";
     } else {
-      displayTitle = truncateStringOnWhitespace(work.title, MAX_TITLE_LENGTH);
+      displayTitle = truncateStringOnWhitespace(title, MAX_TITLE_LENGTH);
     }
     return displayTitle;
   }
 
   // Subtitle
-  static getSubtitle(subtitle: any) {
+  static getSubtitle(subtitle: string | undefined): string {
     if (!subtitle) {
       return undefined;
     }
-    return (
-      <span>{truncateStringOnWhitespace(subtitle, MAX_SUBTITILE_LENGTH)}</span>
-    );
+    return truncateStringOnWhitespace(subtitle, MAX_SUBTITILE_LENGTH);
   }
 
   // Author
@@ -122,8 +165,8 @@ export default class EditionCard {
     return {
       queries: JSON.stringify([
         {
-          query: author[EditionCard.getAuthorIdentifier(author)[0]],
-          field: EditionCard.getAuthorIdentifier(author)[1],
+          query: author[EditionCardUtils.getAuthorIdentifier(author)[0]],
+          field: EditionCardUtils.getAuthorIdentifier(author)[1],
         },
       ]),
       showQueries: JSON.stringify([{ query: author.name, field: "author" }]),
@@ -138,7 +181,7 @@ export default class EditionCard {
         <Link
           to={{
             pathname: "/search",
-            query: EditionCard.getLinkToAuthorSearch(authorAgent),
+            query: EditionCardUtils.getLinkToAuthorSearch(authorAgent),
           }}
           className="link"
           key={
@@ -176,7 +219,7 @@ export default class EditionCard {
 
   static publisherDisplayText(previewEdition: any) {
     if (!previewEdition) return "";
-    const preferredAgents = EditionCard.getPreferredAgent(
+    const preferredAgents = EditionCardUtils.getPreferredAgent(
       previewEdition.agents,
       "publisher"
     );
@@ -184,17 +227,17 @@ export default class EditionCard {
     const publisherNames = preferredAgents.map(
       (pubAgent: any) => pubAgent.name
     );
-    const publisherText = ` by ${EditionCard.getFirstAndCountMore(
+    const publisherText = ` by ${EditionCardUtils.getFirstAndCountMore(
       publisherNames
     )}`;
     return truncateStringOnWhitespace(publisherText, MAX_PUBLISHER_NAME_LENGTH);
   }
 
   static getPublisherAndLocation(previewEdition: any) {
-    const displayLocation = EditionCard.publisherDisplayLocation(
+    const displayLocation = EditionCardUtils.publisherDisplayLocation(
       previewEdition
     );
-    const displayName = EditionCard.publisherDisplayText(previewEdition);
+    const displayName = EditionCardUtils.publisherDisplayText(previewEdition);
     if (!displayLocation && !displayName)
       return <>Publisher and Location Unknown</>;
     const publisherText = `Published${displayLocation}${displayName}`;
@@ -239,7 +282,6 @@ export default class EditionCard {
 
     //The local read link is locally hosted and should be read via webpub viewer.
     const getLocalReadLink = (item: Item) => {
-      console.log("getting link", item);
       if (!item || !item.links) return undefined;
       //handle error
 
@@ -254,8 +296,7 @@ export default class EditionCard {
 
     if (localLink) {
       return (
-        <DS.Link>
-          {/* linkType={DS.LinkTypes.Button} */}
+        <DS.Link type={DS.LinkTypes.Button}>
           <Link
             to={{
               pathname: `/edition/${editionId}/read-local/${encodeURIComponent(
@@ -280,8 +321,7 @@ export default class EditionCard {
 
     if (embeddedLink) {
       return (
-        <DS.Link>
-          {/* linkType={DS.LinkTypes.Button} */}
+        <DS.Link type={DS.LinkTypes.Button}>
           <Link
             to={{
               pathname: `/edition/${editionId}/read-embed/${encodeURIComponent(
@@ -308,28 +348,27 @@ export default class EditionCard {
   };
 
   // eslint-disable-next-line consistent-return
-  static getDownloadLink(work: any, editionItem: any) {
+  static getDownloadLink(editionItem: Item) {
     if (!editionItem || !editionItem.links) return undefined;
     const selectedLink = editionItem.links.find((link: any) => link.download);
 
     if (selectedLink && selectedLink.url) {
       return (
-        <DS.Link>
-          {/* linkType={DS.LinkTypes.Action}> */}
+        <DS.Link type={DS.LinkTypes.Action}>
+          {/* TODO: append env */}
           <a
-            // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 2.
-            href={`${formatUrl(selectedLink.url, process.env.APP_ENV)}`}
-            onClick={() =>
-              gaUtils.trackGeneralEvent(
-                "Download",
-                editionItem.source,
-                work.title,
-                ""
-              )
-            }
+            href={`${formatUrl(selectedLink.url)}`}
+            // onClick={() =>
+            //   gaUtils.trackGeneralEvent(
+            //     "Download",
+            //     editionItem.source,
+            //     work.title,
+            //     ""
+            //   )
+            // }
           >
             <DS.Icon
-              name="download"
+              name={DS.IconNames.download}
               blockName="more-link"
               modifiers={["left"]}
               decorative
@@ -373,24 +412,24 @@ export default class EditionCard {
     referrer: any,
     showRequestButton: any
   ) {
-    const editionYearHeadingElement = EditionCard.editionYearElem(edition);
+    const editionYearHeadingElement = EditionCardUtils.editionYearElem(edition);
     const editionItem = edition && edition.items ? edition.items[0] : undefined;
 
     return {
       editionYearHeading: editionYearHeadingElement,
-      coverUrl: EditionCard.getCover(edition),
+      coverUrl: EditionCardUtils.getCover(edition),
       editionInfo: [
-        EditionCard.getPublisherAndLocation(edition),
-        EditionCard.getLanguageDisplayText(edition),
+        EditionCardUtils.getPublisherAndLocation(edition),
+        EditionCardUtils.getLanguageDisplayText(edition),
 
         // eslint-disable-next-line react/jsx-key
         <DS.Link>
           <Link to="/license">{EditionCard.getLicense(editionItem)}</Link>
         </DS.Link>,
       ],
-      readOnlineLink: EditionCard.getReadOnlineLink(edition.id, editionItem),
-      downloadLink: EditionCard.getDownloadLink(edition, editionItem),
-      noLinkElement: EditionCard.getNoLinkElement(showRequestButton),
+      readOnlineLink: EditionCardUtils.getReadOnlineLink(edition.id, editionItem),
+      downloadLink: EditionCardUtils.getDownloadLink(edition, editionItem),
+      noLinkElement: EditionCardUtils.getNoLinkElement(showRequestButton),
     };
   }
 
@@ -403,15 +442,15 @@ export default class EditionCard {
     const instanceItem =
       instance && instance.items ? instance.items[0] : undefined;
     return {
-      coverUrl: EditionCard.getCover(instance),
+      coverUrl: EditionCardUtils.getCover(instance),
       editionInfo: [
-        EditionCard.getPublisherAndLocation(instance),
-        EditionCard.getWorldCatElem(instance),
+        EditionCardUtils.getPublisherAndLocation(instance),
+        EditionCardUtils.getWorldCatElem(instance),
       ],
-      readOnlineLink: EditionCard.getReadOnlineLink(instanceItem),
-      downloadLink: EditionCard.getDownloadLink(edition, instanceItem),
+      readOnlineLink: EditionCardUtils.getReadOnlineLink(edition.id, instanceItem),
+      downloadLink: EditionCardUtils.getDownloadLink(edition, instanceItem),
       // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
-      noLinkElement: EditionCard.getNoLinkElement(),
+      noLinkElement: EditionCardUtils.getNoLinkElement(),
     };
   }
 }

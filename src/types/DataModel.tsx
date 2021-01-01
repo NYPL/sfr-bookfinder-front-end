@@ -140,7 +140,7 @@ export type ApiWork = {
   uuid?: string;
   title?: string;
   sort_title?: string;
-  sub_title?: string[];
+  sub_title?: string;
   medium?: string;
   series?: string;
   series_position?: number;

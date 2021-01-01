@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import Footer from "@nypl/dgx-react-footer";
 
 import appConfig from "~/config/appConfig";
-import Loading from "~/src/components/Application/Loading";
 import { documentTitles } from "~/src/constants/labels";
 import Feedback from "~/src/components/Feedback/Feedback";
 
@@ -28,8 +27,9 @@ const Layout: React.FC<any> = ({ children }) => {
     }
   };
 
+  //TODO: Loading wrapper
   return (
-    <div>
+    <div className="layout-container nypl-ds nypl--research">
       <Head>
         <title>{setTitle(router)}</title>
       </Head>
@@ -41,7 +41,6 @@ const Layout: React.FC<any> = ({ children }) => {
         ></script>
       </div>
       <div className="app-wrapper add-list-reset">
-        <Loading />
         {children}
 
         <Footer urlType="absolute" />

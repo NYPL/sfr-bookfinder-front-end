@@ -3,7 +3,7 @@ import React from "react";
 import Layout from "~/src/components/Application/Layout";
 import WorkDetail from "~/src/components/Work/Work";
 import { workFetcher } from "~/src/lib/api/SearchApi";
-import { WorkQuery } from "~/src/types/WorkQuery";
+import { WorkQuery, WorkResult } from "~/src/types/WorkQuery";
 
 export async function getServerSideProps(context: any) {
   // Get Query from location
@@ -16,16 +16,16 @@ export async function getServerSideProps(context: any) {
     showAll: contextQuery.showAll ? contextQuery.showAll : "false",
   };
 
-  const workResults = await workFetcher(workQuery);
+  const workResult: WorkResult = await workFetcher(workQuery);
   return {
-    props: { workResults: workResults },
+    props: { workResult: workResult },
   };
 }
 
 const WorkResults: React.FC<any> = (props) => {
   return (
     <Layout>
-      <WorkDetail workResult={props.workResults} />
+      <WorkDetail workResult={props.workResult} />
     </Layout>
   );
 };

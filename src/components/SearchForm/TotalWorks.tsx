@@ -1,7 +1,6 @@
 import React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import * as searchActions from "../../actions/SearchActions";
 
 type OwnTotalWorksProps = {
   totalWorks?: {
@@ -31,9 +30,9 @@ class TotalWorks extends React.Component<TotalWorksProps> {
     this.getBookTotals();
   }
 
-  getBookTotals() {
-    this.props.dispatch(searchActions.fetchTotalWorks());
-  }
+  // getBookTotals() {
+  //   this.props.dispatch(searchActions.fetchTotalWorks());
+  // }
 
   render() {
     const { totalWorks } = this.props;

@@ -1,32 +1,39 @@
-import React from "react";
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Link/Link' or... Remove this comment to see the full error message
+import React, { useState } from "react";
+import { useRouter } from "next/router";
 import Link from "~/src/components/Link/Link";
 import * as DS from "@nypl/design-system-react-components";
 import {
   initialSearchQuery,
   searchQueryPropTypes,
-  // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/stores/InitialState' or ... Remove this comment to see the full error message
 } from "~/src/stores/InitialState";
-import withSearch from "./WithSearch";
 import { searchFields } from "../../constants/fields";
+import { submit } from "../SearchResults/SearchNavigation";
+import { Query, SearchQuery } from "~/src/types/SearchQuery";
+import { queryToString } from "~/src/util/SearchUtils";
+import Select from "../Select/Select";
 
-type OwnProps = {
-  allowedFields?: any[];
-  currentQuery?: searchQueryPropTypes;
-  submitSearchRequest?: (...args: any[]) => any;
-  onQueryChange?: (...args: any[]) => any;
-  onFieldChange?: (...args: any[]) => any;
-  hasError?: boolean;
-  errorMessage?: string;
-};
+const SearchForm: React.FC<any> = (
+  searchQuery: SearchQuery = { queries: [] }
+) => {
+  // If there is one query, then default searchbar to show it
+  const queryToShow: Query | undefined =
+    searchQuery.queries && searchQuery.queries.length === 1
+      ? searchQuery.queries[0]
+      : undefined;
 
-// @ts-expect-error ts-migrate(2456) FIXME: Type alias 'Props' circularly references itself.
-type Props = OwnProps & typeof LandingPromo.defaultProps;
+  const [searchInput, setSearchInput] = useState(
+    queryToShow ? queryToShow.query : ""
+  );
+  const [searchField, setSearchField] = useState(
+    queryToShow ? queryToShow.field : ""
+  );
+  const router = useRouter();
 
-// @ts-expect-error ts-migrate(7022) FIXME: 'LandingPromo' implicitly has type 'any' because i... Remove this comment to see the full error message
-const LandingPromo = (props: Props) => {
-  const selectedQuery = props.currentQuery.queries[0].query;
-  const selectedField = props.currentQuery.queries[0].field;
+  const submitSearch = async (query: SearchQuery) => {
+    const path = `/search?${queryToString(query)}`;
+    router.push(path);
+  };
+
   const advancedSearchMessage = (
     <p>
       Use{" "}
@@ -37,37 +44,37 @@ const LandingPromo = (props: Props) => {
     </p>
   );
 
+  const getSearchOptions = (fields) => {
+    return fields.map((field) => {
+      return <option key={field}>{field}</option>;
+    });
+  };
+
   return (
-    <DS.SearchPromo
-      headingText="Search the World's Research Collections"
-      titleId="tagline"
-      selectedOption={selectedField}
-      searchButtonId="searchButtonId"
-      advancedSearchMessage={advancedSearchMessage}
-      searchValue={selectedQuery}
-      hasError={props.hasError}
-      errorMessage={props.errorMessage}
-      searchBarId="searchBarId"
-      dropdownId="dropdownId"
-      searchInputAriaLabel="Search for keyword, author, title, or subject"
-      searchDropdownOptions={props.allowedFields}
-      searchSubmitHandler={props.submitSearchRequest}
-      textChangeHandler={props.onQueryChange}
-      selectChangeHandler={props.onFieldChange}
-      selectBlurHandler={props.onFieldChange}
-    />
+    <div>
+      <DS.Heading level={2}>Search the World's Research Collections</DS.Heading>
+      <DS.SearchBar onSubmit={() => submitSearch} ariaLabel="Search Bar">
+        <Select name={"searchField"} isRequired={true}>
+          {getSearchOptions(searchFields)}
+        </Select>
+        {/* TODO: Helper Error Text */}
+        <DS.Input type={DS.InputTypes.text}></DS.Input>
+        <DS.Button
+          id="search-button"
+          buttonType={DS.ButtonTypes.Primary}
+          type="submit"
+        >
+          <DS.Icon
+            name={DS.IconNames.search}
+            decorative={true}
+            modifiers={["small", "icon-left"]}
+          />
+          Search
+        </DS.Button>
+      </DS.SearchBar>
+      {advancedSearchMessage}
+    </div>
   );
 };
 
-LandingPromo.defaultProps = {
-  allowedFields: searchFields,
-  currentQuery: initialSearchQuery,
-  submitSearchRequest: () => {},
-  onQueryChange: () => {},
-  onFieldChange: () => {},
-  hasError: false,
-  errorMessage: "",
-};
-
-const SearchForm = withSearch(LandingPromo);
 export default SearchForm;

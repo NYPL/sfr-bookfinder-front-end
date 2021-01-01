@@ -58,46 +58,6 @@ const parseQuery = (queryString: any) => {
   return queryArr;
 };
 
-/**
- * @param {string} query, {string} field
- * @return {object}
- */
-export const buildSearchQuery = (query: any) => {
-  let ret = Object.assign({}, query);
-  let queryField = query.field;
-  if (Array.isArray(query.field)) {
-    queryField = query.field.join("|");
-  }
-  if (queryField) {
-    ret = Object.assign({}, ret, { field: queryField });
-  } else if (query.query) {
-    ret = Object.assign({}, ret, { field: "keyword" });
-  }
-  const parsedQuery = parseQuery(query.query);
-  if (parsedQuery) {
-    ret = Object.assign({}, ret, { query: parsedQuery });
-  }
-  if (query.filters && typeof query.filters === "string") {
-    const filters = JSON.parse(query.filters);
-    ret = Object.assign({}, ret, { filters });
-  }
-  if (query.sort && typeof query.sort === "string") {
-    const sort = JSON.parse(query.sort);
-    ret = Object.assign({}, ret, { sort });
-  }
-  if (query.queries && typeof query.queries === "string") {
-    const queries = JSON.parse(query.queries);
-    ret = Object.assign({}, ret, { queries });
-  } else if (query.queries) {
-    const queries = query.queries.map((q: any) => ({
-      query: parseQuery(q.query),
-      field: q.field,
-    }));
-    ret = Object.assign({}, ret, { queries });
-  }
-  return ret;
-};
-
 export const getQueryString = (query: any) =>
   query &&
   Object.keys(query)
@@ -116,5 +76,4 @@ export const getQueryString = (query: any) =>
 
 export default {
   getRequestParams,
-  buildSearchQuery,
 };

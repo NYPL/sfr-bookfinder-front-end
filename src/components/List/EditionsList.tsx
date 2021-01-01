@@ -1,18 +1,12 @@
 import React from "react";
 import FeatureFlags from "dgx-feature-flags";
 import * as DS from "@nypl/design-system-react-components";
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/config/featureFlagConfig' or... Remove this comment to see the full error message
 import featureFlagConfig from "~/config/featureFlagConfig";
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/util/Util' or its corres... Remove this comment to see the full error message
 import { checkFeatureFlagActivated } from "~/src/util/Util";
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Card/EditionC... Remove this comment to see the full error message
-import EditionCard from "~/src/components/Card/EditionCard";
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Citations/for... Remove this comment to see the full error message
+import { EditionCard } from "~/src/components/Card/EditionCard";
 import CitationFormatter from "~/src/components/Citations/formatCitation";
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Citations/APA... Remove this comment to see the full error message
 import APACitation from "~/src/components/Citations/APACitation";
 
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/config/appConfig' or its cor... Remove this comment to see the full error message
 import config from "~/config/appConfig";
 
 type OwnProps = {
@@ -27,6 +21,9 @@ type OwnProps = {
 type State = any;
 
 type Props = OwnProps & typeof EditionsList.defaultProps;
+
+const Edition
+
 
 class EditionsList extends React.Component<Props, State> {
   static defaultProps = {
