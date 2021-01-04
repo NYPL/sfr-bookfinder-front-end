@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { mutate } from "swr";
 import * as DS from "@nypl/design-system-react-components";
 import { useRouter } from "next/router";
 import { searchFields } from "~/src/constants/fields";
@@ -12,7 +11,6 @@ import {
   Sort,
 } from "~/src/types/SearchQuery";
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
-import SearchHeader from "../SearchForm/SearchHeader";
 import { sortMap, numbersPerPage } from "~/src/constants/sorts";
 import Filters from "~/src/components/Filters/Filters";
 import appConfig from "~/config/appConfig";

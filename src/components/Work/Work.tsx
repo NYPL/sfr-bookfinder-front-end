@@ -65,11 +65,11 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
       <main id="mainContent" className="main">
         <div className="content-header">
           <Breadcrumbs />
-
-          <SearchForm />
         </div>
 
         <div className="content-primary">
+          <SearchForm />
+
           <div className="nypl-item-header">
             <DS.Heading level={1} id="work-title" blockName="page-title">
               {work.title}

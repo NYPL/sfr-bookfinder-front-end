@@ -1,13 +1,13 @@
 import PropTypes from "prop-types";
+import { ApiSearchQuery, SearchQuery } from "../types/SearchQuery";
 
-export const initialSearchQuery = {
+export const initialSearchQuery: ApiSearchQuery = {
   per_page: 10,
   page: 0,
   total: 0,
   filters: [],
   sort: [],
   queries: [{ query: "", field: "keyword" }],
-  showQueries: [{ query: "", field: "keyword" }],
 };
 
 type searchQueryPropTypes = {
@@ -20,7 +20,6 @@ type searchQueryPropTypes = {
   sort?: any[];
 };
 
-// @ts-expect-error ts-migrate(2322) FIXME: Type 'Requireable<InferProps<{ per_page: Requireab... Remove this comment to see the full error message
 const searchQueryPropTypes: PropTypes.Requireable<searchQueryPropTypes> = PropTypes.shape(
   {
     per_page: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

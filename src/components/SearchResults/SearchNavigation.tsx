@@ -6,7 +6,7 @@ import {
   // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/stores/InitialState' or ... Remove this comment to see the full error message
 } from "~/src/stores/InitialState";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/util/searchQuery' or its... Remove this comment to see the full error message
-import { getQueryString } from "~/src/util/searchQuery";
+import { getQueryString } from "~/src/util/SearchQueryUtils";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/constants/sorts' or its ... Remove this comment to see the full error message
 import { sortMap, numbersPerPage } from "~/src/constants/sorts";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/util/Util' or its corres... Remove this comment to see the full error message

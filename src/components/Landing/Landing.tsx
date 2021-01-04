@@ -67,8 +67,8 @@ const LandingPage: React.FC<any> = () => {
           modifiers={["no-list-styling"]}
         >
           {Subjects.map((sub: any, idx: any) => (
-            <li>
-              <DS.Link key={`subject-link-${sub.url}`}>
+            <li key={`subject-link-${sub.url}`}>
+              <DS.Link>
                 <Link to={sub.url}>{sub.text}</Link>
               </DS.Link>
             </li>

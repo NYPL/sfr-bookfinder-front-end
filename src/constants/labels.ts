@@ -48,22 +48,13 @@ export const filtersLabels = {
   format: "Format",
   years: "Publication Year",
 };
-// input type advanced searchs
+
+// input types
 export const inputTerms = [
-  {
-    key: 1,
-    values: [
-      { key: "keyword", label: "Keyword" },
-      { key: "author", label: "Author" },
-    ],
-  },
-  {
-    key: 2,
-    values: [
-      { key: "title", label: "Title" },
-      { key: "subject", label: "Subject" },
-    ],
-  },
+  { key: "keyword", label: "Keyword" },
+  { key: "author", label: "Author" },
+  { key: "title", label: "Title" },
+  { key: "subject", label: "Subject" },
 ];
 
 export const formatTypes = [

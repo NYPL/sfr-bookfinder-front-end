@@ -1,6 +1,12 @@
 /* eslint-disable camelcase */
 
-export type searchFields = "author" | "title" | "subject" | "viaf" | "lcnaf";
+export type searchFields =
+  | "keyword"
+  | "author"
+  | "title"
+  | "subject"
+  | "viaf"
+  | "lcnaf";
 
 export type ApiSearchQuery = {
   // Field and Query appear in the API but are used in legacy Simple Search.  We no longer use them.
@@ -10,7 +16,7 @@ export type ApiSearchQuery = {
   recordType?: "instances" | "editions";
   filters?: Filter[];
   sort?: Sort[];
-  per_page: number;
+  per_page?: number;
   page?: number;
   // TODO: Ask Mike what are these for
   prev_page_sort?: string[];

@@ -4,7 +4,7 @@ import {
   initialSearchQuery,
   searchQueryPropTypes,
 } from "~/src/stores/InitialState";
-import { getQueryString } from "~/src/util/SearchQuery";
+import { getQueryString } from "~/src/util/SearchQueryUtils";
 import { getNumberOfPages } from "~/src/util/Util";
 
 const getPageList = (totalPages: any) => {

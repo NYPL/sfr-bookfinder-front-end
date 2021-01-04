@@ -8,11 +8,12 @@ import { EditionQuery, EditionResult } from "~/src/types/EditionQuery";
 //TODO env variables
 const appEnv = "development";
 const apiUrl = appConfig.api[appEnv];
-const { searchPath, recordPath, editionPath } = appConfig.api;
+const { searchPath, recordPath, editionPath, languagesPath } = appConfig.api;
 const totalWorksPath = appConfig.booksCount.apiUrl;
 const searchUrl = apiUrl + searchPath[appEnv];
 const recordUrl = apiUrl + recordPath;
 const editionUrl = apiUrl + editionPath;
+const languagesUrl = apiUrl + languagesPath;
 const totalWorksUrl = apiUrl + totalWorksPath;
 
 const initialApiQuery: ApiSearchQuery = {
@@ -123,6 +124,15 @@ export const editionFetcher = async (query: EditionQuery) => {
     return editionResult;
   } else {
     //TODO Error handling
+    console.log("res not ok", res.status, res.statusText);
+  }
+};
+
+export const languagesFetcher = async () => {
+  const res = await fetch(languagesUrl);
+  if (res.ok) {
+    return res.json();
+  } else {
     console.log("res not ok", res.status, res.statusText);
   }
 };
