@@ -1,11 +1,21 @@
 import PropTypes from "prop-types";
 import { ApiSearchQuery, SearchQuery } from "../types/SearchQuery";
 
-export const initialSearchQuery: ApiSearchQuery = {
+//TODO: This will be deprecated when API updates happen
+export const initialApiSearchQuery: ApiSearchQuery = {
   per_page: 10,
   page: 0,
   total: 0,
   filters: [],
+  sort: [],
+  queries: [{ query: "", field: "keyword" }],
+};
+
+export const initialSearchQuery: SearchQuery = {
+  perPage: 10,
+  page: 0,
+  filters: [],
+  filterYears: { start: undefined, end: undefined },
   sort: [],
   queries: [{ query: "", field: "keyword" }],
 };
@@ -35,7 +45,7 @@ export { searchQueryPropTypes };
 
 const initialState = {
   searchResults: {},
-  searchQuery: initialSearchQuery,
+  searchQuery: initialApiSearchQuery,
   workResult: { instances: [], editions: [] },
   totalWorks: {},
 };

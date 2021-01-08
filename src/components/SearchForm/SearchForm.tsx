@@ -2,36 +2,52 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "~/src/components/Link/Link";
 import * as DS from "@nypl/design-system-react-components";
-import {
-  initialSearchQuery,
-  searchQueryPropTypes,
-} from "~/src/stores/InitialState";
+import { initialSearchQuery } from "~/src/stores/InitialState";
 import { searchFields } from "../../constants/fields";
-import { submit } from "../SearchResults/SearchNavigation";
 import { Query, SearchQuery } from "~/src/types/SearchQuery";
+import { errorMessagesText } from "~/src/constants/labels";
 import { queryToString } from "~/src/util/SearchUtils";
-import Select from "../Select/Select";
 
 const SearchForm: React.FC<any> = (
-  searchQuery: SearchQuery = { queries: [] }
+  initialQuery: SearchQuery = { queries: [] }
 ) => {
   // If there is one query, then default searchbar to show it
   const queryToShow: Query | undefined =
-    searchQuery.queries && searchQuery.queries.length === 1
-      ? searchQuery.queries[0]
-      : undefined;
+    initialQuery.queries && initialQuery.queries.length === 1
+      ? initialQuery.queries[0]
+      : initialSearchQuery.queries[0];
 
-  const [searchInput, setSearchInput] = useState(
-    queryToShow ? queryToShow.query : ""
+  const initialDefaultQuery: Query = { query: "", field: "keyword" };
+
+  const [shownQuery, setShownQuery] = useState(
+    queryToShow ? queryToShow : initialDefaultQuery
   );
-  const [searchField, setSearchField] = useState(
-    queryToShow ? queryToShow.field : ""
-  );
+  const [isFormError, setFormError] = useState(false);
+
   const router = useRouter();
 
-  const submitSearch = async (query: SearchQuery) => {
-    const path = `/search?${queryToString(query)}`;
-    router.push(path);
+  const submitSearch = () => {
+    if (!shownQuery.query) {
+      setFormError(true);
+      return;
+    }
+    const searchQuery = initialSearchQuery;
+    searchQuery.queries = [shownQuery];
+    console.log("queryToString", queryToString(searchQuery));
+
+    router.push({
+      pathname: "/search",
+      query: queryToString(searchQuery),
+    });
+    debugger;
+  };
+
+  const onQueryChange = (e) => {
+    setShownQuery({ query: e.target.value, field: shownQuery.field });
+  };
+
+  const onFieldChange = (e) => {
+    setShownQuery({ field: e.target.value, query: shownQuery.query });
   };
 
   const advancedSearchMessage = (
@@ -53,12 +69,25 @@ const SearchForm: React.FC<any> = (
   return (
     <div>
       <DS.Heading level={2}>Search the World's Research Collections</DS.Heading>
-      <DS.SearchBar onSubmit={() => submitSearch} ariaLabel="Search Bar">
-        <Select name={"searchField"} isRequired={true}>
+      <DS.SearchBar onSubmit={() => submitSearch()} ariaLabel="Search Bar">
+        <DS.Select
+          name={"field"}
+          selectedOption={shownQuery.field}
+          isRequired={true}
+          onChange={(e: any) => onFieldChange(e)}
+        >
           {getSearchOptions(searchFields)}
-        </Select>
-        {/* TODO: Helper Error Text */}
-        <DS.Input type={DS.InputTypes.text}></DS.Input>
+        </DS.Select>
+        <DS.Input
+          type={DS.InputTypes.text}
+          value={shownQuery.query}
+          onChange={(e: any) => onQueryChange(e)}
+        ></DS.Input>
+        {isFormError && (
+          <DS.HelperErrorText isError={true} id={"search-bar-error"}>
+            {errorMessagesText.emptySearch}
+          </DS.HelperErrorText>
+        )}
         <DS.Button
           id="search-button"
           buttonType={DS.ButtonTypes.Primary}

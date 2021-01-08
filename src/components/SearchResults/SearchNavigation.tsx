@@ -1,7 +1,7 @@
 import React from "react";
 import * as DS from "@nypl/design-system-react-components";
 import {
-  initialSearchQuery,
+  initialApiSearchQuery,
   searchQueryPropTypes,
   // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/stores/InitialState' or ... Remove this comment to see the full error message
 } from "~/src/stores/InitialState";
@@ -116,7 +116,7 @@ const SearchNavigation = ({
 
 SearchNavigation.defaultProps = {
   totalItems: 0,
-  searchQuery: initialSearchQuery,
+  searchQuery: initialApiSearchQuery,
   userQuery: () => {},
   router: {},
 };

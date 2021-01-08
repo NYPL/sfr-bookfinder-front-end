@@ -56,10 +56,10 @@ const LandingPage: React.FC<any> = () => {
         }
       </div>
       <div className="content-primary search-examples">
-        <DS.SectionTitle
-          id="subject-browse-title"
-          headingText="Search Examples"
-        ></DS.SectionTitle>
+        <DS.Heading
+        level={2}>
+          Search Examples
+        </DS.Heading>
 
         <DS.List
           type={DS.ListTypes.Unordered}

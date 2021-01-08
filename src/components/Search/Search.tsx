@@ -19,7 +19,6 @@ import ResultsList from "../SearchResults/ResultsList";
 import { searchResultsFetcher } from "~/src/lib/api/SearchApi";
 import { breakpoints } from "~/src/constants/breakpoints";
 import SearchPagination from "~/src/components/SearchResults/SearchPagination";
-import Select from "~/src/components/Select/Select";
 import SearchForm from "~/src/components/SearchForm/SearchForm";
 
 const SearchResults: React.FC<{
@@ -63,32 +62,30 @@ const SearchResults: React.FC<{
   };
 
   const updateFilters = (newFilters: Filter[]) => {
-    console.log("filters updating", searchQuery.filters, newFilters);
     if (!deepEqual(searchQuery.filters, newFilters)) {
       const newQuery: SearchQuery = Object.assign({}, searchQuery, {
         filters: newFilters,
       });
-      console.log("newQuery", newQuery);
       submit(newQuery);
     }
   };
 
-  const getDisplayItemsHeading = (searchQuery: SearchQuery) => {
-    const showQueries =
-      searchQuery && searchQuery.showQueries
-        ? searchQuery.showQueries
-        : searchQuery.queries;
-    const queriesToShow =
-      showQueries &&
-      showQueries.filter((query: any) => searchFields.includes(query.field));
-    const queries =
-      queriesToShow &&
-      queriesToShow.map((query: any, index: any) => {
-        const joiner = index < queriesToShow.length - 1 ? " and " : "";
-        return `${query.field}: ${query.query}${joiner}`;
-      });
-    return queries && queries.join("");
-  };
+  // const getDisplayItemsHeading = (searchQuery: SearchQuery) => {
+  //   const showQueries =
+  //     searchQuery && searchQuery.showQueries
+  //       ? searchQuery.showQueries
+  //       : searchQuery.queries;
+  //   const queriesToShow =
+  //     showQueries &&
+  //     showQueries.filter((query: any) => searchFields.includes(query.field));
+  //   const queries =
+  //     queriesToShow &&
+  //     queriesToShow.map((query: any, index: any) => {
+  //       const joiner = index < queriesToShow.length - 1 ? " and " : "";
+  //       return `${query.field}: ${query.query}${joiner}`;
+  //     });
+  //   return queries && queries.join("");
+  // };
 
   const numberOfWorks = searchResults.data.totalWorks;
   const works: ApiWork[] = searchResults.data.works;
@@ -177,8 +174,8 @@ const SearchResults: React.FC<{
               level={1}
               id="page-title-heading"
               blockName="page-title"
-              text={`Search results for ${getDisplayItemsHeading(searchQuery)}`}
-            />
+              // text={`Search results for ${getDisplayItemsHeading(searchQuery)}`}
+            >Search Results</DS.Heading>
           </div>
 
           <div className="search-navigation">
@@ -205,7 +202,7 @@ const SearchResults: React.FC<{
                 <DS.Label htmlFor="items-per-page" id="per-page-label">
                   Items Per Page
                 </DS.Label>
-                <Select
+                <DS.Select
                   id="items-per-page"
                   name="ItemsPerPageSelect"
                   isRequired={false}
@@ -218,12 +215,12 @@ const SearchResults: React.FC<{
                   {numbersPerPage.map((number: string) => {
                     return <option>{number}</option>;
                   })}
-                </Select>
+                </DS.Select>
 
                 <DS.Label htmlFor="items-sort-by" id="sort-by-label">
                   Sort By
                 </DS.Label>
-                <Select
+                <DS.Select
                   id="sort-by"
                   name="SortBySelect"
                   isRequired={false}
@@ -242,7 +239,7 @@ const SearchResults: React.FC<{
                   {Object.keys(sortMap).map((sortOption: string) => {
                     return <option>{sortOption}</option>;
                   })}
-                </Select>
+                </DS.Select>
               </div>
             )}
           </div>

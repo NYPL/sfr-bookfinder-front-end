@@ -1,7 +1,7 @@
 import React from "react";
 import * as DS from "@nypl/design-system-react-components";
 import {
-  initialSearchQuery,
+  initialApiSearchQuery,
   searchQueryPropTypes,
 } from "~/src/stores/InitialState";
 import { getQueryString } from "~/src/util/SearchQueryUtils";
@@ -38,7 +38,7 @@ class Filters extends React.Component<Props, State> {
     toggleMenu: () => {},
     isMobile: false,
     data: {},
-    searchQuery: initialSearchQuery,
+    searchQuery: initialApiSearchQuery,
     router: {},
     onChangeSort: () => {},
     onChangePerPage: () => {},

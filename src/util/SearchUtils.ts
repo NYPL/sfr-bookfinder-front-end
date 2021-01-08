@@ -6,6 +6,7 @@ import {
   Filter,
   Sort,
 } from "../types/SearchQuery";
+import { toApiFilters, toApiQuery } from "./apiConversion";
 
 //TODO env variables
 const appEnv = "development";
@@ -34,7 +35,6 @@ const initialApiQuery: ApiSearchQuery = {
 
 //Takes the query string from URL and parses it into a SearchQuery object
 export function parseLocationQuery(queryString: any): SearchQuery {
-  console.log("parse Location query0", queryString);
   const query = queryString;
 
   const parseIfString = (value) => {
@@ -72,9 +72,6 @@ export function parseLocationQuery(queryString: any): SearchQuery {
       page: page ? parseIfString(page) : initialApiQuery.page,
       perPage: perPage ? parseIfString(perPage) : initialApiQuery.per_page,
       //TODO: Filter out viaf
-      showQueries: showQueries
-        ? parseIfString(showQueries)
-        : parseIfString(queries),
       //TODO: Something's wrong with sort
       sort: sort ? parseIfString(sort) : initialApiQuery.sort,
     };
@@ -83,11 +80,12 @@ export function parseLocationQuery(queryString: any): SearchQuery {
 }
 
 //Takes a SearchQuery object and parses it into a location string
-export const queryToString = (query: SearchQuery) =>
-  query &&
-  Object.keys(query)
+export const queryToString = (searchQuery: SearchQuery) => {
+  const apiQuery = toApiQuery(searchQuery);
+  console.log("apiQuery", apiQuery);
+  return Object.keys(apiQuery)
     .map((key) =>
-      [key, query[key]]
+      [key, apiQuery[key]]
         .map((o) => {
           let ret = o;
           if (typeof o === "object") {
@@ -98,3 +96,4 @@ export const queryToString = (query: SearchQuery) =>
         .join("=")
     )
     .join("&");
+};

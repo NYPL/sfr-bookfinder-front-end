@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
 import Layout from "~/src/components/Application/Layout";
-import Search from "../components/Search/Search";
-import { parseLocationQuery } from "../util/SearchUtils";
+import Search from "../../components/Search/Search";
+import { parseLocationQuery } from "../../util/SearchUtils";
 // import { searchResultsFetcher } from "../hooks/useSearch";
-import { ApiSearchQuery } from "../types/SearchQuery";
-import { searchResultsFetcher } from "../lib/api/SearchApi";
+import { ApiSearchQuery } from "../../types/SearchQuery";
+import { searchResultsFetcher } from "../../lib/api/SearchApi";
 
 export async function getServerSideProps(context: any) {
   // NextJS passes context.query as an object { querystring : ''}
@@ -17,7 +17,6 @@ export async function getServerSideProps(context: any) {
   // const queryString: string = Object.keys(searchQuery)[0];
 
   const parsedQuery = parseLocationQuery(searchQuery);
-  console.log("parsedLocationQuery", parsedQuery);
 
   // Fetch first set of search results
   const searchResults = await searchResultsFetcher(parsedQuery);

@@ -1,6 +1,5 @@
 import {
   ApiSearchQuery,
-  DateRange,
   Filter,
   Query,
   SearchQuery,
@@ -34,5 +33,14 @@ export const findFiltersForField = (
 ): Filter[] => {
   return filters.filter((filter: Filter) => {
     return filter.field === field;
+  });
+};
+
+export const findFiltersExceptField = (
+  filters: Filter[],
+  field: string
+): Filter[] => {
+  return filters.filter((filter: Filter) => {
+    return filter.field !== field;
   });
 };

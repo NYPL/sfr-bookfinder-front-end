@@ -14,11 +14,10 @@ export type ApiSearchQuery = {
    query: string; */
   queries: Query[];
   recordType?: "instances" | "editions";
-  filters?: Filter[];
+  filters?: ApiFilter[];
   sort?: Sort[];
   per_page?: number;
   page?: number;
-  // TODO: Ask Mike what are these for
   prev_page_sort?: string[];
   next_page_sort?: string[];
   total?: number;
@@ -32,20 +31,26 @@ export interface Query {
   field: searchFields;
 }
 
+export type ApiFilter = {
+  field: string;
+  value: any;
+};
+
 export type Filter = {
   field: string;
-  value: string | DateRange;
+  value: string | number;
 };
 
 export type DateRange = {
-  value: { start: number; end: number };
+  start: number;
+  end: number;
 };
 
-export interface SearchQuery {
+export type SearchQuery = {
   filters?: Filter[];
+  filterYears?: DateRange;
   page?: number;
   perPage?: number;
   queries: Query[];
-  showQueries?: Query[];
   sort?: Sort[];
-}
+};

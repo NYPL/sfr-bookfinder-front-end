@@ -10,10 +10,12 @@ import appConfig from "~/config/appConfig";
 import Breadcrumbs from "~/src/components/Breadcrumbs/Breadcrumbs";
 import {
   findFiltersForField,
+  findFiltersExceptField,
   findQueryForField,
   getQueryString,
 } from "~/src/util/SearchQueryUtils";
 import {
+  initialApiSearchQuery,
   initialSearchQuery,
   searchQueryPropTypes,
 } from "~/src/stores/InitialState";
@@ -37,73 +39,10 @@ import { queryToString } from "~/src/util/SearchUtils";
 import * as DS from "@nypl/design-system-react-components";
 import LanguageAccordion from "../LanguageAccordion/LanguageAccordion";
 import { ApiLanguage } from "~/src/types/LanguagesQuery";
-
-export const initialState = {
-  error: false,
-  errorMsg: "",
-  languages: [],
-  queries: {
-    keyword: "",
-    title: "",
-    author: "",
-    subject: "",
-    viaf: "",
-  },
-  filters: {
-    format: {
-      epub: false,
-      pdf: false,
-      html: false,
-    },
-    language: [],
-    years: {
-      start: "",
-      end: "",
-    },
-  },
-  showQueries: {
-    keyword: "",
-    title: "",
-    author: "",
-    subject: "",
-  },
-};
-// style for the languages dropdown
-const customStyles = {
-  control: (base: any) => ({
-    ...base,
-    minHeight: "2.5rem",
-  }),
-  menu: (base: any) => ({
-    ...base,
-    background: "#FFF",
-
-    // override border radius to match the box
-    borderRadius: 0,
-
-    border: "1px solid black",
-    width: "100%",
-
-    // kill the gap
-    marginTop: 0,
-
-    marginRigth: "2rem",
-  }),
-  menuList: (base: any) => ({
-    ...base,
-
-    // kill the white space on first and last option
-    padding: 0,
-  }),
-  option: (base: any, state: any) => ({
-    ...base,
-    background: state.isFocused ? "black" : "white",
-    color: state.isFocused ? "white" : "black",
-  }),
-};
+import BookFormatInput from "../BookFormatInput/BookFormatInput";
 
 const AdvancedSearch: React.FC<{
-  searchQuery: ApiSearchQuery;
+  searchQuery: SearchQuery;
   languages: ApiLanguage[];
 }> = (props) => {
   const router = useRouter();
@@ -111,20 +50,65 @@ const AdvancedSearch: React.FC<{
     props.searchQuery ? props.searchQuery : initialSearchQuery
   );
 
-  const submit = async (query: SearchQuery) => {
-    const path = `/search?${queryToString(query)}`;
-    router.push(path);
+  const submit = () => {
+    console.log("query", queryToString(searchQuery));
+    router.push({
+      pathname: "/search",
+      query: queryToString(searchQuery),
+    });
+    debugger;
   };
 
-  const onLanguageChange = (selectedLanguages: Filter[]) => {
+  const onQueryChange = (e, queryKey) => {
+    const newQuery = {
+      field: queryKey,
+      query: e.target.value,
+    };
+
+    const allQueries = searchQuery.queries.filter((query) => {
+      return query.field !== queryKey;
+    });
+
+    allQueries.push(newQuery);
+    setSearchQuery({
+      ...searchQuery,
+      queries: allQueries,
+    });
+  };
+
+  const onLanguageChange = (e, language) => {
+    const languageFilters = findFiltersForField(
+      searchQuery.filters,
+      "language"
+    );
+
     setSearchQuery({
       ...searchQuery,
       filters: [
-        ...searchQuery.filters.filter((fil) => fil.field !== "language"),
-        ...selectedLanguages,
+        ...findFiltersExceptField(searchQuery.filters, "language"),
+        ...(e.target.checked
+          ? [...languageFilters, { field: "language", value: language }]
+          : languageFilters.filter((filter) => {
+              return filter.value !== language;
+            })),
       ],
     });
-    console.log("language changed");
+  };
+
+  const onBookFormatChange = (e, format) => {
+    const formatFilters = findFiltersForField(searchQuery.filters, "format");
+
+    setSearchQuery({
+      ...searchQuery,
+      filters: [
+        ...findFiltersExceptField(searchQuery.filters, "format"),
+        ...(e.target.checked
+          ? [...formatFilters, { field: "format", value: format }]
+          : formatFilters.filter((filter) => {
+              return filter.value !== format;
+            })),
+      ],
+    });
   };
 
   return (
@@ -146,7 +130,7 @@ const AdvancedSearch: React.FC<{
         <form
           className="usa-form grid-container width-full margin-x-0 padding-x-0"
           onSubmit={() => {
-            console.log("submitting");
+            submit();
           }}
           onKeyPress={(event) => {
             if (event.keyCode === 13) {
@@ -170,90 +154,57 @@ const AdvancedSearch: React.FC<{
                   <DS.Input
                     id={`${field.key}-input`}
                     ariaLabel={`Input for ${field.label}`}
-                    defaultValue={
-                      props.searchQuery
-                        ? findQueryForField(
-                            props.searchQuery.queries,
-                            field.key
-                          )
+                    value={
+                      findQueryForField(searchQuery.queries, field.key)
+                        ? findQueryForField(searchQuery.queries, field.key)
+                            .query
                         : ""
                     }
+                    onChange={(e) => onQueryChange(e, field.key)}
                   />
                 </div>
               );
             })}
           </fieldset>
-
           <LanguageAccordion
             languages={props.languages.map((lang) => lang.language)}
             selectedLanguages={findFiltersForField(
               searchQuery.filters,
               "language"
             )}
-            onLanguageChange={(selectedLanguages: Filter[]) =>
-              onLanguageChange(selectedLanguages)
-            }
+            onLanguageChange={(e, language) => onLanguageChange(e, language)}
           />
-
           <div className="grid-row margin-top-4 grid-gap">
             <div className="tablet:grid-col-6">
-                  <fieldset className="usa-fieldset grid-container width-full margin-x-0 padding-x-0 margin-bottom-2">
-                    <legend className="usa-legend font-sans-lg sub-legend">
-                      Publication Year
-                    </legend>
+              <FilterYears dateFilters={searchQuery.filterYears} />
+            </div>
 
-                    <FilterYears
-                      years={findFiltersForField(searchQuery.filters, "years") ? findFiltersForField(searchQuery.filters, "years")}
-                    />
-                  </fieldset>
-                </div>
-
-            {/* <div className="tablet:grid-col-6">
-                  <fieldset className="usa-fieldset grid-container width-full margin-x-0 padding-x-0">
-                    <legend className="usa-legend font-sans-lg sub-legend margin-bottom-3">
-                      Format
-                    </legend>
-
-                    {formatTypes.map((formatType: any) => (
-                      <Checkbox
-                        className="usa-checkbox tablet:grid-col-12"
-                        labelClass="usa-checkbox__label"
-                        inputClass="usa-checkbox__input"
-                        id={`filters-format-${formatType.value}`}
-                        isSelected={getFilterValue("format", formatType.value)}
-                        onChange={this.onFormatChange}
-                        label={formatType.label}
-                        name={formatType.value}
-                        key={`facet-format-${formatType.value}`}
-                      />
-                    ))}
-                  </fieldset>
-                </div> */}
+            <BookFormatInput
+              selectedFormats={findFiltersForField(
+                searchQuery.filters,
+                "format"
+              )}
+              onFormatChange={(e, format) => {
+                onBookFormatChange(e, format);
+              }}
+            />
           </div>
-
+          <DS.Button
+            id="search-button"
+            buttonType={DS.ButtonTypes.Primary}
+            type="submit"
+          >
+            Search
+          </DS.Button>
+          <DS.Button
+            id="clear-button"
+            buttonType={DS.ButtonTypes.Secondary}
+            type="reset"
+          >
+            Clear
+          </DS.Button>
           <div className="grid-row grid-gap">
             <div className="tablet:grid-col-6">
-              <div className="grid-row grid-gap">
-                <div className="tablet:grid-col-6">
-                  <input
-                    className="usa-button width-full margin-top-1"
-                    type="submit"
-                    value="Search"
-                    readOnly
-                    // onClick={submitSearchRequest}
-                  />
-                </div>
-
-                <div className="tablet:grid-col-6">
-                  <input
-                    className="usa-button usa-button--outline width-full margin-top-1"
-                    type="clear"
-                    value="Clear"
-                    // onClick={clearForm}
-                    readOnly
-                  />
-                </div>
-              </div>
               {/* {this.state.error && (
                     <div className="usa-alert usa-alert--error" role="alert">
                       <div className="usa-alert__body">

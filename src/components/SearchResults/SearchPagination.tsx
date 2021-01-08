@@ -1,7 +1,7 @@
 import React from "react";
 import * as DS from "@nypl/design-system-react-components";
 import {
-  initialSearchQuery,
+  initialApiSearchQuery,
   searchQueryPropTypes,
 } from "~/src/stores/InitialState";
 import { getQueryString } from "~/src/util/SearchQueryUtils";
@@ -46,7 +46,7 @@ const SearchPagination = ({
 
   // update page in store and go to any page
   const goToPage = (newPageNumber: any) => {
-    const perPage = searchQuery.per_page || initialSearchQuery.per_page;
+    const perPage = searchQuery.per_page || initialApiSearchQuery.per_page;
     if (Number(searchQuery.page) === newPageNumber) {
       return;
     }
@@ -97,7 +97,7 @@ const SearchPagination = ({
 
 SearchPagination.defaultProps = {
   totalItems: 0,
-  searchQuery: initialSearchQuery,
+  searchQuery: initialApiSearchQuery,
   userQuery: () => {},
   router: {},
 };

@@ -303,7 +303,6 @@ export class EditionCardUtils {
     const getLocalReadLink = (item: Item) => {
       if (!item || !item.links) return undefined;
       //handle error
-
       const selectedLink = item.links.find(
         (link: ItemLink) => link.local && link.url.endsWith(".opf")
       );

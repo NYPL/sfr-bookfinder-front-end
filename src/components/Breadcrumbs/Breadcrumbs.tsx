@@ -104,7 +104,6 @@ const Breadcrumbs = (props: BreadcrumbsProps) => {
     Router.push("/");
   };
 
-  console.log("blah", getCrumbTrail(props.location, links, handleReset));
   return (
     <DS.Breadcrumbs
       breadcrumbs={getCrumbTrail(props.location, links, handleReset)}

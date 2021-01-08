@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 import * as DS from "@nypl/design-system-react-components";
 import {
-  initialSearchQuery,
+  initialApiSearchQuery,
   searchQueryPropTypes,
 } from "~/src/stores/InitialState";
-import { getQueryString } from "~/src/util/SearchQueryUtils";
+import {
+  findFiltersForField,
+  getQueryString,
+} from "~/src/util/SearchQueryUtils";
 import {
   filtersLabels,
   formatTypes,
   errorMessagesText,
 } from "~/src/constants/labels";
 import { Filter } from "~/src/types/SearchQuery";
+import FilterYears from "../SearchResults/FilterYears";
 
 type OwnProps = {
   toggleMenu?: (...args: any[]) => any;
@@ -31,18 +35,20 @@ type State = {
 };
 
 type FilterProps = {
-  filters: Filters[]
-}
-const Filters2:React.FC<{props: FilterProps, state: any}> = (props:FilterProps) => {
+  filters: Filters[];
+};
+const Filters2: React.FC<{ props: FilterProps; state: any }> = (
+  props: FilterProps
+) => {
   const [filters, setFilters] = useState(props.filters);
 
-  filterAvailable()
-  
-  filterLanguage()
+  filterAvailable();
 
-  filterFormat()
+  filterLanguage();
 
-  filterDate()
+  filterFormat();
+
+  filterDate();
 
   return (
     <div>
@@ -144,6 +150,10 @@ class Filters extends React.Component<any, State> {
       const newFilters = this.state.filters.filter((_, i) => i !== matchIndex);
       this.props.onFiltersChange(newFilters);
     }
+  }
+  // When the years form is submitted, apply it to the search
+  onYearsChange(filters: Filter[]) {
+    console.log("years changed");
   }
 
   onSubmit(e: any, toggleMenu: any, allowEmpty: any) {
@@ -252,7 +262,7 @@ class Filters extends React.Component<any, State> {
                 labelClass="checkbox__label"
                 inputClass="checkbox__input"
                 checkboxId={`filters-${"language"}-${facet.value}`}
-                isSelected={this.isFilterChecked("language", facet.value)}
+                checked={this.isFilterChecked("language", facet.value)}
                 onChange={(e) =>
                   this.onChangeCheckbox(e, "language", facet.value, false)
                 }
@@ -281,52 +291,10 @@ class Filters extends React.Component<any, State> {
           {Object.keys(filtersLabels).map((field) => (
             <fieldset key={field} className="filters-box usa-fieldset">
               {/* {field === "years" && (
-                <DS.DateRangeForm
-                  formLabel={
-                    <legend className="filters-box-header">
-                      {filtersLabels[field]}
-                    </legend>
-                  }
-                  fromLabelOpts={{ labelContent: <>From</>, id: "FromLabel" }}
-                  fromInputOpts={{
-                    inputId: "fromInput",
-                    inputValue: start,
-                    onInputChange: (event) => this.onChangeYear(event, "start"),
-                  }}
-                  fromHelper={{
-                    content: <>EX. 1901</>,
-                    id: "fromyearhelper",
-                    isError: false,
-                  }}
-                  toLabelOpts={{ labelContent: <>To</>, id: "ToLabel" }}
-                  toInputOpts={{
-                    inputId: "toInput",
-                    inputValue: end,
-                    onInputChange: (event) => this.onChangeYear(event, "end"),
-                  }}
-                  toHelper={{
-                    content: <>EX. 2000</>,
-                    id: "toYearHelper",
-                    isError: false,
-                  }}
-                  showError={this.state.error}
-                  error={{
-                    content: <div>{this.state.errorMsg}</div>,
-                    id: "date-range-error",
-                    isError: true,
-                  }}
-                  buttonOpts={
-                    !isMobile
-                      ? {
-                          id: "submitButtonId",
-                          callback: (event) =>
-                            this.onSubmit(event, toggleMenu, true),
-
-                          content: <>Apply</>,
-                        }
-                      : null
-                  }
-                />
+                <FilterYears
+                  dateRange={{ start: findFiltersForField(), end: 0 }}
+                  submitHandler={this.onYearsChange}
+                ></FilterYears>
               )} */}
               {field === "show_all" && (
                 <>
@@ -336,7 +304,7 @@ class Filters extends React.Component<any, State> {
 
                   <DS.Checkbox
                     checkboxId="show_all"
-                    isSelected={!this.isFilterChecked(field, true)}
+                    checked={!this.isFilterChecked(field, true)}
                     onChange={(e) =>
                       this.onChangeCheckbox(e, field, true, true)
                     }
@@ -355,40 +323,6 @@ class Filters extends React.Component<any, State> {
                   </legend>
 
                   <DS.Accordion>{languageList}</DS.Accordion>
-                </>
-              )}
-              {field === "format" && (
-                <>
-                  <legend className="filters-box-header">
-                    {filtersLabels["format"]}
-                  </legend>
-
-                  {formatTypes.map((formatType: any) => (
-                    <>
-                      <DS.Checkbox
-                        className="usa-checkbox tablet:grid-col-12"
-                        checkboxId={`filters-${field}-${formatType.value}`}
-                        isSelected={this.isFilterChecked(
-                          field,
-                          formatType.value
-                        )}
-                        onChange={(e) =>
-                          this.onChangeCheckbox(
-                            e,
-                            field,
-                            formatType.value,
-                            false
-                          )
-                        }
-                        labelOptions={{
-                          id: `filters-${field}-${formatType.value}=label`,
-                          labelContent: <>{formatType.label}</>,
-                        }}
-                        name={`filters.${field}`}
-                        key={`facet-${field}-${formatType.value}`}
-                      />
-                    </>
-                  ))}
                 </>
               )}
             </fieldset>

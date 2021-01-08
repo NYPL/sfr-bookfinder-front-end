@@ -46,28 +46,18 @@ const defaultEditionQuery = {
 // ShowQueries can be derived
 // RecordType and total can be passed through
 
-export const searchResultsFetcher = async (query: SearchQuery) => {
+export const searchResultsFetcher = async (query: ApiSearchQuery) => {
   //TODO Error handling
-  if (!query.queries) {
+  if (!query || !query.queries) {
     throw new Error("no query");
   }
-
-  const apiQuery = {
-    queries: query.queries,
-    recordType: initialApiQuery.recordType,
-    filters: query.filters ? query.filters : initialApiQuery.filters,
-    sort: query.sort ? query.sort : initialApiQuery.sort,
-    per_page: query.perPage ? query.perPage : initialApiQuery.per_page,
-    page: query.page ? query.page : initialApiQuery.page,
-    total: initialApiQuery.total,
-  };
 
   const res = await fetch(searchUrl, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(apiQuery), // body data type must match "Content-Type" header
+    body: JSON.stringify(query), // body data type must match "Content-Type" header
   });
 
   if (res.ok) {

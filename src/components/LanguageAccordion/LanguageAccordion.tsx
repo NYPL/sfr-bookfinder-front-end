@@ -10,9 +10,7 @@ const LanguageAccordion: React.FC<{
   selectedLanguages: Filter[];
   onLanguageChange: any;
 }> = (props) => {
-  const [selectedLanguages, setSelectedLanguages] = useState(
-    props.selectedLanguages
-  );
+  const { selectedLanguages, onLanguageChange } = props;
 
   const selectedLanguageFilter = (language: string) => {
     return selectedLanguages.find((langFilter) => {
@@ -24,20 +22,7 @@ const LanguageAccordion: React.FC<{
     e: React.ChangeEvent<HTMLInputElement>,
     language: string
   ) => {
-    console.log("toggling selected");
-    if (e.target.checked) {
-      setSelectedLanguages([
-        ...selectedLanguages,
-        { field: "language", value: language },
-      ]);
-    } else {
-      setSelectedLanguages(
-        selectedLanguages.filter((lang) => {
-          lang.value !== language;
-        })
-      );
-    }
-    props.onLanguageChange(selectedLanguages);
+    onLanguageChange(e, language);
   };
 
   return (
@@ -59,7 +44,7 @@ const LanguageAccordion: React.FC<{
                     id: `checkbox-label-${language}`,
                     labelContent: <>{language}</>,
                   }}
-                  isSelected={!!selectedLanguageFilter(language)}
+                  checked={!!selectedLanguageFilter(language)}
                   onChange={(e) => toggleSelected(e, language)}
                 />
               </li>

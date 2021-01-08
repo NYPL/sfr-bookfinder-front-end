@@ -64,7 +64,7 @@ module.exports = {
     // if we want this, we should turn disallow any in tsconfig not here
     "@typescript-eslint/no-explicit-any": 0,
     "@typescript-eslint/no-var-requires": 0,
-    // Disable this rule because server API uses a lot of camelcase
+    // Disable this rule because server API uses a lot of snake_case
     camelcase: "never",
     "@typescript-eslint/camelcase": 0,
     "@typescript-eslint/prefer-namespace-keyword": "error",
