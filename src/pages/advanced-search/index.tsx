@@ -1,8 +1,13 @@
 import React from "react";
+import { useRouter } from "next/router";
+
 import AdvancedSearch from "~/src/components/AdvancedSearch/AdvancedSearch";
 import Layout from "~/src/components/Application/Layout";
 import { languagesFetcher } from "../../lib/api/SearchApi";
-import { ApiLanguageResponse } from "../../types/LanguagesQuery";
+import {
+  ApiLanguageResponse,
+  languagesToFacets,
+} from "../../types/LanguagesQuery";
 import { ApiSearchQuery } from "../../types/SearchQuery";
 import { parseLocationQuery } from "../../util/SearchUtils";
 export async function getServerSideProps(context: any) {
@@ -17,17 +22,19 @@ export async function getServerSideProps(context: any) {
   return {
     props: {
       searchQuery: parsedQuery,
-      languages: languageResponse.data.languages,
+      languages: languageResponse,
     },
   };
 }
 
 const AdvancedSearchPage: React.FC<any> = (props) => {
+  const { searchQuery, languages } = props;
+
   return (
     <Layout>
       <AdvancedSearch
-        searchQuery={props.searchQuery}
-        languages={props.languages}
+        searchQuery={searchQuery}
+        languages={languagesToFacets(languages)}
       />
     </Layout>
   );

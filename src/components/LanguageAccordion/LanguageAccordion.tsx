@@ -1,4 +1,4 @@
-import { Language } from "~/src/types/DataModel";
+import { FacetItem, Language } from "~/src/types/DataModel";
 import * as DS from "@nypl/design-system-react-components";
 import React, { useState } from "react";
 import { Filter } from "~/src/types/SearchQuery";
@@ -6,11 +6,12 @@ import { Filter } from "~/src/types/SearchQuery";
 // An Accordion of languages
 
 const LanguageAccordion: React.FC<{
-  languages: string[];
+  languages: FacetItem[];
+  showCount: boolean;
   selectedLanguages: Filter[];
   onLanguageChange: any;
 }> = (props) => {
-  const { selectedLanguages, onLanguageChange } = props;
+  const { languages, showCount, selectedLanguages, onLanguageChange } = props;
 
   const selectedLanguageFilter = (language: string) => {
     return selectedLanguages.find((langFilter) => {
@@ -34,18 +35,23 @@ const LanguageAccordion: React.FC<{
           type={DS.ListTypes.Unordered}
           modifiers={["no-list-styling"]}
         >
-          {props.languages.map((language) => {
+          {languages.map((language) => {
             return (
-              <li key={`check-${language}`}>
+              <li key={`check-${language.value}`}>
                 <DS.Checkbox
-                  name={language}
-                  checkboxId={`checkbox-${language}`}
+                  name={language.value}
+                  checkboxId={`checkbox-${language.value}`}
                   labelOptions={{
-                    id: `checkbox-label-${language}`,
-                    labelContent: <>{language}</>,
+                    id: `checkbox-label-${language.value}`,
+                    labelContent: (
+                      <>
+                        {language.value}{" "}
+                        {showCount ? `(${language.count})` : ""}
+                      </>
+                    ),
                   }}
-                  checked={!!selectedLanguageFilter(language)}
-                  onChange={(e) => toggleSelected(e, language)}
+                  checked={!!selectedLanguageFilter(language.value)}
+                  onChange={(e) => toggleSelected(e, language.value)}
                 />
               </li>
             );

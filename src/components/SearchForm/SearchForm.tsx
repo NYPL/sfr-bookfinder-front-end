@@ -26,20 +26,20 @@ const SearchForm: React.FC<any> = (
 
   const router = useRouter();
 
-  const submitSearch = () => {
+  const submitSearch = (e) => {
+    e.preventDefault();
     if (!shownQuery.query) {
       setFormError(true);
       return;
     }
     const searchQuery = initialSearchQuery;
     searchQuery.queries = [shownQuery];
-    console.log("queryToString", queryToString(searchQuery));
 
+    // router.push(`/search?${queryToString(searchQuery)}`);
     router.push({
       pathname: "/search",
       query: queryToString(searchQuery),
     });
-    debugger;
   };
 
   const onQueryChange = (e) => {
@@ -69,7 +69,7 @@ const SearchForm: React.FC<any> = (
   return (
     <div>
       <DS.Heading level={2}>Search the World's Research Collections</DS.Heading>
-      <DS.SearchBar onSubmit={() => submitSearch()} ariaLabel="Search Bar">
+      <DS.SearchBar onSubmit={(e) => submitSearch(e)} ariaLabel="Search Bar">
         <DS.Select
           name={"field"}
           selectedOption={shownQuery.field}

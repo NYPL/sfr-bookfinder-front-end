@@ -1,9 +1,13 @@
 import appConfig from "~/config/appConfig";
 import { WorkQuery, WorkResult } from "~/src/types/WorkQuery";
-import { searchQuery } from "../../stores/Reducers";
 import { ApiSearchQuery, SearchQuery } from "../../types/SearchQuery";
 import { ApiSearchResult } from "../../types/DataModel";
 import { EditionQuery, EditionResult } from "~/src/types/EditionQuery";
+import {
+  ApiLanguage,
+  ApiLanguageResponse,
+  languagesToFacets,
+} from "~/src/types/LanguagesQuery";
 
 //TODO env variables
 const appEnv = "development";

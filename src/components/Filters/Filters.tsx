@@ -42,16 +42,10 @@ const Filters2: React.FC<{ props: FilterProps; state: any }> = (
 ) => {
   const [filters, setFilters] = useState(props.filters);
 
-  filterAvailable();
-
-  filterLanguage();
-
-  filterFormat();
-
-  filterDate();
+  handleFilterChange = () => {}
 
   return (
-    <div>
+    <form onSubmit={() => handleFilterChange}>
       <div>Available to Read</div>
 
       <div>Language</div>

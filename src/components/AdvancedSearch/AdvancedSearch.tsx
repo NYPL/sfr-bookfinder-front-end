@@ -38,25 +38,23 @@ import { queryToString } from "~/src/util/SearchUtils";
 
 import * as DS from "@nypl/design-system-react-components";
 import LanguageAccordion from "../LanguageAccordion/LanguageAccordion";
-import { ApiLanguage } from "~/src/types/LanguagesQuery";
 import BookFormatInput from "../BookFormatInput/BookFormatInput";
+import { FacetItem } from "~/src/types/DataModel";
 
 const AdvancedSearch: React.FC<{
   searchQuery: SearchQuery;
-  languages: ApiLanguage[];
+  languages: FacetItem[];
 }> = (props) => {
+  const { languages } = props;
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState(
     props.searchQuery ? props.searchQuery : initialSearchQuery
   );
 
-  const submit = () => {
-    console.log("query", queryToString(searchQuery));
-    router.push({
-      pathname: "/search",
-      query: queryToString(searchQuery),
-    });
-    debugger;
+  const submit = (e) => {
+    e.preventDefault();
+
+    router.push(`/search?${queryToString(searchQuery)}`);
   };
 
   const onQueryChange = (e, queryKey) => {
@@ -111,6 +109,16 @@ const AdvancedSearch: React.FC<{
     });
   };
 
+  const onDateChange = (e, isStart: boolean) => {
+    setSearchQuery({
+      ...searchQuery,
+      filterYears: {
+        start: isStart ? e.target.value : searchQuery.filterYears.start,
+        end: isStart ? searchQuery.filterYears.end : e.target.value,
+      },
+    });
+  };
+
   return (
     <main id="mainContent" className="main">
       <div className="content-header">
@@ -129,8 +137,8 @@ const AdvancedSearch: React.FC<{
 
         <form
           className="usa-form grid-container width-full margin-x-0 padding-x-0"
-          onSubmit={() => {
-            submit();
+          onSubmit={(e) => {
+            submit(e);
           }}
           onKeyPress={(event) => {
             if (event.keyCode === 13) {
@@ -167,7 +175,8 @@ const AdvancedSearch: React.FC<{
             })}
           </fieldset>
           <LanguageAccordion
-            languages={props.languages.map((lang) => lang.language)}
+            languages={languages}
+            showCount={false}
             selectedLanguages={findFiltersForField(
               searchQuery.filters,
               "language"
@@ -176,7 +185,12 @@ const AdvancedSearch: React.FC<{
           />
           <div className="grid-row margin-top-4 grid-gap">
             <div className="tablet:grid-col-6">
-              <FilterYears dateFilters={searchQuery.filterYears} />
+              <FilterYears
+                dateFilters={searchQuery.filterYears}
+                onDateChange={(e, isStart) => {
+                  onDateChange(e, isStart);
+                }}
+              />
             </div>
 
             <BookFormatInput

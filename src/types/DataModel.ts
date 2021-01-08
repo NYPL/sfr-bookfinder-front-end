@@ -16,9 +16,12 @@ export type ApiSearchResult = {
 };
 
 export type Facet = {
-  value?: string;
-  count?: number;
+  [key: string]: FacetItem[];
 };
+
+export type FacetItem = { value?: string; count?: number };
+
+
 
 export type Agent = {
   name?: string;

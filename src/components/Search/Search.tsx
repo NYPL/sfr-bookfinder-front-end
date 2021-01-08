@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import * as DS from "@nypl/design-system-react-components";
 import { useRouter } from "next/router";
 import { searchFields } from "~/src/constants/fields";
-import { ApiSearchResult, ApiWork } from "~/src/types/DataModel";
+import { ApiSearchResult, ApiWork, FacetItem } from "~/src/types/DataModel";
 import { deepEqual, isEmpty, getNumberOfPages } from "~/src/util/Util";
 import {
   ApiSearchQuery,
@@ -12,14 +12,15 @@ import {
 } from "~/src/types/SearchQuery";
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 import { sortMap, numbersPerPage } from "~/src/constants/sorts";
-import Filters from "~/src/components/Filters/Filters";
-import appConfig from "~/config/appConfig";
-import { parseLocationQuery, queryToString } from "~/src/util/SearchUtils";
+import { queryToString } from "~/src/util/SearchUtils";
 import ResultsList from "../SearchResults/ResultsList";
 import { searchResultsFetcher } from "~/src/lib/api/SearchApi";
 import { breakpoints } from "~/src/constants/breakpoints";
 import SearchPagination from "~/src/components/SearchResults/SearchPagination";
 import SearchForm from "~/src/components/SearchForm/SearchForm";
+import { findFiltersForField } from "~/src/util/SearchQueryUtils";
+import LanguageAccordion from "../LanguageAccordion/LanguageAccordion";
+import BookFormatInput from "../BookFormatInput/BookFormatInput";
 
 const SearchResults: React.FC<{
   searchQuery: SearchQuery;
@@ -70,22 +71,33 @@ const SearchResults: React.FC<{
     }
   };
 
-  // const getDisplayItemsHeading = (searchQuery: SearchQuery) => {
-  //   const showQueries =
-  //     searchQuery && searchQuery.showQueries
-  //       ? searchQuery.showQueries
-  //       : searchQuery.queries;
-  //   const queriesToShow =
-  //     showQueries &&
-  //     showQueries.filter((query: any) => searchFields.includes(query.field));
-  //   const queries =
-  //     queriesToShow &&
-  //     queriesToShow.map((query: any, index: any) => {
-  //       const joiner = index < queriesToShow.length - 1 ? " and " : "";
-  //       return `${query.field}: ${query.query}${joiner}`;
-  //     });
-  //   return queries && queries.join("");
-  // };
+  const getDisplayItemsHeading = (searchQuery: SearchQuery) => {
+    const showQueries = searchQuery.queries;
+    const queriesToShow =
+      showQueries &&
+      showQueries.filter((query: any) => searchFields.includes(query.field));
+    const queries =
+      queriesToShow &&
+      queriesToShow.map((query: any, index: any) => {
+        const joiner = index < queriesToShow.length - 1 ? " and " : "";
+        return `${query.field}: ${query.query}${joiner}`;
+      });
+    return queries && queries.join("");
+  };
+
+  const getAvailableLanguages = (searchResults: ApiSearchResult) => {
+    //TODO Error handling
+    const facets: FacetItem[] =
+      searchResults &&
+      searchResults.data.facets &&
+      searchResults.data.facets["language"];
+
+    if (facets) {
+      return facets.map((facet) => {
+        facet;
+      });
+    }
+  };
 
   const numberOfWorks = searchResults.data.totalWorks;
   const works: ApiWork[] = searchResults.data.works;
@@ -174,8 +186,9 @@ const SearchResults: React.FC<{
               level={1}
               id="page-title-heading"
               blockName="page-title"
-              // text={`Search results for ${getDisplayItemsHeading(searchQuery)}`}
-            >Search Results</DS.Heading>
+            >
+              <>Search results for {getDisplayItemsHeading(searchQuery)}</>
+            </DS.Heading>
           </div>
 
           <div className="search-navigation">
@@ -226,13 +239,9 @@ const SearchResults: React.FC<{
                   isRequired={false}
                   ariaLabel="Sort By Select"
                   labelId="sort-by-label"
-                  selectedOption={
-                    searchQuery.sort
-                      ? Object.keys(sortMap).find((key) =>
-                          deepEqual(sortMap[key], searchQuery.sort)
-                        )
-                      : undefined
-                  }
+                  selectedOption={Object.keys(sortMap).find((key) =>
+                    deepEqual(sortMap[key], searchQuery.sort)
+                  )}
                   onChange={(e) => onChangeSort(e)}
                   onBlur={(e) => onChangeSort(e)}
                 >
@@ -245,17 +254,48 @@ const SearchResults: React.FC<{
           </div>
         </div>
         {!isMobile && (
-          <div className="content-secondary content-secondary--with-sidebar-left">
-            <DS.Heading level={2} id="filter-desktop-header">
-              Refine Results
-            </DS.Heading>
-            <Filters
-              data={searchResults}
-              filters={searchQuery.filters}
-              isMobile={isMobile}
-              onFiltersChange={(filters) => updateFilters(filters)}
-            />
-          </div>
+          <>
+            <form>
+              <div className="content-secondary content-secondary--with-sidebar-left">
+                <DS.Heading level={2} id="filter-desktop-header">
+                  Refine Results
+                </DS.Heading>
+
+                <DS.Checkbox
+                  checkboxId="show_all"
+                  checked={false}
+                  onChange={() => {}}
+                  labelOptions={{
+                    id: "show_all_label",
+                    labelContent: <>Available Online</>,
+                  }}
+                  name="show_all"
+                />
+              </div>
+              <LanguageAccordion
+                languages={searchResults.data.facets["language"]}
+                showCount={true}
+                selectedLanguages={findFiltersForField(
+                  searchQuery.filters,
+                  "language"
+                )}
+                onLanguageChange={() => {}}
+              ></LanguageAccordion>
+              <BookFormatInput
+                selectedFormats={findFiltersForField(
+                  searchQuery.filters,
+                  "format"
+                )}
+                onFormatChange={() => {}}
+              />
+            </form>
+            {/* <FilterYears
+              dateFilters={searchQuery.filterYears}
+              submitCallback={(e: React.FormEvent<HTMLFormElement>) => {
+                return;
+              }}
+            /> */}
+          </>
         )}
 
         <div className="content-primary content-primary--with-sidebar-left">

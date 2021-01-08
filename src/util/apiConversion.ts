@@ -22,7 +22,7 @@ export const toSearchQuery = (apiQuery: ApiSearchQuery): SearchQuery => {
 export const toApiQuery = (searchQuery: SearchQuery): ApiSearchQuery => {
   return {
     queries: searchQuery.queries,
-    filters: toApiFilters(searchQuery.filters),
+    filters: toApiFilters(searchQuery.filters, searchQuery.filterYears),
     page: searchQuery.page,
     per_page: searchQuery.perPage,
     sort: searchQuery.sort,
@@ -31,25 +31,21 @@ export const toApiQuery = (searchQuery: SearchQuery): ApiSearchQuery => {
 
 export const toApiFilters = (
   filters: Filter[],
-  yearFilters?: DateRange
+  yearFilters: DateRange
 ): ApiFilter[] => {
-  const apiFilters: ApiFilter[] = filters
-    .filter((filter) => {
-      return filter.field !== "yearStart" && filter.field !== "yearEnd";
-    })
-    .map((filter) => {
-      return {
-        field: filter.field,
-        value: filter.value,
-      };
-    });
+  const apiFilters: ApiFilter[] = filters.map((filter) => {
+    return {
+      field: filter.field,
+      value: filter.value,
+    };
+  });
 
   if (yearFilters) {
     apiFilters.push({
       field: "years",
       value: {
-        start: yearFilters.start ? yearFilters.start : undefined,
-        end: yearFilters.end ? yearFilters.end : undefined,
+        start: yearFilters.start ? yearFilters.start : "",
+        end: yearFilters.end ? yearFilters.end : "",
       },
     });
   }

@@ -28,34 +28,24 @@ const ConditionalFormWrapper: React.FC<{
 
 const FilterYears: React.FC<{
   dateFilters: DateRange;
-  submitHandler?: (yearFilters: Filter[]) => void;
+  onDateChange: (e, isStart: boolean) => void;
+  onSubmit?: () => void;
 }> = (props) => {
-  console.log("props", props);
-  const [dateRange, setDateRange] = useState(props.dateFilters);
+  const { dateFilters, onDateChange, onSubmit } = props;
 
-  const onDateChange = (e, dateType: "start" | "end") => {
-    console.log("date changed ", dateType, e.target.value);
-    console.log("current date range", dateRange);
-    setDateRange({
-      start: dateType === "start" ? e.target.value : dateRange.start,
-      end: dateType === "start" ? dateRange.end : e.target.value,
-    });
+  const changeDate = (e, isStart: boolean) => {
+    onDateChange(e, isStart);
   };
 
-  const onSubmit = () => {
-    if (!props.submitHandler) {
-      throw new Error("Cannot call submit on Year Filter without a handler");
-    }
-    props.submitHandler([
-      { field: "yearStart", value: dateRange.start },
-      { field: "yearEnd", value: dateRange.end },
-    ]);
+  const submit = (e) => {
+    e.preventDefault();
+    props.onSubmit();
   };
 
   return (
     <ConditionalFormWrapper
-      condition={!!props.submitHandler}
-      submitCallback={onSubmit}
+      condition={!!onSubmit}
+      submitCallback={(e) => submit(e)}
     >
       <fieldset>
         <legend className="usa-legend font-sans-lg sub-legend">
@@ -67,8 +57,8 @@ const FilterYears: React.FC<{
         <DS.Input
           type={DS.InputTypes.number}
           id="date-filter-from"
-          value={dateRange.start > 0 ? dateRange.start : ""}
-          onChange={(e) => onDateChange(e, "start")}
+          value={dateFilters.start > 0 ? dateFilters.start : ""}
+          onChange={(e) => changeDate(e, true)}
         />
         <DS.HelperErrorText isError={false}> EX. 1901 </DS.HelperErrorText>
         <DS.Label id="date-to-label" htmlFor="date-filter-to">
@@ -77,8 +67,8 @@ const FilterYears: React.FC<{
         <DS.Input
           type={DS.InputTypes.number}
           id="date-filter-to"
-          value={dateRange.end > 0 ? dateRange.end : ""}
-          onChange={(e) => onDateChange(e, "end")}
+          value={dateFilters.end > 0 ? dateFilters.end : ""}
+          onChange={(e) => changeDate(e, false)}
         />
         <DS.HelperErrorText isError={false}> EX. 2000 </DS.HelperErrorText>
       </fieldset>
