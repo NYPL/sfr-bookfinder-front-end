@@ -58,13 +58,13 @@ const SearchResults: React.FC<{
   // Because everything, from filters to pagination, is done on the server side
   // All changes require a new search submit.
   const submit = async (query: SearchQuery) => {
-    const searchResults = await searchResultsFetcher(query);
-    setSearchResults(searchResults);
     setSearchQuery(query);
     router.push({
       pathname: "/search",
       query: toLocationQuery(toApiQuery(query)),
     });
+    const searchResults = await searchResultsFetcher(query);
+    setSearchResults(searchResults);
   };
 
   const updateFilters = (newFilters: Filter[]) => {
@@ -107,8 +107,11 @@ const SearchResults: React.FC<{
       searchQuery.filters,
       "language"
     );
+    console.log("languageFilters", languageFilters);
+    console.log("language", language);
+    console.log("checked", e.target.checked);
 
-    setSearchQuery({
+    const newQuery = {
       ...searchQuery,
       filters: [
         ...findFiltersExceptField(searchQuery.filters, "language"),
@@ -118,9 +121,9 @@ const SearchResults: React.FC<{
               return filter.value !== language;
             })),
       ],
-    });
-    console.log("changed language", searchQuery);
-    submit(searchQuery);
+    };
+
+    submit(newQuery);
   };
 
   const numberOfWorks = searchResults.data.totalWorks;
