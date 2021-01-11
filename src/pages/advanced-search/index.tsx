@@ -1,5 +1,4 @@
 import React from "react";
-import { useRouter } from "next/router";
 
 import AdvancedSearch from "~/src/components/AdvancedSearch/AdvancedSearch";
 import Layout from "~/src/components/Application/Layout";

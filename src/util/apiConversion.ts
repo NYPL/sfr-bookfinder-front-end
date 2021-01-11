@@ -1,5 +1,6 @@
 /** Converts API responses to internal types */
 
+import { initialSearchQuery } from "../stores/InitialState";
 import {
   ApiFilter,
   ApiSearchQuery,
@@ -19,13 +20,33 @@ export const toSearchQuery = (apiQuery: ApiSearchQuery): SearchQuery => {
   };
 };
 
+/**
+ * Converts a searchQuery to send to server.
+ * First assigns the `queries` parameter, which must always exist.
+ * Then, checks all of the other paramaters to see if they have changed from the default
+ * and only sends it if there is no default.
+ *
+ * @param searchQuery
+ */
 export const toApiQuery = (searchQuery: SearchQuery): ApiSearchQuery => {
+  const filters = toApiFilters(searchQuery.filters, searchQuery.filterYears);
+  console.log("filterYEars", filters);
+  console.log("searchQuery", searchQuery);
+
   return {
     queries: searchQuery.queries,
-    filters: toApiFilters(searchQuery.filters, searchQuery.filterYears),
-    page: searchQuery.page,
-    per_page: searchQuery.perPage,
-    sort: searchQuery.sort,
+    ...(searchQuery.filters.length && {
+      filters: toApiFilters(searchQuery.filters, searchQuery.filterYears),
+    }),
+    ...(searchQuery.page !== initialSearchQuery.page && {
+      page: searchQuery.page,
+    }),
+    ...(searchQuery.perPage !== initialSearchQuery.perPage && {
+      per_page: searchQuery.perPage,
+    }),
+    ...(searchQuery.sort !== initialSearchQuery.sort && {
+      sort: searchQuery.sort,
+    }),
   };
 };
 
@@ -40,7 +61,7 @@ export const toApiFilters = (
     };
   });
 
-  if (yearFilters) {
+  if (yearFilters && (yearFilters.start || yearFilters.end)) {
     apiFilters.push({
       field: "years",
       value: {

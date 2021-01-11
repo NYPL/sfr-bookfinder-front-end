@@ -15,9 +15,9 @@ export const initialSearchQuery: SearchQuery = {
   perPage: 10,
   page: 0,
   filters: [],
-  filterYears: { start: undefined, end: undefined },
+  filterYears: { start: null, end: null },
   sort: [],
-  queries: [{ query: "", field: "keyword" }],
+  queries: [],
 };
 
 type searchQueryPropTypes = {

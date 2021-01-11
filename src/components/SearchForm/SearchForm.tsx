@@ -6,7 +6,8 @@ import { initialSearchQuery } from "~/src/stores/InitialState";
 import { searchFields } from "../../constants/fields";
 import { Query, SearchQuery } from "~/src/types/SearchQuery";
 import { errorMessagesText } from "~/src/constants/labels";
-import { queryToString } from "~/src/util/SearchUtils";
+import { toLocationQuery } from "~/src/util/SearchUtils";
+import { toApiQuery } from "~/src/util/apiConversion";
 
 const SearchForm: React.FC<any> = (
   initialQuery: SearchQuery = { queries: [] }
@@ -35,10 +36,9 @@ const SearchForm: React.FC<any> = (
     const searchQuery = initialSearchQuery;
     searchQuery.queries = [shownQuery];
 
-    // router.push(`/search?${queryToString(searchQuery)}`);
     router.push({
       pathname: "/search",
-      query: queryToString(searchQuery),
+      query: toLocationQuery(toApiQuery(searchQuery)),
     });
   };
 

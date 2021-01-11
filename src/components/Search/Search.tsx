@@ -12,15 +12,19 @@ import {
 } from "~/src/types/SearchQuery";
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 import { sortMap, numbersPerPage } from "~/src/constants/sorts";
-import { queryToString } from "~/src/util/SearchUtils";
 import ResultsList from "../SearchResults/ResultsList";
 import { searchResultsFetcher } from "~/src/lib/api/SearchApi";
 import { breakpoints } from "~/src/constants/breakpoints";
 import SearchPagination from "~/src/components/SearchResults/SearchPagination";
 import SearchForm from "~/src/components/SearchForm/SearchForm";
-import { findFiltersForField } from "~/src/util/SearchQueryUtils";
+import {
+  findFiltersExceptField,
+  findFiltersForField,
+} from "~/src/util/SearchQueryUtils";
 import LanguageAccordion from "../LanguageAccordion/LanguageAccordion";
 import BookFormatInput from "../BookFormatInput/BookFormatInput";
+import { toLocationQuery } from "~/src/util/SearchUtils";
+import { toApiQuery } from "~/src/util/apiConversion";
 
 const SearchResults: React.FC<{
   searchQuery: SearchQuery;
@@ -55,11 +59,12 @@ const SearchResults: React.FC<{
   // All changes require a new search submit.
   const submit = async (query: SearchQuery) => {
     const searchResults = await searchResultsFetcher(query);
-    console.log("search results got");
     setSearchResults(searchResults);
-    const path = `/search?${queryToString(query)}`;
     setSearchQuery(query);
-    router.push(path);
+    router.push({
+      pathname: "/search",
+      query: toLocationQuery(toApiQuery(query)),
+    });
   };
 
   const updateFilters = (newFilters: Filter[]) => {
@@ -85,18 +90,37 @@ const SearchResults: React.FC<{
     return queries && queries.join("");
   };
 
-  const getAvailableLanguages = (searchResults: ApiSearchResult) => {
+  const getAvailableLanguages = (
+    searchResults: ApiSearchResult
+  ): FacetItem[] => {
     //TODO Error handling
     const facets: FacetItem[] =
       searchResults &&
       searchResults.data.facets &&
       searchResults.data.facets["language"];
 
-    if (facets) {
-      return facets.map((facet) => {
-        facet;
-      });
-    }
+    return facets;
+  };
+
+  const onLanguageChange = (e, language) => {
+    const languageFilters = findFiltersForField(
+      searchQuery.filters,
+      "language"
+    );
+
+    setSearchQuery({
+      ...searchQuery,
+      filters: [
+        ...findFiltersExceptField(searchQuery.filters, "language"),
+        ...(e.target.checked
+          ? [...languageFilters, { field: "language", value: language }]
+          : languageFilters.filter((filter) => {
+              return filter.value !== language;
+            })),
+      ],
+    });
+    console.log("changed language", searchQuery);
+    submit(searchQuery);
   };
 
   const numberOfWorks = searchResults.data.totalWorks;
@@ -273,14 +297,16 @@ const SearchResults: React.FC<{
                 />
               </div>
               <LanguageAccordion
-                languages={searchResults.data.facets["language"]}
+                languages={getAvailableLanguages(searchResults)}
                 showCount={true}
                 selectedLanguages={findFiltersForField(
                   searchQuery.filters,
                   "language"
                 )}
-                onLanguageChange={() => {}}
-              ></LanguageAccordion>
+                onLanguageChange={(e, language) => {
+                  onLanguageChange(e, language);
+                }}
+              />
               <BookFormatInput
                 selectedFormats={findFiltersForField(
                   searchQuery.filters,

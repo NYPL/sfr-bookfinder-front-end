@@ -34,12 +34,13 @@ import {
   Query,
   SearchQuery,
 } from "~/src/types/SearchQuery";
-import { queryToString } from "~/src/util/SearchUtils";
 
 import * as DS from "@nypl/design-system-react-components";
 import LanguageAccordion from "../LanguageAccordion/LanguageAccordion";
 import BookFormatInput from "../BookFormatInput/BookFormatInput";
 import { FacetItem } from "~/src/types/DataModel";
+import { toLocationQuery } from "~/src/util/SearchUtils";
+import { toApiQuery } from "~/src/util/apiConversion";
 
 const AdvancedSearch: React.FC<{
   searchQuery: SearchQuery;
@@ -50,11 +51,31 @@ const AdvancedSearch: React.FC<{
   const [searchQuery, setSearchQuery] = useState(
     props.searchQuery ? props.searchQuery : initialSearchQuery
   );
+  const [emptySearchError, setEmptySearchError] = useState("");
+  const [dateRangeError, setDateRangeError] = useState("");
 
   const submit = (e) => {
     e.preventDefault();
+    if (!searchQuery.queries || searchQuery.queries.length < 1) {
+      setEmptySearchError(errorMessagesText.emptySearch);
+    } else {
+      setEmptySearchError("");
+    }
 
-    router.push(`/search?${queryToString(searchQuery)}`);
+    if (searchQuery.filterYears.end > searchQuery.filterYears.start) {
+      setDateRangeError(errorMessagesText.invalidDate);
+    } else {
+      setDateRangeError("");
+    }
+
+    if (!emptySearchError && !dateRangeError) {
+      router.push({
+        pathname: "/search",
+        query: toLocationQuery(toApiQuery(searchQuery)),
+      });
+    } else {
+      return;
+    }
   };
 
   const onQueryChange = (e, queryKey) => {
@@ -147,6 +168,16 @@ const AdvancedSearch: React.FC<{
             }
           }}
         >
+          {emptySearchError && (
+            <DS.HelperErrorText isError={true}>
+              {emptySearchError}
+            </DS.HelperErrorText>
+          )}
+          {dateRangeError && (
+            <DS.HelperErrorText isError={true}>
+              {dateRangeError}
+            </DS.HelperErrorText>
+          )}
           <fieldset>
             <legend>Advanced Search</legend>
 
@@ -217,19 +248,6 @@ const AdvancedSearch: React.FC<{
           >
             Clear
           </DS.Button>
-          <div className="grid-row grid-gap">
-            <div className="tablet:grid-col-6">
-              {/* {this.state.error && (
-                    <div className="usa-alert usa-alert--error" role="alert">
-                      <div className="usa-alert__body">
-                        <h3 className="usa-alert__heading">Error</h3>
-
-                        <p className="usa-alert__text">{this.state.errorMsg}</p>
-                      </div>
-                    </div>
-                  )} */}
-            </div>
-          </div>
         </form>
       </div>
     </main>
