@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as DS from "@nypl/design-system-react-components";
 import { useRouter } from "next/router";
 import { searchFields } from "~/src/constants/fields";
@@ -6,6 +6,7 @@ import { ApiSearchResult, ApiWork, FacetItem } from "~/src/types/DataModel";
 import { deepEqual, isEmpty, getNumberOfPages } from "~/src/util/Util";
 import {
   ApiSearchQuery,
+  DateRange,
   Filter,
   SearchQuery,
   Sort,
@@ -26,6 +27,7 @@ import BookFormatInput from "../BookFormatInput/BookFormatInput";
 import { toLocationQuery } from "~/src/util/SearchUtils";
 import { toApiQuery } from "~/src/util/apiConversion";
 import FilterYears from "../SearchResults/FilterYears";
+import Filters from "../Filters/Filter";
 
 const SearchResults: React.FC<{
   searchQuery: SearchQuery;
@@ -55,6 +57,9 @@ const SearchResults: React.FC<{
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  // Because the form submits on input change, submit via form ref.
+  const form = useRef(null);
 
   // Because everything, from filters to pagination, is done on the server side
   // All changes require a new search submit.
@@ -92,58 +97,6 @@ const SearchResults: React.FC<{
       searchResults.data.facets["language"];
 
     return facets;
-  };
-
-  const onLanguageChange = (e, language) => {
-    const languageFilters = findFiltersForField(
-      searchQuery.filters,
-      "language"
-    );
-
-    const newQuery = {
-      ...searchQuery,
-      filters: [
-        ...findFiltersExceptField(searchQuery.filters, "language"),
-        ...(e.target.checked
-          ? [...languageFilters, { field: "language", value: language }]
-          : languageFilters.filter((filter) => {
-              return filter.value !== language;
-            })),
-      ],
-    };
-
-    submit(newQuery);
-  };
-
-  const onBookFormatChange = (e, format) => {
-    const formatFilters = findFiltersForField(searchQuery.filters, "format");
-
-    const newQuery = {
-      ...searchQuery,
-      filters: [
-        ...findFiltersExceptField(searchQuery.filters, "format"),
-        ...(e.target.checked
-          ? [...formatFilters, { field: "format", value: format }]
-          : formatFilters.filter((filter) => {
-              return filter.value !== format;
-            })),
-      ],
-    };
-    submit(newQuery);
-  };
-
-  const onDateChange = (e, isStart: boolean) => {
-    setSearchQuery({
-      ...searchQuery,
-      filterYears: {
-        start: isStart ? e.target.value : searchQuery.filterYears.start,
-        end: isStart ? searchQuery.filterYears.end : e.target.value,
-      },
-    });
-  };
-
-  const onDateSubmit = () => {
-    submit(searchQuery);
   };
 
   const numberOfWorks = searchResults.data.totalWorks;
@@ -189,6 +142,17 @@ const SearchResults: React.FC<{
       </>
     </DS.Heading>
   );
+
+  const changeFilters = (newFilters?: Filter[], newDateRange?: DateRange) => {
+    console.log("filters changed", newFilters, newDateRange);
+    const newSearchQuery: SearchQuery = {
+      ...searchQuery,
+      ...(newFilters && { filters: newFilters }),
+      ...(newDateRange && { filterYears: newDateRange }),
+    };
+    console.log("new search query", newSearchQuery);
+    submit(newSearchQuery);
+  };
 
   const onChangePerPage = (e: any) => {
     const newPage = 0;
@@ -251,7 +215,9 @@ const SearchResults: React.FC<{
                 <DS.Button
                   id="filter-button"
                   buttonType={DS.ButtonTypes.Link}
-                  // callback={() => setModalOpen(true)}
+                  onClick={() => {
+                    setModalOpen(true);
+                  }}
                 >
                   Refine
                 </DS.Button>
@@ -301,8 +267,8 @@ const SearchResults: React.FC<{
           </div>
         </div>
         {!isMobile && (
-          <>
-            <form>
+          <div>
+            <form ref={form} onSubmit={() => submit(searchQuery)}>
               <div className="content-secondary content-secondary--with-sidebar-left">
                 <DS.Heading level={2} id="filter-desktop-header">
                   Refine Results
@@ -319,35 +285,17 @@ const SearchResults: React.FC<{
                   name="show_all"
                 />
               </div>
-              <LanguageAccordion
-                languages={getAvailableLanguages(searchResults)}
-                showCount={true}
-                selectedLanguages={findFiltersForField(
-                  searchQuery.filters,
-                  "language"
-                )}
-                onLanguageChange={(e, language) => {
-                  onLanguageChange(e, language);
-                }}
-              />
-              <BookFormatInput
-                selectedFormats={findFiltersForField(
-                  searchQuery.filters,
-                  "format"
-                )}
-                onFormatChange={(e, format) => onBookFormatChange(e, format)}
-              />
             </form>
-            <FilterYears
-              dateFilters={searchQuery.filterYears}
-              onDateChange={(e, isStart) => {
-                onDateChange(e, isStart);
-              }}
-              onSubmit={() => {
-                onDateSubmit();
+            <Filters
+              filters={searchQuery.filters}
+              filterYears={searchQuery.filterYears}
+              languages={getAvailableLanguages(searchResults)}
+              submitOnChange={true}
+              submitFilters={(filters?: Filter[], filterYears?: DateRange) => {
+                changeFilters(filters, filterYears);
               }}
             />
-          </>
+          </div>
         )}
 
         <div className="content-primary content-primary--with-sidebar-left">
@@ -358,79 +306,98 @@ const SearchResults: React.FC<{
             router={router}
           />
         </div>
-        {/* {isMobile && isModalOpen && (
+        {isMobile && isModalOpen && (
           <DS.Modal>
-      <div className="search-navigation">
-        <DS.Button
-          id="gobackButton"
-          type="button"
-          buttonType={DS.ButtonTypes.Link}
-          iconPosition={DS.ButtonIconPositions.Left}
-          iconRotation={DS.IconRotationTypes.rotate90}
-          iconName="arrow_xsmall"
-          iconModifiers={["left"]}
-          iconDecorative
-          callback={(event) => this.onSubmit(event, toggleMenu, true)}
-        >
-          <span>Go Back</span>
-        </DS.Button>
+            <div className="search-navigation">
+              <DS.Button
+                id="gobackButton"
+                type="reset"
+                buttonType={DS.ButtonTypes.Link}
+                attributes={[{ form: "filterForm" }]}
+                onClick={() => {
+                  setModalOpen(false);
+                }}
+              >
+                <DS.Icon
+                  name={DS.IconNames.arrow}
+                  modifiers={["left"]}
+                  iconRotation={DS.IconRotationTypes.rotate90}
+                  decorative
+                />
+                <span>Go Back</span>
+              </DS.Button>
 
-        <DS.Button
-          id="closeButton"
-          type="submit"
-          callback={(event) => this.onSubmit(event, toggleMenu, true)}
-        >
-          Show Results
-        </DS.Button>
-      </div>
-              <div className="search-dropdowns__mobile">
-              <DS.Dropdown
-                dropdownId="items-per-page-select"
-                isRequired={false}
-                labelPosition="left"
-                labelText="Items Per Page"
-                labelId="nav-items-per-page"
-                selectedOption={
-                  searchQuery.per_page ? searchQuery.per_page : undefined
-                }
-                dropdownOptions={numbersPerPage.map((number: any) =>
-                  number.toString()
-                )}
-                onSelectChange={onChangePerPage}
-                onSelectBlur={onChangePerPage}
-              />
-
-              <DS.Dropdown
-                dropdownId="sort-by-select"
-                isRequired={false}
-                labelPosition="left"
-                labelText="Sort By"
-                labelId="nav-sort-by"
-                selectedOption={
-                  searchQuery.sort
-                    ? Object.keys(sortMap).find((key) =>
-                        deepEqual(sortMap[key], searchQuery.sort)
-                      )
-                    : undefined
-                }
-                dropdownOptions={Object.keys(sortMap).map(
-                  (sortOption) => sortOption
-                )}
-                onSelectChange={onChangeSort}
-                onSelectBlur={onChangeSort}
-              />
+              <DS.Button
+                id="closeButton"
+                type="submit"
+                attributes={[{ form: "filterForm" }]}
+              >
+                Show Results
+              </DS.Button>
             </div>
-            <Filters
-              toggleMenu={this.closeModal}
-              isMobile={isMobile}
-              data={searchResults}
-              onChangeSort={onChangeSort}
-              onChangePerPage={onChangePerPage}
-              searchQuery={searchQuery}
-              router={router}
-            />
+            <form
+              name="filterForm"
+              onSubmit={
+                () => {}
+                // onChangeSort();
+                // onChangePerPage();
+                // changeFilters();
+              }
+            >
+              <div className="search-dropdowns__mobile">
+                <DS.Label htmlFor="items-per-page" id="per-page-label">
+                  Items Per Page
+                </DS.Label>
+                <DS.Select
+                  id="items-per-page"
+                  name="ItemsPerPageSelect"
+                  isRequired={false}
+                  ariaLabel="Items Per Page Select"
+                  labelId="per-page-label"
+                  selectedOption={searchQuery.perPage.toString()}
+                  onChange={(e) => onChangePerPage(e)}
+                  onBlur={(e) => onChangePerPage(e)}
+                >
+                  {numbersPerPage.map((number: string) => {
+                    return <option>{number}</option>;
+                  })}
+                </DS.Select>
+
+                <DS.Label htmlFor="items-sort-by" id="sort-by-label">
+                  Sort By
+                </DS.Label>
+                <DS.Select
+                  id="sort-by"
+                  name="SortBySelect"
+                  isRequired={false}
+                  ariaLabel="Sort By Select"
+                  labelId="sort-by-label"
+                  selectedOption={Object.keys(sortMap).find((key) =>
+                    deepEqual(sortMap[key], searchQuery.sort)
+                  )}
+                  onChange={(e) => onChangeSort(e)}
+                  onBlur={(e) => onChangeSort(e)}
+                >
+                  {Object.keys(sortMap).map((sortOption: string) => {
+                    return <option>{sortOption}</option>;
+                  })}
+                </DS.Select>
+              </div>
+              <Filters
+                filters={searchQuery.filters}
+                filterYears={searchQuery.filterYears}
+                languages={getAvailableLanguages(searchResults)}
+                submitOnChange={false}
+                submitFilters={(
+                  filters?: Filter[],
+                  filterYears?: DateRange
+                ) => {
+                  changeFilters(filters, filterYears);
+                }}
+              />
+            </form>
           </DS.Modal>
-        )} */}
+        )}
       </main>
     </div>
   );

@@ -89,11 +89,12 @@ export const toApiSorts = (sort: Sort): [] | Sort[] => {
   }
 };
 
+// The front end only sorts by the first Sort.
 export const toSorts = (sort: any): Sort => {
   if (sort.length > 0) {
     return {
-      field: sort.field,
-      dir: sort.dir,
+      field: sort[0].field,
+      dir: sort[0].dir,
     };
   } else {
     return {
@@ -107,7 +108,12 @@ export const toFilterYears = (apiFilters: ApiFilter[]): DateRange => {
   const yearFilters = apiFilters.filter((filter) => {
     return filter.field === "years";
   });
-  if (!yearFilters || yearFilters.length < 1) return;
+  if (!yearFilters || yearFilters.length < 1) {
+    return {
+      start: null,
+      end: null,
+    };
+  }
   if (yearFilters.length > 1) {
     throw new Error("There should only be one set of year filters");
   } else {
