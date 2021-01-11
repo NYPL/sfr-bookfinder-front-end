@@ -214,26 +214,18 @@ const AdvancedSearch: React.FC<{
             )}
             onLanguageChange={(e, language) => onLanguageChange(e, language)}
           />
-          <div className="grid-row margin-top-4 grid-gap">
-            <div className="tablet:grid-col-6">
-              <FilterYears
-                dateFilters={searchQuery.filterYears}
-                onDateChange={(e, isStart) => {
-                  onDateChange(e, isStart);
-                }}
-              />
-            </div>
-
-            <BookFormatInput
-              selectedFormats={findFiltersForField(
-                searchQuery.filters,
-                "format"
-              )}
-              onFormatChange={(e, format) => {
-                onBookFormatChange(e, format);
-              }}
-            />
-          </div>
+          <FilterYears
+            dateFilters={searchQuery.filterYears}
+            onDateChange={(e, isStart) => {
+              onDateChange(e, isStart);
+            }}
+          />
+          <BookFormatInput
+            selectedFormats={findFiltersForField(searchQuery.filters, "format")}
+            onFormatChange={(e, format) => {
+              onBookFormatChange(e, format);
+            }}
+          />
           <DS.Button
             id="search-button"
             buttonType={DS.ButtonTypes.Primary}

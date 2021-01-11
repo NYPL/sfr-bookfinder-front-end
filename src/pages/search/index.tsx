@@ -5,6 +5,7 @@ import Search from "../../components/Search/Search";
 import { parseLocationQuery } from "../../util/SearchUtils";
 import { ApiSearchQuery } from "../../types/SearchQuery";
 import { searchResultsFetcher } from "../../lib/api/SearchApi";
+import { toSearchQuery } from "~/src/util/apiConversion";
 
 export async function getServerSideProps(context: any) {
   // NextJS passes context.query as an object { querystring : ''}
@@ -21,7 +22,10 @@ export async function getServerSideProps(context: any) {
   const searchResults = await searchResultsFetcher(parsedQuery);
 
   return {
-    props: { searchQuery: parsedQuery, searchResults: searchResults },
+    props: {
+      searchQuery: toSearchQuery(parsedQuery),
+      searchResults: searchResults,
+    },
   };
 }
 

@@ -7,6 +7,7 @@ import {
   DateRange,
   Filter,
   SearchQuery,
+  Sort,
 } from "../types/SearchQuery";
 
 export const toSearchQuery = (apiQuery: ApiSearchQuery): SearchQuery => {
@@ -16,7 +17,7 @@ export const toSearchQuery = (apiQuery: ApiSearchQuery): SearchQuery => {
     filterYears: toFilterYears(apiQuery.filters),
     page: apiQuery.page,
     perPage: apiQuery.per_page,
-    sort: apiQuery.sort,
+    sort: toSorts(apiQuery.sort),
   };
 };
 
@@ -30,13 +31,13 @@ export const toSearchQuery = (apiQuery: ApiSearchQuery): SearchQuery => {
  */
 export const toApiQuery = (searchQuery: SearchQuery): ApiSearchQuery => {
   const filters = toApiFilters(searchQuery.filters, searchQuery.filterYears);
-  console.log("filterYEars", filters);
-  console.log("searchQuery", searchQuery);
+
+  const sorts = toApiSorts(searchQuery.sort);
 
   return {
     queries: searchQuery.queries,
-    ...(searchQuery.filters.length && {
-      filters: toApiFilters(searchQuery.filters, searchQuery.filterYears),
+    ...(filters.length && {
+      filters: filters,
     }),
     ...(searchQuery.page !== initialSearchQuery.page && {
       page: searchQuery.page,
@@ -45,7 +46,7 @@ export const toApiQuery = (searchQuery: SearchQuery): ApiSearchQuery => {
       per_page: searchQuery.perPage,
     }),
     ...(searchQuery.sort !== initialSearchQuery.sort && {
-      sort: searchQuery.sort,
+      sort: sorts,
     }),
   };
 };
@@ -75,28 +76,45 @@ export const toApiFilters = (
 };
 
 export const toFilters = (apiFilters: ApiFilter[]): Filter[] => {
-  return apiFilters.map((apiFilter) => {
-    if (apiFilter.field !== "years") {
-      return {
-        field: apiFilter.field,
-        value: apiFilter.value,
-      };
-    }
+  return apiFilters.filter((apiFilter) => {
+    return apiFilter.field !== "years";
   });
+};
+
+export const toApiSorts = (sort: Sort): [] | Sort[] => {
+  if (sort.field === "relevance") {
+    return [];
+  } else {
+    return [sort];
+  }
+};
+
+export const toSorts = (sort: any): Sort => {
+  if (sort.length > 0) {
+    return {
+      field: sort.field,
+      dir: sort.dir,
+    };
+  } else {
+    return {
+      field: "relevance",
+      dir: "DESC",
+    };
+  }
 };
 
 export const toFilterYears = (apiFilters: ApiFilter[]): DateRange => {
   const yearFilters = apiFilters.filter((filter) => {
     return filter.field === "years";
   });
-  if (!yearFilters) return;
+  if (!yearFilters || yearFilters.length < 1) return;
   if (yearFilters.length > 1) {
     throw new Error("There should only be one set of year filters");
   } else {
     const yearFilter = yearFilters[0];
     return {
-      start: yearFilter.value.start,
-      end: yearFilter.value.end,
+      start: yearFilter.value.start ? yearFilter.value.start : "",
+      end: yearFilter.value.end ? yearFilter.value.end : "",
     };
   }
 };

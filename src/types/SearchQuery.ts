@@ -15,7 +15,7 @@ export type ApiSearchQuery = {
   queries: Query[];
   recordType?: "instances" | "editions";
   filters?: ApiFilter[];
-  sort?: Sort[];
+  sort?: [] | Sort[];
   per_page?: number;
   page?: number;
   prev_page_sort?: string[];
@@ -52,5 +52,5 @@ export type SearchQuery = {
   page?: number;
   perPage?: number;
   queries: Query[];
-  sort?: Sort[];
+  sort?: Sort;
 };

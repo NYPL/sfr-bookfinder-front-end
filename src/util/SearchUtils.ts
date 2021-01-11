@@ -1,12 +1,23 @@
 import appConfig from "~/config/appConfig";
+import { initialSearchQuery } from "../stores/InitialState";
 import {
   ApiSearchQuery,
   SearchQuery,
   Query,
   Filter,
   Sort,
+  ApiFilter,
 } from "../types/SearchQuery";
-import { toApiFilters, toApiQuery } from "./apiConversion";
+import {
+  toApiFilters,
+  toApiQuery,
+  toFilters,
+  toFilterYears,
+} from "./apiConversion";
+import {
+  findFiltersExceptField,
+  findFiltersForField,
+} from "./SearchQueryUtils";
 
 //TODO env variables
 const appEnv = "development";
@@ -34,10 +45,10 @@ const initialApiQuery: ApiSearchQuery = {
 };
 
 //Takes the query string from URL and parses it into a SearchQuery object
-export function parseLocationQuery(queryString: any): SearchQuery {
+export function parseLocationQuery(queryString: any): ApiSearchQuery {
   const query = queryString;
 
-  const parseIfString = (value) => {
+  const parseIfString = (value: any) => {
     if (typeof value === "string") {
       return JSON.parse(value);
     } else {
@@ -55,10 +66,9 @@ export function parseLocationQuery(queryString: any): SearchQuery {
       page,
       perPage,
       queries,
-      showQueries,
       sort,
     }: {
-      filters: Filter[] | string;
+      filters: ApiFilter[] | string;
       page: number | string;
       perPage: number | string;
       queries: Query[] | string;
@@ -66,39 +76,16 @@ export function parseLocationQuery(queryString: any): SearchQuery {
       sort: Sort[] | string;
     } = query;
 
-    const newQuery: SearchQuery = {
+    return {
       queries: parseIfString(queries),
       filters: filters ? parseIfString(filters) : initialApiQuery.filters,
       page: page ? parseIfString(page) : initialApiQuery.page,
-      perPage: perPage ? parseIfString(perPage) : initialApiQuery.per_page,
+      per_page: perPage ? parseIfString(perPage) : initialApiQuery.per_page,
       //TODO: Filter out viaf
-      //TODO: Something's wrong with sort
       sort: sort ? parseIfString(sort) : initialApiQuery.sort,
     };
-    return newQuery;
   }
 }
-
-//Takes a SearchQuery object and parses it into a location string
-// export const queryToString = (searchQuery: SearchQuery) => {
-//   // Get difference from defaultQuery
-//   const apiQuery = toApiQuery(searchQuery);
-//   console.log("apiQuery", apiQuery);
-//   debugger;
-//   return Object.keys(apiQuery)
-//     .map((key) =>
-//       [key, apiQuery[key]]
-//         .map((o) => {
-//           let ret = o;
-//           if (typeof o === "object") {
-//             ret = JSON.stringify(o);
-//           }
-//           return encodeURIComponent(ret);
-//         })
-//         .join("=")
-//     )
-//     .join("&");
-// };
 
 /**
  * Converts an API search query object to a NextJS query object

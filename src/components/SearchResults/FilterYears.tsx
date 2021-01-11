@@ -11,12 +11,18 @@ import { DateRange, Filter } from "~/src/types/SearchQuery";
 
 const ConditionalFormWrapper: React.FC<{
   condition: boolean;
+  dateRangeError?: string;
   submitCallback: (event: React.FormEvent<HTMLFormElement>) => void;
-}> = ({ condition, submitCallback, children }) => {
+}> = ({ condition, dateRangeError, submitCallback, children }) => {
   if (condition) {
     return (
       <form onSubmit={submitCallback}>
         {children}
+        {dateRangeError && (
+          <DS.HelperErrorText isError={true}>
+            {dateRangeError}
+          </DS.HelperErrorText>
+        )}
         <DS.Button id="year-filter-button" type="submit">
           Apply
         </DS.Button>
@@ -26,18 +32,34 @@ const ConditionalFormWrapper: React.FC<{
   return <>{children}</>;
 };
 
+/**
+ * Year Filters
+ * Can be passed as a form or as a fieldset
+ *
+ *
+ * @param props
+ */
 const FilterYears: React.FC<{
   dateFilters: DateRange;
   onDateChange: (e, isStart: boolean) => void;
+  // The date range error to show.
+  // If no error should be shown, this should be an empty string
+  dateRangeError?: string;
   onSubmit?: () => void;
 }> = (props) => {
-  const { dateFilters, onDateChange, onSubmit } = props;
+  const { dateFilters, onDateChange, dateRangeError, onSubmit } = props;
 
   const changeDate = (e, isStart: boolean) => {
     onDateChange(e, isStart);
   };
 
-  const submit = (e) => {
+  if (dateRangeError && !onSubmit) {
+    console.warn(
+      "Found a dateRangeError but no onSubmit.  Errors should be shown at the top of the form when this is used as a fieldset."
+    );
+  }
+
+  const submit = (e: React.FormEvent) => {
     e.preventDefault();
     props.onSubmit();
   };
@@ -45,6 +67,7 @@ const FilterYears: React.FC<{
   return (
     <ConditionalFormWrapper
       condition={!!onSubmit}
+      dateRangeError={dateRangeError}
       submitCallback={(e) => submit(e)}
     >
       <fieldset>

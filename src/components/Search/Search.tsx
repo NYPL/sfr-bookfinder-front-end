@@ -25,6 +25,7 @@ import LanguageAccordion from "../LanguageAccordion/LanguageAccordion";
 import BookFormatInput from "../BookFormatInput/BookFormatInput";
 import { toLocationQuery } from "~/src/util/SearchUtils";
 import { toApiQuery } from "~/src/util/apiConversion";
+import FilterYears from "../SearchResults/FilterYears";
 
 const SearchResults: React.FC<{
   searchQuery: SearchQuery;
@@ -63,17 +64,8 @@ const SearchResults: React.FC<{
       pathname: "/search",
       query: toLocationQuery(toApiQuery(query)),
     });
-    const searchResults = await searchResultsFetcher(query);
+    const searchResults = await searchResultsFetcher(toApiQuery(query));
     setSearchResults(searchResults);
-  };
-
-  const updateFilters = (newFilters: Filter[]) => {
-    if (!deepEqual(searchQuery.filters, newFilters)) {
-      const newQuery: SearchQuery = Object.assign({}, searchQuery, {
-        filters: newFilters,
-      });
-      submit(newQuery);
-    }
   };
 
   const getDisplayItemsHeading = (searchQuery: SearchQuery) => {
@@ -107,9 +99,6 @@ const SearchResults: React.FC<{
       searchQuery.filters,
       "language"
     );
-    console.log("languageFilters", languageFilters);
-    console.log("language", language);
-    console.log("checked", e.target.checked);
 
     const newQuery = {
       ...searchQuery,
@@ -124,6 +113,37 @@ const SearchResults: React.FC<{
     };
 
     submit(newQuery);
+  };
+
+  const onBookFormatChange = (e, format) => {
+    const formatFilters = findFiltersForField(searchQuery.filters, "format");
+
+    const newQuery = {
+      ...searchQuery,
+      filters: [
+        ...findFiltersExceptField(searchQuery.filters, "format"),
+        ...(e.target.checked
+          ? [...formatFilters, { field: "format", value: format }]
+          : formatFilters.filter((filter) => {
+              return filter.value !== format;
+            })),
+      ],
+    };
+    submit(newQuery);
+  };
+
+  const onDateChange = (e, isStart: boolean) => {
+    setSearchQuery({
+      ...searchQuery,
+      filterYears: {
+        start: isStart ? e.target.value : searchQuery.filterYears.start,
+        end: isStart ? searchQuery.filterYears.end : e.target.value,
+      },
+    });
+  };
+
+  const onDateSubmit = () => {
+    submit(searchQuery);
   };
 
   const numberOfWorks = searchResults.data.totalWorks;
@@ -315,15 +335,18 @@ const SearchResults: React.FC<{
                   searchQuery.filters,
                   "format"
                 )}
-                onFormatChange={() => {}}
+                onFormatChange={(e, format) => onBookFormatChange(e, format)}
               />
             </form>
-            {/* <FilterYears
+            <FilterYears
               dateFilters={searchQuery.filterYears}
-              submitCallback={(e: React.FormEvent<HTMLFormElement>) => {
-                return;
+              onDateChange={(e, isStart) => {
+                onDateChange(e, isStart);
               }}
-            /> */}
+              onSubmit={() => {
+                onDateSubmit();
+              }}
+            />
           </>
         )}
 

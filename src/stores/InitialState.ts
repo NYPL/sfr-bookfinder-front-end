@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import { ApiSearchQuery, SearchQuery } from "../types/SearchQuery";
 
-//TODO: This will be deprecated when API updates happen
 export const initialApiSearchQuery: ApiSearchQuery = {
   per_page: 10,
   page: 0,
@@ -16,7 +15,7 @@ export const initialSearchQuery: SearchQuery = {
   page: 0,
   filters: [],
   filterYears: { start: null, end: null },
-  sort: [],
+  sort: { field: "relevance", dir: "DESC" },
   queries: [],
 };
 
