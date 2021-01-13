@@ -76,6 +76,10 @@ const SearchResults: React.FC<{
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    sendSearchQuery(searchQuery);
+  };
+
+  const sendSearchQuery = async (searchQuery: SearchQuery) => {
     router.push({
       pathname: "/search",
       query: toLocationQuery(toApiQuery(searchQuery)),
@@ -192,6 +196,15 @@ const SearchResults: React.FC<{
     }
   };
 
+  const onPageChange = (select: number) => {
+    console.log("select", select);
+    const newQuery: SearchQuery = Object.assign({}, searchQuery, {
+      page: select,
+    });
+    setSearchQuery(newQuery);
+    sendSearchQuery(newQuery);
+  };
+
   return (
     <main id="mainContent" className="main main--with-sidebar">
       <div className="content-header">
@@ -300,10 +313,10 @@ const SearchResults: React.FC<{
 
       <div className="content-primary content-primary--with-sidebar-left">
         <ResultsList works={works} />
-        <SearchPagination
-          totalItems={numberOfWorks}
-          searchQuery={searchQuery}
-          router={router}
+        <DS.Pagination
+          pageCount={getNumberOfPages(numberOfWorks, searchQuery.perPage)}
+          currentPage={searchQuery.page}
+          onPageChange={(e) => onPageChange(e)}
         />
       </div>
       {isMobile && isModalOpen && (
