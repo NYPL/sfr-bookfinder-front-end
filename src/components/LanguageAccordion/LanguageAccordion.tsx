@@ -27,8 +27,10 @@ const LanguageAccordion: React.FC<{
   };
 
   return (
-    <>
-      <DS.Label htmlFor="lanaguage-select">Languages</DS.Label>
+    <fieldset>
+      <legend>
+        <DS.Label htmlFor="lanaguage-select">Languages</DS.Label>
+      </legend>
       <DS.Accordion inputId="language-select" accordionLabel="Click to Expand">
         <DS.List
           id="languages list"
@@ -58,7 +60,7 @@ const LanguageAccordion: React.FC<{
           })}
         </DS.List>
       </DS.Accordion>
-    </>
+    </fieldset>
   );
 };
 

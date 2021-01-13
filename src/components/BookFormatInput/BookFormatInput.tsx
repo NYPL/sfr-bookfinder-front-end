@@ -9,33 +9,31 @@ const BookFormatInput: React.FC<{
   onFormatChange: (e, format: string) => void;
 }> = (props) => {
   const { selectedFormats, onFormatChange } = props;
-  const getSelectedFormat = (format: string) => {
-    return selectedFormats.find((selectedFormat) => {
+
+  const isSelected = (formats: Filter[], format: string) => {
+    const selected = formats.find((selectedFormat) => {
       return selectedFormat.value === format;
     });
+    return !!selected;
   };
 
   const toggleSelected = (e, format) => {
-    console.log("checked", e.target.checked);
-
-    props.onFormatChange(e, format);
+    onFormatChange(e, format);
   };
 
   return (
     <fieldset>
       <legend>Format</legend>
-
       {formatTypes.map((formatType: any) => (
         <DS.Checkbox
-          className="usa-checkbox tablet:grid-col-12"
           checkboxId={`format-${formatType.value}`}
-          checked={getSelectedFormat(formatType.value) !== undefined}
+          name={`filter-format-${formatType.value}`}
+          checked={isSelected(selectedFormats, formatType.value)}
           onChange={(e) => toggleSelected(e, formatType.value)}
           labelOptions={{
             id: `format-${formatType.value}=label`,
             labelContent: <>{formatType.label}</>,
           }}
-          name={`filter-format`}
           key={`facet-format-${formatType.value}`}
         />
       ))}

@@ -21,8 +21,6 @@ export async function getServerSideProps(context: any) {
   // Fetch first set of search results
   const searchResults = await searchResultsFetcher(parsedQuery);
 
-  console.log("query", toSearchQuery(parsedQuery));
-  console.log("results", searchResults);
   return {
     props: {
       searchQuery: toSearchQuery(parsedQuery),

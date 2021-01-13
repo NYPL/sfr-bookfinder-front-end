@@ -21,14 +21,12 @@ const Filters: React.FC<{
   filters: Filter[];
   filterYears: DateRange;
   languages: FacetItem[];
-  submitOnChange: boolean;
-  submitFilters: (newFilters?: Filter[], newYears?: DateRange) => void;
+  changeFilters: (newFilters?: Filter[], newYears?: DateRange) => void;
 }> = ({
   filters: propFilters,
   filterYears: propFilterYears,
   languages,
-  submitOnChange,
-  submitFilters,
+  changeFilters,
 }) => {
   const [filters, setFilters] = useState(propFilters);
   const [filterYears, setFilterYears] = useState(propFilterYears);
@@ -44,15 +42,11 @@ const Filters: React.FC<{
           })),
     ];
     setFilters(newFilters);
-
-    if (submitOnChange) {
-      submitFilters(newFilters);
-    }
+    changeFilters(newFilters);
   };
 
   const onBookFormatChange = (e, format) => {
     const formatFilters = findFiltersForField(filters, "format");
-
     const newFilters = [
       ...findFiltersExceptField(filters, "format"),
       ...(e.target.checked
@@ -62,10 +56,7 @@ const Filters: React.FC<{
           })),
     ];
     setFilters(newFilters);
-
-    if (submitOnChange) {
-      submitFilters(newFilters);
-    }
+    changeFilters(newFilters);
   };
 
   const onDateChange = (e, isStart: boolean) => {
@@ -75,15 +66,39 @@ const Filters: React.FC<{
     });
   };
 
-  const onDateSubmit = () => {
-    submitFilters(filters, filterYears);
+  const submitDateForm = () => {
+    changeFilters(null, filterYears);
+  };
+
+  /**
+   * Toggles the "Show All" filter.
+   * If we should show only what's available online,
+   *  showAll=false and this checkbox is checked
+   */
+
+  const toggleShowAll = (e) => {
+    const newFilters = [
+      ...findFiltersExceptField(filters, "show_all"),
+      ...[{ field: "show_all", value: (!e.target.checked).toString() }],
+    ];
+    setFilters(newFilters);
+    changeFilters(newFilters);
   };
 
   return (
     <>
-      <DS.Heading level={2} id="filter-desktop-header">
-        Refine Results
-      </DS.Heading>
+      <DS.Checkbox
+        checkboxId="show_all"
+        checked={false}
+        onChange={(e) => {
+          toggleShowAll(e);
+        }}
+        labelOptions={{
+          id: "show_all_label",
+          labelContent: <>Available Online</>,
+        }}
+        name="show_all"
+      />
       <LanguageAccordion
         languages={languages}
         showCount={true}
@@ -101,13 +116,7 @@ const Filters: React.FC<{
         onDateChange={(e, isStart) => {
           onDateChange(e, isStart);
         }}
-        onSubmit={
-          submitOnChange
-            ? () => {
-                onDateSubmit();
-              }
-            : undefined
-        }
+        onSubmit={() => submitDateForm()}
       />
     </>
   );

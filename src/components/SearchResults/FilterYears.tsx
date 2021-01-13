@@ -59,43 +59,41 @@ const FilterYears: React.FC<{
     );
   }
 
-  const submit = (e: React.FormEvent) => {
-    e.preventDefault();
-    props.onSubmit();
-  };
-
   return (
-    <ConditionalFormWrapper
-      condition={!!onSubmit}
-      dateRangeError={dateRangeError}
-      submitCallback={(e) => submit(e)}
-    >
-      <fieldset>
-        <legend className="usa-legend font-sans-lg sub-legend">
-          Publication Year
-        </legend>
-        <DS.Label id="date-from-label" htmlFor="date-filter-from">
-          From
-        </DS.Label>
-        <DS.Input
-          type={DS.InputTypes.number}
-          id="date-filter-from"
-          value={dateFilters.start > 0 ? dateFilters.start : ""}
-          onChange={(e) => changeDate(e, true)}
-        />
-        <DS.HelperErrorText isError={false}> EX. 1901 </DS.HelperErrorText>
-        <DS.Label id="date-to-label" htmlFor="date-filter-to">
-          To
-        </DS.Label>
-        <DS.Input
-          type={DS.InputTypes.number}
-          id="date-filter-to"
-          value={dateFilters.end > 0 ? dateFilters.end : ""}
-          onChange={(e) => changeDate(e, false)}
-        />
-        <DS.HelperErrorText isError={false}> EX. 2000 </DS.HelperErrorText>
-      </fieldset>
-    </ConditionalFormWrapper>
+    <fieldset>
+      <legend className="usa-legend font-sans-lg sub-legend">
+        Publication Year
+      </legend>
+      <DS.Label id="date-from-label" htmlFor="date-filter-from">
+        From
+      </DS.Label>
+      <DS.Input
+        type={DS.InputTypes.number}
+        id="date-filter-from"
+        value={dateFilters.start > 0 ? dateFilters.start : ""}
+        onChange={(e) => changeDate(e, true)}
+      />
+      <DS.HelperErrorText isError={false}> EX. 1901 </DS.HelperErrorText>
+      <DS.Label id="date-to-label" htmlFor="date-filter-to">
+        To
+      </DS.Label>
+      <DS.Input
+        type={DS.InputTypes.number}
+        id="date-filter-to"
+        value={dateFilters.end > 0 ? dateFilters.end : ""}
+        onChange={(e) => changeDate(e, false)}
+      />
+      <DS.HelperErrorText isError={false}> EX. 2000 </DS.HelperErrorText>
+      {onSubmit && (
+        <DS.Button
+          id="year-filter-button"
+          type="button"
+          onClick={() => onSubmit()}
+        >
+          Apply
+        </DS.Button>
+      )}
+    </fieldset>
   );
 };
 
