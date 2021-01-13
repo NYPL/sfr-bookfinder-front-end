@@ -20,16 +20,21 @@ import {
 const Filters: React.FC<{
   filters: Filter[];
   filterYears: DateRange;
+  showAll: boolean;
   languages: FacetItem[];
   changeFilters: (newFilters?: Filter[], newYears?: DateRange) => void;
+  changeShowAll: (showAll: boolean) => void;
 }> = ({
   filters: propFilters,
   filterYears: propFilterYears,
+  showAll: propShowAll,
   languages,
   changeFilters,
+  changeShowAll,
 }) => {
   const [filters, setFilters] = useState(propFilters);
   const [filterYears, setFilterYears] = useState(propFilterYears);
+  const [showAll, setShowAll] = useState(propShowAll);
 
   const onLanguageChange = (e, language) => {
     const languageFilters = findFiltersForField(filters, "language");
@@ -77,19 +82,16 @@ const Filters: React.FC<{
    */
 
   const toggleShowAll = (e) => {
-    const newFilters = [
-      ...findFiltersExceptField(filters, "show_all"),
-      ...[{ field: "show_all", value: (!e.target.checked).toString() }],
-    ];
-    setFilters(newFilters);
-    changeFilters(newFilters);
+    console.log("show all", e.target.checked);
+    setShowAll(!e.target.checked);
+    changeShowAll(!e.target.checked);
   };
 
   return (
     <>
       <DS.Checkbox
         checkboxId="show_all"
-        checked={false}
+        checked={!showAll}
         onChange={(e) => {
           toggleShowAll(e);
         }}

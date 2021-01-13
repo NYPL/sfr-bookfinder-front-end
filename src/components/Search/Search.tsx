@@ -62,8 +62,9 @@ const SearchResults: React.FC<{
 
   // The filter form should submit whenever filters change.
   useEffect(() => {
+    console.log("submitting filter form");
     submitForm(filterForm.current);
-  }, [searchQuery.filterYears, searchQuery.filters]);
+  }, [searchQuery.filterYears, searchQuery.filters, searchQuery.showAll]);
 
   // The Sorts form should submit whenever the sorts or perpage changes.
   useEffect(() => {
@@ -150,6 +151,14 @@ const SearchResults: React.FC<{
       ...searchQuery,
       ...(newFilters && { filters: newFilters }),
       ...(newDateRange && { filterYears: newDateRange }),
+    };
+    setSearchQuery(newSearchQuery);
+  };
+
+  const changeShowAll = (showAll: boolean) => {
+    const newSearchQuery: SearchQuery = {
+      ...searchQuery,
+      showAll: showAll,
     };
     setSearchQuery(newSearchQuery);
   };
@@ -277,9 +286,13 @@ const SearchResults: React.FC<{
           <Filters
             filters={searchQuery.filters}
             filterYears={searchQuery.filterYears}
+            showAll={searchQuery.showAll}
             languages={getAvailableLanguages(searchResults)}
             changeFilters={(filters?: Filter[], filterYears?: DateRange) => {
               changeFilters(filters, filterYears);
+            }}
+            changeShowAll={(showAll: boolean) => {
+              changeShowAll(showAll);
             }}
           />
         </form>
@@ -355,9 +368,13 @@ const SearchResults: React.FC<{
             <Filters
               filters={searchQuery.filters}
               filterYears={searchQuery.filterYears}
+              showAll={searchQuery.showAll}
               languages={getAvailableLanguages(searchResults)}
               changeFilters={(filters?: Filter[]) => {
                 changeFilters(filters);
+              }}
+              changeShowAll={(showAll: boolean) => {
+                changeShowAll(showAll);
               }}
             />
           </form>

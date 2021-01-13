@@ -47,11 +47,12 @@ export type DateRange = {
 };
 
 export type SearchQuery = {
-  filters?: Filter[];
-  filterYears?: DateRange;
-  page?: number;
-  perPage?: number;
+  filters: Filter[];
+  filterYears: DateRange;
+  page: number;
+  perPage: number;
   queries: Query[];
   // While the API supports sorting by multiple parameters, the front end only supports one parameter
-  sort?: Sort;
+  sort: Sort;
+  showAll: boolean;
 };

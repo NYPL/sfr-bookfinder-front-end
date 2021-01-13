@@ -18,6 +18,7 @@ export const toSearchQuery = (apiQuery: ApiSearchQuery): SearchQuery => {
     page: apiQuery.page,
     perPage: apiQuery.per_page,
     sort: toSorts(apiQuery.sort),
+    showAll: toShowAll(apiQuery.filters),
   };
 };
 
@@ -30,7 +31,11 @@ export const toSearchQuery = (apiQuery: ApiSearchQuery): SearchQuery => {
  * @param searchQuery
  */
 export const toApiQuery = (searchQuery: SearchQuery): ApiSearchQuery => {
-  const filters = toApiFilters(searchQuery.filters, searchQuery.filterYears);
+  const filters = toApiFilters(
+    searchQuery.filters,
+    searchQuery.filterYears,
+    searchQuery.showAll
+  );
 
   const sorts = toApiSorts(searchQuery.sort);
 
@@ -53,7 +58,8 @@ export const toApiQuery = (searchQuery: SearchQuery): ApiSearchQuery => {
 
 export const toApiFilters = (
   filters: Filter[],
-  yearFilters: DateRange
+  yearFilters: DateRange,
+  showAll: boolean
 ): ApiFilter[] => {
   const apiFilters: ApiFilter[] = filters.map((filter) => {
     return {
@@ -72,13 +78,28 @@ export const toApiFilters = (
     });
   }
 
+  apiFilters.push({
+    field: "show_all",
+    value: showAll,
+  });
+
   return apiFilters;
 };
 
 export const toFilters = (apiFilters: ApiFilter[]): Filter[] => {
   return apiFilters.filter((apiFilter) => {
-    return apiFilter.field !== "years";
+    return apiFilter.field !== "years" && apiFilter.field !== "show_all";
   });
+};
+
+export const toShowAll = (apiFilters: ApiFilter[]): boolean => {
+  const showAllFilters = apiFilters.filter((apiFilter) => {
+    return apiFilter.field === "show_all";
+  });
+
+  //TODO: error handling Check if there is more than one show_all filter
+
+  return showAllFilters && showAllFilters[0] ? showAllFilters[0].value : false;
 };
 
 export const toApiSorts = (sort: Sort): [] | Sort[] => {
