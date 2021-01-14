@@ -13,7 +13,7 @@ import Adapter from "enzyme-adapter-react-16";
 import Select from "react-select";
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/core";
-import { mockRouterContext } from "../helpers/routing";
+import { mockRouterContext } from "../../__test__/helpers/routing";
 import AdvancedSearch, {
   initialState as initialAdvancedState,
   // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '../../src/app/components/Advan... Remove this comment to see the full error message

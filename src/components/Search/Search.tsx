@@ -5,7 +5,6 @@ import { searchFields } from "~/src/constants/fields";
 import { ApiSearchResult, ApiWork, FacetItem } from "~/src/types/DataModel";
 import { deepEqual, getNumberOfPages } from "~/src/util/Util";
 import { DateRange, Filter, SearchQuery } from "~/src/types/SearchQuery";
-import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 import { sortMap, numbersPerPage } from "~/src/constants/sorts";
 import ResultsList from "../SearchResults/ResultsList";
 import { searchResultsFetcher } from "~/src/lib/api/SearchApi";
@@ -16,6 +15,7 @@ import { toApiQuery } from "~/src/util/apiConversion";
 import Filters from "../ResultsFilters/ResultsFilters";
 import ResultsSorts from "../ResultsSorts/ResultsSorts";
 import { initialSearchQuery } from "~/src/stores/InitialState";
+import { breadcrumbTitles } from "~/src/constants/labels";
 
 const SearchResults: React.FC<{
   searchQuery: SearchQuery;
@@ -66,12 +66,20 @@ const SearchResults: React.FC<{
 
   // The filter form should submit whenever filters change.
   useEffect(() => {
-    submitForm(filterForm.current);
+    console.log("filter changed");
+
+    if (filterForm.current) {
+      //If a filter form is mounted then update it.
+      submitForm(filterForm.current);
+    }
   }, [searchQuery.filterYears, searchQuery.filters, searchQuery.showAll]);
 
   // The Sorts form should submit whenever the sorts or perpage changes.
   useEffect(() => {
-    submitForm(sortForm.current);
+    console.log("sorts changed");
+    if (sortForm.current) {
+      submitForm(sortForm.current);
+    }
   }, [searchQuery.perPage, searchQuery.sort]);
 
   // Because everything, from filters to pagination, is done on the server side
@@ -211,7 +219,9 @@ const SearchResults: React.FC<{
   return (
     <main id="mainContent" className="main main--with-sidebar">
       <div className="content-header">
-        <Breadcrumbs />
+        <DS.Breadcrumbs
+          breadcrumbs={[{ url: "/", text: breadcrumbTitles.home }]}
+        />{" "}
         <div
           className="content-primary"
           aria-label="Digital Research Books Beta"

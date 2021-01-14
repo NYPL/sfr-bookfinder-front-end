@@ -19,6 +19,7 @@ import Link from "~/src/components/Link/Link";
 import SearchForm from "../SearchForm/SearchForm";
 import { WorkEdition } from "../../types/DataModel";
 import { InstanceCard } from "../InstanceCard/InstanceCard";
+import { breadcrumbTitles } from "~/src/constants/labels";
 
 // const scrollToHash = (hash) => {
 //   const hashtag = hash && hash.replace(/#/, '');
@@ -59,8 +60,12 @@ const EditionDetail: React.FC<{ editionResult: EditionResult }> = (props) => {
     <div className="layout-container">
       <main id="mainContent" className="main">
         <div className="content-header">
-          <Breadcrumbs />
-
+          <DS.Breadcrumbs
+            breadcrumbs={[
+              { url: "/", text: breadcrumbTitles.home },
+              { url: `/work/${edition.work_uuid}`, text: edition.title },
+            ]}
+          />
           <SearchForm />
         </div>
 

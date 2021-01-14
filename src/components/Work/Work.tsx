@@ -11,6 +11,7 @@ import WorkDetailDefinitionList from "~/src/components/Detail/WorkDetailDefiniti
 import { WorkQuery, WorkResult } from "~/src/types/WorkQuery";
 import { ApiWork } from "~/src/types/DataModel";
 import SearchForm from "../SearchForm/SearchForm";
+import { breadcrumbTitles } from "~/src/constants/labels";
 
 //TODO: Scroll to hash removed, needs to be re-added
 // const scrollToHash = (hash) => {
@@ -64,7 +65,9 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
 
       <main id="mainContent" className="main">
         <div className="content-header">
-          <Breadcrumbs />
+          <DS.Breadcrumbs
+            breadcrumbs={[{ url: "/", text: breadcrumbTitles.home }]}
+          />
         </div>
 
         <div className="content-primary">

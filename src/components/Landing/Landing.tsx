@@ -4,11 +4,11 @@ import * as DS from "@nypl/design-system-react-components";
 import FeatureFlags from "dgx-feature-flags";
 import SearchForm from "~/src/components/SearchForm/SearchForm";
 import Subjects from "~/config/subjectListConfig";
-import Breadcrumbs from "~/src/components/Breadcrumbs/Breadcrumbs";
 import TotalWorks from "~/src/components/TotalWorks/TotalWorks";
 
 import config from "~/config/appConfig";
 import Link from "~/src/components/Link/Link";
+import { breadcrumbTitles } from "~/src/constants/labels";
 
 const LandingPage: React.FC<any> = () => {
   const router = useRouter();
@@ -16,8 +16,9 @@ const LandingPage: React.FC<any> = () => {
   return (
     <main className="main">
       <div className="content-header">
-        <Breadcrumbs location={router} />
-
+        <DS.Breadcrumbs
+          breadcrumbs={[{ url: "/", text: breadcrumbTitles.home }]}
+        />
         <div aria-label="Digital Research Books Beta" className="main-promo">
           <DS.Hero
             heroType={DS.HeroTypes.Secondary}

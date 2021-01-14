@@ -10,13 +10,13 @@ import { shallow, mount, configure } from "enzyme";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module 'enzyme-adapter-react-16' or it... Remove this comment to see the full error message
 import Adapter from "enzyme-adapter-react-16";
 import * as DS from "@nypl/design-system-react-components";
-import { mockRouterContext } from "../helpers/routing";
+import { mockRouterContext } from "../../__test__/helpers/routing";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '../../src/app/components/Searc... Remove this comment to see the full error message
 import Filters from "../../src/app/components/SearchResults/Filters";
 // @ts-expect-error ts-migrate(2732) FIXME: Cannot find module '../fixtures/results-list.json'... Remove this comment to see the full error message
-import results from "../fixtures/results-list.json";
+import results from "../../__test__/fixtures/results-list.json";
 // @ts-expect-error ts-migrate(2732) FIXME: Cannot find module '../fixtures/search-query.json'... Remove this comment to see the full error message
-import defaultQuery from "../fixtures/search-query.json";
+import defaultQuery from "../../__test__/fixtures/search-query.json";
 
 configure({ adapter: new Adapter() });
 

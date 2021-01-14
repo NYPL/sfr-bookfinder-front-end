@@ -34,6 +34,10 @@ export const allWorkLabels = {
   measurements: "Measurements",
 };
 
+export const breadcrumbTitles = {
+  home: "Digital Research Books Beta"
+}
+
 export const documentTitles = {
   home: "Digital Research Books Beta | NYPL",
   search: "Search Results | Digital Research Books Beta | NYPL",

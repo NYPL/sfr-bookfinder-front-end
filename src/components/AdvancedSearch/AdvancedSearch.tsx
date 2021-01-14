@@ -7,7 +7,6 @@ import { bindActionCreators } from "redux";
 import { useRouter, withRouter } from "next/router";
 
 import appConfig from "~/config/appConfig";
-import Breadcrumbs from "~/src/components/Breadcrumbs/Breadcrumbs";
 import {
   findFiltersForField,
   findFiltersExceptField,
@@ -23,6 +22,7 @@ import {
   inputTerms,
   formatTypes,
   errorMessagesText,
+  breadcrumbTitles,
 } from "~/src/constants/labels";
 import FilterYears from "~/src/components/FilterYears/FilterYears";
 import { searchFields } from "~/src/constants/fields";
@@ -141,7 +141,9 @@ const AdvancedSearch: React.FC<{
   return (
     <main id="mainContent" className="main">
       <div className="content-header">
-        <Breadcrumbs />
+        <DS.Breadcrumbs
+          breadcrumbs={[{ url: "/", text: breadcrumbTitles.home }]}
+        />{" "}
       </div>
 
       <div aria-label="Digital Research Books Beta" className="grid-col-12">
