@@ -17,6 +17,7 @@ export const initialSearchQuery: SearchQuery = {
   filterYears: { start: null, end: null },
   sort: { field: "relevance", dir: "DESC" },
   queries: [],
+  showAll: false,
 };
 
 type searchQueryPropTypes = {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import Layout from "~/src/components/Application/Layout";
+import Layout from "~/src/components/Layout/Layout";
 import Search from "../../components/Search/Search";
 import { parseLocationQuery } from "../../util/SearchUtils";
 import { ApiSearchQuery } from "../../types/SearchQuery";

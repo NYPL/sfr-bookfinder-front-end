@@ -1,6 +1,6 @@
 import React from "react";
 
-import Layout from "~/src/components/Application/Layout";
+import Layout from "~/src/components/Layout/Layout";
 import LandingPage from "../components/Landing/Landing";
 
 const Landing: React.FC<any> = () => {

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import * as DS from "@nypl/design-system-react-components";
 import LanguageAccordion from "../LanguageAccordion/LanguageAccordion";
-import BookFormatInput from "../BookFormatInput/BookFormatInput";
-import FilterYears from "../SearchResults/FilterYears";
+import FitlerBookFormat from "../FilterBookFormat/FilterBookFormat";
+import FilterYears from "../FilterYears/FilterYears";
 import { ApiSearchResult, FacetItem } from "~/src/types/DataModel";
 import { DateRange, Filter, SearchQuery } from "~/src/types/SearchQuery";
 import {
@@ -109,7 +109,7 @@ const Filters: React.FC<{
           onLanguageChange(e, language);
         }}
       />
-      <BookFormatInput
+      <FitlerBookFormat
         selectedFormats={findFiltersForField(filters, "format")}
         onFormatChange={(e, format) => onBookFormatChange(e, format)}
       />

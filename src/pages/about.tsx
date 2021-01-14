@@ -1,6 +1,6 @@
 import React from "react";
 import About from "~/src/components/About/About";
-import Layout from "~/src/components/Application/Layout";
+import Layout from "~/src/components/Layout/Layout";
 
 const AboutPage: React.FC<any> = () => {
   return (

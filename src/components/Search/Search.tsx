@@ -10,12 +10,12 @@ import { sortMap, numbersPerPage } from "~/src/constants/sorts";
 import ResultsList from "../SearchResults/ResultsList";
 import { searchResultsFetcher } from "~/src/lib/api/SearchApi";
 import { breakpoints } from "~/src/constants/breakpoints";
-import SearchPagination from "~/src/components/SearchResults/SearchPagination";
 import SearchForm from "~/src/components/SearchForm/SearchForm";
 import { toLocationQuery } from "~/src/util/SearchUtils";
 import { toApiQuery } from "~/src/util/apiConversion";
 import Filters from "../ResultsFilters/ResultsFilters";
 import ResultsSorts from "../ResultsSorts/ResultsSorts";
+import { initialSearchQuery } from "~/src/stores/InitialState";
 
 const SearchResults: React.FC<{
   searchQuery: SearchQuery;
@@ -55,14 +55,17 @@ const SearchResults: React.FC<{
     };
   }, []);
 
-  // Whenever query changes, it is pushed to the URL.  Update the search results when this happens
+  // Whenever query changes, it is pushed to the URL.
+  // When this happens, reset the search and update the search results
   useEffect(() => {
-    setSearchQuery({ ...searchQuery, queries: props.searchQuery.queries });
+    setSearchQuery({
+      ...initialSearchQuery,
+      queries: props.searchQuery.queries,
+    });
   }, [props.searchQuery.queries]);
 
   // The filter form should submit whenever filters change.
   useEffect(() => {
-    console.log("submitting filter form");
     submitForm(filterForm.current);
   }, [searchQuery.filterYears, searchQuery.filters, searchQuery.showAll]);
 

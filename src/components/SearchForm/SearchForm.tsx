@@ -9,9 +9,7 @@ import { errorMessagesText } from "~/src/constants/labels";
 import { toLocationQuery } from "~/src/util/SearchUtils";
 import { toApiQuery } from "~/src/util/apiConversion";
 
-const SearchForm: React.FC<any> = (
-  initialQuery: SearchQuery = { queries: [] }
-) => {
+const SearchForm: React.FC<any> = (initialQuery: SearchQuery) => {
   // If there is one query, then default searchbar to show it
   const queryToShow: Query | undefined =
     initialQuery.queries && initialQuery.queries.length === 1

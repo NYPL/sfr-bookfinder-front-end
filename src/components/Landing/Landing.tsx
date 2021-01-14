@@ -5,7 +5,7 @@ import FeatureFlags from "dgx-feature-flags";
 import SearchForm from "~/src/components/SearchForm/SearchForm";
 import Subjects from "~/config/subjectListConfig";
 import Breadcrumbs from "~/src/components/Breadcrumbs/Breadcrumbs";
-import TotalWorks from "~/src/components/SearchForm/TotalWorks";
+import TotalWorks from "~/src/components/TotalWorks/TotalWorks";
 
 import config from "~/config/appConfig";
 import Link from "~/src/components/Link/Link";

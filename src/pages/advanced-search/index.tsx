@@ -1,7 +1,7 @@
 import React from "react";
 
 import AdvancedSearch from "~/src/components/AdvancedSearch/AdvancedSearch";
-import Layout from "~/src/components/Application/Layout";
+import Layout from "~/src/components/Layout/Layout";
 import { languagesFetcher } from "../../lib/api/SearchApi";
 import {
   ApiLanguageResponse,

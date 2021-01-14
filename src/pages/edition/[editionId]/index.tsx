@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import Layout from "~/src/components/Application/Layout";
+import Layout from "~/src/components/Layout/Layout";
 import EditionDetail from "~/src/components/EditionDetail/EditionDetail";
 import { editionFetcher } from "~/src/lib/api/SearchApi";
 import { EditionQuery, EditionResult } from "~/src/types/EditionQuery";

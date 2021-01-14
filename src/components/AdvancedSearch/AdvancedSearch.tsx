@@ -19,14 +19,12 @@ import {
   initialSearchQuery,
   searchQueryPropTypes,
 } from "~/src/stores/InitialState";
-import TextInput from "~/src/components/Form/TextInput";
-import Checkbox from "~/src/components/Form/Checkbox";
 import {
   inputTerms,
   formatTypes,
   errorMessagesText,
 } from "~/src/constants/labels";
-import FilterYears from "~/src/components/SearchResults/FilterYears";
+import FilterYears from "~/src/components/FilterYears/FilterYears";
 import { searchFields } from "~/src/constants/fields";
 import {
   ApiSearchQuery,
@@ -37,7 +35,7 @@ import {
 
 import * as DS from "@nypl/design-system-react-components";
 import LanguageAccordion from "../LanguageAccordion/LanguageAccordion";
-import BookFormatInput from "../BookFormatInput/BookFormatInput";
+import FitlerBookFormat from "../FilterBookFormat/FilterBookFormat";
 import { FacetItem } from "~/src/types/DataModel";
 import { toLocationQuery } from "~/src/util/SearchUtils";
 import { toApiQuery } from "~/src/util/apiConversion";
@@ -220,7 +218,7 @@ const AdvancedSearch: React.FC<{
               onDateChange(e, isStart);
             }}
           />
-          <BookFormatInput
+          <FitlerBookFormat
             selectedFormats={findFiltersForField(searchQuery.filters, "format")}
             onFormatChange={(e, format) => {
               onBookFormatChange(e, format);

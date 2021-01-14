@@ -1,6 +1,6 @@
 import React from "react";
 
-import Layout from "~/src/components/Application/Layout";
+import Layout from "~/src/components/Layout/Layout";
 import WorkDetail from "~/src/components/Work/Work";
 import { workFetcher } from "~/src/lib/api/SearchApi";
 import { WorkQuery, WorkResult } from "~/src/types/WorkQuery";
