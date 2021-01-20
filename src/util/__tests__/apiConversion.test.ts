@@ -1,6 +1,5 @@
 /* eslint-env mocha */
 import React from "react";
-import Filters from "~/src/components/ResultsFilters/Filters copy";
 import { ApiFilter, Filter } from "~/src/types/SearchQuery";
 import { toFilters } from "../apiConversion";
 import { expect } from "chai";

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "~/src/components/Link/Link";
 import * as DS from "@nypl/design-system-react-components";
-import { initialSearchQuery } from "~/src/stores/InitialState";
+import { initialSearchQuery } from "~/src/constants/InitialState";
 import { searchFields } from "../../constants/fields";
 import { Query, SearchQuery } from "~/src/types/SearchQuery";
 import { errorMessagesText } from "~/src/constants/labels";

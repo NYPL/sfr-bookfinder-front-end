@@ -1,11 +1,4 @@
-import {
-  Agent,
-  Identifier,
-  Instance,
-  Language,
-  Measurement,
-  Subject,
-} from "./DataModel";
+import { Agent, Instance, Language } from "./DataModel";
 
 export type EditionQuery = {
   editionIdentifier: string;

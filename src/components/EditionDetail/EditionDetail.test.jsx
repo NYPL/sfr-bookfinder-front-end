@@ -4,19 +4,19 @@ import React from "react";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module 'chai' or its corresponding typ... Remove this comment to see the full error message
 import { expect } from "chai";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module 'enzyme' or its corresponding t... Remove this comment to see the full error message
-import { shallow, configure } from "enzyme";
+import { shallow, configure } from "~/src/__tests__/unit/node_modules/enzyme";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module 'enzyme-adapter-react-16' or it... Remove this comment to see the full error message
-import Adapter from "enzyme-adapter-react-16";
+import Adapter from "~/src/__tests__/unit/node_modules/enzyme-adapter-react-16";
 import * as DS from "@nypl/design-system-react-components";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module 'sinon' or its corresponding ty... Remove this comment to see the full error message
-import { stub } from "sinon";
+import { stub } from "~/src/__tests__/helpers/node_modules/sinon";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '../../src/app/stores/configure... Remove this comment to see the full error message
 import configureStore from "../../src/app/stores/configureStore";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '../../src/app/stores/InitialSt... Remove this comment to see the full error message
 import initialState from "../../src/app/stores/InitialState";
 // @ts-expect-error ts-migrate(2732) FIXME: Cannot find module '../fixtures/edition-detail.jso... Remove this comment to see the full error message
-import detail from "../fixtures/edition-detail.json";
-import { mockRouterContext, mockRouter } from "../helpers/routing";
+import detail from "../../__tests__/fixtures/edition-detail.json";
+import { mockRouterContext, mockRouter } from "../../__tests__/helpers/routing";
 
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '../../src/app/components/Detai... Remove this comment to see the full error message
 import EditionDetail from "../../src/app/components/Detail/EditionDetail";

@@ -8,10 +8,6 @@ import { searchResultsFetcher } from "../../lib/api/SearchApi";
 import { toSearchQuery } from "~/src/util/apiConversion";
 
 export async function getServerSideProps(context: any) {
-  // NextJS passes context.query as an object { querystring : ''}
-  // This seems to be a bug and is expected to be fixed on subsequent NextJS updates
-  type ContextQuery = { [key: string]: string };
-
   // Get Query from location
   const searchQuery: ApiSearchQuery = context.query;
   // const queryString: string = Object.keys(searchQuery)[0];

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Footer from "@nypl/dgx-react-footer";
@@ -6,6 +6,7 @@ import Footer from "@nypl/dgx-react-footer";
 import appConfig from "~/config/appConfig";
 import { documentTitles } from "~/src/constants/labels";
 import Feedback from "~/src/components/Feedback/Feedback";
+import Loading from "../Loading/Loading";
 
 /**
  * Container class providing header, footer,
@@ -14,6 +15,24 @@ import Feedback from "~/src/components/Feedback/Feedback";
 
 const Layout: React.FC<any> = ({ children }) => {
   const router = useRouter();
+
+  const [loading, setLoading] = useState(false);
+
+  // Set loading screen if router is loading.
+  useEffect(() => {
+    const start = () => setLoading(true);
+    const end = () => setLoading(false);
+
+    router.events.on("routeChangeStart", start);
+    router.events.on("routeChangeComplete", end);
+    router.events.on("routeChangeError", end);
+
+    return () => {
+      router.events.off("routeChangeStart", start);
+      router.events.off("routeChangeComplete", end);
+      router.events.off("routeChangeError", end);
+    };
+  }, []);
 
   const setTitle = (location: any) => {
     if (location && location.query && location.query.workId) {
@@ -27,7 +46,6 @@ const Layout: React.FC<any> = ({ children }) => {
     }
   };
 
-  //TODO: Loading wrapper
   return (
     <div className="layout-container nypl-ds nypl--research">
       <Head>
@@ -41,22 +59,14 @@ const Layout: React.FC<any> = ({ children }) => {
         ></script>
       </div>
       <div className="app-wrapper add-list-reset">
-        {children}
+        {loading ? <Loading /> : <>{children}</>}
 
         <Footer urlType="absolute" />
 
-        <Feedback location={router.pathname} />
+        {!loading && <Feedback location={router.pathname} />}
       </div>
     </div>
   );
-};
-
-Layout.defaultProps = {
-  match: {},
-  location: {},
-  history: {},
-  children: {},
-  eReaderUrl: appConfig.ereader[process.env.APP_ENV],
 };
 
 export default Layout;

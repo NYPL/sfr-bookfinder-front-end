@@ -2,18 +2,18 @@
 /* eslint-env mocha */
 import React from "react";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module 'sinon' or its corresponding ty... Remove this comment to see the full error message
-import { stub } from "sinon";
+import { stub } from "~/src/__tests__/helpers/node_modules/sinon";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module 'chai' or its corresponding typ... Remove this comment to see the full error message
 import { expect } from "chai";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module 'enzyme' or its corresponding t... Remove this comment to see the full error message
-import { mount, configure } from "enzyme";
+import { mount, configure } from "~/src/__tests__/unit/node_modules/enzyme";
 // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module 'enzyme-adapter-react-16' or it... Remove this comment to see the full error message
-import Adapter from "enzyme-adapter-react-16";
+import Adapter from "~/src/__tests__/unit/node_modules/enzyme-adapter-react-16";
 // @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import Select from "react-select";
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/core";
-import { mockRouterContext } from "../../__test__/helpers/routing";
+import { mockRouterContext } from "../../__tests__/helpers/routing";
 import AdvancedSearch, {
   initialState as initialAdvancedState,
   // @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '../../src/app/components/Advan... Remove this comment to see the full error message

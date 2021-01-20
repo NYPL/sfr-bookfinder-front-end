@@ -17,7 +17,7 @@ export const queryFromUrl = (url: string) => {
 
   const entries = Array.from(new URLSearchParams(queryString).entries());
 
-  for (let [key, value] of entries) {
+  for (const [key, value] of entries) {
     query[key] = value;
   }
 

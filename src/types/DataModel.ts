@@ -21,8 +21,6 @@ export type Facet = {
 
 export type FacetItem = { value?: string; count?: number };
 
-
-
 export type Agent = {
   name?: string;
   sort_name?: string;

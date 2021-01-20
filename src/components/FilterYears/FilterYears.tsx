@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import {
   initialApiSearchQuery,
   searchQueryPropTypes,
-} from "../../stores/InitialState";
+} from "../../constants/InitialState";
 import * as DS from "@nypl/design-system-react-components";
 
 import { yearsType, errorMessagesText } from "../../constants/labels";

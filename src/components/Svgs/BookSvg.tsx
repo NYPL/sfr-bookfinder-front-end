@@ -1,16 +1,11 @@
 /* eslint-disable max-len */
 import React from "react";
-
-type OwnProps = {
-  className?: string;
+interface BookSVGProps {
   fill?: string;
-};
+  className?: string;
+}
 
-// @ts-expect-error ts-migrate(2456) FIXME: Type alias 'Props' circularly references itself.
-type Props = OwnProps & typeof BookSvg.defaultProps;
-
-// @ts-expect-error ts-migrate(7022) FIXME: 'BookSvg' implicitly has type 'any' because it doe... Remove this comment to see the full error message
-const BookSvg = ({ fill = "black", className }: Props) => (
+const BookSvg = ({ fill = "black", className = "" }: BookSVGProps) => (
   <svg
     width="99"
     height="118"
@@ -33,10 +28,5 @@ const BookSvg = ({ fill = "black", className }: Props) => (
     />
   </svg>
 );
-
-BookSvg.defaultProps = {
-  className: "",
-  fill: "black",
-};
 
 export default BookSvg;

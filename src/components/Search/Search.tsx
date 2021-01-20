@@ -14,8 +14,16 @@ import { toLocationQuery } from "~/src/util/SearchUtils";
 import { toApiQuery } from "~/src/util/apiConversion";
 import Filters from "../ResultsFilters/ResultsFilters";
 import ResultsSorts from "../ResultsSorts/ResultsSorts";
-import { initialSearchQuery } from "~/src/stores/InitialState";
+import { initialSearchQuery } from "~/src/constants/InitialState";
 import { breadcrumbTitles } from "~/src/constants/labels";
+
+function usePrevious(value) {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
+}
 
 const SearchResults: React.FC<{
   searchQuery: SearchQuery;
@@ -63,32 +71,6 @@ const SearchResults: React.FC<{
       queries: props.searchQuery.queries,
     });
   }, [props.searchQuery.queries]);
-
-  // The filter form should submit whenever filters change.
-  useEffect(() => {
-    console.log("filter changed");
-
-    if (filterForm.current) {
-      //If a filter form is mounted then update it.
-      submitForm(filterForm.current);
-    }
-  }, [searchQuery.filterYears, searchQuery.filters, searchQuery.showAll]);
-
-  // The Sorts form should submit whenever the sorts or perpage changes.
-  useEffect(() => {
-    console.log("sorts changed");
-    if (sortForm.current) {
-      submitForm(sortForm.current);
-    }
-  }, [searchQuery.perPage, searchQuery.sort]);
-
-  // Because everything, from filters to pagination, is done on the server side
-  // All changes require a new search submit.
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    sendSearchQuery(searchQuery);
-  };
 
   const sendSearchQuery = async (searchQuery: SearchQuery) => {
     router.push({
@@ -168,6 +150,7 @@ const SearchResults: React.FC<{
       ...(newDateRange && { filterYears: newDateRange }),
     };
     setSearchQuery(newSearchQuery);
+    sendSearchQuery(newSearchQuery);
   };
 
   const changeShowAll = (showAll: boolean) => {
@@ -176,6 +159,7 @@ const SearchResults: React.FC<{
       showAll: showAll,
     };
     setSearchQuery(newSearchQuery);
+    sendSearchQuery(newSearchQuery);
   };
 
   const onChangePerPage = (e) => {
@@ -183,12 +167,13 @@ const SearchResults: React.FC<{
     const newPage = 0;
     const newPerPage = e.target.value;
     if (newPerPage !== searchQuery.perPage) {
-      const newQuery: SearchQuery = Object.assign({}, searchQuery, {
+      const newSearchQuery: SearchQuery = Object.assign({}, searchQuery, {
         page: newPage,
         perPage: newPerPage,
         total: numberOfWorks || 0,
       });
-      setSearchQuery(newQuery);
+      setSearchQuery(newSearchQuery);
+      sendSearchQuery(newSearchQuery);
     }
   };
 
@@ -199,21 +184,22 @@ const SearchResults: React.FC<{
       e.target.value !==
       Object.keys(sortMap).find((key) => sortMap[key] === searchQuery.sort)
     ) {
-      const newQuery: SearchQuery = Object.assign({}, searchQuery, {
+      const newSearchQuery: SearchQuery = Object.assign({}, searchQuery, {
         sort: sortMap[e.target.value],
         page: 0,
       });
-      setSearchQuery(newQuery);
+      setSearchQuery(newSearchQuery);
+      sendSearchQuery(newSearchQuery);
     }
   };
 
   const onPageChange = (select: number) => {
     console.log("select", select);
-    const newQuery: SearchQuery = Object.assign({}, searchQuery, {
+    const newSearchQuery: SearchQuery = Object.assign({}, searchQuery, {
       page: select,
     });
-    setSearchQuery(newQuery);
-    sendSearchQuery(newQuery);
+    setSearchQuery(newSearchQuery);
+    sendSearchQuery(newSearchQuery);
   };
 
   return (
@@ -265,9 +251,6 @@ const SearchResults: React.FC<{
             <form
               name="sortForm"
               ref={sortForm}
-              onSubmit={(e) => {
-                handleSubmit(e);
-              }}
             >
               <ResultsSorts
                 perPage={searchQuery.perPage}
@@ -302,9 +285,6 @@ const SearchResults: React.FC<{
       {!isMobile && (
         <form
           ref={filterForm}
-          onSubmit={(e) => {
-            handleSubmit(e);
-          }}
         >
           <DS.Heading level={2} id="filter-desktop-header">
             Refine Results
@@ -345,9 +325,6 @@ const SearchResults: React.FC<{
           <form
             name="filterForm"
             ref={filterForm}
-            onSubmit={(e) => {
-              handleSubmit(e);
-            }}
           >
             <div className="search-dropdowns__mobile">
               <DS.Label htmlFor="items-per-page" id="per-page-label">

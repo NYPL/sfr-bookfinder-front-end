@@ -20,6 +20,7 @@ module.exports = {
     "react-hooks",
   ],
   extends: [
+    "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
@@ -65,7 +66,7 @@ module.exports = {
     "@typescript-eslint/no-explicit-any": 0,
     "@typescript-eslint/no-var-requires": 0,
     // Disable this rule because server API uses a lot of snake_case
-    camelcase: "never",
+    camelcase: 0,
     "@typescript-eslint/camelcase": 0,
     "@typescript-eslint/prefer-namespace-keyword": "error",
     eqeqeq: ["error", "smart"],

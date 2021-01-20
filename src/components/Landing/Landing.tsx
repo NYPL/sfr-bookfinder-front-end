@@ -1,5 +1,4 @@
 import React from "react";
-import { useRouter } from "next/router";
 import * as DS from "@nypl/design-system-react-components";
 import FeatureFlags from "dgx-feature-flags";
 import SearchForm from "~/src/components/SearchForm/SearchForm";
@@ -11,8 +10,6 @@ import Link from "~/src/components/Link/Link";
 import { breadcrumbTitles } from "~/src/constants/labels";
 
 const LandingPage: React.FC<any> = () => {
-  const router = useRouter();
-
   return (
     <main className="main">
       <div className="content-header">
@@ -53,7 +50,7 @@ const LandingPage: React.FC<any> = () => {
           // eslint-disable-next-line no-underscore-dangle
           FeatureFlags.store._isFeatureActive(
             config.booksCount.experimentName
-          ) && <TotalWorks />
+          ) && <TotalWorks totalWorks={0} />
         }
       </div>
       <div className="content-primary search-examples">
@@ -64,7 +61,7 @@ const LandingPage: React.FC<any> = () => {
           id="subject-list"
           modifiers={["no-list-styling"]}
         >
-          {Subjects.map((sub: any, idx: any) => (
+          {Subjects.map((sub: any) => (
             <li key={`subject-link-${sub.url}`}>
               <DS.Link>
                 <Link to={sub.url}>{sub.text}</Link>

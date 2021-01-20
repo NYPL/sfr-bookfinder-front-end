@@ -1,6 +1,4 @@
-import {
-  ApiWork,
-} from "./DataModel";
+import { ApiWork } from "./DataModel";
 
 export type WorkQuery = {
   identifier: string;

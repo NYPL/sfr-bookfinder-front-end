@@ -3,11 +3,9 @@ import Link from "~/src/components/Link/Link";
 
 import * as DS from "@nypl/design-system-react-components";
 
-import {
-  EditionCard,
-  EditionCardUtils,
-} from "~/src/components/EditionCard/EditionCard";
+import { EditionCard } from "~/src/components/EditionCard/EditionCard";
 import { ApiWork } from "~/src/types/DataModel";
+import EditionCardUtils from "~/src/util/EditionCardUtils";
 
 export const getEditionsLinkElement = (result: any) =>
   result.edition_count > 1 ? (

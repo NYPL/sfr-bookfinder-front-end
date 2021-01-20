@@ -1,7 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
 import * as DS from "@nypl/design-system-react-components";
-import Breadcrumbs from "~/src/components/Breadcrumbs/Breadcrumbs";
 import { joinArrayOfElements } from "~/src/util/Util";
 import {
   EditionCard,
@@ -131,7 +130,7 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
                   modifiers={["no-list-styling"]}
                 >
                   {work.editions.map((edition) => (
-                    <li>
+                    <li key={edition.id}>
                       <EditionCard edition={edition}></EditionCard>
                     </li>
                   ))}

@@ -1,33 +1,4 @@
-import appConfig from "~/config/appConfig";
-import { initialSearchQuery } from "../stores/InitialState";
-import {
-  ApiSearchQuery,
-  SearchQuery,
-  Query,
-  Filter,
-  Sort,
-  ApiFilter,
-} from "../types/SearchQuery";
-import {
-  toApiFilters,
-  toApiQuery,
-  toFilters,
-  toFilterYears,
-} from "./apiConversion";
-import {
-  findFiltersExceptField,
-  findFiltersForField,
-} from "./SearchQueryUtils";
-
-//TODO env variables
-const appEnv = "development";
-const apiUrl = appConfig.api[appEnv];
-const { searchPath, recordPath, editionPath } = appConfig.api;
-const totalWorksPath = appConfig.booksCount.apiUrl;
-const searchUrl = apiUrl + searchPath[appEnv];
-const recordUrl = apiUrl + recordPath;
-const editionUrl = apiUrl + editionPath;
-const totalWorksUrl = apiUrl + totalWorksPath;
+import { ApiSearchQuery, Query, Sort, ApiFilter } from "../types/SearchQuery";
 
 const initialApiQuery: ApiSearchQuery = {
   queries: [],

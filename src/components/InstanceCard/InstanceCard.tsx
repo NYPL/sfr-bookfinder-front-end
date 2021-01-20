@@ -1,7 +1,9 @@
+import React from "react";
+
 import { Instance } from "~/src/types/DataModel";
-import { EditionCardUtils } from "../EditionCard/EditionCard";
 import * as DS from "@nypl/design-system-react-components";
 import Link from "../Link/Link";
+import EditionCardUtils from "~/src/util/EditionCardUtils";
 
 // Creates an Instance card out of the Edition Year and Instance object
 // Note: Edition Year only needs to be passed because `instance.publication_date`

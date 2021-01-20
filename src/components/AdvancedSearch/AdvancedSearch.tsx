@@ -17,7 +17,7 @@ import {
   initialApiSearchQuery,
   initialSearchQuery,
   searchQueryPropTypes,
-} from "~/src/stores/InitialState";
+} from "~/src/constants/InitialState";
 import {
   inputTerms,
   formatTypes,

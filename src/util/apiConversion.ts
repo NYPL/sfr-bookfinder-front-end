@@ -1,6 +1,6 @@
 /** Converts API responses to internal types */
 
-import { initialSearchQuery } from "../stores/InitialState";
+import { initialSearchQuery } from "../constants/InitialState";
 import {
   ApiFilter,
   ApiSearchQuery,

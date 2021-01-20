@@ -1,8 +1,6 @@
 import {
-  ApiSearchQuery,
   Filter,
   Query,
-  SearchQuery,
 } from "../types/SearchQuery";
 
 export const getQueryString = (query: any) =>

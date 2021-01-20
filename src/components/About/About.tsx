@@ -34,15 +34,10 @@ const About: React.FC<{}> = () => {
             All the materials in Digital Research Books Beta are completely free
             to read and most of them you can download and keep, with no library
             card required. The books are either in the{" "}
-            <Link to="/license">
-              <a>public domain</a>
-            </Link>
-            , with no restrictions on your use of them, or under{" "}
-            <Link to="/license">
-              <a>Creative Commons licences</a>
-            </Link>{" "}
-            that may have some conditions, but only on redistribution or
-            adaptation.
+            <Link to="/license">public domain</Link>, with no restrictions on
+            your use of them, or under{" "}
+            <Link to="/license">Creative Commons licences</Link> that may have
+            some conditions, but only on redistribution or adaptation.
           </p>
 
           <p>
@@ -51,9 +46,7 @@ const About: React.FC<{}> = () => {
             there are many editions of{" "}
             <DS.Link>
               <Link to="/work/e34d73df-f32b-49e1-8fdf-151db2a7806a">
-                <a>
-                  Mary Wollstonecraft’s A Vindication of the Rights of Woman
-                </a>
+                Mary Wollstonecraft’s A Vindication of the Rights of Woman
               </Link>
             </DS.Link>
             , many of them available digitally. We group them all together under
