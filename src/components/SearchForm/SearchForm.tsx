@@ -60,7 +60,7 @@ const SearchForm: React.FC<any> = (initialQuery: SearchQuery) => {
 
   const getSearchOptions = (fields) => {
     return fields.map((field) => {
-      return <option key={field}>{field}</option>;
+      return <option key={`search-type-${field}`}>{field}</option>;
     });
   };
 

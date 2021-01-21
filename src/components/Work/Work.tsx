@@ -2,15 +2,13 @@ import React from "react";
 import { useRouter } from "next/router";
 import * as DS from "@nypl/design-system-react-components";
 import { joinArrayOfElements } from "~/src/util/Util";
-import {
-  EditionCard,
-  EditionCardUtils,
-} from "~/src/components/EditionCard/EditionCard";
+import { EditionCard } from "~/src/components/EditionCard/EditionCard";
 import WorkDetailDefinitionList from "~/src/components/Detail/WorkDetailDefinitionList";
-import { WorkQuery, WorkResult } from "~/src/types/WorkQuery";
+import { WorkResult } from "~/src/types/WorkQuery";
 import { ApiWork } from "~/src/types/DataModel";
 import SearchForm from "../SearchForm/SearchForm";
 import { breadcrumbTitles } from "~/src/constants/labels";
+import EditionCardUtils from "~/src/util/EditionCardUtils";
 
 //TODO: Scroll to hash removed, needs to be re-added
 // const scrollToHash = (hash) => {

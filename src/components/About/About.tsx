@@ -3,7 +3,7 @@ import * as DS from "@nypl/design-system-react-components";
 import Link from "~/src/components/Link/Link";
 import { breadcrumbTitles } from "~/src/constants/labels";
 
-const About: React.FC<{}> = () => {
+const About: React.FC = () => {
   return (
     <div className="layout-container">
       <main className="main">

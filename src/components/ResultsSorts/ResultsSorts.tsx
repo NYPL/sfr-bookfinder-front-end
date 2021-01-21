@@ -26,7 +26,7 @@ const ResultsSorts: React.FC<{
         onBlur={(e) => onChangePerPage(e)}
       >
         {numbersPerPage.map((pageNum: string) => {
-          return <option key={pageNum}>{pageNum}</option>;
+          return <option key={`per-page-${pageNum}`}>{pageNum}</option>;
         })}
       </DS.Select>
       <DS.Label htmlFor="items-sort-by" id="sort-by-label">
@@ -45,7 +45,9 @@ const ResultsSorts: React.FC<{
         onBlur={(e) => onChangeSort(e)}
       >
         {Object.keys(sortMap).map((sortOption: string) => {
-          return <option key={sortOption}>{sortOption}</option>;
+          return (
+            <option key={`sort-option-${sortOption}`}>{sortOption}</option>
+          );
         })}
       </DS.Select>
     </fieldset>
