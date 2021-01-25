@@ -1,6 +1,6 @@
-import { FacetItem, Language } from "~/src/types/DataModel";
+import { FacetItem } from "~/src/types/DataModel";
 import * as DS from "@nypl/design-system-react-components";
-import React, { useState } from "react";
+import React from "react";
 import { Filter } from "~/src/types/SearchQuery";
 
 // An Accordion of languages

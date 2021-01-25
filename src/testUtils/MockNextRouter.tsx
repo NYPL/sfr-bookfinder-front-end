@@ -2,7 +2,6 @@ import * as React from "react";
 import Router from "next/router";
 import { RouterContext } from "next/dist/next-server/lib/router-context";
 import { NextRouter } from "next/router";
-import { libraryData } from "test-utils/fixtures";
 
 /**
  * Mock for the next/Router import.

@@ -5,4 +5,7 @@ module.exports = {
   moduleNameMapper: {
     "^~(.*)$": "<rootDir>$1",
   },
+  setupFilesAfterEnv: ["./setupTests.js"],
+  snapshotSerializers: ["enzyme-to-json/serializer"],
+  resetMocks: true,
 };

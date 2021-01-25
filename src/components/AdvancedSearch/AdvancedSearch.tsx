@@ -1,37 +1,19 @@
-import React, { useState, useRef } from "react";
-import PropTypes from "prop-types";
-import axios from "axios";
-import Select from "react-select";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { useRouter, withRouter } from "next/router";
+import React, { useState } from "react";
+import { useRouter } from "next/router";
 
-import appConfig from "~/config/appConfig";
 import {
   findFiltersForField,
   findFiltersExceptField,
   findQueryForField,
-  getQueryString,
 } from "~/src/util/SearchQueryUtils";
-import {
-  initialApiSearchQuery,
-  initialSearchQuery,
-  searchQueryPropTypes,
-} from "~/src/constants/InitialState";
+import { initialSearchQuery } from "~/src/constants/InitialState";
 import {
   inputTerms,
-  formatTypes,
   errorMessagesText,
   breadcrumbTitles,
 } from "~/src/constants/labels";
 import FilterYears from "~/src/components/FilterYears/FilterYears";
-import { searchFields } from "~/src/constants/fields";
-import {
-  ApiSearchQuery,
-  Filter,
-  Query,
-  SearchQuery,
-} from "~/src/types/SearchQuery";
+import { SearchQuery, SearchQueryDefaults } from "~/src/types/SearchQuery";
 
 import * as DS from "@nypl/design-system-react-components";
 import LanguageAccordion from "../LanguageAccordion/LanguageAccordion";
@@ -46,9 +28,10 @@ const AdvancedSearch: React.FC<{
 }> = (props) => {
   const { languages } = props;
   const router = useRouter();
-  const [searchQuery, setSearchQuery] = useState(
-    props.searchQuery ? props.searchQuery : initialSearchQuery
-  );
+  const [searchQuery, setSearchQuery] = useState({
+    ...SearchQueryDefaults,
+    ...props.searchQuery,
+  });
   const [emptySearchError, setEmptySearchError] = useState("");
   const [dateRangeError, setDateRangeError] = useState("");
 
@@ -56,24 +39,26 @@ const AdvancedSearch: React.FC<{
     e.preventDefault();
     if (!searchQuery.queries || searchQuery.queries.length < 1) {
       setEmptySearchError(errorMessagesText.emptySearch);
+      return;
     } else {
       setEmptySearchError("");
     }
 
-    if (searchQuery.filterYears.end > searchQuery.filterYears.start) {
+    if (searchQuery.filterYears.end < searchQuery.filterYears.start) {
       setDateRangeError(errorMessagesText.invalidDate);
+      return;
     } else {
       setDateRangeError("");
     }
 
-    if (!emptySearchError && !dateRangeError) {
-      router.push({
-        pathname: "/search",
-        query: toLocationQuery(toApiQuery(searchQuery)),
-      });
-    } else {
-      return;
-    }
+    router.push({
+      pathname: "/search",
+      query: toLocationQuery(toApiQuery(searchQuery)),
+    });
+  };
+
+  const clearSearch = () => {
+    setSearchQuery(initialSearchQuery);
   };
 
   const onQueryChange = (e, queryKey) => {
@@ -161,12 +146,6 @@ const AdvancedSearch: React.FC<{
           onSubmit={(e) => {
             submit(e);
           }}
-          onKeyPress={(event) => {
-            if (event.keyCode === 13) {
-              // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
-              this.submitSearchRequest();
-            }
-          }}
         >
           {emptySearchError && (
             <DS.HelperErrorText isError={true}>
@@ -205,15 +184,17 @@ const AdvancedSearch: React.FC<{
               );
             })}
           </fieldset>
-          <LanguageAccordion
-            languages={languages}
-            showCount={false}
-            selectedLanguages={findFiltersForField(
-              searchQuery.filters,
-              "language"
-            )}
-            onLanguageChange={(e, language) => onLanguageChange(e, language)}
-          />
+          {languages.length > 0 && (
+            <LanguageAccordion
+              languages={languages}
+              showCount={false}
+              selectedLanguages={findFiltersForField(
+                searchQuery.filters,
+                "language"
+              )}
+              onLanguageChange={(e, language) => onLanguageChange(e, language)}
+            />
+          )}
           <FilterYears
             dateFilters={searchQuery.filterYears}
             onDateChange={(e, isStart) => {
@@ -237,6 +218,7 @@ const AdvancedSearch: React.FC<{
             id="clear-button"
             buttonType={DS.ButtonTypes.Secondary}
             type="reset"
+            onClick={() => clearSearch()}
           >
             Clear
           </DS.Button>

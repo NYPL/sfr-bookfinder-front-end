@@ -1,0 +1,135 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders Landing page correctly 1`] = `
+<main
+  className="main"
+>
+  <div
+    className="content-header"
+  >
+    <Breadcrumbs
+      breadcrumbs={
+        Array [
+          Object {
+            "text": "Digital Research Books Beta",
+            "url": "/",
+          },
+        ]
+      }
+    />
+    <div
+      aria-label="Digital Research Books Beta"
+      className="main-promo"
+    >
+      <Hero
+        heading={
+          <Heading
+            blockName="hero"
+            id="1"
+            level={1}
+            text="Digital Research Books Beta"
+          />
+        }
+        heroType="SECONDARY"
+        subHeaderText={
+          <div
+            className="hero__body-text"
+          >
+            Find millions of digital books for research from multiple sources world-wide--all free to read, download, and keep. No library card required. This is an early beta test, so we want your feedback!
+             
+            <Link>
+              <ForwardRef
+                to="/about"
+              >
+                <React.Fragment>
+                  Read more about the project
+                </React.Fragment>
+              </ForwardRef>
+            </Link>
+            .
+          </div>
+        }
+      />
+    </div>
+  </div>
+  <div
+    className="content-primary"
+  >
+    <SearchForm />
+  </div>
+  <div
+    className="content-primary search-examples"
+  >
+    <Heading
+      level={2}
+    >
+      Search Examples
+    </Heading>
+    <List
+      id="subject-list"
+      modifiers={
+        Array [
+          "no-list-styling",
+        ]
+      }
+      type="ul"
+    >
+      <li
+        key="subject-link-/search?queries=[{\\"query\\"%3A\\"Sub-Saharan Africa\\"%2C\\"field\\"%3A\\"subject\\"}]"
+      >
+        <Link>
+          <ForwardRef
+            to="/search?queries=[{\\"query\\"%3A\\"Sub-Saharan Africa\\"%2C\\"field\\"%3A\\"subject\\"}]"
+          >
+            Subject: Sub-saharan Africa
+          </ForwardRef>
+        </Link>
+      </li>
+      <li
+        key="subject-link-/search?showQueries=[{\\"query\\"%3A\\"Climate Change\\"%2C\\"field\\"%3A\\"keyword\\"}]"
+      >
+        <Link>
+          <ForwardRef
+            to="/search?showQueries=[{\\"query\\"%3A\\"Climate Change\\"%2C\\"field\\"%3A\\"keyword\\"}]"
+          >
+            Keyword: climate change
+          </ForwardRef>
+        </Link>
+      </li>
+      <li
+        key="subject-link-/search?showQueries=[{\\"query\\"%3A\\"New York City\\"%2C\\"field\\"%3A\\"title\\"}]"
+      >
+        <Link>
+          <ForwardRef
+            to="/search?showQueries=[{\\"query\\"%3A\\"New York City\\"%2C\\"field\\"%3A\\"title\\"}]"
+          >
+            Title: New York City
+          </ForwardRef>
+        </Link>
+      </li>
+      <li
+        key="subject-link-/search?queries=[{\\"query\\"%3A\\"Corellli%2C Marie\\"%2C\\"field\\"%3A\\"author\\"}]"
+      >
+        <Link>
+          <ForwardRef
+            to="/search?queries=[{\\"query\\"%3A\\"Corellli%2C Marie\\"%2C\\"field\\"%3A\\"author\\"}]"
+          >
+            Author: Corelli, Marie
+          </ForwardRef>
+        </Link>
+      </li>
+      <li
+        key="subject-link-/search?queries=[{\\"query\\"%3A\\"cookbooks\\"%2C\\"field\\"%3A\\"keyword\\"}]"
+      >
+        <Link>
+          <ForwardRef
+            to="/search?queries=[{\\"query\\"%3A\\"cookbooks\\"%2C\\"field\\"%3A\\"keyword\\"}]"
+          >
+            Keyword: cookbooks
+          </ForwardRef>
+        </Link>
+      </li>
+    </List>
+  </div>
+</main>
+`;

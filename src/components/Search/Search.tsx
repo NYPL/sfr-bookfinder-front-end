@@ -4,7 +4,12 @@ import { useRouter } from "next/router";
 import { searchFields } from "~/src/constants/fields";
 import { ApiSearchResult, ApiWork, FacetItem } from "~/src/types/DataModel";
 import { deepEqual, getNumberOfPages } from "~/src/util/Util";
-import { DateRange, Filter, SearchQuery } from "~/src/types/SearchQuery";
+import {
+  DateRange,
+  Filter,
+  SearchQuery,
+  SearchQueryDefaults,
+} from "~/src/types/SearchQuery";
 import { sortMap, numbersPerPage } from "~/src/constants/sorts";
 import ResultsList from "../SearchResults/ResultsList";
 import { searchResultsFetcher } from "~/src/lib/api/SearchApi";
@@ -17,19 +22,14 @@ import ResultsSorts from "../ResultsSorts/ResultsSorts";
 import { initialSearchQuery } from "~/src/constants/InitialState";
 import { breadcrumbTitles } from "~/src/constants/labels";
 
-function usePrevious(value) {
-  const ref = useRef();
-  useEffect(() => {
-    ref.current = value;
-  });
-  return ref.current;
-}
-
 const SearchResults: React.FC<{
   searchQuery: SearchQuery;
   searchResults: ApiSearchResult;
 }> = (props) => {
-  const [searchQuery, setSearchQuery] = useState(props.searchQuery);
+  const [searchQuery, setSearchQuery] = useState({
+    ...props.searchQuery,
+    ...SearchQueryDefaults,
+  });
   const [searchResults, setSearchResults] = useState(props.searchResults);
 
   const [isMobile, setMobile] = useState(false);
@@ -134,15 +134,6 @@ const SearchResults: React.FC<{
     lastElement = numberOfWorks;
   }
 
-  //TODO: requestSubmit doesn't work in Safari
-  const submitForm = (form: HTMLFormElement) => {
-    if (form.requestSubmit) {
-      form.requestSubmit();
-    } else {
-      form.submit();
-    }
-  };
-
   const changeFilters = (newFilters?: Filter[], newDateRange?: DateRange) => {
     const newSearchQuery: SearchQuery = {
       ...searchQuery,
@@ -203,7 +194,7 @@ const SearchResults: React.FC<{
   };
 
   return (
-    <main id="mainContent" className="main main--with-sidebar">
+    <main className="main main--with-sidebar">
       <div className="content-header">
         <DS.Breadcrumbs
           breadcrumbs={[{ url: "/", text: breadcrumbTitles.home }]}
@@ -248,10 +239,7 @@ const SearchResults: React.FC<{
             </DS.Heading>
           )}
           {!isMobile && (
-            <form
-              name="sortForm"
-              ref={sortForm}
-            >
+            <form name="sortForm" ref={sortForm}>
               <ResultsSorts
                 perPage={searchQuery.perPage}
                 sort={searchQuery.sort}
@@ -283,9 +271,7 @@ const SearchResults: React.FC<{
       </div>
 
       {!isMobile && (
-        <form
-          ref={filterForm}
-        >
+        <form ref={filterForm}>
           <DS.Heading level={2} id="filter-desktop-header">
             Refine Results
           </DS.Heading>
@@ -322,10 +308,7 @@ const SearchResults: React.FC<{
               onChangeSort={(e) => onChangeSort(e)}
             />
           </div>
-          <form
-            name="filterForm"
-            ref={filterForm}
-          >
+          <form name="filterForm" ref={filterForm}>
             <div className="search-dropdowns__mobile">
               <DS.Label htmlFor="items-per-page" id="per-page-label">
                 Items Per Page
@@ -340,8 +323,12 @@ const SearchResults: React.FC<{
                 onChange={(e) => onChangePerPage(e)}
                 onBlur={(e) => onChangePerPage(e)}
               >
-                {numbersPerPage.map((number: string) => {
-                  return <option>{number}</option>;
+                {numbersPerPage.map((perPage: string) => {
+                  return (
+                    <option key={`per-page-option-${perPage}`}>
+                      {perPage}
+                    </option>
+                  );
                 })}
               </DS.Select>
 
@@ -361,7 +348,11 @@ const SearchResults: React.FC<{
                 onBlur={(e) => onChangeSort(e)}
               >
                 {Object.keys(sortMap).map((sortOption: string) => {
-                  return <option>{sortOption}</option>;
+                  return (
+                    <option key={`sort-option-${sortOption}`}>
+                      {sortOption}
+                    </option>
+                  );
                 })}
               </DS.Select>
             </div>

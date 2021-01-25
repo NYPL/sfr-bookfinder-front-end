@@ -25,6 +25,6 @@
     "**/*.ts",
     "**/*.tsx",
     "next.config.js"
-, "src/__tests__/index.test.jsx", "src/components/Citations/CitationFormat.test", "src/components/RequestDigital/RequestDigital.test.jsx", "src/components/Citations/APACitation.test.jsx", "src/components/ResultsFilters/Filters.test.jsx", "src/components/Loading/Loading.test.jsx", "src/components/Landing/LandingPage.test.jsx", "src/components/FilterYears/FilterYears.test.jsx", "src/components/Feedback/Feedback.test.jsx", "src/components/EditionCard/EditionCard.test.jsx", "src/components/EditionDetail/EditionDetail.test.jsx", "src/components/AdvancedSearch/AdvancedSearch.test.jsx", "src/components/About/About.test.jsx", "src/__tests__/unit/Query.test.js", "src/__tests__/unit/InstancesList.test.jsx", "src/__tests__/unit/EditionsList.test.jsx", "src/__tests__/unit/EditionDetailDefinitionList.test.jsx", "src/__tests__/unit/Application.test.jsx", "src/__tests__/helpers/routing.js", "src/__tests__/helpers/browser.js"  ],
-  "exclude": ["node_modules", "jest.config.js"]
+  ],
+  "exclude": ["node_modules", "jest.config.js", "setupTests.js"]
 }

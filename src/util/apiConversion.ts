@@ -1,6 +1,5 @@
 /** Converts API responses to internal types */
 
-import { initialSearchQuery } from "../constants/InitialState";
 import {
   ApiFilter,
   ApiSearchQuery,
@@ -10,15 +9,73 @@ import {
   Sort,
 } from "../types/SearchQuery";
 
+/**
+ * Takes an object of type `ApiSearchQuery` and returns a `SearchQuery` object.
+ * This function does not add defaults if they are not passed.
+ *
+ * @param apiQuery
+ */
 export const toSearchQuery = (apiQuery: ApiSearchQuery): SearchQuery => {
+  if (!apiQuery.queries || apiQuery.queries.length < 1) {
+    throw new Error("Mising param `queries` in search request ");
+  }
+  const toFilterYears = (apiFilters: ApiFilter[]): DateRange => {
+    const yearFilters = apiFilters.filter((filter) => {
+      return filter.field === "years";
+    });
+    if (!yearFilters || yearFilters.length < 1) {
+      return {
+        start: null,
+        end: null,
+      };
+    }
+
+    const yearFilter = yearFilters[0];
+    return {
+      start: yearFilter.value.start ? +yearFilter.value.start : undefined,
+      end: yearFilter.value.end ? +yearFilter.value.end : undefined,
+    };
+  };
+
+  // The front end only sorts by the first Sort.
+  const toSorts = (sort: any): Sort => {
+    if (sort.length > 0) {
+      return {
+        field: sort[0].field,
+        dir: sort[0].dir,
+      };
+    }
+  };
+
+  const toShowAll = (apiFilters: ApiFilter[]): boolean => {
+    const showAllFilters = apiFilters.filter((apiFilter) => {
+      return apiFilter.field === "show_all";
+    });
+
+    return showAllFilters && showAllFilters[0]
+      ? showAllFilters[0].value
+      : false;
+  };
+
+  const toFilters = (apiFilters: ApiFilter[]): Filter[] => {
+    return apiFilters.filter((apiFilter) => {
+      return apiFilter.field !== "years" && apiFilter.field !== "show_all";
+    });
+  };
+
+  const showAll = apiQuery.filters && toShowAll(apiQuery.filters);
+  const filters = apiQuery.filters && toFilters(apiQuery.filters);
+  const filterYears = apiQuery.filters && toFilterYears(apiQuery.filters);
+  const sorts = apiQuery.sort && toSorts(apiQuery.sort);
+
   return {
     queries: apiQuery.queries,
-    filters: toFilters(apiQuery.filters),
-    filterYears: toFilterYears(apiQuery.filters),
-    page: apiQuery.page,
-    perPage: apiQuery.per_page,
-    sort: toSorts(apiQuery.sort),
-    showAll: toShowAll(apiQuery.filters),
+    ...(filters && { filters: filters }),
+    ...(filterYears && { filterYears: filterYears }),
+    ...(typeof apiQuery.page !== undefined && { page: apiQuery.page }),
+    ...(apiQuery.per_page && { perPage: apiQuery.per_page }),
+    ...(sorts && { sort: sorts }),
+    ...(typeof showAll !== undefined && { showAll: showAll }),
   };
 };
 
@@ -31,117 +88,69 @@ export const toSearchQuery = (apiQuery: ApiSearchQuery): SearchQuery => {
  * @param searchQuery
  */
 export const toApiQuery = (searchQuery: SearchQuery): ApiSearchQuery => {
+  if (!searchQuery.queries || searchQuery.queries.length < 1) {
+    throw new Error("cannot convert searchQuery with no queries");
+  }
+  const toApiSorts = (sort: Sort): [] | Sort[] => {
+    if (sort.field === "relevance") {
+      return [];
+    } else {
+      return [sort];
+    }
+  };
+
+  const toApiFilters = (
+    filters: Filter[],
+    yearFilters: DateRange,
+    showAll: boolean
+  ): ApiFilter[] => {
+    const apiFilters: ApiFilter[] = filters
+      ? filters.map((filter) => {
+          return {
+            field: filter.field,
+            value: filter.value,
+          };
+        })
+      : [];
+
+    if (yearFilters && (yearFilters.start || yearFilters.end)) {
+      apiFilters.push({
+        field: "years",
+        value: {
+          start: yearFilters.start ? yearFilters.start : "",
+          end: yearFilters.end ? yearFilters.end : "",
+        },
+      });
+    }
+
+    if (showAll !== undefined) {
+      apiFilters.push({
+        field: "show_all",
+        value: showAll,
+      });
+    }
+    return apiFilters;
+  };
+
   const filters = toApiFilters(
     searchQuery.filters,
     searchQuery.filterYears,
     searchQuery.showAll
   );
-
-  const sorts = toApiSorts(searchQuery.sort);
-
   return {
     queries: searchQuery.queries,
-    ...(filters.length && {
-      filters: filters,
-    }),
-    ...(searchQuery.page !== initialSearchQuery.page && {
+    ...(filters &&
+      filters.length > 0 && {
+        filters: filters,
+      }),
+    ...(searchQuery.page && {
       page: searchQuery.page,
     }),
-    ...(searchQuery.perPage !== initialSearchQuery.perPage && {
+    ...(searchQuery.perPage && {
       per_page: searchQuery.perPage,
     }),
-    ...(searchQuery.sort !== initialSearchQuery.sort && {
-      sort: sorts,
+    ...(searchQuery.sort && {
+      sort: searchQuery.sort && toApiSorts(searchQuery.sort),
     }),
   };
-};
-
-export const toApiFilters = (
-  filters: Filter[],
-  yearFilters: DateRange,
-  showAll: boolean
-): ApiFilter[] => {
-  const apiFilters: ApiFilter[] = filters.map((filter) => {
-    return {
-      field: filter.field,
-      value: filter.value,
-    };
-  });
-
-  if (yearFilters && (yearFilters.start || yearFilters.end)) {
-    apiFilters.push({
-      field: "years",
-      value: {
-        start: yearFilters.start ? yearFilters.start : "",
-        end: yearFilters.end ? yearFilters.end : "",
-      },
-    });
-  }
-
-  apiFilters.push({
-    field: "show_all",
-    value: showAll,
-  });
-
-  return apiFilters;
-};
-
-export const toFilters = (apiFilters: ApiFilter[]): Filter[] => {
-  return apiFilters.filter((apiFilter) => {
-    return apiFilter.field !== "years" && apiFilter.field !== "show_all";
-  });
-};
-
-export const toShowAll = (apiFilters: ApiFilter[]): boolean => {
-  const showAllFilters = apiFilters.filter((apiFilter) => {
-    return apiFilter.field === "show_all";
-  });
-
-  //TODO: error handling Check if there is more than one show_all filter
-
-  return showAllFilters && showAllFilters[0] ? showAllFilters[0].value : false;
-};
-
-export const toApiSorts = (sort: Sort): [] | Sort[] => {
-  if (sort.field === "relevance") {
-    return [];
-  } else {
-    return [sort];
-  }
-};
-
-// The front end only sorts by the first Sort.
-export const toSorts = (sort: any): Sort => {
-  if (sort.length > 0) {
-    return {
-      field: sort[0].field,
-      dir: sort[0].dir,
-    };
-  } else {
-    return {
-      field: "relevance",
-      dir: "DESC",
-    };
-  }
-};
-
-export const toFilterYears = (apiFilters: ApiFilter[]): DateRange => {
-  const yearFilters = apiFilters.filter((filter) => {
-    return filter.field === "years";
-  });
-  if (!yearFilters || yearFilters.length < 1) {
-    return {
-      start: null,
-      end: null,
-    };
-  }
-  if (yearFilters.length > 1) {
-    throw new Error("There should only be one set of year filters");
-  } else {
-    const yearFilter = yearFilters[0];
-    return {
-      start: yearFilter.value.start ? yearFilter.value.start : "",
-      end: yearFilter.value.end ? yearFilter.value.end : "",
-    };
-  }
 };

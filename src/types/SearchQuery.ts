@@ -42,17 +42,27 @@ export type Filter = {
 };
 
 export type DateRange = {
-  start: number;
-  end: number;
+  start: number | "";
+  end: number | "";
 };
 
 export type SearchQuery = {
-  filters: Filter[];
-  filterYears: DateRange;
-  page: number;
-  perPage: number;
-  queries: Query[];
+  filters?: Filter[];
+  filterYears?: DateRange;
+  page?: number;
+  perPage?: number;
+  queries?: Query[];
   // While the API supports sorting by multiple parameters, the front end only supports one parameter
-  sort: Sort;
-  showAll: boolean;
+  sort?: Sort;
+  showAll?: boolean;
+};
+
+export const SearchQueryDefaults: SearchQuery = {
+  filters: [],
+  filterYears: undefined,
+  page: 0,
+  perPage: 10,
+  queries: [],
+  sort: { field: "relevance", dir: "DESC" },
+  showAll: true,
 };

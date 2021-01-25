@@ -1,35 +1,7 @@
-import React, { useState } from "react";
-import {
-  initialApiSearchQuery,
-  searchQueryPropTypes,
-} from "../../constants/InitialState";
+import React from "react";
 import * as DS from "@nypl/design-system-react-components";
 
-import { yearsType, errorMessagesText } from "../../constants/labels";
-import { DateRange, Filter } from "~/src/types/SearchQuery";
-
-const ConditionalFormWrapper: React.FC<{
-  condition: boolean;
-  dateRangeError?: string;
-  submitCallback: (event: React.FormEvent<HTMLFormElement>) => void;
-}> = ({ condition, dateRangeError, submitCallback, children }) => {
-  if (condition) {
-    return (
-      <form onSubmit={submitCallback}>
-        {children}
-        {dateRangeError && (
-          <DS.HelperErrorText isError={true}>
-            {dateRangeError}
-          </DS.HelperErrorText>
-        )}
-        <DS.Button id="year-filter-button" type="submit">
-          Apply
-        </DS.Button>
-      </form>
-    );
-  }
-  return <>{children}</>;
-};
+import { DateRange } from "~/src/types/SearchQuery";
 
 /**
  * Year Filters
@@ -52,6 +24,9 @@ const FilterYears: React.FC<{
     onDateChange(e, isStart);
   };
 
+  // FilterYears can either be a form on its own (widescreen sidebar) or it can be a part of a larger form (advanced search)
+  // If it is a part of a larger form, error checking should happen on form submit, and the error should appear at the top of the form rather than
+  // next to the FilterYears inputs
   if (dateRangeError && !onSubmit) {
     console.warn(
       "Found a dateRangeError but no onSubmit.  Errors should be shown at the top of the form when this is used as a fieldset."
@@ -69,7 +44,7 @@ const FilterYears: React.FC<{
       <DS.Input
         type={DS.InputTypes.number}
         id="date-filter-from"
-        value={dateFilters.start > 0 ? dateFilters.start : ""}
+        value={dateFilters && dateFilters.start ? dateFilters.start : ""}
         onChange={(e) => changeDate(e, true)}
       />
       <DS.HelperErrorText isError={false}> EX. 1901 </DS.HelperErrorText>
@@ -79,7 +54,7 @@ const FilterYears: React.FC<{
       <DS.Input
         type={DS.InputTypes.number}
         id="date-filter-to"
-        value={dateFilters.end > 0 ? dateFilters.end : ""}
+        value={dateFilters && dateFilters.end > 0 ? dateFilters.end : ""}
         onChange={(e) => changeDate(e, false)}
       />
       <DS.HelperErrorText isError={false}> EX. 2000 </DS.HelperErrorText>
