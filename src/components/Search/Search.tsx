@@ -21,7 +21,6 @@ import Filters from "../ResultsFilters/ResultsFilters";
 import ResultsSorts from "../ResultsSorts/ResultsSorts";
 import { breadcrumbTitles } from "~/src/constants/labels";
 
-
 const SearchResults: React.FC<{
   searchQuery: SearchQuery;
   searchResults: ApiSearchResult;
@@ -66,19 +65,6 @@ const SearchResults: React.FC<{
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
-  // Whenever query changes, it is pushed to the URL.
-  // When this happens, reset the search and update the search results
-  useEffect(() => {
-    if (!deepEqual(searchQuery.queries, props.searchQuery.queries)) {
-      console.log("useEffect queries called");
-
-      setSearchQuery({
-        ...SearchQueryDefaults,
-        queries: props.searchQuery.queries,
-      });
-    }
-  }, [searchQuery.queries, props.searchQuery.queries]);
 
   const sendSearchQuery = async (searchQuery: SearchQuery) => {
     console.log("sending search query");

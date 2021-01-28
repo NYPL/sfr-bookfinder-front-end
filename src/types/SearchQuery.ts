@@ -51,7 +51,7 @@ export type SearchQuery = {
   filterYears?: DateRange;
   page?: number;
   perPage?: number;
-  queries?: Query[];
+  queries: Query[];
   // While the API supports sorting by multiple parameters, the front end only supports one parameter
   sort?: Sort;
   showAll?: boolean;

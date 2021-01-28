@@ -4,17 +4,23 @@ import Link from "~/src/components/Link/Link";
 import * as DS from "@nypl/design-system-react-components";
 import { initialSearchQuery } from "~/src/constants/InitialState";
 import { searchFields } from "../../constants/fields";
-import { Query, SearchQuery } from "~/src/types/SearchQuery";
+import {
+  Query,
+  SearchQuery,
+  SearchQueryDefaults,
+} from "~/src/types/SearchQuery";
 import { errorMessagesText } from "~/src/constants/labels";
 import { toLocationQuery } from "~/src/util/SearchUtils";
 import { toApiQuery } from "~/src/util/apiConversion";
 
-const SearchForm: React.FC<any> = (initialQuery: SearchQuery) => {
+const SearchForm: React.FC<{
+  searchQuery: SearchQuery;
+}> = ({ searchQuery }) => {
   // If there is one query, then default searchbar to show it
   const queryToShow: Query | undefined =
-    initialQuery.queries && initialQuery.queries.length === 1
-      ? initialQuery.queries[0]
-      : initialSearchQuery.queries[0];
+    searchQuery.queries && searchQuery.queries.length === 1
+      ? searchQuery.queries[0]
+      : SearchQueryDefaults.queries[0];
 
   const initialDefaultQuery: Query = { query: "", field: "keyword" };
 
@@ -31,7 +37,8 @@ const SearchForm: React.FC<any> = (initialQuery: SearchQuery) => {
       setFormError(true);
       return;
     }
-    const searchQuery = initialSearchQuery;
+
+    const searchQuery = SearchQueryDefaults;
     searchQuery.queries = [shownQuery];
 
     router.push({
