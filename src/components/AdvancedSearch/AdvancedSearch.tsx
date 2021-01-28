@@ -17,7 +17,7 @@ import { SearchQuery, SearchQueryDefaults } from "~/src/types/SearchQuery";
 
 import * as DS from "@nypl/design-system-react-components";
 import LanguageAccordion from "../LanguageAccordion/LanguageAccordion";
-import FitlerBookFormat from "../FilterBookFormat/FilterBookFormat";
+import FilterBookFormat from "../FilterBookFormat/FilterBookFormat";
 import { FacetItem } from "~/src/types/DataModel";
 import { toLocationQuery } from "~/src/util/SearchUtils";
 import { toApiQuery } from "~/src/util/apiConversion";
@@ -201,7 +201,7 @@ const AdvancedSearch: React.FC<{
               onDateChange(e, isStart);
             }}
           />
-          <FitlerBookFormat
+          <FilterBookFormat
             selectedFormats={findFiltersForField(searchQuery.filters, "format")}
             onFormatChange={(e, format) => {
               onBookFormatChange(e, format);

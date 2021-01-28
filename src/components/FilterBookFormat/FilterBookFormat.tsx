@@ -4,7 +4,7 @@ import { Filter } from "~/src/types/SearchQuery";
 import { formatTypes } from "~/src/constants/labels";
 
 // A Checkbox List of formats
-const FitlerBookFormat: React.FC<{
+const FilterBookFormat: React.FC<{
   selectedFormats: Filter[];
   onFormatChange: (e, format: string) => void;
 }> = (props) => {
@@ -41,4 +41,4 @@ const FitlerBookFormat: React.FC<{
   );
 };
 
-export default FitlerBookFormat;
+export default FilterBookFormat;

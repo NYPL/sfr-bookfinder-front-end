@@ -64,5 +64,5 @@ export const SearchQueryDefaults: SearchQuery = {
   perPage: 10,
   queries: [],
   sort: { field: "relevance", dir: "DESC" },
-  showAll: true,
+  showAll: false,
 };

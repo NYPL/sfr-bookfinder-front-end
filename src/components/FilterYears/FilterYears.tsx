@@ -58,6 +58,9 @@ const FilterYears: React.FC<{
         onChange={(e) => changeDate(e, false)}
       />
       <DS.HelperErrorText isError={false}> EX. 2000 </DS.HelperErrorText>
+      {dateRangeError && (
+        <DS.HelperErrorText isError={true}>{dateRangeError}</DS.HelperErrorText>
+      )}
       {onSubmit && (
         <DS.Button
           id="year-filter-button"

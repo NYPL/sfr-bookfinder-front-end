@@ -19,17 +19,21 @@ import { toLocationQuery } from "~/src/util/SearchUtils";
 import { toApiQuery } from "~/src/util/apiConversion";
 import Filters from "../ResultsFilters/ResultsFilters";
 import ResultsSorts from "../ResultsSorts/ResultsSorts";
-import { initialSearchQuery } from "~/src/constants/InitialState";
 import { breadcrumbTitles } from "~/src/constants/labels";
+
 
 const SearchResults: React.FC<{
   searchQuery: SearchQuery;
   searchResults: ApiSearchResult;
 }> = (props) => {
+  console.log("queries", props.searchQuery);
+
   const [searchQuery, setSearchQuery] = useState({
-    ...props.searchQuery,
     ...SearchQueryDefaults,
+    ...props.searchQuery,
   });
+
+  console.log("searchQuery", searchQuery);
   const [searchResults, setSearchResults] = useState(props.searchResults);
 
   const [isMobile, setMobile] = useState(false);
@@ -66,13 +70,18 @@ const SearchResults: React.FC<{
   // Whenever query changes, it is pushed to the URL.
   // When this happens, reset the search and update the search results
   useEffect(() => {
-    setSearchQuery({
-      ...initialSearchQuery,
-      queries: props.searchQuery.queries,
-    });
-  }, [props.searchQuery.queries]);
+    if (!deepEqual(searchQuery.queries, props.searchQuery.queries)) {
+      console.log("useEffect queries called");
+
+      setSearchQuery({
+        ...SearchQueryDefaults,
+        queries: props.searchQuery.queries,
+      });
+    }
+  }, [searchQuery.queries, props.searchQuery.queries]);
 
   const sendSearchQuery = async (searchQuery: SearchQuery) => {
+    console.log("sending search query");
     router.push({
       pathname: "/search",
       query: toLocationQuery(toApiQuery(searchQuery)),
@@ -107,22 +116,30 @@ const SearchResults: React.FC<{
     return facets;
   };
 
-  const numberOfWorks = searchResults.data.totalWorks;
-  const works: ApiWork[] = searchResults.data.works;
+  const getFilterCount = (searchQuery: SearchQuery) => {
+    let filterCount = 0;
 
-  let filterCount = 0;
-  if (searchQuery.filters) {
-    filterCount = searchQuery.filters.length;
+    if (searchQuery.filterYears) {
+      if (searchQuery.filterYears.start) {
+        filterCount += 1;
+      }
 
-    // "Show All" doesn't appear in Filters array, but counts as a filter when checked, and doesn't count when unchecked;
-    if (
-      searchQuery.filters.find((filter: any) => filter.field === "show_all")
-    ) {
-      filterCount -= 1;
-    } else {
+      if (searchQuery.filterYears.end) {
+        filterCount += 1;
+      }
+    }
+    if (searchQuery.showAll !== SearchQueryDefaults.showAll) {
       filterCount += 1;
     }
-  }
+    if (searchQuery.filters) {
+      filterCount += searchQuery.filters.length;
+    }
+    return filterCount;
+  };
+
+  const filterCount = getFilterCount(searchQuery);
+  const numberOfWorks = searchResults.data.totalWorks;
+  const works: ApiWork[] = searchResults.data.works;
 
   const totalPages = getNumberOfPages(numberOfWorks, searchQuery.perPage);
   const firstElement =
@@ -145,6 +162,7 @@ const SearchResults: React.FC<{
   };
 
   const changeShowAll = (showAll: boolean) => {
+    console.log("changing show all", showAll);
     const newSearchQuery: SearchQuery = {
       ...searchQuery,
       showAll: showAll,
@@ -213,43 +231,32 @@ const SearchResults: React.FC<{
             <>Search results for {getDisplayItemsHeading(searchQuery)}</>
           </DS.Heading>
         </div>
-
-        <div className="search-navigation">
-          {isMobile ? (
-            <DS.Heading
-              level={2}
-              id="page-title-heading"
-              blockName="page-title"
-            >
-              <>
+        {isMobile && (
+          <>
+            <div className="search-navigation">
+              <DS.Heading
+                level={2}
+                id="page-title-heading"
+                blockName="page-title"
+              >
+                <>
+                  {numberOfWorks > 0
+                    ? `${numberOfWorks.toLocaleString()} items`
+                    : "0 items"}
+                </>
+              </DS.Heading>
+              ) : (
+              <DS.Heading
+                level={2}
+                id="page-title-heading"
+                blockName="page-title"
+              >
                 {numberOfWorks > 0
-                  ? `${numberOfWorks.toLocaleString()} items`
-                  : "0 items"}
-              </>
-            </DS.Heading>
-          ) : (
-            <DS.Heading
-              level={2}
-              id="page-title-heading"
-              blockName="page-title"
-            >
-              {numberOfWorks > 0
-                ? `Viewing ${firstElement.toLocaleString()} - ${lastElement.toLocaleString()} of ${numberOfWorks.toLocaleString()} items`
-                : "Viewing 0 items"}
-            </DS.Heading>
-          )}
-          {!isMobile && (
-            <form name="sortForm" ref={sortForm}>
-              <ResultsSorts
-                perPage={searchQuery.perPage}
-                sort={searchQuery.sort}
-                onChangePerPage={(e) => onChangePerPage(e)}
-                onChangeSort={(e) => onChangeSort(e)}
-              />
-            </form>
-          )}
-          {isMobile && (
-            <div className="filter-refine">
+                  ? `Viewing ${firstElement.toLocaleString()} - ${lastElement.toLocaleString()} of ${numberOfWorks.toLocaleString()} items`
+                  : "Viewing 0 items"}
+              </DS.Heading>
+            </div>
+            <div>
               {filterCount !== 0 && (
                 <span className="filter-count">
                   {filterCount} {filterCount === 1 ? "filter" : "filters"}
@@ -266,8 +273,18 @@ const SearchResults: React.FC<{
                 Refine
               </DS.Button>
             </div>
-          )}
-        </div>
+          </>
+        )}
+        {!isMobile && (
+          <form name="sortForm" ref={sortForm}>
+            <ResultsSorts
+              perPage={searchQuery.perPage}
+              sort={searchQuery.sort}
+              onChangePerPage={(e) => onChangePerPage(e)}
+              onChangeSort={(e) => onChangeSort(e)}
+            />
+          </form>
+        )}
       </div>
 
       {!isMobile && (
@@ -309,53 +326,6 @@ const SearchResults: React.FC<{
             />
           </div>
           <form name="filterForm" ref={filterForm}>
-            <div className="search-dropdowns__mobile">
-              <DS.Label htmlFor="items-per-page" id="per-page-label">
-                Items Per Page
-              </DS.Label>
-              <DS.Select
-                id="items-per-page"
-                name="ItemsPerPageSelect"
-                isRequired={false}
-                ariaLabel="Items Per Page Select"
-                labelId="per-page-label"
-                selectedOption={searchQuery.perPage.toString()}
-                onChange={(e) => onChangePerPage(e)}
-                onBlur={(e) => onChangePerPage(e)}
-              >
-                {numbersPerPage.map((perPage: string) => {
-                  return (
-                    <option key={`per-page-option-${perPage}`}>
-                      {perPage}
-                    </option>
-                  );
-                })}
-              </DS.Select>
-
-              <DS.Label htmlFor="items-sort-by" id="sort-by-label">
-                Sort By
-              </DS.Label>
-              <DS.Select
-                id="sort-by"
-                name="SortBySelect"
-                isRequired={false}
-                ariaLabel="Sort By Select"
-                labelId="sort-by-label"
-                selectedOption={Object.keys(sortMap).find((key) =>
-                  deepEqual(sortMap[key], searchQuery.sort)
-                )}
-                onChange={(e) => onChangeSort(e)}
-                onBlur={(e) => onChangeSort(e)}
-              >
-                {Object.keys(sortMap).map((sortOption: string) => {
-                  return (
-                    <option key={`sort-option-${sortOption}`}>
-                      {sortOption}
-                    </option>
-                  );
-                })}
-              </DS.Select>
-            </div>
             <DS.Heading level={2} id="filter-desktop-header">
               Refine Results
             </DS.Heading>

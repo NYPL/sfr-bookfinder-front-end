@@ -33,7 +33,7 @@ const LanguageAccordion: React.FC<{
       </legend>
       <DS.Accordion inputId="language-select" accordionLabel="Click to Expand">
         <DS.List
-          id="languages list"
+          id="languages-list"
           type={DS.ListTypes.Unordered}
           modifiers={["no-list-styling"]}
         >

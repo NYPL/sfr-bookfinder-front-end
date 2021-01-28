@@ -78,18 +78,18 @@ describe("Filter Years with apply button", () => {
 describe("Filter Years with error", () => {
   const spy = jest.spyOn(console, "warn");
   test("Shows error message with passed string", () => {
-    const wrapper = shallow(
+    const wrapper = mount(
       <FilterYears
         dateFilters={{ start: 2000, end: 3000 }}
         onDateChange={jest.fn()}
         dateRangeError="error"
+        onSubmit={jest.fn}
       />
     );
-    expect(wrapper.find({ isError: true }).hostNodes().length).toEqual(1);
-    expect(wrapper.find(HelperErrorText).text()).toEqual("error");
+    expect(wrapper.find({ isError: true }).text()).toEqual("error");
   });
 
-  test.only("Throws warning when dateRangeError is passed without onSubmit", () => {
+  test("Throws warning when dateRangeError is passed without onSubmit", () => {
     shallow(
       <FilterYears
         dateFilters={{ start: 2000, end: 3000 }}

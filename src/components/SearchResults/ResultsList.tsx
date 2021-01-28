@@ -22,6 +22,17 @@ export const getEditionsLinkElement = (result: any) =>
   ) : undefined;
 
 const ResultsList: React.FC<{ works: ApiWork[] }> = ({ works }) => {
+  if (works.length === 0) {
+    return (
+      <div>
+        {/* <EmptySearchSvg className="grid-col-1" /> */}
+        <span>
+          No results were found. Please try a different keyword or fewer
+          filters.
+        </span>
+      </div>
+    );
+  }
   //TODO Re-implement RequestDigital
   return (
     <DS.List type={DS.ListTypes.Unordered} modifiers={["no-list-styling"]}>

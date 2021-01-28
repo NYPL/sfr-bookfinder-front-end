@@ -1,14 +1,14 @@
 import React from "react";
 
 import Layout from "~/src/components/Layout/Layout";
-import LandingPage from "../components/Landing/Landing";
+import Landing from "../components/Landing/Landing";
 
-const Landing: React.FC<any> = () => {
+const LandingPage: React.FC<any> = () => {
   return (
     <Layout>
-      <LandingPage />
+      <Landing />
     </Layout>
   );
 };
 
-export default Landing;
+export default LandingPage;

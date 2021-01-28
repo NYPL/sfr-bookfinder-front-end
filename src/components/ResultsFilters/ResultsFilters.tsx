@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import * as DS from "@nypl/design-system-react-components";
 import LanguageAccordion from "../LanguageAccordion/LanguageAccordion";
-import FitlerBookFormat from "../FilterBookFormat/FilterBookFormat";
+import FilterBookFormat from "../FilterBookFormat/FilterBookFormat";
 import FilterYears from "../FilterYears/FilterYears";
 import { ApiSearchResult, FacetItem } from "~/src/types/DataModel";
 import { DateRange, Filter, SearchQuery } from "~/src/types/SearchQuery";
@@ -32,6 +32,7 @@ const Filters: React.FC<{
   changeFilters,
   changeShowAll,
 }) => {
+  console.log("propFilters", propFilters);
   const [filters, setFilters] = useState(propFilters);
   const [filterYears, setFilterYears] = useState(propFilterYears);
   const [showAll, setShowAll] = useState(propShowAll);
@@ -82,7 +83,6 @@ const Filters: React.FC<{
    */
 
   const toggleShowAll = (e) => {
-    console.log("show all", e.target.checked);
     setShowAll(!e.target.checked);
     changeShowAll(!e.target.checked);
   };
@@ -90,16 +90,16 @@ const Filters: React.FC<{
   return (
     <>
       <DS.Checkbox
-        checkboxId="show_all"
+        checkboxId="avail_online"
         checked={!showAll}
         onChange={(e) => {
           toggleShowAll(e);
         }}
         labelOptions={{
-          id: "show_all_label",
+          id: "avail_online_label",
           labelContent: <>Available Online</>,
         }}
-        name="show_all"
+        name="avail_online"
       />
       <LanguageAccordion
         languages={languages}
@@ -109,7 +109,7 @@ const Filters: React.FC<{
           onLanguageChange(e, language);
         }}
       />
-      <FitlerBookFormat
+      <FilterBookFormat
         selectedFormats={findFiltersForField(filters, "format")}
         onFormatChange={(e, format) => onBookFormatChange(e, format)}
       />

@@ -8,6 +8,7 @@ import { searchResultsFetcher } from "../../lib/api/SearchApi";
 import { toSearchQuery } from "~/src/util/apiConversion";
 
 export async function getServerSideProps(context: any) {
+  console.log("push calls rerender");
   // Get Query from location
   const searchQuery: ApiSearchQuery = context.query;
   // const queryString: string = Object.keys(searchQuery)[0];
@@ -26,6 +27,7 @@ export async function getServerSideProps(context: any) {
 }
 
 const SearchResults: React.FC<any> = (props) => {
+  console.log("page searchQuery", props.searchQuery);
   return (
     <Layout>
       <Search
