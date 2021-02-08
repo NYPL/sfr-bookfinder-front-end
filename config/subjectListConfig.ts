@@ -6,13 +6,11 @@ const Subjects = [
   },
   {
     text: "Keyword: climate change",
-    url:
-      '/search?showQueries=[{"query"%3A"Climate Change"%2C"field"%3A"keyword"}]',
+    url: '/search?queries=[{"query"%3A"Climate Change"%2C"field"%3A"keyword"}]',
   },
   {
     text: "Title: New York City",
-    url:
-      '/search?showQueries=[{"query"%3A"New York City"%2C"field"%3A"title"}]',
+    url: '/search?queries=[{"query"%3A"New York City"%2C"field"%3A"title"}]',
   },
   {
     text: "Author: Corelli, Marie",

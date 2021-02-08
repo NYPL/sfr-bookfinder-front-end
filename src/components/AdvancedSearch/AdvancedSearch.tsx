@@ -44,7 +44,11 @@ const AdvancedSearch: React.FC<{
       setEmptySearchError("");
     }
 
-    if (searchQuery.filterYears.end < searchQuery.filterYears.start) {
+    if (
+      searchQuery.filterYears.start &&
+      searchQuery.filterYears.end &&
+      searchQuery.filterYears.end < searchQuery.filterYears.start
+    ) {
       setDateRangeError(errorMessagesText.invalidDate);
       return;
     } else {
@@ -114,6 +118,7 @@ const AdvancedSearch: React.FC<{
   };
 
   const onDateChange = (e, isStart: boolean) => {
+    console.log("searchQuery", searchQuery);
     setSearchQuery({
       ...searchQuery,
       filterYears: {

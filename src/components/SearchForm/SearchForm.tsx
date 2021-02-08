@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import Link from "~/src/components/Link/Link";
 import * as DS from "@nypl/design-system-react-components";
-import { initialSearchQuery } from "~/src/constants/InitialState";
 import { searchFields } from "../../constants/fields";
 import {
   Query,
@@ -14,11 +12,11 @@ import { toLocationQuery } from "~/src/util/SearchUtils";
 import { toApiQuery } from "~/src/util/apiConversion";
 
 const SearchForm: React.FC<{
-  searchQuery: SearchQuery;
+  searchQuery?: SearchQuery;
 }> = ({ searchQuery }) => {
   // If there is one query, then default searchbar to show it
   const queryToShow: Query | undefined =
-    searchQuery.queries && searchQuery.queries.length === 1
+    searchQuery && searchQuery.queries && searchQuery.queries.length === 1
       ? searchQuery.queries[0]
       : SearchQueryDefaults.queries[0];
 
@@ -55,16 +53,6 @@ const SearchForm: React.FC<{
     setShownQuery({ field: e.target.value, query: shownQuery.query });
   };
 
-  const advancedSearchMessage = (
-    <p>
-      Use{" "}
-      <Link to="/advanced-search" className="link">
-        Advanced Search
-      </Link>{" "}
-      to narrow your results.
-    </p>
-  );
-
   const getSearchOptions = (fields) => {
     return fields.map((field) => {
       return <option key={`search-type-${field}`}>{field}</option>;
@@ -73,7 +61,6 @@ const SearchForm: React.FC<{
 
   return (
     <div>
-      <DS.Heading level={2}>Search the World's Research Collections</DS.Heading>
       <DS.SearchBar onSubmit={(e) => submitSearch(e)} ariaLabel="Search Bar">
         <DS.Select
           name={"field"}
@@ -106,7 +93,6 @@ const SearchForm: React.FC<{
           Search
         </DS.Button>
       </DS.SearchBar>
-      {advancedSearchMessage}
     </div>
   );
 };

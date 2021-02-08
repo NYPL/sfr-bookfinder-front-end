@@ -19,6 +19,7 @@ import { WorkEdition } from "../../types/DataModel";
 import { InstanceCard } from "../InstanceCard/InstanceCard";
 import { breadcrumbTitles } from "~/src/constants/labels";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
+import SearchHeader from "../SearchHeader/SearchHeader";
 
 const EditionDetail: React.FC<{ editionResult: EditionResult }> = (props) => {
   const router = useRouter();
@@ -54,7 +55,7 @@ const EditionDetail: React.FC<{ editionResult: EditionResult }> = (props) => {
               { url: `/work/${edition.work_uuid}`, text: edition.title },
             ]}
           />
-          <SearchForm />
+          <SearchHeader></SearchHeader>
         </div>
 
         <div className="content-top">
@@ -129,7 +130,7 @@ const EditionDetail: React.FC<{ editionResult: EditionResult }> = (props) => {
               modifiers={["no-list-styling"]}
             >
               {edition.instances.map((instance) => (
-                <li>
+                <li key={instance.id}>
                   <InstanceCard
                     editionYear={edition.publication_date}
                     instance={instance}

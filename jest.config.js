@@ -5,6 +5,7 @@ module.exports = {
   moduleNameMapper: {
     "^~(.*)$": "<rootDir>$1",
   },
+  testPathIgnorePatterns: ["<rootDir>/.next/", "<rootDir>/node_modules/"],
   setupFilesAfterEnv: ["./setupTests.js"],
   snapshotSerializers: ["enzyme-to-json/serializer"],
   resetMocks: true,

@@ -3,7 +3,6 @@ import reader from "~/src/util/reader";
 import { useRouter } from "next/router";
 
 const initializeReader = async (entryUrl: string) => {
-  console.log("entryUrl", entryUrl);
   // there should never be a status code in the json
   //   if (!response.ok || data.status) {
   //     throw new ServerError(entryUrl, response.status, data);

@@ -20,6 +20,8 @@ import { toApiQuery } from "~/src/util/apiConversion";
 import Filters from "../ResultsFilters/ResultsFilters";
 import ResultsSorts from "../ResultsSorts/ResultsSorts";
 import { breadcrumbTitles } from "~/src/constants/labels";
+import Link from "../Link/Link";
+import SearchHeader from "../SearchHeader/SearchHeader";
 
 const SearchResults: React.FC<{
   searchQuery: SearchQuery;
@@ -32,7 +34,6 @@ const SearchResults: React.FC<{
     ...props.searchQuery,
   });
 
-  console.log("searchQuery", searchQuery);
   const [searchResults, setSearchResults] = useState(props.searchResults);
 
   const [isMobile, setMobile] = useState(false);
@@ -51,7 +52,7 @@ const SearchResults: React.FC<{
   // When the window resizes, set mobile.
   useEffect(() => {
     function handleResize() {
-      if (window.innerWidth < breakpoints.large) {
+      if (window.innerWidth < breakpoints.medium) {
         setMobile(true);
       } else {
         setMobile(false);
@@ -67,7 +68,6 @@ const SearchResults: React.FC<{
   }, []);
 
   const sendSearchQuery = async (searchQuery: SearchQuery) => {
-    console.log("sending search query");
     router.push({
       pathname: "/search",
       query: toLocationQuery(toApiQuery(searchQuery)),
@@ -148,7 +148,6 @@ const SearchResults: React.FC<{
   };
 
   const changeShowAll = (showAll: boolean) => {
-    console.log("changing show all", showAll);
     const newSearchQuery: SearchQuery = {
       ...searchQuery,
       showAll: showAll,
@@ -202,13 +201,8 @@ const SearchResults: React.FC<{
       <div className="content-header">
         <DS.Breadcrumbs
           breadcrumbs={[{ url: "/", text: breadcrumbTitles.home }]}
-        />{" "}
-        <div
-          className="content-primary"
-          aria-label="Digital Research Books Beta"
-        >
-          <SearchForm searchQuery={searchQuery} />
-        </div>
+        />
+        <SearchHeader searchQuery={searchQuery}></SearchHeader>
       </div>
 
       <div className="content-top">
@@ -216,102 +210,42 @@ const SearchResults: React.FC<{
           <DS.Heading level={1} id="page-title-heading" blockName="page-title">
             <>Search results for {getDisplayItemsHeading(searchQuery)}</>
           </DS.Heading>
+          <hr />
+          <div className="search-subheading">
+            <DS.Heading level={2} id="page-counter" className="page-counter">
+              {numberOfWorks > 0
+                ? `Viewing ${firstElement} - ${lastElement} of ${numberOfWorks} items`
+                : "Viewing 0 items"}
+            </DS.Heading>
+            {!isMobile && (
+              <form name="sortForm" ref={sortForm}>
+                <ResultsSorts
+                  perPage={searchQuery.perPage}
+                  sort={searchQuery.sort}
+                  onChangePerPage={(e) => onChangePerPage(e)}
+                  onChangeSort={(e) => onChangeSort(e)}
+                />
+              </form>
+            )}
+          </div>
+          {!isMobile && <hr />}
         </div>
         {isMobile && (
-          <>
-            <div className="search-navigation">
-              <DS.Heading
-                level={2}
-                id="page-title-heading"
-                blockName="page-title"
-              >
-                <>
-                  {numberOfWorks > 0
-                    ? `${numberOfWorks.toLocaleString()} items`
-                    : "0 items"}
-                </>
-              </DS.Heading>
-              ) : (
-              <DS.Heading
-                level={2}
-                id="page-title-heading"
-                blockName="page-title"
-              >
-                {numberOfWorks > 0
-                  ? `Viewing ${firstElement.toLocaleString()} - ${lastElement.toLocaleString()} of ${numberOfWorks.toLocaleString()} items`
-                  : "Viewing 0 items"}
-              </DS.Heading>
-            </div>
-            <div>
-              {filterCount !== 0 && (
-                <span className="filter-count">
-                  {filterCount} {filterCount === 1 ? "filter" : "filters"}
-                </span>
-              )}
-              ,
-              <DS.Button
-                id="filter-button"
-                buttonType={DS.ButtonTypes.Link}
-                onClick={() => {
-                  setModalOpen(true);
-                }}
-              >
-                Refine
-              </DS.Button>
-            </div>
-          </>
+          <DS.Button
+            id="filter-button"
+            buttonType={DS.ButtonTypes.Secondary}
+            onClick={() => {
+              setModalOpen(true);
+            }}
+          >
+            {`Filters (${filterCount})`}
+          </DS.Button>
         )}
+      </div>
+
+      <div className="content-secondary content-secondary--with-sidebar-left">
         {!isMobile && (
-          <form name="sortForm" ref={sortForm}>
-            <ResultsSorts
-              perPage={searchQuery.perPage}
-              sort={searchQuery.sort}
-              onChangePerPage={(e) => onChangePerPage(e)}
-              onChangeSort={(e) => onChangeSort(e)}
-            />
-          </form>
-        )}
-      </div>
-
-      {!isMobile && (
-        <form ref={filterForm}>
-          <DS.Heading level={2} id="filter-desktop-header">
-            Refine Results
-          </DS.Heading>
-          <Filters
-            filters={searchQuery.filters}
-            filterYears={searchQuery.filterYears}
-            showAll={searchQuery.showAll}
-            languages={getAvailableLanguages(searchResults)}
-            changeFilters={(filters?: Filter[], filterYears?: DateRange) => {
-              changeFilters(filters, filterYears);
-            }}
-            changeShowAll={(showAll: boolean) => {
-              changeShowAll(showAll);
-            }}
-          />
-        </form>
-      )}
-
-      <div className="content-primary content-primary--with-sidebar-left">
-        <ResultsList works={works} />
-        <DS.Pagination
-          pageCount={getNumberOfPages(numberOfWorks, searchQuery.perPage)}
-          currentPage={searchQuery.page}
-          onPageChange={(e) => onPageChange(e)}
-        />
-      </div>
-      {isMobile && isModalOpen && (
-        <DS.Modal>
-          <div className="search-navigation">
-            <ResultsSorts
-              perPage={searchQuery.perPage}
-              sort={searchQuery.sort}
-              onChangePerPage={(e) => onChangePerPage(e)}
-              onChangeSort={(e) => onChangeSort(e)}
-            />
-          </div>
-          <form name="filterForm" ref={filterForm}>
+          <form ref={filterForm}>
             <DS.Heading level={2} id="filter-desktop-header">
               Refine Results
             </DS.Heading>
@@ -320,16 +254,70 @@ const SearchResults: React.FC<{
               filterYears={searchQuery.filterYears}
               showAll={searchQuery.showAll}
               languages={getAvailableLanguages(searchResults)}
-              changeFilters={(filters?: Filter[]) => {
-                changeFilters(filters);
+              changeFilters={(filters?: Filter[], filterYears?: DateRange) => {
+                changeFilters(filters, filterYears);
               }}
               changeShowAll={(showAll: boolean) => {
                 changeShowAll(showAll);
               }}
             />
           </form>
-        </DS.Modal>
-      )}
+        )}
+      </div>
+
+      <div className="content-primary content-primary--with-sidebar-left">
+        <ResultsList works={works} />
+        {isMobile && isModalOpen && (
+          <DS.Modal>
+            <DS.Button
+              buttonType={DS.ButtonTypes.Link}
+              onClick={() => {
+                setModalOpen(false);
+              }}
+            >
+              <DS.Icon
+                decorative={true}
+                name={DS.IconNames.arrow}
+                iconRotation={DS.IconRotationTypes.rotate90}
+              />
+              Go Back
+            </DS.Button>
+            <div className="search-navigation">
+              <ResultsSorts
+                perPage={searchQuery.perPage}
+                sort={searchQuery.sort}
+                onChangePerPage={(e) => onChangePerPage(e)}
+                onChangeSort={(e) => onChangeSort(e)}
+              />
+            </div>
+            <form name="filterForm" ref={filterForm}>
+              <DS.Heading level={2} id="filter-desktop-header">
+                Refine Results
+              </DS.Heading>
+              <Filters
+                filters={searchQuery.filters}
+                filterYears={searchQuery.filterYears}
+                showAll={searchQuery.showAll}
+                languages={getAvailableLanguages(searchResults)}
+                changeFilters={(filters?: Filter[]) => {
+                  changeFilters(filters);
+                }}
+                changeShowAll={(showAll: boolean) => {
+                  changeShowAll(showAll);
+                }}
+              />
+            </form>
+          </DS.Modal>
+        )}
+
+        <div className="content-bottom">
+          <DS.Pagination
+            pageCount={getNumberOfPages(numberOfWorks, searchQuery.perPage)}
+            currentPage={searchQuery.page}
+            onPageChange={(e) => onPageChange(e)}
+          />
+        </div>
+      </div>
     </main>
   );
 };

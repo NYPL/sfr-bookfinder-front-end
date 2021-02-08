@@ -29,7 +29,7 @@ const IFrameReader: React.FC<any> = () => {
 
     setBookUrl(router.query.bookUrl);
     fetchEdition(router.query.editionId);
-  }, []);
+  }, [router.query]);
 
   return (
     <span>

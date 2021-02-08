@@ -5,7 +5,16 @@ import { SearchQuery } from "~/src/types/SearchQuery";
 import { ApiSearchResult } from "~/src/types/DataModel";
 import { resizeWindow } from "~/src/testUtils/screen";
 import SearchForm from "../SearchForm/SearchForm";
-import ResultsSorts from "../ResultsSorts/ResultsSorts";
+import { Input } from "@nypl/design-system-react-components";
+import "@testing-library/jest-dom/extend-expect";
+import {
+  getAllByRole,
+  getByRole,
+  prettyDOM,
+  render,
+  screen,
+  within,
+} from "@testing-library/react";
 
 const searchResults: ApiSearchResult = require("../../__tests__/fixtures/results-list.json");
 const emptyResults: ApiSearchResult = require("../../__tests__/fixtures/results-list-empty.json");
@@ -19,67 +28,18 @@ const searchQuery: SearchQuery = {
   sort: { dir: "asc", field: "title" },
 };
 
-describe("Snapshot tests", () => {
-  test("Renders well formed query and search results", () => {
-    const search = shallow(
+describe("Search Query Queries correctly prepopulate content", () => {
+  test("Simple Search displays correct search heading", () => {
+    const search = render(
       <SearchResults searchQuery={searchQuery} searchResults={searchResults} />
     );
-    expect(search).toMatchSnapshot();
-  });
-
-  test("Empty search results render", () => {
-    const search = shallow(
-      <SearchResults searchQuery={searchQuery} searchResults={emptyResults} />
-    );
-    expect(search).toMatchSnapshot();
-  });
-
-  test("Narrow window render", () => {
-    const search = shallow(
-      <SearchResults searchQuery={searchQuery} searchResults={searchResults} />
-    );
-    resizeWindow(300, 500);
-    expect(search).toMatchSnapshot();
-  });
-
-  //TODO: Enzyme doesn't call the hook unless it's mounted, and I don't want to test literally everything here.
-  //   test.only("Narrow window filters render", () => {
-  //     Object.defineProperty(window, "innerHeight", {
-  //       writable: true,
-  //       configurable: true,
-  //       value: 150,
-  //     });
-  //     window.dispatchEvent(new Event("resize"));
-
-  //     const search = shallow(
-  //       <SearchResults searchQuery={searchQuery} searchResults={searchResults} />
-  //     );
-  //     console.log("search debug", search.debug());
-
-  //     expect(window.innerHeight).toEqual(150);
-  //     expect(search).toMatchSnapshot();
-  //   });
-});
-
-describe("Search Query Queries correctly prepopulate in content", () => {
-  test.only("Simple Search populates searchForm and displays correct search heading", () => {
-    const search = shallow(
-      <SearchResults searchQuery={searchQuery} searchResults={searchResults} />
-    );
-
-    const searchForm = search.find(SearchForm).dive();
-    console.log("searchForm", searchForm.html());
-
-    expect(search.find(SearchForm).find("input").props().value).toEqual(
-      '"Civil War" OR Lincoln'
-    );
-    expect(search.find(SearchForm).find("select").props().value).toEqual(
-      "keyword"
-    );
-
-    expect(search.find("#page-title-heading").text()).toEqual(
-      "Search Results for "
-    );
+    // expect(search.getByLabelText(''));
+    // expect(search.find(SearchForm).find("select").props().value).toEqual(
+    //   "keyword"
+    // );
+    expect(
+      search.getByText('Search results for keyword: "Civil War" OR Lincoln')
+    ).toBeInTheDocument();
   });
 
   test("Search with multiple queries", () => {
@@ -92,48 +52,53 @@ describe("Search Query Queries correctly prepopulate in content", () => {
       ],
     });
 
-    const search = mount(
+    const search = render(
       <SearchResults
         searchQuery={multipleQuerySearch}
         searchResults={searchResults}
       />
     );
-    expect(search.find(SearchForm).find("input").props().value).toEqual("");
-    expect(search.find(SearchForm).find("select").props().value).toEqual(
-      "keyword"
-    );
-    expect(search.find("#page-title-heading").text()).toEqual(
-      "Search Results for "
-    );
+    // expect(search.find(SearchForm).find("input").props().value).toEqual("");
+    // expect(search.find(SearchForm).find("select").props().value).toEqual(
+    //   "keyword"
+    // );
+    expect(
+      search.getByText(
+        "Search results for keyword: happy and author: Isabelle and subject: islands and title: animal"
+      )
+    ).toBeInTheDocument();
   });
 
   //TODO
-  test("viaf or lcnaf display", () => {
-    //expect author lookup to be called
-    //expect query to have viaf
-    //expect search field to have
-  });
+  // test("viaf or lcnaf display", () => {
+  //expect author lookup to be called
+  //expect query to have viaf
+  //expect search field to have
+  // });
 });
 
 test("Sorts correctly prepopualte", () => {
   const searchQueryWithSorts = Object.assign({}, searchQuery, {
     sort: { field: "author", dir: "ASC" },
-    perPage: 50,
+    perPage: "20",
   });
 
-  const search = mount(
+  const search = render(
     <SearchResults
       searchQuery={searchQueryWithSorts}
       searchResults={searchResults}
     />
   );
-  expect(search.find("#page-title-heading").text()).toContain("1 - 50");
-  expect(search.find("#sort-by").find("select").props().value).toEqual(
-    "Author"
-  );
-  expect(search.find("#items-per-page").find("select").props().value).toEqual(
-    50
-  );
+
+  expect(search.getByText("Viewing 1 - 20 of 26 items")).toBeInTheDocument();
+
+  const sortInput = search.getByLabelText("Sort By") as HTMLInputElement;
+  expect(sortInput.value).toEqual("Author A-Z");
+
+  const perpageInput = search.getByLabelText(
+    "Items Per Page"
+  ) as HTMLInputElement;
+  expect(perpageInput.value).toEqual("20");
 });
 
 describe("Filters correctly prepopulate", () => {
@@ -142,29 +107,41 @@ describe("Filters correctly prepopulate", () => {
       filters: [{ showAll: false }],
     });
 
-    const search = mount(
+    const search = render(
       <SearchResults
         searchQuery={searchQueryShowAll}
         searchResults={searchResults}
       />
     );
-    expect(search.find("#show_all").props().selected).toBeTruthy();
+
+    const availOnline = search.getByLabelText(
+      "Available Online"
+    ) as HTMLInputElement;
+    expect(availOnline.checked).toBeTruthy();
   });
 
   test("Language filter", () => {
     const searchQueryLanguages = Object.assign({}, searchQuery, {
-      filters: [{ field: "language", value: "english" }],
+      filters: [{ field: "language", value: "English" }],
     });
 
-    const search = mount(
+    const search = render(
       <SearchResults
         searchQuery={searchQueryLanguages}
         searchResults={searchResults}
       />
     );
-    const languages = search.find("#languages-list");
-    expect(languages.find("li").length).toEqual(10);
-    expect(search.find(["checked=true"]).props().value).toEqual("English");
+
+    const accordion = search.getByRole("group", { name: /Languages/i });
+    const languages = within(accordion).getByRole("list");
+
+    const items = within(languages).getAllByRole("listitem");
+    expect(items.length).toEqual(16);
+
+    const englishCheckbox = within(languages).getByLabelText(
+      "English (14)"
+    ) as HTMLInputElement;
+    expect(englishCheckbox.checked).toBeTruthy();
   });
 
   test("format filter", () => {
@@ -172,13 +149,14 @@ describe("Filters correctly prepopulate", () => {
       filters: [{ field: "format", value: "pdf" }],
     });
 
-    const search = mount(
+    const search = render(
       <SearchResults
         searchQuery={searchQueryFormats}
         searchResults={searchResults}
       />
     );
-    expect(search.find("#show_all").props().selected).toBeTruthy();
+    const pdfLabel = search.getByLabelText("PDF") as HTMLInputElement;
+    expect(pdfLabel.checked).toBeTruthy();
   });
 
   test("year filter", () => {
@@ -186,18 +164,18 @@ describe("Filters correctly prepopulate", () => {
       filterYears: { start: 2000, end: 3000 },
     });
     // Expect years to be prefilled
-    const search = mount(
+    const search = render(
       <SearchResults
         searchQuery={searchQueryYears}
         searchResults={searchResults}
       />
     );
-    expect(search.find("#date-filter-from").hostNodes().props().value).toEqual(
-      2000
-    );
-    expect(search.find("#date-filter-from").hostNodes().props().value).toEqual(
-      3000
-    );
+
+    const fromLabel = search.getByLabelText("From") as HTMLInputElement;
+    const toLabel = search.getByLabelText("To") as HTMLInputElement;
+
+    expect(fromLabel.value).toEqual("2000");
+    expect(toLabel.value).toEqual("3000");
   });
 
   // test("Filter count is shown in narrow view", () => {});
@@ -230,3 +208,5 @@ describe("Changing filters", () => {
     //expect there to be an error
   });
 });
+
+

@@ -213,7 +213,7 @@ exports[`renders advanced search correctly Renders correctly in when passed well
         }
         onDateChange={[Function]}
       />
-      <FitlerBookFormat
+      <FilterBookFormat
         onFormatChange={[Function]}
         selectedFormats={Array []}
       />

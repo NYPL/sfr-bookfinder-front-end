@@ -9,6 +9,7 @@ import { ApiWork } from "~/src/types/DataModel";
 import SearchForm from "../SearchForm/SearchForm";
 import { breadcrumbTitles } from "~/src/constants/labels";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
+import SearchHeader from "../SearchHeader/SearchHeader";
 
 //TODO: Scroll to hash removed, needs to be re-added
 // const scrollToHash = (hash) => {
@@ -65,11 +66,10 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
           <DS.Breadcrumbs
             breadcrumbs={[{ url: "/", text: breadcrumbTitles.home }]}
           />
+          <SearchHeader />
         </div>
 
         <div className="content-primary">
-          <SearchForm />
-
           <div className="nypl-item-header">
             <DS.Heading level={1} id="work-title" blockName="page-title">
               {work.title}
@@ -119,7 +119,7 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
                         <>Show only items currently available online</>
                       ),
                     }}
-                    isSelected={router.query.showAll === "false"}
+                    checked={router.query.showAll === "false"}
                     onChange={(e) => toggleShowAll(e)}
                   />
                 </div>

@@ -37,6 +37,11 @@ $fontFamily: 'system-ui';
 @import './components/RequestDigitization.scss';
 @import './components/Citations.scss';
 
+@import './dividers.scss';
+
+@import'./../src/components/Landing/Landing.scss';
+@import'./../src/components/Search/Search.scss';
+
 html {
   font-family: $fontFamily;
   height: 100%;

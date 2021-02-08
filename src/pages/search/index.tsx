@@ -8,7 +8,6 @@ import { searchResultsFetcher } from "../../lib/api/SearchApi";
 import { toSearchQuery } from "~/src/util/apiConversion";
 
 export async function getServerSideProps(context: any) {
-  console.log("push calls rerender");
   // Get Query from location
   const searchQuery: ApiSearchQuery = context.query;
   // const queryString: string = Object.keys(searchQuery)[0];
@@ -17,7 +16,7 @@ export async function getServerSideProps(context: any) {
 
   // Fetch first set of search results
   const searchResults = await searchResultsFetcher(parsedQuery);
-
+  console.log("searchResults", searchResults);
   return {
     props: {
       searchQuery: toSearchQuery(parsedQuery),

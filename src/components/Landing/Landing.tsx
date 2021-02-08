@@ -45,7 +45,19 @@ const LandingPage: React.FC<any> = () => {
         </div>
       </div>
       <div className="content-primary">
-        <SearchForm />
+        <div className="searchbar">
+          <DS.Heading level={2}>
+            Search the World's Research Collections
+          </DS.Heading>
+          <SearchForm />
+          <p>
+            Use{" "}
+            <Link to="/advanced-search" className="link">
+              Advanced Search
+            </Link>{" "}
+            to narrow your results.
+          </p>
+        </div>
         {
           // eslint-disable-next-line no-underscore-dangle
           FeatureFlags.store._isFeatureActive(

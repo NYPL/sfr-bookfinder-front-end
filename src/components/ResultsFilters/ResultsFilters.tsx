@@ -9,6 +9,7 @@ import {
   findFiltersExceptField,
   findFiltersForField,
 } from "~/src/util/SearchQueryUtils";
+import { errorMessagesText } from "~/src/constants/labels";
 
 /**
  * Shows a form with the Languages, Format and Year filters
@@ -32,7 +33,7 @@ const Filters: React.FC<{
   changeFilters,
   changeShowAll,
 }) => {
-  console.log("propFilters", propFilters);
+  const [dateRangeError, setDateRangeError] = useState("");
   const [filters, setFilters] = useState(propFilters);
   const [filterYears, setFilterYears] = useState(propFilterYears);
   const [showAll, setShowAll] = useState(propShowAll);
@@ -73,7 +74,15 @@ const Filters: React.FC<{
   };
 
   const submitDateForm = () => {
-    changeFilters(null, filterYears);
+    if (
+      filterYears.start &&
+      filterYears.end &&
+      filterYears.end < filterYears.start
+    ) {
+      setDateRangeError(errorMessagesText.invalidDate);
+    } else {
+      changeFilters(null, filterYears);
+    }
   };
 
   /**
@@ -118,6 +127,7 @@ const Filters: React.FC<{
         onDateChange={(e, isStart) => {
           onDateChange(e, isStart);
         }}
+        dateRangeError={dateRangeError}
         onSubmit={() => submitDateForm()}
       />
     </>

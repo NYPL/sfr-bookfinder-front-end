@@ -77,6 +77,8 @@ async function initBookSettings(
   const scroller = new ScrollingBookView();
 
   const entryUrl: URL = webpubManifestUrl;
+  console.log("entryUrl", entryUrl);
+
   const bookSettings = await BookSettings.create({
     store: settingsStore,
     bookFonts: [publisher, serif, sans, dlFont],

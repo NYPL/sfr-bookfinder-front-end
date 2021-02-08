@@ -32,8 +32,8 @@ export const toSearchQuery = (apiQuery: ApiSearchQuery): SearchQuery => {
 
     const yearFilter = yearFilters[0];
     return {
-      start: yearFilter.value.start ? +yearFilter.value.start : undefined,
-      end: yearFilter.value.end ? +yearFilter.value.end : undefined,
+      start: yearFilter.value.start ? +yearFilter.value.start : null,
+      end: yearFilter.value.end ? +yearFilter.value.end : null,
     };
   };
 

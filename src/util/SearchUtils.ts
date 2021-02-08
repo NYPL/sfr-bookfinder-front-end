@@ -20,6 +20,7 @@ export function parseLocationQuery(queryString: any): ApiSearchQuery {
   const query = queryString;
 
   const parseIfString = (value: any) => {
+    console.log("value", value);
     if (typeof value === "string") {
       return JSON.parse(value);
     } else {
