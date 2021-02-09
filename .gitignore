@@ -1,4 +1,5 @@
 dist
+sfr-front-end
 node_modules
 npm-debug.log
 .next
