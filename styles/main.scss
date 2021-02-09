@@ -25,6 +25,7 @@ $fontFamily: 'system-ui';
  */
 
 @import './mixins/Mixins.scss';
+@import './components/Landing.scss';
 @import './components/Search.scss';
 @import './components/SearchResults.scss';
 @import './components/WorkDetail.scss';
@@ -38,9 +39,6 @@ $fontFamily: 'system-ui';
 @import './components/Citations.scss';
 
 @import './dividers.scss';
-
-@import'./../src/components/Landing/Landing.scss';
-@import'./../src/components/Search/Search.scss';
 
 html {
   font-family: $fontFamily;
