@@ -17,8 +17,9 @@
 $nypl-dark-blue: #135772;
 $fontFamily: 'system-ui';
 
-/** Import Design System Styles */
+/** Import Design System Styles and mixins */
 @import '~@nypl/design-system-react-components/dist/styles.css';
+@import "~@nypl/design-system-react-components/dist/resources.scss";
 
 /**
  * Import custom rules for this project.

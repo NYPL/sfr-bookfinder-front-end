@@ -33,11 +33,9 @@ const LandingPage: React.FC<any> = () => {
                 sources world-wide--all free to read, download, and keep. No
                 library card required. This is an early beta test, so we want
                 your feedback!{" "}
-                <DS.Link>
-                  <Link to="/about">
-                    <>Read more about the project</>
-                  </Link>
-                </DS.Link>
+                <Link to="/about">
+                  <>Read more about the project</>
+                </Link>
                 .
               </div>
             }
@@ -75,9 +73,7 @@ const LandingPage: React.FC<any> = () => {
         >
           {Subjects.map((sub: any) => (
             <li key={`subject-link-${sub.url}`}>
-              <DS.Link>
-                <Link to={sub.url}>{sub.text}</Link>
-              </DS.Link>
+              <Link to={sub.url}>{sub.text}</Link>
             </li>
           ))}
         </DS.List>

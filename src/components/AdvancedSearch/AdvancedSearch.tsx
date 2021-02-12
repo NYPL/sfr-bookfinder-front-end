@@ -133,7 +133,7 @@ const AdvancedSearch: React.FC<{
       <div className="content-header">
         <DS.Breadcrumbs
           breadcrumbs={[{ url: "/", text: breadcrumbTitles.home }]}
-        />{" "}
+        />
       </div>
 
       <div aria-label="Digital Research Books Beta" className="grid-col-12">

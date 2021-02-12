@@ -33,10 +33,10 @@ describe("Search Query Queries correctly prepopulate content", () => {
     const search = render(
       <SearchResults searchQuery={searchQuery} searchResults={searchResults} />
     );
-    // expect(search.getByLabelText(''));
-    // expect(search.find(SearchForm).find("select").props().value).toEqual(
-    //   "keyword"
-    // );
+    expect(search.getByLabelText(''));
+    expect(search.find(SearchForm).find("select").props().value).toEqual(
+      "keyword"
+    );
     expect(
       search.getByText('Search results for keyword: "Civil War" OR Lincoln')
     ).toBeInTheDocument();
@@ -208,5 +208,3 @@ describe("Changing filters", () => {
     //expect there to be an error
   });
 });
-
-

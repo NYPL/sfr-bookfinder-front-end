@@ -1,10 +1,14 @@
 .search-header {
+  @include wrapper;
+
   h1 { color: var(--ui-white); }
 
   background-color: var(--section-research-primary);
 }
 
 .search-subheading {
+  @include wrapper;
+
   display: flex;
   justify-content: space-between;
 }
