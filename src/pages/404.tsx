@@ -1,9 +1,5 @@
 import React from "react";
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/components/Link/Link' or... Remove this comment to see the full error message
-import Link from "~/src/components/Link/Link";
-
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/config/appConfig' or its cor... Remove this comment to see the full error message
-import appConfig from "~/config/appConfig";
+import Link from "../components/Link/Link";
 
 const NotFound404 = () => (
   <main id="mainContent" className="main-content not-found-404">
@@ -18,9 +14,7 @@ const NotFound404 = () => (
 
           <p>
             Search&nbsp;
-            <Link to={`${appConfig.baseUrl}/`}>
-              <a>Digital Research Books Beta</a>
-            </Link>
+            <Link to="/">Digital Research Books Beta</Link>
             {"."}
           </p>
         </div>

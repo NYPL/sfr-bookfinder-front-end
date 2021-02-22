@@ -58,9 +58,9 @@ const Layout: React.FC<any> = ({ children }) => {
         type="text/javascript"
         src="https://header.nypl.org/dgx-header.min.js?skipNav=mainContent&urls=absolute"
         async
-      ></script>
+      />
       <div className="app-wrapper add-list-reset">
-        {loading ? (
+        {router.isFallback || loading ? (
           <>
             <Loading />
             <DS.SkeletonLoader />

@@ -1,6 +1,6 @@
 import React from "react";
 
-const EmptySearchSvg = ({ className }) => (
+const EmptySearchSvg: React.FC<{ className?: string }> = ({ className }) => (
   <svg
     width="99"
     height="118"

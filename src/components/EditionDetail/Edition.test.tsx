@@ -78,9 +78,8 @@ describe("Renders edition component when given valid edition", () => {
   });
 
   // getByRole "term" doesn't work
-
-  // describe("Details Table Content", () => {
   // https://github.com/testing-library/dom-testing-library/issues/703
+  // describe("Details Table Content", () => {
   // test("shows terms", () => {
   //   expect(screen.getAllByRole("term")).toHaveLength(1);
   // });

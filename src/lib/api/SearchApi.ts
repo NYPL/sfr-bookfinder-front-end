@@ -94,8 +94,7 @@ export const workFetcher = async (query: WorkQuery) => {
     const workResult: WorkResult = await res.json();
     return workResult;
   } else {
-    //TODO Error handling
-    console.log("res not ok", res.status, res.statusText);
+    throw new Error(res.statusText);
   }
 };
 

@@ -6,6 +6,7 @@ import * as DS from "@nypl/design-system-react-components";
 import { EditionCard } from "~/src/components/EditionCard/EditionCard";
 import { ApiWork } from "~/src/types/DataModel";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
+import EmptySearchSvg from "../Svgs/EmptySearchSvg";
 
 export const getEditionsLinkElement = (result: any) =>
   result.edition_count > 1 ? (
@@ -25,7 +26,7 @@ const ResultsList: React.FC<{ works: ApiWork[] }> = ({ works }) => {
   if (works.length === 0) {
     return (
       <div>
-        {/* <EmptySearchSvg className="grid-col-1" /> */}
+        <EmptySearchSvg />
         <span>
           No results were found. Please try a different keyword or fewer
           filters.
