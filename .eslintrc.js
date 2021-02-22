@@ -59,6 +59,8 @@ module.exports = {
     // these are meant to allow jsx to mark react as used. Not working right now though
     "react/jsx-uses-vars": "error",
     "react/jsx-uses-react": "error",
+    // Allow " and ' in jsx
+    "react/no-unescaped-entities": ["error", { forbid: [">", "}"] }],
     // disable this rule because it is unnecessarily strict for TS
     "@typescript-eslint/explicit-function-return-type": 0,
     "@typescript-eslint/explicit-module-boundary-types": 0,

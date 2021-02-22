@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import Layout from "~/src/components/Layout/Layout";
-import EditionDetail from "~/src/components/EditionDetail/EditionDetail";
+import Edition from "~/src/components/EditionDetail/Edition";
 import { editionFetcher } from "~/src/lib/api/SearchApi";
 import { EditionQuery, EditionResult } from "~/src/types/EditionQuery";
 import { WorkQuery } from "~/src/types/WorkQuery";
@@ -21,7 +21,7 @@ export async function getServerSideProps(context: any) {
 const WorkResults: React.FC<any> = (props) => {
   return (
     <Layout>
-      <EditionDetail editionResult={props.editionResult} />
+      <Edition editionResult={props.editionResult} />
     </Layout>
   );
 };

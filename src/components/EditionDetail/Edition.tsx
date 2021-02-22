@@ -1,27 +1,18 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { useRouter } from "next/router";
 import * as DS from "@nypl/design-system-react-components";
-import FeatureFlags from "~/src/__tests__/unit/node_modules/dgx-feature-flags";
 import { join } from "path";
 
-import {
-  ApiEdition,
-  EditionQuery,
-  EditionResult,
-} from "~/src/types/EditionQuery";
+import { ApiEdition, EditionResult } from "~/src/types/EditionQuery";
 
-import { deepEqual } from "~/src/util/Util";
 import EditionDetailDefinitionList from "~/src/components/Detail/EditionDetailDefinitionList";
 import Link from "~/src/components/Link/Link";
-import SearchForm from "../SearchForm/SearchForm";
-import { WorkEdition } from "../../types/DataModel";
 import { InstanceCard } from "../InstanceCard/InstanceCard";
 import { breadcrumbTitles } from "~/src/constants/labels";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
 import SearchHeader from "../SearchHeader/SearchHeader";
 
-const EditionDetail: React.FC<{ editionResult: EditionResult }> = (props) => {
+const Edition: React.FC<{ editionResult: EditionResult }> = (props) => {
   const router = useRouter();
 
   if (!props.editionResult) return <>Loading</>;
@@ -64,10 +55,6 @@ const EditionDetail: React.FC<{ editionResult: EditionResult }> = (props) => {
               <Link
                 to={{
                   pathname: `/work/${edition.work_uuid}`,
-                  query: {
-                    recordType: "editions",
-                    showAll: true,
-                  },
                 }}
                 title={edition.title}
                 className="link link--no-underline"
@@ -88,7 +75,9 @@ const EditionDetail: React.FC<{ editionResult: EditionResult }> = (props) => {
         </div>
 
         <div className="content-primary">
-          <DS.Heading level={2} id="featured-edition" text="Featured Copy" />
+          <DS.Heading level={2} id="featured-edition">
+            Featured Copy
+          </DS.Heading>
 
           <div id="featured-edition-card">
             <InstanceCard
@@ -145,4 +134,4 @@ const EditionDetail: React.FC<{ editionResult: EditionResult }> = (props) => {
   );
 };
 
-export default EditionDetail;
+export default Edition;

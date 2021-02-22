@@ -41,22 +41,20 @@ const ResultsList: React.FC<{ works: ApiWork[] }> = ({ works }) => {
 
         return (
           <li key={`search-result-${work.uuid}`}>
-            <DS.Link>
-              <Link
-                to={{
-                  pathname: `/work/${work.uuid}`,
-                  query: {
-                    recordType: "editions",
-                    showAll: true,
-                  },
-                }}
-                className="link link--no-underline"
-              >
-                <DS.Heading level={2}>
-                  {EditionCardUtils.generateDisplayTitle(work.title)}
-                </DS.Heading>
-              </Link>
-            </DS.Link>
+            <Link
+              to={{
+                pathname: `/work/${work.uuid}`,
+                query: {
+                  recordType: "editions",
+                  showAll: true,
+                },
+              }}
+              className="link link--no-underline"
+            >
+              <DS.Heading level={2}>
+                {EditionCardUtils.generateDisplayTitle(work.title)}
+              </DS.Heading>
+            </Link>
             <span>{EditionCardUtils.getSubtitle(work.sub_title)}</span>
             {EditionCardUtils.getAuthorsList(work.agents, "author")}
             <EditionCard edition={previewEdition} />

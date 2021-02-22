@@ -5,13 +5,16 @@ import * as DS from "@nypl/design-system-react-components";
 // allow this component to accept all properties of "a" tag
 interface IProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   to: any;
+  linkType?: DS.LinkTypes;
 }
 
 const Link = React.forwardRef(
-  ({ children, to, ...props }: IProps, ref: any) => {
+  ({ children, to, linkType, ...props }: IProps, ref: any) => {
     return (
       <BaseLink href={to} passHref>
-        <DS.Link attributes={{ ref: ref, ...props }}>{children}</DS.Link>
+        <DS.Link type={linkType} attributes={{ ref: ref, ...props }}>
+          {children}
+        </DS.Link>
       </BaseLink>
     );
   }

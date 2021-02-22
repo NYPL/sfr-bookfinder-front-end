@@ -12,12 +12,14 @@ Router.push = mockPush;
 
 export const MockNextRouterContextProvider: React.FC<{
   router?: Partial<NextRouter>;
-}> = ({ router = {}, children }) => {
+  pathName?: string;
+  routerQuery?: { [key: string]: string };
+}> = ({ router = {}, pathName = "", routerQuery = {}, children }) => {
   const {
     basePath = "",
     route = "",
-    pathname = "",
-    query = {},
+    pathname = pathName,
+    query = routerQuery,
     asPath = "",
     push = mockPush,
     replace = jest.fn().mockImplementation(async () => true),

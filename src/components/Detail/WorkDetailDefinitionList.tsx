@@ -135,19 +135,17 @@ export const WorkDetailDefinitionList = ({
               )
               .map((subject: any, i: any) => (
                 <li key={`subject${i.toString()}`}>
-                  <DS.Link>
-                    <Link
-                      to={{
-                        pathname: "/search",
-                        query: {
-                          queries: `[{"query": "${subject.subject}", "field": "subject"}]`,
-                          showQueries: `[{"query": "${subject.subject}", "field": "subject"}]`,
-                        },
-                      }}
-                    >
-                      {htmlEntities.decode(subject.subject)}
-                    </Link>
-                  </DS.Link>
+                  <Link
+                    to={{
+                      pathname: "/search",
+                      query: {
+                        queries: `[{"query": "${subject.subject}", "field": "subject"}]`,
+                        showQueries: `[{"query": "${subject.subject}", "field": "subject"}]`,
+                      },
+                    }}
+                  >
+                    {htmlEntities.decode(subject.subject)}
+                  </Link>
                 </li>
               ))}
           </ul>

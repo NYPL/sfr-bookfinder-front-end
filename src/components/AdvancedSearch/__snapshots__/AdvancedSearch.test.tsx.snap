@@ -94,7 +94,6 @@ exports[`renders advanced search correctly Renders correctly in when passed well
         ]
       }
     />
-     
   </div>
   <div
     aria-label="Digital Research Books Beta"

@@ -6,7 +6,6 @@ import { EditionCard } from "~/src/components/EditionCard/EditionCard";
 import WorkDetailDefinitionList from "~/src/components/Detail/WorkDetailDefinitionList";
 import { WorkResult } from "~/src/types/WorkQuery";
 import { ApiWork } from "~/src/types/DataModel";
-import SearchForm from "../SearchForm/SearchForm";
 import { breadcrumbTitles } from "~/src/constants/labels";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
 import SearchHeader from "../SearchHeader/SearchHeader";
@@ -30,10 +29,9 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
   if (!props.workResult) return <>Loading</>;
 
   const { pathname, query } = router;
-
   const work: ApiWork = props.workResult.data;
 
-  //Edition Card Preprossing
+  //Edition Card Preprocessing
   const authorsList = EditionCardUtils.getAuthorsList(
     EditionCardUtils.getPreferredAgent(work.agents, "author"),
     "work-detail-header"

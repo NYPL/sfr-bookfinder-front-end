@@ -1,6 +1,7 @@
 {
   "uuid": "002fd17b-d953-4843-9eeb-b21e25b8f85c",
   "title": "Dictionary of American naval fighting ships.",
+  "sub_title": "random subtitle that is too long ",
   "sort_title": "dictionary of american naval fighting ships.",
   "date_modified": "2019-06-21T00:03:22.570654",
   "subjects": [
@@ -26,8 +27,8 @@
   ],
   "agents": [
     {
-      "name": "United States",
-      "sort_name": "United States",
+      "name": "Author Name",
+      "sort_name": "Author Name",
       "lcnaf": "n80090121",
       "viaf": "127306132",
       "roles": ["author"]
@@ -401,6 +402,12 @@
           "language": "English",
           "iso_2": "en",
           "iso_3": "eng"
+        }
+      ],
+      "covers": [
+        {
+          "url": "book-cover.png",
+          "media_type": "image/jpeg"
         }
       ]
     },

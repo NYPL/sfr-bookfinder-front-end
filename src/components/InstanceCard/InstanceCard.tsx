@@ -28,13 +28,11 @@ export const InstanceCard: React.FC<{
   return (
     <DS.Card
       id={`card-${instance.id}`}
-      heading={<div>{props.editionYear}</div>}
+      heading={<DS.Heading level={3}>{props.editionYear}</DS.Heading>}
       image={
         <DS.Image
           src={EditionCardUtils.getCover(instance.covers)}
-          alt={`Cover for Edition ${EditionCardUtils.editionYearText(
-            props.editionYear
-          )}`}
+          alt={"Cover"}
         ></DS.Image>
       }
       ctas={
@@ -56,9 +54,7 @@ export const InstanceCard: React.FC<{
         )}
       </div>
       <div>{EditionCardUtils.getWorldCatElem(instance)}</div>
-      <DS.Link>
-        <Link to="/license">{EditionCardUtils.getLicense(previewItem)}</Link>
-      </DS.Link>
+      <Link to="/license">{EditionCardUtils.getLicense(previewItem)}</Link>
     </DS.Card>
   );
 };

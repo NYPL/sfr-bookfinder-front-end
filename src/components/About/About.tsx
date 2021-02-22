@@ -44,11 +44,9 @@ const About: React.FC = () => {
             In addition to collecting these digital editions, we group all the
             editions of the same title together as a single “work.” For instance
             there are many editions of{" "}
-            <DS.Link>
-              <Link to="/work/e34d73df-f32b-49e1-8fdf-151db2a7806a">
-                Mary Wollstonecraft’s A Vindication of the Rights of Woman
-              </Link>
-            </DS.Link>
+            <Link to="/work/e34d73df-f32b-49e1-8fdf-151db2a7806a">
+              Mary Wollstonecraft’s A Vindication of the Rights of Woman
+            </Link>
             , many of them available digitally. We group them all together under
             a single search result and try to make the differences between
             them--years when and places where they were published, for

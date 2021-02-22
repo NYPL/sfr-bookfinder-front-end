@@ -36,15 +36,13 @@ export default class EditionCardUtils {
   static editionYearElem(edition: WorkEdition) {
     const editionDisplay = EditionCardUtils.editionYearText(edition);
     const editionElem = edition ? (
-      <DS.Link>
-        <Link
-          to={{
-            pathname: `/edition/${edition.id}`,
-          }}
-        >
-          {editionDisplay}
-        </Link>
-      </DS.Link>
+      <Link
+        to={{
+          pathname: `/edition/${edition.id}`,
+        }}
+      >
+        {editionDisplay}
+      </Link>
     ) : (
       <>{editionDisplay}</>
     );
@@ -257,51 +255,49 @@ export default class EditionCardUtils {
 
     if (localLink) {
       return (
-        <DS.Link type={DS.LinkTypes.Button}>
-          <Link
-            to={{
-              pathname: `/edition/${editionId}/read-local/${encodeURIComponent(
-                localLink.url
-              )}`,
-            }}
-            //TODO: Tracking
-            // onClick={() =>
-            //   gaUtils.trackGeneralEvent(
-            //     "Read Online",
-            //     item.source,
-            //     editionWithTitle.title,
-            //     ""
-            //   )
-            // }
-          >
-            Read Online
-          </Link>
-        </DS.Link>
+        <Link
+          to={{
+            pathname: `/edition/${editionId}/read-local/${encodeURIComponent(
+              localLink.url
+            )}`,
+          }}
+          linkType={DS.LinkTypes.Button}
+          //TODO: Tracking
+          // onClick={() =>
+          //   gaUtils.trackGeneralEvent(
+          //     "Read Online",
+          //     item.source,
+          //     editionWithTitle.title,
+          //     ""
+          //   )
+          // }
+        >
+          Read Online
+        </Link>
       );
     }
 
     if (embeddedLink) {
       return (
-        <DS.Link type={DS.LinkTypes.Button}>
-          <Link
-            to={{
-              pathname: `/edition/${editionId}/read-embed/${encodeURIComponent(
-                embeddedLink.url
-              )}`,
-            }}
-            //TODO: Tracking
-            // onClick={() =>
-            //   gaUtils.trackGeneralEvent(
-            //     "Read Online",
-            //     item.source,
-            //     editionWithTitle.title,
-            //     ""
-            //   )
-            // }
-          >
-            Read Online
-          </Link>
-        </DS.Link>
+        <Link
+          to={{
+            pathname: `/edition/${editionId}/read-embed/${encodeURIComponent(
+              embeddedLink.url
+            )}`,
+          }}
+          type={DS.LinkTypes.Button}
+          //TODO: Tracking
+          // onClick={() =>
+          //   gaUtils.trackGeneralEvent(
+          //     "Read Online",
+          //     item.source,
+          //     editionWithTitle.title,
+          //     ""
+          //   )
+          // }
+        >
+          Read Online
+        </Link>
       );
     }
 

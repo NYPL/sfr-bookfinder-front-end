@@ -2,21 +2,8 @@ import React from "react";
 import { gaUtils } from "dgx-react-ga";
 import { Html5Entities } from "html-entities";
 import * as DS from "@nypl/design-system-react-components";
-import {
-  MAX_TITLE_LENGTH,
-  MAX_PUBLISHER_NAME_LENGTH,
-  MAX_SUBTITILE_LENGTH,
-  PLACEHOLDER_COVER_LINK,
-} from "../../constants/editioncard";
-import { formatUrl, truncateStringOnWhitespace } from "../../util/Util";
 import Link from "../Link/Link";
-import {
-  WorkEdition,
-  Item,
-  ItemLink,
-  Cover,
-  Agent,
-} from "~/src/types/DataModel";
+import { WorkEdition } from "~/src/types/DataModel";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
 
 const htmlEntities = new Html5Entities();
@@ -36,11 +23,11 @@ export const EditionCard: React.FC<{ edition: WorkEdition }> = (props) => {
   return (
     <DS.Card
       id={`card-${edition.id}`}
-      heading={editionYear}
+      heading={<h3>{editionYear}</h3>}
       image={
         <DS.Image
           src={EditionCardUtils.getCover(edition.covers)}
-          alt={`Cover for Edition ${EditionCardUtils.editionYearText(edition)}`}
+          alt={`Cover for ${EditionCardUtils.editionYearText(edition)}`}
         ></DS.Image>
       }
       ctas={
@@ -62,9 +49,7 @@ export const EditionCard: React.FC<{ edition: WorkEdition }> = (props) => {
         )}
       </div>
       <div>{EditionCardUtils.getLanguageDisplayText(edition)}</div>
-      <DS.Link>
-        <Link to="/license">{EditionCardUtils.getLicense(previewItem)}</Link>
-      </DS.Link>
+      <Link to="/license">{EditionCardUtils.getLicense(previewItem)}</Link>
     </DS.Card>
   );
 };
