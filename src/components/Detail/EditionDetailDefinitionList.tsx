@@ -138,6 +138,7 @@ export const EditionDetailDefinitionList = ({
     );
   };
 
+  
   return (
     <div>
       <DS.Heading level={3} id="work-details">
