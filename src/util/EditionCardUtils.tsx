@@ -230,7 +230,7 @@ export default class EditionCardUtils {
   }
 
   static getReadOnlineLink = (editionId: number, item: Item) => {
-    const getEmbeddedReaedLink = (item: Item) => {
+    const getEmbeddedReadLink = (item: Item) => {
       if (!item || !item.links) return undefined;
       //handle error
 
@@ -252,7 +252,7 @@ export default class EditionCardUtils {
     };
 
     const localLink = getLocalReadLink(item);
-    const embeddedLink = getEmbeddedReaedLink(item);
+    const embeddedLink = getEmbeddedReadLink(item);
 
     if (localLink) {
       return (
@@ -286,7 +286,7 @@ export default class EditionCardUtils {
               embeddedLink.url
             )}`,
           }}
-          type={DS.LinkTypes.Button}
+          linkType={DS.LinkTypes.Button}
           //TODO: Tracking
           // onClick={() =>
           //   gaUtils.trackGeneralEvent(
