@@ -1,39 +1,19 @@
 import appConfig from "~/config/appConfig";
 import { WorkQuery, WorkResult } from "~/src/types/WorkQuery";
-import { ApiSearchQuery, SearchQuery } from "../../types/SearchQuery";
+import { ApiSearchQuery } from "../../types/SearchQuery";
 import { ApiSearchResult } from "../../types/DataModel";
 import { EditionQuery, EditionResult } from "~/src/types/EditionQuery";
-import {
-  ApiLanguage,
-  ApiLanguageResponse,
-  languagesToFacets,
-} from "~/src/types/LanguagesQuery";
 
 //TODO env variables
 const appEnv = "development";
 const apiUrl = appConfig.api[appEnv];
 const { searchPath, recordPath, editionPath, languagesPath } = appConfig.api;
-const totalWorksPath = appConfig.booksCount.apiUrl;
+// const totalWorksPath = appConfig.booksCount.apiUrl;
 const searchUrl = apiUrl + searchPath[appEnv];
 const recordUrl = apiUrl + recordPath;
 const editionUrl = apiUrl + editionPath;
 const languagesUrl = apiUrl + languagesPath;
-const totalWorksUrl = apiUrl + totalWorksPath;
-
-const initialApiQuery: ApiSearchQuery = {
-  queries: [],
-  recordType: "editions",
-  filters: [],
-  sort: [
-    {
-      field: "title",
-      dir: "asc",
-    },
-  ],
-  per_page: 10,
-  page: 0,
-  total: 1000,
-};
+// const totalWorksUrl = apiUrl + totalWorksPath;
 
 const defaultWorkQuery: WorkQuery = {
   identifier: "",

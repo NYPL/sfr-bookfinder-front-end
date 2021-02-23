@@ -67,7 +67,7 @@ describe("Advanced Search submit", () => {
           searchQuery={complicatedSearchQuery}
           languages={defaultLanguages}
         />
-    </MockNextRouterContextProvider>
+      </MockNextRouterContextProvider>
     );
     wrapper.find("form").simulate("submit");
 

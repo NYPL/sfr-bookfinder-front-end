@@ -1,9 +1,7 @@
 import React from "react";
 import Layout from "./Layout";
-import Router, {
-  MockNextRouterContextProvider,
-} from "~/src/testUtils/MockNextRouter";
-import { shallow, mount } from "enzyme";
+import { MockNextRouterContextProvider } from "~/src/testUtils/MockNextRouter";
+import { mount } from "enzyme";
 import Footer from "@nypl/dgx-react-footer";
 import Feedback from "~/src/components/Feedback/Feedback";
 import Loading from "~/src/components/Loading/Loading";

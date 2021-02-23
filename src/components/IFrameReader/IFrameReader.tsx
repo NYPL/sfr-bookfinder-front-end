@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
-import * as DS from "@nypl/design-system-react-components";
 import { formatUrl } from "~/src/util/Util";
 import Loading from "../Loading/Loading";
 

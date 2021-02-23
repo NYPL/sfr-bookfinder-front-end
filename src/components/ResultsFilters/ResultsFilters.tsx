@@ -3,8 +3,8 @@ import * as DS from "@nypl/design-system-react-components";
 import LanguageAccordion from "../LanguageAccordion/LanguageAccordion";
 import FilterBookFormat from "../FilterBookFormat/FilterBookFormat";
 import FilterYears from "../FilterYears/FilterYears";
-import { ApiSearchResult, FacetItem } from "~/src/types/DataModel";
-import { DateRange, Filter, SearchQuery } from "~/src/types/SearchQuery";
+import { FacetItem } from "~/src/types/DataModel";
+import { DateRange, Filter } from "~/src/types/SearchQuery";
 import {
   findFiltersExceptField,
   findFiltersForField,

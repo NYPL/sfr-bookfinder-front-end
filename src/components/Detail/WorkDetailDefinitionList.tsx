@@ -1,6 +1,5 @@
 import React from "react";
 import { Html5Entities } from "html-entities";
-import * as DS from "@nypl/design-system-react-components";
 import Link from "~/src/components/Link/Link";
 import { workDetailDefinitionLabels } from "~/src/constants/labels";
 import {

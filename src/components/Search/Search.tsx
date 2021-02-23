@@ -3,24 +3,22 @@ import * as DS from "@nypl/design-system-react-components";
 import { useRouter } from "next/router";
 import { searchFields } from "~/src/constants/fields";
 import { ApiSearchResult, ApiWork, FacetItem } from "~/src/types/DataModel";
-import { deepEqual, getNumberOfPages } from "~/src/util/Util";
+import { getNumberOfPages } from "~/src/util/Util";
 import {
   DateRange,
   Filter,
   SearchQuery,
   SearchQueryDefaults,
 } from "~/src/types/SearchQuery";
-import { sortMap, numbersPerPage } from "~/src/constants/sorts";
+import { sortMap } from "~/src/constants/sorts";
 import ResultsList from "../SearchResults/ResultsList";
 import { searchResultsFetcher } from "~/src/lib/api/SearchApi";
 import { breakpoints } from "~/src/constants/breakpoints";
-import SearchForm from "~/src/components/SearchForm/SearchForm";
 import { toLocationQuery } from "~/src/util/SearchUtils";
 import { toApiQuery } from "~/src/util/apiConversion";
 import Filters from "../ResultsFilters/ResultsFilters";
 import ResultsSorts from "../ResultsSorts/ResultsSorts";
 import { breadcrumbTitles } from "~/src/constants/labels";
-import Link from "../Link/Link";
 import SearchHeader from "../SearchHeader/SearchHeader";
 
 const SearchResults: React.FC<{

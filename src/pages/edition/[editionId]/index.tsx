@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 
 import Layout from "~/src/components/Layout/Layout";
 import Edition from "~/src/components/EditionDetail/Edition";
 import { editionFetcher } from "~/src/lib/api/SearchApi";
 import { EditionQuery, EditionResult } from "~/src/types/EditionQuery";
-import { WorkQuery } from "~/src/types/WorkQuery";
 
 export async function getServerSideProps(context: any) {
   //TODO: Default query

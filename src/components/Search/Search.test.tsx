@@ -1,23 +1,12 @@
 import React from "react";
-import { mount, shallow } from "enzyme";
 import SearchResults from "./Search";
 import { SearchQuery } from "~/src/types/SearchQuery";
 import { ApiSearchResult } from "~/src/types/DataModel";
-import { resizeWindow } from "~/src/testUtils/screen";
-import SearchForm from "../SearchForm/SearchForm";
-import { Input } from "@nypl/design-system-react-components";
 import "@testing-library/jest-dom/extend-expect";
-import {
-  getAllByRole,
-  getByRole,
-  prettyDOM,
-  render,
-  screen,
-  within,
-} from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 
 const searchResults: ApiSearchResult = require("../../__tests__/fixtures/results-list.json");
-const emptyResults: ApiSearchResult = require("../../__tests__/fixtures/results-list-empty.json");
+// const emptyResults: ApiSearchResult = require("../../__tests__/fixtures/results-list-empty.json");
 const searchQuery: SearchQuery = {
   filterYears: { end: 2000, start: 1800 },
   filters: [{ field: "language", value: "Spanish" }],
@@ -30,15 +19,15 @@ const searchQuery: SearchQuery = {
 
 describe("Search Query Queries correctly prepopulate content", () => {
   test("Simple Search displays correct search heading", () => {
-    const search = render(
+    render(
       <SearchResults searchQuery={searchQuery} searchResults={searchResults} />
     );
-    expect(search.getByLabelText(''));
-    expect(search.find(SearchForm).find("select").props().value).toEqual(
-      "keyword"
-    );
+    expect(screen.getByLabelText(""));
+    // expect(screen.find(SearchForm).find("select").props().value).toEqual(
+    //   "keyword"
+    // );
     expect(
-      search.getByText('Search results for keyword: "Civil War" OR Lincoln')
+      screen.getByText('Search results for keyword: "Civil War" OR Lincoln')
     ).toBeInTheDocument();
   });
 

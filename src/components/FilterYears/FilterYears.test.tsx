@@ -1,7 +1,6 @@
 import React from "react";
 import FilterYears from "./FilterYears";
 import { mount, shallow } from "enzyme";
-import { HelperErrorText } from "@nypl/design-system-react-components";
 
 describe("Filter Years with no apply button", () => {
   const dateChange = jest.fn();

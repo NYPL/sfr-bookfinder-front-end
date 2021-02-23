@@ -2,10 +2,7 @@ import React from "react";
 import Edition from "./Edition";
 import "@testing-library/jest-dom/extend-expect";
 import { screen, render, within, fireEvent } from "@testing-library/react";
-import {
-  breadcrumbTitles,
-  editionDetailDefinitionLabels,
-} from "~/src/constants/labels";
+import { breadcrumbTitles } from "~/src/constants/labels";
 import { searchFields } from "~/src/constants/fields";
 import {
   mockPush,

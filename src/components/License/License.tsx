@@ -3,7 +3,7 @@ import React from "react";
 import * as DS from "@nypl/design-system-react-components";
 import { breadcrumbTitles } from "~/src/constants/labels";
 
-const License: React.FC<{}> = () => {
+const License: React.FC = () => {
   return (
     <div className="layout-container">
       <main id="mainContent" className="main">

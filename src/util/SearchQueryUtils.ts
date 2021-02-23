@@ -1,7 +1,4 @@
-import {
-  Filter,
-  Query,
-} from "../types/SearchQuery";
+import { Filter, Query } from "../types/SearchQuery";
 
 export const getQueryString = (query: any) =>
   query &&

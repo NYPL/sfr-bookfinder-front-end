@@ -27,6 +27,7 @@ class RequestDigital extends React.Component<Props, State> {
   static defaultProps = {
     requestedWork: {},
     requestedEdition: {},
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     closeForm: () => {},
   };
 
