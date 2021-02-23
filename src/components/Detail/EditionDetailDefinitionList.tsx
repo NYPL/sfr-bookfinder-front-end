@@ -2,7 +2,6 @@ import React from "react";
 import { Html5Entities } from "html-entities";
 import * as DS from "@nypl/design-system-react-components";
 import { editionDetailDefinitionLabels } from "../../constants/labels";
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '~/src/util/Util' or its corres... Remove this comment to see the full error message
 import { isEmpty } from "~/src/util/Util";
 
 const htmlEntities = new Html5Entities();

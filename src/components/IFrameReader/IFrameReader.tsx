@@ -16,14 +16,11 @@ const IFrameReader: React.FC<any> = () => {
   const [edition, setEdition] = useState<ApiEdition>(null);
 
   useEffect(() => {
-    console.log("editionId", router.query);
     async function fetchEdition(query) {
-      console.log("router query", query);
       const editionQuery: EditionQuery = {
         editionIdentifier: query,
       };
       const edition: EditionResult = await editionFetcher(editionQuery);
-      console.log("edition", edition);
       setEdition(edition.data);
     }
 

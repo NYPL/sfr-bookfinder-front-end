@@ -118,7 +118,6 @@ const AdvancedSearch: React.FC<{
   };
 
   const onDateChange = (e, isStart: boolean) => {
-    console.log("searchQuery", searchQuery);
     setSearchQuery({
       ...searchQuery,
       filterYears: {

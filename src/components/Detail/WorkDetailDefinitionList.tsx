@@ -140,7 +140,6 @@ export const WorkDetailDefinitionList = ({
                       pathname: "/search",
                       query: {
                         queries: `[{"query": "${subject.subject}", "field": "subject"}]`,
-                        showQueries: `[{"query": "${subject.subject}", "field": "subject"}]`,
                       },
                     }}
                   >
@@ -209,16 +208,10 @@ export const WorkDetailDefinitionList = ({
 
   return (
     <div>
-      <h3 className="work-details-tag bold">
-        <a id="work-details">Details</a>
-      </h3>
+      <h3 className="work-details-tag bold">Details</h3>
       {getDefinitions(work)}
     </div>
   );
-};
-
-WorkDetailDefinitionList.defaultProps = {
-  work: {},
 };
 
 export default WorkDetailDefinitionList;

@@ -16,6 +16,7 @@ const initializeReader = async (entryUrl: string) => {
 const WebpubViewer = () => {
   const router = useRouter();
   const bookUrl = router.query.bookUrl;
+  console.log("bookUrl", bookUrl);
 
   React.useEffect(() => {
     if (bookUrl && typeof bookUrl === "string") initializeReader(bookUrl);

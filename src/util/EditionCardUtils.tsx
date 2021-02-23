@@ -245,7 +245,8 @@ export default class EditionCardUtils {
       if (!item || !item.links) return undefined;
       //handle error
       const selectedLink = item.links.find(
-        (link: ItemLink) => link.local && link.url.endsWith(".opf")
+        (link: ItemLink) =>
+          link.local && link.media_type === "application/epub+xml"
       );
       return selectedLink;
     };
