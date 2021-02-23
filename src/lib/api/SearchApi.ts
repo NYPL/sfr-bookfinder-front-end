@@ -116,6 +116,7 @@ export const editionFetcher = async (query: EditionQuery) => {
     const editionResult: EditionResult = await res.json();
     return editionResult;
   } else {
+    console.log("editionUrl", editionUrl);
     //TODO Error handling
     console.log("res not ok", res.status, res.statusText);
   }

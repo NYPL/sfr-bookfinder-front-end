@@ -12,7 +12,8 @@ import {
 
 const IFrameReader: React.FC<any> = () => {
   const router = useRouter();
-  const [bookUrl, setBookUrl] = useState(null);
+  const editionId = router.query.editionId;
+  const [bookUrl, setBookUrl] = useState(router.query.bookUrl);
   const [edition, setEdition] = useState<ApiEdition>(null);
 
   useEffect(() => {
@@ -23,13 +24,14 @@ const IFrameReader: React.FC<any> = () => {
       const edition: EditionResult = await editionFetcher(editionQuery);
       setEdition(edition.data);
     }
-
-    setBookUrl(router.query.bookUrl);
-    fetchEdition(router.query.editionId);
-  }, [router.query]);
+    if (bookUrl && editionId) {
+      setBookUrl(bookUrl);
+      fetchEdition(editionId);
+    }
+  }, [bookUrl, editionId]);
 
   return (
-    <span>
+    <>
       {edition && (
         <DS.Breadcrumbs
           breadcrumbs={[
@@ -42,16 +44,15 @@ const IFrameReader: React.FC<any> = () => {
           ]}
         />
       )}
-      <span>
-        {bookUrl && (
-          <iframe
-            allowFullScreen
-            src={`${formatUrl(bookUrl)}`}
-            title="Ebook Frame"
-          />
-        )}
-      </span>
-    </span>
+      {bookUrl && (
+        <iframe
+          className="iframe-reader"
+          allowFullScreen
+          src={`${formatUrl(bookUrl)}`}
+          title="Ebook Frame"
+        />
+      )}
+    </>
   );
 };
 
