@@ -1,8 +1,11 @@
-version: "2.2"
+version: "3"
+
 services:
-  sfr-front-end:
-    container_name: sfr-front-end
-    build: ./
+  web:
+    container_name: sfr-bookfinder-front-end
+    build:
+      context: ./
+      dockerfile: Dockerfile
     environment:
       NODE_ENV: production
     ports:

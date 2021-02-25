@@ -1,32 +1,29 @@
-# build environment
-FROM node:14.6.0-alpine as builder	
+# Build the environment.
+FROM node:14.16.0-alpine
 
-RUN apk update
+# Install git to resolve issues installing the
+# nypl/dgx-header-component package.
 RUN apk add git
 
-# we first copy just the package.json and run npm ci
-# to take advantage of layer caching
-ENV NPM_CONFIG_LOGLEVEL=warn
-COPY package*.json ./
-COPY .npmrc ./
-COPY install-deps.sh ./
-# conditionally login to github package registry
-# and install dependencies
-ARG github_token=""
-RUN chmod +x ./install-deps.sh
-RUN sh ./install-deps.sh
+WORKDIR /
 
-# then copy the rest of the files
+# Set environment variables. NODE_ENV is set early because we
+# want to use it when running `npm install` and `npm run build`.
+ENV PATH /app/node_modules/.bin:$PATH
+ENV PORT=3000 \
+    NODE_ENV=production
+
+# Install dependencies.
+COPY package.json ./
+RUN npm install
+
+# Copy the app files.
 COPY . ./
 
-# Set some standard ENV
-ENV PORT=3000 \	
-    NODE_ENV=production	
 EXPOSE $PORT
 
-# CMD will set the default command that
-# is run when running the docker container.
-# In this case, we run build-and-start to 
-# build the app with our env vars, delete
-# unnecessary files, and start the app.
-CMD npm run build-and-start
+# Build the app!
+RUN npm run build
+
+# CMD is the default command when running the docker container.
+CMD npm start
