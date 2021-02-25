@@ -45,7 +45,7 @@
     }
   ],
   "languages": null,
-  "alt_titles": null,
+  "alt_titles": ["Alt title 1", "Alt title 2"],
   "identifiers": [
     {
       "id_type": "hathi",

@@ -16,7 +16,9 @@ describe("renders Landing page correctly", () => {
     ).toHaveAttribute("href", "/");
   });
   test("Shows Heading", () => {
-    expect(screen.getByRole("heading", { name: "hello" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Digital Research Books Beta" })
+    ).toBeInTheDocument();
   });
   test("Searchbar select defaults to 'keyword'", () => {
     expect(screen.getByRole("combobox")).toHaveValue(searchFields[0]);

@@ -5,7 +5,7 @@ import { join } from "path";
 
 import { ApiEdition, EditionResult } from "~/src/types/EditionQuery";
 
-import EditionDetailDefinitionList from "~/src/components/Detail/EditionDetailDefinitionList";
+import EditionDetailDefinitionList from "~/src/components/EditionDetailDefinitionList/EditionDetailDefinitionList";
 import Link from "~/src/components/Link/Link";
 import { InstanceCard } from "../InstanceCard/InstanceCard";
 import { breadcrumbTitles } from "~/src/constants/labels";

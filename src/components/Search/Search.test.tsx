@@ -22,10 +22,6 @@ describe("Search Query Queries correctly prepopulate content", () => {
     render(
       <SearchResults searchQuery={searchQuery} searchResults={searchResults} />
     );
-    expect(screen.getByLabelText(""));
-    // expect(screen.find(SearchForm).find("select").props().value).toEqual(
-    //   "keyword"
-    // );
     expect(
       screen.getByText('Search results for keyword: "Civil War" OR Lincoln')
     ).toBeInTheDocument();

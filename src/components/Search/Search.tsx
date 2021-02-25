@@ -25,7 +25,6 @@ const SearchResults: React.FC<{
   searchQuery: SearchQuery;
   searchResults: ApiSearchResult;
 }> = (props) => {
-  console.log("queries", props.searchQuery);
 
   const [searchQuery, setSearchQuery] = useState({
     ...SearchQueryDefaults,
@@ -186,7 +185,6 @@ const SearchResults: React.FC<{
   };
 
   const onPageChange = (select: number) => {
-    console.log("select", select);
     const newSearchQuery: SearchQuery = Object.assign({}, searchQuery, {
       page: select,
     });

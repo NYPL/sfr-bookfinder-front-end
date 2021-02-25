@@ -1,0 +1,9 @@
+version: "2.2"
+services:
+  sfr-front-end:
+    container_name: sfr-front-end
+    build: ./
+    environment:
+      NODE_ENV: production
+    ports:
+      - 3000:3000

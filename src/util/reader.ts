@@ -18,19 +18,8 @@ import appConfig from "~/config/appConfig";
 import { formatUrl } from "./Util";
 
 export default async function reader(bookUrl: string) {
-  // console.log("bookUrl", bookUrl);
   const element = document.getElementById("viewer");
-  // const webpubBookUrl = new URL(bookUrl, window.location.href);
-  // const response = await fetch(bookUrl);
-  // const text = await response.text();
-  // console.log("text", text);
-  // const xml = new window.DOMParser().parseFromString(text, "text/html");
-  // const rootfile = xml.getElementsByTagName("rootfile")[0]
-  //   ? xml.getElementsByTagName("rootfile")[0].getAttribute("full-path")
-  //   : "";
-  // const url = containerHref.replace("META-INF/container.xml", rootfile || "");
   const finalUrl = new URL(formatUrl(bookUrl));
-  console.log("finalUrl", finalUrl);
 
   initBookSettings(element, finalUrl);
 }
@@ -77,7 +66,6 @@ async function initBookSettings(
   const scroller = new ScrollingBookView();
 
   const entryUrl: URL = webpubManifestUrl;
-  console.log("entryUrl", entryUrl);
 
   const bookSettings = await BookSettings.create({
     store: settingsStore,

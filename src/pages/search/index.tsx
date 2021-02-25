@@ -16,7 +16,6 @@ export async function getServerSideProps(context: any) {
 
   // Fetch first set of search results
   const searchResults = await searchResultsFetcher(parsedQuery);
-  console.log("searchResults", searchResults);
   return {
     props: {
       searchQuery: toSearchQuery(parsedQuery),
@@ -26,7 +25,6 @@ export async function getServerSideProps(context: any) {
 }
 
 const SearchResults: React.FC<any> = (props) => {
-  console.log("page searchQuery", props.searchQuery);
   return (
     <Layout>
       <Search

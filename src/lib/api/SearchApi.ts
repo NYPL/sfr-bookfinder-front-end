@@ -31,7 +31,6 @@ const defaultEditionQuery = {
 // RecordType and total can be passed through
 
 export const searchResultsFetcher = async (query: ApiSearchQuery) => {
-  //TODO Error handling
   if (!query || !query.queries) {
     throw new Error("no query");
   }
@@ -48,8 +47,7 @@ export const searchResultsFetcher = async (query: ApiSearchQuery) => {
     const searchResult: ApiSearchResult = await res.json();
     return searchResult;
   } else {
-    //TODO Error handling
-    console.log("res not ok", res.status, res.statusText);
+    throw new Error(res.statusText);
   }
 };
 
@@ -96,9 +94,7 @@ export const editionFetcher = async (query: EditionQuery) => {
     const editionResult: EditionResult = await res.json();
     return editionResult;
   } else {
-    console.log("editionUrl", editionUrl);
-    //TODO Error handling
-    console.log("res not ok", res.status, res.statusText);
+    throw new Error(res.statusText);
   }
 };
 
@@ -107,6 +103,6 @@ export const languagesFetcher = async () => {
   if (res.ok) {
     return res.json();
   } else {
-    console.log("res not ok", res.status, res.statusText);
+    throw new Error(res.statusText);
   }
 };

@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import * as DS from "@nypl/design-system-react-components";
 import { joinArrayOfElements } from "~/src/util/Util";
 import { EditionCard } from "~/src/components/EditionCard/EditionCard";
-import WorkDetailDefinitionList from "~/src/components/Detail/WorkDetailDefinitionList";
+import WorkDetailDefinitionList from "~/src/components/WorkDetailDefinitionList/WorkDetailDefinitionList";
 import { WorkResult } from "~/src/types/WorkQuery";
 import { ApiWork } from "~/src/types/DataModel";
 import { breadcrumbTitles } from "~/src/constants/labels";

@@ -104,14 +104,14 @@ export default class EditionCardUtils {
   }
 
   // Author
-  static getAuthorIdentifier(author: any) {
+  static getAuthorIdentifier(author: Agent) {
     return (
       (author.viaf && ["viaf", "viaf"]) ||
       (author.lcnaf && ["lcnaf", "lcnaf"]) || ["name", "author"]
     );
   }
 
-  static getLinkToAuthorSearch(author: any) {
+  static getLinkToAuthorSearch(author: Agent) {
     return {
       queries: JSON.stringify([
         {
@@ -123,7 +123,7 @@ export default class EditionCardUtils {
     };
   }
 
-  static getAuthorsList(agents: any, linkKeyPrefix: any) {
+  static getAuthorsList(agents: Agent[], linkKeyPrefix: string) {
     if (!agents || !agents.length) return null;
     return agents.map((authorAgent: any) => {
       const authorLinkText = authorAgent.name;

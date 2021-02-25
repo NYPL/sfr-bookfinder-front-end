@@ -33,7 +33,6 @@ const Feedback: React.FC<any> = () => {
       feedbackField.current.focus();
       dispatch({ type: "FEEDBACK_EMPTY", value: true });
     } else {
-      console.log("router pathname", router);
       fetch(appConfig.feedback.formURL, {
         method: "POST",
         headers: {

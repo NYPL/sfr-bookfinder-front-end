@@ -26,7 +26,7 @@ export type Agent = {
   sort_name?: string;
   viaf?: string;
   lcnaf?: string;
-  role?: string;
+  roles?: string[];
   birth_date_display?: string;
   death_date_display?: string;
 };

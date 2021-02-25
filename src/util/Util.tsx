@@ -1,12 +1,6 @@
 import React from "react";
 import FeatureFlags from "dgx-feature-flags";
 
-// polyfill for Object.entries
-const entriesPolyFill = (obj: any) =>
-  Object.keys(obj).map((key) => [key, obj[key]]);
-// @ts-expect-error ts-migrate(2322) FIXME: Type '(obj: any) => any[][]' is not assignable to ... Remove this comment to see the full error message
-if (!Object.entries) Object.entries = entriesPolyFill;
-
 // Given a link ensure that it has an attached protocol and add https if none is found
 export const formatUrl = (link: any) =>
   link.startsWith("http") ? link : `https://${link}`;
@@ -43,7 +37,6 @@ export const unique = (array: any, propertyName: any) =>
           ) === i
     );
 
-// @ts-expect-error ts-migrate(7024) FIXME: Function implicitly has return type 'any' because ... Remove this comment to see the full error message
 export const flattenDeep = (arr: any) =>
   Array.isArray(arr)
     ? arr.reduce((a, b) => a.concat(flattenDeep(b)), [])
@@ -53,7 +46,6 @@ export const isEmpty = (obj: any) =>
   (typeof obj === "object" && !Object.entries(obj || {}).length) || !obj;
 
 // compare two objects
-// @ts-expect-error ts-migrate(7024) FIXME: Function implicitly has return type 'any' because ... Remove this comment to see the full error message
 export const deepEqual = (x: any, y: any) =>
   x && y && typeof x === "object" && typeof x === typeof y
     ? Object.keys(x).length === Object.keys(y).length &&
@@ -68,7 +60,6 @@ export const uniqueAndSortByFrequency = (array: any) => {
   array.forEach((value: any) => {
     // remove undefined values
     if (value) {
-      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       frequency[value] = frequency[value] ? frequency[value] + 1 : 1;
     }
   });
@@ -77,7 +68,6 @@ export const uniqueAndSortByFrequency = (array: any) => {
   const uniques = Object.keys(frequency);
 
   // sort the uniques array in descending order by frequency
-  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   const compareFrequency = (a: any, b: any) => frequency[b] - frequency[a];
 
   return uniques.sort(compareFrequency);
