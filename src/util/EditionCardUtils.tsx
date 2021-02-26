@@ -123,7 +123,7 @@ export default class EditionCardUtils {
     };
   }
 
-  static getAuthorsList(agents: Agent[], linkKeyPrefix: string) {
+  static getAuthorsList(agents: Agent[], linkKeyPrefix: string): JSX.Element[] {
     if (!agents || !agents.length) return null;
     return agents.map((authorAgent: any) => {
       const authorLinkText = authorAgent.name;

@@ -5,7 +5,6 @@
   "scripts": {
     "dev": "next dev",
     "eb-dev": "next dev -p $PORT",
-    "build-and-start": "npm run build && npm run start",
     "build": "next build",
     "start": "next start",
     "eb-start": "NODE_ENV=development next build && node ./server.js",

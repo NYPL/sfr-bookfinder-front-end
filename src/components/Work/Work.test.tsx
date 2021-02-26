@@ -9,7 +9,7 @@ import { WorkResult } from "~/src/types/WorkQuery";
 import {
   mockPush,
   MockNextRouterContextProvider,
-} from "~/src/testUtils/MockNextRouter";
+} from "~/src/__tests__/testUtils/MockNextRouter";
 const apiWork: ApiWork = require("../../__tests__/fixtures/work-detail.json");
 
 describe("Renders Work component when given valid work", () => {

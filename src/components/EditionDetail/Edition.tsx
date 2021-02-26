@@ -1,7 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
 import * as DS from "@nypl/design-system-react-components";
-import { join } from "path";
 
 import { ApiEdition, EditionResult } from "~/src/types/EditionQuery";
 
@@ -9,7 +8,6 @@ import EditionDetailDefinitionList from "~/src/components/EditionDetailDefinitio
 import Link from "~/src/components/Link/Link";
 import { InstanceCard } from "../InstanceCard/InstanceCard";
 import { breadcrumbTitles } from "~/src/constants/labels";
-import EditionCardUtils from "~/src/util/EditionCardUtils";
 import SearchHeader from "../SearchHeader/SearchHeader";
 
 const Edition: React.FC<{ editionResult: EditionResult }> = (props) => {
@@ -18,11 +16,6 @@ const Edition: React.FC<{ editionResult: EditionResult }> = (props) => {
   if (!props.editionResult) return <>Loading</>;
   const { pathname, query } = router;
   const edition: ApiEdition = props.editionResult.data;
-
-  const authorsList = EditionCardUtils.getAuthorsList(
-    EditionCardUtils.getPreferredAgent(edition.agents, "author"),
-    "work-detail-header"
-  );
 
   const featuredInstance = edition.instances[0];
 
@@ -68,9 +61,6 @@ const Edition: React.FC<{ editionResult: EditionResult }> = (props) => {
             <div className="search-result-item__subtitle">
               {edition.sub_title}
             </div>
-          )}
-          {authorsList && authorsList.length && (
-            <span>By {join(authorsList, ", ")}</span>
           )}
         </div>
 

@@ -8,7 +8,7 @@ import LanguageAccordion from "~/src/components/LanguageAccordion/LanguageAccord
 import {
   MockNextRouterContextProvider,
   mockPush,
-} from "~/src/testUtils/MockNextRouter";
+} from "~/src/__tests__/testUtils/MockNextRouter";
 import { HelperErrorText } from "@nypl/design-system-react-components";
 
 const defaultLanguages: FacetItem[] = [

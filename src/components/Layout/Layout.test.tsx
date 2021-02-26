@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "./Layout";
-import { MockNextRouterContextProvider } from "~/src/testUtils/MockNextRouter";
+import { MockNextRouterContextProvider } from "~/src/__tests__/testUtils/MockNextRouter";
 import { mount } from "enzyme";
 import Footer from "@nypl/dgx-react-footer";
 import Feedback from "~/src/components/Feedback/Feedback";

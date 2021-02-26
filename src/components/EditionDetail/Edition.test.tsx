@@ -7,7 +7,7 @@ import { searchFields } from "~/src/constants/fields";
 import {
   mockPush,
   MockNextRouterContextProvider,
-} from "~/src/testUtils/MockNextRouter";
+} from "~/src/__tests__/testUtils/MockNextRouter";
 import { ApiEdition, EditionResult } from "~/src/types/EditionQuery";
 const apiEdition: ApiEdition = require("../../__tests__/fixtures/edition-detail.json");
 
