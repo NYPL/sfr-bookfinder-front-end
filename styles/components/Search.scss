@@ -1,14 +1,32 @@
-.search-header {
-  @include wrapper;
-
-  h1 { color: var(--ui-white); }
-
-  background-color: var(--section-research-primary);
+.search-heading {
+  @include space-stack-m;
 }
-
 .search-subheading {
-  @include wrapper;
 
   display: flex;
   justify-content: space-between;
+  flex-flow: column;
+
+  @media (min-width: $breakpoint-large) {
+    align-items: center;
+    flex-flow: row;
+  }
+}
+.search-filter {
+  @include space-stack-xs; 
+  border-top: 2px solid var(--section-research-primary);
+  background-color: var(--ui-gray-light);
+
+  h2 {
+    @include space-inset-xs;
+  }
+
+  legend {
+        font-weight: bold;    
+  }
+
+}
+
+.filter-button {
+  width: 100%
 }

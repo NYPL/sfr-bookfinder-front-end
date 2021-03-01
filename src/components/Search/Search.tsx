@@ -11,7 +11,7 @@ import {
   SearchQueryDefaults,
 } from "~/src/types/SearchQuery";
 import { sortMap } from "~/src/constants/sorts";
-import ResultsList from "../SearchResults/ResultsList";
+import ResultsList from "../ResultsList/ResultsList";
 import { searchResultsFetcher } from "~/src/lib/api/SearchApi";
 import { breakpoints } from "~/src/constants/breakpoints";
 import { toLocationQuery } from "~/src/util/SearchUtils";
@@ -25,7 +25,6 @@ const SearchResults: React.FC<{
   searchQuery: SearchQuery;
   searchResults: ApiSearchResult;
 }> = (props) => {
-
   const [searchQuery, setSearchQuery] = useState({
     ...SearchQueryDefaults,
     ...props.searchQuery,
@@ -49,7 +48,7 @@ const SearchResults: React.FC<{
   // When the window resizes, set mobile.
   useEffect(() => {
     function handleResize() {
-      if (window.innerWidth < breakpoints.medium) {
+      if (window.innerWidth < breakpoints.large) {
         setMobile(true);
       } else {
         setMobile(false);
@@ -214,7 +213,7 @@ const SearchResults: React.FC<{
                 : "Viewing 0 items"}
             </DS.Heading>
             {!isMobile && (
-              <form name="sortForm" ref={sortForm}>
+              <form className="sort-form" name="sortForm" ref={sortForm}>
                 <ResultsSorts
                   perPage={searchQuery.perPage}
                   sort={searchQuery.sort}
@@ -228,6 +227,7 @@ const SearchResults: React.FC<{
         </div>
         {isMobile && (
           <DS.Button
+            className="filter-button"
             id="filter-button"
             buttonType={DS.ButtonTypes.Secondary}
             onClick={() => {
@@ -239,12 +239,17 @@ const SearchResults: React.FC<{
         )}
       </div>
 
-      <div className="content-secondary content-secondary--with-sidebar-left">
+      <div
+        className={`content-secondary${
+          !isMobile && " content-secondary--with-sidebar-left"
+        }`}
+      >
         {!isMobile && (
-          <form ref={filterForm}>
+          <form className="search-filter" ref={filterForm}>
             <DS.Heading level={2} id="filter-desktop-header">
               Refine Results
             </DS.Heading>
+            <hr />
             <Filters
               filters={searchQuery.filters}
               filterYears={searchQuery.filterYears}

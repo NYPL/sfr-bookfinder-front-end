@@ -97,7 +97,7 @@ const Filters: React.FC<{
   };
 
   return (
-    <>
+    <div className="results-filters">
       <DS.Checkbox
         checkboxId="avail_online"
         checked={!showAll}
@@ -130,7 +130,7 @@ const Filters: React.FC<{
         dateRangeError={dateRangeError}
         onSubmit={() => submitDateForm()}
       />
-    </>
+    </div>
   );
 };
 

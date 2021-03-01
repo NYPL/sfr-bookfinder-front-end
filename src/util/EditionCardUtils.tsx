@@ -125,23 +125,26 @@ export default class EditionCardUtils {
 
   static getAuthorsList(agents: Agent[], linkKeyPrefix: string): JSX.Element[] {
     if (!agents || !agents.length) return null;
-    return agents.map((authorAgent: any) => {
+    return agents.map((authorAgent: Agent, i: number) => {
       const authorLinkText = authorAgent.name;
       return (
-        <Link
-          to={{
-            pathname: "/search",
-            query: EditionCardUtils.getLinkToAuthorSearch(authorAgent),
-          }}
-          className="link"
-          key={
-            authorAgent.viaf
-              ? `${linkKeyPrefix}-${authorAgent.viaf}`
-              : `${linkKeyPrefix}-${authorAgent.name}`
-          }
-        >
-          {authorLinkText}
-        </Link>
+        <>
+          <Link
+            to={{
+              pathname: "/search",
+              query: EditionCardUtils.getLinkToAuthorSearch(authorAgent),
+            }}
+            className="link"
+            key={
+              authorAgent.viaf
+                ? `${linkKeyPrefix}-${authorAgent.viaf}`
+                : `${linkKeyPrefix}-${authorAgent.name}`
+            }
+          >
+            {authorLinkText}
+          </Link>
+          {i < agents.length && ", "}
+        </>
       );
     });
   }

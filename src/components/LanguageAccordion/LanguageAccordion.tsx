@@ -27,13 +27,14 @@ const LanguageAccordion: React.FC<{
   };
 
   return (
-    <fieldset>
+    <fieldset className="language-accordion">
       <legend>
         <DS.Label htmlFor="lanaguage-select">Languages</DS.Label>
       </legend>
-      <DS.Accordion inputId="language-select" accordionLabel="Click to Expand">
+      <DS.Accordion inputId="language-select" accordionLabel="Filter Languages">
         <DS.List
           id="languages-list"
+          className="languages-list"
           type={DS.ListTypes.Unordered}
           modifiers={["no-list-styling"]}
         >

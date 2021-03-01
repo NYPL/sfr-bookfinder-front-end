@@ -16,7 +16,10 @@ const LandingPage: React.FC<any> = () => {
         <DS.Breadcrumbs
           breadcrumbs={[{ url: "/", text: breadcrumbTitles.home }]}
         />
-        <div aria-label="Digital Research Books Beta" className="main-promo">
+        <div
+          aria-label="Digital Research Books Beta"
+          className="hero-container"
+        >
           <DS.Hero
             heroType={DS.HeroTypes.Secondary}
             heading={
@@ -43,18 +46,22 @@ const LandingPage: React.FC<any> = () => {
         </div>
       </div>
       <div className="content-primary">
-        <div className="searchbar">
-          <DS.Heading level={2}>
-            Search the World's Research Collections
-          </DS.Heading>
-          <SearchForm />
-          <p>
-            Use{" "}
-            <Link to="/advanced-search" className="link">
-              Advanced Search
-            </Link>{" "}
-            to narrow your results.
-          </p>
+        <div className="searchbar-container">
+          <div className="searchbar">
+            <div className="bar-content">
+              <DS.Heading level={2}>
+                Search the World's Research Collections
+              </DS.Heading>
+              <SearchForm />
+            </div>
+            <p className="advanced-search-message">
+              Use{" "}
+              <Link to="/advanced-search" className="link">
+                Advanced Search
+              </Link>{" "}
+              to narrow your results.
+            </p>
+          </div>
         </div>
         {
           // eslint-disable-next-line no-underscore-dangle

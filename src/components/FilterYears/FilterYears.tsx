@@ -34,30 +34,36 @@ const FilterYears: React.FC<{
   }
 
   return (
-    <fieldset>
+    <fieldset className="date-range">
       <legend className="usa-legend font-sans-lg sub-legend">
         Publication Year
       </legend>
-      <DS.Label id="date-from-label" htmlFor="date-filter-from">
-        From
-      </DS.Label>
-      <DS.Input
-        type={DS.InputTypes.number}
-        id="date-filter-from"
-        value={dateFilters && dateFilters.start ? dateFilters.start : ""}
-        onChange={(e) => changeDate(e, true)}
-      />
-      <DS.HelperErrorText isError={false}> EX. 1901 </DS.HelperErrorText>
-      <DS.Label id="date-to-label" htmlFor="date-filter-to">
-        To
-      </DS.Label>
-      <DS.Input
-        type={DS.InputTypes.number}
-        id="date-filter-to"
-        value={dateFilters && dateFilters.end > 0 ? dateFilters.end : ""}
-        onChange={(e) => changeDate(e, false)}
-      />
-      <DS.HelperErrorText isError={false}> EX. 2000 </DS.HelperErrorText>
+      <div className="year-input-group">
+        <div className="year-input">
+          <DS.Label id="date-from-label" htmlFor="date-filter-from">
+            From
+          </DS.Label>
+          <DS.Input
+            type={DS.InputTypes.number}
+            id="date-filter-from"
+            value={dateFilters && dateFilters.start ? dateFilters.start : ""}
+            onChange={(e) => changeDate(e, true)}
+          />
+          <DS.HelperErrorText isError={false}> EX. 1901 </DS.HelperErrorText>
+        </div>
+        <div className="year-input">
+          <DS.Label id="date-to-label" htmlFor="date-filter-to">
+            To
+          </DS.Label>
+          <DS.Input
+            type={DS.InputTypes.number}
+            id="date-filter-to"
+            value={dateFilters && dateFilters.end > 0 ? dateFilters.end : ""}
+            onChange={(e) => changeDate(e, false)}
+          />
+          <DS.HelperErrorText isError={false}> EX. 2000 </DS.HelperErrorText>
+        </div>
+      </div>
       {dateRangeError && (
         <DS.HelperErrorText isError={true}>{dateRangeError}</DS.HelperErrorText>
       )}
