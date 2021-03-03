@@ -9,6 +9,7 @@ export async function getServerSideProps(context: any) {
   //TODO: Default query
   const editionQuery: EditionQuery = {
     editionIdentifier: context.query.editionId,
+    showAll: context.query.showAll,
   };
 
   const editionResult: EditionResult = await editionFetcher(editionQuery);

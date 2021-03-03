@@ -28,8 +28,6 @@ dl.nypl-details-table {
     }
 
     border-bottom: 1px solid var(--ui-gray-medium);
-    
-
       @media (min-width: #{$breakpoint-medium}) {
         flex-flow: row;
         flex-wrap: wrap;

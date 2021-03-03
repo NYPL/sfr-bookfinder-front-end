@@ -43,8 +43,6 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
     });
   };
 
-  console.log("showAll", router.query.showAll);
-
   return (
     <div className="layout-container">
       {/* TODO RequestDigital {this.state.requestedEdition && this.getRequestDigital(work)} */}
@@ -109,7 +107,7 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
                         <>Show only items currently available online</>
                       ),
                     }}
-                    checked={router.query.showAll === "false"}
+                    checked={router.query.showAll !== "true"}
                     onChange={(e) => toggleShowAll(e)}
                   />
                 </div>

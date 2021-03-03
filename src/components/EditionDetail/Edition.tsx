@@ -18,6 +18,7 @@ const Edition: React.FC<{ editionResult: EditionResult }> = (props) => {
   const edition: ApiEdition = props.editionResult.data;
 
   const featuredInstance = edition.instances[0];
+  console.log("edition", edition);
 
   const toggleShowAll = (e: React.ChangeEvent<HTMLInputElement>) => {
     router.push({
@@ -65,19 +66,25 @@ const Edition: React.FC<{ editionResult: EditionResult }> = (props) => {
         </div>
 
         <div className="content-primary">
-          <DS.Heading level={2} id="featured-edition">
-            Featured Copy
-          </DS.Heading>
+          {featuredInstance && (
+            <>
+              <DS.Heading level={2} id="featured-edition">
+                Featured Copy
+              </DS.Heading>
 
-          <div id="featured-edition-card">
-            <InstanceCard
-              editionYear={edition.publication_date}
-              instance={featuredInstance}
-            />
-          </div>
+              <div id="featured-edition-card">
+                <InstanceCard
+                  editionYear={edition.publication_date}
+                  instance={featuredInstance}
+                />
+              </div>
+            </>
+          )}
 
           <div id="nypl-item-details">
+            <hr />
             <EditionDetailDefinitionList edition={edition} />
+            <hr />
             {edition.instances && (
               <div className="all-instances-header">
                 <h3

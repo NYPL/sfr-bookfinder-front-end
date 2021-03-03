@@ -23,7 +23,7 @@ const defaultWorkQuery: WorkQuery = {
 
 const defaultEditionQuery = {
   editionIdentifier: "",
-  showAll: "false",
+  showAll: "true",
 };
 
 //TODO: Lower Priority: combine SearchQuery and ApiSearchQuery
@@ -82,9 +82,11 @@ export const workFetcher = async (query: WorkQuery) => {
 export const editionFetcher = async (query: EditionQuery) => {
   const editionApiQuery = {
     editionIdentifier: query.editionIdentifier,
-    showAll: query.showAll ? query.showAll : defaultEditionQuery.showAll,
+    showAll:
+      typeof query.showAll !== "undefined"
+        ? query.showAll
+        : defaultEditionQuery.showAll,
   };
-
   const res = await fetch(editionUrl, {
     method: "POST",
     headers: {

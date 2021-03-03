@@ -15,7 +15,7 @@
 .search-filter {
   @include space-stack-xs; 
   border-top: 2px solid var(--section-research-primary);
-  background-color: var(--ui-gray-light);
+  background-color: var(--ui-gray-xlight);
 
   h2 {
     @include space-inset-xs;
@@ -28,5 +28,11 @@
 }
 
 .filter-button {
+  @include space-stack-s;
+
   width: 100%
+}
+
+.content-bottom {
+  margin: 0 auto;
 }
