@@ -57,7 +57,10 @@ export const workFetcher = async (query: WorkQuery) => {
     recordType: query.recordType
       ? query.recordType
       : defaultWorkQuery.recordType,
-    showAll: query.showAll ? query.showAll : defaultWorkQuery.showAll,
+    showAll:
+      typeof query.showAll !== "undefined"
+        ? query.showAll
+        : defaultWorkQuery.showAll,
   };
 
   const res = await fetch(recordUrl, {

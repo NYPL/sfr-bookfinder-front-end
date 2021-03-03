@@ -10,18 +10,6 @@ import { breadcrumbTitles } from "~/src/constants/labels";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
 import SearchHeader from "../SearchHeader/SearchHeader";
 
-//TODO: Scroll to hash removed, needs to be re-added
-// const scrollToHash = (hash) => {
-//   const hashtag = hash && hash.replace(/#/, '');
-//   if (hashtag) {
-//     const element = global.document.getElementById(hashtag);
-//     if (element) {
-//       element.scrollIntoView();
-//       element.focus();
-//     }
-//   }
-// };
-
 const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
   const router = useRouter();
 
@@ -54,6 +42,8 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
       },
     });
   };
+
+  console.log("showAll", router.query.showAll);
 
   return (
     <div className="layout-container">

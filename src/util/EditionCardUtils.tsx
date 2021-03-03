@@ -235,8 +235,7 @@ export default class EditionCardUtils {
   static getReadOnlineLink = (editionId: number, item: Item) => {
     const getEmbeddedReadLink = (item: Item) => {
       if (!item || !item.links) return undefined;
-      //handle error
-
+      console.log("links", item.links);
       const selectedLink = item.links.find(
         (link: ItemLink) => !link.local && !link.download
       );

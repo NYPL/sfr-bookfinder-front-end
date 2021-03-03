@@ -60,7 +60,7 @@ const SearchForm: React.FC<{
   };
 
   return (
-    <div>
+    <div className="search-form">
       <DS.SearchBar onSubmit={(e) => submitSearch(e)} ariaLabel="Search Bar">
         <DS.Select
           name={"field"}

@@ -5,32 +5,17 @@ import WorkDetail from "~/src/components/Work/Work";
 import { workFetcher } from "~/src/lib/api/SearchApi";
 import { WorkQuery, WorkResult } from "~/src/types/WorkQuery";
 
-export async function getStaticPaths() {
-  return {
-    paths: [],
-    fallback: true,
+export async function getServerSideProps(context: any) {
+  //TODO: Default query
+  const workQuery: WorkQuery = {
+    identifier: context.query.workId,
+    showAll: context.query.showAll,
   };
-}
 
-export async function getStaticProps({ params }) {
-  const { workId } = params;
-
-  if (!workId) {
-    return { notFound: true };
-  }
-
-  try {
-    const workQuery: WorkQuery = {
-      identifier: workId,
-    };
-
-    const workResult: WorkResult = await workFetcher(workQuery);
-    return {
-      props: { workResult: workResult },
-    };
-  } catch (error) {
-    return { notFound: true };
-  }
+  const workResult: WorkResult = await workFetcher(workQuery);
+  return {
+    props: { workResult: workResult },
+  };
 }
 
 const WorkResults: React.FC<any> = (props) => {
