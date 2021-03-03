@@ -1,0 +1,51 @@
+dl.nypl-details-table {
+    @include space-stack-m;
+
+    width: 100%;
+    display: flex;
+    
+    flex-flow: column;
+
+    dt { 
+        flex: auto;
+        border-top: 1px solid var(--ui-gray-medium);
+
+        text-align: left;
+        font-weight: 500;
+    }
+    dd {
+        flex: auto;
+        text-align: left;
+        margin-left: 0;
+        padding: 0;
+
+        ul {
+            list-style: none;
+            margin-block-start: 0;
+            margin-block-end: 0;
+            padding: 0;
+          }
+    }
+
+    border-bottom: 1px solid var(--ui-gray-medium);
+    
+
+      @media (min-width: #{$breakpoint-medium}) {
+        flex-flow: row;
+        flex-wrap: wrap;
+
+          dt {
+            @include space-stack-s;
+
+            flex: 0 0 20%;
+          }
+          dd {
+            @include space-stack-s;
+
+            border-top: 1px solid var(--ui-gray-medium);
+            flex: 0 0 80%;
+          }
+      }
+    
+  }
+  

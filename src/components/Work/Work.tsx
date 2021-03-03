@@ -57,7 +57,7 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
           <SearchHeader />
         </div>
 
-        <div className="content-primary">
+        <div className="content-primary work-detail">
           <div className="nypl-item-header">
             <DS.Heading level={1} id="work-title" blockName="page-title">
               {work.title}
@@ -69,7 +69,9 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
               </div>
             )}
             {authorsList && authorsList.length && (
-              <span>By {joinArrayOfElements(authorsList, ", ")}</span>
+              <div className="authors-container">
+                By {joinArrayOfElements(authorsList, ", ")}
+              </div>
             )}
           </div>
 
@@ -82,20 +84,20 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
           <div>
             <EditionCard edition={firstReadableEdition}></EditionCard>
           </div>
-
+          <hr />
+          <WorkDetailDefinitionList work={work} />
+          <hr />
           <div id="nypl-item-details">
-            <WorkDetailDefinitionList work={work} />
             {work.editions && (
               <>
                 <div className="all-editions-header">
-                  <h3
-                    // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number | ... Remove this comment to see the full error message
-                    tabIndex="-1"
+                  <DS.Heading
+                    level={3}
                     id="all-editions"
                     className="all-editions-tag bold"
                   >
                     All Editions
-                  </h3>
+                  </DS.Heading>
 
                   <DS.Checkbox
                     name="show-all"
