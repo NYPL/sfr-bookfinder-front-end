@@ -9,6 +9,7 @@ const License: React.FC = () => {
       <main id="mainContent" className="main">
         <div className="content-header">
           <DS.Breadcrumbs
+            modifiers={["space-under"]}
             breadcrumbs={[{ url: "/", text: breadcrumbTitles.home }]}
           />
         </div>

@@ -9,6 +9,7 @@ const About: React.FC = () => {
       <main className="main">
         <div className="content-header">
           <DS.Breadcrumbs
+            modifiers={["space-under"]}
             breadcrumbs={[{ url: "/", text: breadcrumbTitles.home }]}
           />
         </div>
