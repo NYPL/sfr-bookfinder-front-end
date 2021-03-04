@@ -128,23 +128,24 @@ export default class EditionCardUtils {
     return agents.map((authorAgent: Agent, i: number) => {
       const authorLinkText = authorAgent.name;
       return (
-        <>
+        <React.Fragment
+          key={
+            authorAgent.viaf
+              ? `${linkKeyPrefix}-${authorAgent.viaf}`
+              : `${linkKeyPrefix}-${authorAgent.name}`
+          }
+        >
           <Link
             to={{
               pathname: "/search",
               query: EditionCardUtils.getLinkToAuthorSearch(authorAgent),
             }}
             className="link"
-            key={
-              authorAgent.viaf
-                ? `${linkKeyPrefix}-${authorAgent.viaf}`
-                : `${linkKeyPrefix}-${authorAgent.name}`
-            }
           >
             {authorLinkText}
           </Link>
           {i < agents.length && ", "}
-        </>
+        </React.Fragment>
       );
     });
   }
@@ -235,7 +236,6 @@ export default class EditionCardUtils {
   static getReadOnlineLink = (editionId: number, item: Item) => {
     const getEmbeddedReadLink = (item: Item) => {
       if (!item || !item.links) return undefined;
-      console.log("links", item.links);
       const selectedLink = item.links.find(
         (link: ItemLink) => !link.local && !link.download
       );

@@ -18,7 +18,6 @@ const Edition: React.FC<{ editionResult: EditionResult }> = (props) => {
   const edition: ApiEdition = props.editionResult.data;
 
   const featuredInstance = edition.instances[0];
-  console.log("edition", edition);
 
   const toggleShowAll = (e: React.ChangeEvent<HTMLInputElement>) => {
     router.push({

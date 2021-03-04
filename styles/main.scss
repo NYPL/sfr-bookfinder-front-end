@@ -79,6 +79,12 @@ body {
   }
 }
 
+.breadcrumbs {
+  &--space-under {
+    @include space-stack-s;
+  }
+}
+
 fieldset {
   border: none;
 }

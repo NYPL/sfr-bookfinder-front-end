@@ -1,46 +1,60 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Filter Years with apply button Renders Filter Years with Apply button 1`] = `
-<fieldset>
+<fieldset
+  className="date-range"
+>
   <legend
     className="usa-legend font-sans-lg sub-legend"
   >
     Publication Year
   </legend>
-  <Label
-    htmlFor="date-filter-from"
-    id="date-from-label"
+  <div
+    className="year-input-group"
   >
-    From
-  </Label>
-  <Input
-    id="date-filter-from"
-    onChange={[Function]}
-    type="number"
-    value={30000}
-  />
-  <HelperErrorText
-    isError={false}
-  >
-     EX. 1901 
-  </HelperErrorText>
-  <Label
-    htmlFor="date-filter-to"
-    id="date-to-label"
-  >
-    To
-  </Label>
-  <Input
-    id="date-filter-to"
-    onChange={[Function]}
-    type="number"
-    value={2000}
-  />
-  <HelperErrorText
-    isError={false}
-  >
-     EX. 2000 
-  </HelperErrorText>
+    <div
+      className="year-input"
+    >
+      <Label
+        htmlFor="date-filter-from"
+        id="date-from-label"
+      >
+        From
+      </Label>
+      <Input
+        id="date-filter-from"
+        onChange={[Function]}
+        type="number"
+        value={30000}
+      />
+      <HelperErrorText
+        isError={false}
+      >
+         EX. 1901 
+      </HelperErrorText>
+    </div>
+    <div
+      className="year-input"
+    >
+      <Label
+        htmlFor="date-filter-to"
+        id="date-to-label"
+      >
+        To
+      </Label>
+      <Input
+        id="date-filter-to"
+        onChange={[Function]}
+        type="number"
+        value={2000}
+      />
+      <HelperErrorText
+        isError={false}
+      >
+         EX. 2000 
+      </HelperErrorText>
+    </div>
+  </div>
   <Button
     id="year-filter-button"
     mouseDown={false}
@@ -53,45 +67,59 @@ exports[`Filter Years with apply button Renders Filter Years with Apply button 1
 `;
 
 exports[`Filter Years with no apply button Renders filter years input 1`] = `
-<fieldset>
+<fieldset
+  className="date-range"
+>
   <legend
     className="usa-legend font-sans-lg sub-legend"
   >
     Publication Year
   </legend>
-  <Label
-    htmlFor="date-filter-from"
-    id="date-from-label"
+  <div
+    className="year-input-group"
   >
-    From
-  </Label>
-  <Input
-    id="date-filter-from"
-    onChange={[Function]}
-    type="number"
-    value={2000}
-  />
-  <HelperErrorText
-    isError={false}
-  >
-     EX. 1901 
-  </HelperErrorText>
-  <Label
-    htmlFor="date-filter-to"
-    id="date-to-label"
-  >
-    To
-  </Label>
-  <Input
-    id="date-filter-to"
-    onChange={[Function]}
-    type="number"
-    value={3000}
-  />
-  <HelperErrorText
-    isError={false}
-  >
-     EX. 2000 
-  </HelperErrorText>
+    <div
+      className="year-input"
+    >
+      <Label
+        htmlFor="date-filter-from"
+        id="date-from-label"
+      >
+        From
+      </Label>
+      <Input
+        id="date-filter-from"
+        onChange={[Function]}
+        type="number"
+        value={2000}
+      />
+      <HelperErrorText
+        isError={false}
+      >
+         EX. 1901 
+      </HelperErrorText>
+    </div>
+    <div
+      className="year-input"
+    >
+      <Label
+        htmlFor="date-filter-to"
+        id="date-to-label"
+      >
+        To
+      </Label>
+      <Input
+        id="date-filter-to"
+        onChange={[Function]}
+        type="number"
+        value={3000}
+      />
+      <HelperErrorText
+        isError={false}
+      >
+         EX. 2000 
+      </HelperErrorText>
+    </div>
+  </div>
 </fieldset>
 `;

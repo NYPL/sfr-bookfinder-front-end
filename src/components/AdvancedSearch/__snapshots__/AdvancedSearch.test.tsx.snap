@@ -78,11 +78,11 @@ Array [
 
 exports[`renders advanced search correctly Renders correctly in when passed well-formed query 1`] = `
 <main
-  className="main"
+  className="main  advanced-search"
   id="mainContent"
 >
   <div
-    className="content-header"
+    className="content-top"
   >
     <Breadcrumbs
       breadcrumbs={
@@ -93,97 +93,92 @@ exports[`renders advanced search correctly Renders correctly in when passed well
           },
         ]
       }
+      modifiers={
+        Array [
+          "space-under",
+        ]
+      }
     />
   </div>
   <div
-    aria-label="Digital Research Books Beta"
-    className="grid-col-12"
+    className="content-primary"
   >
-    <div
-      className="sfr-header-wrapper grid-col-10"
+    <Heading
+      level={1}
     >
-      <h1
-        className="nypl-heading"
-      >
-        Digital Research Books Beta
-      </h1>
-      <div
-        id="tagline"
-      >
-        Search the world's research collections and more for digital books you can use right now
-      </div>
-    </div>
+      Advanced Search
+    </Heading>
     <form
-      className="usa-form grid-container width-full margin-x-0 padding-x-0"
       onSubmit={[Function]}
     >
       <fieldset>
-        <legend>
-          Advanced Search
-        </legend>
         <div
-          key="field-keyword"
+          className="search-fields"
         >
-          <Label
-            htmlFor="keyword-input"
-            id="keyword-label"
+          <div
+            key="field-keyword"
           >
-            Keyword
-          </Label>
-          <Input
-            ariaLabel="Input for Keyword"
-            id="keyword-input"
-            onChange={[Function]}
-            value=""
-          />
-        </div>
-        <div
-          key="field-author"
-        >
-          <Label
-            htmlFor="author-input"
-            id="author-label"
+            <Label
+              htmlFor="keyword-input"
+              id="keyword-label"
+            >
+              Keyword
+            </Label>
+            <Input
+              ariaLabel="Input for Keyword"
+              id="keyword-input"
+              onChange={[Function]}
+              value=""
+            />
+          </div>
+          <div
+            key="field-author"
           >
-            Author
-          </Label>
-          <Input
-            ariaLabel="Input for Author"
-            id="author-input"
-            onChange={[Function]}
-            value=""
-          />
-        </div>
-        <div
-          key="field-title"
-        >
-          <Label
-            htmlFor="title-input"
-            id="title-label"
+            <Label
+              htmlFor="author-input"
+              id="author-label"
+            >
+              Author
+            </Label>
+            <Input
+              ariaLabel="Input for Author"
+              id="author-input"
+              onChange={[Function]}
+              value=""
+            />
+          </div>
+          <div
+            key="field-title"
           >
-            Title
-          </Label>
-          <Input
-            ariaLabel="Input for Title"
-            id="title-input"
-            onChange={[Function]}
-            value=""
-          />
-        </div>
-        <div
-          key="field-subject"
-        >
-          <Label
-            htmlFor="subject-input"
-            id="subject-label"
+            <Label
+              htmlFor="title-input"
+              id="title-label"
+            >
+              Title
+            </Label>
+            <Input
+              ariaLabel="Input for Title"
+              id="title-input"
+              onChange={[Function]}
+              value=""
+            />
+          </div>
+          <div
+            key="field-subject"
           >
-            Subject
-          </Label>
-          <Input
-            ariaLabel="Input for Subject"
-            id="subject-input"
-            onChange={[Function]}
-            value=""
-          />
+            <Label
+              htmlFor="subject-input"
+              id="subject-label"
+            >
+              Subject
+            </Label>
+            <Input
+              ariaLabel="Input for Subject"
+              id="subject-input"
+              onChange={[Function]}
+              value=""
+            />
+          </div>
         </div>
       </fieldset>
       <LanguageAccordion
@@ -216,23 +211,28 @@ exports[`renders advanced search correctly Renders correctly in when passed well
         onFormatChange={[Function]}
         selectedFormats={Array []}
       />
-      <Button
-        buttonType="filled"
-        id="search-button"
-        mouseDown={false}
-        type="submit"
+      <hr />
+      <div
+        className="button-container"
       >
-        Search
-      </Button>
-      <Button
-        buttonType="outline"
-        id="clear-button"
-        mouseDown={false}
-        onClick={[Function]}
-        type="reset"
-      >
-        Clear
-      </Button>
+        <Button
+          buttonType="filled"
+          id="search-button"
+          mouseDown={false}
+          type="submit"
+        >
+          Search
+        </Button>
+        <Button
+          buttonType="outline"
+          id="clear-button"
+          mouseDown={false}
+          onClick={[Function]}
+          type="reset"
+        >
+          Clear
+        </Button>
+      </div>
     </form>
   </div>
 </main>

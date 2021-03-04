@@ -109,13 +109,13 @@ describe("All Editions Toggle", () => {
       );
     });
 
-    test("Edition Toggle defaults to empty", () => {
+    test("Edition Toggle defaults to checked", () => {
       const toggle = screen.getByLabelText(
         "Show only items currently available online"
       ) as HTMLInputElement;
       expect(toggle).toBeInTheDocument;
-      expect(toggle.getAttribute("aria-checked")).toBe("false");
-      expect(toggle).not.toHaveAttribute("checked");
+      expect(toggle.getAttribute("aria-checked")).toBe("true");
+      expect(toggle).toHaveAttribute("checked");
     });
     test("clicking the edition toggle sends a new query", () => {
       const toggle = screen.getByLabelText(
@@ -126,7 +126,7 @@ describe("All Editions Toggle", () => {
       expect(mockPush).toHaveBeenCalledTimes(1);
       expect(mockPush).toHaveBeenCalledWith({
         pathname: "",
-        query: { showAll: false },
+        query: { showAll: true },
       });
     });
   });

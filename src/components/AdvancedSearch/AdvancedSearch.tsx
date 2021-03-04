@@ -128,25 +128,18 @@ const AdvancedSearch: React.FC<{
   };
 
   return (
-    <main id="mainContent" className="main">
-      <div className="content-header">
+    <main id="mainContent" className="main  advanced-search">
+      <div className="content-top">
         <DS.Breadcrumbs
+          modifiers={["space-under"]}
           breadcrumbs={[{ url: "/", text: breadcrumbTitles.home }]}
         />
       </div>
 
-      <div aria-label="Digital Research Books Beta" className="grid-col-12">
-        <div className="sfr-header-wrapper grid-col-10">
-          <h1 className="nypl-heading">Digital Research Books Beta</h1>
-
-          <div id="tagline">
-            Search the world&apos;s research collections and more for digital
-            books you can use right now
-          </div>
-        </div>
+      <div className="content-primary">
+        <DS.Heading level={1}>Advanced Search</DS.Heading>
 
         <form
-          className="usa-form grid-container width-full margin-x-0 padding-x-0"
           onSubmit={(e) => {
             submit(e);
           }}
@@ -162,31 +155,31 @@ const AdvancedSearch: React.FC<{
             </DS.HelperErrorText>
           )}
           <fieldset>
-            <legend>Advanced Search</legend>
-
-            {inputTerms.map((field: { key: string; label: string }) => {
-              return (
-                <div key={`field-${field.key}`}>
-                  <DS.Label
-                    htmlFor={`${field.key}-input`}
-                    id={`${field.key}-label`}
-                  >
-                    {field.label}
-                  </DS.Label>
-                  <DS.Input
-                    id={`${field.key}-input`}
-                    ariaLabel={`Input for ${field.label}`}
-                    value={
-                      findQueryForField(searchQuery.queries, field.key)
-                        ? findQueryForField(searchQuery.queries, field.key)
-                            .query
-                        : ""
-                    }
-                    onChange={(e) => onQueryChange(e, field.key)}
-                  />
-                </div>
-              );
-            })}
+            <div className="search-fields">
+              {inputTerms.map((field: { key: string; label: string }) => {
+                return (
+                  <div key={`field-${field.key}`}>
+                    <DS.Label
+                      htmlFor={`${field.key}-input`}
+                      id={`${field.key}-label`}
+                    >
+                      {field.label}
+                    </DS.Label>
+                    <DS.Input
+                      id={`${field.key}-input`}
+                      ariaLabel={`Input for ${field.label}`}
+                      value={
+                        findQueryForField(searchQuery.queries, field.key)
+                          ? findQueryForField(searchQuery.queries, field.key)
+                              .query
+                          : ""
+                      }
+                      onChange={(e) => onQueryChange(e, field.key)}
+                    />
+                  </div>
+                );
+              })}
+            </div>
           </fieldset>
           {languages.length > 0 && (
             <LanguageAccordion
@@ -211,21 +204,24 @@ const AdvancedSearch: React.FC<{
               onBookFormatChange(e, format);
             }}
           />
-          <DS.Button
-            id="search-button"
-            buttonType={DS.ButtonTypes.Primary}
-            type="submit"
-          >
-            Search
-          </DS.Button>
-          <DS.Button
-            id="clear-button"
-            buttonType={DS.ButtonTypes.Secondary}
-            type="reset"
-            onClick={() => clearSearch()}
-          >
-            Clear
-          </DS.Button>
+          <hr />
+          <div className="button-container">
+            <DS.Button
+              id="search-button"
+              buttonType={DS.ButtonTypes.Primary}
+              type="submit"
+            >
+              Search
+            </DS.Button>
+            <DS.Button
+              id="clear-button"
+              buttonType={DS.ButtonTypes.Secondary}
+              type="reset"
+              onClick={() => clearSearch()}
+            >
+              Clear
+            </DS.Button>
+          </div>
         </form>
       </div>
     </main>
