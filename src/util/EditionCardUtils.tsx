@@ -2,7 +2,6 @@ import React from "react";
 import { Agent, Cover, Item, ItemLink, WorkEdition } from "../types/DataModel";
 import * as DS from "@nypl/design-system-react-components";
 import Link from "~/src/components/Link/Link";
-import { AllHtmlEntities } from "html-entities";
 import { formatUrl, truncateStringOnWhitespace } from "./Util";
 import {
   MAX_PUBLISHER_NAME_LENGTH,
@@ -77,7 +76,7 @@ export default class EditionCardUtils {
             showAll: true,
           },
         }}
-        title={AllHtmlEntities.decode(displayTitle)}
+        title={displayTitle}
         className="link link--no-underline"
       >
         {displayTitle}
