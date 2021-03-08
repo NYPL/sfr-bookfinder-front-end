@@ -14,7 +14,7 @@
     "lint:fix": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix --ignore-path .gitignore"
   },
   "dependencies": {
-    "@nypl/design-system-react-components": "^0.20.2",
+    "@nypl/design-system-react-components": "^0.21.0",
     "@nypl/dgx-react-footer": "0.5.7",
     "dgx-feature-flags": "git+https://bitbucket.org/NYPL/dgx-feature-flags.git#master",
     "focus-trap-react": "^8.3.2",

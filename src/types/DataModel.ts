@@ -47,7 +47,7 @@ export type Instance = {
   extent?: string;
   summary?: string;
   work_id?: number;
-  edition_id?: number;
+  edition_id: number;
   measurements?: Measurement[];
   agents?: Agent[];
   items?: Item[];
@@ -63,19 +63,20 @@ export type Instance = {
 export type Cover = {
   url: string;
   media_type: string;
+  flags: { temporary: boolean };
 };
 
 export type Rights = {
-  source: string;
-  license: string;
-  rights_statement: string;
-  rights_reason: string;
-  determination_date_display: string;
-  copyright_date: {
+  source?: string;
+  license?: string;
+  rights_statement?: string;
+  rights_reason?: string;
+  determination_date_display?: string;
+  copyright_date?: {
     gte: string;
     lte: string;
   };
-  copyright_date_display: string;
+  copyright_date_display?: string;
 };
 
 export type Item = {
@@ -83,6 +84,7 @@ export type Item = {
   content_type?: string;
   modified?: string;
   drm?: string;
+  rights?: Rights[];
   links?: ItemLink[];
 };
 
@@ -111,11 +113,12 @@ export type Identifier = {
 export type WorkEdition = {
   date_modified?: string;
   date_created?: string;
-  id?: number;
+  id: number;
   publication_place?: string;
   publication_date?: string;
   edition?: string;
   edition_statement?: string;
+  languages?: Language[];
   volume?: string;
   table_of_contents?: string;
   extent?: string;

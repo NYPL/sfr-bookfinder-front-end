@@ -1,5 +1,13 @@
 import React from "react";
-import { Agent, Cover, Item, ItemLink, WorkEdition } from "../types/DataModel";
+import {
+  Agent,
+  Cover,
+  Instance,
+  Item,
+  ItemLink,
+  Rights,
+  WorkEdition,
+} from "../types/DataModel";
 import * as DS from "@nypl/design-system-react-components";
 import Link from "~/src/components/Link/Link";
 import { formatUrl, truncateStringOnWhitespace } from "./Util";
@@ -158,7 +166,7 @@ export default class EditionCardUtils {
     if (!covers || !covers.length) return PLACEHOLDER_COVER_LINK;
 
     const firstLocalCover = covers.find(
-      (cover: any) => cover.flags.temporary === false
+      (cover: Cover) => cover.flags.temporary === false
     );
     return firstLocalCover
       ? formatUrl(firstLocalCover.url)
@@ -208,7 +216,7 @@ export default class EditionCardUtils {
   }
 
   // Language Display
-  static getLanguageDisplayText(previewEdition: any) {
+  static getLanguageDisplayText(previewEdition: WorkEdition) {
     if (
       previewEdition &&
       previewEdition.languages &&
@@ -226,9 +234,9 @@ export default class EditionCardUtils {
   }
 
   // Rights
-  static getLicense(editionItem: any) {
-    return editionItem && editionItem.rights && editionItem.rights.length
-      ? `License: ${editionItem.rights[0].rights_statement}`
+  static getLicense(rights: Rights[]) {
+    return rights && rights.length
+      ? `License: ${rights[0].rights_statement}`
       : "License: Unknown";
   }
 
@@ -340,14 +348,14 @@ export default class EditionCardUtils {
     }
   }
 
-  static getNoLinkElement(showRequestButton: any) {
+  static getNoLinkElement(showRequestButton: boolean) {
     if (showRequestButton) {
       return <span>Not Yet Available {showRequestButton}</span>;
     }
     return <>Not yet available</>;
   }
 
-  static getWorldCatElem(instance: any) {
+  static getWorldCatElem(instance: Instance) {
     const oclc =
       instance && instance.identifiers
         ? instance.identifiers.find(

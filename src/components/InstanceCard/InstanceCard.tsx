@@ -11,7 +11,7 @@ import EditionCardUtils from "~/src/util/EditionCardUtils";
 // the way that Edition.publication_year is.
 
 export const InstanceCard: React.FC<{
-  editionYear: string;
+  editionYear?: string;
   instance: Instance;
 }> = (props) => {
   const instance: Instance = props.instance;
@@ -28,7 +28,11 @@ export const InstanceCard: React.FC<{
   return (
     <DS.Card
       id={`card-${instance.id}`}
-      heading={<DS.Heading level={3}>{props.editionYear}</DS.Heading>}
+      heading={
+        <DS.Heading level={3}>
+          {props.editionYear ? props.editionYear : "Edition Year Unknown"}
+        </DS.Heading>
+      }
       image={
         <DS.Image
           src={EditionCardUtils.getCover(instance.covers)}
@@ -54,7 +58,7 @@ export const InstanceCard: React.FC<{
         )}
       </div>
       <div>{EditionCardUtils.getWorldCatElem(instance)}</div>
-      <Link to="/license">{EditionCardUtils.getLicense(previewItem)}</Link>
+      <Link to="/license">{EditionCardUtils.getLicense(instance.rights)}</Link>
     </DS.Card>
   );
 };
