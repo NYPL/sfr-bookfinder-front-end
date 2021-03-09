@@ -2,18 +2,14 @@
 # build a container and deploy to ECR
 name: Publish qa
 on:
-  push:
-    branches:
-      - github-actions
-#  pull_request:
-#    branches: [fc-components]
-#    types: [closed]
+  pull_request:
+    branches: [fc-components]
+    types: [closed]
 
 jobs: 
   publish_qa: 
     name: Publish image to ECR
-    # Temporarily removing this line for testing purposes
-    # if: github.event.pull_request.merged
+    if: github.event.pull_request.merged
     runs-on: ubuntu-latest
     steps: 
       - name: checkout
