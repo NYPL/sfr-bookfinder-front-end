@@ -27,7 +27,7 @@ describe("Search Query Queries correctly prepopulate content", () => {
     ).toBeInTheDocument();
   });
 
-  test.only("Search with multiple queries", () => {
+  test("Search with multiple queries", () => {
     const multipleQuerySearch = Object.assign({}, searchQuery, {
       queries: [
         { field: "keyword", query: "happy" },

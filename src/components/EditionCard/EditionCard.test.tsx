@@ -60,9 +60,9 @@ describe("Edition Card with Valid Data", () => {
     render(<EditionCard edition={fullEdition}></EditionCard>);
   });
   test("Shows Year as Link in header", () => {
-    expect(
-      screen.getByRole("heading", { name: "1990 Edition" }).closest("a").href
-    ).toContain("/edition/12345");
+    expect(screen.getByText("1990 Edition").closest("a").href).toContain(
+      "/edition/12345"
+    );
   });
   test("Shows Full Publisher", () => {
     expect(
@@ -100,14 +100,14 @@ describe("Edition Card with Valid Data", () => {
   });
 });
 
-describe.only("Edition Year with Minimal Data", () => {
+describe("Edition Year with Minimal Data", () => {
   beforeEach(() => {
     render(<EditionCard edition={{ id: 54321 }}></EditionCard>);
   });
   test("Shows Unknown Year as Link in header", () => {
-    expect(screen.getByText("Edtion Year Unknown").closest("a")).toContain(
-      "/edition/54321"
-    );
+    expect(
+      screen.getByText("Edition Year Unknown").closest("a").href
+    ).toContain("/edition/54321");
   });
   test("Shows Unknown Publisher", () => {
     expect(

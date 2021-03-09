@@ -59,7 +59,7 @@ describe("Renders Work component when given valid work", () => {
       screen.getByRole("heading", { name: "Featured Edition" })
     ).toBeInTheDocument();
     const featuredEditionHeadings = screen.getAllByRole("heading", {
-      name: "1854 Edition",
+      name: "1853 Edition",
     });
     expect(featuredEditionHeadings.length).toEqual(2);
     featuredEditionHeadings.forEach((heading) => {
@@ -67,7 +67,7 @@ describe("Renders Work component when given valid work", () => {
         (within(heading).getByRole("link") as HTMLLinkElement).href
       ).toContain("/edition");
     });
-    expect(screen.getAllByAltText("Cover for 1854 Edition").length).toBe(2);
+    expect(screen.getAllByAltText("Cover for 1853 Edition").length).toBe(2);
     expect(
       screen.getAllByText(
         "Published in London by Chapman & Hall British publishing house + 4 more"

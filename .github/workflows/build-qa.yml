@@ -1,27 +1,27 @@
-# On merge to development, 
+# On merge to development,
 # build a container and deploy to ECR
 name: Publish qa
 on:
   pull_request:
-    branches: [fc-components]
+    branches: [development]
     types: [closed]
 
-jobs: 
-  publish_qa: 
+jobs:
+  publish_qa:
     name: Publish image to ECR
     if: github.event.pull_request.merged
     runs-on: ubuntu-latest
-    steps: 
+    steps:
       - name: checkout
         uses: actions/checkout@v2
 
       - id: nvmrc
         run: echo ::set-output name=NODE_VERSION::$(cat .nvmrc)
-        
+
       - name: Set up node with version from nvm
         uses: actions/setup-node@v2
         with: { node-version: "${{ steps.nvmrc.outputs.NODE_VERSION }}" }
-      
+
       - name: Configure AWS credentials from Test account
         uses: aws-actions/configure-aws-credentials@v1
         with:
