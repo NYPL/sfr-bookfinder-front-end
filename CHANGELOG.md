@@ -1,4 +1,7 @@
 # CHANGE LOG
+## PRERELEASE
+- Refactors app to use NextJS, NYPL Design System, Typescript
+
 ## [0.9.3] 
 - Updated dgx-global-footer to 0.5.7.
 - Adds the new urlType prop to the Footer component set to "absolute"

@@ -4,10 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "eb-dev": "next dev -p $PORT",
     "build": "next build",
     "start": "next start",
-    "eb-start": "NODE_ENV=development next build && node ./server.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint --ignore-path .gitignore '*/**/*.{ts,tsx}'",
