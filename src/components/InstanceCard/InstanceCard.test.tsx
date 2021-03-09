@@ -2,7 +2,7 @@ import React from "react";
 import { InstanceCard } from "./InstanceCard";
 import "@testing-library/jest-dom/extend-expect";
 import { screen, render } from "@testing-library/react";
-import { Instance, WorkEdition } from "~/src/types/DataModel";
+import { Instance } from "~/src/types/DataModel";
 import { PLACEHOLDER_COVER_LINK } from "~/src/constants/editioncard";
 
 describe("Instance Card with Valid Data", () => {

@@ -65,7 +65,11 @@ describe("Renders edition component when given valid edition", () => {
       ).length
     ).toBe(2);
     expect(
-      screen.getAllByText("License: Unknown")[0].closest("a").href
+      screen
+        .getAllByText(
+          "License: Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International"
+        )[0]
+        .closest("a").href
     ).toContain("/license");
   });
   test("Shows Details Table", () => {

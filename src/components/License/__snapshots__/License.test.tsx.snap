@@ -20,6 +20,11 @@ exports[`renders License page correctly 1`] = `
             },
           ]
         }
+        modifiers={
+          Array [
+            "space-under",
+          ]
+        }
       />
     </div>
     <div
