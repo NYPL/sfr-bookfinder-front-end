@@ -2,9 +2,12 @@
 # build a container and deploy to ECR
 name: Publish qa
 on:
-  pull_request:
-    branches: [fc-components]
-    types: [pull_request]
+  push:
+    branches:
+      - github-actions
+#  pull_request:
+#    branches: [fc-components]
+#    types: [closed]
 
 jobs: 
   publish_qa: 
