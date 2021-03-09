@@ -1,0 +1,239 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Advanced Search submit show error on invalid year 1`] = `
+Array [
+  <HelperErrorText
+    isError={true}
+  >
+    <div
+      aria-atomic={true}
+      aria-live="polite"
+      className="helper-text helper-text--error"
+    >
+      Start date must be before End date
+    </div>
+  </HelperErrorText>,
+  <HelperErrorText
+    isError={false}
+  >
+    <div
+      aria-atomic={true}
+      aria-live="off"
+      className="helper-text"
+    >
+       EX. 1901 
+    </div>
+  </HelperErrorText>,
+  <HelperErrorText
+    isError={false}
+  >
+    <div
+      aria-atomic={true}
+      aria-live="off"
+      className="helper-text"
+    >
+       EX. 2000 
+    </div>
+  </HelperErrorText>,
+]
+`;
+
+exports[`Advanced Search submit shows error on empty query 1`] = `
+Array [
+  <HelperErrorText
+    isError={true}
+  >
+    <div
+      aria-atomic={true}
+      aria-live="polite"
+      className="helper-text helper-text--error"
+    >
+      Please enter a search term
+    </div>
+  </HelperErrorText>,
+  <HelperErrorText
+    isError={false}
+  >
+    <div
+      aria-atomic={true}
+      aria-live="off"
+      className="helper-text"
+    >
+       EX. 1901 
+    </div>
+  </HelperErrorText>,
+  <HelperErrorText
+    isError={false}
+  >
+    <div
+      aria-atomic={true}
+      aria-live="off"
+      className="helper-text"
+    >
+       EX. 2000 
+    </div>
+  </HelperErrorText>,
+]
+`;
+
+exports[`renders advanced search correctly Renders correctly in when passed well-formed query 1`] = `
+<main
+  className="main  advanced-search"
+  id="mainContent"
+>
+  <div
+    className="content-top"
+  >
+    <Breadcrumbs
+      breadcrumbs={
+        Array [
+          Object {
+            "text": "Digital Research Books Beta",
+            "url": "/",
+          },
+        ]
+      }
+      modifiers={
+        Array [
+          "space-under",
+        ]
+      }
+    />
+  </div>
+  <div
+    className="content-primary"
+  >
+    <Heading
+      level={1}
+    >
+      Advanced Search
+    </Heading>
+    <form
+      onSubmit={[Function]}
+    >
+      <fieldset>
+        <div
+          className="search-fields"
+        >
+          <div
+            key="field-keyword"
+          >
+            <Label
+              htmlFor="keyword-input"
+              id="keyword-label"
+            >
+              Keyword
+            </Label>
+            <Input
+              ariaLabel="Input for Keyword"
+              id="keyword-input"
+              onChange={[Function]}
+              value=""
+            />
+          </div>
+          <div
+            key="field-author"
+          >
+            <Label
+              htmlFor="author-input"
+              id="author-label"
+            >
+              Author
+            </Label>
+            <Input
+              ariaLabel="Input for Author"
+              id="author-input"
+              onChange={[Function]}
+              value=""
+            />
+          </div>
+          <div
+            key="field-title"
+          >
+            <Label
+              htmlFor="title-input"
+              id="title-label"
+            >
+              Title
+            </Label>
+            <Input
+              ariaLabel="Input for Title"
+              id="title-input"
+              onChange={[Function]}
+              value=""
+            />
+          </div>
+          <div
+            key="field-subject"
+          >
+            <Label
+              htmlFor="subject-input"
+              id="subject-label"
+            >
+              Subject
+            </Label>
+            <Input
+              ariaLabel="Input for Subject"
+              id="subject-input"
+              onChange={[Function]}
+              value=""
+            />
+          </div>
+        </div>
+      </fieldset>
+      <LanguageAccordion
+        languages={
+          Array [
+            Object {
+              "count": 25,
+              "value": "english",
+            },
+            Object {
+              "count": 30,
+              "value": "french",
+            },
+          ]
+        }
+        onLanguageChange={[Function]}
+        selectedLanguages={Array []}
+        showCount={false}
+      />
+      <FilterYears
+        dateFilters={
+          Object {
+            "end": null,
+            "start": null,
+          }
+        }
+        onDateChange={[Function]}
+      />
+      <FilterBookFormat
+        onFormatChange={[Function]}
+        selectedFormats={Array []}
+      />
+      <hr />
+      <div
+        className="button-container"
+      >
+        <Button
+          buttonType="filled"
+          id="search-button"
+          mouseDown={false}
+          type="submit"
+        >
+          Search
+        </Button>
+        <Button
+          buttonType="outline"
+          id="clear-button"
+          mouseDown={false}
+          onClick={[Function]}
+          type="reset"
+        >
+          Clear
+        </Button>
+      </div>
+    </form>
+  </div>
+</main>
+`;

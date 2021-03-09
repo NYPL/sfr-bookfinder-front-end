@@ -1,0 +1,479 @@
+{
+  "uuid": "002fd17b-d953-4843-9eeb-b21e25b8f85c",
+  "title": "Dictionary of American naval fighting ships.",
+  "sub_title": "random subtitle that is too long ",
+  "sort_title": "dictionary of american naval fighting ships.",
+  "date_modified": "2019-06-21T00:03:22.570654",
+  "subjects": [
+    {
+      "authority": "lcsh",
+      "subject": "United States., Navy -- Lists of vessels."
+    },
+    {
+      "authority": "fast",
+      "uri": "(OCoLC)fst00533204",
+      "subject": "United States., Navy."
+    },
+    {
+      "authority": "fast",
+      "uri": "(OCoLC)fst01423793",
+      "subject": "Lists of vessels."
+    },
+    {
+      "authority": "fast",
+      "uri": "533204",
+      "subject": "United States. Navy"
+    }
+  ],
+  "agents": [
+    {
+      "name": "Author Name",
+      "sort_name": "Author Name",
+      "lcnaf": "n80090121",
+      "viaf": "127306132",
+      "roles": ["author"]
+    }
+  ],
+  "identifiers": [
+    {
+      "id_type": "hathi",
+      "identifier": "000228707"
+    },
+    {
+      "id_type": "lccn",
+      "identifier": "60060198//r61"
+    },
+    {
+      "id_type": "hathi",
+      "identifier": "uc1.31822001597566"
+    },
+    {
+      "id_type": "hathi",
+      "identifier": "uc1.31822001597525"
+    },
+    {
+      "id_type": "generic",
+      "identifier": ".b15915785"
+    },
+    {
+      "id_type": "owi",
+      "identifier": "3373043896"
+    },
+    {
+      "id_type": "oclc",
+      "identifier": "2794587"
+    }
+  ],
+  "measurements": [
+    {
+      "quantity": "government_document",
+      "value": 1,
+      "weight": 1,
+      "taken_at": "2019-06-20T06:06:02"
+    },
+    {
+      "quantity": "government_document",
+      "value": 1,
+      "weight": 1,
+      "taken_at": "2019-06-20T06:06:02"
+    },
+    {
+      "quantity": "eholdings",
+      "value": 19,
+      "weight": 1,
+      "taken_at": "2019-06-20T06:38:59"
+    },
+    {
+      "quantity": "editions",
+      "value": 2,
+      "weight": 1,
+      "taken_at": "2019-06-20T06:38:59"
+    },
+    {
+      "quantity": "holdings",
+      "value": 783,
+      "weight": 1,
+      "taken_at": "2019-06-20T06:38:59"
+    }
+  ],
+  "instances": [
+    {
+      "title": "Dictionary of American naval fighting ships",
+      "pub_place": "Washington",
+      "table_of_contents": "v. 1. [Historical sketches -- letters A through B] -- v. 2. [Historical sketches -- letters C through F] -- v. 3. [Historical sketches -- letters G through K] -- v. 4. [Historical sketches -- letters L through M] -- v. 5. Historical sketches -- letters N through Q -- v. 6 Historical sketches -- letters R through S -- v. 7. Historical sketches -- letters T through V -- v. 8. Historical sketches -- letters W through Z.",
+      "extent": "1 online resource (8 volumes) :; illustrations",
+      "volume": "v.8",
+      "pub_date": {
+        "gte": "1959-01-01",
+        "lte": "1981-12-31"
+      },
+      "pub_date_display": "1959-1981",
+      "agents": [
+        {
+          "name": "Navy Dept., Office of the Chief of Naval Operations, Naval History Division",
+          "sort_name": "Navy Dept., Office of the Chief of Naval Operations, Naval History Division",
+          "roles": ["publisher"]
+        }
+      ],
+      "items": [
+        {
+          "source": "internetarchive",
+          "content_type": "ebook",
+          "identifiers": [
+            {
+              "id_type": "generic",
+              "identifier": "dictionaryofamer06wash"
+            }
+          ],
+          "links": [
+            {
+              "url": "https://archive.org/details/dictionaryofamer06wash",
+              "media_type": "text/html",
+              "local": false,
+              "download": false,
+              "images": false,
+              "ebook": true,
+              "label": "internetarchive - dictionaryofamer06wash - eBook"
+            }
+          ]
+        },
+        {
+          "source": "internetarchive",
+          "content_type": "ebook",
+          "identifiers": [
+            {
+              "id_type": "generic",
+              "identifier": "dictionaryofamer02wash"
+            }
+          ],
+          "links": [
+            {
+              "url": "https://archive.org/details/dictionaryofamer02wash",
+              "media_type": "text/html",
+              "local": false,
+              "download": false,
+              "images": false,
+              "ebook": true,
+              "label": "internetarchive - dictionaryofamer02wash - eBook"
+            }
+          ]
+        },
+        {
+          "source": "internetarchive",
+          "content_type": "ebook",
+          "identifiers": [
+            {
+              "id_type": "generic",
+              "identifier": "dictionaryofamer06moon"
+            }
+          ],
+          "links": [
+            {
+              "url": "https://archive.org/details/dictionaryofamer06moon",
+              "media_type": "text/html",
+              "local": false,
+              "download": false,
+              "images": false,
+              "ebook": true,
+              "label": "internetarchive - dictionaryofamer06moon - eBook"
+            }
+          ]
+        },
+        {
+          "source": "internetarchive",
+          "content_type": "ebook",
+          "identifiers": [
+            {
+              "id_type": "generic",
+              "identifier": "dictionaryofamer04wash"
+            }
+          ],
+          "links": [
+            {
+              "url": "https://archive.org/details/dictionaryofamer04wash",
+              "media_type": "text/html",
+              "local": false,
+              "download": false,
+              "images": false,
+              "ebook": true,
+              "label": "internetarchive - dictionaryofamer04wash - eBook"
+            }
+          ]
+        },
+        {
+          "source": "internetarchive",
+          "content_type": "ebook",
+          "identifiers": [
+            {
+              "id_type": "generic",
+              "identifier": "dictionaryofamer01wash"
+            }
+          ],
+          "links": [
+            {
+              "url": "https://archive.org/details/dictionaryofamer01wash",
+              "media_type": "text/html",
+              "local": false,
+              "download": false,
+              "images": false,
+              "ebook": true,
+              "label": "internetarchive - dictionaryofamer01wash - eBook"
+            }
+          ]
+        },
+        {
+          "source": "internetarchive",
+          "content_type": "ebook",
+          "identifiers": [
+            {
+              "id_type": "generic",
+              "identifier": "dictionaryofamer05wash"
+            }
+          ],
+          "links": [
+            {
+              "url": "https://archive.org/details/dictionaryofamer05wash",
+              "media_type": "text/html",
+              "local": false,
+              "download": false,
+              "images": false,
+              "ebook": true,
+              "label": "internetarchive - dictionaryofamer05wash - eBook"
+            }
+          ]
+        },
+        {
+          "source": "hathitrust",
+          "content_type": "ebook",
+          "modified": "2019-06-20T06:06:02",
+          "identifiers": [
+            {
+              "id_type": "hathi",
+              "identifier": "uc1.31822001597566"
+            }
+          ],
+          "links": [
+            {
+              "url": "https://babel.hathitrust.org/cgi/pt?id=uc1.31822001597566",
+              "media_type": "text/html",
+              "local": false,
+              "download": false,
+              "images": true,
+              "ebook": true,
+              "label": "hathitrust - uc1.31822001597566 - eBook - images"
+            },
+            {
+              "url": "https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=uc1.31822001597566",
+              "media_type": "application/pdf",
+              "local": false,
+              "download": true,
+              "images": true,
+              "ebook": true,
+              "label": "hathitrust - uc1.31822001597566 - eBook - images"
+            }
+          ]
+        },
+        {
+          "source": "internetarchive",
+          "content_type": "ebook",
+          "identifiers": [
+            {
+              "id_type": "generic",
+              "identifier": "dictionaryofamer07wash"
+            }
+          ],
+          "links": [
+            {
+              "url": "https://archive.org/details/dictionaryofamer07wash",
+              "media_type": "text/html",
+              "local": false,
+              "download": false,
+              "images": false,
+              "ebook": true,
+              "label": "internetarchive - dictionaryofamer07wash - eBook"
+            }
+          ]
+        },
+        {
+          "source": "internetarchive",
+          "content_type": "ebook",
+          "identifiers": [
+            {
+              "id_type": "generic",
+              "identifier": "dictionaryofamer03wash"
+            }
+          ],
+          "links": [
+            {
+              "url": "https://archive.org/details/dictionaryofamer03wash",
+              "media_type": "text/html",
+              "local": false,
+              "download": false,
+              "images": false,
+              "ebook": true,
+              "label": "internetarchive - dictionaryofamer03wash - eBook"
+            }
+          ]
+        },
+        {
+          "source": "internetarchive",
+          "content_type": "ebook",
+          "identifiers": [
+            {
+              "id_type": "generic",
+              "identifier": "dictionaryofamer03moon"
+            }
+          ],
+          "links": [
+            {
+              "url": "https://archive.org/details/dictionaryofamer03moon",
+              "media_type": "text/html",
+              "local": false,
+              "download": false,
+              "images": false,
+              "ebook": true,
+              "label": "internetarchive - dictionaryofamer03moon - eBook"
+            }
+          ]
+        },
+        {
+          "source": "internetarchive",
+          "content_type": "ebook",
+          "identifiers": [
+            {
+              "id_type": "generic",
+              "identifier": "dictionaryofamer00moon"
+            }
+          ],
+          "links": [
+            {
+              "url": "https://archive.org/details/dictionaryofamer00moon",
+              "media_type": "text/html",
+              "local": false,
+              "download": false,
+              "images": false,
+              "ebook": true,
+              "label": "internetarchive - dictionaryofamer00moon - eBook"
+            }
+          ]
+        },
+        {
+          "source": "internetarchive",
+          "content_type": "ebook",
+          "identifiers": [
+            {
+              "id_type": "generic",
+              "identifier": "dictionaryofamer08wash"
+            }
+          ],
+          "links": [
+            {
+              "url": "https://archive.org/details/dictionaryofamer08wash",
+              "media_type": "text/html",
+              "local": false,
+              "download": false,
+              "images": false,
+              "ebook": true,
+              "label": "internetarchive - dictionaryofamer08wash - eBook"
+            }
+          ]
+        }
+      ],
+      "rights": [
+        {
+          "source": "hathi_trust",
+          "license": "public_domain",
+          "rights_statement": "Public Domain",
+          "rights_reason": "bibliographically-dervied by automatic processes",
+          "copyright_date": {
+            "gte": "9999-01-01",
+            "lte": "9999-12-31"
+          },
+          "copyright_date_display": "9999",
+          "determination_date": {
+            "gte": "2010-08-13",
+            "lte": null
+          },
+          "determination_date_display": "2010-08-13 20:33:31"
+        }
+      ],
+      "language": [
+        {
+          "language": "English",
+          "iso_2": "en",
+          "iso_3": "eng"
+        }
+      ],
+      "covers": [
+        {
+          "url": "book-cover.png",
+          "media_type": "image/jpeg"
+        }
+      ]
+    },
+    {
+      "title": "Dictionary of American naval fighting ships.",
+      "pub_place": "District of Columbia",
+      "volume": "v.4",
+      "items": [
+        {
+          "source": "hathitrust",
+          "content_type": "ebook",
+          "modified": "2019-06-20T06:06:02",
+          "identifiers": [
+            {
+              "id_type": "hathi",
+              "identifier": "uc1.31822001597525"
+            }
+          ],
+          "links": [
+            {
+              "url": "https://babel.hathitrust.org/cgi/pt?id=uc1.31822001597525",
+              "media_type": "text/html",
+              "local": false,
+              "download": false,
+              "images": true,
+              "ebook": true,
+              "label": "hathitrust - uc1.31822001597525 - eBook - images"
+            },
+            {
+              "url": "https://babel.hathitrust.org/cgi/imgsrv/download/pdf?id=uc1.31822001597525",
+              "media_type": "application/pdf",
+              "local": false,
+              "download": true,
+              "images": true,
+              "ebook": true,
+              "label": "hathitrust - uc1.31822001597525 - eBook - images"
+            }
+          ]
+        }
+      ],
+      "rights": [
+        {
+          "source": "hathi_trust",
+          "license": "public_domain",
+          "rights_statement": "Public Domain",
+          "rights_reason": "bibliographically-dervied by automatic processes",
+          "copyright_date": {
+            "gte": "9999-01-01",
+            "lte": "9999-12-31"
+          },
+          "copyright_date_display": "9999",
+          "determination_date": {
+            "gte": "2010-08-13",
+            "lte": null
+          },
+          "determination_date_display": "2010-08-13 20:33:31"
+        }
+      ],
+      "language": [
+        {
+          "language": "English",
+          "iso_2": "en",
+          "iso_3": "eng"
+        }
+      ]
+    }
+  ],
+  "edition_range": "1959 - 1981"
+}

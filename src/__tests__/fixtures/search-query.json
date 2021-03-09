@@ -1,0 +1,37 @@
+{
+  "field": "keyword",
+  "query": "\"Civil War\" OR Lincoln",
+  "queries": [
+    {
+      "field": "keyword",
+      "query": "\"Civil War\" OR Lincoln"
+    }
+  ],
+  "recordType": "editions",
+  "filters": [
+    {
+      "field": "language",
+      "value": "Spanish"
+    },
+    {
+      "field": "show_all",
+      "value": false
+    },
+    {
+      "field": "years",
+      "value": {
+        "start": 1800,
+        "end": 2000
+      }
+    }
+  ],
+  "sort": [
+    {
+      "field": "title",
+      "dir": "asc"
+    }
+  ],
+  "per_page": 10,
+  "page": 0,
+  "total": 1000
+}

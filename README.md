@@ -9,7 +9,7 @@
 [![Dependencies Status](https://david-dm.org/NYPL/sfr-bookfinder-front-end/status.svg)](https://david-dm.org/NYPL/sfr-bookfinder-front-end)
 [![devDependencies Status](https://david-dm.org/NYPL/sfr-bookfinder-front-end/dev-status.svg)](https://david-dm.org/NYPL/sfr-bookfinder-front-end?type=dev)
 
-ResearchNow front end application based on NYPL's React boilerplate code.
+ResearchNow front end application based on NYPL's React Design System.
 
 Provides a "Welcome page" entry point with heading, search box, and tagline. Connects to an ElasticSearch index via an API endpoint (https://platform.nypl.org/research-now/search-api).
 Simple keyword searches can be entered in the form and an index response is displayed back to
@@ -18,15 +18,13 @@ the user.
 ### Querying
 
 ### Requirements
-- React v15.5.4
-- React Router v3.0.5
-- Redux v4.0.1
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ### Installation
 Clone the repo and run `npm install`.
 ResearchNow also uses [webpub viewer] (https://github.com/NYPL-Simplified/webpub-viewer/tree/SFR-develop) to serve epubs.  Clone this branch and run `npm install` and `npm run streamed`
 
-For local development, run `npm run dev-start` to start the local server at `localhost:3001` with
+For local development, run `npm run dev` to start the local server at `localhost:3000` with
 default environment variables.
 
 Configurations are environment specific with different values per environment so it's necessary
@@ -34,10 +32,10 @@ to set the appropriate environment when starting the application.
 
 ### Dependencies
 
-* ES6 - compiled with Babel and Webpack
+* NextJS
 * Redux
 * NYPL Header and Footer npm modules
-* Webpack
+* NYPL Design System
 
 ### Usage
 
@@ -66,3 +64,4 @@ Appending to URL doesn't work for more than one feature, to test more than one f
 ### Test
 
 To run unit tests, run `npm test` in the terminal. Or run `npm run test-with-coverage` to run the test and see the test coverage.
+

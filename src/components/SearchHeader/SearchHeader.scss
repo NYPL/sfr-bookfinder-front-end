@@ -1,0 +1,36 @@
+.search-header-container {
+    @include breakout;
+    background-color: var(--section-research-primary);
+}
+.search-header {
+    @include wrapper;
+    @include space-stack-l;
+
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+
+    @media (min-width: $breakpoint-medium) {
+        flex-flow: row;
+        align-items: flex-end;
+    }
+
+    .search-form {
+        @include space-stack-m;
+        flex: 1 1 auto;
+        width: 100%;
+    }
+
+    h1 { 
+        color: var(--ui-white); 
+        @media (min-width: #{$breakpoint-medium}) {
+            max-width: 300px;
+        }
+    
+    }
+    .link {
+        @include space-stack-m;
+    }
+    
+}
+

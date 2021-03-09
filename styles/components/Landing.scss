@@ -1,0 +1,35 @@
+.hero__body-text {
+    @include space-inset-m;
+}
+.searchbar-container {
+    @include breakout;
+    background-color: var(--ui-gray-light);
+}
+
+.searchbar { 
+    @include wrapper;
+    @include space-inset-m;
+
+    display: flex;
+    flex-direction: column;
+
+    @media (max-width: $breakpoint-small) {
+        color: red;
+        flex-direction: row;
+    }
+}
+.bar-content {
+    flex: 1 0 auto;
+}
+.advanced-search-message {
+    flex: 0 1 auto;
+    align-self: flex-end;
+}
+
+.search-examples {
+    @include space-inset-m;
+    & li {
+       @include space-stack-s; 
+    }
+}
+
