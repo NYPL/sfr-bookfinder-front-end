@@ -32,7 +32,7 @@ const SearchResults: React.FC<{
 
   const [searchResults, setSearchResults] = useState(props.searchResults);
 
-  const [isMobile, setMobile] = useState(false);
+  const [isMobile, setMobile] = useState(window.innerWidth < breakpoints.large);
   const [isModalOpen, setModalOpen] = useState(false);
 
   // Because the forms submit on input change, we must call submit via a ref
@@ -55,10 +55,9 @@ const SearchResults: React.FC<{
         setModalOpen(false);
       }
     }
-
     window.addEventListener("resize", handleResize);
-    handleResize();
-    return () => {
+
+    return function cleanup() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
@@ -184,6 +183,7 @@ const SearchResults: React.FC<{
   };
 
   const onPageChange = (select: number) => {
+    console.log("select", select);
     const newSearchQuery: SearchQuery = Object.assign({}, searchQuery, {
       page: select,
     });
@@ -300,8 +300,11 @@ const SearchResults: React.FC<{
                 filterYears={searchQuery.filterYears}
                 showAll={searchQuery.showAll}
                 languages={getAvailableLanguages(searchResults)}
-                changeFilters={(filters?: Filter[]) => {
-                  changeFilters(filters);
+                changeFilters={(
+                  filters?: Filter[],
+                  filterYears?: DateRange
+                ) => {
+                  changeFilters(filters, filterYears);
                 }}
                 changeShowAll={(showAll: boolean) => {
                   changeShowAll(showAll);
