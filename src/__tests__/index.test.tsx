@@ -6,7 +6,10 @@ import {
   mockPush,
   MockNextRouterContextProvider,
 } from "./testUtils/MockNextRouter";
-import { searchFormRenderTests, searchFormTests } from "./componentHelpers/SearchForm";
+import {
+  searchFormRenderTests,
+  searchFormTests,
+} from "./componentHelpers/SearchForm";
 describe("Renders Index Page", () => {
   beforeEach(async () => {
     render(

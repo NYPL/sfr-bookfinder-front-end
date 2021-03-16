@@ -114,8 +114,8 @@ describe("All Editions Toggle", () => {
         "Show only items currently available online"
       ) as HTMLInputElement;
       expect(toggle).toBeInTheDocument;
-      expect(toggle.getAttribute("aria-checked")).toBe("true");
-      expect(toggle).toHaveAttribute("checked");
+      expect(toggle).toBeChecked();
+      expect(toggle).toBeChecked();
     });
     test("clicking the edition toggle sends a new query", () => {
       const toggle = screen.getByLabelText(
@@ -146,8 +146,8 @@ describe("All Editions Toggle", () => {
         "Show only items currently available online"
       ) as HTMLInputElement;
       expect(toggle).toBeInTheDocument;
-      expect(toggle.getAttribute("aria-checked")).toBe("true");
-      expect(toggle).toHaveAttribute("checked");
+      expect(toggle).toBeChecked();
+      expect(toggle).toBeChecked();
     });
     test("clicking the edition toggle sends a new query", () => {
       const toggle = screen.getByLabelText(
