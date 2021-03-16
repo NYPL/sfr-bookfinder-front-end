@@ -183,7 +183,6 @@ const SearchResults: React.FC<{
   };
 
   const onPageChange = (select: number) => {
-    console.log("select", select);
     const newSearchQuery: SearchQuery = Object.assign({}, searchQuery, {
       page: select,
     });
