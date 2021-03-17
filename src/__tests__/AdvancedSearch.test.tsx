@@ -3,13 +3,11 @@ import AdvancedSearch from "../components/AdvancedSearch/AdvancedSearch";
 import { initialSearchQuery } from "~/src/constants/InitialState";
 import { FacetItem } from "~/src/types/DataModel";
 import { SearchQuery } from "~/src/types/SearchQuery";
-import LanguageAccordion from "~/src/components/LanguageAccordion/LanguageAccordion";
 import {
   MockNextRouterContextProvider,
   mockPush,
 } from "~/src/__tests__/testUtils/MockNextRouter";
-import { HelperErrorText } from "@nypl/design-system-react-components";
-import { act, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { FilterLanguagesCommonTests } from "./componentHelpers/FilterLanguages";
 import { FilterYearsTests } from "./componentHelpers/FilterYears";
 import { FilterFormatTests } from "./componentHelpers/FilterFormats";
