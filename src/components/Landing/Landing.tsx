@@ -10,6 +10,14 @@ import Link from "~/src/components/Link/Link";
 import { breadcrumbTitles } from "~/src/constants/labels";
 
 const LandingPage: React.FC<any> = () => {
+  const subHeader = (
+    <div className="hero__body-text">
+      Find millions of digital books for research from multiple sources
+      world-wide--all free to read, download, and keep. No library card
+      required. This is an early beta test, so we want your feedback!{" "}
+      <Link to="/about">Read more about the project</Link>.
+    </div>
+  );
   return (
     <main className="main">
       <div className="content-header">
@@ -30,18 +38,7 @@ const LandingPage: React.FC<any> = () => {
                 blockName="hero"
               />
             }
-            subHeaderText={
-              <div className="hero__body-text">
-                Find millions of digital books for research from multiple
-                sources world-wide--all free to read, download, and keep. No
-                library card required. This is an early beta test, so we want
-                your feedback!{" "}
-                <Link to="/about">
-                  <>Read more about the project</>
-                </Link>
-                .
-              </div>
-            }
+            subHeaderText={subHeader}
           />
         </div>
       </div>

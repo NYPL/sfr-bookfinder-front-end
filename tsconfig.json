@@ -25,6 +25,6 @@
     "**/*.ts",
     "**/*.tsx",
     "next.config.js"
-, "src/components/Citations/APACitation.jsx", "src/components/Citations/formatCitation.jsx", "src/components/RequestDigital/RequestDigital.jsx", "src/__tests__/index.test.jsx"  ],
+, "src/components/Citations/APACitation.jsx", "src/components/Citations/formatCitation.jsx", "src/components/RequestDigital/RequestDigital.jsx", "src/__tests__/index.test.tsx"  ],
   "exclude": ["node_modules", "jest.config.js", "setupTests.js"]
 }

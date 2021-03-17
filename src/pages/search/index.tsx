@@ -10,7 +10,6 @@ import { toSearchQuery } from "~/src/util/apiConversion";
 export async function getServerSideProps(context: any) {
   // Get Query from location
   const searchQuery: ApiSearchQuery = context.query;
-  // const queryString: string = Object.keys(searchQuery)[0];
 
   const parsedQuery = parseLocationQuery(searchQuery);
 

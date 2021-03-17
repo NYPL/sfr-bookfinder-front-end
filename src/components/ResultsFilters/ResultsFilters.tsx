@@ -81,7 +81,7 @@ const Filters: React.FC<{
     ) {
       setDateRangeError(errorMessagesText.invalidDate);
     } else {
-      changeFilters(null, filterYears);
+      changeFilters(undefined, filterYears);
     }
   };
 

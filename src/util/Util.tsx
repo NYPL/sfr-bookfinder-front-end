@@ -6,7 +6,7 @@ export const formatUrl = (link: any) =>
   link.startsWith("http") ? link : `https://${link}`;
 
 export const getNumberOfPages = (totalItems: any, perPage: any) =>
-  Math.floor((Number(totalItems || 0) - 1) / Number(perPage || 10)) + 1 || 1;
+  Math.floor((Number(totalItems || 0) - 1) / Number(perPage || 10)) || 1;
 
 // Given an array of JSX elements, return JSX that joins them with the Joiner.
 export const joinArrayOfElements = (array: any, joiner: any) => {

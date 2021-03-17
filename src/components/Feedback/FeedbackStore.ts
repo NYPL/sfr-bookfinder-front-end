@@ -62,7 +62,6 @@ export function feedbackFormReducer(
 ): FeedbackState {
   switch (action.type) {
     case RESET:
-      console.log("reset hit");
       return initialFeedbackState;
     case HIDE:
       return {

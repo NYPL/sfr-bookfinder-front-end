@@ -1,89 +1,120 @@
 # CHANGE LOG
-## PRERELEASE
-- Refactors app to use NextJS, NYPL Design System, Typescript
 
-## [0.9.3] 
+## PRERELEASE
+
+- Refactors app to use NextJS, NYPL Design System, Typescript
+- Adds integration tests to landing and search pages
+
+## [0.9.3]
+
 - Updated dgx-global-footer to 0.5.7.
 - Adds the new urlType prop to the Footer component set to "absolute"
 
 ## [0.9.2]
+
 - Clears searchbar on field change
 - Fixed direct linking to reader page
 - Removed mobile apology
 
-## [0.9.1] 
+## [0.9.1]
+
 - Updated dgx-global-footer to 0.5.6.
 - Edited some typos and added page title to Edition Detail
 - String truncating now occurs on word boundaries
 - Add APA Citations under feature flag
 - Filters always show all filter options
 
-## [0.9.0] 
+## [0.9.0]
+
 ### Changed
-- Filters now hide on mobile and show in sidebar.  
+
+- Filters now hide on mobile and show in sidebar.
 - Updated to Design System 0.1.0
 - Work Detail page has a Show All toggle
 - Edition Detail Page added
 
 ## [0.8.5]
+
 ### Added
+
 - Google Analytics Events for Read Online and Download links
+
 ### Fixed
+
 - Local and development environments HTTP protocals
 
 ## [0.8.4]
+
 ### Added
+
 - Production deployment step to TravisCI
 
-## [0.8.3] 
-### Fixed 
-- iframe scrolling
-- VIAF searches no longer visibly show on page. 
-
-## [0.8.2] 
-### Added
-- Form to request digitization that writes to an Airtable instance.  
+## [0.8.3]
 
 ### Fixed
+
+- iframe scrolling
+- VIAF searches no longer visibly show on page.
+
+## [0.8.2]
+
+### Added
+
+- Form to request digitization that writes to an Airtable instance.
+
+### Fixed
+
 - Breadcrumbs reflects work titles
 - Empty search redirects to homepage
 
 ## [0.8.1] - 2020-02-03
-### Added 
+
+### Added
+
 - https support
 
 ### Changed
+
 - Breadcrumb appears on Read-Online page
 
 ## [0.8.0] - 2020-01-20
+
 ### Changed
+
 - Updated landing page, search results and work detail to new designs
 - Added Feedback form
 - Moved to API v3
 
 ## [0.3.3]
+
 ### Added
+
 - Pulls in Design System as a dependency
 
 ### Changed
+
 - Breadcrumbs now use Design System Breadcrumbs
 
 ## [0.3.2] - 2019-11-06
 
 ### Added
+
 - Google Analytics hooks that record user searches
 - System Fonts
 
-### Fixed 
+### Fixed
+
 - Read-online links now use webpub viewer
 - simple search now uses the `queries` array rather than a separate `query` array
 
 ### Removed
+
 - The Kievit font
 
 ## [0.3.1] - 2019-10-03
 
 ### Added
+
 - Books available to read online now load in an iFrame, and NYPL branding and navigation are preserved.
 
 ### Fixed
