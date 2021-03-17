@@ -1,10 +1,13 @@
 import React from "react";
 import Layout from "./Layout";
 import { MockNextRouterContextProvider } from "~/src/__tests__/testUtils/MockNextRouter";
-import { mount } from "enzyme";
+import { mount, configure } from "enzyme";
 import Footer from "@nypl/dgx-react-footer";
 import Feedback from "~/src/components/Feedback/Feedback";
 import Loading from "~/src/components/Loading/Loading";
+import Adapter from "enzyme-adapter-react-16";
+
+configure({ adapter: new Adapter() });
 
 describe("Layout Structure", () => {
   const testChild = <div id="test-id"> children </div>;

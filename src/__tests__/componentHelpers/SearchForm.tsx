@@ -24,9 +24,9 @@ export const searchFormRenderTests = (query?: SearchQuery) => {
     );
   });
   test("Shows link to Advanced Search", () => {
-    expect(
-      screen.getByRole("link", { name: "Advanced Search" })
-    ).toHaveAttribute("href", "/advanced-search");
+    expect(screen.getByText("Advanced Search").closest("a").href).toContain(
+      "/advanced-search"
+    );
   });
 };
 

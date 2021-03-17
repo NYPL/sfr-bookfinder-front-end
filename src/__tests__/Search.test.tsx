@@ -5,7 +5,7 @@ import {
   MockNextRouterContextProvider,
 } from "./testUtils/MockNextRouter";
 import SearchResults from "../components/Search/Search";
-import { ApiSearchResult } from "../types/DataModel";
+import { ApiSearchResult, FacetItem } from "../types/DataModel";
 import { SearchQuery } from "../types/SearchQuery";
 import { resizeWindow } from "./testUtils/screen";
 import {
@@ -15,6 +15,8 @@ import {
 import { FilterYearsTests } from "./componentHelpers/FilterYears";
 import { PLACEHOLDER_COVER_LINK } from "../constants/editioncard";
 import userEvent from "@testing-library/user-event";
+import { FilterLanguagesCommonTests } from "./componentHelpers/FilterLanguages";
+import { FilterFormatTests } from "./componentHelpers/FilterFormats";
 const searchResults: ApiSearchResult = require("./fixtures/results-list.json");
 const searchQuery: SearchQuery = {
   queries: [{ field: "keyword", query: "Animal Crossing" }],
@@ -74,17 +76,7 @@ describe("Renders Search Results Page", () => {
       expect(
         within(languages).getByRole("checkbox", { name: "Filter Languages" })
       ).not.toBeChecked();
-      const formats = screen.getByRole("group", { name: "Format" });
-      expect(formats).toBeInTheDocument();
-      expect(
-        within(formats).getByRole("checkbox", { name: "ePub" })
-      ).not.toBeChecked();
-      expect(
-        within(formats).getByRole("checkbox", { name: "PDF" })
-      ).not.toBeChecked();
-      expect(
-        within(formats).getByRole("checkbox", { name: "Html" })
-      ).not.toBeChecked();
+      FilterFormatTests();
       const pubYear = screen.getByRole("group", { name: "Publication Year" });
       expect(pubYear).toBeInTheDocument();
       expect(within(pubYear).getByLabelText("To")).toHaveValue(null);
@@ -162,16 +154,19 @@ describe("Renders Search Results Page", () => {
       });
     });
     describe("Languages filter", () => {
+      const avaialbleLanguages: FacetItem[] =
+        searchResults &&
+        searchResults.data.facets &&
+        searchResults.data.facets["language"];
+
+      FilterLanguagesCommonTests(screen, avaialbleLanguages, true);
+
       test("Clicking new language sends new search", () => {
         const languages = screen.getByRole("group", { name: "Languages" });
-        const accordionControl = within(languages).getByRole("checkbox", {
-          name: "Filter Languages",
-        });
+
         const englishCheckbox = within(languages).getByRole("checkbox", {
           name: "English (14)",
         });
-        fireEvent.click(accordionControl);
-        expect(accordionControl).toBeChecked();
 
         fireEvent.click(englishCheckbox);
         expect(mockPush).toBeCalledWith({
@@ -218,7 +213,7 @@ describe("Renders Search Results Page", () => {
       FilterYearsTests(true, searchQuery.filterYears, mockPush);
     });
   });
-  describe.only("Search Results", () => {
+  describe("Search Results", () => {
     describe("First result has full data", () => {
       test("Title links to work page", () => {
         expect(
@@ -340,7 +335,7 @@ describe("Renders Search Results Page", () => {
         pathname: "/search",
         query: {
           filters: '[{"field":"show_all","value":false}]',
-          page: "1",
+          page: "2",
           queries: '[{"field":"keyword","query":"Animal Crossing"}]',
           per_page: "10",
           sort: "[]",
