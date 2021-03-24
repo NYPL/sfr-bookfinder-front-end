@@ -67,6 +67,7 @@ const SearchForm: React.FC<{
           selectedOption={shownQuery.field}
           isRequired={true}
           onChange={(e: any) => onFieldChange(e)}
+          labelId={"search-button"}
         >
           {getSearchOptions(searchFields)}
         </DS.Select>
@@ -74,6 +75,7 @@ const SearchForm: React.FC<{
           type={DS.InputTypes.text}
           value={shownQuery.query}
           onChange={(e: any) => onQueryChange(e)}
+          ariaLabelledBy={"search-button"}
         ></DS.Input>
         {isFormError && (
           <DS.HelperErrorText isError={true} id={"search-bar-error"}>

@@ -23,7 +23,6 @@ const ResultsSorts: React.FC<{
         labelId="per-page-label"
         selectedOption={perPage.toString()}
         onChange={(e) => onChangePerPage(e)}
-        onBlur={(e) => onChangePerPage(e)}
       >
         {numbersPerPage.map((pageNum: string) => {
           return <option key={`per-page-${pageNum}`}>{pageNum}</option>;
@@ -42,7 +41,6 @@ const ResultsSorts: React.FC<{
           deepEqual(sortMap[key], sort)
         )}
         onChange={(e) => onChangeSort(e)}
-        onBlur={(e) => onChangeSort(e)}
       >
         {Object.keys(sortMap).map((sortOption: string) => {
           return (
