@@ -33,7 +33,12 @@ $breakpoint-margin: 35px;
   legend {
         font-weight: bold;    
   }
-
+}
+.search-mobile-hide {
+  display: none;
+  @media (min-width: $breakpoint-medium + $breakpoint-margin) {
+    display: block;
+  }
 }
 
 .filter-button {
@@ -45,13 +50,11 @@ $breakpoint-margin: 35px;
     display: none;
   }
 }
-.content-secondary { 
-  display: none;
 
-  @media (min-width: $breakpoint-medium + $breakpoint-margin) {
-    display: block;
-  }
+.content-primary--with-sidebar-left { 
+  flex: 1 1 40%;
 }
+
 .content-bottom {
   margin: 0 auto;
 }

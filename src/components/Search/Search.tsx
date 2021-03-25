@@ -193,7 +193,11 @@ const SearchResults: React.FC<{
                 ? `Viewing ${firstElement} - ${lastElement} of ${numberOfWorks} items`
                 : "Viewing 0 items"}
             </DS.Heading>
-            <form className="sort-form" name="sortForm" ref={sortForm}>
+            <form
+              className="sort-form search-mobile-hide"
+              name="sortForm"
+              ref={sortForm}
+            >
               <ResultsSorts
                 perPage={searchQuery.perPage}
                 sort={searchQuery.sort}
@@ -202,7 +206,7 @@ const SearchResults: React.FC<{
               />
             </form>
           </div>
-          <hr className="mobile-hide" />
+          <hr className="search-mobile-hide" />
         </div>
         <DS.Button
           className="filter-button"
@@ -216,7 +220,11 @@ const SearchResults: React.FC<{
         </DS.Button>
       </div>
 
-      <div className={"content-secondary content-secondary--with-sidebar-left"}>
+      <div
+        className={
+          "content-secondary content-secondary--with-sidebar-left search-mobile-hide"
+        }
+      >
         <form className="search-filter" ref={filterForm}>
           <DS.Heading level={2} id="filter-desktop-header">
             Refine Results
