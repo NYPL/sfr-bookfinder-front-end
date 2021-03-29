@@ -157,7 +157,7 @@ const SearchResults: React.FC<{
     ) {
       const newSearchQuery: SearchQuery = Object.assign({}, searchQuery, {
         sort: sortMap[e.target.value],
-        page: 0,
+        page: SearchQueryDefaults.page,
       });
       setSearchQuery(newSearchQuery);
       sendSearchQuery(newSearchQuery);
@@ -165,6 +165,7 @@ const SearchResults: React.FC<{
   };
 
   const onPageChange = (select: number) => {
+    console.log("select", select);
     const newSearchQuery: SearchQuery = Object.assign({}, searchQuery, {
       page: select,
     });
@@ -172,6 +173,7 @@ const SearchResults: React.FC<{
     sendSearchQuery(newSearchQuery);
   };
 
+  console.log("searchQuery", searchQuery);
   return (
     <main className="main main--with-sidebar">
       <div className="content-header">

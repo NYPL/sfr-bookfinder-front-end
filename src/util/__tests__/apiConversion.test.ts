@@ -22,7 +22,7 @@ const emptyApiQuery: ApiSearchQuery = require("../../__tests__/fixtures/search-q
 const searchQuery: SearchQuery = {
   filterYears: { end: 2000, start: 1800 },
   filters: [{ field: "language", value: "Spanish" }],
-  page: 0,
+  page: 1,
   perPage: 10,
   queries: [{ field: "keyword", query: '"Civil War" OR Lincoln' }],
   showAll: false,
