@@ -11,13 +11,15 @@ export async function getServerSideProps(context: any) {
   // Get Query from location
   const searchQuery: ApiSearchQuery = context.query;
 
-  const parsedQuery = parseLocationQuery(searchQuery);
+  console.log("searchQuery", searchQuery);
+  const searchResults = await searchResultsFetcher(searchQuery);
+  console.log("searchResults", searchResults);
+  const convertedQuery = toSearchQuery(searchQuery);
 
-  // Fetch first set of search results
-  const searchResults = await searchResultsFetcher(parsedQuery);
+  console.log("convertedQuery", convertedQuery);
   return {
     props: {
-      searchQuery: toSearchQuery(parsedQuery),
+      searchQuery: convertedQuery,
       searchResults: searchResults,
     },
   };

@@ -14,6 +14,9 @@
   "dependencies": {
     "@nypl/design-system-react-components": "^0.21.0",
     "@nypl/dgx-react-footer": "0.5.7",
+    "@types/node": "^14.14.33",
+    "@types/react": "^16.9.5",
+    "axios": "^0.21.1",
     "dgx-feature-flags": "git+https://bitbucket.org/NYPL/dgx-feature-flags.git#master",
     "focus-trap-react": "^8.3.2",
     "library-simplified-webpub-viewer": "^0.2.6",
@@ -23,11 +26,10 @@
     "react-dom": "^16.14.0",
     "redux": "4.0.1",
     "sass": "^1.29.0",
-    "typescript": "^4.1.3",
-    "@types/node": "^14.14.33",
-    "@types/react": "^16.9.5"
+    "typescript": "^4.1.3"
   },
   "devDependencies": {
+    "@axe-core/react": "^4.1.1",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.8.3",

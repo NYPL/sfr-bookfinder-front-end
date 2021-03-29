@@ -11,12 +11,15 @@ export default {
     production: "https://digital-research-books-reader.nypl.org",
   },
   api: {
-    local: "https://dev-platform.nypl.org/api/v0.1/research-now/v3",
-    development: "https://dev-platform.nypl.org/api/v0.1/research-now/v3",
-    production: "https://digital-research-books-api.nypl.org/v3/sfr",
+    local:
+      "http://sfr-p-ecsal-ixtqofr3u1cq-1271021548.us-east-1.elb.amazonaws.com3",
+    development:
+      "http://sfr-p-ecsal-ixtqofr3u1cq-1271021548.us-east-1.elb.amazonaws.com",
+    production:
+      "http://sfr-p-ecsal-ixtqofr3u1cq-1271021548.us-east-1.elb.amazonaws.com",
     searchPath: {
-      local: "/search-api",
-      development: "/search-api",
+      local: "/search",
+      development: "/search",
       production: "/search",
     },
     recordPath: "/work",

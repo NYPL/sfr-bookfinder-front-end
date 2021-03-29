@@ -1,7 +1,7 @@
 import { ApiSearchQuery, Query, Sort, ApiFilter } from "../types/SearchQuery";
 
 const initialApiQuery: ApiSearchQuery = {
-  queries: [],
+  query: [],
   recordType: "editions",
   filters: [],
   sort: [
@@ -48,7 +48,7 @@ export function parseLocationQuery(queryString: any): ApiSearchQuery {
     } = query;
 
     return {
-      queries: parseIfString(queries),
+      query: parseIfString(queries),
       filters: filters ? parseIfString(filters) : initialApiQuery.filters,
       page: page ? parseIfString(page) : initialApiQuery.page,
       per_page: perPage ? parseIfString(perPage) : initialApiQuery.per_page,

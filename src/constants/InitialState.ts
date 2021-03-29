@@ -6,7 +6,7 @@ export const initialApiSearchQuery: ApiSearchQuery = {
   total: 0,
   filters: [],
   sort: [],
-  queries: [{ query: "", field: "keyword" }],
+  query: [{ keyword: "" }],
 };
 
 export const initialSearchQuery: SearchQuery = {

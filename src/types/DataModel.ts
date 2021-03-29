@@ -1,5 +1,7 @@
 /* eslint-disable camelcase */
 
+import { ApiEdition } from "./EditionQuery";
+
 export type ApiSearchResult = {
   status?: number;
   timestamp?: string;
@@ -8,15 +10,16 @@ export type ApiSearchResult = {
     totalWorks?: number;
     facets?: Facet[];
     paging?: {
-      prev_page_sort?: string[];
-      next_page_sort?: string[];
+      prevPageSort?: string[];
+      nextPageSort?: string[];
     };
     works?: ApiWork[];
   };
 };
 
 export type Facet = {
-  [key: string]: FacetItem[];
+  formats: FacetItem[];
+  languages: FacetItem[];
 };
 
 export type FacetItem = { value?: string; count?: number };
@@ -109,6 +112,10 @@ export type Identifier = {
   id_type?: string;
   identifier?: string;
 };
+export type Date = {
+  date: string;
+  type: string;
+};
 
 export type WorkEdition = {
   date_modified?: string;
@@ -143,26 +150,26 @@ export type Measurement = {
   taken_at?: string;
 };
 
+export type Author = {
+  lcnaf?: string;
+  name?: string;
+  primary?: string;
+  viaf?: string;
+};
+
 export type ApiWork = {
-  date_modified?: string;
-  date_created?: string;
-  id?: number;
-  uuid?: string;
-  title?: string;
-  sort_title?: string;
-  sub_title?: string;
+  alt_titles?: string[];
+  authors?: Author[];
+  contributors?: string[];
+  dates?: Date[];
+  editions?: ApiEdition[];
+  languages?: Language[];
+  measurements?: string[];
   medium?: string;
   series?: string;
-  series_position?: number;
-  edition_count?: number;
-  edition_range?: string;
-  sort?: string[];
-  agents?: Agent[];
-  alt_titles?: string[];
-  instances?: Instance[];
-  languages?: Language[];
-  editions?: WorkEdition[];
-  identifiers?: Identifier[];
+  series_position?: string;
+  sub_title?: string;
   subjects?: Subject[];
-  measurements?: Measurement[];
+  title?: string;
+  uuid?: string;
 };

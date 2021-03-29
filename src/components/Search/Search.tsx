@@ -63,6 +63,7 @@ const SearchResults: React.FC<{
   }, []);
 
   const sendSearchQuery = async (searchQuery: SearchQuery) => {
+    console.log("apiQuery", toApiQuery(searchQuery));
     router.push({
       pathname: "/search",
       query: toLocationQuery(toApiQuery(searchQuery)),

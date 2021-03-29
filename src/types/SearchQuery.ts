@@ -9,18 +9,12 @@ export type searchFields =
   | "lcnaf";
 
 export type ApiSearchQuery = {
-  // Field and Query appear in the API but are used in legacy Simple Search.  We no longer use them.
-  /* field: string;
-   query: string; */
-  queries: Query[];
-  recordType?: "instances" | "editions";
-  filters?: ApiFilter[];
-  sort?: [] | Sort[];
-  per_page?: number;
+  query: string;
+  filter: string;
+  sort?: string;
+  size?: number;
   page?: number;
-  prev_page_sort?: string[];
-  next_page_sort?: string[];
-  total?: number;
+  showAll?: boolean;
 };
 
 //Refer to sorts.ts
@@ -28,7 +22,7 @@ export type Sort = { field: string; dir: string };
 
 export interface Query {
   query: string;
-  field: searchFields;
+  field: string;
 }
 
 export type ApiFilter = {
@@ -48,7 +42,6 @@ export type DateRange = {
 
 export type SearchQuery = {
   filters?: Filter[];
-  filterYears?: DateRange;
   page?: number;
   perPage?: number;
   queries: Query[];
@@ -59,7 +52,6 @@ export type SearchQuery = {
 
 export const SearchQueryDefaults: SearchQuery = {
   filters: [],
-  filterYears: { start: "", end: "" },
   page: 0,
   perPage: 10,
   queries: [],

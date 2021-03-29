@@ -5,6 +5,7 @@ import {
   ApiSearchQuery,
   DateRange,
   Filter,
+  Query,
   SearchQuery,
   Sort,
 } from "../types/SearchQuery";
@@ -16,25 +17,17 @@ import {
  * @param apiQuery
  */
 export const toSearchQuery = (apiQuery: ApiSearchQuery): SearchQuery => {
-  if (!apiQuery.queries || apiQuery.queries.length < 1) {
+  console.log("query", apiQuery);
+  if (!apiQuery.query || apiQuery.query.length < 1) {
     throw new Error("Mising param `queries` in search request ");
   }
-  const toFilterYears = (apiFilters: ApiFilter[]): DateRange => {
-    const yearFilters = apiFilters.filter((filter) => {
-      return filter.field === "years";
-    });
-    if (!yearFilters || yearFilters.length < 1) {
-      return {
-        start: null,
-        end: null,
-      };
-    }
 
-    const yearFilter = yearFilters[0];
-    return {
-      start: yearFilter.value.start ? +yearFilter.value.start : null,
-      end: yearFilter.value.end ? +yearFilter.value.end : null,
-    };
+  const toQueries = (apiQueries: string): Query[] => {
+    const separated = apiQueries.split(",");
+    return separated.map((sep) => {
+      const split = sep.split(":");
+      return { field: split[0], query: split[1] };
+    });
   };
 
   // The front end only sorts by the first Sort.
@@ -47,35 +40,28 @@ export const toSearchQuery = (apiQuery: ApiSearchQuery): SearchQuery => {
     }
   };
 
-  const toShowAll = (apiFilters: ApiFilter[]): boolean => {
-    const showAllFilters = apiFilters.filter((apiFilter) => {
-      return apiFilter.field === "show_all";
+  const toFilters = (apiFilters: string): Filter[] => {
+    const separated = apiFilters.split(",");
+    const filters: Filter[] = separated.map((sep) => {
+      const split = sep.split(":");
+      return { field: split[0], value: split[1] };
     });
-
-    return showAllFilters && showAllFilters[0]
-      ? showAllFilters[0].value
-      : false;
+    return filters;
   };
 
-  const toFilters = (apiFilters: ApiFilter[]): Filter[] => {
-    return apiFilters.filter((apiFilter) => {
-      return apiFilter.field !== "years" && apiFilter.field !== "show_all";
-    });
-  };
-
-  const showAll = apiQuery.filters && toShowAll(apiQuery.filters);
-  const filters = apiQuery.filters && toFilters(apiQuery.filters);
-  const filterYears = apiQuery.filters && toFilterYears(apiQuery.filters);
+  const filters = apiQuery.filter && toFilters(apiQuery.filter);
   const sorts = apiQuery.sort && toSorts(apiQuery.sort);
 
+  console.log("queries", toQueries(apiQuery.query));
   return {
-    queries: apiQuery.queries,
+    queries: toQueries(apiQuery.query),
     ...(filters && { filters: filters }),
-    ...(filterYears && { filterYears: filterYears }),
-    ...(typeof apiQuery.page !== undefined && { page: apiQuery.page }),
-    ...(apiQuery.per_page && { perPage: apiQuery.per_page }),
+    ...(apiQuery.page && { page: apiQuery.page }),
+    ...(apiQuery.size && { perPage: apiQuery.size }),
     ...(sorts && { sort: sorts }),
-    ...(typeof showAll !== undefined && { showAll: showAll }),
+    ...((apiQuery.showAll || apiQuery.showAll === false) && {
+      showAll: apiQuery.showAll,
+    }),
   };
 };
 
@@ -88,6 +74,7 @@ export const toSearchQuery = (apiQuery: ApiSearchQuery): SearchQuery => {
  * @param searchQuery
  */
 export const toApiQuery = (searchQuery: SearchQuery): ApiSearchQuery => {
+  console.log("searchQuery", searchQuery);
   if (!searchQuery.queries || searchQuery.queries.length < 1) {
     throw new Error("cannot convert searchQuery with no queries");
   }
@@ -132,13 +119,9 @@ export const toApiQuery = (searchQuery: SearchQuery): ApiSearchQuery => {
     return apiFilters;
   };
 
-  const filters = toApiFilters(
-    searchQuery.filters,
-    searchQuery.filterYears,
-    searchQuery.showAll
-  );
+  const filters = toApiFilters(searchQuery.filters);
   return {
-    queries: searchQuery.queries,
+    query: searchQuery.queries,
     ...(filters &&
       filters.length > 0 && {
         filters: filters,

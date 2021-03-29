@@ -3,6 +3,7 @@ import { WorkQuery, WorkResult } from "~/src/types/WorkQuery";
 import { ApiSearchQuery } from "../../types/SearchQuery";
 import { ApiSearchResult } from "../../types/DataModel";
 import { EditionQuery, EditionResult } from "~/src/types/EditionQuery";
+const { URL, URLSearchParams } = require("url");
 
 //TODO env variables
 const appEnv = "development";
@@ -26,24 +27,19 @@ const defaultEditionQuery = {
   showAll: "true",
 };
 
-//TODO: Lower Priority: combine SearchQuery and ApiSearchQuery
-// ShowQueries can be derived
-// RecordType and total can be passed through
-
-export const searchResultsFetcher = async (query: ApiSearchQuery) => {
-  if (!query || !query.queries) {
+export const searchResultsFetcher = async (apiQuery: ApiSearchQuery) => {
+  console.log("query", apiQuery);
+  if (!apiQuery || !apiQuery.query) {
     throw new Error("no query");
   }
+  const url = new URL(searchUrl);
+  url.search = new URLSearchParams(apiQuery).toString();
+  console.log("searchUrl", url);
 
-  const res = await fetch(searchUrl, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(query), // body data type must match "Content-Type" header
-  });
+  const res = await fetch(url);
 
   if (res.ok) {
+    console.log("ok");
     const searchResult: ApiSearchResult = await res.json();
     return searchResult;
   } else {
