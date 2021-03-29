@@ -33,6 +33,7 @@ to set the appropriate environment when starting the application.
 ### Dependencies
 
 * NextJS
+* Redux
 * NYPL Header and Footer npm modules
 * NYPL Design System
 
