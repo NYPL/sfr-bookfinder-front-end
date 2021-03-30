@@ -48,7 +48,7 @@ const LanguageAccordion: React.FC<{
               return (
                 <li key={`check-${language.value}`}>
                   <DS.Checkbox
-                    name={language.value}
+                    name="Languages"
                     checkboxId={`checkbox-${language.value}`}
                     labelOptions={{
                       id: `checkbox-label-${language.value}`,

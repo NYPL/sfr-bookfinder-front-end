@@ -9,15 +9,15 @@ export const FilterLanguagesCommonTests = (
   useMobile: boolean,
   selectedLanguages?: Filter[]
 ) => {
-  test("Language Filter appears", () => {
-    const languages = screen.getByRole("group", { name: "Languages" });
+  // test("Language Filter appears", () => {
+  //   const languages = screen.getByRole("group", { name: "Languages" });
 
-    const accordionControl = within(languages).getByRole("checkbox", {
-      name: "Filter Languages",
-    });
-    fireEvent.click(accordionControl);
-    expect(accordionControl).not.toBeChecked();
-  });
+  //   const accordionControl = within(languages).getByRole("checkbox", {
+  //     name: "Filter Languages",
+  //   });
+  //   fireEvent.click(accordionControl);
+  //   expect(accordionControl).not.toBeChecked();
+  // });
 
   test("Language Filters shows all available languages", () => {
     const languageGroup = screen.getByRole("group", { name: "Languages" });
