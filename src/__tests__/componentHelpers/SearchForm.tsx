@@ -19,7 +19,7 @@ export const searchFormRenderTests = (query?: SearchQuery) => {
   test("Searchbar has correct input", () => {
     const expectedSearchValue =
       query && query.queries ? query.queries[0].query : "";
-    expect(screen.getByRole("textbox", { name: "" })).toHaveValue(
+    expect(screen.getByRole("textbox", { name: "Search" })).toHaveValue(
       expectedSearchValue
     );
   });
@@ -34,14 +34,16 @@ export const searchFormTests = (mockPush) => {
   describe("Search using Landing Page Searchbar", () => {
     test("Searching with a field and value calls Search api", () => {
       const categoryInput = screen.getByRole("combobox");
-      const textInput = screen.getByRole("textbox", { name: "" });
+      const textInput = screen.getByRole("textbox", { name: "Search" });
       fireEvent.change(categoryInput, { target: { value: "author" } });
       userEvent.clear(textInput);
       userEvent.type(textInput, "Tom Nook");
       fireEvent.click(screen.getByText("Search"));
 
       expect(screen.getByRole("combobox")).toHaveValue("author");
-      expect(screen.getByRole("textbox", { name: "" })).toHaveValue("Tom Nook");
+      expect(screen.getByRole("textbox", { name: "Search" })).toHaveValue(
+        "Tom Nook"
+      );
       expect(
         screen.queryByText("Please enter a search term")
       ).not.toBeInTheDocument();
@@ -51,6 +53,7 @@ export const searchFormTests = (mockPush) => {
         query: {
           filters: '[{"field":"show_all","value":false}]',
           per_page: "10",
+          page: "1",
           queries: '[{"query":"Tom Nook","field":"author"}]',
           sort: "[]",
         },
@@ -58,7 +61,7 @@ export const searchFormTests = (mockPush) => {
     });
 
     test("Searching with no search term shows error", () => {
-      const textInput = screen.getByRole("textbox", { name: "" });
+      const textInput = screen.getByRole("textbox", { name: "Search" });
       userEvent.clear(textInput);
 
       expect(textInput).toHaveValue("");

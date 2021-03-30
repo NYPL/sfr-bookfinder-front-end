@@ -1,8 +1,7 @@
 import React from "react";
 import AdvancedSearch from "../components/AdvancedSearch/AdvancedSearch";
-import { initialSearchQuery } from "~/src/constants/InitialState";
 import { FacetItem } from "~/src/types/DataModel";
-import { SearchQuery } from "~/src/types/SearchQuery";
+import { SearchQuery, SearchQueryDefaults } from "~/src/types/SearchQuery";
 import {
   MockNextRouterContextProvider,
   mockPush,
@@ -21,7 +20,7 @@ const defaultLanguages: FacetItem[] = [
 
 const complicatedSearchQuery: SearchQuery = {
   perPage: 10,
-  page: 0,
+  page: 1,
   filters: [{ value: "english", field: "language" }],
   filterYears: { start: 1990, end: 1999 },
   sort: { field: "relevance", dir: "DESC" },
@@ -34,7 +33,7 @@ describe("renders advanced search correctly", () => {
     beforeEach(() => {
       render(
         <AdvancedSearch
-          searchQuery={initialSearchQuery}
+          searchQuery={SearchQueryDefaults}
           languages={defaultLanguages}
         />
       );
@@ -49,7 +48,7 @@ describe("renders advanced search correctly", () => {
       });
     });
     describe("Language filter is shown", () => {
-      FilterLanguagesCommonTests(screen, defaultLanguages, false);
+      FilterLanguagesCommonTests(screen, defaultLanguages, false, false);
     });
     describe("Year filter is shown", () => {
       FilterYearsTests(false);
@@ -66,7 +65,7 @@ describe("renders advanced search correctly", () => {
   });
 
   test("Hides languages when no languages are passed", () => {
-    render(<AdvancedSearch searchQuery={initialSearchQuery} languages={[]} />);
+    render(<AdvancedSearch searchQuery={SearchQueryDefaults} languages={[]} />);
     expect(
       screen.queryByRole("group", { name: "Languages" })
     ).not.toBeInTheDocument();
@@ -103,6 +102,7 @@ describe("Advanced Search submit", () => {
       filters: `[{"field":"language","value":"english"},{"field":"years","value":{"start":1990,"end":1999}},{"field":"show_all","value":false}]`,
       queries: `[{"field":"keyword","query":"cat"}]`,
       per_page: "10",
+      page: "1",
       sort: `[]`,
     };
     expect(mockPush).toHaveBeenCalledTimes(1);
@@ -116,7 +116,7 @@ describe("Advanced Search submit", () => {
     render(
       <MockNextRouterContextProvider>
         <AdvancedSearch
-          searchQuery={initialSearchQuery}
+          searchQuery={SearchQueryDefaults}
           languages={defaultLanguages}
         />
       </MockNextRouterContextProvider>
@@ -127,7 +127,7 @@ describe("Advanced Search submit", () => {
   });
 
   test("show error on invalid year", () => {
-    const invalidYearSearch = Object.assign({}, initialSearchQuery, {
+    const invalidYearSearch = Object.assign({}, SearchQueryDefaults, {
       queries: [{ field: "keyword", query: "cat" }],
       filterYears: { start: 1990, end: 1880 },
     });

@@ -31,35 +31,45 @@ const LanguageAccordion: React.FC<{
       <legend>
         <DS.Label htmlFor="lanaguage-select">Languages</DS.Label>
       </legend>
-      <DS.Accordion inputId="language-select" accordionLabel="Filter Languages">
-        <DS.List
-          id="languages-list"
-          className="languages-list"
-          type={DS.ListTypes.Unordered}
-          modifiers={["no-list-styling"]}
-        >
-          {languages.map((language) => {
-            return (
-              <li key={`check-${language.value}`}>
-                <DS.Checkbox
-                  name={language.value}
-                  checkboxId={`checkbox-${language.value}`}
-                  labelOptions={{
-                    id: `checkbox-label-${language.value}`,
-                    labelContent: (
-                      <>
-                        {language.value}{" "}
-                        {showCount ? `(${language.count})` : ""}
-                      </>
-                    ),
-                  }}
-                  checked={!!selectedLanguageFilter(language.value)}
-                  onChange={(e) => toggleSelected(e, language.value)}
-                />
-              </li>
-            );
-          })}
-        </DS.List>
+      <DS.Accordion
+        inputId="language-select"
+        accordionLabel="Filter Languages"
+        defaultOpen={true}
+        modifiers={["fixed-height"]}
+      >
+        <div style={{ height: "300px" }}>
+          <DS.List
+            id="languages-list"
+            className="languages-list"
+            type={DS.ListTypes.Unordered}
+            modifiers={["no-list-styling"]}
+          >
+            {languages.map((language) => {
+              return (
+                <li key={`check-${language.value}`}>
+                  <DS.Checkbox
+                    name="Languages"
+                    checkboxId={`checkbox-${language.value}`}
+                    labelOptions={{
+                      id: `checkbox-label-${language.value}`,
+                      labelContent: (
+                        <>
+                          {language.value}{" "}
+                          {showCount ? `(${language.count})` : ""}
+                        </>
+                      ),
+                    }}
+                    checked={!!selectedLanguageFilter(language.value)}
+                    onChange={(e) => toggleSelected(e, language.value)}
+                    attributes={{
+                      "aria-labelledby": `checkbox-label-${language.value}`,
+                    }}
+                  />
+                </li>
+              );
+            })}
+          </DS.List>
+        </div>
       </DS.Accordion>
     </fieldset>
   );

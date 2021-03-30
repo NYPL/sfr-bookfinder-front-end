@@ -52,7 +52,8 @@ export type SearchQuery = {
 
 export const SearchQueryDefaults: SearchQuery = {
   filters: [],
-  page: 0,
+  filterYears: { start: "", end: "" },
+  page: 1,
   perPage: 10,
   queries: [],
   sort: { field: "relevance", dir: "DESC" },

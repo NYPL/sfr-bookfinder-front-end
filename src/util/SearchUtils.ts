@@ -11,7 +11,7 @@ const initialApiQuery: ApiSearchQuery = {
     },
   ],
   per_page: 10,
-  page: 0,
+  page: 1,
   total: 1000,
 };
 

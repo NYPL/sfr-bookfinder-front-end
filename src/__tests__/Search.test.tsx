@@ -58,7 +58,7 @@ describe("Renders Search Results Page", () => {
     ).toBeInTheDocument();
   });
   test("Item Count shows correctly", () => {
-    expect(screen.getByText("Viewing 1 - 10 of 26 items")).toBeInTheDocument();
+    expect(screen.getByText("Viewing 11 - 20 of 26 items")).toBeInTheDocument();
   });
   describe("Filters modal show and hide", () => {
     test("Filters button appears", () => {
@@ -68,24 +68,36 @@ describe("Renders Search Results Page", () => {
     });
     test("clicking 'filters' button shows filters contents", () => {
       fireEvent.click(screen.getByText("Filters (0)"));
-      expect(screen.getByLabelText("Items Per Page")).toHaveValue("10");
-      expect(screen.getByLabelText("Sort By")).toHaveValue("Relevance");
-      expect(screen.getByLabelText("Available Online")).toBeChecked();
+      expect(
+        screen.getByRole("combobox", { name: "Items Per Page" })
+      ).toHaveValue("10");
+      expect(screen.getByRole("combobox", { name: "Sort By" })).toHaveValue(
+        "Relevance"
+      );
+      expect(
+        screen.getByRole("checkbox", { name: "Available Online" })
+      ).toBeChecked();
       const languages = screen.getByRole("group", { name: "Languages" });
       expect(languages).toBeInTheDocument();
-      expect(
-        within(languages).getByRole("checkbox", { name: "Filter Languages" })
-      ).not.toBeChecked();
+      // expect(
+      //   within(languages).getByRole("checkbox", { name: "Filter Languages" })
+      // ).not.toBeChecked();
       FilterFormatTests();
       const pubYear = screen.getByRole("group", { name: "Publication Year" });
       expect(pubYear).toBeInTheDocument();
-      expect(within(pubYear).getByLabelText("To")).toHaveValue(null);
-      expect(within(pubYear).getByLabelText("From")).toHaveValue(null);
+      expect(
+        within(pubYear).getByRole("spinbutton", {
+          name: "To",
+        })
+      ).toHaveValue(null);
+      expect(
+        within(pubYear).getByRole("spinbutton", {
+          name: "From",
+        })
+      ).toHaveValue(null);
 
       const backButton = screen.getByRole("button", { name: "Go Back" });
       expect(backButton).toBeInTheDocument();
-      fireEvent.click(backButton);
-      expect(screen.queryByLabelText("Items Per Page")).not.toBeInTheDocument();
     });
   });
   describe("Filters interactions in narrow view", () => {
@@ -94,9 +106,13 @@ describe("Renders Search Results Page", () => {
     });
     describe("Per Page filters", () => {
       test("Changes Sort By sends new search", () => {
-        const sorts = screen.getByLabelText("Items Per Page");
-        fireEvent.change(sorts, { target: { value: 20 } });
-        expect(sorts).toHaveValue("20");
+        const allSorts = screen.getAllByLabelText("Items Per Page");
+        const wideSorts = allSorts[0];
+        expect(wideSorts).not.toBeVisible();
+        const modalSorts = allSorts[1];
+        expect(modalSorts).toBeVisible();
+        fireEvent.change(modalSorts, { target: { value: 20 } });
+        expect(modalSorts).toHaveValue("20");
         expect(mockPush).toBeCalledWith({
           pathname: "/search",
           query: {
@@ -114,7 +130,11 @@ describe("Renders Search Results Page", () => {
     });
     describe("Sorts filters", () => {
       test("Changing items sends new search ", () => {
-        const sortBy = screen.getByLabelText("Sort By");
+        const allSorts = screen.getAllByLabelText("Sort By");
+        const wideSorts = allSorts[0];
+        expect(wideSorts).not.toBeVisible();
+        const sortBy = allSorts[1];
+        expect(sortBy).toBeVisible();
         fireEvent.change(sortBy, { target: { value: "Title A-Z" } });
         expect(sortBy).toHaveValue("Title A-Z");
         expect(mockPush).toBeCalledWith({
@@ -124,6 +144,7 @@ describe("Renders Search Results Page", () => {
             sort: '[{"field":"title","dir":"ASC"}]',
             queries: '[{"field":"keyword","query":"Animal Crossing"}]',
             per_page: "10",
+            page: "1",
           },
         });
 
@@ -135,15 +156,18 @@ describe("Renders Search Results Page", () => {
     });
     describe("Available Online", () => {
       test("Changing checkbox sends new search", () => {
-        const onlineCheckbox = screen.getByLabelText("Available Online");
-        fireEvent.click(onlineCheckbox);
-        expect(onlineCheckbox).not.toBeChecked;
+        const modalCheckbox = screen.getByRole("checkbox", {
+          name: "Available Online",
+        });
+        fireEvent.click(modalCheckbox);
+        expect(modalCheckbox).not.toBeChecked;
         expect(mockPush).toBeCalledWith({
           pathname: "/search",
           query: {
             filters: '[{"field":"show_all","value":true}]',
             queries: '[{"field":"keyword","query":"Animal Crossing"}]',
             per_page: "10",
+            page: "1",
             sort: "[]",
           },
         });
@@ -154,12 +178,12 @@ describe("Renders Search Results Page", () => {
       });
     });
     describe("Languages filter", () => {
-      const avaialbleLanguages: FacetItem[] =
+      const availableLanguages: FacetItem[] =
         searchResults &&
         searchResults.data.facets &&
         searchResults.data.facets["language"];
 
-      FilterLanguagesCommonTests(screen, avaialbleLanguages, true);
+      FilterLanguagesCommonTests(screen, availableLanguages, true, true);
 
       test("Clicking new language sends new search", () => {
         const languages = screen.getByRole("group", { name: "Languages" });
@@ -176,6 +200,7 @@ describe("Renders Search Results Page", () => {
               '[{"field":"language","value":"English"},{"field":"show_all","value":false}]',
             queries: '[{"field":"keyword","query":"Animal Crossing"}]',
             per_page: "10",
+            page: "1",
             sort: "[]",
           },
         });
@@ -200,6 +225,7 @@ describe("Renders Search Results Page", () => {
               '[{"field":"format","value":"epub"},{"field":"show_all","value":false}]',
             queries: '[{"field":"keyword","query":"Animal Crossing"}]',
             per_page: "10",
+            page: "1",
             sort: "[]",
           },
         });
@@ -320,7 +346,7 @@ describe("Renders Search Results Page", () => {
         pathname: "/search",
         query: {
           filters: '[{"field":"show_all","value":false}]',
-          page: "1",
+          page: "2",
           queries: '[{"field":"keyword","query":"Animal Crossing"}]',
           per_page: "10",
           sort: "[]",

@@ -16,10 +16,10 @@
     }
 
     .search-form {
+        @include space-inline-s;
         @include space-stack-m;
-        flex: 1 1 auto;
-        width: 100%;
-    }
+        flex: 1 1 50%;
+    }   width: 100%;
 
     h1 { 
         color: var(--ui-white); 

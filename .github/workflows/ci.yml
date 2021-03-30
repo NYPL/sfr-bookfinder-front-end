@@ -20,7 +20,7 @@ jobs:
       - uses: dangoslen/changelog-enforcer@v1.4.0
         with:
           changeLogPath: "CHANGELOG.md"
-          skipLabel: "no-changelog"
+          skipLabels: "no-changelog"
 
   lint:
     name: Lint

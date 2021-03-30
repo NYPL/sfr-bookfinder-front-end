@@ -70,11 +70,7 @@ const LandingPage: React.FC<any> = () => {
       <div className="content-primary search-examples">
         <DS.Heading level={2}>Search Examples</DS.Heading>
 
-        <DS.List
-          type={DS.ListTypes.Unordered}
-          id="subject-list"
-          modifiers={["no-list-styling"]}
-        >
+        <DS.List type={DS.ListTypes.Unordered} id="subject-list">
           {Subjects.map((sub: any) => (
             <li key={`subject-link-${sub.url}`}>
               <Link to={sub.url}>{sub.text}</Link>
