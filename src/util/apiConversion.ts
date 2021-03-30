@@ -72,7 +72,7 @@ export const toSearchQuery = (apiQuery: ApiSearchQuery): SearchQuery => {
     queries: apiQuery.queries,
     ...(filters && { filters: filters }),
     ...(filterYears && { filterYears: filterYears }),
-    ...(typeof apiQuery.page !== undefined && { page: apiQuery.page }),
+    ...(typeof apiQuery.page !== undefined && { page: apiQuery.page }), //API is 0 indexed
     ...(apiQuery.per_page && { perPage: apiQuery.per_page }),
     ...(sorts && { sort: sorts }),
     ...(typeof showAll !== undefined && { showAll: showAll }),

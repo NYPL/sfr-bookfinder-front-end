@@ -34,10 +34,11 @@ $breakpoint-margin: 35px;
         font-weight: bold;    
   }
 }
-.search-mobile-hide {
+.search-widescreen-show {
   display: none;
+
   @media (min-width: $breakpoint-medium + $breakpoint-margin) {
-    display: block;
+    display: block !important;
   }
 }
 

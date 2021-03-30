@@ -35,6 +35,7 @@ const FilterBookFormat: React.FC<{
             labelContent: <>{formatType.label}</>,
           }}
           key={`facet-format-${formatType.value}`}
+          attributes={{ "aria-labelledby": `format-${formatType.value}=label` }}
         />
       ))}
     </fieldset>

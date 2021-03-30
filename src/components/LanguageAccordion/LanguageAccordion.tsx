@@ -61,6 +61,9 @@ const LanguageAccordion: React.FC<{
                     }}
                     checked={!!selectedLanguageFilter(language.value)}
                     onChange={(e) => toggleSelected(e, language.value)}
+                    attributes={{
+                      "aria-labelledby": `checkbox-label-${language.value}`,
+                    }}
                   />
                 </li>
               );

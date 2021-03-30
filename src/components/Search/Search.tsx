@@ -165,7 +165,6 @@ const SearchResults: React.FC<{
   };
 
   const onPageChange = (select: number) => {
-    console.log("select", select);
     const newSearchQuery: SearchQuery = Object.assign({}, searchQuery, {
       page: select,
     });
@@ -173,7 +172,6 @@ const SearchResults: React.FC<{
     sendSearchQuery(newSearchQuery);
   };
 
-  console.log("searchQuery", searchQuery);
   return (
     <main className="main main--with-sidebar">
       <div className="content-header">
@@ -196,7 +194,8 @@ const SearchResults: React.FC<{
                 : "Viewing 0 items"}
             </DS.Heading>
             <form
-              className="sort-form search-mobile-hide"
+              hidden
+              className="sort-form search-widescreen-show"
               name="sortForm"
               ref={sortForm}
             >
@@ -208,7 +207,7 @@ const SearchResults: React.FC<{
               />
             </form>
           </div>
-          <hr className="search-mobile-hide" />
+          <hr hidden className="search-widescreen-show" />
         </div>
         <DS.Button
           className="filter-button"
@@ -224,8 +223,9 @@ const SearchResults: React.FC<{
 
       <div
         className={
-          "content-secondary content-secondary--with-sidebar-left search-mobile-hide"
+          "content-secondary content-secondary--with-sidebar-left search-widescreen-show"
         }
+        hidden
       >
         <form className="search-filter" ref={filterForm}>
           <DS.Heading level={2} id="filter-desktop-header">

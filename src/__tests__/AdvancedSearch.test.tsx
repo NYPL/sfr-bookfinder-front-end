@@ -48,7 +48,7 @@ describe("renders advanced search correctly", () => {
       });
     });
     describe("Language filter is shown", () => {
-      FilterLanguagesCommonTests(screen, defaultLanguages, false);
+      FilterLanguagesCommonTests(screen, defaultLanguages, false, false);
     });
     describe("Year filter is shown", () => {
       FilterYearsTests(false);
@@ -102,6 +102,7 @@ describe("Advanced Search submit", () => {
       filters: `[{"field":"language","value":"english"},{"field":"years","value":{"start":1990,"end":1999}},{"field":"show_all","value":false}]`,
       queries: `[{"field":"keyword","query":"cat"}]`,
       per_page: "10",
+      page: "1",
       sort: `[]`,
     };
     expect(mockPush).toHaveBeenCalledTimes(1);

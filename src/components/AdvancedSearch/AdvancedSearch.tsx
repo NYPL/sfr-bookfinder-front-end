@@ -6,7 +6,6 @@ import {
   findFiltersExceptField,
   findQueryForField,
 } from "~/src/util/SearchQueryUtils";
-import { initialSearchQuery } from "~/src/constants/InitialState";
 import {
   inputTerms,
   errorMessagesText,
@@ -62,7 +61,7 @@ const AdvancedSearch: React.FC<{
   };
 
   const clearSearch = () => {
-    setSearchQuery(initialSearchQuery);
+    setSearchQuery(SearchQueryDefaults);
   };
 
   const onQueryChange = (e, queryKey) => {
