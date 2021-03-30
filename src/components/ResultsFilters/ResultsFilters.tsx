@@ -108,6 +108,7 @@ const Filters: React.FC<{
           id: "avail_online_label",
           labelContent: <>Available Online</>,
         }}
+        attributes={{ "aria-labelledby": "avail_online_label" }}
         name="avail_online"
       />
       <LanguageAccordion

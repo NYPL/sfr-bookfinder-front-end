@@ -1,4 +1,4 @@
-import React, { MutableRefObject, useEffect, useRef, useState } from "react";
+import React, { MutableRefObject, useRef, useState } from "react";
 import * as DS from "@nypl/design-system-react-components";
 import { useRouter } from "next/router";
 import { searchFields } from "~/src/constants/fields";
@@ -13,7 +13,6 @@ import {
 import { sortMap } from "~/src/constants/sorts";
 import ResultsList from "../ResultsList/ResultsList";
 import { searchResultsFetcher } from "~/src/lib/api/SearchApi";
-import { breakpoints } from "~/src/constants/breakpoints";
 import { toLocationQuery } from "~/src/util/SearchUtils";
 import { toApiQuery } from "~/src/util/apiConversion";
 import Filters from "../ResultsFilters/ResultsFilters";
@@ -32,7 +31,7 @@ const SearchResults: React.FC<{
 
   const [searchResults, setSearchResults] = useState(props.searchResults);
 
-  const [isMobile, setMobile] = useState(window.innerWidth < breakpoints.large);
+  // const [isMobile, setMobile] = useState(window.innerWidth < breakpoints.large);
   const [isModalOpen, setModalOpen] = useState(false);
 
   // Because the forms submit on input change, we must call submit via a ref
@@ -44,23 +43,6 @@ const SearchResults: React.FC<{
   );
 
   const router = useRouter();
-
-  // When the window resizes, set mobile.
-  useEffect(() => {
-    function handleResize() {
-      if (window.innerWidth < breakpoints.large) {
-        setMobile(true);
-      } else {
-        setMobile(false);
-        setModalOpen(false);
-      }
-    }
-    window.addEventListener("resize", handleResize);
-
-    return function cleanup() {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
   const sendSearchQuery = async (searchQuery: SearchQuery) => {
     router.push({
@@ -175,7 +157,7 @@ const SearchResults: React.FC<{
     ) {
       const newSearchQuery: SearchQuery = Object.assign({}, searchQuery, {
         sort: sortMap[e.target.value],
-        page: 0,
+        page: SearchQueryDefaults.page,
       });
       setSearchQuery(newSearchQuery);
       sendSearchQuery(newSearchQuery);
@@ -211,63 +193,63 @@ const SearchResults: React.FC<{
                 ? `Viewing ${firstElement} - ${lastElement} of ${numberOfWorks} items`
                 : "Viewing 0 items"}
             </DS.Heading>
-            {!isMobile && (
-              <form className="sort-form" name="sortForm" ref={sortForm}>
-                <ResultsSorts
-                  perPage={searchQuery.perPage}
-                  sort={searchQuery.sort}
-                  onChangePerPage={(e) => onChangePerPage(e)}
-                  onChangeSort={(e) => onChangeSort(e)}
-                />
-              </form>
-            )}
+            <form
+              hidden
+              className="sort-form search-widescreen-show"
+              name="sortForm"
+              ref={sortForm}
+            >
+              <ResultsSorts
+                perPage={searchQuery.perPage}
+                sort={searchQuery.sort}
+                onChangePerPage={(e) => onChangePerPage(e)}
+                onChangeSort={(e) => onChangeSort(e)}
+              />
+            </form>
           </div>
-          {!isMobile && <hr />}
+          <hr hidden className="search-widescreen-show" />
         </div>
-        {isMobile && (
-          <DS.Button
-            className="filter-button"
-            id="filter-button"
-            buttonType={DS.ButtonTypes.Secondary}
-            onClick={() => {
-              setModalOpen(true);
-            }}
-          >
-            {`Filters (${filterCount})`}
-          </DS.Button>
-        )}
+        <DS.Button
+          className="filter-button"
+          id="filter-button"
+          buttonType={DS.ButtonTypes.Secondary}
+          onClick={() => {
+            setModalOpen(true);
+          }}
+        >
+          {`Filters (${filterCount})`}
+        </DS.Button>
       </div>
 
       <div
-        className={`content-secondary${
-          !isMobile && " content-secondary--with-sidebar-left"
-        }`}
+        className={
+          "content-secondary content-secondary--with-sidebar-left search-widescreen-show"
+        }
+        hidden
       >
-        {!isMobile && (
-          <form className="search-filter" ref={filterForm}>
-            <DS.Heading level={2} id="filter-desktop-header">
-              Refine Results
-            </DS.Heading>
-            <hr />
-            <Filters
-              filters={searchQuery.filters}
-              filterYears={searchQuery.filterYears}
-              showAll={searchQuery.showAll}
-              languages={getAvailableLanguages(searchResults)}
-              changeFilters={(filters?: Filter[], filterYears?: DateRange) => {
-                changeFilters(filters, filterYears);
-              }}
-              changeShowAll={(showAll: boolean) => {
-                changeShowAll(showAll);
-              }}
-            />
-          </form>
-        )}
+        <form className="search-filter" ref={filterForm}>
+          <DS.Heading level={2} id="filter-desktop-header">
+            Refine Results
+          </DS.Heading>
+          <hr />
+          <Filters
+            filters={searchQuery.filters}
+            filterYears={searchQuery.filterYears}
+            showAll={searchQuery.showAll}
+            languages={getAvailableLanguages(searchResults)}
+            changeFilters={(filters?: Filter[], filterYears?: DateRange) => {
+              changeFilters(filters, filterYears);
+            }}
+            changeShowAll={(showAll: boolean) => {
+              changeShowAll(showAll);
+            }}
+          />
+        </form>
       </div>
 
       <div className="content-primary content-primary--with-sidebar-left">
         <ResultsList works={works} />
-        {isMobile && isModalOpen && (
+        {isModalOpen && (
           <DS.Modal>
             <DS.Button
               buttonType={DS.ButtonTypes.Link}

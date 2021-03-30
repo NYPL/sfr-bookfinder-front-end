@@ -46,6 +46,7 @@ const FilterYears: React.FC<{
           <DS.Input
             type={DS.InputTypes.number}
             id="date-filter-from"
+            attributes={{ "aria-labelledby": "date-from-label" }}
             value={dateFilters && dateFilters.start ? dateFilters.start : ""}
             onChange={(e) => changeDate(e, true)}
           />
@@ -56,6 +57,7 @@ const FilterYears: React.FC<{
             To
           </DS.Label>
           <DS.Input
+            attributes={{ "aria-labelledby": "date-to-label" }}
             type={DS.InputTypes.number}
             id="date-filter-to"
             value={dateFilters && dateFilters.end > 0 ? dateFilters.end : ""}
