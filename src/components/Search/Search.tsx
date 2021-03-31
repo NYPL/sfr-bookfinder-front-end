@@ -31,7 +31,6 @@ const SearchResults: React.FC<{
 
   const [searchResults, setSearchResults] = useState(props.searchResults);
 
-  // const [isMobile, setMobile] = useState(window.innerWidth < breakpoints.large);
   const [isModalOpen, setModalOpen] = useState(false);
 
   // Because the forms submit on input change, we must call submit via a ref
@@ -44,8 +43,8 @@ const SearchResults: React.FC<{
 
   const router = useRouter();
 
+  console.log("searchResults", searchResults);
   const sendSearchQuery = async (searchQuery: SearchQuery) => {
-    console.log("apiQuery", toApiQuery(searchQuery));
     router.push({
       pathname: "/search",
       query: toLocationQuery(toApiQuery(searchQuery)),
@@ -75,45 +74,29 @@ const SearchResults: React.FC<{
     const facets: FacetItem[] =
       searchResults &&
       searchResults.data.facets &&
-      searchResults.data.facets["language"];
+      searchResults.data.facets["languages"];
 
     return facets;
   };
 
   const getFilterCount = (searchQuery: SearchQuery) => {
-    let filterCount = 0;
-
-    if (searchQuery.filterYears) {
-      if (searchQuery.filterYears.start) {
-        filterCount += 1;
-      }
-
-      if (searchQuery.filterYears.end) {
-        filterCount += 1;
-      }
-    }
-    if (searchQuery.showAll !== SearchQueryDefaults.showAll) {
-      filterCount += 1;
-    }
-    if (searchQuery.filters) {
-      filterCount += searchQuery.filters.length;
-    }
-    return filterCount;
+    return searchQuery.showAll !== SearchQueryDefaults.showAll
+      ? searchQuery.filters.length + 1
+      : searchQuery.filters.length;
   };
 
   const filterCount = getFilterCount(searchQuery);
   const numberOfWorks = searchResults.data.totalWorks;
   const works: ApiWork[] = searchResults.data.works;
 
-  const totalPages = getNumberOfPages(numberOfWorks, searchQuery.perPage);
+  console.log("paging", searchResults.data.paging);
+  const searchPaging = searchResults.data.paging;
   const firstElement =
-    Number(searchQuery.perPage || 10) * Number(searchQuery.page || 0) + 1;
-  let lastElement =
-    Number(searchQuery.perPage || 10) * (Number(searchQuery.page || 0) + 1) ||
-    10;
-  if (searchQuery.page >= totalPages - 1 && lastElement > numberOfWorks) {
-    lastElement = numberOfWorks;
-  }
+    (searchPaging.currentPage - 1) * searchPaging.recordsPerPage + 1;
+  const lastElement =
+    searchQuery.page !== searchPaging.lastPage
+      ? searchPaging.currentPage * searchPaging.recordsPerPage
+      : numberOfWorks;
 
   const changeFilters = (newFilters?: Filter[], newDateRange?: DateRange) => {
     const newSearchQuery: SearchQuery = {
@@ -235,7 +218,6 @@ const SearchResults: React.FC<{
           <hr />
           <Filters
             filters={searchQuery.filters}
-            filterYears={searchQuery.filterYears}
             showAll={searchQuery.showAll}
             languages={getAvailableLanguages(searchResults)}
             changeFilters={(filters?: Filter[], filterYears?: DateRange) => {
@@ -279,7 +261,6 @@ const SearchResults: React.FC<{
               </DS.Heading>
               <Filters
                 filters={searchQuery.filters}
-                filterYears={searchQuery.filterYears}
                 showAll={searchQuery.showAll}
                 languages={getAvailableLanguages(searchResults)}
                 changeFilters={(

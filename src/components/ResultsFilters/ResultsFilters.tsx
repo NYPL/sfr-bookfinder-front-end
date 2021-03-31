@@ -20,14 +20,12 @@ import { errorMessagesText } from "~/src/constants/labels";
 
 const Filters: React.FC<{
   filters: Filter[];
-  filterYears: DateRange;
   showAll: boolean;
   languages: FacetItem[];
   changeFilters: (newFilters?: Filter[], newYears?: DateRange) => void;
   changeShowAll: (showAll: boolean) => void;
 }> = ({
   filters: propFilters,
-  filterYears: propFilterYears,
   showAll: propShowAll,
   languages,
   changeFilters,
@@ -35,9 +33,9 @@ const Filters: React.FC<{
 }) => {
   const [dateRangeError, setDateRangeError] = useState("");
   const [filters, setFilters] = useState(propFilters);
-  const [filterYears, setFilterYears] = useState(propFilterYears);
   const [showAll, setShowAll] = useState(propShowAll);
 
+  console.log("languages", languages);
   const onLanguageChange = (e, language) => {
     const languageFilters = findFiltersForField(filters, "language");
     const newFilters = [
@@ -67,21 +65,28 @@ const Filters: React.FC<{
   };
 
   const onDateChange = (e, isStart: boolean) => {
-    setFilterYears({
-      start: isStart ? e.target.value : filterYears.start,
-      end: isStart ? filterYears.end : e.target.value,
-    });
+    const field = isStart ? "startYear" : "endYear";
+    const yearFilters = findFiltersForField(filters, field);
+
+    const newFilters = [
+      ...findFiltersExceptField(filters, field),
+      ...(e.target.checked
+        ? [...yearFilters, { field: field, value: e.target.value }]
+        : yearFilters.filter((filter) => {
+            return filter.value !== e.target.value;
+          })),
+    ];
+    setFilters(newFilters);
   };
 
   const submitDateForm = () => {
-    if (
-      filterYears.start &&
-      filterYears.end &&
-      filterYears.end < filterYears.start
-    ) {
+    const startYear = findFiltersForField(filters, "startYear");
+    const endYear = findFiltersForField(filters, "startYear");
+
+    if (startYear && endYear && endYear[0] < startYear[0]) {
       setDateRangeError(errorMessagesText.invalidDate);
     } else {
-      changeFilters(undefined, filterYears);
+      changeFilters(filters);
     }
   };
 
@@ -95,6 +100,9 @@ const Filters: React.FC<{
     setShowAll(!e.target.checked);
     changeShowAll(!e.target.checked);
   };
+
+  const yearStart = findFiltersForField(filters, "yearStart");
+  const yearEnd = findFiltersForField(filters, "yearEnd");
 
   return (
     <div className="results-filters">
@@ -124,7 +132,8 @@ const Filters: React.FC<{
         onFormatChange={(e, format) => onBookFormatChange(e, format)}
       />
       <FilterYears
-        dateFilters={filterYears}
+        startFilter={yearStart && yearStart[0]}
+        endFilter={yearEnd && yearEnd[0]}
         onDateChange={(e, isStart) => {
           onDateChange(e, isStart);
         }}

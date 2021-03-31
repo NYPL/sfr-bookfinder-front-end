@@ -34,8 +34,6 @@ export const searchResultsFetcher = async (apiQuery: ApiSearchQuery) => {
   }
   const url = new URL(searchUrl);
   url.search = new URLSearchParams(apiQuery).toString();
-  console.log("searchUrl", url);
-
   const res = await fetch(url);
 
   if (res.ok) {

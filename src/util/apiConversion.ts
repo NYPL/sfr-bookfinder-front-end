@@ -58,7 +58,6 @@ export const toSearchQuery = (apiQuery: ApiSearchQuery): SearchQuery => {
     ...(filters && { filters: filters }),
     ...(apiQuery.page && { page: apiQuery.page }),
     ...(apiQuery.size && { perPage: apiQuery.size }),
-    ...(typeof apiQuery.page !== undefined && { page: apiQuery.page }), //API is 0 indexed
     ...(sorts && { sort: sorts }),
     ...((apiQuery.showAll || apiQuery.showAll === false) && {
       showAll: apiQuery.showAll,

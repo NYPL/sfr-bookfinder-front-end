@@ -10,8 +10,12 @@ export type ApiSearchResult = {
     totalWorks?: number;
     facets?: Facet[];
     paging?: {
-      prevPageSort?: string[];
-      nextPageSort?: string[];
+      currentPage: number;
+      firstPage: number;
+      lastPage: number;
+      nextPage: number;
+      previousPage: number;
+      recordsPerPage: number;
     };
     works?: ApiWork[];
   };
