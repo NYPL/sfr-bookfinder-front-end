@@ -12,7 +12,7 @@ export default {
   },
   api: {
     local:
-      "http://sfr-p-ecsal-ixtqofr3u1cq-1271021548.us-east-1.elb.amazonaws.com3",
+      "http://sfr-p-ecsal-ixtqofr3u1cq-1271021548.us-east-1.elb.amazonaws.com",
     development:
       "http://sfr-p-ecsal-ixtqofr3u1cq-1271021548.us-east-1.elb.amazonaws.com",
     production:

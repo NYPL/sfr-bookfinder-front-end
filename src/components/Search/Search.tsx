@@ -1,9 +1,8 @@
-import React, { MutableRefObject, useRef, useState } from "react";
+import React, { useState } from "react";
 import * as DS from "@nypl/design-system-react-components";
 import { useRouter } from "next/router";
 import { searchFields } from "~/src/constants/fields";
 import { ApiSearchResult, ApiWork, FacetItem } from "~/src/types/DataModel";
-import { getNumberOfPages } from "~/src/util/Util";
 import {
   DateRange,
   Filter,
@@ -12,9 +11,7 @@ import {
 } from "~/src/types/SearchQuery";
 import { sortMap } from "~/src/constants/sorts";
 import ResultsList from "../ResultsList/ResultsList";
-import { searchResultsFetcher } from "~/src/lib/api/SearchApi";
-import { toLocationQuery } from "~/src/util/SearchUtils";
-import { toApiQuery } from "~/src/util/apiConversion";
+import { toLocationQuery, toApiQuery } from "~/src/util/apiConversion";
 import Filters from "../ResultsFilters/ResultsFilters";
 import ResultsSorts from "../ResultsSorts/ResultsSorts";
 import { breadcrumbTitles } from "~/src/constants/labels";
@@ -24,33 +21,22 @@ const SearchResults: React.FC<{
   searchQuery: SearchQuery;
   searchResults: ApiSearchResult;
 }> = (props) => {
+  const searchResults = props.searchResults;
   const [searchQuery, setSearchQuery] = useState({
     ...SearchQueryDefaults,
     ...props.searchQuery,
   });
-
-  const [searchResults, setSearchResults] = useState(props.searchResults);
+  console.log("searchResults", props.searchResults);
 
   const [isModalOpen, setModalOpen] = useState(false);
 
-  // Because the forms submit on input change, we must call submit via a ref
-  const filterForm: MutableRefObject<HTMLFormElement> = useRef<HTMLFormElement>(
-    null
-  );
-  const sortForm: MutableRefObject<HTMLFormElement> = useRef<HTMLFormElement>(
-    null
-  );
-
   const router = useRouter();
 
-  console.log("searchResults", searchResults);
   const sendSearchQuery = async (searchQuery: SearchQuery) => {
     router.push({
       pathname: "/search",
       query: toLocationQuery(toApiQuery(searchQuery)),
     });
-    const searchResults = await searchResultsFetcher(toApiQuery(searchQuery));
-    setSearchResults(searchResults);
   };
 
   const getDisplayItemsHeading = (searchQuery: SearchQuery) => {
@@ -70,7 +56,6 @@ const SearchResults: React.FC<{
   const getAvailableLanguages = (
     searchResults: ApiSearchResult
   ): FacetItem[] => {
-    //TODO Error handling
     const facets: FacetItem[] =
       searchResults &&
       searchResults.data.facets &&
@@ -89,12 +74,11 @@ const SearchResults: React.FC<{
   const numberOfWorks = searchResults.data.totalWorks;
   const works: ApiWork[] = searchResults.data.works;
 
-  console.log("paging", searchResults.data.paging);
   const searchPaging = searchResults.data.paging;
   const firstElement =
     (searchPaging.currentPage - 1) * searchPaging.recordsPerPage + 1;
   const lastElement =
-    searchQuery.page !== searchPaging.lastPage
+    searchQuery.page <= searchPaging.lastPage
       ? searchPaging.currentPage * searchPaging.recordsPerPage
       : numberOfWorks;
 
@@ -134,7 +118,7 @@ const SearchResults: React.FC<{
 
   const onChangeSort = (e) => {
     e.preventDefault();
-
+    console.log("sort changed", e.target.value);
     if (
       e.target.value !==
       Object.keys(sortMap).find((key) => sortMap[key] === searchQuery.sort)
@@ -181,7 +165,6 @@ const SearchResults: React.FC<{
               hidden
               className="sort-form search-widescreen-show"
               name="sortForm"
-              ref={sortForm}
             >
               <ResultsSorts
                 perPage={searchQuery.perPage}
@@ -211,7 +194,7 @@ const SearchResults: React.FC<{
         }
         hidden
       >
-        <form className="search-filter" ref={filterForm}>
+        <form className="search-filter">
           <DS.Heading level={2} id="filter-desktop-header">
             Refine Results
           </DS.Heading>
@@ -255,7 +238,7 @@ const SearchResults: React.FC<{
                 onChangeSort={(e) => onChangeSort(e)}
               />
             </div>
-            <form name="filterForm" ref={filterForm}>
+            <form name="filterForm">
               <DS.Heading level={2} id="filter-desktop-header">
                 Refine Results
               </DS.Heading>
@@ -279,7 +262,7 @@ const SearchResults: React.FC<{
 
         <div className="content-bottom">
           <DS.Pagination
-            pageCount={getNumberOfPages(numberOfWorks, searchQuery.perPage)}
+            pageCount={searchPaging.lastPage ? searchPaging.lastPage : 1}
             currentPage={searchQuery.page}
             onPageChange={(e) => onPageChange(e)}
           />

@@ -3,7 +3,7 @@ import { WorkQuery, WorkResult } from "~/src/types/WorkQuery";
 import { ApiSearchQuery } from "../../types/SearchQuery";
 import { ApiSearchResult } from "../../types/DataModel";
 import { EditionQuery, EditionResult } from "~/src/types/EditionQuery";
-const { URL, URLSearchParams } = require("url");
+import { toLocationQuery } from "~/src/util/apiConversion";
 
 //TODO env variables
 const appEnv = "development";
@@ -28,16 +28,15 @@ const defaultEditionQuery = {
 };
 
 export const searchResultsFetcher = async (apiQuery: ApiSearchQuery) => {
-  console.log("query", apiQuery);
   if (!apiQuery || !apiQuery.query) {
     throw new Error("no query");
   }
   const url = new URL(searchUrl);
-  url.search = new URLSearchParams(apiQuery).toString();
-  const res = await fetch(url);
+  url.search = new URLSearchParams(toLocationQuery(apiQuery)).toString();
+
+  const res = await fetch(url.toString());
 
   if (res.ok) {
-    console.log("ok");
     const searchResult: ApiSearchResult = await res.json();
     return searchResult;
   } else {

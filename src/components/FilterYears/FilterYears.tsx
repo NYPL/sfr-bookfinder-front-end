@@ -1,7 +1,7 @@
 import React from "react";
 import * as DS from "@nypl/design-system-react-components";
 
-import { DateRange, Filter } from "~/src/types/SearchQuery";
+import { Filter } from "~/src/types/SearchQuery";
 
 /**
  * Year Filters
@@ -13,7 +13,10 @@ import { DateRange, Filter } from "~/src/types/SearchQuery";
 const FilterYears: React.FC<{
   startFilter: Filter;
   endFilter: Filter;
-  onDateChange: (e, isStart: boolean) => void;
+  onDateChange: (
+    e: React.FormEvent<HTMLInputElement>,
+    isStart: boolean
+  ) => void;
   // The date range error to show.
   // If no error should be shown, this should be an empty string
   dateRangeError?: string;
@@ -27,7 +30,10 @@ const FilterYears: React.FC<{
     onSubmit,
   } = props;
 
-  const changeDate = (e, isStart: boolean) => {
+  const changeDate = (
+    isStart: boolean,
+    e: React.FormEvent<HTMLInputElement>
+  ) => {
     onDateChange(e, isStart);
   };
 
@@ -42,9 +48,7 @@ const FilterYears: React.FC<{
 
   return (
     <fieldset className="date-range">
-      <legend className="usa-legend font-sans-lg sub-legend">
-        Publication Year
-      </legend>
+      <legend>Publication Year</legend>
       <div className="year-input-group">
         <div className="year-input">
           <DS.Label id="date-from-label" htmlFor="date-filter-from">
@@ -55,7 +59,7 @@ const FilterYears: React.FC<{
             id="date-filter-from"
             attributes={{ "aria-labelledby": "date-from-label" }}
             value={startFilter ? startFilter.value : ""}
-            onChange={(e) => changeDate(e, true)}
+            onChange={(e) => changeDate(true, e)}
           />
           <DS.HelperErrorText isError={false}> EX. 1901 </DS.HelperErrorText>
         </div>
@@ -68,7 +72,7 @@ const FilterYears: React.FC<{
             type={DS.InputTypes.number}
             id="date-filter-to"
             value={endFilter ? endFilter.value : ""}
-            onChange={(e) => changeDate(e, false)}
+            onChange={(e) => changeDate(false, e)}
           />
           <DS.HelperErrorText isError={false}> EX. 2000 </DS.HelperErrorText>
         </div>

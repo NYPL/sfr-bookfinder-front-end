@@ -16,8 +16,6 @@
     "@nypl/dgx-react-footer": "0.5.7",
     "@types/node": "^14.14.33",
     "@types/react": "^16.9.5",
-    "axios": "^0.21.1",
-    "dgx-feature-flags": "git+https://bitbucket.org/NYPL/dgx-feature-flags.git#master",
     "focus-trap-react": "^8.3.2",
     "library-simplified-webpub-viewer": "^0.2.6",
     "next": "10.0.3",

@@ -10,7 +10,7 @@ export type searchFields =
 
 export type ApiSearchQuery = {
   query: string;
-  filter: string;
+  filter?: string;
   sort?: string;
   size?: number;
   page?: number;

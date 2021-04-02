@@ -5,6 +5,7 @@ import {
   Instance,
   Item,
   ItemLink,
+  Language,
   Rights,
   WorkEdition,
 } from "../types/DataModel";
@@ -217,14 +218,18 @@ export default class EditionCardUtils {
 
   // Language Display
   static getLanguageDisplayText(previewEdition: WorkEdition) {
+    console.log("previewEdition", previewEdition);
     if (
       previewEdition &&
       previewEdition.languages &&
       previewEdition.languages.length
     ) {
       const languagesTextList = previewEdition.languages
-        .filter((lang: any) => lang.language)
-        .map((lang: any) => lang.language);
+        .filter((lang: Language) => {
+          console.log("lang", lang);
+          return lang.language;
+        })
+        .map((lang: Language) => lang.language);
       if (languagesTextList && languagesTextList.length) {
         const languageText = `Languages: ${languagesTextList.join(", ")}`;
         return <>{languageText}</>;

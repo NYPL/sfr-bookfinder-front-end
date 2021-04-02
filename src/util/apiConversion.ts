@@ -3,10 +3,10 @@
 import {
   ApiFilter,
   ApiSearchQuery,
-  DateRange,
   Filter,
   Query,
   SearchQuery,
+  SearchQueryDefaults,
   Sort,
 } from "../types/SearchQuery";
 
@@ -17,7 +17,6 @@ import {
  * @param apiQuery
  */
 export const toSearchQuery = (apiQuery: ApiSearchQuery): SearchQuery => {
-  console.log("query", apiQuery);
   if (!apiQuery.query || apiQuery.query.length < 1) {
     throw new Error("Mising param `queries` in search request ");
   }
@@ -31,13 +30,9 @@ export const toSearchQuery = (apiQuery: ApiSearchQuery): SearchQuery => {
   };
 
   // The front end only sorts by the first Sort.
-  const toSorts = (sort: any): Sort => {
-    if (sort.length > 0) {
-      return {
-        field: sort[0].field,
-        dir: sort[0].dir,
-      };
-    }
+  const toSorts = (apiSort: string): Sort => {
+    const split = apiSort.split(":");
+    return { field: split[0], dir: split[1] };
   };
 
   const toFilters = (apiFilters: string): Filter[] => {
@@ -49,16 +44,12 @@ export const toSearchQuery = (apiQuery: ApiSearchQuery): SearchQuery => {
     return filters;
   };
 
-  const filters = apiQuery.filter && toFilters(apiQuery.filter);
-  const sorts = apiQuery.sort && toSorts(apiQuery.sort);
-
-  console.log("queries", toQueries(apiQuery.query));
   return {
     queries: toQueries(apiQuery.query),
-    ...(filters && { filters: filters }),
+    ...(apiQuery.filter && { filters: toFilters(apiQuery.filter) }),
     ...(apiQuery.page && { page: apiQuery.page }),
     ...(apiQuery.size && { perPage: apiQuery.size }),
-    ...(sorts && { sort: sorts }),
+    ...(apiQuery.sort && { sort: toSorts(apiQuery.sort) }),
     ...((apiQuery.showAll || apiQuery.showAll === false) && {
       showAll: apiQuery.showAll,
     }),
@@ -74,66 +65,107 @@ export const toSearchQuery = (apiQuery: ApiSearchQuery): SearchQuery => {
  * @param searchQuery
  */
 export const toApiQuery = (searchQuery: SearchQuery): ApiSearchQuery => {
-  console.log("searchQuery", searchQuery);
   if (!searchQuery.queries || searchQuery.queries.length < 1) {
     throw new Error("cannot convert searchQuery with no queries");
   }
-  const toApiSorts = (sort: Sort): [] | Sort[] => {
-    if (sort.field === "relevance") {
-      return [];
-    } else {
-      return [sort];
-    }
+  const toApiSorts = (sort: Sort): string => {
+    console.log("sort", sort);
+    return `${sort.field}:${sort.dir}`;
   };
 
-  const toApiFilters = (
-    filters: Filter[],
-    yearFilters: DateRange,
-    showAll: boolean
-  ): ApiFilter[] => {
-    const apiFilters: ApiFilter[] = filters
+  const toApiFilters = (filters: Filter[]): string[] => {
+    return filters
       ? filters.map((filter) => {
-          return {
-            field: filter.field,
-            value: filter.value,
-          };
+          return `${filter.field}:${filter.value}`;
         })
       : [];
-
-    if (yearFilters && (yearFilters.start || yearFilters.end)) {
-      apiFilters.push({
-        field: "years",
-        value: {
-          start: yearFilters.start ? yearFilters.start : "",
-          end: yearFilters.end ? yearFilters.end : "",
-        },
-      });
-    }
-
-    if (showAll !== undefined) {
-      apiFilters.push({
-        field: "show_all",
-        value: showAll,
-      });
-    }
-    return apiFilters;
   };
 
-  const filters = toApiFilters(searchQuery.filters);
+  const toApiQueries = (queries: Query[]): string[] => {
+    return queries.map((query) => {
+      return `${query.field}:${query.query}`;
+    });
+  };
+
   return {
-    query: searchQuery.queries,
-    ...(filters &&
-      filters.length > 0 && {
-        filters: filters,
+    query: toApiQueries(searchQuery.queries).join(","),
+    ...(searchQuery.filters &&
+      searchQuery.filters.length &&
+      searchQuery.filters !== SearchQueryDefaults.filters && {
+        filter: toApiFilters(searchQuery.filters).join(","),
       }),
-    ...(searchQuery.page && {
-      page: searchQuery.page,
-    }),
-    ...(searchQuery.perPage && {
-      per_page: searchQuery.perPage,
-    }),
-    ...(searchQuery.sort && {
-      sort: searchQuery.sort && toApiSorts(searchQuery.sort),
-    }),
+    ...(searchQuery.page &&
+      searchQuery.page !== SearchQueryDefaults.page && {
+        page: searchQuery.page,
+      }),
+    ...(searchQuery.perPage &&
+      searchQuery.perPage !== SearchQueryDefaults.perPage && {
+        size: searchQuery.perPage,
+      }),
+    ...(searchQuery.sort &&
+      searchQuery.sort !== SearchQueryDefaults.sort && {
+        sort: toApiSorts(searchQuery.sort),
+      }),
+    ...(typeof searchQuery.showAll !== undefined &&
+      searchQuery.showAll !== SearchQueryDefaults.showAll && {
+        showAll: searchQuery.showAll,
+      }),
   };
+};
+
+//Takes the query string from URL and parses it into a SearchQuery object
+export function parseLocationQuery(queryString: any): ApiSearchQuery {
+  const query = queryString;
+
+  const parseIfString = (value: any) => {
+    if (typeof value === "string") {
+      return JSON.parse(value);
+    } else {
+      return value;
+    }
+  };
+
+  //   const query: SearchQuery = JSON.parse(queryString);
+  if (!query.queries && !query.showQueries) {
+    //TODO: redirect
+    return null;
+  } else {
+    const {
+      filter,
+      page,
+      perPage,
+      queries,
+      sort,
+    }: {
+      filter: ApiFilter[] | string;
+      page: number | string;
+      perPage: number | string;
+      queries: Query[] | string;
+      showQueries: Query[] | string;
+      sort: Sort[] | string;
+    } = query;
+
+    return {
+      query: parseIfString(queries),
+      ...(filter && { filter: parseIfString(filter) }),
+      ...(page && { page: parseIfString(page) }),
+      ...(perPage && { size: parseIfString(perPage) }),
+      ...(sort && { sort: parseIfString(sort) }),
+    };
+  }
+}
+
+/**
+ * Converts an API search query object to a NextJS query object
+ * NextJS Router accepts query objects of type { [key: string]: string }
+ *
+ * @param searchQuery
+ */
+export const toLocationQuery = (searchQuery: ApiSearchQuery): string => {
+  return Object.assign(
+    {},
+    ...Object.keys(searchQuery).map((key) => ({
+      [key]: searchQuery[key],
+    }))
+  );
 };

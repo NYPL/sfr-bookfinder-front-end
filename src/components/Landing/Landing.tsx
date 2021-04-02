@@ -1,6 +1,5 @@
 import React from "react";
 import * as DS from "@nypl/design-system-react-components";
-import FeatureFlags from "dgx-feature-flags";
 import SearchForm from "~/src/components/SearchForm/SearchForm";
 import Subjects from "~/config/subjectListConfig";
 import TotalWorks from "~/src/components/TotalWorks/TotalWorks";
@@ -60,12 +59,6 @@ const LandingPage: React.FC<any> = () => {
             </p>
           </div>
         </div>
-        {
-          // eslint-disable-next-line no-underscore-dangle
-          FeatureFlags.store._isFeatureActive(
-            config.booksCount.experimentName
-          ) && <TotalWorks totalWorks={0} />
-        }
       </div>
       <div className="content-primary search-examples">
         <DS.Heading level={2}>Search Examples</DS.Heading>

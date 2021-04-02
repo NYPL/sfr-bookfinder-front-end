@@ -18,8 +18,7 @@ import * as DS from "@nypl/design-system-react-components";
 import LanguageAccordion from "../LanguageAccordion/LanguageAccordion";
 import FilterBookFormat from "../FilterBookFormat/FilterBookFormat";
 import { FacetItem } from "~/src/types/DataModel";
-import { toLocationQuery } from "~/src/util/SearchUtils";
-import { toApiQuery } from "~/src/util/apiConversion";
+import { toLocationQuery, toApiQuery } from "~/src/util/apiConversion";
 
 const AdvancedSearch: React.FC<{
   searchQuery: SearchQuery;

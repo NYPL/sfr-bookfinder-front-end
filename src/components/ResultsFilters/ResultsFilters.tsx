@@ -35,7 +35,6 @@ const Filters: React.FC<{
   const [filters, setFilters] = useState(propFilters);
   const [showAll, setShowAll] = useState(propShowAll);
 
-  console.log("languages", languages);
   const onLanguageChange = (e, language) => {
     const languageFilters = findFiltersForField(filters, "language");
     const newFilters = [
@@ -64,29 +63,35 @@ const Filters: React.FC<{
     changeFilters(newFilters);
   };
 
-  const onDateChange = (e, isStart: boolean) => {
+  const onDateChange = (
+    e: React.FormEvent<HTMLInputElement>,
+    isStart: boolean
+  ) => {
     const field = isStart ? "startYear" : "endYear";
-    const yearFilters = findFiltersForField(filters, field);
-
     const newFilters = [
       ...findFiltersExceptField(filters, field),
-      ...(e.target.checked
-        ? [...yearFilters, { field: field, value: e.target.value }]
-        : yearFilters.filter((filter) => {
-            return filter.value !== e.target.value;
-          })),
+      ...[{ field: field, value: e.currentTarget.value }],
     ];
     setFilters(newFilters);
   };
 
-  const submitDateForm = () => {
-    const startYear = findFiltersForField(filters, "startYear");
-    const endYear = findFiltersForField(filters, "startYear");
+  const removeEmptyFilters = (filters: Filter[]) => {
+    return filters.filter((filter) => {
+      return !!filter.value;
+    });
+  };
 
-    if (startYear && endYear && endYear[0] < startYear[0]) {
+  const submitDateForm = () => {
+    const startYear = findFiltersForField(filters, "startYear")[0];
+    const endYear = findFiltersForField(filters, "endYear")[0];
+    if (!startYear && !endYear) {
+      setDateRangeError(errorMessagesText.emptySearch);
+    }
+
+    if (startYear && endYear && endYear.value < startYear.value) {
       setDateRangeError(errorMessagesText.invalidDate);
     } else {
-      changeFilters(filters);
+      changeFilters(removeEmptyFilters(filters));
     }
   };
 
@@ -101,8 +106,8 @@ const Filters: React.FC<{
     changeShowAll(!e.target.checked);
   };
 
-  const yearStart = findFiltersForField(filters, "yearStart");
-  const yearEnd = findFiltersForField(filters, "yearEnd");
+  const yearStart = findFiltersForField(filters, "startYear");
+  const yearEnd = findFiltersForField(filters, "endYear");
 
   return (
     <div className="results-filters">

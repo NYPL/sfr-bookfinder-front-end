@@ -2,13 +2,13 @@ import React from "react";
 
 import AdvancedSearch from "~/src/components/AdvancedSearch/AdvancedSearch";
 import Layout from "~/src/components/Layout/Layout";
+import { parseLocationQuery } from "~/src/util/apiConversion";
 import { languagesFetcher } from "../../lib/api/SearchApi";
 import {
   ApiLanguageResponse,
   languagesToFacets,
 } from "../../types/LanguagesQuery";
 import { ApiSearchQuery } from "../../types/SearchQuery";
-import { parseLocationQuery } from "../../util/SearchUtils";
 export async function getServerSideProps(context: any) {
   // Get Query from location
   const searchQuery: ApiSearchQuery = context.query;
