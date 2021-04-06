@@ -3,7 +3,7 @@ import {
   Agent,
   Cover,
   Instance,
-  Item,
+  ApiItem,
   ItemLink,
   Language,
   Rights,
@@ -18,9 +18,13 @@ import {
   MAX_TITLE_LENGTH,
   PLACEHOLDER_COVER_LINK,
 } from "../constants/editioncard";
+import { MediaTypes } from "../constants/mediaTypes";
 
 // EditionCard holds all the methods needed to build an Edition Card
 export default class EditionCardUtils {
+  static getPublishers(publishers: Agent[]) {}
+
+  static getAuthors(authors: Agent[]) {}
   static getPreferredAgent(agents: any, role: any) {
     if (!agents || !agents.length) return undefined;
 
@@ -38,23 +42,6 @@ export default class EditionCardUtils {
       agent.roles.includes(role)
     );
     return preferredAgents ? [preferredAgents] : undefined;
-  }
-
-  // Edition Year
-  static editionYearElem(edition: WorkEdition) {
-    const editionDisplay = EditionCardUtils.editionYearText(edition);
-    const editionElem = edition ? (
-      <Link
-        to={{
-          pathname: `/edition/${edition.id}`,
-        }}
-      >
-        {editionDisplay}
-      </Link>
-    ) : (
-      <>{editionDisplay}</>
-    );
-    return editionElem;
   }
 
   static editionYearText(edition: any) {
@@ -121,38 +108,33 @@ export default class EditionCardUtils {
 
   static getLinkToAuthorSearch(author: Agent) {
     return {
-      queries: JSON.stringify([
+      query: JSON.stringify([
         {
-          query: author[EditionCardUtils.getAuthorIdentifier(author)[0]],
-          field: EditionCardUtils.getAuthorIdentifier(author)[1],
+          query: author.name,
+          field: author,
         },
       ]),
-      showQueries: JSON.stringify([{ query: author.name, field: "author" }]),
     };
   }
 
-  static getAuthorsList(agents: Agent[], linkKeyPrefix: string): JSX.Element[] {
-    if (!agents || !agents.length) return null;
-    return agents.map((authorAgent: Agent, i: number) => {
-      const authorLinkText = authorAgent.name;
+  static getAuthorsList(authors: Agent[]): JSX.Element[] {
+    if (!authors || !authors.length) return null;
+    return authors.map((author: Agent, i: number) => {
+      const authorLinkText = author.name;
       return (
         <React.Fragment
-          key={
-            authorAgent.viaf
-              ? `${linkKeyPrefix}-${authorAgent.viaf}`
-              : `${linkKeyPrefix}-${authorAgent.name}`
-          }
+          key={author.viaf ? `author-${author.viaf}` : `author-${author.name}`}
         >
           <Link
             to={{
               pathname: "/search",
-              query: EditionCardUtils.getLinkToAuthorSearch(authorAgent),
+              query: EditionCardUtils.getLinkToAuthorSearch(author),
             }}
             className="link"
           >
             {authorLinkText}
           </Link>
-          {i < agents.length && ", "}
+          {i < authors.length && ", "}
         </React.Fragment>
       );
     });
@@ -163,15 +145,13 @@ export default class EditionCardUtils {
    * @returns The URL of the cover that should be displayed.
    */
 
-  static getCover(covers: Cover[]): string {
-    if (!covers || !covers.length) return PLACEHOLDER_COVER_LINK;
-
-    const firstLocalCover = covers.find(
-      (cover: Cover) => cover.flags.temporary === false
+  static getCover(links: ItemLink[]): string {
+    if (!links || !links.length) return PLACEHOLDER_COVER_LINK;
+    return formatUrl(
+      links.find((link) => {
+        return MediaTypes.display.includes(link.mediaType);
+      }).url
     );
-    return firstLocalCover
-      ? formatUrl(firstLocalCover.url)
-      : PLACEHOLDER_COVER_LINK;
   }
 
   /**
@@ -182,21 +162,17 @@ export default class EditionCardUtils {
    */
   static getPublisherAndLocation(
     pubPlace: string,
-    agents: Agent[]
+    publishers: Agent[]
   ): JSX.Element {
     const publisherDisplayLocation = (pubPlace: string) => {
       return pubPlace ? ` in ${pubPlace}` : "";
     };
 
-    const publisherDisplayText = (agents: Agent[]) => {
-      if (!agents) return "";
-      const preferredAgents = EditionCardUtils.getPreferredAgent(
-        agents,
-        "publisher"
-      );
-      if (!preferredAgents) return "";
-      const publisherNames = preferredAgents.map(
-        (pubAgent: any) => pubAgent.name
+    const publisherDisplayText = (publishers: Agent[]) => {
+      if (!publishers) return "";
+      if (!publishers && !publishers.length) return "";
+      const publisherNames = publishers.map(
+        (pubAgent: Agent) => pubAgent && pubAgent.name
       );
       const publisherText = ` by ${EditionCardUtils.getFirstAndCountMore(
         publisherNames
@@ -209,7 +185,7 @@ export default class EditionCardUtils {
     };
 
     const displayLocation = publisherDisplayLocation(pubPlace);
-    const displayName = publisherDisplayText(agents);
+    const displayName = publisherDisplayText(publishers);
     if (!displayLocation && !displayName)
       return <>Publisher and Location Unknown</>;
     const publisherText = `Published${displayLocation}${displayName}`;
@@ -226,8 +202,7 @@ export default class EditionCardUtils {
     ) {
       const languagesTextList = previewEdition.languages
         .filter((lang: Language) => {
-          console.log("lang", lang);
-          return lang.language;
+          return lang && lang.language;
         })
         .map((lang: Language) => lang.language);
       if (languagesTextList && languagesTextList.length) {
@@ -245,8 +220,8 @@ export default class EditionCardUtils {
       : "License: Unknown";
   }
 
-  static getReadOnlineLink = (editionId: number, item: Item) => {
-    const getEmbeddedReadLink = (item: Item) => {
+  static getReadOnlineLink = (editionId: number, item: ApiItem) => {
+    const getEmbeddedReadLink = (item: ApiItem) => {
       if (!item || !item.links) return undefined;
       const selectedLink = item.links.find(
         (link: ItemLink) => !link.local && !link.download
@@ -255,7 +230,7 @@ export default class EditionCardUtils {
     };
 
     //The local read link is locally hosted and should be read via webpub viewer.
-    const getLocalReadLink = (item: Item) => {
+    const getLocalReadLink = (item: ApiItem) => {
       if (!item || !item.links) return undefined;
       //handle error
       const selectedLink = item.links.find(
@@ -320,7 +295,7 @@ export default class EditionCardUtils {
   };
 
   // eslint-disable-next-line consistent-return
-  static getDownloadLink(editionItem: Item) {
+  static getDownloadLink(editionItem: ApiItem) {
     if (!editionItem || !editionItem.links) return undefined;
     const selectedLink = editionItem.links.find((link: any) => link.download);
 

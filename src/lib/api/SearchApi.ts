@@ -9,12 +9,10 @@ import { toLocationQuery } from "~/src/util/apiConversion";
 const appEnv = "development";
 const apiUrl = appConfig.api[appEnv];
 const { searchPath, recordPath, editionPath, languagesPath } = appConfig.api;
-// const totalWorksPath = appConfig.booksCount.apiUrl;
 const searchUrl = apiUrl + searchPath[appEnv];
 const recordUrl = apiUrl + recordPath;
 const editionUrl = apiUrl + editionPath;
 const languagesUrl = apiUrl + languagesPath;
-// const totalWorksUrl = apiUrl + totalWorksPath;
 
 const defaultWorkQuery: WorkQuery = {
   identifier: "",
@@ -46,7 +44,6 @@ export const searchResultsFetcher = async (apiQuery: ApiSearchQuery) => {
 
 export const workFetcher = async (query: WorkQuery) => {
   const workApiQuery = {
-    identifier: query.identifier,
     recordType: query.recordType
       ? query.recordType
       : defaultWorkQuery.recordType,
@@ -56,13 +53,11 @@ export const workFetcher = async (query: WorkQuery) => {
         : defaultWorkQuery.showAll,
   };
 
-  const res = await fetch(recordUrl, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(workApiQuery), // body data type must match "Content-Type" header
-  });
+  const url = new URL(recordUrl + "/" + query.identifier);
+  url.search = new URLSearchParams(workApiQuery).toString();
+  console.log("url", url);
+
+  const res = await fetch(url.toString());
 
   if (res.ok) {
     const workResult: WorkResult = await res.json();

@@ -10,6 +10,7 @@ import {
   findFiltersForField,
 } from "~/src/util/SearchQueryUtils";
 import { errorMessagesText } from "~/src/constants/labels";
+import filterFields from "~/src/constants/filters";
 
 /**
  * Shows a form with the Languages, Format and Year filters
@@ -36,11 +37,14 @@ const Filters: React.FC<{
   const [showAll, setShowAll] = useState(propShowAll);
 
   const onLanguageChange = (e, language) => {
-    const languageFilters = findFiltersForField(filters, "language");
+    const languageFilters = findFiltersForField(filters, filterFields.language);
     const newFilters = [
-      ...findFiltersExceptField(filters, "language"),
+      ...findFiltersExceptField(filters, filterFields.language),
       ...(e.target.checked
-        ? [...languageFilters, { field: "language", value: language }]
+        ? [
+            ...languageFilters,
+            { field: filterFields.language, value: language },
+          ]
         : languageFilters.filter((filter) => {
             return filter.value !== language;
           })),
@@ -50,11 +54,11 @@ const Filters: React.FC<{
   };
 
   const onBookFormatChange = (e, format) => {
-    const formatFilters = findFiltersForField(filters, "format");
+    const formatFilters = findFiltersForField(filters, filterFields.format);
     const newFilters = [
-      ...findFiltersExceptField(filters, "format"),
+      ...findFiltersExceptField(filters, filterFields.format),
       ...(e.target.checked
-        ? [...formatFilters, { field: "format", value: format }]
+        ? [...formatFilters, { field: filterFields.format, value: format }]
         : formatFilters.filter((filter) => {
             return filter.value !== format;
           })),
@@ -67,7 +71,7 @@ const Filters: React.FC<{
     e: React.FormEvent<HTMLInputElement>,
     isStart: boolean
   ) => {
-    const field = isStart ? "startYear" : "endYear";
+    const field = isStart ? filterFields.startYear : filterFields.endYear;
     const newFilters = [
       ...findFiltersExceptField(filters, field),
       ...[{ field: field, value: e.currentTarget.value }],
@@ -82,8 +86,8 @@ const Filters: React.FC<{
   };
 
   const submitDateForm = () => {
-    const startYear = findFiltersForField(filters, "startYear")[0];
-    const endYear = findFiltersForField(filters, "endYear")[0];
+    const startYear = findFiltersForField(filters, filterFields.startYear)[0];
+    const endYear = findFiltersForField(filters, filterFields.endYear)[0];
     if (!startYear && !endYear) {
       setDateRangeError(errorMessagesText.emptySearch);
     }
@@ -127,13 +131,13 @@ const Filters: React.FC<{
       <LanguageAccordion
         languages={languages}
         showCount={true}
-        selectedLanguages={findFiltersForField(filters, "language")}
+        selectedLanguages={findFiltersForField(filters, filterFields.language)}
         onLanguageChange={(e, language) => {
           onLanguageChange(e, language);
         }}
       />
       <FilterBookFormat
-        selectedFormats={findFiltersForField(filters, "format")}
+        selectedFormats={findFiltersForField(filters, filterFields.format)}
         onFormatChange={(e, format) => onBookFormatChange(e, format)}
       />
       <FilterYears

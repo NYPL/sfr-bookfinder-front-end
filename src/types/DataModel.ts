@@ -57,7 +57,7 @@ export type Instance = {
   edition_id: number;
   measurements?: Measurement[];
   agents?: Agent[];
-  items?: Item[];
+  items?: ApiItem[];
   languages?: Language[];
   covers?: Cover[];
   rights?: Rights[];
@@ -86,24 +86,29 @@ export type Rights = {
   copyright_date_display?: string;
 };
 
-export type Item = {
-  source?: string;
+export type ApiItem = {
   content_type?: string;
-  modified?: string;
+  contributors?: Agent[];
   drm?: string;
-  rights?: Rights[];
+  item_id?: string;
   links?: ItemLink[];
+  location?: string;
+  modified?: string;
+  measurements?: string;
+  rights?: Rights[];
+  source?: string;
+};
+
+export type EditionCardItem = {
+  readOnlineLink: ItemLink;
+  downloadLink: ItemLink;
+  rights: Rights;
 };
 
 export type ItemLink = {
-  url?: string;
-  media_type?: string;
-  content?: string;
-  thumbnail?: string;
-  local?: boolean;
-  download?: boolean;
-  images?: boolean;
-  ebook?: boolean;
+  link_id: number;
+  mediaType: string;
+  url: string;
 };
 
 export type Language = {
@@ -124,19 +129,21 @@ export type Date = {
 export type WorkEdition = {
   date_modified?: string;
   date_created?: string;
-  id: number;
+  edition_id: number;
   publication_place?: string;
   publication_date?: string;
   edition?: string;
   edition_statement?: string;
   languages?: Language[];
+  links?: ItemLink[];
   volume?: string;
   table_of_contents?: string;
   extent?: string;
   summary?: string;
   work_id?: number;
   agents?: Agent[];
-  items?: Item[];
+  publishers?: Agent[];
+  items?: ApiItem[];
   covers?: Cover[];
   work_uuid?: string;
 };

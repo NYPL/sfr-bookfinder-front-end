@@ -3,7 +3,7 @@ import * as DS from "@nypl/design-system-react-components";
 
 import Link from "~/src/components/Link/Link";
 import { unique, flattenDeep, uniqueAndSortByFrequency } from "~/src/util/Util";
-import { Agent, ApiWork, Subject } from "~/src/types/DataModel";
+import { Agent, ApiWork, Language, Subject } from "~/src/types/DataModel";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
 
 // extract unique language array from instances of a work item
@@ -16,7 +16,9 @@ const getLanguagesForWork = (work: any) =>
         (edition: any) =>
           edition.languages &&
           edition.languages.length &&
-          edition.languages.map((language: any) => language.language)
+          edition.languages.map(
+            (language: Language) => language && language.language
+          )
       )
     )
   );
