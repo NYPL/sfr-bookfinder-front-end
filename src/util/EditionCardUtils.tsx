@@ -210,8 +210,8 @@ export default class EditionCardUtils {
   static getReadOnlineLink = (editionId: number, item: ApiItem) => {
     const getEmbeddedReadLink = (item: ApiItem) => {
       if (!item || !item.links) return undefined;
-      const selectedLink = item.links.find(
-        (link: ItemLink) => !link.local && !link.download
+      const selectedLink = item.links.find((link: ItemLink) =>
+        MediaTypes.embed.includes(link.mediaType)
       );
       return selectedLink;
     };
@@ -220,9 +220,8 @@ export default class EditionCardUtils {
     const getLocalReadLink = (item: ApiItem) => {
       if (!item || !item.links) return undefined;
       //handle error
-      const selectedLink = item.links.find(
-        (link: ItemLink) =>
-          link.local && link.media_type === "application/epub+xml"
+      const selectedLink = item.links.find((link: ItemLink) =>
+        MediaTypes.read.includes(link.mediaType)
       );
       return selectedLink;
     };
@@ -239,15 +238,6 @@ export default class EditionCardUtils {
             )}`,
           }}
           linkType={DS.LinkTypes.Button}
-          //TODO: Tracking
-          // onClick={() =>
-          //   gaUtils.trackGeneralEvent(
-          //     "Read Online",
-          //     item.source,
-          //     editionWithTitle.title,
-          //     ""
-          //   )
-          // }
         >
           Read Online
         </Link>
@@ -263,15 +253,6 @@ export default class EditionCardUtils {
             )}`,
           }}
           linkType={DS.LinkTypes.Button}
-          //TODO: Tracking
-          // onClick={() =>
-          //   gaUtils.trackGeneralEvent(
-          //     "Read Online",
-          //     item.source,
-          //     editionWithTitle.title,
-          //     ""
-          //   )
-          // }
         >
           Read Online
         </Link>
@@ -284,23 +265,14 @@ export default class EditionCardUtils {
   // eslint-disable-next-line consistent-return
   static getDownloadLink(editionItem: ApiItem) {
     if (!editionItem || !editionItem.links) return undefined;
-    const selectedLink = editionItem.links.find((link: any) => link.download);
+    const selectedLink = editionItem.links.find((link: ItemLink) =>
+      MediaTypes.download.includes(link.mediaType)
+    );
 
     if (selectedLink && selectedLink.url) {
       return (
         <DS.Link type={DS.LinkTypes.Action}>
-          {/* TODO: append env */}
-          <a
-            href={`${formatUrl(selectedLink.url)}`}
-            // onClick={() =>
-            //   gaUtils.trackGeneralEvent(
-            //     "Download",
-            //     editionItem.source,
-            //     work.title,
-            //     ""
-            //   )
-            // }
-          >
+          <a href={`${formatUrl(selectedLink.url)}`}>
             <DS.Icon
               name={DS.IconNames.download}
               blockName="more-link"

@@ -1,7 +1,6 @@
 import React from "react";
 import * as DS from "@nypl/design-system-react-components";
 import { ApiEdition } from "~/src/types/EditionQuery";
-import { getAgentsList } from "../WorkDetailDefinitionList/WorkDetailDefinitionList";
 
 export const EditionDetailDefinitionList: React.FC<{ edition: ApiEdition }> = ({
   edition,
