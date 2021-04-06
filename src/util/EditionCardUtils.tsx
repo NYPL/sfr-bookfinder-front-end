@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Agent,
-  Cover,
   Instance,
   ApiItem,
   ItemLink,
@@ -22,9 +21,6 @@ import { MediaTypes } from "../constants/mediaTypes";
 
 // EditionCard holds all the methods needed to build an Edition Card
 export default class EditionCardUtils {
-  static getPublishers(publishers: Agent[]) {}
-
-  static getAuthors(authors: Agent[]) {}
   static getPreferredAgent(agents: any, role: any) {
     if (!agents || !agents.length) return undefined;
 
@@ -106,19 +102,8 @@ export default class EditionCardUtils {
     );
   }
 
-  static getLinkToAuthorSearch(author: Agent) {
-    return {
-      query: JSON.stringify([
-        {
-          query: author.name,
-          field: author,
-        },
-      ]),
-    };
-  }
-
   static getAuthorsList(authors: Agent[]): JSX.Element[] {
-    if (!authors || !authors.length) return null;
+    if (!authors || authors.length === 0) return null;
     return authors.map((author: Agent, i: number) => {
       const authorLinkText = author.name;
       return (
@@ -128,13 +113,15 @@ export default class EditionCardUtils {
           <Link
             to={{
               pathname: "/search",
-              query: EditionCardUtils.getLinkToAuthorSearch(author),
+              query: {
+                query: `author:${author.name}`,
+              },
             }}
             className="link"
           >
             {authorLinkText}
           </Link>
-          {i < authors.length && ", "}
+          {i < authors.length - 1 && ", "}
         </React.Fragment>
       );
     });
@@ -169,8 +156,8 @@ export default class EditionCardUtils {
     };
 
     const publisherDisplayText = (publishers: Agent[]) => {
-      if (!publishers) return "";
-      if (!publishers && !publishers.length) return "";
+      console.log("publisherDisplayText", publishers);
+      if (!publishers || publishers.length === 0) return "";
       const publisherNames = publishers.map(
         (pubAgent: Agent) => pubAgent && pubAgent.name
       );
@@ -186,6 +173,7 @@ export default class EditionCardUtils {
 
     const displayLocation = publisherDisplayLocation(pubPlace);
     const displayName = publisherDisplayText(publishers);
+    console.log("displayName", displayName);
     if (!displayLocation && !displayName)
       return <>Publisher and Location Unknown</>;
     const publisherText = `Published${displayLocation}${displayName}`;
@@ -194,7 +182,6 @@ export default class EditionCardUtils {
 
   // Language Display
   static getLanguageDisplayText(previewEdition: WorkEdition) {
-    console.log("previewEdition", previewEdition);
     if (
       previewEdition &&
       previewEdition.languages &&

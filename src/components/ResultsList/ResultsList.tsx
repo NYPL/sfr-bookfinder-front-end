@@ -8,19 +8,21 @@ import { ApiWork } from "~/src/types/DataModel";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
 import EmptySearchSvg from "../Svgs/EmptySearchSvg";
 
-export const getEditionsLinkElement = (result: any) =>
-  result.edition_count > 1 ? (
+export const getEditionsLinkElement = (work: ApiWork) => {
+  const editionCount = work.edition_count;
+  return editionCount > 1 ? (
     <Link
       className="link"
       to={{
-        pathname: `work/${result.uuid}`,
+        pathname: `work/${work.uuid}`,
         query: { showAll: true },
         hash: "#all-editions",
       }}
     >
-      {`View All ${result.edition_count} Editions`}
+      {`View All ${editionCount} Editions`}
     </Link>
   ) : undefined;
+};
 
 const ResultsList: React.FC<{ works: ApiWork[] }> = ({ works }) => {
   if (works.length === 0) {
@@ -45,10 +47,6 @@ const ResultsList: React.FC<{ works: ApiWork[] }> = ({ works }) => {
               <Link
                 to={{
                   pathname: `/work/${work.uuid}`,
-                  query: {
-                    recordType: "editions",
-                    showAll: true,
-                  },
                 }}
                 className="link link--no-underline"
               >
@@ -56,25 +54,10 @@ const ResultsList: React.FC<{ works: ApiWork[] }> = ({ works }) => {
               </Link>
             </DS.Heading>
             <span>{EditionCardUtils.getSubtitle(work.sub_title)}</span>
-            {EditionCardUtils.getAuthorsList(work.agents, "author") && (
-              <span>
-                By {EditionCardUtils.getAuthorsList(work.agents, "author")}{" "}
-              </span>
+            {EditionCardUtils.getAuthorsList(work.authors) && (
+              <span>By {EditionCardUtils.getAuthorsList(work.authors)} </span>
             )}
             <EditionCard edition={previewEdition} />
-            {/* TODO: Feature flag -- Citations
-            {shouldShowCitations && (
-              <APACitation
-                title={citationData.title}
-                subTitle={citationData.sub_title}
-                agents={citationData.agents}
-                publicationYear={citationData.publication_year}
-                edition={citationData.edition}
-                volume={citationData.volume}
-                sourceLink={citationData.sourceLink.link}
-                isGovernmentDoc={citationData.isGovernmentDoc}
-              />
-            )} */}
             <div className="editions-link">{getEditionsLinkElement(work)}</div>
           </li>
         );

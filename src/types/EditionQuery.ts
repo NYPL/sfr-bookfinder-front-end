@@ -13,7 +13,7 @@ export type EditionResult = {
 };
 
 export type ApiEdition = {
-  id?: number;
+  edition_id?: number;
   publication_place?: string;
   publication_date?: string;
   edition?: string;

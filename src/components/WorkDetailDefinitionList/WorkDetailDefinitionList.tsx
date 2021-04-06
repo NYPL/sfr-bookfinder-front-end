@@ -7,7 +7,7 @@ import { Agent, ApiWork, Language, Subject } from "~/src/types/DataModel";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
 
 // extract unique language array from instances of a work item
-const getLanguagesForWork = (work: any) =>
+const getLanguagesForWork = (work: ApiWork) =>
   work &&
   work.editions &&
   uniqueAndSortByFrequency(
@@ -23,55 +23,13 @@ const getLanguagesForWork = (work: any) =>
     )
   );
 
-export const getAgentsList = (
-  agents: Agent[],
-  agentType: "publisher" | "author"
-) => {
-  const noAgentAvailable =
-    agentType === "publisher" ? (
-      <>Publisher Unavailable</>
-    ) : (
-      <>Author Unavailable</>
-    );
-
-  if (!agents || !agents.length) return noAgentAvailable;
-
-  const getAgentText = (agent: Agent) => {
-    return `${agent.name},${agent.roles.map((role: any) => ` ${role}`)}`;
-  };
-
-  // Authors should link to author search, publishers should not link to any search
-  return (
-    <DS.List type={DS.ListTypes.Unordered} modifiers={["no-list-styling"]}>
-      {agents.map((agent: Agent, i: number) => {
-        if (agentType === "publisher") {
-          return <li key={`agent-${i.toString()}`}>{getAgentText(agent)}</li>;
-        } else {
-          return (
-            <li key={`agent-${i.toString()}`}>
-              <Link
-                to={{
-                  pathname: "/search",
-                  query: EditionCardUtils.getLinkToAuthorSearch(agent),
-                }}
-              >
-                {getAgentText(agent)}
-              </Link>
-            </li>
-          );
-        }
-      })}
-    </DS.List>
-  );
-};
-
 const WorkDetailDefinitionList: React.FC<{ work: ApiWork }> = ({ work }) => {
   const languages = getLanguagesForWork(work);
   return (
     <div>
       <DS.Heading level={3}>Details</DS.Heading>
       <dl className="nypl-details-table">
-        {work.alt_titles && work.alt_titles.length && (
+        {work.alt_titles && work.alt_titles.length > 0 && (
           <>
             <dt>Alternative Titles</dt>
             <dd>
@@ -85,7 +43,7 @@ const WorkDetailDefinitionList: React.FC<{ work: ApiWork }> = ({ work }) => {
                       to={{
                         pathname: "/search",
                         query: {
-                          queries: `[{"query": "${title}", "field": "title"}]`,
+                          query: `title:${title}`,
                         },
                       }}
                     >
@@ -100,7 +58,6 @@ const WorkDetailDefinitionList: React.FC<{ work: ApiWork }> = ({ work }) => {
         {work.series && (
           <>
             <dt>Series</dt>
-
             <dd>
               {work.series}
               {work.series_position && ` ${work.series_position}`}
@@ -110,7 +67,7 @@ const WorkDetailDefinitionList: React.FC<{ work: ApiWork }> = ({ work }) => {
         <dt>Authors</dt>
         <dd>
           <ul className="definitions definitions-authors">
-            {getAgentsList(work.agents, "author")}
+            {EditionCardUtils.getAuthorsList(work.authors)}
           </ul>
         </dd>
         {work.subjects && work.subjects.length > 0 && (

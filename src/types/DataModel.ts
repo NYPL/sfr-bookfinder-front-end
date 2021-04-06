@@ -129,7 +129,7 @@ export type Date = {
 export type WorkEdition = {
   date_modified?: string;
   date_created?: string;
-  edition_id: number;
+  edition_id?: number;
   publication_place?: string;
   publication_date?: string;
   edition?: string;
@@ -144,7 +144,6 @@ export type WorkEdition = {
   agents?: Agent[];
   publishers?: Agent[];
   items?: ApiItem[];
-  covers?: Cover[];
   work_uuid?: string;
 };
 
@@ -174,6 +173,7 @@ export type ApiWork = {
   contributors?: string[];
   dates?: Date[];
   editions?: ApiEdition[];
+  edition_count?: number;
   languages?: Language[];
   measurements?: string[];
   medium?: string;
