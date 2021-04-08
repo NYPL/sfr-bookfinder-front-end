@@ -61,7 +61,7 @@ export const inputTerms = [
   { key: "subject", label: "Subject" },
 ];
 
-export const formatTypes = [
+export const FormatTypes = [
   { value: "pdf", label: "PDF" },
   { value: "epub", label: "ePub" },
   { value: "html", label: "Html" },

@@ -19,8 +19,6 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
 
   const { pathname, query } = router;
   const work: ApiWork = props.workResult.data;
-  console.log("workResult", props.workResult);
-  console.log("query", query);
   //Edition Card Preprocessing
   const authorsList = EditionCardUtils.getAuthorsList(work.authors);
 

@@ -118,7 +118,6 @@ const SearchResults: React.FC<{
 
   const onChangeSort = (e) => {
     e.preventDefault();
-    console.log("sort changed", e.target.value);
     if (
       e.target.value !==
       Object.keys(sortMap).find((key) => sortMap[key] === searchQuery.sort)

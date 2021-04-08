@@ -1,7 +1,7 @@
 import * as DS from "@nypl/design-system-react-components";
 import React from "react";
 import { Filter } from "~/src/types/SearchQuery";
-import { formatTypes } from "~/src/constants/labels";
+import { FormatTypes } from "~/src/constants/labels";
 
 // A Checkbox List of formats
 const FilterBookFormat: React.FC<{
@@ -24,7 +24,7 @@ const FilterBookFormat: React.FC<{
   return (
     <fieldset>
       <legend>Format</legend>
-      {formatTypes.map((formatType: any) => (
+      {FormatTypes.map((formatType: any) => (
         <DS.Checkbox
           checkboxId={`format-${formatType.value}`}
           name={`filter-format-${formatType.value}`}

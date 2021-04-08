@@ -17,7 +17,7 @@ import {
   MAX_TITLE_LENGTH,
   PLACEHOLDER_COVER_LINK,
 } from "../constants/editioncard";
-import { MediaTypes } from "../constants/mediaTypes";
+import { MediaTypes } from "../constants/mediatypes";
 
 // EditionCard holds all the methods needed to build an Edition Card
 export default class EditionCardUtils {
@@ -156,7 +156,6 @@ export default class EditionCardUtils {
     };
 
     const publisherDisplayText = (publishers: Agent[]) => {
-      console.log("publisherDisplayText", publishers);
       if (!publishers || publishers.length === 0) return "";
       const publisherNames = publishers.map(
         (pubAgent: Agent) => pubAgent && pubAgent.name
@@ -173,7 +172,6 @@ export default class EditionCardUtils {
 
     const displayLocation = publisherDisplayLocation(pubPlace);
     const displayName = publisherDisplayText(publishers);
-    console.log("displayName", displayName);
     if (!displayLocation && !displayName)
       return <>Publisher and Location Unknown</>;
     const publisherText = `Published${displayLocation}${displayName}`;
@@ -207,27 +205,20 @@ export default class EditionCardUtils {
       : "License: Unknown";
   }
 
+  // The button should say "Read Online" if the media type is "read" or "embed"
   static getReadOnlineLink = (editionId: number, item: ApiItem) => {
-    const getEmbeddedReadLink = (item: ApiItem) => {
+    const getReadLink = (item: ApiItem, mediaType: string) => {
       if (!item || !item.links) return undefined;
+      const mediaTypes =
+        mediaType === "read" ? MediaTypes.read : MediaTypes.embed;
       const selectedLink = item.links.find((link: ItemLink) =>
-        MediaTypes.embed.includes(link.mediaType)
+        mediaTypes.includes(link.mediaType)
       );
       return selectedLink;
     };
 
-    //The local read link is locally hosted and should be read via webpub viewer.
-    const getLocalReadLink = (item: ApiItem) => {
-      if (!item || !item.links) return undefined;
-      //handle error
-      const selectedLink = item.links.find((link: ItemLink) =>
-        MediaTypes.read.includes(link.mediaType)
-      );
-      return selectedLink;
-    };
-
-    const localLink = getLocalReadLink(item);
-    const embeddedLink = getEmbeddedReadLink(item);
+    const localLink = getReadLink(item, "read");
+    const embeddedLink = getReadLink(item, "embed");
 
     if (localLink) {
       return (

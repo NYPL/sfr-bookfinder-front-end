@@ -69,7 +69,6 @@ export const toApiQuery = (searchQuery: SearchQuery): ApiSearchQuery => {
     throw new Error("cannot convert searchQuery with no queries");
   }
   const toApiSorts = (sort: Sort): string => {
-    console.log("sort", sort);
     return `${sort.field}:${sort.dir}`;
   };
 

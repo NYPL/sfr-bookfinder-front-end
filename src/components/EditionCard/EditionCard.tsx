@@ -1,17 +1,14 @@
 import React from "react";
 import * as DS from "@nypl/design-system-react-components";
 import Link from "../Link/Link";
-import {
-  ApiItem,
-  EditionCardItem,
-  ItemLink,
-  WorkEdition,
-} from "~/src/types/DataModel";
+import { WorkEdition } from "~/src/types/DataModel";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
 import { PLACEHOLDER_COVER_LINK } from "~/src/constants/editioncard";
 
 export const EditionCard: React.FC<{ edition: WorkEdition }> = (props) => {
   const edition: WorkEdition = props.edition;
+  console.log("previewEdition", edition);
+
   const previewItem = edition && edition.items ? edition.items[0] : undefined;
   const readOnlineLink = EditionCardUtils.getReadOnlineLink(
     edition.edition_id,

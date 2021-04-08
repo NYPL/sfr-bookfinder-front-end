@@ -43,9 +43,6 @@ export const searchResultsFetcher = async (apiQuery: ApiSearchQuery) => {
 
 export const workFetcher = async (query: WorkQuery) => {
   const workApiQuery = {
-    recordType: query.recordType
-      ? query.recordType
-      : defaultWorkQuery.recordType,
     showAll:
       typeof query.showAll !== "undefined"
         ? query.showAll
@@ -67,19 +64,15 @@ export const workFetcher = async (query: WorkQuery) => {
 
 export const editionFetcher = async (query: EditionQuery) => {
   const editionApiQuery = {
-    editionIdentifier: query.editionIdentifier,
     showAll:
       typeof query.showAll !== "undefined"
         ? query.showAll
         : defaultEditionQuery.showAll,
   };
-  const res = await fetch(editionUrl, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(editionApiQuery), // body data type must match "Content-Type" header
-  });
+
+  const url = new URL(editionUrl + "/" + query.editionIdentifier);
+  url.search = new URLSearchParams(editionApiQuery).toString();
+  const res = await fetch(url.toString());
 
   if (res.ok) {
     const editionResult: EditionResult = await res.json();
