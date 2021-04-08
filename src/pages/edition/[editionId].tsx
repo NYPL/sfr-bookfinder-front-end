@@ -6,7 +6,6 @@ import { editionFetcher } from "~/src/lib/api/SearchApi";
 import { EditionQuery, EditionResult } from "~/src/types/EditionQuery";
 
 export async function getServerSideProps(context: any) {
-  //TODO: Default query
   const editionQuery: EditionQuery = {
     editionIdentifier: context.query.editionId,
     showAll: context.query.showAll,

@@ -4,14 +4,22 @@ import { ApiSearchQuery } from "../../types/SearchQuery";
 import { ApiSearchResult } from "../../types/DataModel";
 import { EditionQuery, EditionResult } from "~/src/types/EditionQuery";
 import { toLocationQuery } from "~/src/util/apiConversion";
+import { LinkResult } from "~/src/types/LinkQuery";
 
 //TODO env variables
 const appEnv = "development";
 const apiUrl = appConfig.api[appEnv];
-const { searchPath, recordPath, editionPath, languagesPath } = appConfig.api;
+const {
+  searchPath,
+  recordPath,
+  editionPath,
+  readPath,
+  languagesPath,
+} = appConfig.api;
 const searchUrl = apiUrl + searchPath[appEnv];
 const recordUrl = apiUrl + recordPath;
 const editionUrl = apiUrl + editionPath;
+const readUrl = apiUrl + readPath;
 const languagesUrl = apiUrl + languagesPath;
 
 const defaultWorkQuery: WorkQuery = {
@@ -86,6 +94,18 @@ export const languagesFetcher = async () => {
   const res = await fetch(languagesUrl);
   if (res.ok) {
     return res.json();
+  } else {
+    throw new Error(res.statusText);
+  }
+};
+
+export const readFetcher = async (linkId: number) => {
+  const url = new URL(readUrl + "/" + linkId);
+  const res = await fetch(url.toString());
+
+  if (res.ok) {
+    const linkResult: LinkResult = await res.json();
+    return linkResult;
   } else {
     throw new Error(res.statusText);
   }

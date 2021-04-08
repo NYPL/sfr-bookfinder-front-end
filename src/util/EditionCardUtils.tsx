@@ -17,7 +17,7 @@ import {
   MAX_TITLE_LENGTH,
   PLACEHOLDER_COVER_LINK,
 } from "../constants/editioncard";
-import { MediaTypes } from "../constants/mediatypes";
+import { MediaTypes } from "../constants/mediaTypes";
 
 // EditionCard holds all the methods needed to build an Edition Card
 export default class EditionCardUtils {

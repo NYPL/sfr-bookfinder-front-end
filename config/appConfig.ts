@@ -24,6 +24,7 @@ export default {
     },
     recordPath: "/work",
     editionPath: "/edition",
+    readPath: "/link",
     languagesPath: "/utils/languages",
   },
   booksCount: {

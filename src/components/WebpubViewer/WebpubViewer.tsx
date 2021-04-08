@@ -1,6 +1,5 @@
 import React from "react";
 import reader from "~/src/util/reader";
-import { useRouter } from "next/router";
 
 const initializeReader = async (entryUrl: string) => {
   return await reader(entryUrl);
@@ -8,13 +7,8 @@ const initializeReader = async (entryUrl: string) => {
 
 // This embeds the styles for Library-Simplified-Webpub-Viewer .
 
-const WebpubViewer = () => {
-  const router = useRouter();
-  const bookUrl = router.query.bookUrl;
-
-  React.useEffect(() => {
-    if (bookUrl && typeof bookUrl === "string") initializeReader(bookUrl);
-  }, [bookUrl]);
+const WebpubViewer: React.FC<{ url: string }> = (props) => {
+  initializeReader(props.url);
 
   // this will be caught by an error boundary and display a 404
   //TODO error handling
