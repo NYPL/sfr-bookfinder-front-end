@@ -73,10 +73,7 @@ const Edition: React.FC<{ editionResult: EditionResult }> = (props) => {
               </DS.Heading>
 
               <div id="featured-edition-card">
-                <InstanceCard
-                  editionYear={edition.publication_date}
-                  instance={featuredInstance}
-                />
+                <InstanceCard edition={edition} instance={featuredInstance} />
               </div>
             </>
           )}
@@ -116,11 +113,8 @@ const Edition: React.FC<{ editionResult: EditionResult }> = (props) => {
               modifiers={["no-list-styling"]}
             >
               {edition.instances.map((instance) => (
-                <li key={instance.id}>
-                  <InstanceCard
-                    editionYear={edition.publication_date}
-                    instance={instance}
-                  />
+                <li key={instance.instance_id}>
+                  <InstanceCard edition={edition} instance={instance} />
                 </li>
               ))}
             </DS.List>

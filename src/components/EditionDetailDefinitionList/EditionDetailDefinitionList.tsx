@@ -1,6 +1,23 @@
 import React from "react";
 import * as DS from "@nypl/design-system-react-components";
 import { ApiEdition } from "~/src/types/EditionQuery";
+import { Agent } from "~/src/types/DataModel";
+
+// Publisher
+const getPublishersList = (publishers: Agent[]): JSX.Element[] => {
+  if (!publishers || publishers.length === 0) return null;
+  return publishers.map((publisher: Agent) => {
+    return (
+      <DS.List
+        type={DS.ListTypes.Unordered}
+        modifiers={["no-list-styling"]}
+        key={publisher.name}
+      >
+        <li>{publisher.name}</li>
+      </DS.List>
+    );
+  });
+};
 
 export const EditionDetailDefinitionList: React.FC<{ edition: ApiEdition }> = ({
   edition,
@@ -23,7 +40,7 @@ export const EditionDetailDefinitionList: React.FC<{ edition: ApiEdition }> = ({
             : "Unknown Place"}
         </dd>
         <dt>Publisher(s)</dt>
-        <dd>{getAgentsList(edition.agents, "publisher")}</dd>
+        <dd>{getPublishersList(edition.publishers)}</dd>
 
         {edition.edition_statement && (
           <>

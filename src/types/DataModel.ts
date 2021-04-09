@@ -40,31 +40,19 @@ export type Agent = {
 
 //This Instance is from the instances of the Edition endpoint
 export type Instance = {
-  date_modified?: string;
-  date_created?: string;
-  id?: number;
-  title?: string;
-  sort_title?: string;
-  sub_title?: string;
-  edition?: string;
-  edition_statement?: string;
-  volume?: string;
-  table_of_contents?: string;
-  copyright_date?: string;
+  authors?: Agent[];
+  contributors?: Agent[];
+  dates?: Date[];
   extent?: string;
-  summary?: string;
-  work_id?: number;
-  edition_id: number;
-  measurements?: Measurement[];
-  agents?: Agent[];
+  identifiers?: Identifier[];
+  instance_id?: number;
   items?: ApiItem[];
   languages?: Language[];
-  covers?: Cover[];
-  rights?: Rights[];
-  identifiers?: Identifier[];
   publication_place?: string;
-  pub_date?: string;
-  pub_date_display?: string;
+  publishers?: Agent[];
+  summary?: string;
+  table_of_contents?: string;
+  title?: string;
 };
 
 export type Cover = {
@@ -76,14 +64,7 @@ export type Cover = {
 export type Rights = {
   source?: string;
   license?: string;
-  rights_statement?: string;
-  rights_reason?: string;
-  determination_date_display?: string;
-  copyright_date?: {
-    gte: string;
-    lte: string;
-  };
-  copyright_date_display?: string;
+  rightsStatement?: string;
 };
 
 export type ApiItem = {
@@ -118,7 +99,7 @@ export type Language = {
 };
 
 export type Identifier = {
-  id_type?: string;
+  authority?: string;
   identifier?: string;
 };
 export type Date = {

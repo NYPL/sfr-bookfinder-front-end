@@ -7,6 +7,7 @@ import {
   Language,
   Rights,
   WorkEdition,
+  Identifier,
 } from "../types/DataModel";
 import * as DS from "@nypl/design-system-react-components";
 import Link from "~/src/components/Link/Link";
@@ -200,13 +201,14 @@ export default class EditionCardUtils {
 
   // Rights
   static getLicense(rights: Rights[]) {
+    console.log("rights", rights);
     return rights && rights.length
-      ? `License: ${rights[0].rights_statement}`
+      ? `License: ${rights[0].rightsStatement}`
       : "License: Unknown";
   }
 
   // The button should say "Read Online" if the media type is "read" or "embed"
-  static getReadOnlineLink = (editionId: number, item: ApiItem) => {
+  static getReadOnlineLink = (item: ApiItem) => {
     const getReadLink = (item: ApiItem, mediaType: string) => {
       if (!item || !item.links) return undefined;
       const mediaTypes =
@@ -274,10 +276,12 @@ export default class EditionCardUtils {
     const oclc =
       instance && instance.identifiers
         ? instance.identifiers.find(
-            (identifier: any) => identifier.id_type === "oclc"
-          ).identifier
+            (identifier: Identifier) => identifier.authority === "oclc"
+          )
         : undefined;
-    const oclcLink = oclc ? `https://www.worldcat.org/oclc/${oclc}` : undefined;
+    const oclcLink = oclc
+      ? `https://www.worldcat.org/oclc/${oclc.identifier}`
+      : undefined;
     return oclc ? (
       <a href={oclcLink} className="link">
         Find in a library

@@ -44,8 +44,6 @@ export const searchResultsFetcher = async (apiQuery: ApiSearchQuery) => {
   if (res.ok) {
     const searchResult: ApiSearchResult = await res.json();
     return searchResult;
-  } else {
-    throw new Error(res.statusText);
   }
 };
 
@@ -65,8 +63,6 @@ export const workFetcher = async (query: WorkQuery) => {
   if (res.ok) {
     const workResult: WorkResult = await res.json();
     return workResult;
-  } else {
-    throw new Error(res.statusText);
   }
 };
 
@@ -85,8 +81,6 @@ export const editionFetcher = async (query: EditionQuery) => {
   if (res.ok) {
     const editionResult: EditionResult = await res.json();
     return editionResult;
-  } else {
-    throw new Error(res.statusText);
   }
 };
 
@@ -96,8 +90,6 @@ export const languagesFetcher = async () => {
   const res = await fetch(url.toString());
   if (res.ok) {
     return res.json();
-  } else {
-    throw new Error(res.statusText);
   }
 };
 
@@ -108,7 +100,5 @@ export const readFetcher = async (linkId: number) => {
   if (res.ok) {
     const linkResult: LinkResult = await res.json();
     return linkResult;
-  } else {
-    throw new Error(res.statusText);
   }
 };

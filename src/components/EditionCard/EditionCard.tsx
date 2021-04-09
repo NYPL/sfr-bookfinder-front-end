@@ -10,10 +10,7 @@ export const EditionCard: React.FC<{ edition: WorkEdition }> = (props) => {
   console.log("previewEdition", edition);
 
   const previewItem = edition && edition.items ? edition.items[0] : undefined;
-  const readOnlineLink = EditionCardUtils.getReadOnlineLink(
-    edition.edition_id,
-    previewItem
-  );
+  const readOnlineLink = EditionCardUtils.getReadOnlineLink(previewItem);
 
   const editionYearElem = (edition: WorkEdition) => {
     const editionDisplay = EditionCardUtils.editionYearText(edition);
@@ -67,6 +64,9 @@ export const EditionCard: React.FC<{ edition: WorkEdition }> = (props) => {
         )}
       </div>
       <div>{EditionCardUtils.getLanguageDisplayText(edition)}</div>
+      <Link to="/license">
+        {EditionCardUtils.getLicense(previewItem.rights)}
+      </Link>
     </DS.Card>
   );
 };

@@ -24,7 +24,7 @@ export type ApiEdition = {
   summary?: string;
   work_id?: number;
   languages?: Language[];
-  agents?: Agent[];
+  publishers?: Agent[];
   work_uuid?: string;
   instances?: Instance[];
   title?: string;
