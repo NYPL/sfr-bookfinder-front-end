@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import reader from "~/src/util/reader";
 
 const initializeReader = async (entryUrl: string) => {
@@ -8,7 +8,9 @@ const initializeReader = async (entryUrl: string) => {
 // This embeds the styles for Library-Simplified-Webpub-Viewer .
 
 const WebpubViewer: React.FC<{ url: string }> = (props) => {
-  initializeReader(props.url);
+  useEffect(() => {
+    initializeReader(props.url);
+  }, [props.url]);
 
   // this will be caught by an error boundary and display a 404
   //TODO error handling

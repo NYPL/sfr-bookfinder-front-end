@@ -91,7 +91,9 @@ export const editionFetcher = async (query: EditionQuery) => {
 };
 
 export const languagesFetcher = async () => {
-  const res = await fetch(languagesUrl);
+  const url = new URL(languagesUrl);
+
+  const res = await fetch(url.toString());
   if (res.ok) {
     return res.json();
   } else {

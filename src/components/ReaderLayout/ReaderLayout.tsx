@@ -1,17 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import * as DS from "@nypl/design-system-react-components";
 import { breadcrumbTitles } from "~/src/constants/labels";
-import { useRouter } from "next/router";
-import {
-  ApiEdition,
-  EditionQuery,
-  EditionResult,
-} from "~/src/types/EditionQuery";
-import { editionFetcher } from "~/src/lib/api/SearchApi";
 import { ApiLink, LinkResult } from "~/src/types/LinkQuery";
 import { MediaTypes } from "~/src/constants/mediaTypes";
 import IFrameReader from "../IFrameReader/IFrameReader";
 import WebpubViewer from "../WebpubViewer/WebpubViewer";
+import EditionCardUtils from "~/src/util/EditionCardUtils";
 
 //The NYPL wrapper that wraps the Reader pages.
 const ReaderLayout: React.FC<{ linkResult: LinkResult }> = (props) => {
@@ -32,7 +26,7 @@ const ReaderLayout: React.FC<{ linkResult: LinkResult }> = (props) => {
           },
           {
             url: `/edition/${edition.edition_id}`,
-            text: `${edition.publication_date} edition`,
+            text: EditionCardUtils.editionYearText(edition),
           },
         ]}
       />

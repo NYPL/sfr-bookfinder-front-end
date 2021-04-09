@@ -26,6 +26,7 @@ const AdvancedSearch: React.FC<{
   languages: FacetItem[];
 }> = (props) => {
   const { languages } = props;
+  console.log("languages", languages);
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState({
     ...SearchQueryDefaults,

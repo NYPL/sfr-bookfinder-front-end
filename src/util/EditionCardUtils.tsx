@@ -220,28 +220,13 @@ export default class EditionCardUtils {
     const localLink = getReadLink(item, "read");
     const embeddedLink = getReadLink(item, "embed");
 
-    if (localLink) {
+    //Prefer local link over embedded link
+    const readOnlineLink = localLink ? localLink : embeddedLink;
+    if (readOnlineLink) {
       return (
         <Link
           to={{
-            pathname: `/edition/${editionId}/read-local/${encodeURIComponent(
-              localLink.url
-            )}`,
-          }}
-          linkType={DS.LinkTypes.Button}
-        >
-          Read Online
-        </Link>
-      );
-    }
-
-    if (embeddedLink) {
-      return (
-        <Link
-          to={{
-            pathname: `/edition/${editionId}/read-embed/${encodeURIComponent(
-              embeddedLink.url
-            )}`,
+            pathname: `/read/${readOnlineLink.link_id}`,
           }}
           linkType={DS.LinkTypes.Button}
         >
