@@ -1,7 +1,6 @@
 /** Converts API responses to internal types */
 
 import {
-  ApiFilter,
   ApiSearchQuery,
   Filter,
   Query,
@@ -111,48 +110,6 @@ export const toApiQuery = (searchQuery: SearchQuery): ApiSearchQuery => {
       }),
   };
 };
-
-//Takes the query string from URL and parses it into a SearchQuery object
-export function parseLocationQuery(queryString: any): ApiSearchQuery {
-  const query = queryString;
-
-  const parseIfString = (value: any) => {
-    if (typeof value === "string") {
-      return JSON.parse(value);
-    } else {
-      return value;
-    }
-  };
-
-  //   const query: SearchQuery = JSON.parse(queryString);
-  if (!query.queries && !query.showQueries) {
-    //TODO: redirect
-    return null;
-  } else {
-    const {
-      filter,
-      page,
-      perPage,
-      queries,
-      sort,
-    }: {
-      filter: ApiFilter[] | string;
-      page: number | string;
-      perPage: number | string;
-      queries: Query[] | string;
-      showQueries: Query[] | string;
-      sort: Sort[] | string;
-    } = query;
-
-    return {
-      query: parseIfString(queries),
-      ...(filter && { filter: parseIfString(filter) }),
-      ...(page && { page: parseIfString(page) }),
-      ...(perPage && { size: parseIfString(perPage) }),
-      ...(sort && { sort: parseIfString(sort) }),
-    };
-  }
-}
 
 /**
  * Converts an API search query object to a NextJS query object

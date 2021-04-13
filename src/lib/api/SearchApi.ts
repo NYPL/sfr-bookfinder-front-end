@@ -5,6 +5,7 @@ import { ApiSearchResult } from "../../types/DataModel";
 import { EditionQuery, EditionResult } from "~/src/types/EditionQuery";
 import { toLocationQuery } from "~/src/util/apiConversion";
 import { LinkResult } from "~/src/types/LinkQuery";
+import { ApiLanguageResponse } from "~/src/types/LanguagesQuery";
 
 //TODO env variables
 const appEnv = "development";
@@ -88,8 +89,10 @@ export const languagesFetcher = async () => {
   const url = new URL(languagesUrl);
 
   const res = await fetch(url.toString());
+  console.log("res", res);
   if (res.ok) {
-    return res.json();
+    const languagesResult: ApiLanguageResponse = await res.json();
+    return languagesResult;
   }
 };
 

@@ -26,8 +26,6 @@ const SearchResults: React.FC<{
     ...SearchQueryDefaults,
     ...props.searchQuery,
   });
-  console.log("searchResults", props.searchResults);
-
   const [isModalOpen, setModalOpen] = useState(false);
 
   const router = useRouter();

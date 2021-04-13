@@ -28,7 +28,7 @@ export default {
     languagesPath: "/utils/languages",
   },
   booksCount: {
-    apiUrl: "/utils/totals",
+    apiUrl: "/utils/counts",
     experimentName: "BooksCount",
   },
   requestDigital: {

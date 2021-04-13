@@ -20,13 +20,12 @@ import FilterBookFormat from "../FilterBookFormat/FilterBookFormat";
 import { FacetItem } from "~/src/types/DataModel";
 import { toLocationQuery, toApiQuery } from "~/src/util/apiConversion";
 import filterFields from "~/src/constants/filters";
+import { ApiLanguageResponse } from "~/src/types/LanguagesQuery";
 
 const AdvancedSearch: React.FC<{
   searchQuery: SearchQuery;
-  languages: FacetItem[];
+  languages: ApiLanguageResponse;
 }> = (props) => {
-  const { languages } = props;
-  console.log("languages", languages);
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState({
     ...SearchQueryDefaults,
@@ -34,6 +33,13 @@ const AdvancedSearch: React.FC<{
   });
   const [emptySearchError, setEmptySearchError] = useState("");
   const [dateRangeError, setDateRangeError] = useState("");
+
+  const languages: FacetItem[] = props.languages.data.map((language) => {
+    return {
+      value: language.language,
+      count: language.count,
+    };
+  });
 
   const submit = (e) => {
     e.preventDefault();
@@ -150,7 +156,7 @@ const AdvancedSearch: React.FC<{
     filterFields.endYear
   );
   return (
-    <main id="mainContent" className="main  advanced-search">
+    <main id="mainContent" className="main advanced-search">
       <div className="content-top">
         <DS.Breadcrumbs
           modifiers={["space-under"]}
@@ -203,7 +209,7 @@ const AdvancedSearch: React.FC<{
               })}
             </div>
           </fieldset>
-          {languages.length > 0 && (
+          {languages && languages.length > 0 && (
             <LanguageAccordion
               languages={languages}
               showCount={false}

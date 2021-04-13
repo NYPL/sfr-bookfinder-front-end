@@ -2,9 +2,6 @@ import React from "react";
 import * as DS from "@nypl/design-system-react-components";
 import SearchForm from "~/src/components/SearchForm/SearchForm";
 import Subjects from "~/config/subjectListConfig";
-import TotalWorks from "~/src/components/TotalWorks/TotalWorks";
-
-import config from "~/config/appConfig";
 import Link from "~/src/components/Link/Link";
 import { breadcrumbTitles } from "~/src/constants/labels";
 
