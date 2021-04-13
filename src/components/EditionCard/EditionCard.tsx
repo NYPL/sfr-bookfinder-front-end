@@ -7,7 +7,6 @@ import { PLACEHOLDER_COVER_LINK } from "~/src/constants/editioncard";
 
 export const EditionCard: React.FC<{ edition: WorkEdition }> = (props) => {
   const edition: WorkEdition = props.edition;
-  console.log("previewEdition", edition);
 
   const previewItem = edition && edition.items ? edition.items[0] : undefined;
   const readOnlineLink = EditionCardUtils.getReadOnlineLink(previewItem);
@@ -64,9 +63,7 @@ export const EditionCard: React.FC<{ edition: WorkEdition }> = (props) => {
         )}
       </div>
       <div>{EditionCardUtils.getLanguageDisplayText(edition)}</div>
-      <Link to="/license">
-        {EditionCardUtils.getLicense(previewItem.rights)}
-      </Link>
+      <Link to="/license">{EditionCardUtils.getLicense(previewItem)}</Link>
     </DS.Card>
   );
 };

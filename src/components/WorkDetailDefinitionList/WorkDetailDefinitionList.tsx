@@ -78,11 +78,11 @@ const WorkDetailDefinitionList: React.FC<{ work: ApiWork }> = ({ work }) => {
                 type={DS.ListTypes.Unordered}
                 modifiers={["no-list-styling"]}
               >
-                {unique(work.subjects, "subject")
-                  .sort((a: any, b: any) =>
-                    a.subject &&
-                    b.subject &&
-                    a.subject.toLowerCase() < b.subject.toLowerCase()
+                {unique(work.subjects, "heading")
+                  .sort((a: Subject, b: Subject) =>
+                    a.heading &&
+                    b.heading &&
+                    a.heading.toLowerCase() < b.heading.toLowerCase()
                       ? -1
                       : 1
                   )
@@ -92,11 +92,11 @@ const WorkDetailDefinitionList: React.FC<{ work: ApiWork }> = ({ work }) => {
                         to={{
                           pathname: "/search",
                           query: {
-                            queries: `[{"query": "${subject.subject}", "field": "subject"}]`,
+                            query: `subject:${subject.heading}`,
                           },
                         }}
                       >
-                        {subject.subject}
+                        {subject.heading}
                       </Link>
                     </li>
                   ))}

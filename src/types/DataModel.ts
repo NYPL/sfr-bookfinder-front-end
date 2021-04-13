@@ -129,9 +129,9 @@ export type WorkEdition = {
 };
 
 export type Subject = {
-  subject?: string;
+  heading?: string;
   authority?: string;
-  uri?: string;
+  controlNo?: string;
 };
 
 export type Measurement = {

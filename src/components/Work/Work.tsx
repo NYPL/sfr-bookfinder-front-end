@@ -12,6 +12,7 @@ import SearchHeader from "../SearchHeader/SearchHeader";
 import { ApiEdition } from "~/src/types/EditionQuery";
 
 const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
+  console.log("workResult", props.workResult);
   const router = useRouter();
 
   //TODO: Loading
@@ -42,8 +43,6 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
 
   return (
     <div className="layout-container">
-      {/* TODO RequestDigital {this.state.requestedEdition && this.getRequestDigital(work)} */}
-
       <main id="mainContent" className="main">
         <div className="content-header">
           <DS.Breadcrumbs

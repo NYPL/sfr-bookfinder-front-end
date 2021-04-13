@@ -57,9 +57,7 @@ export const InstanceCard: React.FC<{
         )}
       </div>
       <div>{EditionCardUtils.getWorldCatElem(instance)}</div>
-      <Link to="/license">
-        {EditionCardUtils.getLicense(previewItem.rights)}
-      </Link>
+      <Link to="/license">{EditionCardUtils.getLicense(previewItem)}</Link>
     </DS.Card>
   );
 };

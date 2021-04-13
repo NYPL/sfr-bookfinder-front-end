@@ -78,6 +78,8 @@ export const editionFetcher = async (query: EditionQuery) => {
   const url = new URL(editionUrl + "/" + query.editionIdentifier);
   url.search = new URLSearchParams(editionApiQuery).toString();
   const res = await fetch(url.toString());
+  console.log("url", url);
+  console.log("res", res);
 
   if (res.ok) {
     const editionResult: EditionResult = await res.json();
@@ -89,7 +91,6 @@ export const languagesFetcher = async () => {
   const url = new URL(languagesUrl);
 
   const res = await fetch(url.toString());
-  console.log("res", res);
   if (res.ok) {
     const languagesResult: ApiLanguageResponse = await res.json();
     return languagesResult;
