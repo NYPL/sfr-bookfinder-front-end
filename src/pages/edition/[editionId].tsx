@@ -12,7 +12,6 @@ export async function getServerSideProps(context: any) {
   };
 
   const editionResult: EditionResult = await editionFetcher(editionQuery);
-  console.log("editionResult", editionResult);
   return {
     props: { editionResult: editionResult },
   };

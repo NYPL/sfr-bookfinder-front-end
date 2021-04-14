@@ -5,7 +5,6 @@ import { readFetcher } from "~/src/lib/api/SearchApi";
 import { LinkResult } from "~/src/types/LinkQuery";
 export async function getServerSideProps(context: any) {
   const linkResult: LinkResult = await readFetcher(context.query.linkId);
-  console.log("linkResult", linkResult);
   return {
     props: { linkResult: linkResult },
   };

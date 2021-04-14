@@ -1,6 +1,5 @@
 import React from "react";
 import AdvancedSearch from "../components/AdvancedSearch/AdvancedSearch";
-import { FacetItem } from "~/src/types/DataModel";
 import { SearchQuery, SearchQueryDefaults } from "~/src/types/SearchQuery";
 import {
   MockNextRouterContextProvider,
@@ -12,17 +11,25 @@ import { FilterYearsTests } from "./componentHelpers/FilterYears";
 import { FilterFormatTests } from "./componentHelpers/FilterFormats";
 import userEvent from "@testing-library/user-event";
 import { errorMessagesText } from "../constants/labels";
+import filterFields from "../constants/filters";
+import { ApiLanguageResponse } from "../types/LanguagesQuery";
 
-const defaultLanguages: FacetItem[] = [
-  { value: "english", count: 25 },
-  { value: "french", count: 30 },
-];
+const defaultLanguages: ApiLanguageResponse = {
+  status: "200",
+  data: [
+    { language: "english", count: 25 },
+    { language: "french", count: 30 },
+  ],
+};
 
 const complicatedSearchQuery: SearchQuery = {
   perPage: 10,
   page: 1,
-  filters: [{ value: "english", field: "language" }],
-  filterYears: { start: 1990, end: 1999 },
+  filters: [
+    { value: "english", field: filterFields.language },
+    { field: filterFields.startYear, value: 1990 },
+    { field: filterFields.endYear, value: 1999 },
+  ],
   sort: { field: "relevance", dir: "DESC" },
   queries: [{ field: "keyword", query: "cat" }],
   showAll: false,
@@ -48,7 +55,7 @@ describe("renders advanced search correctly", () => {
       });
     });
     describe("Language filter is shown", () => {
-      FilterLanguagesCommonTests(screen, defaultLanguages, false, false);
+      FilterLanguagesCommonTests(screen, defaultLanguages.data, false, false);
     });
     describe("Year filter is shown", () => {
       FilterYearsTests(false);
@@ -65,7 +72,12 @@ describe("renders advanced search correctly", () => {
   });
 
   test("Hides languages when no languages are passed", () => {
-    render(<AdvancedSearch searchQuery={SearchQueryDefaults} languages={[]} />);
+    render(
+      <AdvancedSearch
+        searchQuery={SearchQueryDefaults}
+        languages={{ status: "200", data: [] }}
+      />
+    );
     expect(
       screen.queryByRole("group", { name: "Languages" })
     ).not.toBeInTheDocument();
@@ -99,11 +111,35 @@ describe("Advanced Search submit", () => {
     userEvent.click(screen.getByRole("button", { name: "Search" }));
 
     const expectedQuery = {
-      filters: `[{"field":"language","value":"english"},{"field":"years","value":{"start":1990,"end":1999}},{"field":"show_all","value":false}]`,
-      queries: `[{"field":"keyword","query":"cat"}]`,
-      per_page: "10",
-      page: "1",
-      sort: `[]`,
+      filter: "language:english,startYear:1990,endYear:1999",
+      query: "keyword:cat",
+      sort: "relevance:DESC",
+    };
+    expect(mockPush).toHaveBeenCalledTimes(1);
+    expect(mockPush).toHaveBeenCalledWith({
+      pathname: "/search",
+      query: expectedQuery,
+    });
+  });
+
+  test("Submits only year end", () => {
+    const searchQueryOneYear = Object.assign({}, SearchQueryDefaults, {
+      queries: [{ field: "keyword", query: "cat" }],
+      filters: [{ field: filterFields.startYear, value: 1990 }],
+    });
+    render(
+      <MockNextRouterContextProvider>
+        <AdvancedSearch
+          searchQuery={searchQueryOneYear}
+          languages={defaultLanguages}
+        />
+      </MockNextRouterContextProvider>
+    );
+    userEvent.click(screen.getByRole("button", { name: "Search" }));
+
+    const expectedQuery = {
+      filter: "startYear:1990",
+      query: "keyword:cat",
     };
     expect(mockPush).toHaveBeenCalledTimes(1);
     expect(mockPush).toHaveBeenCalledWith({
@@ -129,7 +165,10 @@ describe("Advanced Search submit", () => {
   test("show error on invalid year", () => {
     const invalidYearSearch = Object.assign({}, SearchQueryDefaults, {
       queries: [{ field: "keyword", query: "cat" }],
-      filterYears: { start: 1990, end: 1880 },
+      filters: [
+        { field: filterFields.startYear, value: 1990 },
+        { field: filterFields.endYear, value: 1880 },
+      ],
     });
     render(
       <MockNextRouterContextProvider>

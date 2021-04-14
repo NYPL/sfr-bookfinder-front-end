@@ -41,7 +41,7 @@ export default class EditionCardUtils {
     return preferredAgents ? [preferredAgents] : undefined;
   }
 
-  static editionYearText(edition: any) {
+  static editionYearText(edition: WorkEdition) {
     return edition && edition.publication_date
       ? `${edition.publication_date} Edition`
       : "Edition Year Unknown";

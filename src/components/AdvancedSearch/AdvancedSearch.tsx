@@ -50,15 +50,15 @@ const AdvancedSearch: React.FC<{
       setEmptySearchError("");
     }
 
-    const yearStart = findFiltersForField(
+    const startYear = findFiltersForField(
       searchQuery.filters,
       filterFields.startYear
-    );
-    const yearEnd = findFiltersForField(
+    )[0];
+    const endYear = findFiltersForField(
       searchQuery.filters,
       filterFields.endYear
-    );
-    if (yearStart && yearEnd && yearEnd < yearStart) {
+    )[0];
+    if (startYear && endYear && endYear.value < startYear.value) {
       setDateRangeError(errorMessagesText.invalidDate);
       return;
     } else {
@@ -137,13 +137,14 @@ const AdvancedSearch: React.FC<{
     e: React.FormEvent<HTMLInputElement>,
     isStart: boolean
   ) => {
-    const filterField = isStart ? filterFields.startYear : filterFields.endYear;
+    const field = isStart ? filterFields.startYear : filterFields.endYear;
+    const newFilters = [
+      ...findFiltersExceptField(searchQuery.filters, field),
+      ...[{ field: field, value: e.currentTarget.value }],
+    ];
     setSearchQuery({
       ...searchQuery,
-      filters: [
-        ...findFiltersExceptField(searchQuery.filters, filterFields.format),
-        ...[{ field: filterField, value: e.currentTarget.value }],
-      ],
+      filters: newFilters,
     });
   };
 

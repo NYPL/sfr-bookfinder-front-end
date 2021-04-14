@@ -51,11 +51,7 @@ export const searchFormTests = (mockPush) => {
       expect(mockPush).toBeCalledWith({
         pathname: "/search",
         query: {
-          filters: '[{"field":"show_all","value":false}]',
-          per_page: "10",
-          page: "1",
-          queries: '[{"query":"Tom Nook","field":"author"}]',
-          sort: "[]",
+          query: "author:Tom Nook",
         },
       });
     });
