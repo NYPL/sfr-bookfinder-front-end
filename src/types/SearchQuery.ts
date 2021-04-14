@@ -35,11 +35,6 @@ export type Filter = {
   value: string | number;
 };
 
-export type DateRange = {
-  start: number | "";
-  end: number | "";
-};
-
 export type SearchQuery = {
   filters?: Filter[];
   page?: number;

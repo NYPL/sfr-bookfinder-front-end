@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import { searchFields } from "~/src/constants/fields";
 import { ApiSearchResult, ApiWork, FacetItem } from "~/src/types/DataModel";
 import {
-  DateRange,
   Filter,
   SearchQuery,
   SearchQueryDefaults,
@@ -26,6 +25,7 @@ const SearchResults: React.FC<{
     ...SearchQueryDefaults,
     ...props.searchQuery,
   });
+
   const [isModalOpen, setModalOpen] = useState(false);
 
   const router = useRouter();
@@ -80,11 +80,10 @@ const SearchResults: React.FC<{
       ? searchPaging.currentPage * searchPaging.recordsPerPage
       : numberOfWorks;
 
-  const changeFilters = (newFilters?: Filter[], newDateRange?: DateRange) => {
+  const changeFilters = (newFilters?: Filter[]) => {
     const newSearchQuery: SearchQuery = {
       ...searchQuery,
       ...(newFilters && { filters: newFilters }),
-      ...(newDateRange && { filterYears: newDateRange }),
     };
     setSearchQuery(newSearchQuery);
     sendSearchQuery(newSearchQuery);
@@ -200,8 +199,8 @@ const SearchResults: React.FC<{
             filters={searchQuery.filters}
             showAll={searchQuery.showAll}
             languages={getAvailableLanguages(searchResults)}
-            changeFilters={(filters?: Filter[], filterYears?: DateRange) => {
-              changeFilters(filters, filterYears);
+            changeFilters={(filters: Filter[]) => {
+              changeFilters(filters);
             }}
             changeShowAll={(showAll: boolean) => {
               changeShowAll(showAll);
@@ -243,11 +242,8 @@ const SearchResults: React.FC<{
                 filters={searchQuery.filters}
                 showAll={searchQuery.showAll}
                 languages={getAvailableLanguages(searchResults)}
-                changeFilters={(
-                  filters?: Filter[],
-                  filterYears?: DateRange
-                ) => {
-                  changeFilters(filters, filterYears);
+                changeFilters={(filters: Filter[]) => {
+                  changeFilters(filters);
                 }}
                 changeShowAll={(showAll: boolean) => {
                   changeShowAll(showAll);

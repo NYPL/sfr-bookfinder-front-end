@@ -1,248 +1,621 @@
 {
-  "status": 200,
   "data": {
+    "facets": {
+      "formats": [
+        {
+          "count": 6,
+          "value": "text/html"
+        },
+        {
+          "count": 6,
+          "value": "application/pdf"
+        }
+      ],
+      "languages": [
+        {
+          "count": 6,
+          "value": "English"
+        }
+      ]
+    },
+    "paging": {
+      "currentPage": 1,
+      "firstPage": 1,
+      "lastPage": 3,
+      "nextPage": 2,
+      "previousPage": null,
+      "recordsPerPage": 10
+    },
+    "totalWorks": 26,
     "works": [
       {
-        "date_created": "2020-03-26T06:05:53.320Z",
-        "date_modified": "2020-03-26T10:03:32.857Z",
-        "id": 797270,
-        "uuid": "test-uuid-1",
-        "title": "Happy Home Companion: Cute Tables",
-        "sort_title": "Happy Home Companion: Cute Tables",
-        "sub_title": null,
-        "medium": null,
-        "series": "Happy Home Companion",
-        "series_position": "1",
-        "agents": [
+        "alt_titles": ["Lungs of the alligator"],
+        "authors": [
           {
-            "name": "Nook, Timmy",
-            "sort_name": "Nook, Timmy",
-            "viaf": "2128843",
-            "lcnaf": "no2002016138",
-            "birth_date_display": "1828",
-            "death_date_display": "1902",
-            "roles": ["author"]
+            "lcnaf": "",
+            "name": "Nook, Tammy",
+            "primary": "",
+            "viaf": ""
           },
           {
-            "name": "Nook, Tommy",
-            "sort_name": "Nook, Tommy",
-            "viaf": "2128845",
-            "lcnaf": "no2002016148",
-            "birth_date_display": "1828",
-            "death_date_display": "1902",
-            "roles": ["author"]
+            "lcnaf": "",
+            "name": "Nook, Timmy",
+            "primary": "true",
+            "viaf": ""
           }
         ],
-        "instances": null,
+        "contributors": [],
+        "dates": null,
+        "edition_count": 3,
         "editions": [
           {
-            "date_created": "2020-03-31T04:16:03.866Z",
-            "date_modified": "2020-03-31T04:16:03.866Z",
-            "id": 2362158,
-            "publication_place": "Island Getaway",
-            "publication_date": "2020",
-            "edition": null,
-            "edition_statement": null,
-            "volume": null,
-            "table_of_contents": null,
-            "extent": "1 online resource (159, [16] pages); illustrations, portraits, maps.",
-            "summary": null,
-            "work_id": 797270,
-            "languages": [
+            "alt_titles": ["Lungs of the alligator"],
+            "contributors": [],
+            "dates": [
               {
-                "language": "English",
-                "iso_2": "en",
-                "iso_3": "eng"
+                "date": "1915",
+                "type": "publication_date"
               },
               {
-                "language": "Spanish",
-                "iso_2": "es",
-                "iso_3": "spa"
+                "date": "1915",
+                "type": "copyright_date"
               }
             ],
-            "agents": [
-              {
-                "name": "Nook Industries",
-                "sort_name": "republished by pruett press",
-                "viaf": null,
-                "lcnaf": null,
-                "roles": ["publisher"]
-              }
-            ],
+            "edition": null,
+            "edition_id": 1453292,
+            "edition_statement": null,
+            "extent": null,
             "items": [
               {
-                "source": "hathitrust",
                 "content_type": "ebook",
-                "modified": null,
-                "drm": null,
-                "links": [
+                "contributors": [
                   {
-                    "url": "test-link-url",
-                    "local": true,
-                    "media_type": "application/epub+xml"
+                    "lcnaf": "",
+                    "name": "University of Illinois at Urbana-Champaign",
+                    "roles": ["provider", "responsible"],
+                    "viaf": ""
                   },
                   {
-                    "url": "test-link-url-2",
-                    "download": true,
-                    "media_type": "application/epub+xml"
+                    "lcnaf": "",
+                    "name": "Google",
+                    "roles": ["digitizer"],
+                    "viaf": ""
                   }
                 ],
+                "drm": null,
+                "item_id": 1956736,
+                "links": [
+                  {
+                    "link_id": 3330416,
+                    "mediaType": "text/html",
+                    "url": "test-link-url-2"
+                  },
+                  {
+                    "link_id": 3330415,
+                    "mediaType": "application/pdf",
+                    "url": "test-link-url-3"
+                  }
+                ],
+                "location": null,
+                "measurements": null,
+                "modified": null,
                 "rights": [
                   {
                     "license": "public_domain",
-                    "rights_statement": "Public Domain"
+                    "rightsStatement": "Public Domain",
+                    "source": "hathitrust"
                   }
-                ]
+                ],
+                "source": "hathitrust"
               }
             ],
-            "covers": [
+            "languages": [
               {
-                "url": "https://test-cover-2/",
-                "media_type": "image/jpeg",
-                "flags": {
-                  "cover": true,
-                  "temporary": false
-                }
+                "iso_2": "en",
+                "iso_3": "eng",
+                "language": "English"
+              },
+              {
+                "iso_2": "es",
+                "iso_3": "esp",
+                "language": "Spanish"
               }
             ],
-            "work_uuid": "8809346a-985b-4d0e-ab88-c3784e55361a"
+            "links": [
+              {
+                "link_id": 1614426,
+                "mediaType": "image/jpeg",
+                "url": "test-cover-2"
+              }
+            ],
+            "measurements": [
+              {
+                "type": "government_document",
+                "value": "0"
+              }
+            ],
+            "publication_date": 1915,
+            "publication_place": "Island Getaway",
+            "publishers": [
+              {
+                "lcnaf": "",
+                "name": "Nook Industries",
+                "viaf": ""
+              }
+            ],
+            "sub_title": null,
+            "summary": null,
+            "table_of_contents": null,
+            "title": "Alligator book",
+            "volume": null,
+            "work_uuid": "15a4aeb9-e9fb-43d8-b7f0-4e4a43e415ef"
           }
         ],
-        "edition_count": 3,
-        "edition_range": "1906 - 2012",
-        "sort": ["Happy Home Companion"]
-      },
-      {
-        "date_created": "2020-04-15T10:06:09.657Z",
-        "date_modified": "2020-04-16T11:23:33.638Z",
-        "id": 919898,
-        "uuid": "36b9212e-46da-43aa-9f9c-96ff4021c8c2",
-        "title": null,
-        "sort_title": null,
-        "sub_title": null,
+        "languages": [
+          {
+            "iso_2": "en",
+            "iso_3": "eng",
+            "language": "English"
+          }
+        ],
+        "measurements": [],
         "medium": null,
         "series": null,
         "series_position": null,
-        "agents": null,
-        "instances": null,
-        "editions": [
+        "sub_title": "Cute Tables Subtitle",
+        "subjects": [
           {
-            "date_created": "2020-04-19T00:11:32.003Z",
-            "date_modified": "2020-04-19T00:11:32.003Z",
-            "id": 2543830,
-            "publication_place": null,
-            "publication_date": null,
-            "edition": null,
-            "edition_statement": null,
-            "volume": null,
-            "table_of_contents": null,
-            "extent": null,
-            "summary": null,
-            "work_id": 919898,
-            "languages": null,
-            "agents": null,
-            "items": [
-              {
-                "source": "hathitrust",
-                "content_type": "ebook",
-                "modified": null,
-                "drm": null,
-                "links": null,
-                "rights": null
-              }
-            ],
-            "covers": null,
-            "work_uuid": "36b9212e-46da-43aa-9f9c-96ff4021c8c2"
+            "authority": "fast",
+            "controlNo": "(OCoLC)fst00805630",
+            "heading": "Embryology"
+          },
+          {
+            "authority": "fast",
+            "controlNo": "(OCoLC)fst00908425",
+            "heading": "Alligators"
+          },
+          {
+            "authority": "fast",
+            "controlNo": "(OCoLC)fst00805630",
+            "heading": "American alligator"
+          },
+          {
+            "authority": "fast",
+            "controlNo": "(OCoLC)fst01003744",
+            "heading": "Lungs"
           }
         ],
+        "title": "Happy Home Companion: Cute Tables",
+        "uuid": "test-uuid-1"
+      },
+      {
+        "alt_titles": [],
+        "authors": [],
+        "contributors": [],
+        "dates": null,
         "edition_count": 1,
-        "edition_range": 1872,
-        "sort": [
-          "demanda offerecida de parte dos estados unidos ao tribunal de arbitramento convocado em genebra segundo as estipulações do tractado celebrado em washington.",
-          "36b9212e-46da-43aa-9f9c-96ff4021c8c2"
-        ]
+        "editions": [
+          {
+            "alt_titles": [],
+            "contributors": [],
+            "dates": null,
+            "edition": null,
+            "edition_id": 1172733,
+            "edition_statement": null,
+            "extent": null,
+            "items": [
+              {
+                "content_type": "ebook",
+                "contributors": null,
+                "drm": null,
+                "item_id": 1579612,
+                "links": null,
+                "location": null,
+                "measurements": null,
+                "modified": null,
+                "rights": null,
+                "source": "hathitrust"
+              }
+            ],
+            "languages": null,
+            "links": [],
+            "measurements": [
+              {
+                "type": "government_document",
+                "value": "0"
+              }
+            ],
+            "publication_date": null,
+            "publication_place": null,
+            "publishers": [],
+            "sub_title": null,
+            "summary": null,
+            "table_of_contents": null,
+            "title": "The alligator and its allies, by Albert M. Reese ... with 62 figures and 28 plates",
+            "volume": null,
+            "work_uuid": "99ca3bdd-72c5-4a71-8446-c963f985bd04"
+          }
+        ],
+        "languages": [],
+        "measurements": [],
+        "medium": null,
+        "series": null,
+        "series_position": null,
+        "sub_title": null,
+        "subjects": [],
+        "title": "The alligator and its allies, by Albert M. Reese ... with 62 figures and 28 plates",
+        "uuid": "test-uuid-2"
+      },
+      {
+        "alt_titles": ["Lungs of the alligator"],
+        "authors": [
+          {
+            "lcnaf": "",
+            "name": "Nook, Tom",
+            "primary": "",
+            "viaf": ""
+          },
+          {
+            "lcnaf": "",
+            "name": "Nook, Tom1",
+            "primary": "",
+            "viaf": ""
+          },
+          {
+            "lcnaf": "",
+            "name": "Nook, Tom2",
+            "primary": "",
+            "viaf": ""
+          },
+          {
+            "lcnaf": "",
+            "name": "Nook, Tom3",
+            "primary": "",
+            "viaf": ""
+          },
+          {
+            "lcnaf": "",
+            "name": "Nook, Tom4",
+            "primary": "",
+            "viaf": ""
+          },
+          {
+            "lcnaf": "",
+            "name": "Nook, Tom5",
+            "primary": "",
+            "viaf": ""
+          },
+          {
+            "lcnaf": "",
+            "name": "Nook, Tom6",
+            "primary": "",
+            "viaf": ""
+          },
+          {
+            "lcnaf": "",
+            "name": "Nook, Tom7",
+            "primary": "",
+            "viaf": ""
+          },
+          {
+            "lcnaf": "",
+            "name": "Nook, Tom8",
+            "primary": "",
+            "viaf": ""
+          },
+          {
+            "lcnaf": "",
+            "name": "Nook, Tom9",
+            "primary": "",
+            "viaf": ""
+          },
+          {
+            "lcnaf": "",
+            "name": "Nook, Tom10",
+            "primary": "",
+            "viaf": ""
+          },
+          {
+            "lcnaf": "",
+            "name": "Nook, Tom11",
+            "primary": "",
+            "viaf": ""
+          }
+        ],
+        "contributors": [],
+        "dates": null,
+        "edition_count": 5,
+        "editions": [
+          {
+            "alt_titles": ["Lungs of the alligator"],
+            "contributors": [],
+            "dates": [
+              {
+                "date": "1915",
+                "type": "publication_date"
+              },
+              {
+                "date": "1915",
+                "type": "copyright_date"
+              }
+            ],
+            "edition": null,
+            "edition_id": 1453292,
+            "edition_statement": null,
+            "extent": null,
+            "items": [
+              {
+                "content_type": "ebook",
+                "contributors": [
+                  {
+                    "lcnaf": "",
+                    "name": "University of Illinois at Urbana-Champaign",
+                    "roles": ["provider", "responsible"],
+                    "viaf": ""
+                  },
+                  {
+                    "lcnaf": "",
+                    "name": "Google",
+                    "roles": ["digitizer"],
+                    "viaf": ""
+                  }
+                ],
+                "drm": null,
+                "item_id": 1956736,
+                "links": [
+                  {
+                    "link_id": 3234,
+                    "mediaType": "text/html",
+                    "url": "test-link-url-5"
+                  }
+                ],
+                "location": null,
+                "measurements": null,
+                "modified": null,
+                "rights": [
+                  {
+                    "license": "public_domain",
+                    "rightsStatement": "Public Domain Public Domain Public Domain Public Domain Public Domain Public Domain Public Domain Public Domain Public Domain",
+                    "source": "hathitrust"
+                  },
+                  {
+                    "license": "public_domain",
+                    "rightsStatement": "Public Domain 2",
+                    "source": "hathitrust"
+                  },
+                  {
+                    "license": "public_domain",
+                    "rightsStatement": "Public Domain 3",
+                    "source": "hathitrust"
+                  }
+                ],
+                "source": "hathitrust"
+              },
+              {
+                "content_type": "ebook",
+                "contributors": [
+                  {
+                    "lcnaf": "",
+                    "name": "University of Illinois at Urbana-Champaign",
+                    "roles": ["provider", "responsible"],
+                    "viaf": ""
+                  },
+                  {
+                    "lcnaf": "",
+                    "name": "Google",
+                    "roles": ["digitizer"],
+                    "viaf": ""
+                  }
+                ],
+                "drm": null,
+                "item_id": 1956736,
+                "links": [
+                  {
+                    "link_id": 3330415,
+                    "mediaType": "application/pdf",
+                    "url": "test-link-url-4"
+                  }
+                ],
+                "location": null,
+                "measurements": null,
+                "modified": null,
+                "rights": [
+                  {
+                    "license": "public_domain",
+                    "rightsStatement": "Public Domain 2",
+                    "source": "hathitrust"
+                  },
+                  {
+                    "license": "public_domain",
+                    "rightsStatement": "Public Domain 3",
+                    "source": "hathitrust"
+                  }
+                ],
+                "source": "hathitrust"
+              }
+            ],
+            "languages": [
+              {
+                "iso_2": "en",
+                "iso_3": "eng",
+                "language": "Lang1"
+              },
+              {
+                "iso_2": "sv",
+                "iso_3": "swe",
+                "language": "Lang2"
+              },
+              {
+                "iso_2": "sv",
+                "iso_3": "swe",
+                "language": "Lang3"
+              },
+              {
+                "iso_2": "sv",
+                "iso_3": "swe",
+                "language": "Lang4"
+              },
+              {
+                "iso_2": "sv",
+                "iso_3": "swe",
+                "language": "Lang5"
+              },
+              {
+                "iso_2": "sv",
+                "iso_3": "swe",
+                "language": "Lang6"
+              },
+              {
+                "iso_2": "sv",
+                "iso_3": "swe",
+                "language": "Lang7"
+              },
+              {
+                "iso_2": "sv",
+                "iso_3": "swe",
+                "language": "Lang8"
+              },
+              {
+                "iso_2": "sv",
+                "iso_3": "swe",
+                "language": "Lang9"
+              },
+              {
+                "iso_2": "sv",
+                "iso_3": "swe",
+                "language": "Lang10"
+              },
+              {
+                "iso_2": "sv",
+                "iso_3": "swe",
+                "language": "Lang11"
+              },
+              {
+                "iso_2": "sv",
+                "iso_3": "swe",
+                "language": "Lang12"
+              },
+              {
+                "iso_2": "sv",
+                "iso_3": "swe",
+                "language": "Lang13"
+              },
+              {
+                "iso_2": "sv",
+                "iso_3": "swe",
+                "language": "Lang14"
+              },
+              {
+                "iso_2": "sv",
+                "iso_3": "swe",
+                "language": "Lang15"
+              },
+              {
+                "iso_2": "sv",
+                "iso_3": "swe",
+                "language": "Lang16"
+              },
+              {
+                "iso_2": "sv",
+                "iso_3": "swe",
+                "language": "Lang17"
+              }
+            ],
+            "links": [
+              {
+                "link_id": 1614426,
+                "mediaType": "image/jpeg",
+                "url": "test-cover-2"
+              }
+            ],
+            "measurements": [
+              {
+                "type": "government_document",
+                "value": "0"
+              }
+            ],
+            "publication_date": 1945,
+            "publication_place": "Taumatawhakatangihangakoauauotamateaturipukakapikimaungahoronukupokaiwhenuakitanatahu",
+            "publishers": [
+              {
+                "lcnaf": "",
+                "name": "Nook Industries Nook Industries Nook Industries Nook Industries Nook Industries Nook Industries Nook Industries Nook Industries Nook Industries Nook Industries Nook Industries ",
+                "viaf": ""
+              },
+              {
+                "lcnaf": "",
+                "name": "Nook Industries 2",
+                "viaf": ""
+              },
+              {
+                "lcnaf": "",
+                "name": "Nook Industries 3",
+                "viaf": ""
+              },
+              {
+                "lcnaf": "",
+                "name": "Nook Industries 4",
+                "viaf": ""
+              },
+              {
+                "lcnaf": "",
+                "name": "Nook Industries 5",
+                "viaf": ""
+              }
+            ],
+            "sub_title": null,
+            "summary": null,
+            "table_of_contents": null,
+            "title": "Alligator book",
+            "volume": null,
+            "work_uuid": "15a4aeb9-e9fb-43d8-b7f0-4e4a43e415ef"
+          }
+        ],
+        "languages": [
+          {
+            "iso_2": "en",
+            "iso_3": "eng",
+            "language": "English"
+          },
+          {
+            "iso_2": "es",
+            "iso_3": "esp",
+            "language": "Spanish"
+          }
+        ],
+        "measurements": [],
+        "medium": null,
+        "series": null,
+        "series_position": null,
+        "sub_title": "super long super long super long super long super long super long super long super long super long super long super long super long super long super long super long super long super long super long super long super long super long super long super long super long super long super long super long super long super long super long super long super long super long super long  Subtitle",
+        "subjects": [
+          {
+            "authority": "fast",
+            "controlNo": "(OCoLC)fst00805630",
+            "heading": "Embryology"
+          },
+          {
+            "authority": "fast",
+            "controlNo": "(OCoLC)fst00908425",
+            "heading": "Alligators"
+          },
+          {
+            "authority": "fast",
+            "controlNo": "(OCoLC)fst00805630",
+            "heading": "American alligator"
+          },
+          {
+            "authority": "fast",
+            "controlNo": "(OCoLC)fst01003744",
+            "heading": "Lungs"
+          }
+        ],
+        "title": "Happy Home Companion: super super super supersupersupersupersupersupersupersupersupersupersupersupersupersupersupersupersupersupersupersupersupersupersupersupersupersupersupersupersupersuper long title",
+        "uuid": "test-uuid-3"
       }
-    ],
-    "totalWorks": 26,
-    "paging": {
-      "prev_page_sort": [
-        "colorado volunteers in the civil war; the new mexico campaign in 1862.",
-        "8809346a-985b-4d0e-ab88-c3784e55361a"
-      ],
-      "next_page_sort": [
-        "l'imitation de jésus-christ / traduction par l'abbé de bellegarde ; revue et corrigée ; prières pour la confession et la communion, prières pendant la ste messe, vêpres du dimanche.",
-        "0ab0bc87-3b83-45a4-8ee1-a3a8c4896053"
-      ]
-    },
-    "facets": {
-      "language": [
-        {
-          "value": "Spanish",
-          "count": 26
-        },
-        {
-          "value": "English",
-          "count": 14
-        },
-        {
-          "value": "French",
-          "count": 9
-        },
-        {
-          "value": "German",
-          "count": 5
-        },
-        {
-          "value": "Latin",
-          "count": 3
-        },
-        {
-          "value": "Undetermined",
-          "count": 3
-        },
-        {
-          "value": "Portuguese",
-          "count": 2
-        },
-        {
-          "value": "Italian",
-          "count": 2
-        },
-        {
-          "value": "Ancient Greek (to 1453)",
-          "count": 1
-        },
-        {
-          "value": "Danish",
-          "count": 1
-        },
-        {
-          "value": "Dutch",
-          "count": 1
-        },
-        {
-          "value": "Esperanto",
-          "count": 1
-        },
-        {
-          "value": "Icelandic",
-          "count": 1
-        },
-        {
-          "value": "Russian",
-          "count": 1
-        },
-        {
-          "value": "Swedish",
-          "count": 1
-        },
-        {
-          "value": "Yiddish",
-          "count": 1
-        }
-      ]
-    }
+    ]
   },
-  "timestamp": "2021-01-25T22:26:13.723Z",
-  "responseType": "searchResults"
+  "responseType": "searchResponse",
+  "status": 200,
+  "timestamp": "Wed, 14 Apr 2021 17:12:23 GMT"
 }

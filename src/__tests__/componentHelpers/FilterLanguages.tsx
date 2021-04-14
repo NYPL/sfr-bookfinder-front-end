@@ -1,5 +1,5 @@
 import { within } from "@testing-library/react";
-import { FacetItem, Language } from "~/src/types/DataModel";
+import { FacetItem } from "~/src/types/DataModel";
 import { ApiLanguage } from "~/src/types/LanguagesQuery";
 import { Filter } from "~/src/types/SearchQuery";
 
@@ -7,7 +7,6 @@ export const FilterLanguagesCommonTests = (
   screen,
   languages: FacetItem[],
   showCount: boolean,
-  useMobile: boolean,
   selectedLanguages?: Filter[]
 ) => {
   // test("Language Filter appears", () => {

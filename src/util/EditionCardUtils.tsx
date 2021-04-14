@@ -5,7 +5,6 @@ import {
   ApiItem,
   ItemLink,
   Language,
-  Rights,
   WorkEdition,
   Identifier,
 } from "../types/DataModel";
@@ -13,6 +12,7 @@ import * as DS from "@nypl/design-system-react-components";
 import Link from "~/src/components/Link/Link";
 import { formatUrl, truncateStringOnWhitespace } from "./Util";
 import {
+  MAX_PLACE_LENGTH,
   MAX_PUBLISHER_NAME_LENGTH,
   MAX_SUBTITILE_LENGTH,
   MAX_TITLE_LENGTH,
@@ -54,37 +54,11 @@ export default class EditionCardUtils {
     } else {
       moreText = ` + ${array.length - 1} more`;
     }
-    return `${array[0]}${moreText}`;
-  }
 
-  // Title
-  static generateTitleLinkElem(work: any) {
-    const displayTitle = EditionCardUtils.generateDisplayTitle(work);
-    return (
-      <Link
-        to={{
-          pathname: `/work/${work.uuid}`,
-          query: {
-            recordType: "editions",
-            showAll: true,
-          },
-        }}
-        title={displayTitle}
-        className="link link--no-underline"
-      >
-        {displayTitle}
-      </Link>
-    );
-  }
-
-  static generateDisplayTitle(title: string | undefined): string {
-    let displayTitle;
-    if (!title) {
-      displayTitle = "Title Unknown";
-    } else {
-      displayTitle = truncateStringOnWhitespace(title, MAX_TITLE_LENGTH);
-    }
-    return displayTitle;
+    return `${truncateStringOnWhitespace(
+      array[0],
+      MAX_PUBLISHER_NAME_LENGTH
+    )}${moreText}`;
   }
 
   // Subtitle
@@ -153,7 +127,9 @@ export default class EditionCardUtils {
     publishers: Agent[]
   ): JSX.Element {
     const publisherDisplayLocation = (pubPlace: string) => {
-      return pubPlace ? ` in ${pubPlace}` : "";
+      return pubPlace
+        ? ` in ${truncateStringOnWhitespace(pubPlace, MAX_PLACE_LENGTH)}`
+        : "";
     };
 
     const publisherDisplayText = (publishers: Agent[]) => {
@@ -161,14 +137,7 @@ export default class EditionCardUtils {
       const publisherNames = publishers.map(
         (pubAgent: Agent) => pubAgent && pubAgent.name
       );
-      const publisherText = ` by ${EditionCardUtils.getFirstAndCountMore(
-        publisherNames
-      )}`;
-
-      return truncateStringOnWhitespace(
-        publisherText,
-        MAX_PUBLISHER_NAME_LENGTH
-      );
+      return ` by ${EditionCardUtils.getFirstAndCountMore(publisherNames)}`;
     };
 
     const displayLocation = publisherDisplayLocation(pubPlace);

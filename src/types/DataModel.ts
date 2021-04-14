@@ -8,7 +8,7 @@ export type ApiSearchResult = {
   responseType?: string;
   data?: {
     totalWorks?: number;
-    facets?: Facet[];
+    facets?: { formats: FacetItem[]; languages: FacetItem[] };
     paging?: {
       currentPage: number;
       firstPage: number;
@@ -19,11 +19,6 @@ export type ApiSearchResult = {
     };
     works?: ApiWork[];
   };
-};
-
-export type Facet = {
-  formats: FacetItem[];
-  languages: FacetItem[];
 };
 
 export type FacetItem = { value?: string; count?: number };

@@ -7,6 +7,8 @@ import { EditionCard } from "~/src/components/EditionCard/EditionCard";
 import { ApiWork } from "~/src/types/DataModel";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
 import EmptySearchSvg from "../Svgs/EmptySearchSvg";
+import { truncateStringOnWhitespace } from "~/src/util/Util";
+import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
 
 export const getEditionsLinkElement = (work: ApiWork) => {
   const editionCount = work.edition_count;
@@ -50,7 +52,7 @@ const ResultsList: React.FC<{ works: ApiWork[] }> = ({ works }) => {
                 }}
                 className="link link--no-underline"
               >
-                {EditionCardUtils.generateDisplayTitle(work.title)}
+                {truncateStringOnWhitespace(work.title, MAX_TITLE_LENGTH)}
               </Link>
             </DS.Heading>
             <span>{EditionCardUtils.getSubtitle(work.sub_title)}</span>

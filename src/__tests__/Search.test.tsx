@@ -17,6 +17,8 @@ import { PLACEHOLDER_COVER_LINK } from "../constants/editioncard";
 import userEvent from "@testing-library/user-event";
 import { FilterLanguagesCommonTests } from "./componentHelpers/FilterLanguages";
 import { FilterFormatTests } from "./componentHelpers/FilterFormats";
+import { findFiltersForField } from "../util/SearchQueryUtils";
+import filterFields from "../constants/filters";
 const searchResults: ApiSearchResult = require("./fixtures/results-list.json");
 const searchQuery: SearchQuery = {
   queries: [{ field: "keyword", query: "Animal Crossing" }],
@@ -58,7 +60,7 @@ describe("Renders Search Results Page", () => {
     ).toBeInTheDocument();
   });
   test("Item Count shows correctly", () => {
-    expect(screen.getByText("Viewing 11 - 20 of 26 items")).toBeInTheDocument();
+    expect(screen.getByText("Viewing 1 - 10 of 26 items")).toBeInTheDocument();
   });
   describe("Filters modal show and hide", () => {
     test("Filters button appears", () => {
@@ -116,10 +118,8 @@ describe("Renders Search Results Page", () => {
         expect(mockPush).toBeCalledWith({
           pathname: "/search",
           query: {
-            filters: '[{"field":"show_all","value":false}]',
-            per_page: '"20"',
-            queries: '[{"field":"keyword","query":"Animal Crossing"}]',
-            sort: "[]",
+            query: "keyword:Animal Crossing",
+            size: "20",
           },
         });
         fireEvent.click(screen.getByRole("button", { name: "Go Back" }));
@@ -140,11 +140,8 @@ describe("Renders Search Results Page", () => {
         expect(mockPush).toBeCalledWith({
           pathname: "/search",
           query: {
-            filters: '[{"field":"show_all","value":false}]',
-            sort: '[{"field":"title","dir":"ASC"}]',
-            queries: '[{"field":"keyword","query":"Animal Crossing"}]',
-            per_page: "10",
-            page: "1",
+            query: "keyword:Animal Crossing",
+            sort: "title:ASC",
           },
         });
 
@@ -164,11 +161,8 @@ describe("Renders Search Results Page", () => {
         expect(mockPush).toBeCalledWith({
           pathname: "/search",
           query: {
-            filters: '[{"field":"show_all","value":true}]',
-            queries: '[{"field":"keyword","query":"Animal Crossing"}]',
-            per_page: "10",
-            page: "1",
-            sort: "[]",
+            query: "keyword:Animal Crossing",
+            showAll: true,
           },
         });
         fireEvent.click(screen.getByRole("button", { name: "Go Back" }));
@@ -181,27 +175,23 @@ describe("Renders Search Results Page", () => {
       const availableLanguages: FacetItem[] =
         searchResults &&
         searchResults.data.facets &&
-        searchResults.data.facets["language"];
+        searchResults.data.facets.languages;
 
-      FilterLanguagesCommonTests(screen, availableLanguages, true, true);
+      FilterLanguagesCommonTests(screen, availableLanguages, true);
 
       test("Clicking new language sends new search", () => {
         const languages = screen.getByRole("group", { name: "Languages" });
 
         const englishCheckbox = within(languages).getByRole("checkbox", {
-          name: "English (14)",
+          name: "English (6)",
         });
 
         fireEvent.click(englishCheckbox);
         expect(mockPush).toBeCalledWith({
           pathname: "/search",
           query: {
-            filters:
-              '[{"field":"language","value":"English"},{"field":"show_all","value":false}]',
-            queries: '[{"field":"keyword","query":"Animal Crossing"}]',
-            per_page: "10",
-            page: "1",
-            sort: "[]",
+            filter: "language:English",
+            query: "keyword:Animal Crossing",
           },
         });
 
@@ -221,12 +211,8 @@ describe("Renders Search Results Page", () => {
         expect(mockPush).toBeCalledWith({
           pathname: "/search",
           query: {
-            filters:
-              '[{"field":"format","value":"epub"},{"field":"show_all","value":false}]',
-            queries: '[{"field":"keyword","query":"Animal Crossing"}]',
-            per_page: "10",
-            page: "1",
-            sort: "[]",
+            filter: "format:epub_zip",
+            query: "keyword:Animal Crossing",
           },
         });
         fireEvent.click(screen.getByRole("button", { name: "Go Back" }));
@@ -236,7 +222,12 @@ describe("Renders Search Results Page", () => {
       });
     });
     describe("Publication Year", () => {
-      FilterYearsTests(true, searchQuery.filterYears, mockPush);
+      FilterYearsTests(
+        true,
+        findFiltersForField([], filterFields.startYear)[0],
+        findFiltersForField([], filterFields.endYear)[0],
+        mockPush
+      );
     });
   });
   describe("Search Results", () => {
@@ -250,18 +241,21 @@ describe("Renders Search Results Page", () => {
             .href
         ).toContain("/work/test-uuid-1");
       });
+      test("subtitle displays", () => {
+        expect(screen.getByText("Cute Tables Subtitle")).toBeInTheDocument();
+      });
       test("Author links to author search", () => {
         expect(screen.getByText("Nook, Timmy").closest("a").href).toContain(
-          "query%22%3A%22Nook%2C+Timmy%22%2C%22field%22%3A%22author"
+          "http://localhost/search?query=author%3ANook%2C+Timmy"
         );
-        expect(screen.getByText("Nook, Tommy").closest("a").href).toContain(
-          "query%22%3A%22Nook%2C+Tommy%22%2C%22field%22%3A%22author"
+        expect(screen.getByText("Nook, Tammy").closest("a").href).toContain(
+          "http://localhost/search?query=author%3ANook%2C+Tammy"
         );
       });
 
       test("Shows Year as Link in header", () => {
-        expect(screen.getByText("2020 Edition").closest("a").href).toContain(
-          "/edition/2362158"
+        expect(screen.getByText("1915 Edition").closest("a").href).toContain(
+          "/edition/1453292"
         );
       });
       test("Shows Full Publisher", () => {
@@ -281,18 +275,18 @@ describe("Renders Search Results Page", () => {
       });
       test("Shows cover", () => {
         expect(
-          screen.getByAltText("Cover for 2020 Edition").closest("img").src
+          screen.getByAltText("Cover for 1915 Edition").closest("img").src
         ).toEqual("https://test-cover-2/");
       });
       test("Shows download as link", () => {
-        expect(screen.getByText("Download").closest("a").href).toEqual(
-          "https://test-link-url-2/"
+        expect(screen.getAllByText("Download")[0].closest("a").href).toEqual(
+          "https://test-link-url-3/"
         );
       });
       test("Shows 'read online' as link", () => {
-        expect(screen.getByText("Read Online").closest("a").href).toContain(
-          "/edition/2362158/read-local/test-link-url"
-        );
+        expect(
+          screen.getAllByText("Read Online")[0].closest("a").href
+        ).toContain("read/3330416");
       });
       test("Shows number of editions as link to edition page", () => {
         expect(
@@ -304,7 +298,7 @@ describe("Renders Search Results Page", () => {
       test("Shows Unknown Year as Link in header", () => {
         expect(
           screen.getByText("Edition Year Unknown").closest("a").href
-        ).toContain("/edition/2543830");
+        ).toContain("/edition/1172733");
       });
       test("Shows Unknown Publisher", () => {
         expect(
@@ -328,6 +322,79 @@ describe("Renders Search Results Page", () => {
         expect(screen.getByText("Not yet available")).toBeInTheDocument();
       });
     });
+    describe("Third result has maximal data", () => {
+      test("Title is truncated on full word and links to work page", () => {
+        expect(
+          screen.getByText("Happy Home Companion: super super super...")
+        ).toBeInTheDocument();
+        expect(
+          screen
+            .getByText("Happy Home Companion: super super super...")
+            .closest("a").href
+        ).toContain("/work/test-uuid-3");
+      });
+
+      test("Subtitle displays truncated", () => {
+        expect(
+          screen.getByText(
+            "super long super long super long super long super long super long super long super long super long super long super..."
+          )
+        ).toBeInTheDocument();
+      });
+      test("All authors are shown and duplicate authors are not filtered", () => {
+        expect(
+          screen.getAllByText("Nook, Tom", { exact: false }).length
+        ).toEqual(12);
+      });
+
+      test("Shows Year as Link in header", () => {
+        expect(screen.getByText("1945 Edition").closest("a").href).toContain(
+          "/edition/1453292"
+        );
+      });
+      test("Truncates publisher place and first full publisher name", () => {
+        expect(
+          screen.getByText(
+            "Published in Taumatawhakatangihangakoauauotamateaturipukakapikimaungahoronukupokaiwhenuaki... by Nook Industries Nook Industries Nook Industries Nook Industries Nook... + 4 more"
+          )
+        ).toBeInTheDocument();
+      });
+      test("Shows Full list of languages in edition", () => {
+        expect(
+          screen.getByText(
+            "Languages: Lang1, Lang2, Lang3, Lang4, Lang5, Lang6, Lang7, Lang8, Lang9, Lang10, Lang11, Lang12, Lang13, Lang14, Lang15, Lang16, Lang17"
+          )
+        ).toBeInTheDocument();
+      });
+      test("Shows license for first item with no truncation", () => {
+        expect(
+          screen
+            .getByText(
+              "License: Public Domain Public Domain Public Domain Public Domain Public Domain Public Domain Public Domain Public Domain Public Domain"
+            )
+            .closest("a").href
+        ).toContain("/license");
+      });
+      test("Shows cover", () => {
+        expect(
+          screen.getByAltText("Cover for 1945 Edition").closest("img").src
+        ).toEqual("https://test-cover-2/");
+      });
+      test("Does not show download link", () => {
+        // The found `download` link is from the first result
+        expect(screen.getAllByText("Download")[1]).not.toBeDefined();
+      });
+      test("Shows 'read online' as link", () => {
+        expect(
+          screen.getAllByText("Read Online")[1].closest("a").href
+        ).toContain("read/3234");
+      });
+      test("Shows number of editions as link to edition page", () => {
+        expect(
+          screen.getByText("View All 5 Editions").closest("a").href
+        ).toContain("/work/test-uuid-3?showAll=true#all-editions");
+      });
+    });
   });
   describe("Pagination appears", () => {
     test("Previous page button appears and is disabled", () => {
@@ -345,11 +412,8 @@ describe("Renders Search Results Page", () => {
       expect(mockPush).toBeCalledWith({
         pathname: "/search",
         query: {
-          filters: '[{"field":"show_all","value":false}]',
-          page: "2",
-          queries: '[{"field":"keyword","query":"Animal Crossing"}]',
-          per_page: "10",
-          sort: "[]",
+          page: 2,
+          query: "keyword:Animal Crossing",
         },
       });
     });
@@ -360,11 +424,8 @@ describe("Renders Search Results Page", () => {
       expect(mockPush).toBeCalledWith({
         pathname: "/search",
         query: {
-          filters: '[{"field":"show_all","value":false}]',
-          page: "2",
-          queries: '[{"field":"keyword","query":"Animal Crossing"}]',
-          per_page: "10",
-          sort: "[]",
+          page: 2,
+          query: "keyword:Animal Crossing",
         },
       });
     });

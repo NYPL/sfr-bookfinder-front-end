@@ -23,7 +23,7 @@ const Filters: React.FC<{
   filters: Filter[];
   showAll: boolean;
   languages: FacetItem[];
-  changeFilters: (newFilters?: Filter[], newYears?: DateRange) => void;
+  changeFilters: (newFilters?: Filter[]) => void;
   changeShowAll: (showAll: boolean) => void;
 }> = ({
   filters: propFilters,
