@@ -1,5 +1,6 @@
 /** Converts API responses to internal types */
 
+import { searchFields } from "../constants/fields";
 import {
   ApiSearchQuery,
   Filter,
@@ -20,11 +21,33 @@ export const toSearchQuery = (apiQuery: ApiSearchQuery): SearchQuery => {
     throw new Error("Mising param `queries` in search request ");
   }
 
+  /**
+   * Because the queries are read directly from URL, this function extracts the queries of form
+   * "author:shakespeare, william,title:Macbeth" and returns
+   * `[{field: "author", query: "shakespeare, william"}, {field: title, query:Macbeth}]`
+   */
   const toQueries = (apiQueries: string): Query[] => {
-    const separated = apiQueries.split(",");
-    return separated.map((sep) => {
-      const split = sep.split(":");
-      return { field: split[0], query: split[1] };
+    // Separating the string by both comma and colon
+    // eg: author:shakespeare, william,title:Macbeth becomes [author, :, shakespeare, ,,  william, ,, title, :, Macbeth]
+    const separated = apiQueries.split(/(,|:)/);
+
+    // Finds the indexes of the items that are in searchFields and followed by a colon
+    const keysIndexes = separated
+      .map((sep, i) => {
+        if (searchFields.includes(sep) && separated[i + 1] === ":") {
+          return i;
+        }
+      })
+      .filter((key) => key !== undefined);
+
+    // Joins everything between the two keys and sets it as query
+    return keysIndexes.map((keyIndex, i) => {
+      const endIndex =
+        i < keysIndexes.length ? keysIndexes[i + 1] : keysIndexes.length;
+      return {
+        field: separated[keyIndex],
+        query: separated.slice(keyIndex + 2, endIndex).join(""),
+      };
     });
   };
 

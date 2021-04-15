@@ -2,14 +2,15 @@ import React from "react";
 import WorkDetailDefinitionList from "./WorkDetailDefinitionList";
 import "@testing-library/jest-dom/extend-expect";
 import { screen, render } from "@testing-library/react";
+import { WorkResult } from "~/src/types/WorkQuery";
 import { ApiWork } from "~/src/types/DataModel";
 
-const apiWork: ApiWork = require("../../__tests__/fixtures/work-detail.json");
+const apiWork: WorkResult = require("../../__tests__/fixtures/work-detail.json");
 
 describe("Work Detail table with all information", () => {
   beforeEach(() => {
     render(
-      <WorkDetailDefinitionList work={apiWork}></WorkDetailDefinitionList>
+      <WorkDetailDefinitionList work={apiWork.data}></WorkDetailDefinitionList>
     );
   });
   test("shows heading", () => {
@@ -20,10 +21,10 @@ describe("Work Detail table with all information", () => {
   test("Alt titles link to title search", () => {
     expect(screen.getByText("Alternative Titles")).toBeInTheDocument();
     expect(screen.getByText("Alt title 1").closest("a").href).toContain(
-      `field%22%3A+%22title`
+      `/search?query=title%3AAlt+title+1`
     );
     expect(screen.getByText("Alt title 2").closest("a").href).toContain(
-      `field%22%3A+%22title`
+      `/search?query=title%3AAlt+title+2`
     );
   });
   test("shows series and position", () => {
@@ -35,24 +36,33 @@ describe("Work Detail table with all information", () => {
   test("Authors link to author search", () => {
     expect(screen.getByText("Authors")).toBeInTheDocument();
     expect(
-      screen
-        .getByText("Dugdale, John, editor, author of introduction")
-        .closest("a").href
-    ).toContain(`field%22%3A%22viaf`);
-    expect(
-      screen.getByText("Hawthorne, Nathaniel, author").closest("a").href
-    ).toContain(`field%22%3A%22author`);
+      screen.getByText("McClure, H. David. ()").closest("a").href
+    ).toContain(`/search?query=author%3AMcClure%2C+H.+David.+%28%29`);
   });
-  test("Subjects link to subject search", () => {
-    expect(screen.getByText("Subjects")).toBeInTheDocument();
-    expect(screen.getByText("United States").closest("a").href).toContain(
-      `field%22%3A+%22subject`
-    );
+  test("Shows subjects as links to search", () => {
     expect(
-      screen.getByText("Collective settlements").closest("a").href
-    ).toContain(`field%22%3A+%22subject`);
-    expect(screen.getByText("Collective farms").closest("a").href).toContain(
-      `field%22%3A+%22subject`
+      screen.getByText("Readers (Publications)").closest("a").href
+    ).toContain("/search?query=subject%3AReaders+%28Publications%29");
+    expect(screen.getByText("Joruba (taal)").closest("a").href).toContain(
+      "/search?query=subject%3AJoruba+%28taal%29"
+    );
+    expect(screen.getByText("Yoruba (langue)").closest("a").href).toContain(
+      "/search?query=subject%3AYoruba+%28langue%29"
+    );
+    expect(screen.getByText("Yoruba language").closest("a").href).toContain(
+      "/search?query=subject%3AYoruba+language"
+    );
+    expect(screen.getByText("more subjects").closest("a").href).toContain(
+      "/search?query=subject%3Amore+subjects"
+    );
+    expect(screen.getByText("Textbooks").closest("a").href).toContain(
+      "/search?query=subject%3ATextbooks"
+    );
+    expect(screen.getByText("Texts (form)").closest("a").href).toContain(
+      "/search?query=subject%3ATexts+%28form%29"
+    );
+    expect(screen.getByText("Readers").closest("a").href).toContain(
+      "/search?query=subject%3AReaders"
     );
   });
   test("shows languages", () => {
@@ -66,11 +76,6 @@ describe("Work Detail table with all information", () => {
       screen
         .getAllByRole("listitem")
         .find((listitem) => listitem.textContent === "German")
-    ).toBeInTheDocument();
-    expect(
-      screen
-        .getAllByRole("listitem")
-        .find((listitem) => listitem.textContent === "Undetermined")
     ).toBeInTheDocument();
   });
 });
@@ -109,14 +114,14 @@ describe("Work detail edge cases", () => {
     const duplicateSubjectWork: ApiWork = {
       subjects: [
         {
-          subject: "United States",
+          heading: "United States",
           authority: "fast",
-          uri: "1204155",
+          controlNo: "1204155",
         },
         {
-          subject: "United States",
+          heading: "United States",
           authority: "fast",
-          uri: "1204155",
+          controlNo: "1204155",
         },
       ],
     };

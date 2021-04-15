@@ -25,12 +25,12 @@ const languagesUrl = apiUrl + languagesPath;
 
 const defaultWorkQuery: WorkQuery = {
   identifier: "",
-  showAll: "true",
+  showAll: "false",
 };
 
 const defaultEditionQuery = {
   editionIdentifier: "",
-  showAll: "true",
+  showAll: "false",
 };
 
 export const searchResultsFetcher = async (apiQuery: ApiSearchQuery) => {

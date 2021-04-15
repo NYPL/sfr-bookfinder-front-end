@@ -31,7 +31,12 @@ const complicatedSearchQuery: SearchQuery = {
     { field: filterFields.endYear, value: 1999 },
   ],
   sort: { field: "relevance", dir: "DESC" },
-  queries: [{ field: "keyword", query: "cat" }],
+  queries: [
+    { field: "keyword", query: "cat" },
+    { field: "author", query: "Nook" },
+    { field: "subject", query: "poetry" },
+    { field: "title", query: "Handbook" },
+  ],
   showAll: false,
 };
 
@@ -55,7 +60,7 @@ describe("renders advanced search correctly", () => {
       });
     });
     describe("Language filter is shown", () => {
-      FilterLanguagesCommonTests(screen, defaultLanguages.data, false, false);
+      FilterLanguagesCommonTests(screen, defaultLanguages.data, false);
     });
     describe("Year filter is shown", () => {
       FilterYearsTests(false);
@@ -112,7 +117,7 @@ describe("Advanced Search submit", () => {
 
     const expectedQuery = {
       filter: "language:english,startYear:1990,endYear:1999",
-      query: "keyword:cat",
+      query: "keyword:cat,author:Nook,subject:poetry,title:Handbook",
       sort: "relevance:DESC",
     };
     expect(mockPush).toHaveBeenCalledTimes(1);
@@ -122,7 +127,7 @@ describe("Advanced Search submit", () => {
     });
   });
 
-  test("Submits only year end", () => {
+  test("Submits only year start and subject", () => {
     const searchQueryOneYear = Object.assign({}, SearchQueryDefaults, {
       queries: [{ field: "keyword", query: "cat" }],
       filters: [{ field: filterFields.startYear, value: 1990 }],
@@ -140,6 +145,32 @@ describe("Advanced Search submit", () => {
     const expectedQuery = {
       filter: "startYear:1990",
       query: "keyword:cat",
+    };
+    expect(mockPush).toHaveBeenCalledTimes(1);
+    expect(mockPush).toHaveBeenCalledWith({
+      pathname: "/search",
+      query: expectedQuery,
+    });
+  });
+
+  test("Submits only year end and author", () => {
+    const searchQueryOneYear = Object.assign({}, SearchQueryDefaults, {
+      queries: [{ field: "author", query: "Shakespeare" }],
+      filters: [{ field: filterFields.endYear, value: 1990 }],
+    });
+    render(
+      <MockNextRouterContextProvider>
+        <AdvancedSearch
+          searchQuery={searchQueryOneYear}
+          languages={defaultLanguages}
+        />
+      </MockNextRouterContextProvider>
+    );
+    userEvent.click(screen.getByRole("button", { name: "Search" }));
+
+    const expectedQuery = {
+      filter: "endYear:1990",
+      query: "author:Shakespeare",
     };
     expect(mockPush).toHaveBeenCalledTimes(1);
     expect(mockPush).toHaveBeenCalledWith({

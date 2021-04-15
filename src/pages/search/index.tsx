@@ -8,9 +8,12 @@ import { toSearchQuery } from "~/src/util/apiConversion";
 
 export async function getServerSideProps(context: any) {
   // Get Query from location
+  console.log("context query", context.query);
   const searchQuery: ApiSearchQuery = context.query;
+  console.log("apiquery", searchQuery);
   const searchResults = await searchResultsFetcher(searchQuery);
   const convertedQuery = toSearchQuery(searchQuery);
+  console.log("convertedQuery", convertedQuery);
 
   return {
     props: {
