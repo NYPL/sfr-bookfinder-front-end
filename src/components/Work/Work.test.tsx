@@ -4,20 +4,18 @@ import "@testing-library/jest-dom/extend-expect";
 import { screen, render, within, fireEvent } from "@testing-library/react";
 import { breadcrumbTitles } from "~/src/constants/labels";
 import { searchFields } from "~/src/constants/fields";
-import { ApiWork } from "~/src/types/DataModel";
 import { WorkResult } from "~/src/types/WorkQuery";
 import {
   mockPush,
   MockNextRouterContextProvider,
 } from "~/src/__tests__/testUtils/MockNextRouter";
-const apiWork: ApiWork = require("../../__tests__/fixtures/work-detail.json");
+const apiWork: WorkResult = require("../../__tests__/fixtures/work-detail.json");
 
 describe("Renders Work component when given valid work", () => {
   beforeEach(() => {
-    const work: WorkResult = { data: apiWork };
     render(
       <MockNextRouterContextProvider>
-        <Work workResult={work} />
+        <Work workResult={apiWork} />
       </MockNextRouterContextProvider>
     );
   });
@@ -38,19 +36,21 @@ describe("Renders Work component when given valid work", () => {
   });
   test("Shows Work Title in Heading", () => {
     expect(
-      screen.getByRole("heading", { name: apiWork.title })
+      screen.getByRole("heading", { name: "Yoruba; intermediate texts" })
     ).toBeInTheDocument();
   });
   test("Shows Work Subtitle", () => {
-    expect(screen.getByText(apiWork.sub_title)).toBeInTheDocument();
+    expect(screen.getByText("sub title sub title")).toBeInTheDocument();
   });
   test("Shows Author name twice, both in links", () => {
-    const authorElements = screen.getAllByText("Hawthorne, Nathaniel", {
+    const authorElements = screen.getAllByText("McClure, H. David. ()", {
       exact: false,
     });
     expect(authorElements.length).toEqual(2);
     authorElements.forEach((elem) => {
-      expect(elem.closest("a").href).toContain("field%22%3A%22author");
+      expect(elem.closest("a").href).toContain(
+        "query=author%3AMcClure%2C+H.+David.+%28%29"
+      );
     });
   });
 
@@ -59,7 +59,7 @@ describe("Renders Work component when given valid work", () => {
       screen.getByRole("heading", { name: "Featured Edition" })
     ).toBeInTheDocument();
     const featuredEditionHeadings = screen.getAllByRole("heading", {
-      name: "1853 Edition",
+      name: "1967 Edition",
     });
     expect(featuredEditionHeadings.length).toEqual(2);
     featuredEditionHeadings.forEach((heading) => {
@@ -67,15 +67,13 @@ describe("Renders Work component when given valid work", () => {
         (within(heading).getByRole("link") as HTMLLinkElement).href
       ).toContain("/edition");
     });
-    expect(screen.getAllByAltText("Cover for 1853 Edition").length).toBe(2);
+    expect(screen.getAllByAltText("Cover for 1967 Edition").length).toBe(2);
     expect(
       screen.getAllByText(
-        "Published in London by Chapman & Hall British publishing house + 4 more"
+        "Published by Foreign Service Institute, Dept. of State;"
       ).length
     ).toBe(2);
-    expect(
-      screen.getAllByText("Languages: English, German, Undetermined").length
-    ).toBe(2);
+    expect(screen.getAllByText("Languages: English, German").length).toBe(2);
     expect(
       screen.getAllByText("License: Unknown")[0].closest("a").href
     ).toContain("/license");
@@ -85,26 +83,14 @@ describe("Renders Work component when given valid work", () => {
       screen.getByRole("heading", { name: "Details" })
     ).toBeInTheDocument();
   });
-  test("Shows subjects as links to search", () => {
-    expect(screen.getByText("United States").closest("a").href).toContain(
-      "/search"
-    );
-    expect(
-      screen.getByText("Collective settlements").closest("a").href
-    ).toContain("/search");
-    expect(screen.getByText("Collective farms").closest("a").href).toContain(
-      "/search"
-    );
-  });
 });
 
-describe("All Editions Toggle", () => {
+describe("Edition Cards and toggles", () => {
   describe("Work with no showAll query passed", () => {
     beforeEach(() => {
-      const work: WorkResult = { data: apiWork };
       render(
         <MockNextRouterContextProvider>
-          <Work workResult={work} />
+          <Work workResult={apiWork} />
         </MockNextRouterContextProvider>
       );
     });
@@ -115,8 +101,8 @@ describe("All Editions Toggle", () => {
       ) as HTMLInputElement;
       expect(toggle).toBeInTheDocument;
       expect(toggle).toBeChecked();
-      expect(toggle).toBeChecked();
     });
+
     test("clicking the edition toggle sends a new query", () => {
       const toggle = screen.getByLabelText(
         "Show only items currently available online"
@@ -131,24 +117,23 @@ describe("All Editions Toggle", () => {
     });
   });
 
-  describe("Work with showAll=false", () => {
+  describe("Work with showAll=true", () => {
     beforeEach(() => {
-      const work: WorkResult = { data: apiWork };
       render(
-        <MockNextRouterContextProvider routerQuery={{ showAll: "false" }}>
-          <Work workResult={work} />
+        <MockNextRouterContextProvider routerQuery={{ showAll: "true" }}>
+          <Work workResult={apiWork} />
         </MockNextRouterContextProvider>
       );
     });
 
-    test("Edition Toggle defaults to checked", () => {
+    test("Edition Toggle is unchecked", () => {
       const toggle = screen.getByLabelText(
         "Show only items currently available online"
       ) as HTMLInputElement;
       expect(toggle).toBeInTheDocument;
-      expect(toggle).toBeChecked();
-      expect(toggle).toBeChecked();
+      expect(toggle).not.toBeChecked();
     });
+
     test("clicking the edition toggle sends a new query", () => {
       const toggle = screen.getByLabelText(
         "Show only items currently available online"
@@ -158,7 +143,7 @@ describe("All Editions Toggle", () => {
       expect(mockPush).toHaveBeenCalledTimes(1);
       expect(mockPush).toHaveBeenCalledWith({
         pathname: "",
-        query: { showAll: true },
+        query: { showAll: false },
       });
     });
   });

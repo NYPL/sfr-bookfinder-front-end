@@ -1,22 +1,24 @@
 /* eslint-disable camelcase */
 
+import { ApiEdition } from "./EditionQuery";
+
 export type ApiSearchResult = {
   status?: number;
   timestamp?: string;
   responseType?: string;
   data?: {
     totalWorks?: number;
-    facets?: Facet[];
+    facets?: { formats: FacetItem[]; languages: FacetItem[] };
     paging?: {
-      prev_page_sort?: string[];
-      next_page_sort?: string[];
+      currentPage: number;
+      firstPage: number;
+      lastPage: number;
+      nextPage: number;
+      previousPage: number;
+      recordsPerPage: number;
     };
     works?: ApiWork[];
   };
-};
-
-export type Facet = {
-  [key: string]: FacetItem[];
 };
 
 export type FacetItem = { value?: string; count?: number };
@@ -33,31 +35,19 @@ export type Agent = {
 
 //This Instance is from the instances of the Edition endpoint
 export type Instance = {
-  date_modified?: string;
-  date_created?: string;
-  id?: number;
-  title?: string;
-  sort_title?: string;
-  sub_title?: string;
-  edition?: string;
-  edition_statement?: string;
-  volume?: string;
-  table_of_contents?: string;
-  copyright_date?: string;
+  authors?: Agent[];
+  contributors?: Agent[];
+  dates?: Date[];
   extent?: string;
-  summary?: string;
-  work_id?: number;
-  edition_id: number;
-  measurements?: Measurement[];
-  agents?: Agent[];
-  items?: Item[];
-  languages?: Language[];
-  covers?: Cover[];
-  rights?: Rights[];
   identifiers?: Identifier[];
+  instance_id?: number;
+  items?: ApiItem[];
+  languages?: Language[];
   publication_place?: string;
-  pub_date?: string;
-  pub_date_display?: string;
+  publishers?: Agent[];
+  summary?: string;
+  table_of_contents?: string;
+  title?: string;
 };
 
 export type Cover = {
@@ -69,34 +59,32 @@ export type Cover = {
 export type Rights = {
   source?: string;
   license?: string;
-  rights_statement?: string;
-  rights_reason?: string;
-  determination_date_display?: string;
-  copyright_date?: {
-    gte: string;
-    lte: string;
-  };
-  copyright_date_display?: string;
+  rightsStatement?: string;
 };
 
-export type Item = {
-  source?: string;
+export type ApiItem = {
   content_type?: string;
-  modified?: string;
+  contributors?: Agent[];
   drm?: string;
-  rights?: Rights[];
+  item_id?: string;
   links?: ItemLink[];
+  location?: string;
+  modified?: string;
+  measurements?: string;
+  rights?: Rights[];
+  source?: string;
+};
+
+export type EditionCardItem = {
+  readOnlineLink: ItemLink;
+  downloadLink: ItemLink;
+  rights: Rights;
 };
 
 export type ItemLink = {
-  url?: string;
-  media_type?: string;
-  content?: string;
-  thumbnail?: string;
-  local?: boolean;
-  download?: boolean;
-  images?: boolean;
-  ebook?: boolean;
+  link_id: number;
+  mediaType: string;
+  url: string;
 };
 
 export type Language = {
@@ -106,34 +94,39 @@ export type Language = {
 };
 
 export type Identifier = {
-  id_type?: string;
+  authority?: string;
   identifier?: string;
+};
+export type Date = {
+  date: string;
+  type: string;
 };
 
 export type WorkEdition = {
   date_modified?: string;
   date_created?: string;
-  id: number;
+  edition_id?: number;
   publication_place?: string;
   publication_date?: string;
   edition?: string;
   edition_statement?: string;
   languages?: Language[];
+  links?: ItemLink[];
   volume?: string;
   table_of_contents?: string;
   extent?: string;
   summary?: string;
   work_id?: number;
   agents?: Agent[];
-  items?: Item[];
-  covers?: Cover[];
+  publishers?: Agent[];
+  items?: ApiItem[];
   work_uuid?: string;
 };
 
 export type Subject = {
-  subject?: string;
+  heading?: string;
   authority?: string;
-  uri?: string;
+  controlNo?: string;
 };
 
 export type Measurement = {
@@ -143,26 +136,27 @@ export type Measurement = {
   taken_at?: string;
 };
 
+export type Author = {
+  lcnaf?: string;
+  name?: string;
+  primary?: string;
+  viaf?: string;
+};
+
 export type ApiWork = {
-  date_modified?: string;
-  date_created?: string;
-  id?: number;
-  uuid?: string;
-  title?: string;
-  sort_title?: string;
-  sub_title?: string;
+  alt_titles?: string[];
+  authors?: Author[];
+  contributors?: string[];
+  dates?: Date[];
+  editions?: ApiEdition[];
+  edition_count?: number;
+  languages?: Language[];
+  measurements?: string[];
   medium?: string;
   series?: string;
-  series_position?: number;
-  edition_count?: number;
-  edition_range?: string;
-  sort?: string[];
-  agents?: Agent[];
-  alt_titles?: string[];
-  instances?: Instance[];
-  languages?: Language[];
-  editions?: WorkEdition[];
-  identifiers?: Identifier[];
+  series_position?: string;
+  sub_title?: string;
   subjects?: Subject[];
-  measurements?: Measurement[];
+  title?: string;
+  uuid?: string;
 };

@@ -5,7 +5,13 @@ module.exports = {
   moduleNameMapper: {
     "^~(.*)$": "<rootDir>$1",
   },
-  testPathIgnorePatterns: ["<rootDir>/.next/", "<rootDir>/node_modules/", "testUtils", "componentHelpers"],
+  testPathIgnorePatterns: [
+    "<rootDir>/.next/",
+    "<rootDir>/node_modules/",
+    "testUtils",
+    "fixtures",
+    "componentHelpers",
+  ],
   setupFilesAfterEnv: ["./jest.setup.ts"],
   snapshotSerializers: ["enzyme-to-json/serializer"],
   resetMocks: true,

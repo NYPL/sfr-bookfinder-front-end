@@ -1,25 +1,23 @@
 const Subjects = [
   {
     text: "Subject: Sub-saharan Africa",
-    url:
-      '/search?queries=[{"query"%3A"Sub-Saharan Africa"%2C"field"%3A"subject"}]',
+    url: '/search?query=subject:"Sub-Saharan Africa"',
   },
   {
     text: "Keyword: climate change",
-    url: '/search?queries=[{"query"%3A"Climate Change"%2C"field"%3A"keyword"}]',
+    url: '/search?query=keyword:"climate change"',
   },
   {
     text: "Title: New York City",
-    url: '/search?queries=[{"query"%3A"New York City"%2C"field"%3A"title"}]',
+    url: '/search?query=title:"New York City"',
   },
   {
     text: "Author: Corelli, Marie",
-    url:
-      '/search?queries=[{"query"%3A"Corellli%2C Marie"%2C"field"%3A"author"}]',
+    url: '/search?query=author:"Corelli, Marie"',
   },
   {
     text: "Keyword: cookbooks",
-    url: '/search?queries=[{"query"%3A"cookbooks"%2C"field"%3A"keyword"}]',
+    url: '/search?query=keyword:"cookbooks"',
   },
 ];
 export default Subjects;

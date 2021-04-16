@@ -1,12 +1,12 @@
 import { within } from "@testing-library/react";
 import { FacetItem } from "~/src/types/DataModel";
+import { ApiLanguage } from "~/src/types/LanguagesQuery";
 import { Filter } from "~/src/types/SearchQuery";
 
 export const FilterLanguagesCommonTests = (
   screen,
   languages: FacetItem[],
   showCount: boolean,
-  useMobile: boolean,
   selectedLanguages?: Filter[]
 ) => {
   // test("Language Filter appears", () => {
@@ -23,15 +23,15 @@ export const FilterLanguagesCommonTests = (
     const languageGroup = screen.getByRole("group", { name: "Languages" });
     expect(languageGroup).toBeVisible();
 
-    languages.forEach((lang) => {
+    languages.forEach((lang: ApiLanguage) => {
       const isSelected =
         selectedLanguages &&
         selectedLanguages.find((filter) => {
-          return filter.value === lang.value;
+          return filter.value === lang.language;
         });
       const labelText = showCount
-        ? `${lang.value} (${lang.count})`
-        : lang.value;
+        ? `${lang.language} (${lang.count})`
+        : lang.language;
       if (isSelected) {
         expect(
           within(languageGroup).getByRole("checkbox", {

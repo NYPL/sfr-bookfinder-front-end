@@ -1,12 +1,8 @@
 import React from "react";
-import FeatureFlags from "dgx-feature-flags";
 
 // Given a link ensure that it has an attached protocol and add https if none is found
 export const formatUrl = (link: any) =>
   link.startsWith("http") ? link : `https://${link}`;
-
-export const getNumberOfPages = (totalItems: any, perPage: any) =>
-  Math.floor((Number(totalItems || 0) - 1) / Number(perPage || 10)) || 1;
 
 // Given an array of JSX elements, return JSX that joins them with the Joiner.
 export const joinArrayOfElements = (array: any, joiner: any) => {
@@ -73,24 +69,24 @@ export const uniqueAndSortByFrequency = (array: any) => {
   return uniques.sort(compareFrequency);
 };
 
-/**
- * checkFeatureFlagActivated(featureFlagList, componentStateObject)
- * Check if the feature flags have been set. If they have not, activate the function to check
- * if the related cookies are set.
- * @param {string[]} featureFlagList - The list of the feature flags we want to set.
- * @param {object} componentStateObject - The object that points to the state object of
- * the component. The feature flag will change the state of the component through it.
- */
-export const checkFeatureFlagActivated = (
-  featureFlagList: any,
-  componentStateObject: any
-) => {
-  featureFlagList.forEach((item: any) => {
-    if (!componentStateObject[item]) {
-      FeatureFlags.utils.activateFeature(item);
-    }
-  });
-};
+// /**
+//  * checkFeatureFlagActivated(featureFlagList, componentStateObject)
+//  * Check if the feature flags have been set. If they have not, activate the function to check
+//  * if the related cookies are set.
+//  * @param {string[]} featureFlagList - The list of the feature flags we want to set.
+//  * @param {object} componentStateObject - The object that points to the state object of
+//  * the component. The feature flag will change the state of the component through it.
+//  */
+// export const checkFeatureFlagActivated = (
+//   featureFlagList: any,
+//   componentStateObject: any
+// ) => {
+//   featureFlagList.forEach((item: any) => {
+//     if (!componentStateObject[item]) {
+//       FeatureFlags.utils.activateFeature(item);
+//     }
+//   });
+// };
 
 /**
  * truncateStringOnWhitespace(str, maxLength)
@@ -115,7 +111,6 @@ export const truncateStringOnWhitespace = (str: any, maxLength: any) => {
 
 export default {
   formatUrl,
-  getNumberOfPages,
   unique,
   flattenDeep,
   isEmpty,

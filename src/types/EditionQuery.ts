@@ -13,7 +13,7 @@ export type EditionResult = {
 };
 
 export type ApiEdition = {
-  id?: number;
+  edition_id?: number;
   publication_place?: string;
   publication_date?: string;
   edition?: string;
@@ -24,7 +24,7 @@ export type ApiEdition = {
   summary?: string;
   work_id?: number;
   languages?: Language[];
-  agents?: Agent[];
+  publishers?: Agent[];
   work_uuid?: string;
   instances?: Instance[];
   title?: string;

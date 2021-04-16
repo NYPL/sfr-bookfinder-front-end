@@ -3,6 +3,7 @@
 ## PRERELEASE
 
 - Refactors app to use NextJS, NYPL Design System, Typescript
+- Refactors app to use API v4
 - Adds integration tests to landing and search pages
 
 ## [0.9.3]

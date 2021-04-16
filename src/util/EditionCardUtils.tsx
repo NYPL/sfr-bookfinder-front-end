@@ -1,22 +1,23 @@
 import React from "react";
 import {
   Agent,
-  Cover,
   Instance,
-  Item,
+  ApiItem,
   ItemLink,
-  Rights,
+  Language,
   WorkEdition,
+  Identifier,
 } from "../types/DataModel";
 import * as DS from "@nypl/design-system-react-components";
 import Link from "~/src/components/Link/Link";
 import { formatUrl, truncateStringOnWhitespace } from "./Util";
 import {
+  MAX_PLACE_LENGTH,
   MAX_PUBLISHER_NAME_LENGTH,
   MAX_SUBTITILE_LENGTH,
-  MAX_TITLE_LENGTH,
   PLACEHOLDER_COVER_LINK,
 } from "../constants/editioncard";
+import { MediaTypes } from "../constants/mediaTypes";
 
 // EditionCard holds all the methods needed to build an Edition Card
 export default class EditionCardUtils {
@@ -39,24 +40,7 @@ export default class EditionCardUtils {
     return preferredAgents ? [preferredAgents] : undefined;
   }
 
-  // Edition Year
-  static editionYearElem(edition: WorkEdition) {
-    const editionDisplay = EditionCardUtils.editionYearText(edition);
-    const editionElem = edition ? (
-      <Link
-        to={{
-          pathname: `/edition/${edition.id}`,
-        }}
-      >
-        {editionDisplay}
-      </Link>
-    ) : (
-      <>{editionDisplay}</>
-    );
-    return editionElem;
-  }
-
-  static editionYearText(edition: any) {
+  static editionYearText(edition: WorkEdition) {
     return edition && edition.publication_date
       ? `${edition.publication_date} Edition`
       : "Edition Year Unknown";
@@ -69,37 +53,11 @@ export default class EditionCardUtils {
     } else {
       moreText = ` + ${array.length - 1} more`;
     }
-    return `${array[0]}${moreText}`;
-  }
 
-  // Title
-  static generateTitleLinkElem(work: any) {
-    const displayTitle = EditionCardUtils.generateDisplayTitle(work);
-    return (
-      <Link
-        to={{
-          pathname: `/work/${work.uuid}`,
-          query: {
-            recordType: "editions",
-            showAll: true,
-          },
-        }}
-        title={displayTitle}
-        className="link link--no-underline"
-      >
-        {displayTitle}
-      </Link>
-    );
-  }
-
-  static generateDisplayTitle(title: string | undefined): string {
-    let displayTitle;
-    if (!title) {
-      displayTitle = "Title Unknown";
-    } else {
-      displayTitle = truncateStringOnWhitespace(title, MAX_TITLE_LENGTH);
-    }
-    return displayTitle;
+    return `${truncateStringOnWhitespace(
+      array[0],
+      MAX_PUBLISHER_NAME_LENGTH
+    )}${moreText}`;
   }
 
   // Subtitle
@@ -118,40 +76,26 @@ export default class EditionCardUtils {
     );
   }
 
-  static getLinkToAuthorSearch(author: Agent) {
-    return {
-      queries: JSON.stringify([
-        {
-          query: author[EditionCardUtils.getAuthorIdentifier(author)[0]],
-          field: EditionCardUtils.getAuthorIdentifier(author)[1],
-        },
-      ]),
-      showQueries: JSON.stringify([{ query: author.name, field: "author" }]),
-    };
-  }
-
-  static getAuthorsList(agents: Agent[], linkKeyPrefix: string): JSX.Element[] {
-    if (!agents || !agents.length) return null;
-    return agents.map((authorAgent: Agent, i: number) => {
-      const authorLinkText = authorAgent.name;
+  static getAuthorsList(authors: Agent[]): JSX.Element[] {
+    if (!authors || authors.length === 0) return null;
+    return authors.map((author: Agent, i: number) => {
+      const authorLinkText = author.name;
       return (
         <React.Fragment
-          key={
-            authorAgent.viaf
-              ? `${linkKeyPrefix}-${authorAgent.viaf}`
-              : `${linkKeyPrefix}-${authorAgent.name}`
-          }
+          key={author.viaf ? `author-${author.viaf}` : `author-${author.name}`}
         >
           <Link
             to={{
               pathname: "/search",
-              query: EditionCardUtils.getLinkToAuthorSearch(authorAgent),
+              query: {
+                query: `author:${author.name}`,
+              },
             }}
             className="link"
           >
             {authorLinkText}
           </Link>
-          {i < agents.length && ", "}
+          {i < authors.length - 1 && ", "}
         </React.Fragment>
       );
     });
@@ -162,15 +106,12 @@ export default class EditionCardUtils {
    * @returns The URL of the cover that should be displayed.
    */
 
-  static getCover(covers: Cover[]): string {
-    if (!covers || !covers.length) return PLACEHOLDER_COVER_LINK;
-
-    const firstLocalCover = covers.find(
-      (cover: Cover) => cover.flags.temporary === false
-    );
-    return firstLocalCover
-      ? formatUrl(firstLocalCover.url)
-      : PLACEHOLDER_COVER_LINK;
+  static getCover(links: ItemLink[]): string {
+    if (!links || links.length === 0) return PLACEHOLDER_COVER_LINK;
+    const coverLink = links.find((link) => {
+      return MediaTypes.display.includes(link.mediaType);
+    });
+    return coverLink ? formatUrl(coverLink.url) : PLACEHOLDER_COVER_LINK;
   }
 
   /**
@@ -181,34 +122,24 @@ export default class EditionCardUtils {
    */
   static getPublisherAndLocation(
     pubPlace: string,
-    agents: Agent[]
+    publishers: Agent[]
   ): JSX.Element {
     const publisherDisplayLocation = (pubPlace: string) => {
-      return pubPlace ? ` in ${pubPlace}` : "";
+      return pubPlace
+        ? ` in ${truncateStringOnWhitespace(pubPlace, MAX_PLACE_LENGTH)}`
+        : "";
     };
 
-    const publisherDisplayText = (agents: Agent[]) => {
-      if (!agents) return "";
-      const preferredAgents = EditionCardUtils.getPreferredAgent(
-        agents,
-        "publisher"
+    const publisherDisplayText = (publishers: Agent[]) => {
+      if (!publishers || publishers.length === 0) return "";
+      const publisherNames = publishers.map(
+        (pubAgent: Agent) => pubAgent && pubAgent.name
       );
-      if (!preferredAgents) return "";
-      const publisherNames = preferredAgents.map(
-        (pubAgent: any) => pubAgent.name
-      );
-      const publisherText = ` by ${EditionCardUtils.getFirstAndCountMore(
-        publisherNames
-      )}`;
-
-      return truncateStringOnWhitespace(
-        publisherText,
-        MAX_PUBLISHER_NAME_LENGTH
-      );
+      return ` by ${EditionCardUtils.getFirstAndCountMore(publisherNames)}`;
     };
 
     const displayLocation = publisherDisplayLocation(pubPlace);
-    const displayName = publisherDisplayText(agents);
+    const displayName = publisherDisplayText(publishers);
     if (!displayLocation && !displayName)
       return <>Publisher and Location Unknown</>;
     const publisherText = `Published${displayLocation}${displayName}`;
@@ -223,8 +154,10 @@ export default class EditionCardUtils {
       previewEdition.languages.length
     ) {
       const languagesTextList = previewEdition.languages
-        .filter((lang: any) => lang.language)
-        .map((lang: any) => lang.language);
+        .filter((lang: Language) => {
+          return lang && lang.language;
+        })
+        .map((lang: Language) => lang.language);
       if (languagesTextList && languagesTextList.length) {
         const languageText = `Languages: ${languagesTextList.join(", ")}`;
         return <>{languageText}</>;
@@ -234,77 +167,36 @@ export default class EditionCardUtils {
   }
 
   // Rights
-  static getLicense(rights: Rights[]) {
-    return rights && rights.length
-      ? `License: ${rights[0].rights_statement}`
+  static getLicense(item: ApiItem) {
+    return item && item.rights && item.rights.length > 0
+      ? `License: ${item.rights[0].rightsStatement}`
       : "License: Unknown";
   }
 
-  static getReadOnlineLink = (editionId: number, item: Item) => {
-    const getEmbeddedReadLink = (item: Item) => {
+  // The button should say "Read Online" if the media type is "read" or "embed"
+  static getReadOnlineLink = (item: ApiItem) => {
+    const getReadLink = (item: ApiItem, mediaType: string) => {
       if (!item || !item.links) return undefined;
-      const selectedLink = item.links.find(
-        (link: ItemLink) => !link.local && !link.download
+      const mediaTypes =
+        mediaType === "read" ? MediaTypes.read : MediaTypes.embed;
+      const selectedLink = item.links.find((link: ItemLink) =>
+        mediaTypes.includes(link.mediaType)
       );
       return selectedLink;
     };
 
-    //The local read link is locally hosted and should be read via webpub viewer.
-    const getLocalReadLink = (item: Item) => {
-      if (!item || !item.links) return undefined;
-      //handle error
-      const selectedLink = item.links.find(
-        (link: ItemLink) =>
-          link.local && link.media_type === "application/epub+xml"
-      );
-      return selectedLink;
-    };
+    const localLink = getReadLink(item, "read");
+    const embeddedLink = getReadLink(item, "embed");
 
-    const localLink = getLocalReadLink(item);
-    const embeddedLink = getEmbeddedReadLink(item);
-
-    if (localLink) {
+    //Prefer local link over embedded link
+    const readOnlineLink = localLink ? localLink : embeddedLink;
+    if (readOnlineLink) {
       return (
         <Link
           to={{
-            pathname: `/edition/${editionId}/read-local/${encodeURIComponent(
-              localLink.url
-            )}`,
+            pathname: `/read/${readOnlineLink.link_id}`,
           }}
           linkType={DS.LinkTypes.Button}
-          //TODO: Tracking
-          // onClick={() =>
-          //   gaUtils.trackGeneralEvent(
-          //     "Read Online",
-          //     item.source,
-          //     editionWithTitle.title,
-          //     ""
-          //   )
-          // }
-        >
-          Read Online
-        </Link>
-      );
-    }
-
-    if (embeddedLink) {
-      return (
-        <Link
-          to={{
-            pathname: `/edition/${editionId}/read-embed/${encodeURIComponent(
-              embeddedLink.url
-            )}`,
-          }}
-          linkType={DS.LinkTypes.Button}
-          //TODO: Tracking
-          // onClick={() =>
-          //   gaUtils.trackGeneralEvent(
-          //     "Read Online",
-          //     item.source,
-          //     editionWithTitle.title,
-          //     ""
-          //   )
-          // }
         >
           Read Online
         </Link>
@@ -315,25 +207,16 @@ export default class EditionCardUtils {
   };
 
   // eslint-disable-next-line consistent-return
-  static getDownloadLink(editionItem: Item) {
+  static getDownloadLink(editionItem: ApiItem) {
     if (!editionItem || !editionItem.links) return undefined;
-    const selectedLink = editionItem.links.find((link: any) => link.download);
+    const selectedLink = editionItem.links.find((link: ItemLink) =>
+      MediaTypes.download.includes(link.mediaType)
+    );
 
     if (selectedLink && selectedLink.url) {
       return (
         <DS.Link type={DS.LinkTypes.Action}>
-          {/* TODO: append env */}
-          <a
-            href={`${formatUrl(selectedLink.url)}`}
-            // onClick={() =>
-            //   gaUtils.trackGeneralEvent(
-            //     "Download",
-            //     editionItem.source,
-            //     work.title,
-            //     ""
-            //   )
-            // }
-          >
+          <a href={`${formatUrl(selectedLink.url)}`}>
             <DS.Icon
               name={DS.IconNames.download}
               blockName="more-link"
@@ -359,10 +242,12 @@ export default class EditionCardUtils {
     const oclc =
       instance && instance.identifiers
         ? instance.identifiers.find(
-            (identifier: any) => identifier.id_type === "oclc"
-          ).identifier
+            (identifier: Identifier) => identifier.authority === "oclc"
+          )
         : undefined;
-    const oclcLink = oclc ? `https://www.worldcat.org/oclc/${oclc}` : undefined;
+    const oclcLink = oclc
+      ? `https://www.worldcat.org/oclc/${oclc.identifier}`
+      : undefined;
     return oclc ? (
       <a href={oclcLink} className="link">
         Find in a library

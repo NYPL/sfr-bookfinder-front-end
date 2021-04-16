@@ -1,20 +1,16 @@
-import React, { MutableRefObject, useRef, useState } from "react";
+import React, { useState } from "react";
 import * as DS from "@nypl/design-system-react-components";
 import { useRouter } from "next/router";
 import { searchFields } from "~/src/constants/fields";
 import { ApiSearchResult, ApiWork, FacetItem } from "~/src/types/DataModel";
-import { getNumberOfPages } from "~/src/util/Util";
 import {
-  DateRange,
   Filter,
   SearchQuery,
   SearchQueryDefaults,
 } from "~/src/types/SearchQuery";
 import { sortMap } from "~/src/constants/sorts";
 import ResultsList from "../ResultsList/ResultsList";
-import { searchResultsFetcher } from "~/src/lib/api/SearchApi";
-import { toLocationQuery } from "~/src/util/SearchUtils";
-import { toApiQuery } from "~/src/util/apiConversion";
+import { toLocationQuery, toApiQuery } from "~/src/util/apiConversion";
 import Filters from "../ResultsFilters/ResultsFilters";
 import ResultsSorts from "../ResultsSorts/ResultsSorts";
 import { breadcrumbTitles } from "~/src/constants/labels";
@@ -24,23 +20,13 @@ const SearchResults: React.FC<{
   searchQuery: SearchQuery;
   searchResults: ApiSearchResult;
 }> = (props) => {
+  const searchResults = props.searchResults;
   const [searchQuery, setSearchQuery] = useState({
     ...SearchQueryDefaults,
     ...props.searchQuery,
   });
 
-  const [searchResults, setSearchResults] = useState(props.searchResults);
-
-  // const [isMobile, setMobile] = useState(window.innerWidth < breakpoints.large);
   const [isModalOpen, setModalOpen] = useState(false);
-
-  // Because the forms submit on input change, we must call submit via a ref
-  const filterForm: MutableRefObject<HTMLFormElement> = useRef<HTMLFormElement>(
-    null
-  );
-  const sortForm: MutableRefObject<HTMLFormElement> = useRef<HTMLFormElement>(
-    null
-  );
 
   const router = useRouter();
 
@@ -49,8 +35,6 @@ const SearchResults: React.FC<{
       pathname: "/search",
       query: toLocationQuery(toApiQuery(searchQuery)),
     });
-    const searchResults = await searchResultsFetcher(toApiQuery(searchQuery));
-    setSearchResults(searchResults);
   };
 
   const getDisplayItemsHeading = (searchQuery: SearchQuery) => {
@@ -70,55 +54,36 @@ const SearchResults: React.FC<{
   const getAvailableLanguages = (
     searchResults: ApiSearchResult
   ): FacetItem[] => {
-    //TODO Error handling
     const facets: FacetItem[] =
       searchResults &&
       searchResults.data.facets &&
-      searchResults.data.facets["language"];
+      searchResults.data.facets["languages"];
 
     return facets;
   };
 
   const getFilterCount = (searchQuery: SearchQuery) => {
-    let filterCount = 0;
-
-    if (searchQuery.filterYears) {
-      if (searchQuery.filterYears.start) {
-        filterCount += 1;
-      }
-
-      if (searchQuery.filterYears.end) {
-        filterCount += 1;
-      }
-    }
-    if (searchQuery.showAll !== SearchQueryDefaults.showAll) {
-      filterCount += 1;
-    }
-    if (searchQuery.filters) {
-      filterCount += searchQuery.filters.length;
-    }
-    return filterCount;
+    return searchQuery.showAll !== SearchQueryDefaults.showAll
+      ? searchQuery.filters.length + 1
+      : searchQuery.filters.length;
   };
 
   const filterCount = getFilterCount(searchQuery);
   const numberOfWorks = searchResults.data.totalWorks;
   const works: ApiWork[] = searchResults.data.works;
 
-  const totalPages = getNumberOfPages(numberOfWorks, searchQuery.perPage);
+  const searchPaging = searchResults.data.paging;
   const firstElement =
-    Number(searchQuery.perPage || 10) * Number(searchQuery.page || 0) + 1;
-  let lastElement =
-    Number(searchQuery.perPage || 10) * (Number(searchQuery.page || 0) + 1) ||
-    10;
-  if (searchQuery.page >= totalPages - 1 && lastElement > numberOfWorks) {
-    lastElement = numberOfWorks;
-  }
+    (searchPaging.currentPage - 1) * searchPaging.recordsPerPage + 1;
+  const lastElement =
+    searchQuery.page <= searchPaging.lastPage
+      ? searchPaging.currentPage * searchPaging.recordsPerPage
+      : numberOfWorks;
 
-  const changeFilters = (newFilters?: Filter[], newDateRange?: DateRange) => {
+  const changeFilters = (newFilters?: Filter[]) => {
     const newSearchQuery: SearchQuery = {
       ...searchQuery,
       ...(newFilters && { filters: newFilters }),
-      ...(newDateRange && { filterYears: newDateRange }),
     };
     setSearchQuery(newSearchQuery);
     sendSearchQuery(newSearchQuery);
@@ -150,7 +115,6 @@ const SearchResults: React.FC<{
 
   const onChangeSort = (e) => {
     e.preventDefault();
-
     if (
       e.target.value !==
       Object.keys(sortMap).find((key) => sortMap[key] === searchQuery.sort)
@@ -197,7 +161,6 @@ const SearchResults: React.FC<{
               hidden
               className="sort-form search-widescreen-show"
               name="sortForm"
-              ref={sortForm}
             >
               <ResultsSorts
                 perPage={searchQuery.perPage}
@@ -227,18 +190,17 @@ const SearchResults: React.FC<{
         }
         hidden
       >
-        <form className="search-filter" ref={filterForm}>
+        <form className="search-filter">
           <DS.Heading level={2} id="filter-desktop-header">
             Refine Results
           </DS.Heading>
           <hr />
           <Filters
             filters={searchQuery.filters}
-            filterYears={searchQuery.filterYears}
             showAll={searchQuery.showAll}
             languages={getAvailableLanguages(searchResults)}
-            changeFilters={(filters?: Filter[], filterYears?: DateRange) => {
-              changeFilters(filters, filterYears);
+            changeFilters={(filters: Filter[]) => {
+              changeFilters(filters);
             }}
             changeShowAll={(showAll: boolean) => {
               changeShowAll(showAll);
@@ -272,20 +234,16 @@ const SearchResults: React.FC<{
                 onChangeSort={(e) => onChangeSort(e)}
               />
             </div>
-            <form name="filterForm" ref={filterForm}>
+            <form name="filterForm">
               <DS.Heading level={2} id="filter-desktop-header">
                 Refine Results
               </DS.Heading>
               <Filters
                 filters={searchQuery.filters}
-                filterYears={searchQuery.filterYears}
                 showAll={searchQuery.showAll}
                 languages={getAvailableLanguages(searchResults)}
-                changeFilters={(
-                  filters?: Filter[],
-                  filterYears?: DateRange
-                ) => {
-                  changeFilters(filters, filterYears);
+                changeFilters={(filters: Filter[]) => {
+                  changeFilters(filters);
                 }}
                 changeShowAll={(showAll: boolean) => {
                   changeShowAll(showAll);
@@ -297,7 +255,7 @@ const SearchResults: React.FC<{
 
         <div className="content-bottom">
           <DS.Pagination
-            pageCount={getNumberOfPages(numberOfWorks, searchQuery.perPage)}
+            pageCount={searchPaging.lastPage ? searchPaging.lastPage : 1}
             currentPage={searchQuery.page}
             onPageChange={(e) => onPageChange(e)}
           />

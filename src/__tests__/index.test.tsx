@@ -44,7 +44,7 @@ describe("Renders Index Page", () => {
     Subjects.forEach((sub) => {
       expect(screen.getByText(sub.text)).toBeInTheDocument();
       expect(screen.getByText(sub.text).closest("a").href).toContain(
-        "/search?queries="
+        "/search?query="
       );
     });
   });

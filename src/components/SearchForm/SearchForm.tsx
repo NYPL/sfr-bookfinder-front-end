@@ -8,8 +8,7 @@ import {
   SearchQueryDefaults,
 } from "~/src/types/SearchQuery";
 import { errorMessagesText } from "~/src/constants/labels";
-import { toLocationQuery } from "~/src/util/SearchUtils";
-import { toApiQuery } from "~/src/util/apiConversion";
+import { toLocationQuery, toApiQuery } from "~/src/util/apiConversion";
 
 const SearchForm: React.FC<{
   searchQuery?: SearchQuery;

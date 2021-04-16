@@ -2,7 +2,6 @@ import React from "react";
 
 import Layout from "~/src/components/Layout/Layout";
 import Search from "../../components/Search/Search";
-import { parseLocationQuery } from "../../util/SearchUtils";
 import { ApiSearchQuery } from "../../types/SearchQuery";
 import { searchResultsFetcher } from "../../lib/api/SearchApi";
 import { toSearchQuery } from "~/src/util/apiConversion";
@@ -10,14 +9,12 @@ import { toSearchQuery } from "~/src/util/apiConversion";
 export async function getServerSideProps(context: any) {
   // Get Query from location
   const searchQuery: ApiSearchQuery = context.query;
+  const searchResults = await searchResultsFetcher(searchQuery);
+  const convertedQuery = toSearchQuery(searchQuery);
 
-  const parsedQuery = parseLocationQuery(searchQuery);
-
-  // Fetch first set of search results
-  const searchResults = await searchResultsFetcher(parsedQuery);
   return {
     props: {
-      searchQuery: toSearchQuery(parsedQuery),
+      searchQuery: convertedQuery,
       searchResults: searchResults,
     },
   };

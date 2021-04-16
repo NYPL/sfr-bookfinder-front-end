@@ -1,9 +1,9 @@
 import React from "react";
 
-import { Instance } from "~/src/types/DataModel";
+import { Instance, WorkEdition } from "~/src/types/DataModel";
 import * as DS from "@nypl/design-system-react-components";
-import Link from "../Link/Link";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
+import Link from "../Link/Link";
 
 // Creates an Instance card out of the Edition Year and Instance object
 // Note: Edition Year only needs to be passed because `instance.publication_date`
@@ -11,31 +11,30 @@ import EditionCardUtils from "~/src/util/EditionCardUtils";
 // the way that Edition.publication_year is.
 
 export const InstanceCard: React.FC<{
-  editionYear?: string;
+  edition: WorkEdition;
   instance: Instance;
 }> = (props) => {
+  const edition = props.edition;
   const instance: Instance = props.instance;
   const previewItem =
     instance && instance.items ? instance.items[0] : undefined;
 
-  const readOnlineLink = EditionCardUtils.getReadOnlineLink(
-    instance.edition_id,
-    previewItem
-  );
-
+  const readOnlineLink = EditionCardUtils.getReadOnlineLink(previewItem);
   const downloadLink = EditionCardUtils.getDownloadLink(previewItem);
 
   return (
     <DS.Card
-      id={`card-${instance.id}`}
+      id={`card-${instance.instance_id}`}
       heading={
         <DS.Heading level={3}>
-          {props.editionYear ? props.editionYear : "Edition Year Unknown"}
+          {edition.publication_date
+            ? edition.publication_date
+            : "Edition Year Unknown"}
         </DS.Heading>
       }
       image={
         <DS.Image
-          src={EditionCardUtils.getCover(instance.covers)}
+          src={EditionCardUtils.getCover(edition.links)}
           alt={"Cover"}
         ></DS.Image>
       }
@@ -54,11 +53,11 @@ export const InstanceCard: React.FC<{
       <div>
         {EditionCardUtils.getPublisherAndLocation(
           instance.publication_place,
-          instance.agents
+          instance.publishers
         )}
       </div>
       <div>{EditionCardUtils.getWorldCatElem(instance)}</div>
-      <Link to="/license">{EditionCardUtils.getLicense(instance.rights)}</Link>
+      <Link to="/license">{EditionCardUtils.getLicense(previewItem)}</Link>
     </DS.Card>
   );
 };

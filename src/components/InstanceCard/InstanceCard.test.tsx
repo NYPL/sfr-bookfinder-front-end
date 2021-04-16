@@ -2,65 +2,57 @@ import React from "react";
 import { InstanceCard } from "./InstanceCard";
 import "@testing-library/jest-dom/extend-expect";
 import { screen, render } from "@testing-library/react";
-import { Instance } from "~/src/types/DataModel";
+import { Instance, WorkEdition } from "~/src/types/DataModel";
 import { PLACEHOLDER_COVER_LINK } from "~/src/constants/editioncard";
+import { fullEdition } from "~/src/__tests__/fixtures/EditionCardFixture";
 
 describe("Instance Card with Valid Data", () => {
   const fullInstance: Instance = {
-    id: 12345,
-    edition_id: 1189584,
-    covers: [
-      { url: "test-cover", media_type: "img/jpeg", flags: { temporary: true } },
-      {
-        url: "test-cover-2",
-        media_type: "img/jpeg",
-        flags: { temporary: false },
-      },
-    ],
-    rights: [
-      {
-        license: "license content",
-        rights_statement: "test rights statement",
-      },
-    ],
-    agents: [{ name: "publisher_1", roles: ["publisher"] }],
+    instance_id: 12345,
+    publishers: [{ name: "publisher_1", roles: ["publisher"] }],
     publication_place: "Paris",
     items: [
       {
         links: [
           {
             url: "test-link-url",
-            local: true,
-            media_type: "application/epub+xml",
+            link_id: 12,
+            mediaType: "application/epub+xml",
           },
           {
             url: "test-link-url-2",
-            download: true,
-            media_type: "application/epub+xml",
+            link_id: 23,
+            mediaType: "application/epub+zip",
+          },
+        ],
+        rights: [
+          {
+            license: "license content",
+            rightsStatement: "test rights statement",
           },
         ],
       },
     ],
     identifiers: [
       {
-        id_type: "ddc",
+        authority: "ddc",
         identifier: "300",
       },
       {
-        id_type: "oclc",
+        authority: "oclc",
         identifier: "1014189544",
       },
       {
-        id_type: "oclc",
+        authority: "oclc",
         identifier: "1030816762",
       },
     ],
   };
   beforeEach(() => {
-    render(<InstanceCard editionYear="2000" instance={fullInstance} />);
+    render(<InstanceCard edition={fullEdition} instance={fullInstance} />);
   });
   test("Shows year as header", () => {
-    expect(screen.getByRole("heading", { name: "2000" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "1990" })).toBeInTheDocument();
   });
   test("Shows full publisher", () => {
     expect(
@@ -74,7 +66,7 @@ describe("Instance Card with Valid Data", () => {
   });
   test("Shows cover", () => {
     expect(screen.getByAltText("Cover").closest("img").src).toEqual(
-      "https://test-cover-2/"
+      "https://test-cover/"
     );
   });
   test("shows license", () => {
@@ -85,12 +77,14 @@ describe("Instance Card with Valid Data", () => {
 });
 
 describe("Instance Card with Minmal Data", () => {
-  const emptyInstance: Instance = {
-    id: 12345,
+  const emptyEdition: WorkEdition = {
     edition_id: 1189584,
   };
+  const emptyInstance: Instance = {
+    instance_id: 12345,
+  };
   beforeEach(() => {
-    render(<InstanceCard instance={emptyInstance} />);
+    render(<InstanceCard edition={emptyEdition} instance={emptyInstance} />);
   });
   test("Shows year as header", () => {
     expect(

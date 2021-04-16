@@ -1,10 +1,6 @@
 /* eslint-env mocha */
 import React from "react";
-import {
-  ApiSearchQuery,
-  DateRange,
-  SearchQuery,
-} from "~/src/types/SearchQuery";
+import { ApiSearchQuery, SearchQuery } from "~/src/types/SearchQuery";
 import { toApiQuery, toSearchQuery } from "../apiConversion";
 
 // Use require instead of import so that it will cast correctly to `ApiSearchQuery`
@@ -20,12 +16,18 @@ const emptyApiQuery: ApiSearchQuery = require("../../__tests__/fixtures/search-q
  */
 
 const searchQuery: SearchQuery = {
-  filterYears: { end: 2000, start: 1800 },
-  filters: [{ field: "language", value: "Spanish" }],
-  page: 0,
-  perPage: 10,
-  queries: [{ field: "keyword", query: '"Civil War" OR Lincoln' }],
-  showAll: false,
+  filters: [
+    { field: "language", value: "Spanish" },
+    { field: "startYear", value: "1800" },
+    { field: "endYear", value: "2000" },
+  ],
+  page: 3,
+  perPage: 20,
+  queries: [
+    { field: "keyword", query: '"Civil War" OR Lincoln' },
+    { field: "author", query: "last, first" },
+  ],
+  showAll: true,
   sort: { dir: "asc", field: "title" },
 };
 
@@ -35,45 +37,33 @@ describe("Converting api query to search query", () => {
   });
 
   test("Takes the first filterYears value when passed more than one year filter", () => {
-    const searchQueryExtraYears = Object.assign({}, apiQuery, {
+    const apiQueryExtrayears = Object.assign({}, apiQuery, {
+      filter: apiQuery.filter + ",startYear:1900,endYear:2010",
+    });
+
+    const searchQueryExtraYears = Object.assign({}, searchQuery, {
       filters: [
-        ...apiQuery.filters,
-        { field: "years", value: { start: "1900", end: "2010" } },
+        ...searchQuery.filters,
+        { field: "startYear", value: "1900" },
+        { field: "endYear", value: "2010" },
       ],
     });
-    expect(toSearchQuery(searchQueryExtraYears).filterYears).toEqual(
-      searchQuery.filterYears
-    );
-  });
 
-  test("Takes the first show_all value when passed more than one show_all", () => {
-    const searchQueryExtraShowAll = Object.assign({}, apiQuery, {
-      filters: [...apiQuery.filters, { field: "show_all", value: true }],
-    });
-    expect(toSearchQuery(searchQueryExtraShowAll).showAll).toEqual(
-      searchQuery.showAll
+    expect(toSearchQuery(apiQueryExtrayears).filters).toEqual(
+      searchQueryExtraYears.filters
     );
   });
 
   test("Converts all 'format' and 'language' filters", () => {
     const apiQueryExtraFilters = Object.assign({}, apiQuery, {
-      filters: [
-        [
-          { field: "language", value: "english" },
-          { field: "format", value: "epub" },
-          { field: "format", value: "pdf" },
-        ],
-        ...apiQuery.filters,
-      ],
+      filter: apiQuery.filter + ",language:english,format:epub,format:pdf",
     });
     const searchQueryExtraFilters = Object.assign({}, searchQuery, {
       filters: [
-        [
-          { field: "language", value: "english" },
-          { field: "format", value: "epub" },
-          { field: "format", value: "pdf" },
-        ],
         ...searchQuery.filters,
+        { field: "language", value: "english" },
+        { field: "format", value: "epub" },
+        { field: "format", value: "pdf" },
       ],
     });
     expect(toSearchQuery(apiQueryExtraFilters).filters).toEqual(
@@ -89,55 +79,31 @@ describe("Converting api query to search query", () => {
 
   test("converts api query with the minimal information", () => {
     const minimalApiQuery: ApiSearchQuery = {
-      queries: [
-        {
-          field: "keyword",
-          query: '"Civil War" OR Lincoln',
-        },
-      ],
+      query: "author:cat",
     };
 
     const minimalSearchQuery: SearchQuery = {
       queries: [
         {
-          field: "keyword",
-          query: '"Civil War" OR Lincoln',
+          field: "author",
+          query: "cat",
         },
       ],
     };
 
     expect(toSearchQuery(minimalApiQuery)).toEqual(minimalSearchQuery);
   });
-  test("converts api query with no SearchQuery filters", () => {
-    const minimalApiQueryWithYear: ApiSearchQuery = {
-      queries: [
-        {
-          field: "keyword",
-          query: '"Civil War" OR Lincoln',
-        },
-      ],
-      filters: [{ field: "years", value: { start: "1900", end: "2010" } }],
-    };
-
-    const filterYears: DateRange = { start: 1900, end: 2010 };
-    expect(toSearchQuery(minimalApiQueryWithYear).filters).toBeUndefined;
-    expect(toSearchQuery(minimalApiQueryWithYear).filterYears).toEqual(
-      filterYears
-    );
-  });
 });
 
 describe("Converting search query to api query", () => {
   test("converts searchQuery to apiQuery with maximal information", () => {
     const expectedApiQuery: ApiSearchQuery = {
-      filters: [
-        { field: "language", value: "Spanish" },
-        { field: "years", value: { end: 2000, start: 1800 } },
-        { field: "show_all", value: false },
-      ],
-      per_page: 10,
-      queries: [{ field: "keyword", query: '"Civil War" OR Lincoln' }],
-      sort: [{ dir: "asc", field: "title" }],
+      filter: "language:Spanish,startYear:1800,endYear:2000",
+      size: 20,
+      page: 3,
+      showAll: "true",
+      query: 'keyword:"Civil War" OR Lincoln,author:last, first',
+      sort: "title:asc",
     };
 
     expect(toApiQuery(searchQuery)).toEqual(expectedApiQuery);
@@ -152,7 +118,7 @@ describe("Converting search query to api query", () => {
 
   test("converts searchQuery to apiQuery with minimal information", () => {
     const minimalApiQuery: ApiSearchQuery = {
-      queries: [{ field: "keyword", query: "cat" }],
+      query: "keyword:cat",
     };
     expect(
       toApiQuery({ queries: [{ field: "keyword", query: "cat" }] })

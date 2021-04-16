@@ -1,7 +1,7 @@
 import React from "react";
 import * as DS from "@nypl/design-system-react-components";
 
-import { DateRange } from "~/src/types/SearchQuery";
+import { Filter } from "~/src/types/SearchQuery";
 
 /**
  * Year Filters
@@ -11,16 +11,29 @@ import { DateRange } from "~/src/types/SearchQuery";
  * @param props
  */
 const FilterYears: React.FC<{
-  dateFilters: DateRange;
-  onDateChange: (e, isStart: boolean) => void;
+  startFilter: Filter;
+  endFilter: Filter;
+  onDateChange: (
+    e: React.FormEvent<HTMLInputElement>,
+    isStart: boolean
+  ) => void;
   // The date range error to show.
   // If no error should be shown, this should be an empty string
   dateRangeError?: string;
   onSubmit?: () => void;
 }> = (props) => {
-  const { dateFilters, onDateChange, dateRangeError, onSubmit } = props;
+  const {
+    startFilter,
+    endFilter,
+    onDateChange,
+    dateRangeError,
+    onSubmit,
+  } = props;
 
-  const changeDate = (e, isStart: boolean) => {
+  const changeDate = (
+    isStart: boolean,
+    e: React.FormEvent<HTMLInputElement>
+  ) => {
     onDateChange(e, isStart);
   };
 
@@ -35,9 +48,7 @@ const FilterYears: React.FC<{
 
   return (
     <fieldset className="date-range">
-      <legend className="usa-legend font-sans-lg sub-legend">
-        Publication Year
-      </legend>
+      <legend>Publication Year</legend>
       <div className="year-input-group">
         <div className="year-input">
           <DS.Label id="date-from-label" htmlFor="date-filter-from">
@@ -47,8 +58,8 @@ const FilterYears: React.FC<{
             type={DS.InputTypes.number}
             id="date-filter-from"
             attributes={{ "aria-labelledby": "date-from-label" }}
-            value={dateFilters && dateFilters.start ? dateFilters.start : ""}
-            onChange={(e) => changeDate(e, true)}
+            value={startFilter ? startFilter.value : ""}
+            onChange={(e) => changeDate(true, e)}
           />
           <DS.HelperErrorText isError={false}> EX. 1901 </DS.HelperErrorText>
         </div>
@@ -60,8 +71,8 @@ const FilterYears: React.FC<{
             attributes={{ "aria-labelledby": "date-to-label" }}
             type={DS.InputTypes.number}
             id="date-filter-to"
-            value={dateFilters && dateFilters.end > 0 ? dateFilters.end : ""}
-            onChange={(e) => changeDate(e, false)}
+            value={endFilter ? endFilter.value : ""}
+            onChange={(e) => changeDate(false, e)}
           />
           <DS.HelperErrorText isError={false}> EX. 2000 </DS.HelperErrorText>
         </div>

@@ -9,6 +9,7 @@ import { ApiWork } from "~/src/types/DataModel";
 import { breadcrumbTitles } from "~/src/constants/labels";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
 import SearchHeader from "../SearchHeader/SearchHeader";
+import { ApiEdition } from "~/src/types/EditionQuery";
 
 const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
   const router = useRouter();
@@ -18,12 +19,8 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
 
   const { pathname, query } = router;
   const work: ApiWork = props.workResult.data;
-
   //Edition Card Preprocessing
-  const authorsList = EditionCardUtils.getAuthorsList(
-    EditionCardUtils.getPreferredAgent(work.agents, "author"),
-    "work-detail-header"
-  );
+  const authorsList = EditionCardUtils.getAuthorsList(work.authors);
 
   const firstReadableEdition = work.editions.find(
     (edition: any) =>
@@ -45,8 +42,6 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
 
   return (
     <div className="layout-container">
-      {/* TODO RequestDigital {this.state.requestedEdition && this.getRequestDigital(work)} */}
-
       <main id="mainContent" className="main">
         <div className="content-header">
           <DS.Breadcrumbs
@@ -115,8 +110,8 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
                   type={DS.ListTypes.Unordered}
                   modifiers={["no-list-styling"]}
                 >
-                  {work.editions.map((edition) => (
-                    <li key={edition.id}>
+                  {work.editions.map((edition: ApiEdition) => (
+                    <li key={edition.edition_id}>
                       <EditionCard edition={edition}></EditionCard>
                     </li>
                   ))}

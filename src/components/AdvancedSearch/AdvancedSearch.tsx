@@ -18,14 +18,14 @@ import * as DS from "@nypl/design-system-react-components";
 import LanguageAccordion from "../LanguageAccordion/LanguageAccordion";
 import FilterBookFormat from "../FilterBookFormat/FilterBookFormat";
 import { FacetItem } from "~/src/types/DataModel";
-import { toLocationQuery } from "~/src/util/SearchUtils";
-import { toApiQuery } from "~/src/util/apiConversion";
+import { toLocationQuery, toApiQuery } from "~/src/util/apiConversion";
+import filterFields from "~/src/constants/filters";
+import { ApiLanguageResponse } from "~/src/types/LanguagesQuery";
 
 const AdvancedSearch: React.FC<{
   searchQuery: SearchQuery;
-  languages: FacetItem[];
+  languages: ApiLanguageResponse;
 }> = (props) => {
-  const { languages } = props;
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState({
     ...SearchQueryDefaults,
@@ -33,6 +33,13 @@ const AdvancedSearch: React.FC<{
   });
   const [emptySearchError, setEmptySearchError] = useState("");
   const [dateRangeError, setDateRangeError] = useState("");
+
+  const languages: FacetItem[] = props.languages.data.map((language) => {
+    return {
+      value: language.language,
+      count: language.count,
+    };
+  });
 
   const submit = (e) => {
     e.preventDefault();
@@ -43,11 +50,15 @@ const AdvancedSearch: React.FC<{
       setEmptySearchError("");
     }
 
-    if (
-      searchQuery.filterYears.start &&
-      searchQuery.filterYears.end &&
-      searchQuery.filterYears.end < searchQuery.filterYears.start
-    ) {
+    const startYear = findFiltersForField(
+      searchQuery.filters,
+      filterFields.startYear
+    )[0];
+    const endYear = findFiltersForField(
+      searchQuery.filters,
+      filterFields.endYear
+    )[0];
+    if (startYear && endYear && endYear.value < startYear.value) {
       setDateRangeError(errorMessagesText.invalidDate);
       return;
     } else {
@@ -84,15 +95,18 @@ const AdvancedSearch: React.FC<{
   const onLanguageChange = (e, language) => {
     const languageFilters = findFiltersForField(
       searchQuery.filters,
-      "language"
+      filterFields.language
     );
 
     setSearchQuery({
       ...searchQuery,
       filters: [
-        ...findFiltersExceptField(searchQuery.filters, "language"),
+        ...findFiltersExceptField(searchQuery.filters, filterFields.language),
         ...(e.target.checked
-          ? [...languageFilters, { field: "language", value: language }]
+          ? [
+              ...languageFilters,
+              { field: filterFields.language, value: language },
+            ]
           : languageFilters.filter((filter) => {
               return filter.value !== language;
             })),
@@ -101,12 +115,15 @@ const AdvancedSearch: React.FC<{
   };
 
   const onBookFormatChange = (e, format) => {
-    const formatFilters = findFiltersForField(searchQuery.filters, "format");
+    const formatFilters = findFiltersForField(
+      searchQuery.filters,
+      filterFields.format
+    );
 
     setSearchQuery({
       ...searchQuery,
       filters: [
-        ...findFiltersExceptField(searchQuery.filters, "format"),
+        ...findFiltersExceptField(searchQuery.filters, filterFields.format),
         ...(e.target.checked
           ? [...formatFilters, { field: "format", value: format }]
           : formatFilters.filter((filter) => {
@@ -116,18 +133,31 @@ const AdvancedSearch: React.FC<{
     });
   };
 
-  const onDateChange = (e, isStart: boolean) => {
+  const onDateChange = (
+    e: React.FormEvent<HTMLInputElement>,
+    isStart: boolean
+  ) => {
+    const field = isStart ? filterFields.startYear : filterFields.endYear;
+    const newFilters = [
+      ...findFiltersExceptField(searchQuery.filters, field),
+      ...[{ field: field, value: e.currentTarget.value }],
+    ];
     setSearchQuery({
       ...searchQuery,
-      filterYears: {
-        start: isStart ? e.target.value : searchQuery.filterYears.start,
-        end: isStart ? searchQuery.filterYears.end : e.target.value,
-      },
+      filters: newFilters,
     });
   };
 
+  const startFilter = findFiltersForField(
+    searchQuery.filters,
+    filterFields.startYear
+  );
+  const endFilter = findFiltersForField(
+    searchQuery.filters,
+    filterFields.endYear
+  );
   return (
-    <main id="mainContent" className="main  advanced-search">
+    <main id="mainContent" className="main advanced-search">
       <div className="content-top">
         <DS.Breadcrumbs
           modifiers={["space-under"]}
@@ -180,7 +210,7 @@ const AdvancedSearch: React.FC<{
               })}
             </div>
           </fieldset>
-          {languages.length > 0 && (
+          {languages && languages.length > 0 && (
             <LanguageAccordion
               languages={languages}
               showCount={false}
@@ -192,7 +222,8 @@ const AdvancedSearch: React.FC<{
             />
           )}
           <FilterYears
-            dateFilters={searchQuery.filterYears}
+            startFilter={startFilter && startFilter[0]}
+            endFilter={endFilter && endFilter[0]}
             onDateChange={(e, isStart) => {
               onDateChange(e, isStart);
             }}

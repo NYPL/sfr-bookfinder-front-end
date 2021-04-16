@@ -1,11 +1,12 @@
 import React from "react";
 import { fireEvent, screen, within } from "@testing-library/react";
-import { DateRange } from "~/src/types/SearchQuery";
 import userEvent from "@testing-library/user-event";
+import { Filter } from "~/src/types/SearchQuery";
 
 export const FilterYearsTests = (
   hasApplyButton: boolean,
-  filterYears?: DateRange,
+  startYear?: Filter,
+  endYear?: Filter,
   mockPush?: jest.Mock<any, any>
 ) => {
   test("Renders Filter Years", () => {
@@ -13,12 +14,12 @@ export const FilterYearsTests = (
       screen.getByRole("spinbutton", {
         name: "From",
       })
-    ).toHaveValue((filterYears && filterYears.start) || null);
+    ).toHaveValue((startYear && startYear.value) || null);
     expect(
       screen.getByRole("spinbutton", {
         name: "To",
       })
-    ).toHaveValue((filterYears && filterYears.end) || null);
+    ).toHaveValue((endYear && endYear.value) || null);
     if (hasApplyButton) {
       expect(screen.getByRole("button", { name: "Apply" })).toBeInTheDocument();
     }
@@ -40,12 +41,8 @@ export const FilterYearsTests = (
       expect(mockPush).toBeCalledWith({
         pathname: "/search",
         query: {
-          filters:
-            '[{"field":"years","value":{"start":"1990","end":""}},{"field":"show_all","value":false}]',
-          queries: '[{"field":"keyword","query":"Animal Crossing"}]',
-          per_page: "10",
-          page: "1",
-          sort: "[]",
+          filter: "startYear:1990",
+          query: "keyword:Animal Crossing",
         },
       });
     });
@@ -63,12 +60,8 @@ export const FilterYearsTests = (
       expect(mockPush).toBeCalledWith({
         pathname: "/search",
         query: {
-          filters:
-            '[{"field":"years","value":{"start":"","end":"1990"}},{"field":"show_all","value":false}]',
-          queries: '[{"field":"keyword","query":"Animal Crossing"}]',
-          per_page: "10",
-          page: "1",
-          sort: "[]",
+          filter: "endYear:1990",
+          query: "keyword:Animal Crossing",
         },
       });
     });
@@ -91,12 +84,8 @@ export const FilterYearsTests = (
       expect(mockPush).toBeCalledWith({
         pathname: "/search",
         query: {
-          filters:
-            '[{"field":"years","value":{"start":"1990","end":"2000"}},{"field":"show_all","value":false}]',
-          queries: '[{"field":"keyword","query":"Animal Crossing"}]',
-          per_page: "10",
-          page: "1",
-          sort: "[]",
+          filter: "startYear:1990,endYear:2000",
+          query: "keyword:Animal Crossing",
         },
       });
     });
