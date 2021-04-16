@@ -1,5 +1,8 @@
 /* eslint-disable camelcase */
 
+import { FacetItem, Query, Sort } from "./DataModel";
+import { ApiWork } from "./WorkQuery";
+
 export type searchFields =
   | "keyword"
   | "author"
@@ -16,14 +19,6 @@ export type ApiSearchQuery = {
   page?: number;
   showAll?: string;
 };
-
-//Refer to sorts.ts
-export type Sort = { field: string; dir: string };
-
-export interface Query {
-  query: string;
-  field: string;
-}
 
 export type ApiFilter = {
   field: string;
@@ -52,4 +47,23 @@ export const SearchQueryDefaults: SearchQuery = {
   queries: [],
   sort: { field: "relevance", dir: "DESC" },
   showAll: false,
+};
+
+export type ApiSearchResult = {
+  status?: number;
+  timestamp?: string;
+  responseType?: string;
+  data?: {
+    totalWorks?: number;
+    facets?: { formats: FacetItem[]; languages: FacetItem[] };
+    paging?: {
+      currentPage: number;
+      firstPage: number;
+      lastPage: number;
+      nextPage: number;
+      previousPage: number;
+      recordsPerPage: number;
+    };
+    works?: ApiWork[];
+  };
 };

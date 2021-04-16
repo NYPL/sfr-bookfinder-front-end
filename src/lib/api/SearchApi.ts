@@ -1,7 +1,6 @@
 import appConfig from "~/config/appConfig";
 import { WorkQuery, WorkResult } from "~/src/types/WorkQuery";
-import { ApiSearchQuery } from "../../types/SearchQuery";
-import { ApiSearchResult } from "../../types/DataModel";
+import { ApiSearchQuery, ApiSearchResult } from "../../types/SearchQuery";
 import { EditionQuery, EditionResult } from "~/src/types/EditionQuery";
 import { toLocationQuery } from "~/src/util/apiConversion";
 import { LinkResult } from "~/src/types/LinkQuery";

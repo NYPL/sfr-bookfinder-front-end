@@ -4,11 +4,11 @@ import Link from "~/src/components/Link/Link";
 import * as DS from "@nypl/design-system-react-components";
 
 import { EditionCard } from "~/src/components/EditionCard/EditionCard";
-import { ApiWork } from "~/src/types/DataModel";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
 import EmptySearchSvg from "../Svgs/EmptySearchSvg";
 import { truncateStringOnWhitespace } from "~/src/util/Util";
 import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
+import { ApiWork } from "~/src/types/WorkQuery";
 
 export const getEditionsLinkElement = (work: ApiWork) => {
   const editionCount = work.edition_count;

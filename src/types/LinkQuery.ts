@@ -1,4 +1,4 @@
-import { ApiWork } from "./DataModel";
+import { ApiWork } from "./WorkQuery";
 
 export type LinkResult = {
   data: ApiLink;

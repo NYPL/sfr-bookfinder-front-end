@@ -2,13 +2,10 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import * as DS from "@nypl/design-system-react-components";
 import { searchFields } from "../../constants/fields";
-import {
-  Query,
-  SearchQuery,
-  SearchQueryDefaults,
-} from "~/src/types/SearchQuery";
+import { SearchQuery, SearchQueryDefaults } from "~/src/types/SearchQuery";
 import { errorMessagesText } from "~/src/constants/labels";
 import { toLocationQuery, toApiQuery } from "~/src/util/apiConversion";
+import { Query } from "~/src/types/DataModel";
 
 const SearchForm: React.FC<{
   searchQuery?: SearchQuery;

@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import * as DS from "@nypl/design-system-react-components";
 import { useRouter } from "next/router";
 import { searchFields } from "~/src/constants/fields";
-import { ApiSearchResult, ApiWork, FacetItem } from "~/src/types/DataModel";
+import { FacetItem } from "~/src/types/DataModel";
 import {
+  ApiSearchResult,
   Filter,
   SearchQuery,
   SearchQueryDefaults,
@@ -15,6 +16,7 @@ import Filters from "../ResultsFilters/ResultsFilters";
 import ResultsSorts from "../ResultsSorts/ResultsSorts";
 import { breadcrumbTitles } from "~/src/constants/labels";
 import SearchHeader from "../SearchHeader/SearchHeader";
+import { ApiWork } from "~/src/types/WorkQuery";
 
 const SearchResults: React.FC<{
   searchQuery: SearchQuery;

@@ -1,13 +1,12 @@
 /** Converts API responses to internal types */
 
 import { searchFields } from "../constants/fields";
+import { Query, Sort } from "../types/DataModel";
 import {
   ApiSearchQuery,
   Filter,
-  Query,
   SearchQuery,
   SearchQueryDefaults,
-  Sort,
 } from "../types/SearchQuery";
 
 /**
