@@ -4,7 +4,7 @@ import LanguageAccordion from "../LanguageAccordion/LanguageAccordion";
 import FilterBookFormat from "../FilterBookFormat/FilterBookFormat";
 import FilterYears from "../FilterYears/FilterYears";
 import { FacetItem } from "~/src/types/DataModel";
-import { DateRange, Filter } from "~/src/types/SearchQuery";
+import { Filter } from "~/src/types/SearchQuery";
 import {
   findFiltersExceptField,
   findFiltersForField,

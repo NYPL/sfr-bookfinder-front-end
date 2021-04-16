@@ -83,7 +83,6 @@ describe("Renders Work component when given valid work", () => {
       screen.getByRole("heading", { name: "Details" })
     ).toBeInTheDocument();
   });
-
 });
 
 describe("Edition Cards and toggles", () => {
@@ -134,7 +133,6 @@ describe("Edition Cards and toggles", () => {
       expect(toggle).toBeInTheDocument;
       expect(toggle).not.toBeChecked();
     });
-    test("Displays two edition cards with the featured edition, and one other edition", () => {});
 
     test("clicking the edition toggle sends a new query", () => {
       const toggle = screen.getByLabelText(
