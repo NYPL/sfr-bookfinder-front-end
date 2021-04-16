@@ -15,7 +15,6 @@ import {
   MAX_PLACE_LENGTH,
   MAX_PUBLISHER_NAME_LENGTH,
   MAX_SUBTITILE_LENGTH,
-  MAX_TITLE_LENGTH,
   PLACEHOLDER_COVER_LINK,
 } from "../constants/editioncard";
 import { MediaTypes } from "../constants/mediaTypes";
@@ -108,12 +107,11 @@ export default class EditionCardUtils {
    */
 
   static getCover(links: ItemLink[]): string {
-    if (!links || !links.length) return PLACEHOLDER_COVER_LINK;
-    return formatUrl(
-      links.find((link) => {
-        return MediaTypes.display.includes(link.mediaType);
-      }).url
-    );
+    if (!links || links.length === 0) return PLACEHOLDER_COVER_LINK;
+    const coverLink = links.find((link) => {
+      return MediaTypes.display.includes(link.mediaType);
+    });
+    return coverLink ? formatUrl(coverLink.url) : PLACEHOLDER_COVER_LINK;
   }
 
   /**

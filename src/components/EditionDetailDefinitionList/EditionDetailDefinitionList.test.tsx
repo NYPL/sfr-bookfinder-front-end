@@ -2,14 +2,14 @@ import React from "react";
 import EditionDetailDefinitionList from "./EditionDetailDefinitionList";
 import "@testing-library/jest-dom/extend-expect";
 import { screen, render } from "@testing-library/react";
-import { ApiEdition } from "~/src/types/EditionQuery";
-const editionDetailFullData: ApiEdition = require("../../__tests__/fixtures/edition-detail.json");
+import { ApiEdition, EditionResult } from "~/src/types/EditionQuery";
+const editionDetailFullData: EditionResult = require("../../__tests__/fixtures/edition-detail.json");
 
 describe("Edition Detail table with all information", () => {
   beforeEach(() => {
     render(
       <EditionDetailDefinitionList
-        edition={editionDetailFullData}
+        edition={editionDetailFullData.data}
       ></EditionDetailDefinitionList>
     );
   });
@@ -20,7 +20,7 @@ describe("Edition Detail table with all information", () => {
   });
   test("Shows publication date", () => {
     expect(screen.getByText("Publication Date")).toBeInTheDocument();
-    expect(screen.getByText("2014")).toBeInTheDocument();
+    expect(screen.getByText("1923")).toBeInTheDocument();
   });
   test("Shows publication place", () => {
     expect(screen.getByText("Publication Place")).toBeInTheDocument();
@@ -31,12 +31,15 @@ describe("Edition Detail table with all information", () => {
     expect(
       screen
         .getAllByRole("listitem")
-        .find((listitem) => listitem.textContent === "Tom Nook, publisher")
+        .find(
+          (listitem) =>
+            listitem.textContent === "T. Maskew Miller; B. Blackwell ltd."
+        )
     ).toBeInTheDocument();
     expect(
       screen
         .getAllByRole("listitem")
-        .find((listitem) => listitem.textContent === "CNRS éditions, publisher")
+        .find((listitem) => listitem.textContent === "Miller,")
     ).toBeInTheDocument();
   });
   test("Shows Edition statement", () => {

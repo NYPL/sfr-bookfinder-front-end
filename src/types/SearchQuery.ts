@@ -14,7 +14,7 @@ export type ApiSearchQuery = {
   sort?: string;
   size?: number;
   page?: number;
-  showAll?: boolean;
+  showAll?: string;
 };
 
 //Refer to sorts.ts

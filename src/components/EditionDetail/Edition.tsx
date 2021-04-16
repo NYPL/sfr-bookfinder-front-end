@@ -102,7 +102,7 @@ const Edition: React.FC<{ editionResult: EditionResult }> = (props) => {
                       <>Show only items currently available online</>
                     ),
                   }}
-                  checked={router.query.showAll === "false"}
+                  checked={router.query.showAll !== "true"}
                   onChange={(e) => toggleShowAll(e)}
                 />
               </div>

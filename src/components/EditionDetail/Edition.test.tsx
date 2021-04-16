@@ -8,15 +8,14 @@ import {
   mockPush,
   MockNextRouterContextProvider,
 } from "~/src/__tests__/testUtils/MockNextRouter";
-import { ApiEdition, EditionResult } from "~/src/types/EditionQuery";
-const apiEdition: ApiEdition = require("../../__tests__/fixtures/edition-detail.json");
+import { EditionResult } from "~/src/types/EditionQuery";
+const apiEdition: EditionResult = require("../../__tests__/fixtures/edition-detail.json");
 
 describe("Renders edition component when given valid edition", () => {
   beforeEach(() => {
-    const edition: EditionResult = { data: apiEdition };
     render(
       <MockNextRouterContextProvider>
-        <Edition editionResult={edition} />
+        <Edition editionResult={apiEdition} />
       </MockNextRouterContextProvider>
     );
   });
@@ -27,7 +26,7 @@ describe("Renders edition component when given valid edition", () => {
     ).toHaveAttribute("href", "/");
     expect(
       (within(nav).getByRole("link", {
-        name: apiEdition.title,
+        name: apiEdition.data.title,
       }) as HTMLAnchorElement).href
     ).toContain("/work/");
   });
@@ -43,11 +42,11 @@ describe("Renders edition component when given valid edition", () => {
   });
   test("Shows edition Title in Heading", () => {
     expect(
-      screen.getByRole("heading", { name: apiEdition.title })
+      screen.getByRole("heading", { name: apiEdition.data.title })
     ).toBeInTheDocument();
   });
   test("Shows edition Subtitle", () => {
-    expect(screen.getByText(apiEdition.sub_title)).toBeInTheDocument();
+    expect(screen.getByText(apiEdition.data.sub_title)).toBeInTheDocument();
   });
 
   test("Featured Copy Card shows up twice in page", () => {
@@ -55,20 +54,16 @@ describe("Renders edition component when given valid edition", () => {
       screen.getByRole("heading", { name: "Featured Copy" })
     ).toBeInTheDocument();
     const featuredEditionHeadings = screen.getAllByRole("heading", {
-      name: "2014",
+      name: "1923",
     });
     expect(featuredEditionHeadings.length).toEqual(2);
     expect(screen.getAllByAltText("Cover").length).toBe(2);
     expect(
-      screen.getAllByText(
-        "Published in Paris by Paris, Centre National de la Recherche Scientifique + 1 more"
-      ).length
+      screen.getAllByText("Published in Paris, France by Miller,").length
     ).toBe(2);
     expect(
       screen
-        .getAllByText(
-          "License: Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International"
-        )[0]
+        .getAllByText("License: Public Domain when viewed in the US")[0]
         .closest("a").href
     ).toContain("/license");
   });
@@ -90,10 +85,9 @@ describe("Renders edition component when given valid edition", () => {
 describe("All Copies Toggle", () => {
   describe("edition with no showAll query passed", () => {
     beforeEach(() => {
-      const edition: EditionResult = { data: apiEdition };
       render(
         <MockNextRouterContextProvider>
-          <Edition editionResult={edition} />
+          <Edition editionResult={apiEdition} />
         </MockNextRouterContextProvider>
       );
     });
@@ -103,8 +97,7 @@ describe("All Copies Toggle", () => {
         "Show only items currently available online"
       ) as HTMLInputElement;
       expect(toggle).toBeInTheDocument;
-      expect(toggle).not.toBeChecked();
-      expect(toggle).not.toBeChecked();
+      expect(toggle).toBeChecked();
     });
     test("clicking the edition toggle sends a new query", () => {
       const toggle = screen.getByLabelText(
@@ -115,17 +108,16 @@ describe("All Copies Toggle", () => {
       expect(mockPush).toHaveBeenCalledTimes(1);
       expect(mockPush).toHaveBeenCalledWith({
         pathname: "",
-        query: { showAll: false },
+        query: { showAll: true },
       });
     });
   });
 
-  describe("copy with showAll=false", () => {
+  describe("copy with showAll=true", () => {
     beforeEach(() => {
-      const edition: EditionResult = { data: apiEdition };
       render(
-        <MockNextRouterContextProvider routerQuery={{ showAll: "false" }}>
-          <Edition editionResult={edition} />
+        <MockNextRouterContextProvider routerQuery={{ showAll: "true" }}>
+          <Edition editionResult={apiEdition} />
         </MockNextRouterContextProvider>
       );
     });
@@ -135,8 +127,7 @@ describe("All Copies Toggle", () => {
         "Show only items currently available online"
       ) as HTMLInputElement;
       expect(toggle).toBeInTheDocument;
-      expect(toggle).toBeChecked();
-      expect(toggle).toBeChecked();
+      expect(toggle).not.toBeChecked();
     });
     test("clicking the copy toggle sends a new query", () => {
       const toggle = screen.getByLabelText(
@@ -147,7 +138,7 @@ describe("All Copies Toggle", () => {
       expect(mockPush).toHaveBeenCalledTimes(1);
       expect(mockPush).toHaveBeenCalledWith({
         pathname: "",
-        query: { showAll: true },
+        query: { showAll: false },
       });
     });
   });

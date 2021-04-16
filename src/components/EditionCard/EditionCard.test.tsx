@@ -2,60 +2,10 @@ import React from "react";
 import { EditionCard } from "./EditionCard";
 import "@testing-library/jest-dom/extend-expect";
 import { screen, render } from "@testing-library/react";
-import { WorkEdition } from "~/src/types/DataModel";
 import { PLACEHOLDER_COVER_LINK } from "~/src/constants/editioncard";
+import { fullEdition } from "~/src/__tests__/fixtures/EditionCardFixture";
 
 describe("Edition Card with Valid Data", () => {
-  const fullEdition: WorkEdition = {
-    id: 12345,
-    publication_place: "Chargoggagoggmanchauggagoggchaubunagungamaugg",
-    publication_date: "1990",
-    covers: [
-      { url: "test-cover", media_type: "img/jpeg", flags: { temporary: true } },
-      {
-        url: "test-cover-2",
-        media_type: "img/jpeg",
-        flags: { temporary: false },
-      },
-    ],
-    agents: [{ name: "publisher_1", roles: ["publisher"] }],
-    languages: [
-      { language: "english" },
-      { language: "french" },
-      { language: "russian" },
-      { language: "unknown" },
-      { language: "spanish" },
-      { language: "german" },
-      { language: "arabic" },
-      { language: "hindi" },
-      { language: "japanese" },
-      { language: "vietnamese" },
-      { language: "latin" },
-      { language: "romanian" },
-    ],
-    items: [
-      {
-        links: [
-          {
-            url: "test-link-url",
-            local: true,
-            media_type: "application/epub+xml",
-          },
-          {
-            url: "test-link-url-2",
-            download: true,
-            media_type: "application/epub+xml",
-          },
-        ],
-        rights: [
-          {
-            license: "license content",
-            rights_statement: "test rights statement",
-          },
-        ],
-      },
-    ],
-  };
   beforeEach(() => {
     render(<EditionCard edition={fullEdition}></EditionCard>);
   });
@@ -86,7 +36,7 @@ describe("Edition Card with Valid Data", () => {
   test("Shows cover", () => {
     expect(
       screen.getByAltText("Cover for 1990 Edition").closest("img").src
-    ).toEqual("https://test-cover-2/");
+    ).toEqual("https://test-cover/");
   });
   test("Shows download as link", () => {
     expect(screen.getByText("Download").closest("a").href).toEqual(
@@ -95,14 +45,14 @@ describe("Edition Card with Valid Data", () => {
   });
   test("Shows 'read online' as link", () => {
     expect(screen.getByText("Read Online").closest("a").href).toContain(
-      "/edition/12345/read-local/test-link-url"
+      "/read/12"
     );
   });
 });
 
 describe("Edition Year with Minimal Data", () => {
   beforeEach(() => {
-    render(<EditionCard edition={{ id: 54321 }}></EditionCard>);
+    render(<EditionCard edition={{ edition_id: 54321 }}></EditionCard>);
   });
   test("Shows Unknown Year as Link in header", () => {
     expect(

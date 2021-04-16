@@ -5,7 +5,11 @@ import { Agent } from "~/src/types/DataModel";
 
 // Publisher
 const getPublishersList = (publishers: Agent[]): JSX.Element[] => {
-  if (!publishers || publishers.length === 0) return null;
+  if (!publishers || publishers.length === 0) {
+    return [
+      <React.Fragment key="unavailable">Publisher Unavailable</React.Fragment>,
+    ];
+  }
   return publishers.map((publisher: Agent) => {
     return (
       <DS.List

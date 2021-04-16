@@ -72,8 +72,8 @@ export const toSearchQuery = (apiQuery: ApiSearchQuery): SearchQuery => {
     ...(apiQuery.page && { page: apiQuery.page }),
     ...(apiQuery.size && { perPage: apiQuery.size }),
     ...(apiQuery.sort && { sort: toSorts(apiQuery.sort) }),
-    ...((apiQuery.showAll || apiQuery.showAll === false) && {
-      showAll: apiQuery.showAll,
+    ...(apiQuery.showAll && {
+      showAll: apiQuery.showAll === "true",
     }),
   };
 };
@@ -129,7 +129,7 @@ export const toApiQuery = (searchQuery: SearchQuery): ApiSearchQuery => {
       }),
     ...(typeof searchQuery.showAll !== undefined &&
       searchQuery.showAll !== SearchQueryDefaults.showAll && {
-        showAll: searchQuery.showAll,
+        showAll: searchQuery.showAll.toString(),
       }),
   };
 };

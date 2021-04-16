@@ -110,8 +110,8 @@ const Filters: React.FC<{
     changeShowAll(!e.target.checked);
   };
 
-  const yearStart = findFiltersForField(filters, "startYear");
-  const yearEnd = findFiltersForField(filters, "endYear");
+  const yearStart = findFiltersForField(filters, filterFields.startYear);
+  const yearEnd = findFiltersForField(filters, filterFields.endYear);
 
   return (
     <div className="results-filters">
