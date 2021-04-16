@@ -162,7 +162,7 @@ describe("Renders Search Results Page", () => {
           pathname: "/search",
           query: {
             query: "keyword:Animal Crossing",
-            showAll: true,
+            showAll: "true",
           },
         });
         fireEvent.click(screen.getByRole("button", { name: "Go Back" }));

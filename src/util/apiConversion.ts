@@ -12,7 +12,7 @@ import {
 
 /**
  * Takes an object of type `ApiSearchQuery` and returns a `SearchQuery` object.
- * This function does not add defaults if they are not passed.
+ * This function does not add defaults if they are] not passed.
  *
  * @param apiQuery
  */
@@ -43,7 +43,7 @@ export const toSearchQuery = (apiQuery: ApiSearchQuery): SearchQuery => {
     // Joins everything between the two keys and sets it as query
     return keysIndexes.map((keyIndex, i) => {
       const endIndex =
-        i < keysIndexes.length ? keysIndexes[i + 1] : keysIndexes.length;
+        i < keysIndexes.length - 1 ? keysIndexes[i + 1] - 1 : separated.length;
       return {
         field: separated[keyIndex],
         query: separated.slice(keyIndex + 2, endIndex).join(""),
@@ -127,7 +127,8 @@ export const toApiQuery = (searchQuery: SearchQuery): ApiSearchQuery => {
       searchQuery.sort !== SearchQueryDefaults.sort && {
         sort: toApiSorts(searchQuery.sort),
       }),
-    ...(typeof searchQuery.showAll !== undefined &&
+    ...(searchQuery.showAll !== undefined &&
+      typeof searchQuery.showAll !== undefined &&
       searchQuery.showAll !== SearchQueryDefaults.showAll && {
         showAll: searchQuery.showAll.toString(),
       }),

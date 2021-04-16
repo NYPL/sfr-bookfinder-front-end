@@ -118,7 +118,7 @@ describe("Converting search query to api query", () => {
 
   test("converts searchQuery to apiQuery with minimal information", () => {
     const minimalApiQuery: ApiSearchQuery = {
-      query: "field:cat",
+      query: "keyword:cat",
     };
     expect(
       toApiQuery({ queries: [{ field: "keyword", query: "cat" }] })
