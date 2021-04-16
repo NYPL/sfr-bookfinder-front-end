@@ -1,19 +1,17 @@
 import { ApiSearchQuery, SearchQuery } from "../types/SearchQuery";
 
 export const initialApiSearchQuery: ApiSearchQuery = {
-  per_page: 10,
+  size: 10,
   page: 0,
-  total: 0,
-  filters: [],
-  sort: [],
-  query: [{ keyword: "" }],
+  filter: "",
+  sort: "",
+  query: 'keyword:""',
 };
 
 export const initialSearchQuery: SearchQuery = {
   perPage: 10,
   page: 0,
   filters: [],
-  filterYears: { start: null, end: null },
   sort: { field: "relevance", dir: "DESC" },
   queries: [],
   showAll: false,

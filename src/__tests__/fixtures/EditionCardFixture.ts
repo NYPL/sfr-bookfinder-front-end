@@ -1,3 +1,5 @@
+import { WorkEdition } from "~/src/types/DataModel";
+
 export const fullEdition: WorkEdition = {
   edition_id: 12345,
   publication_place: "Chargoggagoggmanchauggagoggchaubunagungamaugg",
