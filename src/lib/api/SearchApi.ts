@@ -63,6 +63,8 @@ export const workFetcher = async (query: WorkQuery) => {
   if (res.ok) {
     const workResult: WorkResult = await res.json();
     return workResult;
+  } else {
+    throw new Error(`cannot find work with identifier ${query.identifier}`);
   }
 };
 
@@ -81,6 +83,10 @@ export const editionFetcher = async (query: EditionQuery) => {
   if (res.ok) {
     const editionResult: EditionResult = await res.json();
     return editionResult;
+  } else {
+    throw new Error(
+      `cannot find work with identifier ${query.editionIdentifier}`
+    );
   }
 };
 
@@ -101,5 +107,7 @@ export const readFetcher = async (linkId: number) => {
   if (res.ok) {
     const linkResult: LinkResult = await res.json();
     return linkResult;
+  } else {
+    throw new Error(`cannot find work with linkId ${linkId}`);
   }
 };
