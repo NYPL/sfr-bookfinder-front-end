@@ -1,13 +1,24 @@
 import React from "react";
 import { NextPageContext } from "next";
+import Layout from "../components/Layout/Layout";
+import Link from "../components/Link/Link";
 
 const Error = ({ statusCode }) => {
   return (
-    <p>
-      {statusCode
-        ? `An error ${statusCode} occurred on server`
-        : "An error occurred on client"}
-    </p>
+    <Layout>
+      <main className="main">
+        <p>
+          {statusCode
+            ? `An error ${statusCode} occurred on server`
+            : "An error occurred on client"}
+        </p>
+        <p>
+          Search&nbsp;
+          <Link to="/">Digital Research Books Beta</Link>
+          {"."}
+        </p>
+      </main>
+    </Layout>
   );
 };
 
