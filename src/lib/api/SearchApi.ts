@@ -7,8 +7,8 @@ import { toLocationQuery } from "~/src/util/apiConversion";
 import { LinkResult } from "~/src/types/LinkQuery";
 import { ApiLanguageResponse } from "~/src/types/LanguagesQuery";
 
-//TODO env variables
-const apiUrl = process.env["API_URL"];
+const apiEnv = process.env["APP_ENV"];
+const apiUrl = process.env["API_URL"] || appConfig.api.url[apiEnv];
 const {
   searchPath,
   recordPath,

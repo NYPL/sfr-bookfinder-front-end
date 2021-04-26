@@ -6,6 +6,12 @@ export default {
   webpackDevServerPort: 3000,
   baseUrl: "",
   api: {
+    url: {
+      local: "localhost:5000",
+      development: "http://drb-api-qa.nypl.org",
+      qa: "http://drb-api-qa.nypl.org",
+      production: "http://drb-api-qa.nypl.org"
+    },
     searchPath: "/search",
     recordPath: "/work",
     editionPath: "/edition",
