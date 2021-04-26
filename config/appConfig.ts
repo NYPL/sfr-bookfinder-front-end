@@ -10,7 +10,7 @@ export default {
       local: "localhost:5000",
       development: "http://drb-api-qa.nypl.org",
       qa: "http://drb-api-qa.nypl.org",
-      production: "http://drb-api-qa.nypl.org"
+      production: "http://drb-api-qa.nypl.org",
     },
     searchPath: "/search",
     recordPath: "/work",
