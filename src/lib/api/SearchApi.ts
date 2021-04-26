@@ -8,7 +8,7 @@ import { LinkResult } from "~/src/types/LinkQuery";
 import { ApiLanguageResponse } from "~/src/types/LanguagesQuery";
 
 //TODO env variables
-const apiUrl = process.env['API_URL'];
+const apiUrl = process.env["API_URL"];
 const {
   searchPath,
   recordPath,
@@ -16,7 +16,7 @@ const {
   readPath,
   languagesPath,
 } = appConfig.api;
-const searchUrl = apiUrl + searchPath
+const searchUrl = apiUrl + searchPath;
 const recordUrl = apiUrl + recordPath;
 const editionUrl = apiUrl + editionPath;
 const readUrl = apiUrl + readPath;
