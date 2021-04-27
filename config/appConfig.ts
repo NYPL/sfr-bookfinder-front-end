@@ -5,23 +5,14 @@ export default {
   port: 3001,
   webpackDevServerPort: 3000,
   baseUrl: "",
-  ereader: {
-    local: "http://localhost:4444",
-    development: "https://researchnow-reader.nypl.org",
-    production: "https://digital-research-books-reader.nypl.org",
-  },
   api: {
-    local:
-      "http://sfr-p-ecsal-ixtqofr3u1cq-1271021548.us-east-1.elb.amazonaws.com",
-    development:
-      "http://sfr-p-ecsal-ixtqofr3u1cq-1271021548.us-east-1.elb.amazonaws.com",
-    production:
-      "http://sfr-p-ecsal-ixtqofr3u1cq-1271021548.us-east-1.elb.amazonaws.com",
-    searchPath: {
-      local: "/search",
-      development: "/search",
-      production: "/search",
+    url: {
+      local: "localhost:5000",
+      development: "http://drb-api-qa.nypl.org",
+      qa: "http://drb-api-qa.nypl.org",
+      production: "http://drb-api-qa.nypl.org",
     },
+    searchPath: "/search",
     recordPath: "/work",
     editionPath: "/edition",
     readPath: "/link",
