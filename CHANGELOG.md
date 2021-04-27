@@ -6,6 +6,7 @@
 - Refactors app to use API v4
 - Adds integration tests to landing and search pages
 - Adds temporary deployment of feature branches for QA testing
+- Refactors app to use `API_URL` and `APP_ENV` environment variables
 
 ## [0.9.3]
 
