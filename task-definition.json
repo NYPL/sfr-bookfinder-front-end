@@ -62,7 +62,7 @@
                 },
                 {
                     "name": "API_URL",
-                    "value": "localhost:80"
+                    "value": "http://localhost:80"
                 }
 
             ]
