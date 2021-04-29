@@ -1,7 +1,6 @@
 import appConfig from "~/config/appConfig";
 import { WorkQuery, WorkResult } from "~/src/types/WorkQuery";
-import { ApiSearchQuery } from "../../types/SearchQuery";
-import { ApiSearchResult } from "../../types/DataModel";
+import { ApiSearchQuery, ApiSearchResult } from "../../types/SearchQuery";
 import { EditionQuery, EditionResult } from "~/src/types/EditionQuery";
 import { toLocationQuery } from "~/src/util/apiConversion";
 import { LinkResult } from "~/src/types/LinkQuery";
@@ -63,6 +62,8 @@ export const workFetcher = async (query: WorkQuery) => {
   if (res.ok) {
     const workResult: WorkResult = await res.json();
     return workResult;
+  } else {
+    throw new Error(`cannot find work with identifier ${query.identifier}`);
   }
 };
 
@@ -81,6 +82,10 @@ export const editionFetcher = async (query: EditionQuery) => {
   if (res.ok) {
     const editionResult: EditionResult = await res.json();
     return editionResult;
+  } else {
+    throw new Error(
+      `cannot find work with identifier ${query.editionIdentifier}`
+    );
   }
 };
 
@@ -101,5 +106,7 @@ export const readFetcher = async (linkId: number) => {
   if (res.ok) {
     const linkResult: LinkResult = await res.json();
     return linkResult;
+  } else {
+    throw new Error(`cannot find work with linkId ${linkId}`);
   }
 };

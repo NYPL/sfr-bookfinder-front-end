@@ -2,8 +2,7 @@ import React from "react";
 import WorkDetailDefinitionList from "./WorkDetailDefinitionList";
 import "@testing-library/jest-dom/extend-expect";
 import { screen, render } from "@testing-library/react";
-import { WorkResult } from "~/src/types/WorkQuery";
-import { ApiWork } from "~/src/types/DataModel";
+import { ApiWork, WorkResult } from "~/src/types/WorkQuery";
 
 const apiWork: WorkResult = require("../../__tests__/fixtures/work-detail.json");
 

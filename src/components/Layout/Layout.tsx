@@ -57,13 +57,14 @@ const Layout: React.FC<any> = ({ children }) => {
       <script
         type="text/javascript"
         src="https://header.nypl.org/dgx-header.min.js?skipNav=mainContent&urls=absolute"
-        async
       />
       <div className="app-wrapper add-list-reset">
         {router.isFallback || loading ? (
           <>
             <Loading />
-            <DS.SkeletonLoader />
+            <main className="main">
+              <DS.SkeletonLoader />
+            </main>
           </>
         ) : (
           <>{children}</>

@@ -3,8 +3,9 @@ import * as DS from "@nypl/design-system-react-components";
 
 import Link from "~/src/components/Link/Link";
 import { unique, flattenDeep, uniqueAndSortByFrequency } from "~/src/util/Util";
-import { ApiWork, Language, Subject } from "~/src/types/DataModel";
+import { Language, Subject } from "~/src/types/DataModel";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
+import { ApiWork } from "~/src/types/WorkQuery";
 
 // extract unique language array from instances of a work item
 const getLanguagesForWork = (work: ApiWork) =>

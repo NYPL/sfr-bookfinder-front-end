@@ -1,4 +1,5 @@
-import { Filter, Query } from "../types/SearchQuery";
+import { Query } from "../types/DataModel";
+import { Filter } from "../types/SearchQuery";
 
 export const getQueryString = (query: any) =>
   query &&

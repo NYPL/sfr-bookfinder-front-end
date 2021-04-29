@@ -5,8 +5,8 @@ import {
   MockNextRouterContextProvider,
 } from "./testUtils/MockNextRouter";
 import SearchResults from "../components/Search/Search";
-import { ApiSearchResult, FacetItem } from "../types/DataModel";
-import { SearchQuery } from "../types/SearchQuery";
+import { FacetItem } from "../types/DataModel";
+import { ApiSearchResult, SearchQuery } from "../types/SearchQuery";
 import { resizeWindow } from "./testUtils/screen";
 import {
   searchFormRenderTests,
