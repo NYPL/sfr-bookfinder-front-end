@@ -101,7 +101,6 @@ const WebpubViewer: React.FC<{ url: string }> = (props) => {
 
         .controls {
           color: #5b5852;
-          position: fixed;
           right: 0;
           top: 0;
           width: 100%;
@@ -329,7 +328,6 @@ const WebpubViewer: React.FC<{ url: string }> = (props) => {
           font-size: 16px;
           height: calc(100% - 2rem);
           left: 0;
-          position: fixed;
           top: 3rem;
           width: 100%;
           -webkit-overflow-scrolling: touch;

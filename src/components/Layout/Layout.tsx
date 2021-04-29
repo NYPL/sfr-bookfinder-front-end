@@ -3,11 +3,11 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import Footer from "@nypl/dgx-react-footer";
 import * as DS from "@nypl/design-system-react-components";
+import { Header, navConfig } from "@nypl/dgx-header-component";
 
 import { documentTitles } from "~/src/constants/labels";
 import Feedback from "~/src/components/Feedback/Feedback";
 import Loading from "../Loading/Loading";
-
 /**
  * Container class providing header, footer,
  * and other set up information to all its children.
@@ -53,6 +53,10 @@ const Layout: React.FC<any> = ({ children }) => {
     <div className="layout-container nypl-ds nypl--research">
       <Head>
         <title>{setTitle(router)}</title>
+        <Header
+          skipNav={{ target: "mainContent" }}
+          navData={navConfig.current}
+        />
       </Head>
       <script
         type="text/javascript"
@@ -69,7 +73,6 @@ const Layout: React.FC<any> = ({ children }) => {
         ) : (
           <>{children}</>
         )}
-
         <Footer urlType="absolute" />
 
         {!loading && <Feedback location={router.pathname} />}
