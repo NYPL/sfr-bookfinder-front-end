@@ -42,6 +42,7 @@ const LandingPage: React.FC<any> = () => {
         <div className="searchbar-container">
           <div className="searchbar">
             <div className="bar-content">
+              Hello
               <DS.Heading level={2}>
                 Search the World's Research Collections
               </DS.Heading>
