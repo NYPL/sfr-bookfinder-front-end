@@ -58,10 +58,6 @@ const Layout: React.FC<any> = ({ children }) => {
           navData={navConfig.current}
         />
       </Head>
-      <script
-        type="text/javascript"
-        src="https://header.nypl.org/dgx-header.min.js?skipNav=mainContent&urls=absolute"
-      />
       <div className="app-wrapper add-list-reset">
         {router.isFallback || loading ? (
           <>
@@ -74,7 +70,6 @@ const Layout: React.FC<any> = ({ children }) => {
           <>{children}</>
         )}
         <Footer urlType="absolute" />
-
         {!loading && <Feedback location={router.pathname} />}
       </div>
     </div>

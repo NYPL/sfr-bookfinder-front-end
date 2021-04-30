@@ -27,7 +27,6 @@ const WebpubViewer: React.FC<{ url: string }> = (props) => {
           -webkit-text-size-adjust: 100%;
           zoom: reset;
         }
-
         body {
           font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
             Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
@@ -35,12 +34,10 @@ const WebpubViewer: React.FC<{ url: string }> = (props) => {
           font-size: 16px;
           margin: 0 auto;
         }
-
         ul li,
         ol li {
           list-style: none;
         }
-
         button {
           background: #fff;
           border: 0;
@@ -49,34 +46,28 @@ const WebpubViewer: React.FC<{ url: string }> = (props) => {
           margin: 0;
           -webkit-appearance: none;
         }
-
         a {
           color: #5b5852;
           text-decoration: none;
         }
-
         .inactive {
           opacity: 0;
           z-index: -3000;
         }
-
         .active {
           opacity: 1;
           z-index: 3000;
         }
-
         #viewer {
           padding: 0 env(safe-area-inset-right) 0 env(safe-area-inset-left);
           box-sizing: border-box;
         }
-
         .svgIcon.use {
           display: none;
           height: 0;
           position: absolute;
           width: 0;
         }
-
         .controls-trigger {
           position: fixed;
           top: 0.5rem;
@@ -98,9 +89,9 @@ const WebpubViewer: React.FC<{ url: string }> = (props) => {
           transition: transform 300ms ease-in-out;
           transform: rotate(180deg);
         }
-
         .controls {
           color: #5b5852;
+          position: fixed;
           right: 0;
           top: 0;
           width: 100%;
@@ -238,7 +229,6 @@ const WebpubViewer: React.FC<{ url: string }> = (props) => {
             display: inline-block;
           }
         }
-
         @-webkit-keyframes load {
           0% {
             transform: translate(-2.5rem, -2.5rem) rotate(0deg);
@@ -247,7 +237,6 @@ const WebpubViewer: React.FC<{ url: string }> = (props) => {
             transform: translate(-2.5rem, -2.5rem) rotate(360deg);
           }
         }
-
         @keyframes load {
           0% {
             transform: translate(-2.5rem, -2.5rem) rotate(0deg);
@@ -256,11 +245,9 @@ const WebpubViewer: React.FC<{ url: string }> = (props) => {
             transform: translate(-2.5rem, -2.5rem) rotate(360deg);
           }
         }
-
         .loading.is-loading .icon {
           animation: load 1s ease-in-out infinite;
         }
-
         .loading {
           position: fixed;
           width: 100%;
@@ -284,7 +271,6 @@ const WebpubViewer: React.FC<{ url: string }> = (props) => {
           transform: translate(-2.5rem, -2.5rem);
           fill: #5b5852;
         }
-
         .error {
           z-index: 20;
           background-color: rgba(255, 255, 255, 0.875);
@@ -320,7 +306,6 @@ const WebpubViewer: React.FC<{ url: string }> = (props) => {
         .error button + button {
           margin-left: 1rem;
         }
-
         .controls-view {
           font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
             Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
@@ -328,6 +313,7 @@ const WebpubViewer: React.FC<{ url: string }> = (props) => {
           font-size: 16px;
           height: calc(100% - 2rem);
           left: 0;
+          position: fixed;
           top: 3rem;
           width: 100%;
           -webkit-overflow-scrolling: touch;
@@ -346,7 +332,6 @@ const WebpubViewer: React.FC<{ url: string }> = (props) => {
         .controls-view > ul {
           padding-bottom: 1rem;
         }
-
         .info {
           color: #5b5852;
           margin: 0;
@@ -374,7 +359,6 @@ const WebpubViewer: React.FC<{ url: string }> = (props) => {
           font-size: 0.85rem;
           font-variant-numeric: lining-nums tabular-nums;
         }
-
         iframe {
           opacity: 0;
         }
@@ -396,7 +380,6 @@ const WebpubViewer: React.FC<{ url: string }> = (props) => {
             #fff
           );
         }
-
         .flip-page-container {
           height: 100px;
           margin: auto;
@@ -411,7 +394,6 @@ const WebpubViewer: React.FC<{ url: string }> = (props) => {
         .flip-page-container.hidden {
           display: none;
         }
-
         .flip-page-btn {
           display: inline-block;
           border: 1px solid #d5d5d5;
@@ -432,14 +414,12 @@ const WebpubViewer: React.FC<{ url: string }> = (props) => {
         .flip-page-btn.next {
           margin: auto 2em 0 4em;
         }
-
         .flip-page-container:hover .flip-page-btn {
           background: #4d4d4d;
           fill: #fefefe;
           border: 1px solid #494949;
           stroke: #fefefe;
         }
-
         .flip-page-icon {
           height: 100%;
         }
@@ -449,11 +429,9 @@ const WebpubViewer: React.FC<{ url: string }> = (props) => {
         .flip-page-icon.prev {
           transform: rotate(90deg);
         }
-
         .page-container {
           display: flex;
         }
-
         .scrolling-suggestion {
           position: absolute;
           left: -10000px;
@@ -473,11 +451,9 @@ const WebpubViewer: React.FC<{ url: string }> = (props) => {
           overflow: visible;
           top: 0.3125rem;
         }
-
         [data-viewer-theme="sepia"] .page-container {
           background-color: #f6ecd9;
         }
-
         [data-viewer-theme="sepia"] {
           background-color: #f6ecd9;
         }
@@ -628,7 +604,6 @@ const WebpubViewer: React.FC<{ url: string }> = (props) => {
             #111
           );
         }
-
         .contents-view {
           background-color: #fff;
           overflow: scroll;
@@ -672,7 +647,6 @@ const WebpubViewer: React.FC<{ url: string }> = (props) => {
           text-decoration: none;
           width: 100%;
         }
-
         [data-viewer-theme="sepia"] .contents-view {
           background-color: #f6ecd9;
         }
@@ -698,7 +672,6 @@ const WebpubViewer: React.FC<{ url: string }> = (props) => {
           color: #5b5852;
           border-bottom: 1px solid #e2c387;
         }
-
         [data-viewer-theme="night"] .contents-view {
           background-color: #111;
         }
@@ -724,7 +697,6 @@ const WebpubViewer: React.FC<{ url: string }> = (props) => {
           color: #dadada;
           border-bottom: 1px solid #444444;
         }
-
         .settings-view {
           overflow: hidden;
           -webkit-user-select: none;
@@ -919,7 +891,6 @@ const WebpubViewer: React.FC<{ url: string }> = (props) => {
             width: 1.5rem;
           }
         }
-
         [data-viewer-theme="night"] .settings-view > .settings-menu {
           background-color: #111;
           border: 0.0625rem solid #5b5852;
@@ -976,7 +947,6 @@ const WebpubViewer: React.FC<{ url: string }> = (props) => {
           color: #fff;
           fill: #fff;
         }
-
         /*# sourceMappingURL=main.css.map */
       `}</style>
     </>
