@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import Footer from "@nypl/dgx-react-footer";
 import * as DS from "@nypl/design-system-react-components";
 
 import { documentTitles } from "~/src/constants/labels";
@@ -54,10 +53,6 @@ const Layout: React.FC<any> = ({ children }) => {
       <Head>
         <title>{setTitle(router)}</title>
       </Head>
-      <script
-        type="text/javascript"
-        src="https://header.nypl.org/dgx-header.min.js?skipNav=mainContent&urls=absolute"
-      />
       <div className="app-wrapper add-list-reset">
         {router.isFallback || loading ? (
           <>
@@ -69,8 +64,6 @@ const Layout: React.FC<any> = ({ children }) => {
         ) : (
           <>{children}</>
         )}
-
-        <Footer urlType="absolute" />
 
         {!loading && <Feedback location={router.pathname} />}
       </div>
