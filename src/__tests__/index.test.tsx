@@ -48,9 +48,6 @@ describe("Renders Index Page", () => {
       );
     });
   });
-  test("Renders NYPL footer", () => {
-    expect(screen.getByRole("contentinfo")).toBeInTheDocument();
-  });
 });
 
 describe("Search using Landing Page Searchbar", () => {
