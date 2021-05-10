@@ -1,7 +1,6 @@
 /**
  * Import style from NYPL's global header and footer.
  */
- @import '~@nypl/dgx-header-component/dist/styles/main';
 @import '~@nypl/dgx-react-footer/dist/styles/styles';
 @import '~@nypl/dgx-header-component/dist/styles/main';
 
@@ -13,8 +12,7 @@
 $nypl-dark-blue: #135772;
 $fontFamily: 'system-ui';
 
-/** Import Design System Styles and mixins */
-@import '~@nypl/design-system-react-components/dist/styles.css';
+/** Import Design System mixins */
 @import "~@nypl/design-system-react-components/dist/resources.scss";
 
 /**
@@ -36,7 +34,7 @@ $fontFamily: 'system-ui';
 @import './components/IFrameReader.scss';
 @import './components/Loading.scss';
 @import './components/AdvancedSearch.scss';
-@import './components/Feedback.scss';
+// @import './components/Feedback.scss';
 @import './components/RequestDigitization.scss';
 @import './components/Citations.scss';
 

@@ -57,20 +57,18 @@ const Layout: React.FC<any> = ({ children }) => {
           navData={navConfig.current}
         />
       </Head>
-      <div className="app-wrapper add-list-reset">
-        {router.isFallback || loading ? (
-          <>
-            <Loading />
-            <main className="main">
-              <DS.SkeletonLoader />
-            </main>
-          </>
-        ) : (
-          <>{children}</>
-        )}
-        <Footer urlType="absolute" />
-        {!loading && <Feedback location={router.pathname} />}
-      </div>
+      {router.isFallback || loading ? (
+        <>
+          <Loading />
+          <main className="main">
+            <DS.SkeletonLoader />
+          </main>
+        </>
+      ) : (
+        <>{children}</>
+      )}
+      <Footer urlType="absolute" />
+      {!loading && <Feedback location={router.pathname} />}
     </div>
   );
 };
