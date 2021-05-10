@@ -2,8 +2,12 @@ const withTM = require("next-transpile-modules")([
   "library-simplified-webpub-viewer",
 ]);
 const path = require("path");
+const { AIRTABLE_API_KEY } = process.env;
 
 const config = {
+  env: {
+    AIRTABLE_API_KEY: AIRTABLE_API_KEY,
+  },
   future: {
     webpack5: true,
   },
