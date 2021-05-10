@@ -5,7 +5,6 @@ import Loading from "../Loading/Loading";
 const IFrameReader: React.FC<{ url: string }> = (props) => {
   const url = props.url;
   const [loading, setLoading] = useState(true);
-
   return (
     <>
       {loading && <Loading />}
