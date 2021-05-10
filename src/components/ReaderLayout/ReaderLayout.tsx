@@ -6,6 +6,7 @@ import { MediaTypes } from "~/src/constants/mediaTypes";
 import IFrameReader from "../IFrameReader/IFrameReader";
 import WebpubViewer from "../WebpubViewer/WebpubViewer";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
+import Layout from "../Layout/Layout";
 
 //The NYPL wrapper that wraps the Reader pages.
 const ReaderLayout: React.FC<{ linkResult: LinkResult }> = (props) => {
@@ -17,20 +18,24 @@ const ReaderLayout: React.FC<{ linkResult: LinkResult }> = (props) => {
   const isRead = MediaTypes.read.includes(link.media_type);
   return (
     <>
-      <DS.Breadcrumbs
-        breadcrumbs={[
-          { url: "/", text: breadcrumbTitles.home },
-          {
-            url: `/work/${link.work.uuid}`,
-            text: edition.title,
-          },
-          {
-            url: `/edition/${edition.edition_id}`,
-            text: EditionCardUtils.editionYearText(edition),
-          },
-        ]}
-      />
-      {isEmbed && <IFrameReader url={link.url} />}
+      {isEmbed && (
+        <Layout>
+          <DS.Breadcrumbs
+            breadcrumbs={[
+              { url: "/", text: breadcrumbTitles.home },
+              {
+                url: `/work/${link.work.uuid}`,
+                text: edition.title,
+              },
+              {
+                url: `/edition/${edition.edition_id}`,
+                text: EditionCardUtils.editionYearText(edition),
+              },
+            ]}
+          />
+          <IFrameReader url={link.url} />
+        </Layout>
+      )}
       {isRead && <WebpubViewer url={link.url} />}
     </>
   );

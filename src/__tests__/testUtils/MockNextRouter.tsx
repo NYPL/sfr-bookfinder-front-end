@@ -28,6 +28,9 @@ export const MockNextRouterContextProvider: React.FC<{
     prefetch = jest.fn().mockImplementation(async () => undefined),
     beforePopState = jest.fn().mockImplementation(() => null),
     isFallback = false,
+    isReady = null,
+    isPreview = null,
+    isLocaleDomain = false,
     events = {
       on: () => null,
       off: () => null,
@@ -49,7 +52,10 @@ export const MockNextRouterContextProvider: React.FC<{
         prefetch,
         beforePopState,
         isFallback,
+        isReady,
+        isPreview,
         events,
+        isLocaleDomain,
       }}
     >
       {children}
