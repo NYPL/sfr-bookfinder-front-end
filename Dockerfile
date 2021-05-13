@@ -7,14 +7,14 @@ RUN apk add git
 
 WORKDIR /
 
-ARG airtable-api-key
+ARG airtable_api_key
 
 # Set environment variables. NODE_ENV is set early because we
 # want to use it when running `npm install` and `npm run build`.
 ENV PATH /app/node_modules/.bin:$PATH
 ENV PORT=3000 \
     NODE_ENV=production
-ENV NEXT_PUBLIC_AIRTABLE_API_KEY $airtable-api-key
+ENV NEXT_PUBLIC_AIRTABLE_API_KEY $airtable_api_key
 
 # Install dependencies.
 COPY package.json ./
