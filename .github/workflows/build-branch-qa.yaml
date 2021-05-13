@@ -30,9 +30,8 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: sfr_ingest_pipeline
           BRANCH_NAME: ${{ github.head_ref }}
-          NEXT_PUBLIC_AIRTABLE_API_KEY: ${{ secrets.NEXT_PUBLIC_AIRTABLE_API_KEY }}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$BRANCH_NAME .
+          docker build --build-arg airtable-api-key=${{ secrets.AIRTABLE_API_KEY }} -t $ECR_REGISTRY/$ECR_REPOSITORY:$BRANCH_NAME .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$BRANCH_NAME
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$BRANCH_NAME"
 
