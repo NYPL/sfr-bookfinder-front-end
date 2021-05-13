@@ -65,6 +65,12 @@
                     "value": "http://localhost:80"
                 }
 
+            ],
+            "secrets": [
+                {
+                    "name": "AIRTABLE_API_KEY",
+                    "valueFrom": "arn:aws:ssm:us-east-1:946183545209:parameter/drb/qa/airtable/api-key"
+                }
             ]
         }
     ],
