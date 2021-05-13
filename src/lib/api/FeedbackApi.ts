@@ -7,7 +7,7 @@ export const submitFeedback = async (feedback: Feedback) => {
   await fetch(appConfig.feedback.formURL, {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${process.env.AIRTABLE_API_KEY}`,
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_API_KEY}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
