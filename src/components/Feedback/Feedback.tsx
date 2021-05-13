@@ -3,7 +3,7 @@ import FocusTrap from "focus-trap-react";
 import { feedbackFormReducer, initialFeedbackState } from "./FeedbackStore";
 import { submitFeedback } from "~/src/lib/api/FeedbackApi";
 
-const Feedback: React.FC<any> = (location: string) => {
+const Feedback: React.FC<any> = ({ location }) => {
   const [state, dispatch] = useReducer(
     feedbackFormReducer,
     initialFeedbackState,

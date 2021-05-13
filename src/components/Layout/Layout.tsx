@@ -15,7 +15,6 @@ import appConfig from "~/config/appConfig";
 
 const Layout: React.FC<any> = ({ children }) => {
   const router = useRouter();
-
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
