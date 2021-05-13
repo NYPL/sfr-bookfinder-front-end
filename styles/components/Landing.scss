@@ -14,7 +14,6 @@
     flex-direction: column;
 
     @media (max-width: $breakpoint-small) {
-        color: red;
         flex-direction: row;
     }
 }

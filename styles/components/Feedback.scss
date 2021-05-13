@@ -1,13 +1,15 @@
 .feedback {
-    position: static;
-    bottom: 0;
-    right: 0;
-    z-index: 100;
-    text-align: right;
-    background: #54514A;
-    color: #000;
+    display: none;
   
-    @include min-screen(1024px) {
+    @media (min-width: $breakpoint-medium) {
+      display: block;
+      position: static;
+      bottom: 0;
+      right: 0;
+      z-index: 100;
+      text-align: right;
+      background: #54514A;
+      color: #000;
       position: fixed;
       background: inherit;
       max-width: 400px;
@@ -15,21 +17,25 @@
   }
   
   .feedback-button {
-    background: #377f8b;
-    display: inline-block;
-    color: #FFF;
-    cursor: pointer;
-    box-sizing: border-box;
-    padding: 0.5rem 1rem;
-    border: 1px solid #377f8b;
-    text-align: center;
-    font-size: 1rem;
-    position: relative;
-  
-    &:hover {
-      background: #FFF;
-      border: 0.04167rem solid #377f8b;
-      color: #377f8b;
+    display: none;
+
+    @media (min-width: $breakpoint-medium) {
+      background: #377f8b;
+      display: inline-block;
+      color: #FFF;
+      cursor: pointer;
+      box-sizing: border-box;
+      padding: 0.5rem 1rem;
+      border: 1px solid #377f8b;
+      text-align: center;
+      font-size: 1rem;
+      position: relative;
+    
+      &:hover {
+        background: #FFF;
+        border: 0.04167rem solid #377f8b;
+        color: #377f8b;
+      }
     }
   }
   

@@ -15,7 +15,6 @@ import appConfig from "~/config/appConfig";
 
 const Layout: React.FC<any> = ({ children }) => {
   const router = useRouter();
-
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -69,7 +68,7 @@ const Layout: React.FC<any> = ({ children }) => {
       ) : (
         <>{children}</>
       )}
-      {!loading && <Feedback location={router.pathname} />}
+      {!loading && <Feedback location={router.asPath} />}
       <Footer urlType="absolute" />
     </div>
   );
