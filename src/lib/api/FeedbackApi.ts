@@ -1,8 +1,6 @@
 import appConfig from "~/config/appConfig";
 import { Feedback } from "~/src/types/Feedback";
 
-const apiEnv = process.env["APP_ENV"];
-
 // TODO: disable feedback in development
 
 export const submitFeedback = async (feedback: Feedback) => {
