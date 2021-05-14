@@ -53,7 +53,6 @@ const Layout: React.FC<any> = ({ children }) => {
     <div className="layout-container nypl-ds nypl--research">
       <Head>
         <title>{setTitle(router)}</title>
-        <link rel="icon" href={appConfig.favIconPath} />
         <Header
           skipNav={{ target: "mainContent" }}
           navData={navConfig.current}
