@@ -2,6 +2,7 @@
 export const pageview = (url: URL, trackingId: string): void => {
   window.gtag("config", trackingId, {
     page_path: url,
+    params: url.searchParams,
   });
 };
 
@@ -9,7 +10,7 @@ type GTagEvent = {
   action: string;
   category: string;
   label: string;
-  value: number;
+  value?: number;
 };
 
 // https://developers.google.com/analytics/devguides/collection/gtagjs/events

@@ -7,7 +7,6 @@ import Footer from "@nypl/dgx-react-footer";
 import { documentTitles } from "~/src/constants/labels";
 import Feedback from "~/src/components/Feedback/Feedback";
 import Loading from "../Loading/Loading";
-import appConfig from "~/config/appConfig";
 /**
  * Container class providing header, footer,
  * and other set up information to all its children.

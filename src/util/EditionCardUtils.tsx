@@ -18,6 +18,7 @@ import {
   PLACEHOLDER_COVER_LINK,
 } from "../constants/editioncard";
 import { MediaTypes } from "../constants/mediaTypes";
+import * as gtag from "../lib/gtag";
 
 // EditionCard holds all the methods needed to build an Edition Card
 export default class EditionCardUtils {
@@ -198,7 +199,17 @@ export default class EditionCardUtils {
           }}
           linkType={DS.LinkTypes.Button}
         >
-          Read Online
+          <a
+            onClick={() => {
+              gtag.event({
+                category: "Download",
+                action: editionItem.source,
+                label: editionItem.item_id,
+              });
+            }}
+          >
+            Read Online
+          </a>
         </Link>
       );
     }
@@ -216,7 +227,16 @@ export default class EditionCardUtils {
     if (selectedLink && selectedLink.url) {
       return (
         <DS.Link type={DS.LinkTypes.Action}>
-          <a href={`${formatUrl(selectedLink.url)}`}>
+          <a
+            href={`${formatUrl(selectedLink.url)}`}
+            onClick={() => {
+              gtag.event({
+                category: "Download",
+                action: editionItem.source,
+                label: editionItem.item_id,
+              });
+            }}
+          >
             <DS.Icon
               name={DS.IconNames.download}
               blockName="more-link"
