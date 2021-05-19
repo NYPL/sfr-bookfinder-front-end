@@ -17,7 +17,9 @@ const SearchHeader: React.FC<{ searchQuery?: SearchQuery }> = ({
   return (
     <div className="search-header-container">
       <div className="search-header" aria-label="Digital Research Books Beta">
-        <DS.Heading level={1} id="1" text="Digital Research Books Beta" />
+        <DS.Heading level={2}>
+          <Link to="/">Digital Research Books Beta</Link>
+        </DS.Heading>
         <SearchForm searchQuery={searchQuery} />
         <Link
           to={{
