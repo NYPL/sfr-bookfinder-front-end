@@ -65,6 +65,7 @@ describe("Renders Search Results Page", () => {
   test("Item Count shows correctly", () => {
     expect(screen.getByText("Viewing 1 - 10 of 26 items")).toBeInTheDocument();
   });
+
   describe("Filters modal show and hide", () => {
     test("Filters button appears", () => {
       expect(
@@ -432,5 +433,37 @@ describe("Renders Search Results Page", () => {
         },
       });
     });
+  });
+});
+
+describe("Renders locale string correctly with large numbers", () => {
+  beforeEach(() => {
+    render(
+      <MockNextRouterContextProvider>
+        <SearchResults
+          searchQuery={searchQuery}
+          searchResults={{
+            data: {
+              totalWorks: 2013521,
+              facets: { formats: [], languages: [] },
+              paging: {
+                currentPage: 3123,
+                firstPage: 0,
+                lastPage: 201352,
+                nextPage: 3124,
+                previousPage: 3122,
+                recordsPerPage: 10,
+              },
+              works: [],
+            },
+          }}
+        />
+      </MockNextRouterContextProvider>
+    );
+  });
+  test("Item Count shows correctly", () => {
+    expect(
+      screen.getByText("Viewing 31,221 - 31,230 of 2,013,521 items")
+    ).toBeInTheDocument();
   });
 });
