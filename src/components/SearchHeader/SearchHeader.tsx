@@ -20,7 +20,7 @@ const SearchHeader: React.FC<{ searchQuery?: SearchQuery }> = ({
         <DS.Heading level={2}>
           <Link to="/">Digital Research Books Beta</Link>
         </DS.Heading>
-        <SearchForm searchQuery={searchQuery} />
+        <SearchForm searchQuery={searchQuery} isHeader />
         <Link
           to={{
             pathname: "/advanced-search",
