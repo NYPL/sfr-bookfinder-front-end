@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import type { AppProps } from "next/app";
 import gaUtils, * as gtag from "../lib/Analytics";
 
 import "@nypl/design-system-react-components/dist/styles.css";
 import "~/styles/main.scss";
-import { useRouter } from "next/router";
-import appConfig from "~/config/appConfig";
 import Head from "next/head";
 
 /**
