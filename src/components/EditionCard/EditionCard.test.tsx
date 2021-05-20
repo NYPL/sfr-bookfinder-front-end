@@ -7,7 +7,7 @@ import { fullEdition } from "~/src/__tests__/fixtures/EditionCardFixture";
 
 describe("Edition Card with Valid Data", () => {
   beforeEach(() => {
-    render(<EditionCard edition={fullEdition}></EditionCard>);
+    render(<EditionCard edition={fullEdition} title={"title"}></EditionCard>);
   });
   test("Shows Year as Link in header", () => {
     expect(screen.getByText("1990 Edition").closest("a").href).toContain(
@@ -52,7 +52,12 @@ describe("Edition Card with Valid Data", () => {
 
 describe("Edition Year with Minimal Data", () => {
   beforeEach(() => {
-    render(<EditionCard edition={{ edition_id: 54321 }}></EditionCard>);
+    render(
+      <EditionCard
+        edition={{ edition_id: 54321 }}
+        title={"title"}
+      ></EditionCard>
+    );
   });
   test("Shows Unknown Year as Link in header", () => {
     expect(

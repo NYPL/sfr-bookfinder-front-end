@@ -59,7 +59,7 @@ const ResultsList: React.FC<{ works: ApiWork[] }> = ({ works }) => {
             {EditionCardUtils.getAuthorsList(work.authors) && (
               <span>By {EditionCardUtils.getAuthorsList(work.authors)} </span>
             )}
-            <EditionCard edition={previewEdition} />
+            <EditionCard edition={previewEdition} title={work.title} />
             <div className="editions-link">{getEditionsLinkElement(work)}</div>
           </li>
         );
