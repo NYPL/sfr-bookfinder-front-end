@@ -39,10 +39,13 @@ describe("Renders Search Results Page", () => {
     });
   });
 
-  test("Breadcrumbs link to homepage", () => {
-    expect(
-      screen.getByRole("link", { name: "Digital Research Books Beta" })
-    ).toHaveAttribute("href", "/");
+  test("Digital Research Books Beta links to homepage", () => {
+    const homepagelinks = screen.getAllByRole("link", {
+      name: "Digital Research Books Beta",
+    });
+    homepagelinks.forEach((link) => {
+      expect(link).toHaveAttribute("href", "/");
+    });
   });
   test("DRB Header is shown", () => {
     expect(

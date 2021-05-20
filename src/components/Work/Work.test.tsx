@@ -19,10 +19,13 @@ describe("Renders Work component when given valid work", () => {
       </MockNextRouterContextProvider>
     );
   });
-  test("Breadcrumbs link to homepage", () => {
-    expect(
-      screen.getByRole("link", { name: breadcrumbTitles.home })
-    ).toHaveAttribute("href", "/");
+  test("Digital Research Books Beta links to homepage", () => {
+    const homepagelinks = screen.getAllByRole("link", {
+      name: "Digital Research Books Beta",
+    });
+    homepagelinks.forEach((link) => {
+      expect(link).toHaveAttribute("href", "/");
+    });
   });
   test("Shows Header with Searchbar", () => {
     expect(
