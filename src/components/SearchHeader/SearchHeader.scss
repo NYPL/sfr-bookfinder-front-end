@@ -12,15 +12,23 @@
 
     @media (min-width: $breakpoint-medium) {
         flex-flow: row;
-        align-items: flex-end;
+        align-items: flex-start;
+    }
+    .advanced-search {
+        padding-top: var(--space-l);
     }
 
     .search-form {
         @include space-inline-s;
-        @include space-stack-m;
+        padding-top: var(--space-m);
         flex: 1 1 50%;
-    }   width: 100%;
+        width: 100%;
 
+        .helper-text--error {
+            color: white
+        }
+    }   
+    
     h2 { 
         //Uses the heading-xl mixin from design system
         color: var(--ui-white);

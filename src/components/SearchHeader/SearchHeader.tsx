@@ -21,16 +21,18 @@ const SearchHeader: React.FC<{ searchQuery?: SearchQuery }> = ({
           <Link to="/">Digital Research Books Beta</Link>
         </DS.Heading>
         <SearchForm searchQuery={searchQuery} isHeader />
-        <Link
-          to={{
-            pathname: "/advanced-search",
-            query: searchQuery && toLocationQuery(toApiQuery(searchQuery)),
-          }}
-          modifiers={["dark-background"]}
-          className="link"
-        >
-          Advanced Search
-        </Link>
+        <div className="advanced-search">
+          <Link
+            to={{
+              pathname: "/advanced-search",
+              query: searchQuery && toLocationQuery(toApiQuery(searchQuery)),
+            }}
+            modifiers={["dark-background"]}
+            className="link"
+          >
+            Advanced Search
+          </Link>
+        </div>
       </div>
     </div>
   );
