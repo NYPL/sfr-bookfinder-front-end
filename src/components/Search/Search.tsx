@@ -85,6 +85,7 @@ const SearchResults: React.FC<{
   const changeFilters = (newFilters?: Filter[]) => {
     const newSearchQuery: SearchQuery = {
       ...searchQuery,
+      ...{ page: 1 },
       ...(newFilters && { filters: newFilters }),
     };
     setSearchQuery(newSearchQuery);
@@ -254,14 +255,15 @@ const SearchResults: React.FC<{
             </form>
           </DS.Modal>
         )}
-
-        <div className="content-bottom">
-          <DS.Pagination
-            pageCount={searchPaging.lastPage ? searchPaging.lastPage : 1}
-            currentPage={searchQuery.page}
-            onPageChange={(e) => onPageChange(e)}
-          />
-        </div>
+        {searchPaging.lastPage > 1 && (
+          <div className="content-bottom">
+            <DS.Pagination
+              pageCount={searchPaging.lastPage ? searchPaging.lastPage : 1}
+              currentPage={searchPaging.currentPage}
+              onPageChange={(e) => onPageChange(e)}
+            />
+          </div>
+        )}
       </div>
     </main>
   );

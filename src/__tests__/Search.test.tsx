@@ -23,6 +23,22 @@ const searchResults: ApiSearchResult = require("./fixtures/results-list.json");
 const searchQuery: SearchQuery = {
   queries: [{ field: "keyword", query: "Animal Crossing" }],
 };
+const emptySearchResults: ApiSearchResult = {
+  status: 200,
+  data: {
+    totalWorks: 0,
+    paging: {
+      currentPage: 1,
+      firstPage: 1,
+      lastPage: 1,
+      nextPage: 1,
+      previousPage: 0,
+      recordsPerPage: 10,
+    },
+    facets: { formats: [], languages: [] },
+    works: [],
+  },
+};
 
 describe("Renders Search Results Page", () => {
   beforeEach(() => {
@@ -465,5 +481,45 @@ describe("Renders locale string correctly with large numbers", () => {
     expect(
       screen.getByText("Viewing 31,221 - 31,230 of 2,013,521 items")
     ).toBeInTheDocument();
+  });
+});
+
+describe("Renders No Results when no results are shown", () => {
+  beforeEach(() => {
+    render(
+      <MockNextRouterContextProvider>
+        <SearchResults
+          searchQuery={searchQuery}
+          searchResults={emptySearchResults}
+        />
+      </MockNextRouterContextProvider>
+    );
+  });
+
+  test("Main Content shows the current search query", () => {
+    expect(
+      screen.getByText("Search results for keyword: Animal Crossing")
+    ).toBeInTheDocument();
+  });
+  test("Item Count shows correctly", () => {
+    expect(screen.getByText("Viewing 0 items")).toBeInTheDocument();
+  });
+  test("No Results message appears", () => {
+    expect(
+      screen.getByText(
+        "No results were found. Please try a different keyword or fewer filters."
+      )
+    ).toBeInTheDocument();
+  });
+  test("Pagination does not appear", () => {
+    const previousButton = screen.queryByRole("button", {
+      name: "Previous page",
+    });
+    const nextButton = screen.queryByRole("button", {
+      name: "Next page",
+    });
+
+    expect(previousButton).not.toBeInTheDocument();
+    expect(nextButton).not.toBeInTheDocument();
   });
 });
