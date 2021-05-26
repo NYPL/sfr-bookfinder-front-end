@@ -74,7 +74,10 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
           </div>
 
           <div>
-            <EditionCard edition={firstReadableEdition}></EditionCard>
+            <EditionCard
+              edition={firstReadableEdition}
+              title={work.title}
+            ></EditionCard>
           </div>
           <hr />
           <WorkDetailDefinitionList work={work} />
@@ -111,7 +114,10 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
                 >
                   {work.editions.map((edition: ApiEdition) => (
                     <li key={edition.edition_id}>
-                      <EditionCard edition={edition}></EditionCard>
+                      <EditionCard
+                        edition={edition}
+                        title={work.title}
+                      ></EditionCard>
                     </li>
                   ))}
                 </DS.List>

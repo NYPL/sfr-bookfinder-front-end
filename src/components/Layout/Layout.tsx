@@ -7,7 +7,6 @@ import Footer from "@nypl/dgx-react-footer";
 import { documentTitles } from "~/src/constants/labels";
 import Feedback from "~/src/components/Feedback/Feedback";
 import Loading from "../Loading/Loading";
-import appConfig from "~/config/appConfig";
 /**
  * Container class providing header, footer,
  * and other set up information to all its children.
@@ -52,7 +51,6 @@ const Layout: React.FC<any> = ({ children }) => {
     <div className="layout-container nypl-ds nypl--research">
       <Head>
         <title>{setTitle(router)}</title>
-        <link rel="icon" href={appConfig.favIconPath} />
         <Header
           skipNav={{ target: "mainContent" }}
           navData={navConfig.current}

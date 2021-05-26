@@ -20,7 +20,10 @@ export const InstanceCard: React.FC<{
     instance && instance.items ? instance.items[0] : undefined;
 
   const readOnlineLink = EditionCardUtils.getReadOnlineLink(previewItem);
-  const downloadLink = EditionCardUtils.getDownloadLink(previewItem);
+  const downloadLink = EditionCardUtils.getDownloadLink(
+    previewItem,
+    instance.title
+  );
 
   return (
     <DS.Card
