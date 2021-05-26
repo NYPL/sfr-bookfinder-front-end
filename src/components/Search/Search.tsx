@@ -82,10 +82,11 @@ const SearchResults: React.FC<{
       ? searchPaging.currentPage * searchPaging.recordsPerPage
       : numberOfWorks;
 
+  // When Filters change, it should reset the page number while preserving all other search preferences.
   const changeFilters = (newFilters?: Filter[]) => {
     const newSearchQuery: SearchQuery = {
       ...searchQuery,
-      ...{ page: 1 },
+      ...{ page: SearchQueryDefaults.page },
       ...(newFilters && { filters: newFilters }),
     };
     setSearchQuery(newSearchQuery);
