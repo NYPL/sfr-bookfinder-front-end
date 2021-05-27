@@ -56,7 +56,7 @@ export type ApiSearchResult = {
   data?: {
     totalWorks?: number;
     facets: { formats: FacetItem[]; languages: FacetItem[] };
-    paging?: {
+    paging: {
       currentPage: number;
       firstPage: number;
       lastPage: number;

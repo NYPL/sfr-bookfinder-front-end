@@ -29,12 +29,12 @@ export const getEditionsLinkElement = (work: ApiWork) => {
 const ResultsList: React.FC<{ works: ApiWork[] }> = ({ works }) => {
   if (works.length === 0) {
     return (
-      <div>
-        <EmptySearchSvg />
-        <span>
+      <div className="no-results">
+        <EmptySearchSvg className="no-results-item" />
+        <div className="no-results-item">
           No results were found. Please try a different keyword or fewer
           filters.
-        </span>
+        </div>
       </div>
     );
   }

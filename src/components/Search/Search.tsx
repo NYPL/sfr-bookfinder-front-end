@@ -82,9 +82,11 @@ const SearchResults: React.FC<{
       ? searchPaging.currentPage * searchPaging.recordsPerPage
       : numberOfWorks;
 
+  // When Filters change, it should reset the page number while preserving all other search preferences.
   const changeFilters = (newFilters?: Filter[]) => {
     const newSearchQuery: SearchQuery = {
       ...searchQuery,
+      ...{ page: SearchQueryDefaults.page },
       ...(newFilters && { filters: newFilters }),
     };
     setSearchQuery(newSearchQuery);
@@ -254,14 +256,15 @@ const SearchResults: React.FC<{
             </form>
           </DS.Modal>
         )}
-
-        <div className="content-bottom">
-          <DS.Pagination
-            pageCount={searchPaging.lastPage ? searchPaging.lastPage : 1}
-            currentPage={searchQuery.page}
-            onPageChange={(e) => onPageChange(e)}
-          />
-        </div>
+        {searchPaging.lastPage > 1 && (
+          <div className="content-bottom">
+            <DS.Pagination
+              pageCount={searchPaging.lastPage ? searchPaging.lastPage : 1}
+              currentPage={searchPaging.currentPage}
+              onPageChange={(e) => onPageChange(e)}
+            />
+          </div>
+        )}
       </div>
     </main>
   );
