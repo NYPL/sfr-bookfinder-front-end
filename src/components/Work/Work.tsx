@@ -13,10 +13,8 @@ import { ApiEdition } from "~/src/types/EditionQuery";
 const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
   const router = useRouter();
 
-  //TODO: Loading
-  if (!props.workResult) return <>Loading</>;
-
   const { pathname, query } = router;
+
   const work: ApiWork = props.workResult.data;
   //Edition Card Preprocessing
   const authorsList = EditionCardUtils.getAuthorsList(work.authors);
@@ -104,7 +102,7 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
                         <>Show only items currently available online</>
                       ),
                     }}
-                    checked={router.query.showAll !== "true"}
+                    checked={query.showAll === "false"}
                     onChange={(e) => toggleShowAll(e)}
                   />
                 </div>

@@ -23,7 +23,7 @@ const languagesUrl = apiUrl + languagesPath;
 
 const defaultWorkQuery: WorkQuery = {
   identifier: "",
-  showAll: "false",
+  showAll: "true",
 };
 
 const defaultEditionQuery = {
@@ -56,7 +56,6 @@ export const workFetcher = async (query: WorkQuery) => {
 
   const url = new URL(recordUrl + "/" + query.identifier);
   url.search = new URLSearchParams(workApiQuery).toString();
-
   const res = await fetch(url.toString());
 
   if (res.ok) {
