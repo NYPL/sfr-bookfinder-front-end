@@ -8,6 +8,8 @@ import WebpubViewer from "../WebpubViewer/WebpubViewer";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
 import Layout from "../Layout/Layout";
 import * as gtag from "../../lib/Analytics";
+import { truncateStringOnWhitespace } from "~/src/util/Util";
+import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
 
 //The NYPL wrapper that wraps the Reader pages.
 const ReaderLayout: React.FC<{ linkResult: LinkResult }> = (props) => {
@@ -30,8 +32,11 @@ const ReaderLayout: React.FC<{ linkResult: LinkResult }> = (props) => {
             breadcrumbs={[
               { url: "/", text: breadcrumbTitles.home },
               {
-                url: `/work/${link.work.uuid}`,
-                text: edition.title,
+                url: `/work/${edition.work_uuid}`,
+                text: truncateStringOnWhitespace(
+                  edition.title,
+                  MAX_TITLE_LENGTH
+                ),
               },
               {
                 url: `/edition/${edition.edition_id}`,

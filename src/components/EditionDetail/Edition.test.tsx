@@ -82,6 +82,36 @@ describe("Renders edition component when given valid edition", () => {
   //});
 });
 
+describe("Breadcrumb truncates on long title", () => {
+  beforeEach(() => {
+    render(
+      <MockNextRouterContextProvider>
+        <Edition
+          editionResult={{
+            data: {
+              instances: [],
+              title:
+                "super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super long title",
+            },
+          }}
+        />
+      </MockNextRouterContextProvider>
+    );
+  });
+  test("title shows up truncated in breadcrumb", () => {
+    const nav = screen.getByRole("navigation");
+    expect(
+      within(nav).getByRole("link", { name: breadcrumbTitles.home })
+    ).toHaveAttribute("href", "/");
+    expect(
+      (within(nav).getByRole("link", {
+        name:
+          "super super super super super super super super super super super super...",
+      }) as HTMLAnchorElement).href
+    ).toContain("/work/");
+  });
+});
+
 describe("All Copies Toggle", () => {
   describe("edition with no showAll query passed", () => {
     beforeEach(() => {
