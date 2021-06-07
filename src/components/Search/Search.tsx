@@ -158,7 +158,11 @@ const SearchResults: React.FC<{
           <div className="search-subheading">
             <DS.Heading level={2} id="page-counter" className="page-counter">
               {numberOfWorks > 0
-                ? `Viewing ${firstElement.toLocaleString()} - ${lastElement.toLocaleString()} of ${numberOfWorks.toLocaleString()} items`
+                ? `Viewing ${firstElement.toLocaleString()} - ${
+                    numberOfWorks < lastElement
+                      ? numberOfWorks.toLocaleString()
+                      : lastElement.toLocaleString()
+                  } of ${numberOfWorks.toLocaleString()} items`
                 : "Viewing 0 items"}
             </DS.Heading>
             <form

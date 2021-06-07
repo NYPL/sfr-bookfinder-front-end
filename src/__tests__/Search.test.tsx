@@ -452,6 +452,37 @@ describe("Renders Search Results Page", () => {
   });
 });
 
+describe("Renders correctly when perPage is greater than item count", () => {
+  beforeEach(() => {
+    render(
+      <MockNextRouterContextProvider>
+        <SearchResults
+          searchQuery={searchQuery}
+          searchResults={{
+            data: {
+              totalWorks: 2,
+              facets: { formats: [], languages: [] },
+              paging: {
+                currentPage: 1,
+                firstPage: 1,
+                lastPage: 1,
+                nextPage: 1,
+                previousPage: 1,
+                recordsPerPage: 10,
+              },
+              works: [],
+            },
+          }}
+        />
+      </MockNextRouterContextProvider>
+    );
+  });
+
+  test("Item Count shows correctly", () => {
+    expect(screen.getByText("Viewing 1 - 2 of 2 items")).toBeInTheDocument();
+  });
+});
+
 describe("Renders locale string correctly with large numbers", () => {
   beforeEach(() => {
     render(
