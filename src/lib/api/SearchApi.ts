@@ -28,7 +28,7 @@ const defaultWorkQuery: WorkQuery = {
 
 const defaultEditionQuery = {
   editionIdentifier: "",
-  showAll: "false",
+  showAll: "true",
 };
 
 export const searchResultsFetcher = async (apiQuery: ApiSearchQuery) => {

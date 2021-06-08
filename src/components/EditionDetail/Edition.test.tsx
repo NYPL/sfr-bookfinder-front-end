@@ -122,13 +122,45 @@ describe("All Copies Toggle", () => {
       );
     });
 
-    test("Copy Toggle defaults to empty", () => {
+    test("Edition Toggle defaults to checked", () => {
+      const toggle = screen.getByLabelText(
+        "Show only items currently available online"
+      ) as HTMLInputElement;
+      expect(toggle).toBeInTheDocument;
+      expect(toggle).not.toBeChecked();
+    });
+
+    test("clicking the edition toggle sends a new query", () => {
+      const toggle = screen.getByLabelText(
+        "Show only items currently available online"
+      ) as HTMLInputElement;
+      fireEvent.click(toggle);
+
+      expect(mockPush).toHaveBeenCalledTimes(1);
+      expect(mockPush).toHaveBeenCalledWith({
+        pathname: "",
+        query: { showAll: false },
+      });
+    });
+  });
+
+  describe("copy with showAll=false", () => {
+    beforeEach(() => {
+      render(
+        <MockNextRouterContextProvider routerQuery={{ showAll: "false" }}>
+          <Edition editionResult={apiEdition} />
+        </MockNextRouterContextProvider>
+      );
+    });
+
+    test("Item Toggle is checked", () => {
       const toggle = screen.getByLabelText(
         "Show only items currently available online"
       ) as HTMLInputElement;
       expect(toggle).toBeInTheDocument;
       expect(toggle).toBeChecked();
     });
+
     test("clicking the edition toggle sends a new query", () => {
       const toggle = screen.getByLabelText(
         "Show only items currently available online"
@@ -139,36 +171,6 @@ describe("All Copies Toggle", () => {
       expect(mockPush).toHaveBeenCalledWith({
         pathname: "",
         query: { showAll: true },
-      });
-    });
-  });
-
-  describe("copy with showAll=true", () => {
-    beforeEach(() => {
-      render(
-        <MockNextRouterContextProvider routerQuery={{ showAll: "true" }}>
-          <Edition editionResult={apiEdition} />
-        </MockNextRouterContextProvider>
-      );
-    });
-
-    test("Copy Toggle defaults to checked", () => {
-      const toggle = screen.getByLabelText(
-        "Show only items currently available online"
-      ) as HTMLInputElement;
-      expect(toggle).toBeInTheDocument;
-      expect(toggle).not.toBeChecked();
-    });
-    test("clicking the copy toggle sends a new query", () => {
-      const toggle = screen.getByLabelText(
-        "Show only items currently available online"
-      ) as HTMLInputElement;
-      fireEvent.click(toggle);
-
-      expect(mockPush).toHaveBeenCalledTimes(1);
-      expect(mockPush).toHaveBeenCalledWith({
-        pathname: "",
-        query: { showAll: false },
       });
     });
   });
