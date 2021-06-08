@@ -9,6 +9,8 @@ import Link from "~/src/components/Link/Link";
 import { InstanceCard } from "../InstanceCard/InstanceCard";
 import { breadcrumbTitles } from "~/src/constants/labels";
 import SearchHeader from "../SearchHeader/SearchHeader";
+import { truncateStringOnWhitespace } from "~/src/util/Util";
+import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
 
 const Edition: React.FC<{ editionResult: EditionResult }> = (props) => {
   const router = useRouter();
@@ -36,7 +38,13 @@ const Edition: React.FC<{ editionResult: EditionResult }> = (props) => {
           <DS.Breadcrumbs
             breadcrumbs={[
               { url: "/", text: breadcrumbTitles.home },
-              { url: `/work/${edition.work_uuid}`, text: edition.title },
+              {
+                url: `/work/${edition.work_uuid}`,
+                text: truncateStringOnWhitespace(
+                  edition.title,
+                  MAX_TITLE_LENGTH
+                ),
+              },
             ]}
           />
           <SearchHeader></SearchHeader>

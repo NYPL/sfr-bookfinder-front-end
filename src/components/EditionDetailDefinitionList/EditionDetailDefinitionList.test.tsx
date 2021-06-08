@@ -86,6 +86,7 @@ describe("Edition Detail table with all information", () => {
 describe("Edition detail with no data", () => {
   const noDataEditionDetail: ApiEdition = {
     edition_id: 12345,
+    instances: [],
   };
   beforeEach(() => {
     render(
