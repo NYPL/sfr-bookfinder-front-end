@@ -17,18 +17,22 @@ const SearchHeader: React.FC<{ searchQuery?: SearchQuery }> = ({
   return (
     <div className="search-header-container">
       <div className="search-header" aria-label="Digital Research Books Beta">
-        <DS.Heading level={1} id="1" text="Digital Research Books Beta" />
-        <SearchForm searchQuery={searchQuery} />
-        <Link
-          to={{
-            pathname: "/advanced-search",
-            query: searchQuery && toLocationQuery(toApiQuery(searchQuery)),
-          }}
-          modifiers={["dark-background"]}
-          className="link"
-        >
-          Advanced Search
-        </Link>
+        <DS.Heading level={2}>
+          <Link to="/">Digital Research Books Beta</Link>
+        </DS.Heading>
+        <SearchForm searchQuery={searchQuery} isHeader />
+        <div className="advanced-search">
+          <Link
+            to={{
+              pathname: "/advanced-search",
+              query: searchQuery && toLocationQuery(toApiQuery(searchQuery)),
+            }}
+            modifiers={["dark-background"]}
+            className="link"
+          >
+            Advanced Search
+          </Link>
+        </div>
       </div>
     </div>
   );

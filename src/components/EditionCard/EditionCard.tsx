@@ -5,9 +5,10 @@ import { WorkEdition } from "~/src/types/DataModel";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
 import { PLACEHOLDER_COVER_LINK } from "~/src/constants/editioncard";
 
-export const EditionCard: React.FC<{ edition: WorkEdition }> = (props) => {
-  const edition: WorkEdition = props.edition;
-
+export const EditionCard: React.FC<{ edition: WorkEdition; title: string }> = ({
+  edition,
+  title,
+}) => {
   const previewItem = edition && edition.items ? edition.items[0] : undefined;
   const readOnlineLink = EditionCardUtils.getReadOnlineLink(previewItem);
 
@@ -26,7 +27,7 @@ export const EditionCard: React.FC<{ edition: WorkEdition }> = (props) => {
     );
     return editionElem;
   };
-  const downloadLink = EditionCardUtils.getDownloadLink(previewItem);
+  const downloadLink = EditionCardUtils.getDownloadLink(previewItem, title);
 
   const coverUrl = EditionCardUtils.getCover(edition.links);
 

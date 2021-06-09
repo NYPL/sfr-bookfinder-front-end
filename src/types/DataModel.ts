@@ -1,36 +1,13 @@
 /* eslint-disable camelcase */
 
-import { ApiEdition } from "./EditionQuery";
-
-export type ApiSearchResult = {
-  status?: number;
-  timestamp?: string;
-  responseType?: string;
-  data?: {
-    totalWorks?: number;
-    facets?: { formats: FacetItem[]; languages: FacetItem[] };
-    paging?: {
-      currentPage: number;
-      firstPage: number;
-      lastPage: number;
-      nextPage: number;
-      previousPage: number;
-      recordsPerPage: number;
-    };
-    works?: ApiWork[];
-  };
-};
-
 export type FacetItem = { value?: string; count?: number };
 
 export type Agent = {
-  name?: string;
-  sort_name?: string;
-  viaf?: string;
   lcnaf?: string;
+  name?: string;
+  primary?: string;
+  viaf?: string;
   roles?: string[];
-  birth_date_display?: string;
-  death_date_display?: string;
 };
 
 //This Instance is from the instances of the Edition endpoint
@@ -117,7 +94,6 @@ export type WorkEdition = {
   extent?: string;
   summary?: string;
   work_id?: number;
-  agents?: Agent[];
   publishers?: Agent[];
   items?: ApiItem[];
   work_uuid?: string;
@@ -136,27 +112,10 @@ export type Measurement = {
   taken_at?: string;
 };
 
-export type Author = {
-  lcnaf?: string;
-  name?: string;
-  primary?: string;
-  viaf?: string;
-};
+//Refer to sorts.ts
+export type Sort = { field: string; dir: string };
 
-export type ApiWork = {
-  alt_titles?: string[];
-  authors?: Author[];
-  contributors?: string[];
-  dates?: Date[];
-  editions?: ApiEdition[];
-  edition_count?: number;
-  languages?: Language[];
-  measurements?: string[];
-  medium?: string;
-  series?: string;
-  series_position?: string;
-  sub_title?: string;
-  subjects?: Subject[];
-  title?: string;
-  uuid?: string;
-};
+export interface Query {
+  query: string;
+  field: string;
+}

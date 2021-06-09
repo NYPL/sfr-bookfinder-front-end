@@ -4,8 +4,7 @@ import * as DS from "@nypl/design-system-react-components";
 import { joinArrayOfElements } from "~/src/util/Util";
 import { EditionCard } from "~/src/components/EditionCard/EditionCard";
 import WorkDetailDefinitionList from "~/src/components/WorkDetailDefinitionList/WorkDetailDefinitionList";
-import { WorkResult } from "~/src/types/WorkQuery";
-import { ApiWork } from "~/src/types/DataModel";
+import { ApiWork, WorkResult } from "~/src/types/WorkQuery";
 import { breadcrumbTitles } from "~/src/constants/labels";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
 import SearchHeader from "../SearchHeader/SearchHeader";
@@ -14,10 +13,8 @@ import { ApiEdition } from "~/src/types/EditionQuery";
 const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
   const router = useRouter();
 
-  //TODO: Loading
-  if (!props.workResult) return <>Loading</>;
-
   const { pathname, query } = router;
+
   const work: ApiWork = props.workResult.data;
   //Edition Card Preprocessing
   const authorsList = EditionCardUtils.getAuthorsList(work.authors);
@@ -75,7 +72,10 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
           </div>
 
           <div>
-            <EditionCard edition={firstReadableEdition}></EditionCard>
+            <EditionCard
+              edition={firstReadableEdition}
+              title={work.title}
+            ></EditionCard>
           </div>
           <hr />
           <WorkDetailDefinitionList work={work} />
@@ -102,7 +102,7 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
                         <>Show only items currently available online</>
                       ),
                     }}
-                    checked={router.query.showAll !== "true"}
+                    checked={query.showAll === "false"}
                     onChange={(e) => toggleShowAll(e)}
                   />
                 </div>
@@ -112,7 +112,10 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
                 >
                   {work.editions.map((edition: ApiEdition) => (
                     <li key={edition.edition_id}>
-                      <EditionCard edition={edition}></EditionCard>
+                      <EditionCard
+                        edition={edition}
+                        title={work.title}
+                      ></EditionCard>
                     </li>
                   ))}
                 </DS.List>

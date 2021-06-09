@@ -1,8 +1,8 @@
 import React from "react";
 import * as DS from "@nypl/design-system-react-components";
-import { Sort } from "~/src/types/SearchQuery";
 import { sortMap, numbersPerPage } from "~/src/constants/sorts";
 import { deepEqual } from "~/src/util/Util";
+import { Sort } from "~/src/types/DataModel";
 
 const ResultsSorts: React.FC<{
   perPage: number;

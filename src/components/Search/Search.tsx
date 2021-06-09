@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import * as DS from "@nypl/design-system-react-components";
 import { useRouter } from "next/router";
 import { searchFields } from "~/src/constants/fields";
-import { ApiSearchResult, ApiWork, FacetItem } from "~/src/types/DataModel";
+import { FacetItem } from "~/src/types/DataModel";
 import {
+  ApiSearchResult,
   Filter,
   SearchQuery,
   SearchQueryDefaults,
@@ -15,6 +16,7 @@ import Filters from "../ResultsFilters/ResultsFilters";
 import ResultsSorts from "../ResultsSorts/ResultsSorts";
 import { breadcrumbTitles } from "~/src/constants/labels";
 import SearchHeader from "../SearchHeader/SearchHeader";
+import { ApiWork } from "~/src/types/WorkQuery";
 
 const SearchResults: React.FC<{
   searchQuery: SearchQuery;
@@ -80,9 +82,11 @@ const SearchResults: React.FC<{
       ? searchPaging.currentPage * searchPaging.recordsPerPage
       : numberOfWorks;
 
+  // When Filters change, it should reset the page number while preserving all other search preferences.
   const changeFilters = (newFilters?: Filter[]) => {
     const newSearchQuery: SearchQuery = {
       ...searchQuery,
+      ...{ page: SearchQueryDefaults.page },
       ...(newFilters && { filters: newFilters }),
     };
     setSearchQuery(newSearchQuery);
@@ -154,7 +158,11 @@ const SearchResults: React.FC<{
           <div className="search-subheading">
             <DS.Heading level={2} id="page-counter" className="page-counter">
               {numberOfWorks > 0
-                ? `Viewing ${firstElement} - ${lastElement} of ${numberOfWorks} items`
+                ? `Viewing ${firstElement.toLocaleString()} - ${
+                    numberOfWorks < lastElement
+                      ? numberOfWorks.toLocaleString()
+                      : lastElement.toLocaleString()
+                  } of ${numberOfWorks.toLocaleString()} items`
                 : "Viewing 0 items"}
             </DS.Heading>
             <form
@@ -252,14 +260,15 @@ const SearchResults: React.FC<{
             </form>
           </DS.Modal>
         )}
-
-        <div className="content-bottom">
-          <DS.Pagination
-            pageCount={searchPaging.lastPage ? searchPaging.lastPage : 1}
-            currentPage={searchQuery.page}
-            onPageChange={(e) => onPageChange(e)}
-          />
-        </div>
+        {searchPaging.lastPage > 1 && (
+          <div className="content-bottom">
+            <DS.Pagination
+              pageCount={searchPaging.lastPage ? searchPaging.lastPage : 1}
+              currentPage={searchPaging.currentPage}
+              onPageChange={(e) => onPageChange(e)}
+            />
+          </div>
+        )}
       </div>
     </main>
   );

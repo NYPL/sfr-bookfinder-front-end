@@ -19,10 +19,13 @@ describe("Renders Work component when given valid work", () => {
       </MockNextRouterContextProvider>
     );
   });
-  test("Breadcrumbs link to homepage", () => {
-    expect(
-      screen.getByRole("link", { name: breadcrumbTitles.home })
-    ).toHaveAttribute("href", "/");
+  test("Digital Research Books Beta links to homepage", () => {
+    const homepagelinks = screen.getAllByRole("link", {
+      name: "Digital Research Books Beta",
+    });
+    homepagelinks.forEach((link) => {
+      expect(link).toHaveAttribute("href", "/");
+    });
   });
   test("Shows Header with Searchbar", () => {
     expect(
@@ -100,7 +103,7 @@ describe("Edition Cards and toggles", () => {
         "Show only items currently available online"
       ) as HTMLInputElement;
       expect(toggle).toBeInTheDocument;
-      expect(toggle).toBeChecked();
+      expect(toggle).not.toBeChecked();
     });
 
     test("clicking the edition toggle sends a new query", () => {
@@ -112,7 +115,7 @@ describe("Edition Cards and toggles", () => {
       expect(mockPush).toHaveBeenCalledTimes(1);
       expect(mockPush).toHaveBeenCalledWith({
         pathname: "",
-        query: { showAll: true },
+        query: { showAll: false },
       });
     });
   });
@@ -144,6 +147,37 @@ describe("Edition Cards and toggles", () => {
       expect(mockPush).toHaveBeenCalledWith({
         pathname: "",
         query: { showAll: false },
+      });
+    });
+  });
+
+  describe("Work with showAll=false", () => {
+    beforeEach(() => {
+      render(
+        <MockNextRouterContextProvider routerQuery={{ showAll: "false" }}>
+          <Work workResult={apiWork} />
+        </MockNextRouterContextProvider>
+      );
+    });
+
+    test("Edition Toggle is checked", () => {
+      const toggle = screen.getByLabelText(
+        "Show only items currently available online"
+      ) as HTMLInputElement;
+      expect(toggle).toBeInTheDocument;
+      expect(toggle).toBeChecked();
+    });
+
+    test("clicking the edition toggle sends a new query", () => {
+      const toggle = screen.getByLabelText(
+        "Show only items currently available online"
+      ) as HTMLInputElement;
+      fireEvent.click(toggle);
+
+      expect(mockPush).toHaveBeenCalledTimes(1);
+      expect(mockPush).toHaveBeenCalledWith({
+        pathname: "",
+        query: { showAll: true },
       });
     });
   });

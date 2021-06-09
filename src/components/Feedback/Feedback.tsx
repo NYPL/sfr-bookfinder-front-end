@@ -1,19 +1,18 @@
 import React, { RefObject, useReducer } from "react";
 import FocusTrap from "focus-trap-react";
 import { feedbackFormReducer, initialFeedbackState } from "./FeedbackStore";
-import appConfig from "~/config/appConfig";
-import { useRouter } from "next/router";
+import { submitFeedback } from "~/src/lib/api/FeedbackApi";
 
-const Feedback: React.FC<any> = () => {
+const Feedback: React.FC<any> = ({ location }) => {
   const [state, dispatch] = useReducer(
     feedbackFormReducer,
     initialFeedbackState,
     () => initialFeedbackState
   );
-  const router = useRouter();
   const { formHidden, showCommentErrorMessage, feedback, foundSuccess } = state;
 
-  const feedbackField: RefObject<HTMLTextAreaElement> = React.createRef<HTMLTextAreaElement>();
+  const feedbackField: RefObject<HTMLTextAreaElement> =
+    React.createRef<HTMLTextAreaElement>();
 
   const closeForm = () => {
     dispatch({ type: "RESET" });
@@ -33,24 +32,17 @@ const Feedback: React.FC<any> = () => {
       feedbackField.current.focus();
       dispatch({ type: "FEEDBACK_EMPTY", value: true });
     } else {
-      fetch(appConfig.feedback.formURL, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${process.env.AIRTABLE_API_KEY}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          fields: {
-            Feedback: feedback,
-            Success: foundSuccess,
-            URL: router.pathname,
-          },
-        }),
+      submitFeedback({
+        feedback: feedback,
+        success: foundSuccess,
+        url: location,
       });
       setFormHidden(true);
       dispatch({ type: "RESET" });
+      alert("Thank you, your feedback has been submitted.");
     }
   };
+
   return (
     <div className="feedback">
       <button
@@ -63,7 +55,7 @@ const Feedback: React.FC<any> = () => {
         aria-expanded={!formHidden}
         aria-controls="feedback-menu"
       >
-        Feedback {formHidden}
+        Feedback
       </button>
       <FocusTrap
         focusTrapOptions={{
@@ -81,6 +73,9 @@ const Feedback: React.FC<any> = () => {
         >
           <form onSubmit={(e) => handleFormSubmit(e)}>
             <div>
+              <div id="sfr-feedback-success">
+                Did you find what you were looking for?
+              </div>
               <div>
                 <input
                   type="radio"
@@ -178,13 +173,6 @@ const Feedback: React.FC<any> = () => {
             </button>
           </form>
         </div>
-        {/* <div
-          // role="menu"
-          className={`feedback-form-container active"}`}
-          id="feedback-menu"
-        >
-
-        </div> */}
       </FocusTrap>
     </div>
   );

@@ -2,16 +2,14 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import * as DS from "@nypl/design-system-react-components";
 import { searchFields } from "../../constants/fields";
-import {
-  Query,
-  SearchQuery,
-  SearchQueryDefaults,
-} from "~/src/types/SearchQuery";
+import { SearchQuery, SearchQueryDefaults } from "~/src/types/SearchQuery";
 import { errorMessagesText } from "~/src/constants/labels";
 import { toLocationQuery, toApiQuery } from "~/src/util/apiConversion";
+import { Query } from "~/src/types/DataModel";
 
 const SearchForm: React.FC<{
   searchQuery?: SearchQuery;
+  isHeader?: boolean;
 }> = ({ searchQuery }) => {
   // If there is one query, then default searchbar to show it
   const queryToShow: Query | undefined =
@@ -71,16 +69,12 @@ const SearchForm: React.FC<{
           {getSearchOptions(searchFields)}
         </DS.Select>
         <DS.Input
+          errored={isFormError}
           type={DS.InputTypes.text}
           value={shownQuery.query}
           onChange={(e: any) => onQueryChange(e)}
           ariaLabelledBy={"search-button"}
-        ></DS.Input>
-        {isFormError && (
-          <DS.HelperErrorText isError={true} id={"search-bar-error"}>
-            {errorMessagesText.emptySearch}
-          </DS.HelperErrorText>
-        )}
+        />
         <DS.Button
           id="search-button"
           buttonType={DS.ButtonTypes.Primary}
@@ -94,6 +88,11 @@ const SearchForm: React.FC<{
           Search
         </DS.Button>
       </DS.SearchBar>
+      {isFormError && (
+        <DS.HelperErrorText isError={true} id={"search-bar-error"}>
+          {errorMessagesText.emptySearch}
+        </DS.HelperErrorText>
+      )}
     </div>
   );
 };

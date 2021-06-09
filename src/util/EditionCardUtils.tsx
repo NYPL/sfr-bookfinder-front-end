@@ -18,6 +18,7 @@ import {
   PLACEHOLDER_COVER_LINK,
 } from "../constants/editioncard";
 import { MediaTypes } from "../constants/mediaTypes";
+import * as gtag from "../lib/Analytics";
 
 // EditionCard holds all the methods needed to build an Edition Card
 export default class EditionCardUtils {
@@ -207,7 +208,7 @@ export default class EditionCardUtils {
   };
 
   // eslint-disable-next-line consistent-return
-  static getDownloadLink(editionItem: ApiItem) {
+  static getDownloadLink(editionItem: ApiItem, title: string) {
     if (!editionItem || !editionItem.links) return undefined;
     const selectedLink = editionItem.links.find((link: ItemLink) =>
       MediaTypes.download.includes(link.mediaType)
@@ -216,7 +217,12 @@ export default class EditionCardUtils {
     if (selectedLink && selectedLink.url) {
       return (
         <DS.Link type={DS.LinkTypes.Action}>
-          <a href={`${formatUrl(selectedLink.url)}`}>
+          <a
+            href={`${formatUrl(selectedLink.url)}`}
+            onClick={() => {
+              gtag.drbEvents("Download", `${title}`);
+            }}
+          >
             <DS.Icon
               name={DS.IconNames.download}
               blockName="more-link"

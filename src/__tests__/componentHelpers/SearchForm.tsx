@@ -1,4 +1,4 @@
-import { fireEvent, screen } from "@testing-library/react";
+import { fireEvent, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { searchFields } from "~/src/constants/fields";
 import { SearchQuery } from "~/src/types/SearchQuery";
@@ -38,7 +38,8 @@ export const searchFormTests = (mockPush) => {
       fireEvent.change(categoryInput, { target: { value: "author" } });
       userEvent.clear(textInput);
       userEvent.type(textInput, "Tom Nook");
-      fireEvent.click(screen.getByText("Search"));
+      const main = screen.getByRole("main", { name: "" });
+      fireEvent.click(within(main).getByText("Search"));
 
       expect(screen.getByRole("combobox")).toHaveValue("author");
       expect(screen.getByRole("textbox", { name: "Search" })).toHaveValue(
@@ -61,7 +62,8 @@ export const searchFormTests = (mockPush) => {
       userEvent.clear(textInput);
 
       expect(textInput).toHaveValue("");
-      fireEvent.click(screen.getByText("Search"));
+      const main = screen.getByRole("main", { name: "" });
+      fireEvent.click(within(main).getByText("Search"));
 
       expect(mockPush).not.toBeCalled();
       expect(
