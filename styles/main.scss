@@ -1,44 +1,45 @@
 /**
  * Import style from NYPL's global header and footer.
  */
-@import '~@nypl/dgx-react-footer/dist/styles/styles';
-@import '~@nypl/dgx-header-component/dist/styles/main';
+@import "~@nypl/dgx-react-footer/dist/styles/styles";
+@import "~@nypl/dgx-header-component/dist/styles/main";
 
 /**
 * Import font
 */
-@import '~system-font-css/system-font';
+@import "~system-font-css/system-font";
 
 $nypl-dark-blue: #135772;
-$fontFamily: 'system-ui';
+$fontFamily: "system-ui";
 
-/** Import Design System mixins */
+/** Import Design System Styles and mixins */
+@import "~@nypl/design-system-react-components/dist/styles.css";
 @import "~@nypl/design-system-react-components/dist/resources.scss";
 
 /**
  * Import custom rules for this project.
  */
 
-@import './mixins/Mixins.scss';
-@import './components/Landing.scss';
-@import './../src/components/SearchHeader/SearchHeader.scss';
-@import './../src/components/ResultsSorts/ResultsSorts.scss';
-@import './../src/components/ResultsList/ResultsList.scss';
-@import './../src/components/FilterYears/FilterYears.scss';
-@import './../src/components/LanguageAccordion/LanguageAccordion.scss';
-@import './shared/DefinitionList.scss';
+@import "./mixins/Mixins.scss";
+@import "./components/Landing.scss";
+@import "./../src/components/SearchHeader/SearchHeader.scss";
+@import "./../src/components/ResultsSorts/ResultsSorts.scss";
+@import "./../src/components/ResultsList/ResultsList.scss";
+@import "./../src/components/FilterYears/FilterYears.scss";
+@import "./../src/components/LanguageAccordion/LanguageAccordion.scss";
+@import "./shared/DefinitionList.scss";
 
-@import './../src/components/Work/Work.scss';
-@import './components/Search.scss';
-@import './components/WorkDetail.scss';
-@import './components/IFrameReader.scss';
-@import './components/Loading.scss';
-@import './components/AdvancedSearch.scss';
-@import './components/Feedback.scss';
-@import './components/RequestDigitization.scss';
-@import './components/Citations.scss';
+@import "./../src/components/Work/Work.scss";
+@import "./components/Search.scss";
+@import "./components/WorkDetail.scss";
+@import "./components/IFrameReader.scss";
+@import "./components/Loading.scss";
+@import "./components/AdvancedSearch.scss";
+@import "./components/Feedback.scss";
+@import "./components/RequestDigitization.scss";
+@import "./components/Citations.scss";
 
-@import './dividers.scss';
+@import "./dividers.scss";
 
 html {
   font-family: $fontFamily;
@@ -61,7 +62,7 @@ body {
 }
 
 .nypl-header-img {
-  background: url('./img/header.png') no-repeat center;
+  background: url("./img/header.png") no-repeat center;
   border-bottom: 2px solid #d0343a;
 
   @media screen and (min-width: 1024px) {
@@ -69,12 +70,12 @@ body {
   }
 
   @media screen and (max-width: 1024px) {
-    background: url('./img/header-md.png') no-repeat center;
+    background: url("./img/header-md.png") no-repeat center;
     min-height: 180px;
   }
 
   @media screen and (max-width: 520px) {
-    background: url('./img/header-sm.png') no-repeat center;
+    background: url("./img/header-sm.png") no-repeat center;
     min-height: 70px;
   }
 }

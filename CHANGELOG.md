@@ -1,6 +1,6 @@
 # CHANGE LOG
 
-## PRERELEASE
+## [0.10.0]
 
 - Refactors app to use NextJS, NYPL Design System, Typescript
 - Refactors app to use API v4

@@ -25,9 +25,11 @@ describe("Renders edition component when given valid edition", () => {
       within(nav).getByRole("link", { name: breadcrumbTitles.home })
     ).toHaveAttribute("href", "/");
     expect(
-      (within(nav).getByRole("link", {
-        name: apiEdition.data.title,
-      }) as HTMLAnchorElement).href
+      (
+        within(nav).getByRole("link", {
+          name: apiEdition.data.title,
+        }) as HTMLAnchorElement
+      ).href
     ).toContain("/work/");
   });
   test("Shows Header with Searchbar", () => {
@@ -104,10 +106,11 @@ describe("Breadcrumb truncates on long title", () => {
       within(nav).getByRole("link", { name: breadcrumbTitles.home })
     ).toHaveAttribute("href", "/");
     expect(
-      (within(nav).getByRole("link", {
-        name:
-          "super super super super super super super super super super super super...",
-      }) as HTMLAnchorElement).href
+      (
+        within(nav).getByRole("link", {
+          name: "super super super super super super super super super super super super...",
+        }) as HTMLAnchorElement
+      ).href
     ).toContain("/work/");
   });
 });
