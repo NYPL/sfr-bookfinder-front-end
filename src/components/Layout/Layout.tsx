@@ -52,6 +52,7 @@ const Layout: React.FC<any> = ({ children }) => {
       <Head>
         <title>{setTitle(router)}</title>
         <Header
+          urlType="absolute"
           skipNav={{ target: "mainContent" }}
           navData={navConfig.current}
         />
