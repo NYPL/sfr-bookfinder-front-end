@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import Footer from "@nypl/dgx-react-footer";
 import * as DS from "@nypl/design-system-react-components";
-
+import { Header, navConfig } from "@nypl/dgx-header-component";
+import Footer from "@nypl/dgx-react-footer";
 import { documentTitles } from "~/src/constants/labels";
 import Feedback from "~/src/components/Feedback/Feedback";
 import Loading from "../Loading/Loading";
-
 /**
  * Container class providing header, footer,
  * and other set up information to all its children.
@@ -15,7 +14,6 @@ import Loading from "../Loading/Loading";
 
 const Layout: React.FC<any> = ({ children }) => {
   const router = useRouter();
-
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -53,26 +51,24 @@ const Layout: React.FC<any> = ({ children }) => {
     <div className="layout-container nypl-ds nypl--research">
       <Head>
         <title>{setTitle(router)}</title>
+        <Header
+          urlType='absolute' 
+          skipNav={{ target: "mainContent" }}
+          navData={navConfig.current}
+        />
       </Head>
-      <script
-        type="text/javascript"
-        src="https://header.nypl.org/dgx-header.min.js?skipNav=mainContent&urls=absolute"
-        async
-      />
-      <div className="app-wrapper add-list-reset">
-        {router.isFallback || loading ? (
-          <>
-            <Loading />
+      {router.isFallback || loading ? (
+        <>
+          <Loading />
+          <main className="main">
             <DS.SkeletonLoader />
-          </>
-        ) : (
-          <>{children}</>
-        )}
-
-        <Footer urlType="absolute" />
-
-        {!loading && <Feedback location={router.pathname} />}
-      </div>
+          </main>
+        </>
+      ) : (
+        <>{children}</>
+      )}
+      {!loading && <Feedback location={router.asPath} />}
+      <Footer urlType="absolute" />
     </div>
   );
 };
