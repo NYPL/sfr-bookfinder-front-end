@@ -48,28 +48,31 @@ const Layout: React.FC<any> = ({ children }) => {
   };
 
   return (
-    <div className="layout-container nypl-ds nypl--research">
+    <>
       <Head>
         <title>{setTitle(router)}</title>
-        <Header
-          urlType="absolute"
-          skipNav={{ target: "mainContent" }}
-          navData={navConfig.current}
-        />
       </Head>
-      {router.isFallback || loading ? (
-        <>
-          <Loading />
-          <main className="main">
-            <DS.SkeletonLoader />
-          </main>
-        </>
-      ) : (
-        <>{children}</>
-      )}
-      {!loading && <Feedback location={router.asPath} />}
-      <Footer urlType="absolute" />
-    </div>
+
+      <Header
+        urlType="absolute"
+        skipNav={{ target: "main-content" }}
+        navData={navConfig.current}
+      />
+      <div className="layout-container nypl-ds nypl--research">
+        {router.isFallback || loading ? (
+          <>
+            <Loading />
+            <main>
+              <DS.SkeletonLoader />
+            </main>
+          </>
+        ) : (
+          <>{children}</>
+        )}
+        {!loading && <Feedback location={router.asPath} />}
+        <Footer urlType="absolute" />
+      </div>
+    </>
   );
 };
 
