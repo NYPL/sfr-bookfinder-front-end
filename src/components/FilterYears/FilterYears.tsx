@@ -22,13 +22,8 @@ const FilterYears: React.FC<{
   dateRangeError?: string;
   onSubmit?: () => void;
 }> = (props) => {
-  const {
-    startFilter,
-    endFilter,
-    onDateChange,
-    dateRangeError,
-    onSubmit,
-  } = props;
+  const { startFilter, endFilter, onDateChange, dateRangeError, onSubmit } =
+    props;
 
   const changeDate = (
     isStart: boolean,
