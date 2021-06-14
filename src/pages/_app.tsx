@@ -27,14 +27,19 @@ if (!isServerRendered()) {
   gaUtils.setupAnalytics(isProduction);
 }
 
-const setTitle = (location: any) => {
-  if (location && location.query && location.query.workId) {
+/**
+ * Sets page title
+ * @param query the router query
+ * @returns the title of the page (as shown in browser tab)
+ */
+const setTitle = (query: any) => {
+  if (query.workId) {
     return documentTitles.workItem;
-  } else if (location && location.query && location.query.editionId) {
+  } else if (query.editionId) {
     return documentTitles.editionItem;
-  } else if (location && location.query && location.query.query) {
+  } else if (query.query) {
     return documentTitles.search;
-  } else if (location && location.query && location.query.linkId) {
+  } else if (query.linkId) {
     return documentTitles.readItem;
   } else {
     return documentTitles.home;
@@ -47,7 +52,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>{setTitle(router)}</title>
+        <title>{setTitle(router.query)}</title>
 
         <link rel="icon" href={appConfig.favIconPath} />
         {/* <!-- Google Analytics --> */}
