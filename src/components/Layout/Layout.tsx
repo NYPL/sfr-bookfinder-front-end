@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Head from "next/head";
 import * as DS from "@nypl/design-system-react-components";
 import { Header, navConfig } from "@nypl/dgx-header-component";
 import Footer from "@nypl/dgx-react-footer";
-import { documentTitles } from "~/src/constants/labels";
 import Feedback from "~/src/components/Feedback/Feedback";
 import Loading from "../Loading/Loading";
 import { useRouter } from "next/router";
