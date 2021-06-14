@@ -70,8 +70,8 @@ const Layout: React.FC<any> = ({ children }) => {
           <>{children}</>
         )}
         {!loading && <Feedback location={router.asPath} />}
+        <Footer urlType="absolute" />
       </div>
-      <Footer urlType="absolute" />
     </>
   );
 };

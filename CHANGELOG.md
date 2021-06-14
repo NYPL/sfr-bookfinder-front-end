@@ -1,8 +1,4 @@
 # CHANGE LOG
-## [0.10.1]
-
-### Fixed
-- Footer hover links colours are fixed
 
 ## [0.10.0]
 
