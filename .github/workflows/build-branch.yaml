@@ -2,7 +2,7 @@
 name: Publish Branch
 on:
   pull_request:
-    branches: [development]
+    branches: [development, production]
     types: [opened, reopened, synchronize]
 
 jobs:
@@ -50,7 +50,7 @@ jobs:
         env:
           BRANCH_NAME: ${{ github.head_ref }}
         run: aws ecs update-service --cluster sfr-pipeline-qa --service $BRANCH_NAME-qa --force-new-deployment
- 
+
       - name: Populate task definition for API container
         if: ${{ steps.task-present-check.outputs.existingtask == 'false' }}
         id: render-app-container
@@ -68,7 +68,7 @@ jobs:
         if: ${{ steps.task-present-check.outputs.existingtask == 'false' }}
         env:
           BRANCH_NAME: ${{ github.head_ref }}
-        run: | 
+        run: |
           aws ecs create-service \
             --cluster sfr-pipeline-qa \
             --service-name $BRANCH_NAME-qa \
