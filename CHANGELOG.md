@@ -1,4 +1,7 @@
 # CHANGE LOG
+## [0.10.1]
+### Fixed
+- NYPL footer link hover now shows correct color
 
 ## [0.10.0]
 
