@@ -1,10 +1,13 @@
 import React from "react";
 import type { AppProps } from "next/app";
 import gaUtils, * as gtag from "../lib/Analytics";
+import { useRouter } from "next/router";
 
 import "@nypl/design-system-react-components/dist/styles.css";
 import "~/styles/main.scss";
 import Head from "next/head";
+import appConfig from "~/config/appConfig";
+import { documentTitles } from "../constants/labels";
 
 /**
  * Determines if we are running on server or in the client.
@@ -24,10 +27,34 @@ if (!isServerRendered()) {
   gaUtils.setupAnalytics(isProduction);
 }
 
+/**
+ * Sets page title
+ * @param query the router query
+ * @returns the title of the page (as shown in browser tab)
+ */
+const setTitle = (query: any) => {
+  if (query.workId) {
+    return documentTitles.workItem;
+  } else if (query.editionId) {
+    return documentTitles.editionItem;
+  } else if (query.query) {
+    return documentTitles.search;
+  } else if (query.linkId) {
+    return documentTitles.readItem;
+  } else {
+    return documentTitles.home;
+  }
+};
+
 function MyApp({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+
   return (
     <>
       <Head>
+        <title>{setTitle(router.query)}</title>
+
+        <link rel="icon" href={appConfig.favIconPath} />
         {/* <!-- Google Analytics --> */}
         {/* We can't directly put the script into this component because React
             doesn't allow it, so we must add it through the

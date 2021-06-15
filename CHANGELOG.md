@@ -3,6 +3,11 @@
 ### Fixed
 - NYPL footer link hover now shows correct color
 
+## [0.10.1]
+### Fixed 
+- Fixed favicon
+- Fixed page title for search result and read online
+
 ## [0.10.0]
 
 - Refactors app to use NextJS, NYPL Design System, Typescript

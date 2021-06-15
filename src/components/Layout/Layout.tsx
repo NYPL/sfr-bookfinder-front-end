@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import Head from "next/head";
-import { useRouter } from "next/router";
 import * as DS from "@nypl/design-system-react-components";
 import { Header, navConfig } from "@nypl/dgx-header-component";
 import Footer from "@nypl/dgx-react-footer";
-import { documentTitles } from "~/src/constants/labels";
 import Feedback from "~/src/components/Feedback/Feedback";
 import Loading from "../Loading/Loading";
+import { useRouter } from "next/router";
+
 /**
  * Container class providing header, footer,
  * and other set up information to all its children.
@@ -35,24 +34,8 @@ const Layout: React.FC<any> = ({ children }) => {
     };
   }, [router.events]);
 
-  const setTitle = (location: any) => {
-    if (location && location.query && location.query.workId) {
-      return documentTitles.workItem;
-    } else if (location && location.query && location.query.editionId) {
-      return documentTitles.editionItem;
-    } else if (location && location.query && location.query.queries) {
-      return documentTitles.search;
-    } else {
-      return documentTitles.home;
-    }
-  };
-
   return (
     <>
-      <Head>
-        <title>{setTitle(router)}</title>
-      </Head>
-
       <Header
         urlType="absolute"
         skipNav={{ target: "main-content" }}
