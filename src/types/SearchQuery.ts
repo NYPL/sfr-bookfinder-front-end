@@ -3,14 +3,6 @@
 import { FacetItem, Query, Sort } from "./DataModel";
 import { ApiWork } from "./WorkQuery";
 
-export type searchFields =
-  | "keyword"
-  | "author"
-  | "title"
-  | "subject"
-  | "viaf"
-  | "lcnaf";
-
 export type ApiSearchQuery = {
   query: string;
   filter?: string;

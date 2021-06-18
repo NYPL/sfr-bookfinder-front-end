@@ -2,8 +2,7 @@ import React from "react";
 import Work from "./Work";
 import "@testing-library/jest-dom/extend-expect";
 import { screen, render, within, fireEvent } from "@testing-library/react";
-import { breadcrumbTitles } from "~/src/constants/labels";
-import { searchFields } from "~/src/constants/fields";
+import { breadcrumbTitles, inputTerms } from "~/src/constants/labels";
 import { WorkResult } from "~/src/types/WorkQuery";
 import {
   mockPush,
@@ -31,7 +30,7 @@ describe("Renders Work component when given valid work", () => {
     expect(
       screen.getByRole("heading", { name: breadcrumbTitles.home })
     ).toBeInTheDocument();
-    expect(screen.getByRole("combobox")).toHaveValue(searchFields[0]);
+    expect(screen.getByRole("combobox")).toHaveValue(inputTerms[0].key);
     expect(screen.getByRole("textbox")).toBeInTheDocument;
     expect(screen.getByText("Advanced Search").closest("a").href).toContain(
       "/advanced-search"

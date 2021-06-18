@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import * as DS from "@nypl/design-system-react-components";
 import { useRouter } from "next/router";
-import { searchFields } from "~/src/constants/fields";
 import { FacetItem } from "~/src/types/DataModel";
 import {
   ApiSearchResult,
@@ -14,7 +13,7 @@ import ResultsList from "../ResultsList/ResultsList";
 import { toLocationQuery, toApiQuery } from "~/src/util/apiConversion";
 import Filters from "../ResultsFilters/ResultsFilters";
 import ResultsSorts from "../ResultsSorts/ResultsSorts";
-import { breadcrumbTitles } from "~/src/constants/labels";
+import { breadcrumbTitles, inputTerms } from "~/src/constants/labels";
 import SearchHeader from "../SearchHeader/SearchHeader";
 import { ApiWork } from "~/src/types/WorkQuery";
 
@@ -43,7 +42,9 @@ const SearchResults: React.FC<{
     const showQueries = searchQuery.queries;
     const queriesToShow =
       showQueries &&
-      showQueries.filter((query: any) => searchFields.includes(query.field));
+      showQueries.filter((query: any) =>
+        inputTerms.map((field) => field.key).includes(query.field)
+      );
     const queries =
       queriesToShow &&
       queriesToShow.map((query: any, index: any) => {

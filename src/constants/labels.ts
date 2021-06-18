@@ -54,7 +54,6 @@ export const filtersLabels = {
   years: "Publication Year",
 };
 
-// input types
 export const inputTerms = [
   { key: "keyword", label: "Keyword" },
   { key: "author", label: "Author" },

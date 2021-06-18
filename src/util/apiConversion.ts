@@ -1,6 +1,6 @@
 /** Converts API responses to internal types */
 
-import { searchFields } from "../constants/fields";
+import { inputTerms } from "../constants/labels";
 import { Query, Sort } from "../types/DataModel";
 import {
   ApiSearchQuery,
@@ -33,7 +33,7 @@ export const toSearchQuery = (apiQuery: ApiSearchQuery): SearchQuery => {
     // Finds the indexes of the items that are in searchFields and followed by a colon
     const keysIndexes = separated
       .map((sep, i) => {
-        if (searchFields.includes(sep) && separated[i + 1] === ":") {
+        if (inputTerms.map((field) => field.key).includes(sep) && separated[i + 1] === ":") {
           return i;
         }
       })

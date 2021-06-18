@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import * as DS from "@nypl/design-system-react-components";
-import { searchFields } from "../../constants/fields";
 import { SearchQuery, SearchQueryDefaults } from "~/src/types/SearchQuery";
-import { errorMessagesText } from "~/src/constants/labels";
+import { errorMessagesText, inputTerms } from "~/src/constants/labels";
 import { toLocationQuery, toApiQuery } from "~/src/util/apiConversion";
 import { Query } from "~/src/types/DataModel";
 
@@ -50,7 +49,7 @@ const SearchForm: React.FC<{
     setShownQuery({ field: e.target.value, query: shownQuery.query });
   };
 
-  const getSearchOptions = (fields) => {
+  const getSearchOptions = (fields: string[]) => {
     return fields.map((field) => {
       return <option key={`search-type-${field}`}>{field}</option>;
     });
@@ -66,7 +65,7 @@ const SearchForm: React.FC<{
           onChange={(e: any) => onFieldChange(e)}
           labelId={"search-button"}
         >
-          {getSearchOptions(searchFields)}
+          {getSearchOptions(inputTerms.map((field) => field.key))}
         </DS.Select>
         <DS.Input
           errored={isFormError}
