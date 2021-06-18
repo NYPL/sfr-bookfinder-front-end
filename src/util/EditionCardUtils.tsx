@@ -80,6 +80,8 @@ export default class EditionCardUtils {
   static getAuthorsList(authors: Agent[]): JSX.Element[] {
     if (!authors || authors.length === 0) return null;
     return authors.map((author: Agent, i: number) => {
+      console.log("viaf", author);
+
       const authorLinkText = author.name;
       return (
         <React.Fragment
@@ -89,7 +91,9 @@ export default class EditionCardUtils {
             to={{
               pathname: "/search",
               query: {
-                query: `author:${author.name}`,
+                query: author.viaf
+                  ? `viaf:${author.viaf}`
+                  : `author:author.name`,
               },
             }}
             className="link"
