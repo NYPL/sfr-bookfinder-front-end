@@ -2,7 +2,7 @@
 name: Destroy Branch Environment
 on:
   pull_request:
-    branches: [development]
+    branches: [development, production]
     types: [closed]
 
 jobs:
