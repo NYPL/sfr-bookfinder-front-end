@@ -4,22 +4,30 @@ import * as DS from "@nypl/design-system-react-components";
 import { SearchQuery, SearchQueryDefaults } from "~/src/types/SearchQuery";
 import { errorMessagesText, inputTerms } from "~/src/constants/labels";
 import { toLocationQuery, toApiQuery } from "~/src/util/apiConversion";
-import { Query } from "~/src/types/DataModel";
+import { Query, SearchField } from "~/src/types/DataModel";
 
 const SearchForm: React.FC<{
   searchQuery?: SearchQuery;
-  isHeader?: boolean;
+  isHeader?: boolean; //Is this searchForm in the header (search/work/edition pages), or on its own (homepage)
 }> = ({ searchQuery }) => {
-  // If there is one query, then default searchbar to show it
-  const queryToShow: Query | undefined =
-    searchQuery && searchQuery.queries && searchQuery.queries.length === 1
-      ? searchQuery.queries[0]
-      : SearchQueryDefaults.queries[0];
+  const initialDefaultQuery: Query = { query: "", field: SearchField.Keyword };
 
-  const initialDefaultQuery: Query = { query: "", field: "keyword" };
+  // The display query is the query that's auto-populated in the searchbar.
+  // If a displayQuery is passed,
+  // If there is more than one query, the displayQuery is not prepopulated.
+  // If the query is a viaf query, the displayQuery is the value that the user clicked
+  const getDisplayQuery = (query: Query) => {
+    if (searchQuery.display) {
+      console.log("display", searchQuery.display);
+      return searchQuery.display;
+    }
+    return query;
+  };
 
   const [shownQuery, setShownQuery] = useState(
-    queryToShow ? queryToShow : initialDefaultQuery
+    searchQuery && searchQuery.queries && searchQuery.queries.length === 1
+      ? getDisplayQuery(searchQuery.queries[0])
+      : initialDefaultQuery
   );
   const [isFormError, setFormError] = useState(false);
 

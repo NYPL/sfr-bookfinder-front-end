@@ -6,14 +6,15 @@ import SearchForm from "../SearchForm/SearchForm";
 import Link from "../Link/Link";
 import { SearchQuery } from "~/src/types/SearchQuery";
 import { toLocationQuery, toApiQuery } from "~/src/util/apiConversion";
+import { Query } from "~/src/types/DataModel";
 
 /**
  * Search Header Component
  */
 
-const SearchHeader: React.FC<{ searchQuery?: SearchQuery }> = ({
-  searchQuery,
-}) => {
+const SearchHeader: React.FC<{
+  searchQuery?: SearchQuery;
+}> = ({ searchQuery }) => {
   return (
     <div className="search-header-container">
       <div className="search-header" aria-label="Digital Research Books Beta">

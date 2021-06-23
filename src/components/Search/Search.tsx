@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import * as DS from "@nypl/design-system-react-components";
 import { useRouter } from "next/router";
-import { FacetItem } from "~/src/types/DataModel";
+import { FacetItem, Query } from "~/src/types/DataModel";
 import {
   ApiSearchResult,
   Filter,
@@ -38,19 +38,13 @@ const SearchResults: React.FC<{
     });
   };
 
+  // The Display Items heading (Search Results for ... ) should show the exact search.
+  // eg:  If the search was for a viaf, that would show.
   const getDisplayItemsHeading = (searchQuery: SearchQuery) => {
-    const showQueries = searchQuery.queries;
-    const queriesToShow =
-      showQueries &&
-      showQueries.filter((query: any) =>
-        inputTerms.map((field) => field.key).includes(query.field)
-      );
-    const queries =
-      queriesToShow &&
-      queriesToShow.map((query: any, index: any) => {
-        const joiner = index < queriesToShow.length - 1 ? " and " : "";
-        return `${query.field}: ${query.query}${joiner}`;
-      });
+    const queries = searchQuery.queries.map((query: Query, index: any) => {
+      const joiner = index < searchQuery.queries.length - 1 ? " and " : "";
+      return `${query.field}: ${query.query}${joiner}`;
+    });
     return queries && queries.join("");
   };
 

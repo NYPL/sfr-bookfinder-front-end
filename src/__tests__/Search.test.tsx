@@ -5,7 +5,7 @@ import {
   MockNextRouterContextProvider,
 } from "./testUtils/MockNextRouter";
 import SearchResults from "../components/Search/Search";
-import { FacetItem } from "../types/DataModel";
+import { FacetItem, SearchField } from "../types/DataModel";
 import { ApiSearchResult, SearchQuery } from "../types/SearchQuery";
 import { resizeWindow } from "./testUtils/screen";
 import {
@@ -21,7 +21,7 @@ import { findFiltersForField } from "../util/SearchQueryUtils";
 import filterFields from "../constants/filters";
 const searchResults: ApiSearchResult = require("./fixtures/results-list.json");
 const searchQuery: SearchQuery = {
-  queries: [{ field: "keyword", query: "Animal Crossing" }],
+  queries: [{ field: SearchField.Keyword, query: "Animal Crossing" }],
 };
 const emptySearchResults: ApiSearchResult = {
   status: 200,
@@ -552,5 +552,34 @@ describe("Renders No Results when no results are shown", () => {
 
     expect(previousButton).not.toBeInTheDocument();
     expect(nextButton).not.toBeInTheDocument();
+  });
+});
+
+describe.only("Renders seach header correctly when viaf search is passed", () => {
+  const viafSearchQuery: SearchQuery = {
+    queries: [{ field: SearchField.Viaf, query: "12345" }],
+    display: { field: SearchField.Author, query: "display author" },
+  };
+
+  render(
+    <MockNextRouterContextProvider>
+      <SearchResults
+        searchQuery={viafSearchQuery}
+        searchResults={searchResults}
+      />
+    </MockNextRouterContextProvider>
+  );
+
+  test("Main Content shows the viaf query", () => {
+    expect(
+      screen.getByText("Search results for viaf: 12345")
+    ).toBeInTheDocument();
+  });
+
+  test("Search bar is prepopulated with the author name", () => {
+    expect(screen.getByRole("combobox")).toHaveValue("author");
+    expect(screen.getByRole("textbox", { name: "Search" })).toHaveValue(
+      "display author"
+    );
   });
 });

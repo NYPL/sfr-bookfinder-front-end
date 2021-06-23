@@ -37,7 +37,6 @@ export const searchResultsFetcher = async (apiQuery: ApiSearchQuery) => {
 
   if (res.ok) {
     const searchResult: ApiSearchResult = await res.json();
-    console.log("searchResult", searchResult.data.works[0].authors)
     return searchResult;
   }
 };

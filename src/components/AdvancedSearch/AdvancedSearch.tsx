@@ -17,7 +17,7 @@ import { SearchQuery, SearchQueryDefaults } from "~/src/types/SearchQuery";
 import * as DS from "@nypl/design-system-react-components";
 import LanguageAccordion from "../LanguageAccordion/LanguageAccordion";
 import FilterBookFormat from "../FilterBookFormat/FilterBookFormat";
-import { FacetItem } from "~/src/types/DataModel";
+import { FacetItem, SearchField } from "~/src/types/DataModel";
 import { toLocationQuery, toApiQuery } from "~/src/util/apiConversion";
 import filterFields from "~/src/constants/filters";
 import { ApiLanguageResponse } from "~/src/types/LanguagesQuery";
@@ -25,16 +25,29 @@ import { ApiLanguageResponse } from "~/src/types/LanguagesQuery";
 const AdvancedSearch: React.FC<{
   searchQuery: SearchQuery;
   languages: ApiLanguageResponse;
-}> = (props) => {
+}> = ({ searchQuery: previousQuery, languages: previousLanguages }) => {
   const router = useRouter();
+
+  // To prepopulate SearchQuery in the fields
+  // First make sure all the defaults are set
+  // Then populate with what's in SearchQuery,
+  // Then strip out "viaf" and overwrite SearchQuery.queries
   const [searchQuery, setSearchQuery] = useState({
     ...SearchQueryDefaults,
-    ...props.searchQuery,
+    ...previousQuery,
+    ...{
+      queries: previousQuery.queries.filter((query) => {
+        return inputTerms
+          .map((term) => term.key as SearchField)
+          .includes(query.field);
+      }),
+    },
   });
+
   const [emptySearchError, setEmptySearchError] = useState("");
   const [dateRangeError, setDateRangeError] = useState("");
 
-  const languages: FacetItem[] = props.languages.data.map((language) => {
+  const languages: FacetItem[] = previousLanguages.data.map((language) => {
     return {
       value: language.language,
       count: language.count,
