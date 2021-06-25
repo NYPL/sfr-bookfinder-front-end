@@ -1,13 +1,14 @@
 # CHANGE LOG
-## [0.10.1]
-### Fixed
-- NYPL footer link hover now shows correct color
+## [0.10.2]
+### Added
+- Clicking an author name now searches by viaf if the viaf is available. 
 
 ### [0.10.1-HOTFIX]
 - Removes languages from Advanced Search if no language response is recieved
 
 ## [0.10.1]
 ### Fixed 
+- NYPL footer link hover now shows correct color
 - Fixed favicon
 - Fixed page title for search result and read online
 

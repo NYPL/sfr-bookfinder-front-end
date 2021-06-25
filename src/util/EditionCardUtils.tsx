@@ -19,7 +19,7 @@ import {
 } from "../constants/editioncard";
 import { MediaTypes } from "../constants/mediaTypes";
 import * as gtag from "../lib/Analytics";
-import { ApiSearchQuery, SearchQuery } from "../types/SearchQuery";
+import { ApiSearchQuery } from "../types/SearchQuery";
 
 // EditionCard holds all the methods needed to build an Edition Card
 export default class EditionCardUtils {

@@ -5,7 +5,7 @@ import {
   MockNextRouterContextProvider,
   mockPush,
 } from "~/src/__tests__/testUtils/MockNextRouter";
-import { queries, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { FilterLanguagesCommonTests } from "./componentHelpers/FilterLanguages";
 import { FilterYearsTests } from "./componentHelpers/FilterYears";
 import { FilterFormatTests } from "./componentHelpers/FilterFormats";
