@@ -90,6 +90,11 @@ export const languagesFetcher = async () => {
   if (res.ok) {
     const languagesResult: ApiLanguageResponse = await res.json();
     return languagesResult;
+  } else {
+    return {
+      status: "Cannot find list of languages",
+      data: [],
+    };
   }
 };
 
