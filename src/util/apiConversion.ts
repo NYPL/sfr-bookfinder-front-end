@@ -102,6 +102,7 @@ export const toSearchQuery = (apiQuery: ApiSearchQuery): SearchQuery => {
  * @param searchQuery
  */
 export const toApiQuery = (searchQuery: SearchQuery): ApiSearchQuery => {
+  if (!searchQuery) return;
   if (!searchQuery.queries || searchQuery.queries.length < 1) {
     throw new Error("cannot convert searchQuery with no queries");
   }
@@ -117,14 +118,17 @@ export const toApiQuery = (searchQuery: SearchQuery): ApiSearchQuery => {
       : [];
   };
 
+  const toQuery = (query: Query): string => {
+    return `${query.field}:${query.query}`;
+  };
+
   const toApiQueries = (queries: Query[]): string[] => {
-    return queries.map((query) => {
-      return `${query.field}:${query.query}`;
-    });
+    return queries.map((query) => toQuery(query));
   };
 
   return {
     query: toApiQueries(searchQuery.queries).join(","),
+    ...(searchQuery.display && { display: toQuery(searchQuery.display) }),
     ...(searchQuery.filters &&
       searchQuery.filters.length &&
       searchQuery.filters !== SearchQueryDefaults.filters && {

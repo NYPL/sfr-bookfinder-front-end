@@ -116,11 +116,11 @@ export type Measurement = {
 export type Sort = { field: string; dir: string };
 
 export enum SearchField {
-  Title = "title", 
-  Keyword = "keyword", 
+  Title = "title",
+  Keyword = "keyword",
   Author = "author",
   Viaf = "viaf",
-  Subject= "subject"
+  Subject = "subject",
 }
 
 export interface Query {

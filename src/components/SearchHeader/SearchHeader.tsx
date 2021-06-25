@@ -6,7 +6,6 @@ import SearchForm from "../SearchForm/SearchForm";
 import Link from "../Link/Link";
 import { SearchQuery } from "~/src/types/SearchQuery";
 import { toLocationQuery, toApiQuery } from "~/src/util/apiConversion";
-import { Query } from "~/src/types/DataModel";
 
 /**
  * Search Header Component

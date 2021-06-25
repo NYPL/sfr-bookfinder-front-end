@@ -28,31 +28,47 @@ const AdvancedSearch: React.FC<{
 }> = ({ searchQuery: previousQuery, languages: previousLanguages }) => {
   const router = useRouter();
 
-  // To prepopulate SearchQuery in the fields
-  // First make sure all the defaults are set
-  // Then populate with what's in SearchQuery,
-  // Then strip out "viaf" and overwrite SearchQuery.queries
+  // Combines displayQuery and query to set initial advanced search query state
+  const createAdvancedSearchQuery = (searchQuery) => {
+    if (!searchQuery) return [];
+    const queriesToPrepopulate = searchQuery.queries.filter((query) => {
+      return inputTerms
+        .map((term) => term.key as SearchField)
+        .includes(query.field);
+    });
+    if (queriesToPrepopulate.length) return queriesToPrepopulate;
+
+    // If there are no queries, see if there are displayQueries
+    // Note: This assumes that we will never send display queries along with other relevant searches
+    // eg: it cannot handle the case where we send queries=[keyword:cat,viaf:12345]&display=author:tigger
+    // This is because it is not yet possible to send a search like that via interacting with the app
+    if (searchQuery.display) {
+      return [searchQuery.display];
+    }
+    return [];
+  };
+
+  // After putting display in query, we can remove it from state
   const [searchQuery, setSearchQuery] = useState({
     ...SearchQueryDefaults,
     ...previousQuery,
     ...{
-      queries: previousQuery.queries.filter((query) => {
-        return inputTerms
-          .map((term) => term.key as SearchField)
-          .includes(query.field);
-      }),
+      display: undefined,
+      queries: createAdvancedSearchQuery(previousQuery),
     },
   });
 
   const [emptySearchError, setEmptySearchError] = useState("");
   const [dateRangeError, setDateRangeError] = useState("");
 
-  const languages: FacetItem[] = previousLanguages.data.map((language) => {
-    return {
-      value: language.language,
-      count: language.count,
-    };
-  });
+  const languages: FacetItem[] = previousLanguages
+    ? previousLanguages.data.map((language) => {
+        return {
+          value: language.language,
+          count: language.count,
+        };
+      })
+    : [];
 
   const submit = (e) => {
     e.preventDefault();
@@ -169,6 +185,7 @@ const AdvancedSearch: React.FC<{
     searchQuery.filters,
     filterFields.endYear
   );
+
   return (
     <main id="mainContent" className="main advanced-search">
       <div className="content-top">

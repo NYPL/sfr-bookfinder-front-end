@@ -9,7 +9,6 @@ import { ApiSearchQuery } from "../../types/SearchQuery";
 export async function getServerSideProps(context: any) {
   // Get Query from location
   const searchQuery: ApiSearchQuery = context.query;
-  console.log("searchQuery", searchQuery);
   // Fetch all languages
   const languageResponse: ApiLanguageResponse = await languagesFetcher();
   return {

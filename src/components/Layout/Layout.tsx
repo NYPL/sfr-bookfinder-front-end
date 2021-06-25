@@ -36,11 +36,11 @@ const Layout: React.FC<any> = ({ children }) => {
 
   return (
     <>
-      <Header
+      {/* <Header
         urlType="absolute"
         skipNav={{ target: "main-content" }}
         navData={navConfig.current}
-      />
+      /> */}
       <div className="layout-container nypl-ds nypl--research">
         {router.isFallback || loading ? (
           <>

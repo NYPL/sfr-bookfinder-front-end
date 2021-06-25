@@ -18,7 +18,6 @@ const SearchForm: React.FC<{
   // If the query is a viaf query, the displayQuery is the value that the user clicked
   const getDisplayQuery = (query: Query) => {
     if (searchQuery.display) {
-      console.log("display", searchQuery.display);
       return searchQuery.display;
     }
     return query;

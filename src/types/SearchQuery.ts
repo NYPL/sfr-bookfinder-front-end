@@ -28,7 +28,7 @@ export type SearchQuery = {
   page?: number;
   perPage?: number;
   queries: Query[];
-  // Shows the query to display, if different than query.  
+  // Shows the query to display, if different than query.
   display?: Query;
   // While the API supports sorting by multiple parameters, the front end only supports one parameter
   sort?: Sort;
