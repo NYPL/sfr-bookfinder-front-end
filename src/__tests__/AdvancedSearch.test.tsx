@@ -5,7 +5,7 @@ import {
   MockNextRouterContextProvider,
   mockPush,
 } from "~/src/__tests__/testUtils/MockNextRouter";
-import { render, screen } from "@testing-library/react";
+import { queries, render, screen } from "@testing-library/react";
 import { FilterLanguagesCommonTests } from "./componentHelpers/FilterLanguages";
 import { FilterYearsTests } from "./componentHelpers/FilterYears";
 import { FilterFormatTests } from "./componentHelpers/FilterFormats";
@@ -222,7 +222,7 @@ describe("Advanced Search submit", () => {
 });
 
 describe("Advanced Search clear", () => {
-  test("Clears search", () => {
+  test("clears search", () => {
     render(
       <MockNextRouterContextProvider>
         <AdvancedSearch
@@ -243,6 +243,35 @@ describe("Advanced Search clear", () => {
     expect(screen.getByLabelText("From")).toHaveValue(null);
     expect(screen.getByLabelText("To")).toHaveValue(null);
     expect(screen.getByLabelText("Keyword")).toHaveValue("");
+
+    userEvent.click(screen.getByRole("button", { name: "Search" }));
+    expect(mockPush).toHaveBeenCalledTimes(0);
+    expect(screen.getByText(errorMessagesText.emptySearch)).toBeInTheDocument();
+  });
+
+  test("Deleting search clears it from state", () => {
+    render(
+      <MockNextRouterContextProvider>
+        <AdvancedSearch
+          searchQuery={{
+            queries: [{ field: SearchField.Keyword, query: "cat" }],
+          }}
+          languages={defaultLanguages}
+        />
+      </MockNextRouterContextProvider>
+    );
+
+    const keywordInput: HTMLInputElement = screen.getByLabelText(
+      "Keyword"
+    ) as HTMLInputElement;
+    expect(keywordInput).toHaveValue("cat");
+    keywordInput.setSelectionRange(0, 3);
+    userEvent.type(keywordInput, "{backspace}");
+    expect(screen.getByLabelText("Keyword")).toHaveValue("");
+
+    userEvent.click(screen.getByRole("button", { name: "Search" }));
+    expect(mockPush).toHaveBeenCalledTimes(0);
+    expect(screen.getByText(errorMessagesText.emptySearch)).toBeInTheDocument();
   });
 });
 

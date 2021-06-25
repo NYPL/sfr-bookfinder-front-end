@@ -49,7 +49,7 @@ const AdvancedSearch: React.FC<{
   };
 
   // After putting display in query, we can remove it from state
-  const [searchQuery, setSearchQuery] = useState({
+  const [searchQuery, setSearchQuery] = useState<SearchQuery>({
     ...SearchQueryDefaults,
     ...previousQuery,
     ...{
@@ -114,7 +114,10 @@ const AdvancedSearch: React.FC<{
       return query.field !== queryKey;
     });
 
-    allQueries.push(newQuery);
+    // If the new query is not empty, add it
+    if (newQuery.query.length > 0) {
+      allQueries.push(newQuery);
+    }
     setSearchQuery({
       ...searchQuery,
       queries: allQueries,
