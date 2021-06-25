@@ -3,6 +3,9 @@
 ### Fixed
 - NYPL footer link hover now shows correct color
 
+### [0.10.1-HOTFIX]
+- Removes languages from Advanced Search if no language response is recieved
+
 ## [0.10.1]
 ### Fixed 
 - Fixed favicon

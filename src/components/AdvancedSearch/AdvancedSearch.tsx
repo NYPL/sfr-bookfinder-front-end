@@ -34,12 +34,14 @@ const AdvancedSearch: React.FC<{
   const [emptySearchError, setEmptySearchError] = useState("");
   const [dateRangeError, setDateRangeError] = useState("");
 
-  const languages: FacetItem[] = props.languages.data.map((language) => {
-    return {
-      value: language.language,
-      count: language.count,
-    };
-  });
+  const languages: FacetItem[] = props.languages
+    ? props.languages.data.map((language) => {
+        return {
+          value: language.language,
+          count: language.count,
+        };
+      })
+    : [];
 
   const submit = (e) => {
     e.preventDefault();
