@@ -190,7 +190,14 @@
       },
       {
         "alt_titles": [],
-        "authors": [],
+        "authors": [
+          {
+            "lcnaf": "",
+            "name": "display author",
+            "primary": "",
+            "viaf": "12345"
+          }
+        ],
         "contributors": [],
         "dates": null,
         "edition_count": 1,

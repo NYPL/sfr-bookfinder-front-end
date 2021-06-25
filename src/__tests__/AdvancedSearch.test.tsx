@@ -13,6 +13,7 @@ import userEvent from "@testing-library/user-event";
 import { errorMessagesText } from "../constants/labels";
 import filterFields from "../constants/filters";
 import { ApiLanguageResponse } from "../types/LanguagesQuery";
+import { SearchField } from "../types/DataModel";
 
 const defaultLanguages: ApiLanguageResponse = {
   status: "200",
@@ -32,12 +33,17 @@ const complicatedSearchQuery: SearchQuery = {
   ],
   sort: { field: "relevance", dir: "DESC" },
   queries: [
-    { field: "keyword", query: "cat" },
-    { field: "author", query: "Nook" },
-    { field: "subject", query: "poetry" },
-    { field: "title", query: "Handbook" },
+    { field: SearchField.Keyword, query: "cat" },
+    { field: SearchField.Author, query: "Nook" },
+    { field: SearchField.Subject, query: "poetry" },
+    { field: SearchField.Title, query: "Handbook" },
   ],
   showAll: false,
+};
+
+const viafSearchQuery: SearchQuery = {
+  queries: [{ field: SearchField.Viaf, query: "12345" }],
+  display: { field: SearchField.Author, query: "Viaf Author" },
 };
 
 describe("renders advanced search correctly", () => {
@@ -237,5 +243,38 @@ describe("Advanced Search clear", () => {
     expect(screen.getByLabelText("From")).toHaveValue(null);
     expect(screen.getByLabelText("To")).toHaveValue(null);
     expect(screen.getByLabelText("Keyword")).toHaveValue("");
+  });
+});
+
+describe("Viafs in Advanced Search", () => {
+  beforeEach(() => {
+    render(
+      <MockNextRouterContextProvider>
+        <AdvancedSearch
+          searchQuery={viafSearchQuery}
+          languages={defaultLanguages}
+        />
+      </MockNextRouterContextProvider>
+    );
+  });
+
+  test("Loads advanced search with viaf", () => {
+    expect(screen.getByLabelText("Keyword")).toHaveValue("");
+    expect(screen.getByLabelText("Author")).toHaveValue("Viaf Author");
+    expect(screen.getByLabelText("Title")).toHaveValue("");
+    expect(screen.getByLabelText("Subject")).toHaveValue("");
+  });
+
+  test("Sending search starts an author name search and strips out viaf", () => {
+    userEvent.click(screen.getByRole("button", { name: "Search" }));
+
+    const expectedQuery = {
+      query: "author:Viaf Author",
+    };
+    expect(mockPush).toHaveBeenCalledTimes(1);
+    expect(mockPush).toHaveBeenCalledWith({
+      pathname: "/search",
+      query: expectedQuery,
+    });
   });
 });

@@ -555,20 +555,21 @@ describe("Renders No Results when no results are shown", () => {
   });
 });
 
-describe.only("Renders seach header correctly when viaf search is passed", () => {
+describe("Renders seach header correctly when viaf search is passed", () => {
   const viafSearchQuery: SearchQuery = {
     queries: [{ field: SearchField.Viaf, query: "12345" }],
     display: { field: SearchField.Author, query: "display author" },
   };
-
-  render(
-    <MockNextRouterContextProvider>
-      <SearchResults
-        searchQuery={viafSearchQuery}
-        searchResults={searchResults}
-      />
-    </MockNextRouterContextProvider>
-  );
+  beforeEach(() => {
+    render(
+      <MockNextRouterContextProvider>
+        <SearchResults
+          searchQuery={viafSearchQuery}
+          searchResults={searchResults}
+        />
+      </MockNextRouterContextProvider>
+    );
+  });
 
   test("Main Content shows the viaf query", () => {
     expect(
@@ -580,6 +581,12 @@ describe.only("Renders seach header correctly when viaf search is passed", () =>
     expect(screen.getByRole("combobox")).toHaveValue("author");
     expect(screen.getByRole("textbox", { name: "Search" })).toHaveValue(
       "display author"
+    );
+  });
+
+  test("Author links to viaf search", () => {
+    expect(screen.getByText("display author").closest("a").href).toContain(
+      "http://localhost/search?query=viaf%3A12345&display=author%3Adisplay+author"
     );
   });
 });

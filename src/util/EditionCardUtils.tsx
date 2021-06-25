@@ -81,8 +81,6 @@ export default class EditionCardUtils {
   static getAuthorsList(authors: Agent[]): JSX.Element[] {
     if (!authors || authors.length === 0) return null;
     return authors.map((author: Agent, i: number) => {
-      console.log("viaf", author);
-
       const authorLinkText = author.name;
       const query: ApiSearchQuery = {
         query: author.viaf ? `viaf:${author.viaf}` : `author:${author.name}`,
