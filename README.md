@@ -29,9 +29,8 @@ Run `npm run dev` to start the local server at `localhost:3000`
 
 ### Usage
 
+### Searcbar
 Currently takes in a query string to pass along to the ResearchNow Search API which submits a keyword search to the Elasticsearch instance, and renders the returned output. Sends the `query` parameter specified in the rendered search form on the main page.
-
-The server route `/search` should also take a `query` query string parameter and perform the same keyword search via the ResearchNow Search API.
 
 Search via keyword, author, title, subject have been implemented. Terms use the AND boolean operator by default. Search terms can also use the OR boolean operator and search terms can be quoted for phrase searching. Combinations of these can be used as well for more complex searching using the basic search input.
 
@@ -42,6 +41,25 @@ Term combinations
 * Single term and phrase: james AND "English Literature"
 
 These types of combinations can be used with any available field selection.
+
+### Filtering
+Search Results can be filtered by year range, language and available format. 
+
+### Advanced Search
+Advanced Search works like the Simple Search, but allows searching for multiple fields and for pre-filtering.  Terms use the AND boolean operator
+Term combinations
+
+* Example: Subject:"English Literature" AND Keyword:"Witches"
+
+### Works and Editions
+* Each source record is represented as an Item (something that can actually be read online), which are grouped into Editions (e.g. the 1917 edition of X), which are in turn grouped into Works, (e.g. Moby Dick, or, The Whale). Through this a user can search for and find a single Work record and see all editions of that Work and all of its options for reading online.
+* The information and code for this normalization is found in the [drb-etl-pipeline repo](https://github.com/NYPL/drb-etl-pipeline)
+
+### Accessing books
+* Books can be read three ways:
+    * Embedded page:  DRB embeds a read-online page from a different source.  DRB commonly does this for Hathitrust books
+    * Webpub reader:  DRB serves an epub through the [webpub-viewer](https://github.com/NYPL-Simplified/webpub-viewer/tree/SFR-develop).  DRB commonly does this for Gutenberg Project books. 
+    * Download:  DRB offers a link to download the book online.  This is often done for PDFs.  
 
 ### Test
 
