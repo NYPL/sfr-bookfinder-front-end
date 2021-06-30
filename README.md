@@ -8,7 +8,7 @@
 
 Digital Research Books' front end application based on NYPL's React Design System.
 
-Provides a "Welcome page" entry point with heading, search box, and tagline. Connects to an ElasticSearch index via an API endpoint (https://drb-api-production.nypl.org/apidocs/).
+Provides a "Welcome page" entry point with heading, search box, and tagline. Connects to an ElasticSearch index via an API endpoint (https://digital-research-books-api.nypl.org).
 Simple  searches can be entered in the form and an index response is displayed back to the user.
 
 ### Requirements
