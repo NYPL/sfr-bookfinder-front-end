@@ -573,7 +573,7 @@ describe("Renders seach header correctly when viaf search is passed", () => {
 
   test("Main Content shows the viaf query", () => {
     expect(
-      screen.getByText("Search results for viaf: 12345")
+      screen.getByText("Search results for author: display author")
     ).toBeInTheDocument();
   });
 

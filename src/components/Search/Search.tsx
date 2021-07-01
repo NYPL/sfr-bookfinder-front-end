@@ -38,9 +38,13 @@ const SearchResults: React.FC<{
     });
   };
 
-  // The Display Items heading (Search Results for ... ) should show the exact search.
-  // eg:  If the search was for a viaf, that would show.
+  // The Display Items heading (Search Results for ... )
   const getDisplayItemsHeading = (searchQuery: SearchQuery) => {
+    // If a display query is set, it is shown instead of the actual query
+    if (searchQuery.display) {
+      return `${searchQuery.display.field}: ${searchQuery.display.query}`;
+    }
+    //If not, the actual query is shown.
     const queries = searchQuery.queries.map((query: Query, index: any) => {
       const joiner = index < searchQuery.queries.length - 1 ? " and " : "";
       return `${query.field}: ${query.query}${joiner}`;
