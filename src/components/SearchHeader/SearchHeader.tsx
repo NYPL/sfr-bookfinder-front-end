@@ -11,9 +11,9 @@ import { toLocationQuery, toApiQuery } from "~/src/util/apiConversion";
  * Search Header Component
  */
 
-const SearchHeader: React.FC<{ searchQuery?: SearchQuery }> = ({
-  searchQuery,
-}) => {
+const SearchHeader: React.FC<{
+  searchQuery?: SearchQuery;
+}> = ({ searchQuery }) => {
   return (
     <div className="search-header-container">
       <div className="search-header" aria-label="Digital Research Books Beta">

@@ -38,6 +38,8 @@ export const searchResultsFetcher = async (apiQuery: ApiSearchQuery) => {
   if (res.ok) {
     const searchResult: ApiSearchResult = await res.json();
     return searchResult;
+  } else {
+    console.log("res not ok", res);
   }
 };
 
@@ -85,6 +87,7 @@ export const editionFetcher = async (query: EditionQuery) => {
 
 export const languagesFetcher = async () => {
   const url = new URL(languagesUrl);
+  console.log("languagesUrl", url);
 
   const res = await fetch(url.toString());
   if (res.ok) {

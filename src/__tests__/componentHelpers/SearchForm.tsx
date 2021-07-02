@@ -1,20 +1,20 @@
 import { fireEvent, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { searchFields } from "~/src/constants/fields";
+import { inputTerms } from "~/src/constants/labels";
 import { SearchQuery } from "~/src/types/SearchQuery";
 
 export const searchFormRenderTests = (query?: SearchQuery) => {
   test("Searchbar select defaults", () => {
     const expectedSearchField =
-      query && query.queries ? query.queries[0].field : searchFields[0];
+      query && query.queries ? query.queries[0].field : inputTerms[0].key;
     expect(screen.getByRole("combobox")).toHaveValue(expectedSearchField);
   });
   test("Searchbar has the correct options", () => {
     const options = screen.getAllByRole("option");
-    expect(options[0]).toHaveValue(searchFields[0]);
-    expect(options[1]).toHaveValue(searchFields[1]);
-    expect(options[2]).toHaveValue(searchFields[2]);
-    expect(options[3]).toHaveValue(searchFields[3]);
+    expect(options[0]).toHaveValue(inputTerms[0].key);
+    expect(options[1]).toHaveValue(inputTerms[1].key);
+    expect(options[2]).toHaveValue(inputTerms[2].key);
+    expect(options[3]).toHaveValue(inputTerms[3].key);
   });
   test("Searchbar has correct input", () => {
     const expectedSearchValue =

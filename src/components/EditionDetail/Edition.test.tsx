@@ -2,8 +2,7 @@ import React from "react";
 import Edition from "./Edition";
 import "@testing-library/jest-dom/extend-expect";
 import { screen, render, within, fireEvent } from "@testing-library/react";
-import { breadcrumbTitles } from "~/src/constants/labels";
-import { searchFields } from "~/src/constants/fields";
+import { breadcrumbTitles, inputTerms } from "~/src/constants/labels";
 import {
   mockPush,
   MockNextRouterContextProvider,
@@ -36,7 +35,7 @@ describe("Renders edition component when given valid edition", () => {
     expect(
       screen.getByRole("heading", { name: breadcrumbTitles.home })
     ).toBeInTheDocument();
-    expect(screen.getByRole("combobox")).toHaveValue(searchFields[0]);
+    expect(screen.getByRole("combobox")).toHaveValue(inputTerms[0].key);
     expect(screen.getByRole("textbox")).toBeInTheDocument;
     expect(screen.getByText("Advanced Search").closest("a").href).toContain(
       "/advanced-search"

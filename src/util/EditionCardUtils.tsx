@@ -19,6 +19,7 @@ import {
 } from "../constants/editioncard";
 import { MediaTypes } from "../constants/mediaTypes";
 import * as gtag from "../lib/Analytics";
+import { ApiSearchQuery } from "../types/SearchQuery";
 
 // EditionCard holds all the methods needed to build an Edition Card
 export default class EditionCardUtils {
@@ -81,6 +82,12 @@ export default class EditionCardUtils {
     if (!authors || authors.length === 0) return null;
     return authors.map((author: Agent, i: number) => {
       const authorLinkText = author.name;
+      const query: ApiSearchQuery = {
+        query: author.viaf ? `viaf:${author.viaf}` : `author:${author.name}`,
+      };
+      if (author.viaf) {
+        query.display = `author:${author.name}`;
+      }
       return (
         <React.Fragment
           key={author.viaf ? `author-${author.viaf}` : `author-${author.name}`}
@@ -88,9 +95,7 @@ export default class EditionCardUtils {
           <Link
             to={{
               pathname: "/search",
-              query: {
-                query: `author:${author.name}`,
-              },
+              query: query,
             }}
             className="link"
           >

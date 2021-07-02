@@ -47,7 +47,7 @@ const Edition: React.FC<{ editionResult: EditionResult }> = (props) => {
               },
             ]}
           />
-          <SearchHeader></SearchHeader>
+          <SearchHeader />
         </div>
 
         <div className="content-top">

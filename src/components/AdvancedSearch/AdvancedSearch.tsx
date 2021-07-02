@@ -17,7 +17,7 @@ import { SearchQuery, SearchQueryDefaults } from "~/src/types/SearchQuery";
 import * as DS from "@nypl/design-system-react-components";
 import LanguageAccordion from "../LanguageAccordion/LanguageAccordion";
 import FilterBookFormat from "../FilterBookFormat/FilterBookFormat";
-import { FacetItem } from "~/src/types/DataModel";
+import { FacetItem, SearchField } from "~/src/types/DataModel";
 import { toLocationQuery, toApiQuery } from "~/src/util/apiConversion";
 import filterFields from "~/src/constants/filters";
 import { ApiLanguageResponse } from "~/src/types/LanguagesQuery";
@@ -25,17 +25,44 @@ import { ApiLanguageResponse } from "~/src/types/LanguagesQuery";
 const AdvancedSearch: React.FC<{
   searchQuery: SearchQuery;
   languages: ApiLanguageResponse;
-}> = (props) => {
+}> = ({ searchQuery: previousQuery, languages: previousLanguages }) => {
   const router = useRouter();
-  const [searchQuery, setSearchQuery] = useState({
+
+  // Combines displayQuery and query to set initial advanced search query state
+  const createAdvancedSearchQuery = (searchQuery) => {
+    if (!searchQuery) return [];
+    const queriesToPrepopulate = searchQuery.queries.filter((query) => {
+      return inputTerms
+        .map((term) => term.key as SearchField)
+        .includes(query.field);
+    });
+    if (queriesToPrepopulate.length) return queriesToPrepopulate;
+
+    // If there are no queries, see if there are displayQueries
+    // Note: This assumes that we will never send display queries along with other relevant searches
+    // eg: it cannot handle the case where we send queries=[keyword:cat,viaf:12345]&display=author:tigger
+    // This is because it is not yet possible to send a search like that via interacting with the app
+    if (searchQuery.display) {
+      return [searchQuery.display];
+    }
+    return [];
+  };
+
+  // After putting display in query, we can remove it from state
+  const [searchQuery, setSearchQuery] = useState<SearchQuery>({
     ...SearchQueryDefaults,
-    ...props.searchQuery,
+    ...previousQuery,
+    ...{
+      display: undefined,
+      queries: createAdvancedSearchQuery(previousQuery),
+    },
   });
+
   const [emptySearchError, setEmptySearchError] = useState("");
   const [dateRangeError, setDateRangeError] = useState("");
 
-  const languages: FacetItem[] = props.languages
-    ? props.languages.data.map((language) => {
+  const languages: FacetItem[] = previousLanguages
+    ? previousLanguages.data.map((language) => {
         return {
           value: language.language,
           count: language.count,
@@ -87,7 +114,10 @@ const AdvancedSearch: React.FC<{
       return query.field !== queryKey;
     });
 
-    allQueries.push(newQuery);
+    // If the new query is not empty, add it
+    if (newQuery.query.length > 0) {
+      allQueries.push(newQuery);
+    }
     setSearchQuery({
       ...searchQuery,
       queries: allQueries,
@@ -158,6 +188,7 @@ const AdvancedSearch: React.FC<{
     searchQuery.filters,
     filterFields.endYear
   );
+
   return (
     <main id="mainContent" className="main advanced-search">
       <div className="content-top">
