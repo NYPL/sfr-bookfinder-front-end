@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import * as DS from "@nypl/design-system-react-components";
 import { useRouter } from "next/router";
-import { searchFields } from "~/src/constants/fields";
-import { FacetItem } from "~/src/types/DataModel";
+import { FacetItem, Query } from "~/src/types/DataModel";
 import {
   ApiSearchResult,
   Filter,
@@ -39,17 +38,17 @@ const SearchResults: React.FC<{
     });
   };
 
+  // The Display Items heading (Search Results for ... )
   const getDisplayItemsHeading = (searchQuery: SearchQuery) => {
-    const showQueries = searchQuery.queries;
-    const queriesToShow =
-      showQueries &&
-      showQueries.filter((query: any) => searchFields.includes(query.field));
-    const queries =
-      queriesToShow &&
-      queriesToShow.map((query: any, index: any) => {
-        const joiner = index < queriesToShow.length - 1 ? " and " : "";
-        return `${query.field}: ${query.query}${joiner}`;
-      });
+    // If a display query is set, it is shown instead of the actual query
+    if (searchQuery.display) {
+      return `${searchQuery.display.field}: ${searchQuery.display.query}`;
+    }
+    //If not, the actual query is shown.
+    const queries = searchQuery.queries.map((query: Query, index: any) => {
+      const joiner = index < searchQuery.queries.length - 1 ? " and " : "";
+      return `${query.field}: ${query.query}${joiner}`;
+    });
     return queries && queries.join("");
   };
 

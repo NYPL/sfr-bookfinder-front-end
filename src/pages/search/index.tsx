@@ -11,7 +11,6 @@ export async function getServerSideProps(context: any) {
   const searchQuery: ApiSearchQuery = context.query;
   const searchResults = await searchResultsFetcher(searchQuery);
   const convertedQuery = toSearchQuery(searchQuery);
-
   return {
     props: {
       searchQuery: convertedQuery,

@@ -1,7 +1,6 @@
 /** Converts API responses to internal types */
 
-import { searchFields } from "../constants/fields";
-import { Query, Sort } from "../types/DataModel";
+import { Query, SearchField, Sort } from "../types/DataModel";
 import {
   ApiSearchQuery,
   Filter,
@@ -20,6 +19,16 @@ export const toSearchQuery = (apiQuery: ApiSearchQuery): SearchQuery => {
     throw new Error("Mising param `queries` in search request ");
   }
 
+  const toQuery = (query: string): Query => {
+    //If we are guaranteed that this is one query, the first colon is not part of the search term.  Split only on the first colon
+    const separated = query.split(/:(.+)/);
+
+    return {
+      field: separated[0] as SearchField,
+      query: separated[1],
+    };
+  };
+
   /**
    * Because the queries are read directly from URL, this function extracts the queries of form
    * "author:shakespeare, william,title:Macbeth" and returns
@@ -30,23 +39,29 @@ export const toSearchQuery = (apiQuery: ApiSearchQuery): SearchQuery => {
     // eg: author:shakespeare, william,title:Macbeth becomes [author, :, shakespeare, ,,  william, ,, title, :, Macbeth]
     const separated = apiQueries.split(/(,|:)/);
 
-    // Finds the indexes of the items that are in searchFields and followed by a colon
+    // We know that any search term is preceded by a search field followed by a colon.
+    // When we find a search field followed by a colon, we return the first index of this search field.
     const keysIndexes = separated
       .map((sep, i) => {
-        if (searchFields.includes(sep) && separated[i + 1] === ":") {
-          return i;
+        if (
+          Object.values(SearchField).includes(sep as SearchField) &&
+          separated[i + 1] === ":"
+        ) {
+          return apiQueries.indexOf(sep);
         }
       })
-      .filter((key) => key !== undefined);
+      .filter((index) => index !== undefined);
 
-    // Joins everything between the two keys and sets it as query
-    return keysIndexes.map((keyIndex, i) => {
-      const endIndex =
-        i < keysIndexes.length - 1 ? keysIndexes[i + 1] - 1 : separated.length;
-      return {
-        field: separated[keyIndex],
-        query: separated.slice(keyIndex + 2, endIndex).join(""),
-      };
+    // Creates an array of strings that each represent a search term
+    const stringQueries = keysIndexes.map((keyIndex, i) => {
+      // When it is not the last value, there is also a comma after the key:value pair that we must ignore
+      return i < keysIndexes.length - 1
+        ? apiQueries.substring(keyIndex, keysIndexes[i + 1] - 1)
+        : apiQueries.substring(keyIndex);
+    });
+
+    return stringQueries.map((query) => {
+      return toQuery(query);
     });
   };
 
@@ -67,6 +82,7 @@ export const toSearchQuery = (apiQuery: ApiSearchQuery): SearchQuery => {
 
   return {
     queries: toQueries(apiQuery.query),
+    ...(apiQuery.display && { display: toQuery(apiQuery.display) }),
     ...(apiQuery.filter && { filters: toFilters(apiQuery.filter) }),
     ...(apiQuery.page && { page: apiQuery.page }),
     ...(apiQuery.size && { perPage: apiQuery.size }),
@@ -86,6 +102,7 @@ export const toSearchQuery = (apiQuery: ApiSearchQuery): SearchQuery => {
  * @param searchQuery
  */
 export const toApiQuery = (searchQuery: SearchQuery): ApiSearchQuery => {
+  if (!searchQuery) return;
   if (!searchQuery.queries || searchQuery.queries.length < 1) {
     throw new Error("cannot convert searchQuery with no queries");
   }
@@ -101,14 +118,17 @@ export const toApiQuery = (searchQuery: SearchQuery): ApiSearchQuery => {
       : [];
   };
 
+  const toQuery = (query: Query): string => {
+    return `${query.field}:${query.query}`;
+  };
+
   const toApiQueries = (queries: Query[]): string[] => {
-    return queries.map((query) => {
-      return `${query.field}:${query.query}`;
-    });
+    return queries.map((query) => toQuery(query));
   };
 
   return {
     query: toApiQueries(searchQuery.queries).join(","),
+    ...(searchQuery.display && { display: toQuery(searchQuery.display) }),
     ...(searchQuery.filters &&
       searchQuery.filters.length &&
       searchQuery.filters !== SearchQueryDefaults.filters && {

@@ -115,7 +115,15 @@ export type Measurement = {
 //Refer to sorts.ts
 export type Sort = { field: string; dir: string };
 
+export enum SearchField {
+  Title = "title",
+  Keyword = "keyword",
+  Author = "author",
+  Viaf = "viaf",
+  Subject = "subject",
+}
+
 export interface Query {
   query: string;
-  field: string;
+  field: SearchField;
 }

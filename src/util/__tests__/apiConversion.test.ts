@@ -1,5 +1,6 @@
 /* eslint-env mocha */
 import React from "react";
+import { SearchField } from "~/src/types/DataModel";
 import { ApiSearchQuery, SearchQuery } from "~/src/types/SearchQuery";
 import { toApiQuery, toSearchQuery } from "../apiConversion";
 
@@ -24,8 +25,8 @@ const searchQuery: SearchQuery = {
   page: 3,
   perPage: 20,
   queries: [
-    { field: "keyword", query: '"Civil War" OR Lincoln' },
-    { field: "author", query: "last, first" },
+    { field: SearchField.Keyword, query: '"Civil War" OR Lincoln' },
+    { field: SearchField.Author, query: "last, first" },
   ],
   showAll: true,
   sort: { dir: "asc", field: "title" },
@@ -85,7 +86,7 @@ describe("Converting api query to search query", () => {
     const minimalSearchQuery: SearchQuery = {
       queries: [
         {
-          field: "author",
+          field: SearchField.Author,
           query: "cat",
         },
       ],
@@ -121,7 +122,7 @@ describe("Converting search query to api query", () => {
       query: "keyword:cat",
     };
     expect(
-      toApiQuery({ queries: [{ field: "keyword", query: "cat" }] })
+      toApiQuery({ queries: [{ field: SearchField.Keyword, query: "cat" }] })
     ).toEqual(minimalApiQuery);
   });
 });
