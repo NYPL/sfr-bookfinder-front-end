@@ -30,7 +30,7 @@ const AdvancedSearch: React.FC<{
 
   // Combines displayQuery and query to set initial advanced search query state
   const createAdvancedSearchQuery = (searchQuery) => {
-    if (!searchQuery) return [];
+    if (!searchQuery || !searchQuery.queries) return [];
     const queriesToPrepopulate = searchQuery.queries.filter((query) => {
       return inputTerms
         .map((term) => term.key as SearchField)
