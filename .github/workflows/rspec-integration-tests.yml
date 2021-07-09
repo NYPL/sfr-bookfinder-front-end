@@ -1,0 +1,69 @@
+name: Rspec Regression Testing
+
+on:
+  # will run on all PRs that are opened or updated (synchronized)
+  pull_request:
+    branches: [production]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  regression-test:
+    name: Run rspec regression tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby-version: ["3.0.0"]
+
+    env:
+      PA_TOKEN: ${{ secrets.CLONE_PAT }}
+      BASE_URL: ${{ secrets.RSPEC_TEST_URL }}
+      SEARCH_TERM: ${{ secrets.RSPEC_TEST_STRING }}
+      TEST_DRIVER: ${{ secrets.RSPEC_TEST_DRIVER }}
+
+    services:
+      chrome:
+        image: selenium/standalone-chrome
+
+    steps:
+      - name: Checkout rspec repo
+        run: git clone 'https://"$PA_TOKEN"@github.com/nypl/rspec_researchNow.git'
+
+      - name: Test
+        run: npm run test
+
+      - name: Run 10sanity_spec.rb
+        run: bundle exec rspec -r ./spec/support/prod.rb spec/10sanity_spec.rb
+
+      - name: Run 100homepage_elements_spec.rb
+        run: bundle exec rspec -r ./spec/support/prod.rb spec/100homepage_elements_spec.rb
+
+      - name: Run 101header_elements_spec.rb
+        run: bundle exec rspec -r ./spec/support/prod.rb spec/101header_elements_spec.rb
+
+      - name: Run 102footer_elements_spec.rb
+        run: bundle exec rspec -r ./spec/support/prod.rb spec/102footer_elements_spec.rb
+
+      - name: Run 110keyword_search_spec.rb
+        run: bundle exec rspec -r ./spec/support/prod.rb spec/110keyword_search_spec.rb
+
+      - name: Run 112author_search_spec.rb
+        run: bundle exec rspec -r ./spec/support/prod.rb spec/112author_search_spec.rb
+
+      - name: Run 113subject_search_spec.rb
+        run: bundle exec rspec -r ./spec/support/prod.rb spec/113subject_search_spec.rb
+
+      - name: Run 140frontend_to_end_spec.rb
+        run: bundle exec rspec -r ./spec/support/prod.rb spec/140frontend_to_end_spec.rb
+
+      - name: Run 120filter_language_spec.rb
+        run: bundle exec rspec -r ./spec/support/prod.rb spec/120filter_language_spec.rb
+
+      - name: Run 122filter_pubyear_spec.rb
+        run: bundle exec rspec -r ./spec/support/prod.rb spec/122filter_pubyear_spec.rb
+
+      - name: Run 200advanced_search_spec.rb
+        run: bundle exec rspec -r ./spec/support/prod.rb spec/200advanced_search_spec.rb
+
+      - name: Run 201advanced_search_pubyear_spec.rb
+        run: bundle exec rspec -r ./spec/support/prod.rb spec/201advanced_search_pubyear_spec.rb
+
