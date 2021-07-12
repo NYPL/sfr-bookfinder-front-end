@@ -25,14 +25,14 @@ jobs:
         image: selenium/standalone-chrome
 
     steps:
+      - name: Checkout rspec repo
+        run: git clone https://$PA_TOKEN@github.com/nypl/rspec_researchNow.git .
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby-version }}
           bundler-cache: true
-
-      - name: Checkout rspec repo
-        run: git clone https://$PA_TOKEN@github.com/nypl/rspec_researchNow.git .
 
       - name: Run regression tests (prefixed with number code)
         run: bundle exec rspec -r ./spec/support/prod.rb --pattern spec/[12]?[0-9]*_spec.rb
