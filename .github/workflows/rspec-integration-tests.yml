@@ -26,7 +26,7 @@ jobs:
 
     steps:
       - name: Checkout rspec repo
-        run: git clone 'https://"$PA_TOKEN"@github.com/nypl/rspec_researchNow.git'
+        run: git clone https://$PA_TOKEN@github.com/nypl/rspec_researchNow.git
 
       - name: Test
         run: npm run test
