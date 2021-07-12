@@ -28,9 +28,6 @@ jobs:
       - name: Checkout rspec repo
         run: git clone https://$PA_TOKEN@github.com/nypl/rspec_researchNow.git
 
-      - name: Test
-        run: npm run test
-
       - name: Run 10sanity_spec.rb
         run: bundle exec rspec -r ./spec/support/prod.rb spec/10sanity_spec.rb
 
