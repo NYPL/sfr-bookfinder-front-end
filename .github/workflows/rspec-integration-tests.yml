@@ -3,7 +3,7 @@ name: Rspec Regression Testing
 on:
   # will run on all PRs that are opened or updated (synchronized)
   pull_request:
-    branches: [production]
+    branches: [production, development]
     types: [opened, synchronize, reopened]
 
 jobs:
