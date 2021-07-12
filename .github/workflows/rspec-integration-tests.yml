@@ -25,6 +25,12 @@ jobs:
         image: selenium/standalone-chrome
 
     steps:
+      - name: Set up Ruby
+        uses: ruby/setup-ruby
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+          bundler-cache: true
+
       - name: Checkout rspec repo
         run: git clone https://$PA_TOKEN@github.com/nypl/rspec_researchNow.git
 
