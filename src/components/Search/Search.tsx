@@ -149,10 +149,16 @@ const SearchResults: React.FC<{
       </div>
 
       <div className="content-top">
-        <div className="search-heading" role="alert">
-          <DS.Heading level={1} id="page-title-heading" blockName="page-title">
-            <>Search results for {getDisplayItemsHeading(searchQuery)}</>
-          </DS.Heading>
+        <div className="search-heading">
+          <div role="alert">
+            <DS.Heading
+              level={1}
+              id="page-title-heading"
+              blockName="page-title"
+            >
+              <>Search results for {getDisplayItemsHeading(searchQuery)}</>
+            </DS.Heading>
+          </div>
           <hr />
           <div className="search-subheading">
             <DS.Heading level={2} id="page-counter" className="page-counter">

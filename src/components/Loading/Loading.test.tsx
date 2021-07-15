@@ -4,12 +4,10 @@ import Loading from "./Loading";
 
 describe("Loading page", () => {
   beforeEach(() => {
-    render(<Loading></Loading>);
+    render(<Loading />);
   });
 
   it("should have an 'alert' element", () => {
-    expect(
-      screen.getByRole("alert", { name: "book icon" })
-    ).toBeInTheDocument();
+    expect(screen.getByRole("alert", { name: "loading" })).toBeInTheDocument();
   });
 });
