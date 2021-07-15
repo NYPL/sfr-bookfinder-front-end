@@ -1,4 +1,8 @@
 # CHANGE LOG
+
+## [0.10.2-HOTFIX]
+- Makes searchQuery check more robust 
+
 ## [0.10.2]
 ### Added
 - Clicking an author name now searches by viaf if the viaf is available. 
