@@ -1,4 +1,8 @@
 # CHANGE LOG
+## [0.10.3]
+### Fixed
+- Added lang="en" to html
+- Moved `main` tag to `Layout` and ensured that they all had the `main-content` id to work with the NYPL header
 
 ## [0.10.2-HOTFIX]
 - Makes searchQuery check more robust 

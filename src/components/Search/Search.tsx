@@ -140,14 +140,14 @@ const SearchResults: React.FC<{
   };
 
   return (
-    <main className="main main--with-sidebar">
+    <>
+      {" "}
       <div className="content-header">
         <DS.Breadcrumbs
           breadcrumbs={[{ url: "/", text: breadcrumbTitles.home }]}
         />
         <SearchHeader searchQuery={searchQuery}></SearchHeader>
       </div>
-
       <div className="content-top">
         <div className="search-heading">
           <DS.Heading level={1} id="page-title-heading" blockName="page-title">
@@ -190,7 +190,6 @@ const SearchResults: React.FC<{
           {`Filters (${filterCount})`}
         </DS.Button>
       </div>
-
       <div
         className={
           "content-secondary content-secondary--with-sidebar-left search-widescreen-show"
@@ -215,7 +214,6 @@ const SearchResults: React.FC<{
           />
         </form>
       </div>
-
       <div className="content-primary content-primary--with-sidebar-left">
         <ResultsList works={works} />
         {isModalOpen && (
@@ -269,7 +267,7 @@ const SearchResults: React.FC<{
           </div>
         )}
       </div>
-    </main>
+    </>
   );
 };
 
