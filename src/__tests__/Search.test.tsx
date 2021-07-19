@@ -73,10 +73,10 @@ describe("Renders Search Results Page", () => {
 
     searchFormTests(mockPush);
   });
-  test("Main Content shows the current search query", () => {
-    expect(
-      screen.getByText("Search results for keyword: Animal Crossing")
-    ).toBeInTheDocument();
+  test("Main Content shows the current search query with 'alert' role", () => {
+    expect(screen.getByRole("alert")).toHaveTextContent(
+      "Search results for keyword: Animal Crossing"
+    );
   });
   test("Item Count shows correctly", () => {
     expect(screen.getByText("Viewing 1 - 10 of 26 items")).toBeInTheDocument();
