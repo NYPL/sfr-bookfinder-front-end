@@ -1,5 +1,9 @@
 # CHANGE LOG
 
+## [0.10.4]
+### Changed
+- Clicking "Advanced Search" starts a new search
+
 ## [0.10.3]
 ### Fix
 - Adds an "alert" role to search results so the screen reader reads that it loads in.
