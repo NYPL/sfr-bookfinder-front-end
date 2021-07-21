@@ -3,9 +3,6 @@
 ### Fixed
 - Added lang="en" to html
 - Moved `main` tag to `Layout` and ensured that they all had the `main-content` id to work with the NYPL header
-
-## [0.10.3]
-### Fix
 - Adds an "alert" role to search results so the screen reader reads that it loads in.
 - Changes link color to have adequate contrast on gray background
 
