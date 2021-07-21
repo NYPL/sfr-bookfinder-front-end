@@ -30,7 +30,7 @@ export const searchFormRenderTests = (query?: SearchQuery) => {
   });
 };
 
-export const searchFormTests = (mockPush) => {
+export const searchFormTests = (mockPush, hasHeader?) => {
   describe("Search using Landing Page Searchbar", () => {
     test("Searching with a field and value calls Search api", () => {
       const categoryInput = screen.getByRole("combobox");
@@ -38,8 +38,11 @@ export const searchFormTests = (mockPush) => {
       fireEvent.change(categoryInput, { target: { value: "author" } });
       userEvent.clear(textInput);
       userEvent.type(textInput, "Tom Nook");
-      const main = screen.getByRole("main", { name: "" });
-      fireEvent.click(within(main).getByText("Search"));
+
+      const searchButton = hasHeader
+        ? within(screen.getByRole("main")).getByText("Search")
+        : screen.getByRole("button", { name: "Search" });
+      fireEvent.click(searchButton);
 
       expect(screen.getByRole("combobox")).toHaveValue("author");
       expect(screen.getByRole("textbox", { name: "Search" })).toHaveValue(
@@ -62,8 +65,10 @@ export const searchFormTests = (mockPush) => {
       userEvent.clear(textInput);
 
       expect(textInput).toHaveValue("");
-      const main = screen.getByRole("main", { name: "" });
-      fireEvent.click(within(main).getByText("Search"));
+      const searchButton = hasHeader
+        ? within(screen.getByRole("main")).getByText("Search")
+        : screen.getByRole("button", { name: "Search" });
+      fireEvent.click(searchButton);
 
       expect(mockPush).not.toBeCalled();
       expect(

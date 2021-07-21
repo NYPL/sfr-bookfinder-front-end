@@ -62,5 +62,5 @@ describe("Search using Landing Page Searchbar", () => {
       name: "Digital Research Books Beta",
     });
   });
-  searchFormTests(mockPush);
+  searchFormTests(mockPush, true);
 });
