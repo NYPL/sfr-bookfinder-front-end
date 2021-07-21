@@ -7,6 +7,7 @@
 ## [0.10.3]
 ### Fix
 - Adds an "alert" role to search results so the screen reader reads that it loads in.
+- Changes link color to have adequate contrast on gray background
 
 ## [0.10.2-HOTFIX]
 - Makes searchQuery check more robust 
