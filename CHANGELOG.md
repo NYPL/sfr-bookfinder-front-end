@@ -1,4 +1,8 @@
 # CHANGE LOG
+
+## [0.10.3-HOTFIX]
+- Adds sidebar class to main when on search results page
+- re-adds advanced-search class to Advanced Search
 ## [0.10.3]
 ### Fixed
 - Added lang="en" to html

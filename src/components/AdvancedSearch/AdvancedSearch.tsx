@@ -191,14 +191,13 @@ const AdvancedSearch: React.FC<{
 
   return (
     <>
-      {" "}
       <div className="content-top">
         <DS.Breadcrumbs
           modifiers={["space-under"]}
           breadcrumbs={[{ url: "/", text: breadcrumbTitles.home }]}
         />
       </div>
-      <div className="content-primary">
+      <div className="content-primary advanced-search">
         <DS.Heading level={1}>Advanced Search</DS.Heading>
 
         <form
