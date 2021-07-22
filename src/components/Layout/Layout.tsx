@@ -42,16 +42,16 @@ const Layout: React.FC<any> = ({ children }) => {
         navData={navConfig.current}
       />
       <div className="layout-container nypl-ds nypl--research">
-        <main id="main-content" className="main">
-          {router.isFallback || loading ? (
-            <>
-              <Loading />
+        {router.isFallback || loading ? (
+          <>
+            <Loading />
+            <main>
               <DS.SkeletonLoader />
-            </>
-          ) : (
-            <>{children}</>
-          )}
-        </main>
+            </main>
+          </>
+        ) : (
+          <>{children}</>
+        )}
         {!loading && <Feedback location={router.asPath} />}
       </div>
       <Footer urlType="absolute" />

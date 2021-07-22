@@ -6,16 +6,18 @@ import Link from "../components/Link/Link";
 const Error = ({ statusCode }) => {
   return (
     <Layout>
-      <p>
-        {statusCode
-          ? `An error ${statusCode} occurred on server`
-          : "An error occurred on client"}
-      </p>
-      <p>
-        Search&nbsp;
-        <Link to="/">Digital Research Books Beta</Link>
-        {"."}
-      </p>
+      <main className="main">
+        <p>
+          {statusCode
+            ? `An error ${statusCode} occurred on server`
+            : "An error occurred on client"}
+        </p>
+        <p>
+          Search&nbsp;
+          <Link to="/">Digital Research Books Beta</Link>
+          {"."}
+        </p>
+      </main>
     </Layout>
   );
 };
