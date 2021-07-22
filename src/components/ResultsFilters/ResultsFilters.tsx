@@ -114,20 +114,22 @@ const Filters: React.FC<{
   const yearEnd = findFiltersForField(filters, filterFields.endYear);
 
   return (
-    <div className="results-filters">
-      <DS.Checkbox
-        checkboxId="avail_online"
-        checked={!showAll}
-        onChange={(e) => {
-          toggleShowAll(e);
-        }}
-        labelOptions={{
-          id: "avail_online_label",
-          labelContent: <>Available Online</>,
-        }}
-        attributes={{ "aria-labelledby": "avail_online_label" }}
-        name="avail_online"
-      />
+    <>
+      <div className="toggle-container">
+        <DS.Checkbox
+          checkboxId="avail_online"
+          checked={!showAll}
+          onChange={(e) => {
+            toggleShowAll(e);
+          }}
+          labelOptions={{
+            id: "avail_online_label",
+            labelContent: <>Available Online</>,
+          }}
+          attributes={{ "aria-labelledby": "avail_online_label" }}
+          name="avail_online"
+        />
+      </div>
       <LanguageAccordion
         languages={languages}
         showCount={true}
@@ -149,7 +151,7 @@ const Filters: React.FC<{
         dateRangeError={dateRangeError}
         onSubmit={() => submitDateForm()}
       />
-    </div>
+    </>
   );
 };
 
