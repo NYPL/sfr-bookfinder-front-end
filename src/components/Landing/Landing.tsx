@@ -15,7 +15,7 @@ const LandingPage: React.FC<any> = () => {
     </div>
   );
   return (
-    <>
+    <main className="main">
       <div className="content-header">
         <DS.Breadcrumbs
           breadcrumbs={[{ url: "/", text: breadcrumbTitles.home }]}
@@ -68,7 +68,7 @@ const LandingPage: React.FC<any> = () => {
           ))}
         </DS.List>
       </div>
-    </>
+    </main>
   );
 };
 

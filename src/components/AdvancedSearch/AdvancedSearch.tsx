@@ -286,7 +286,7 @@ const AdvancedSearch: React.FC<{
           </div>
         </form>
       </div>
-    </>
+    </main>
   );
 };
 

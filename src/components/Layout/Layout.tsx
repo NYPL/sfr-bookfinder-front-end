@@ -52,11 +52,12 @@ const Layout: React.FC<{ sideBar?: boolean }> = ({
           {router.isFallback || loading ? (
             <>
               <Loading />
+
               <DS.SkeletonLoader />
-            </>
-          ) : (
-            <>{children}</>
-          )}
+          </>
+        ) : (
+          <>{children}</>
+        )}
         </main>
         {!loading && <Feedback location={router.asPath} />}
       </div>

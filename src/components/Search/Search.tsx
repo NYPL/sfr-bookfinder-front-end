@@ -140,25 +140,19 @@ const SearchResults: React.FC<{
   };
 
   return (
-    <>
-      {" "}
+    <main className="main main--with-sidebar">
       <div className="content-header">
         <DS.Breadcrumbs
           breadcrumbs={[{ url: "/", text: breadcrumbTitles.home }]}
         />
         <SearchHeader searchQuery={searchQuery}></SearchHeader>
       </div>
+
       <div className="content-top">
         <div className="search-heading">
-          <div role="alert">
-            <DS.Heading
-              level={1}
-              id="page-title-heading"
-              blockName="page-title"
-            >
-              <>Search results for {getDisplayItemsHeading(searchQuery)}</>
-            </DS.Heading>
-          </div>
+          <DS.Heading level={1} id="page-title-heading" blockName="page-title">
+            <>Search results for {getDisplayItemsHeading(searchQuery)}</>
+          </DS.Heading>
           <hr />
           <div className="search-subheading">
             <DS.Heading level={2} id="page-counter" className="page-counter">
@@ -196,6 +190,7 @@ const SearchResults: React.FC<{
           {`Filters (${filterCount})`}
         </DS.Button>
       </div>
+
       <div
         className={
           "content-secondary content-secondary--with-sidebar-left search-widescreen-show"
@@ -220,6 +215,7 @@ const SearchResults: React.FC<{
           />
         </form>
       </div>
+
       <div className="content-primary content-primary--with-sidebar-left">
         <ResultsList works={works} />
         {isModalOpen && (
@@ -273,7 +269,7 @@ const SearchResults: React.FC<{
           </div>
         )}
       </div>
-    </>
+    </main>
   );
 };
 
