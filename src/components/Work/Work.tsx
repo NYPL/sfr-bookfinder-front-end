@@ -48,7 +48,7 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
         </div>
 
         <div className="content-primary work-detail">
-          <div className="nypl-item-header" role="alert">
+          <div className="nypl-item-header">
             <DS.Heading level={1} id="work-title" blockName="page-title">
               {work.title}
             </DS.Heading>
