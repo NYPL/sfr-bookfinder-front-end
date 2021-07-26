@@ -86,11 +86,12 @@ describe("Advanced Search submit", () => {
     fireEvent.change(screen.getByRole("spinbutton", { name: "To" }), {
       target: { value: "1999" },
     });
+    userEvent.click(screen.getByRole("checkbox", { name: "PDF" }));
 
     userEvent.click(screen.getByRole("button", { name: "Search" }));
 
     const expectedQuery = {
-      filter: "language:english,startYear:1990,endYear:1999",
+      filter: "language:english,startYear:1990,endYear:1999,format:pdf",
       query: "keyword:cat,author:Nook,title:Handbook,subject:poetry",
     };
     expect(mockPush).toHaveBeenCalledTimes(1);
@@ -190,12 +191,24 @@ describe("Advanced Search submit", () => {
 });
 
 describe("Advanced Search clear", () => {
-  test("clears search", () => {
+  test("clears all searches", () => {
     render(
       <MockNextRouterContextProvider>
         <AdvancedSearch languages={defaultLanguages} />
       </MockNextRouterContextProvider>
     );
+
+    const inputValues = {
+      Keyword: "cat",
+      Author: "Nook",
+      Subject: "poetry",
+      Title: "Handbook",
+    };
+    inputTerms.forEach((val) => {
+      fireEvent.change(screen.getByLabelText(val.label), {
+        target: { value: inputValues[val.label] },
+      });
+    });
 
     userEvent.click(screen.getByRole("checkbox", { name: "english" }));
     fireEvent.change(screen.getByRole("spinbutton", { name: "From" }), {
@@ -204,21 +217,29 @@ describe("Advanced Search clear", () => {
     fireEvent.change(screen.getByRole("spinbutton", { name: "To" }), {
       target: { value: "1999" },
     });
-    fireEvent.change(screen.getByLabelText("Keyword"), {
-      target: { value: "cat" },
-    });
+    userEvent.click(screen.getByRole("checkbox", { name: "PDF" }));
 
     expect(screen.getByLabelText("english")).toBeChecked();
     expect(screen.getByLabelText("From")).toHaveValue(1990);
     expect(screen.getByLabelText("To")).toHaveValue(1999);
-    expect(screen.getByLabelText("Keyword")).toHaveValue("cat");
+    expect(screen.getByLabelText("PDF")).toBeChecked();
+
+    inputTerms.forEach((val) => {
+      expect(screen.getByLabelText(val.label)).toHaveValue(
+        inputValues[val.label]
+      );
+    });
 
     userEvent.click(screen.getByRole("button", { name: "Clear" }));
 
     expect(screen.getByLabelText("english")).not.toBeChecked();
     expect(screen.getByLabelText("From")).toHaveValue(null);
     expect(screen.getByLabelText("To")).toHaveValue(null);
-    expect(screen.getByLabelText("Keyword")).toHaveValue("");
+    expect(screen.getByLabelText("PDF")).not.toBeChecked();
+
+    inputTerms.forEach((val) => {
+      expect(screen.getByLabelText(val.label)).toHaveValue("");
+    });
 
     userEvent.click(screen.getByRole("button", { name: "Search" }));
     expect(mockPush).toHaveBeenCalledTimes(0);
