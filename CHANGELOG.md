@@ -1,4 +1,10 @@
 # CHANGE LOG
+## [0.10.3]
+### Fixed
+- Added lang="en" to html
+- Moved `main` tag to `Layout` and ensured that they all had the `main-content` id to work with the NYPL header
+- Adds an "alert" role to search results so the screen reader reads that it loads in.
+- Changes link color to have adequate contrast on gray background
 
 ## [0.10.2-HOTFIX]
 - Makes searchQuery check more robust 
