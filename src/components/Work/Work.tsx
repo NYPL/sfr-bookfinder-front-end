@@ -39,91 +39,87 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
 
   return (
     <div className="layout-container">
-      <main id="mainContent" className="main">
-        <div className="content-header">
-          <DS.Breadcrumbs
-            breadcrumbs={[{ url: "/", text: breadcrumbTitles.home }]}
-          />
-          <SearchHeader />
+      <div className="content-header">
+        <DS.Breadcrumbs
+          breadcrumbs={[{ url: "/", text: breadcrumbTitles.home }]}
+        />
+        <SearchHeader />
+      </div>
+
+      <div className="content-primary work-detail">
+        <div className="nypl-item-header" role="alert">
+          <DS.Heading level={1} id="work-title" blockName="page-title">
+            {work.title}
+          </DS.Heading>
+
+          {work.sub_title && (
+            <div className="search-result-item__subtitle">{work.sub_title}</div>
+          )}
+          {authorsList && authorsList.length && (
+            <div className="authors-container">
+              By {joinArrayOfElements(authorsList, ", ")}
+            </div>
+          )}
         </div>
 
-        <div className="content-primary work-detail">
-          <div className="nypl-item-header">
-            <DS.Heading level={1} id="work-title" blockName="page-title">
-              {work.title}
-            </DS.Heading>
+        <div>
+          <DS.Heading level={2} id="featured-edition">
+            Featured Edition
+          </DS.Heading>
+        </div>
 
-            {work.sub_title && (
-              <div className="search-result-item__subtitle">
-                {work.sub_title}
-              </div>
-            )}
-            {authorsList && authorsList.length && (
-              <div className="authors-container">
-                By {joinArrayOfElements(authorsList, ", ")}
-              </div>
-            )}
-          </div>
-
-          <div>
-            <DS.Heading level={2} id="featured-edition">
-              Featured Edition
-            </DS.Heading>
-          </div>
-
-          <div>
-            <EditionCard
-              edition={firstReadableEdition}
-              title={work.title}
-            ></EditionCard>
-          </div>
-          <hr />
-          <WorkDetailDefinitionList work={work} />
-          <hr />
-          <div id="nypl-item-details">
-            {work.editions && (
-              <>
-                <div className="all-editions-header">
-                  <DS.Heading
-                    level={3}
-                    id="all-editions"
-                    className="all-editions-tag bold"
-                  >
-                    All Editions
-                  </DS.Heading>
-
-                  <DS.Checkbox
-                    name="show-all"
-                    checkboxId="show-all-editions"
-                    labelOptions={{
-                      id: "show-all-label",
-
-                      labelContent: (
-                        <>Show only items currently available online</>
-                      ),
-                    }}
-                    checked={query.showAll === "false"}
-                    onChange={(e) => toggleShowAll(e)}
-                  />
-                </div>
-                <DS.List
-                  type={DS.ListTypes.Unordered}
-                  modifiers={["no-list-styling"]}
+        <div>
+          <EditionCard
+            edition={firstReadableEdition}
+            title={work.title}
+          ></EditionCard>
+        </div>
+        <hr />
+        <WorkDetailDefinitionList work={work} />
+        <hr />
+        <div id="nypl-item-details">
+          {work.editions && (
+            <>
+              <div className="all-editions-header">
+                <DS.Heading
+                  level={3}
+                  id="all-editions"
+                  className="all-editions-tag bold"
                 >
-                  {work.editions.map((edition: ApiEdition) => (
-                    <li key={edition.edition_id}>
-                      <EditionCard
-                        edition={edition}
-                        title={work.title}
-                      ></EditionCard>
-                    </li>
-                  ))}
-                </DS.List>
-              </>
-            )}
-          </div>
+                  All Editions
+                </DS.Heading>
+
+                <DS.Checkbox
+                  name="show-all"
+                  checkboxId="show-all-editions"
+                  labelOptions={{
+                    id: "show-all-label",
+
+                    labelContent: (
+                      <>Show only items currently available online</>
+                    ),
+                  }}
+                  checked={query.showAll === "false"}
+                  onChange={(e) => toggleShowAll(e)}
+                />
+              </div>
+              <DS.List
+                type={DS.ListTypes.Unordered}
+                modifiers={["no-list-styling"]}
+              >
+                {work.editions.map((edition: ApiEdition) => (
+                  <li key={edition.edition_id}>
+                    <EditionCard
+                      edition={edition}
+                      title={work.title}
+                    ></EditionCard>
+                  </li>
+                ))}
+              </DS.List>
+            </>
+          )}
         </div>
-      </main>
+      </div>
     </div>
   );
 };

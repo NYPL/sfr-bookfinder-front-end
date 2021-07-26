@@ -11,7 +11,10 @@ import { useRouter } from "next/router";
  * and other set up information to all its children.
  */
 
-const Layout: React.FC<any> = ({ children }) => {
+const Layout: React.FC<{ sideBar?: boolean }> = ({
+  sideBar = false,
+  children,
+}) => {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
 
@@ -42,16 +45,19 @@ const Layout: React.FC<any> = ({ children }) => {
         navData={navConfig.current}
       />
       <div className="layout-container nypl-ds nypl--research">
-        {router.isFallback || loading ? (
-          <>
-            <Loading />
-            <main>
+        <main
+          id="main-content"
+          className={`main${sideBar ? " main--with-sidebar" : ""}`}
+        >
+          {router.isFallback || loading ? (
+            <>
+              <Loading />
               <DS.SkeletonLoader />
-            </main>
-          </>
-        ) : (
-          <>{children}</>
-        )}
+            </>
+          ) : (
+            <>{children}</>
+          )}
+        </main>
         {!loading && <Feedback location={router.asPath} />}
       </div>
       <Footer urlType="absolute" />
