@@ -4,9 +4,15 @@
 ### Changed
 - Clicking "Advanced Search" starts a new search
 
+## [0.10.3-HOTFIX]
+- Adds sidebar class to main when on search results page
+- re-adds advanced-search class to Advanced Search
 ## [0.10.3]
-### Fix
+### Fixed
+- Added lang="en" to html
+- Moved `main` tag to `Layout` and ensured that they all had the `main-content` id to work with the NYPL header
 - Adds an "alert" role to search results so the screen reader reads that it loads in.
+- Changes link color to have adequate contrast on gray background
 
 ## [0.10.2-HOTFIX]
 - Makes searchQuery check more robust 

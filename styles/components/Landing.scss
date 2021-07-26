@@ -1,34 +1,51 @@
+/**
+* Link hover color when we are using a grey background
+* This should be removed when this functionality is added to Design System.
+*/
+$link-hover-grey-background: #135772;
+
 .hero__body-text {
-    @include space-inset-m;
+  @include space-inset-m;
+  .link {
+    color: var(--ui-link-secondary);
+  }
+  .link:hover {
+    color: $link-hover-grey-background;
+  }
 }
 .searchbar-container {
-    @include breakout;
-    background-color: var(--ui-gray-light);
+  @include breakout;
+  background-color: var(--ui-gray-light);
 }
 
-.searchbar { 
-    @include wrapper;
-    @include space-inset-m;
+.searchbar {
+  @include wrapper;
+  @include space-inset-m;
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    @media (max-width: $breakpoint-small) {
-        flex-direction: row;
-    }
+  @media (max-width: $breakpoint-small) {
+    flex-direction: row;
+  }
 }
 .bar-content {
-    flex: 1 0 auto;
+  flex: 1 0 auto;
 }
 .advanced-search-message {
-    flex: 0 1 auto;
-    align-self: flex-end;
+  flex: 0 1 auto;
+  align-self: flex-end;
+  .link {
+    color: var(--ui-link-secondary);
+  }
+  .link:hover {
+    color: $link-hover-grey-background;
+  }
 }
 
 .search-examples {
-    @include space-inset-m;
-    & li {
-       @include space-stack-s; 
-    }
+  @include space-inset-m;
+  & li {
+    @include space-stack-s;
+  }
 }
-
