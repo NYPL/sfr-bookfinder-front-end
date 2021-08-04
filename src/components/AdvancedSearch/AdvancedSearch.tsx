@@ -17,45 +17,18 @@ import { SearchQuery, SearchQueryDefaults } from "~/src/types/SearchQuery";
 import * as DS from "@nypl/design-system-react-components";
 import LanguageAccordion from "../LanguageAccordion/LanguageAccordion";
 import FilterBookFormat from "../FilterBookFormat/FilterBookFormat";
-import { FacetItem, SearchField } from "~/src/types/DataModel";
+import { FacetItem } from "~/src/types/DataModel";
 import { toLocationQuery, toApiQuery } from "~/src/util/apiConversion";
 import filterFields from "~/src/constants/filters";
 import { ApiLanguageResponse } from "~/src/types/LanguagesQuery";
 
 const AdvancedSearch: React.FC<{
-  searchQuery: SearchQuery;
   languages: ApiLanguageResponse;
-}> = ({ searchQuery: previousQuery, languages: previousLanguages }) => {
+}> = ({ languages: previousLanguages }) => {
   const router = useRouter();
 
-  // Combines displayQuery and query to set initial advanced search query state
-  const createAdvancedSearchQuery = (searchQuery) => {
-    if (!searchQuery || !searchQuery.queries) return [];
-    const queriesToPrepopulate = searchQuery.queries.filter((query) => {
-      return inputTerms
-        .map((term) => term.key as SearchField)
-        .includes(query.field);
-    });
-    if (queriesToPrepopulate.length) return queriesToPrepopulate;
-
-    // If there are no queries, see if there are displayQueries
-    // Note: This assumes that we will never send display queries along with other relevant searches
-    // eg: it cannot handle the case where we send queries=[keyword:cat,viaf:12345]&display=author:tigger
-    // This is because it is not yet possible to send a search like that via interacting with the app
-    if (searchQuery.display) {
-      return [searchQuery.display];
-    }
-    return [];
-  };
-
-  // After putting display in query, we can remove it from state
   const [searchQuery, setSearchQuery] = useState<SearchQuery>({
     ...SearchQueryDefaults,
-    ...previousQuery,
-    ...{
-      display: undefined,
-      queries: createAdvancedSearchQuery(previousQuery),
-    },
   });
 
   const [emptySearchError, setEmptySearchError] = useState("");
