@@ -215,6 +215,8 @@ export default class EditionCardUtils {
   // eslint-disable-next-line consistent-return
   static getDownloadLink(editionItem: ApiItem, title: string) {
     if (!editionItem || !editionItem.links) return undefined;
+    console.log("link", editionItem.links);
+
     const selectedLink = editionItem.links.find((link: ItemLink) =>
       MediaTypes.download.includes(link.mediaType)
     );
