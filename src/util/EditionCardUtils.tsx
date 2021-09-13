@@ -215,7 +215,6 @@ export default class EditionCardUtils {
   // eslint-disable-next-line consistent-return
   static getDownloadLink(editionItem: ApiItem, title: string) {
     if (!editionItem || !editionItem.links) return undefined;
-    console.log("link", editionItem.links);
 
     const selectedLink = editionItem.links.find((link: ItemLink) =>
       MediaTypes.download.includes(link.mediaType)
@@ -248,7 +247,7 @@ export default class EditionCardUtils {
     if (showRequestButton) {
       return <span>Not Yet Available {showRequestButton}</span>;
     }
-    return <>Not Yet Digitized</>;
+    return <>Not yet available</>;
   }
 
   static getWorldCatElem(instance: Instance) {
@@ -300,7 +299,7 @@ export default class EditionCardUtils {
             to={`https://login.nypl.org/auth/login?redirect_uri=${window.location.href}`}
             linkType={DS.LinkTypes.Button}
           >
-            Log In for options
+            Log in for options
           </Link>
         </>
       );

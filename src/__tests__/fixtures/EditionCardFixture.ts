@@ -54,3 +54,18 @@ export const fullEdition: WorkEdition = {
     },
   ],
 };
+
+export const eddEdition: WorkEdition = {
+  ...fullEdition,
+  items: [
+    {
+      links: [
+        {
+          url: "test-link-url",
+          link_id: 1,
+          mediaType: "application/html+edd",
+        },
+      ],
+    },
+  ],
+};

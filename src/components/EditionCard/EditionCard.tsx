@@ -7,7 +7,7 @@ import { PLACEHOLDER_COVER_LINK } from "~/src/constants/editioncard";
 import { useCookies } from "react-cookie";
 import { MediaTypes } from "~/src/constants/mediaTypes";
 
-const NYPL_SESSION_ID = "nyplIdentityPatron";
+export const NYPL_SESSION_ID = "nyplIdentityPatron";
 
 export const EditionCard: React.FC<{ edition: WorkEdition; title: string }> = ({
   edition,
