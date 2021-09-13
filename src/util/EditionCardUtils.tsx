@@ -248,7 +248,7 @@ export default class EditionCardUtils {
     if (showRequestButton) {
       return <span>Not Yet Available {showRequestButton}</span>;
     }
-    return <>Not yet available</>;
+    return <>Not Yet Digitized</>;
   }
 
   static getWorldCatElem(instance: Instance) {
@@ -268,5 +268,42 @@ export default class EditionCardUtils {
     ) : (
       <>Find in Library Unavailable</>
     );
+  }
+
+  static gedEddLink(eddLink: ItemLink, isLoggedIn: boolean) {
+    if (isLoggedIn) {
+      return (
+        <>
+          You can request a partial scan via NYPL&nbsp;
+          <a
+            href="https://www.nypl.org/research/scan-and-deliver"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Scan and Deliver
+          </a>
+          <Link
+            // Url starts with www
+            to={`//${eddLink.url}`}
+            linkType={DS.LinkTypes.Button}
+            target="_blank"
+          >
+            Request
+          </Link>
+        </>
+      );
+    } else {
+      return (
+        <>
+          May be available via NYPL<br></br>
+          <Link
+            to={`https://login.nypl.org/auth/login?redirect_uri=${window.location.href}`}
+            linkType={DS.LinkTypes.Button}
+          >
+            Log In for options
+          </Link>
+        </>
+      );
+    }
   }
 }
