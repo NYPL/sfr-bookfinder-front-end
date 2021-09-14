@@ -13,7 +13,7 @@
   },
   "engines": {
     "node": "^14.0.0",
-    "nvm": ">=7.0.0"
+    "npm": ">=6.0.0"
   },
   "dependencies": {
     "@nypl/design-system-react-components": "~0.21.2",
