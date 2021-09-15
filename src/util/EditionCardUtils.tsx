@@ -274,13 +274,12 @@ export default class EditionCardUtils {
       return (
         <>
           You can request a partial scan via NYPL&nbsp;
-          <a
-            href="https://www.nypl.org/research/scan-and-deliver"
+          <Link
+            to="https://www.nypl.org/research/scan-and-deliver"
             target="_blank"
-            rel="noreferrer"
           >
             Scan and Deliver
-          </a>
+          </Link>
           <Link
             // Url starts with www
             to={`//${eddLink.url}`}

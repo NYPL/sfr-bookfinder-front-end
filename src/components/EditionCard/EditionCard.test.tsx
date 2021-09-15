@@ -93,7 +93,16 @@ describe("Edition Year with Minimal Data", () => {
 });
 
 describe("Edition with EDD", () => {
-  test("When user not Logged In", () => {
+  test("Shows Download and Read Online button", () => {
+    render(<EditionCard edition={fullEdition} title={"title"}></EditionCard>);
+
+    expect(screen.queryByText("Log in for options")).not.toBeInTheDocument();
+    expect(screen.queryByText("Request")).not.toBeInTheDocument();
+    expect(screen.queryByText("Download")).toBeInTheDocument();
+    expect(screen.queryByText("Read Online")).toBeInTheDocument();
+  });
+
+  test("Shows Login button", () => {
     render(<EditionCard edition={eddEdition} title={"title"}></EditionCard>);
     expect(
       screen.getByRole("link", { name: "Log in for options" })
@@ -108,7 +117,7 @@ describe("Edition with EDD", () => {
     expect(screen.queryByText("Read Online")).not.toBeInTheDocument();
   });
 
-  test("When user is Logged In", () => {
+  test("Shows EDD Request button after loggin in", () => {
     // Set cookie before rendering the component
     document.cookie = `${NYPL_SESSION_ID}="randomvalue"`;
     render(<EditionCard edition={eddEdition} title={"title"}></EditionCard>);

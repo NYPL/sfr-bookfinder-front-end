@@ -44,6 +44,11 @@ export const fullEdition: WorkEdition = {
           link_id: 23,
           mediaType: "application/epub+zip",
         },
+        {
+          url: "test-link-url-3",
+          link_id: 34,
+          mediaType: "application/html+edd",
+        },
       ],
       rights: [
         {
