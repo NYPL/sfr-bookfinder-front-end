@@ -15,6 +15,7 @@
     "@nypl/design-system-react-components": "~0.21.2",
     "@nypl/dgx-header-component": "git+https://git@github.com/NYPL/dgx-header-component#reactupdate",
     "@nypl/dgx-react-footer": "0.5.8",
+    "@nypl/web-reader": "NYPL-Simplified/web-reader#fix/build",
     "@types/node": "^14.14.33",
     "@types/react": "^16.9.5",
     "focus-trap-react": "^8.3.2",

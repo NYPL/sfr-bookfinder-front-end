@@ -10,6 +10,7 @@ export async function getServerSideProps(context: any) {
 }
 
 const WebReaderPage: React.FC<any> = (props) => {
+  console.log("props", props);
   return <ReaderLayout linkResult={props.linkResult} />;
 };
 export default WebReaderPage;
