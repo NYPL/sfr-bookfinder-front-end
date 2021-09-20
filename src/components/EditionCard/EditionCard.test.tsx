@@ -1,9 +1,12 @@
 import React from "react";
-import { EditionCard } from "./EditionCard";
+import { EditionCard, NYPL_SESSION_ID } from "./EditionCard";
 import "@testing-library/jest-dom/extend-expect";
 import { screen, render } from "@testing-library/react";
 import { PLACEHOLDER_COVER_LINK } from "~/src/constants/editioncard";
-import { fullEdition } from "~/src/__tests__/fixtures/EditionCardFixture";
+import {
+  eddEdition,
+  fullEdition,
+} from "~/src/__tests__/fixtures/EditionCardFixture";
 
 describe("Edition Card with Valid Data", () => {
   beforeEach(() => {
@@ -84,6 +87,52 @@ describe("Edition Year with Minimal Data", () => {
   });
   test("Not available ctas", () => {
     expect(screen.getByText("Not yet available")).toBeInTheDocument();
+    expect(screen.queryByText("Download")).not.toBeInTheDocument();
+    expect(screen.queryByText("Read Online")).not.toBeInTheDocument();
+  });
+});
+
+describe("Edition with EDD", () => {
+  test("Shows Download and Read Online button when edition has both EDD and readable links", () => {
+    render(<EditionCard edition={fullEdition} title={"title"}></EditionCard>);
+
+    expect(screen.queryByText("Download")).toBeInTheDocument();
+    expect(screen.queryByText("Read Online")).toBeInTheDocument();
+    expect(screen.queryByText("Log in for options")).not.toBeInTheDocument();
+    expect(screen.queryByText("Request")).not.toBeInTheDocument();
+  });
+
+  test("Shows Login button when EDD is available but user is not logged in", () => {
+    render(<EditionCard edition={eddEdition} title={"title"}></EditionCard>);
+    expect(
+      screen.getByRole("link", { name: "Log in for options" })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: "Log in for options" })
+    ).toHaveAttribute(
+      "href",
+      expect.stringContaining("https://login.nypl.org/auth/login")
+    );
+    expect(screen.queryByText("Download")).not.toBeInTheDocument();
+    expect(screen.queryByText("Read Online")).not.toBeInTheDocument();
+  });
+
+  test("Shows EDD Request button and 'Scan and Deliver' link when user is logged in", () => {
+    // Set cookie before rendering the component
+    document.cookie = `${NYPL_SESSION_ID}="randomvalue"`;
+    render(<EditionCard edition={eddEdition} title={"title"}></EditionCard>);
+
+    expect(screen.getByRole("link", { name: "Request" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Request" })).toHaveAttribute(
+      "href",
+      expect.stringContaining("test-link-url")
+    );
+    expect(
+      screen.getByRole("link", { name: "Scan and Deliver" })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: "Scan and Deliver" })
+    ).toHaveAttribute("href", "https://www.nypl.org/research/scan-and-deliver");
     expect(screen.queryByText("Download")).not.toBeInTheDocument();
     expect(screen.queryByText("Read Online")).not.toBeInTheDocument();
   });

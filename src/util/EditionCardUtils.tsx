@@ -215,6 +215,7 @@ export default class EditionCardUtils {
   // eslint-disable-next-line consistent-return
   static getDownloadLink(editionItem: ApiItem, title: string) {
     if (!editionItem || !editionItem.links) return undefined;
+
     const selectedLink = editionItem.links.find((link: ItemLink) =>
       MediaTypes.download.includes(link.mediaType)
     );
@@ -266,5 +267,41 @@ export default class EditionCardUtils {
     ) : (
       <>Find in Library Unavailable</>
     );
+  }
+
+  static gedEddLink(eddLink: ItemLink, isLoggedIn: boolean) {
+    if (isLoggedIn) {
+      return (
+        <>
+          You can request a partial scan via NYPL&nbsp;
+          <Link
+            to="https://www.nypl.org/research/scan-and-deliver"
+            target="_blank"
+          >
+            Scan and Deliver
+          </Link>
+          <Link
+            // Url starts with www
+            to={`//${eddLink.url}`}
+            linkType={DS.LinkTypes.Button}
+            target="_blank"
+          >
+            Request
+          </Link>
+        </>
+      );
+    } else {
+      return (
+        <>
+          May be available via NYPL<br></br>
+          <Link
+            to={`https://login.nypl.org/auth/login?redirect_uri=${window.location.href}`}
+            linkType={DS.LinkTypes.Button}
+          >
+            Log in for options
+          </Link>
+        </>
+      );
+    }
   }
 }
