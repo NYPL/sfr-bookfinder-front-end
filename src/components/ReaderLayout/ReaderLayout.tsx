@@ -9,24 +9,30 @@ import Layout from "../Layout/Layout";
 import * as gtag from "../../lib/Analytics";
 import { truncateStringOnWhitespace } from "~/src/util/Util";
 import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
-import useWebReader from "@nypl/web-reader/dist/";
+import dynamic from "next/dynamic";
+const WebReader = dynamic(() => import("@nypl/web-reader"), { ssr: false });
+import "@nypl/web-reader/dist/pdf-styles.css";
+
 //The NYPL wrapper that wraps the Reader pages.
 const ReaderLayout: React.FC<{ linkResult: LinkResult }> = (props) => {
   const link: ApiLink = props.linkResult.data;
   console.log("link", link);
-
+  const url = "https:" + link.url;
   const edition = link.work.editions[0];
 
   const isEmbed = MediaTypes.embed.includes(link.media_type);
   const isRead = MediaTypes.read.includes(link.media_type);
 
-  useEffect(() => {
-    gtag.drbEvents("Read", `${link.work.title}`);
-  }, [link]);
+  // //TODO: Temporary hack
+  // const blah =
+  //   "https://drb-files-qa.s3.amazonaws.com/epubs/" +
+  //   link.url.split("/epubs/")[1];
+  // const url = blah.split("META-INF")[0] + "/manifest.json";
+  // console.log("url", url);
+  // useEffect(() => {
+  //   gtag.drbEvents("Read", `${link.work.title}`);
+  // }, [link]);
 
-  const reader: any = useWebReader({
-    webpubManifestUrl: link.url,
-  });
   return (
     <>
       {isEmbed && (
@@ -51,17 +57,10 @@ const ReaderLayout: React.FC<{ linkResult: LinkResult }> = (props) => {
         </Layout>
       )}
       {isRead && (
-        <>
-          {/* eg. keep default header, but change its background */}
-          {/* <ReaderNav {...reader} className="bg-blue" /> */}
-          {/* we can add custom prev/next page buttons */}
-          <button onClick={reader.handleNextPage}>Next</button>
-          <button onClick={reader.handlePrevPage}>Prev</button>
-          {/* you will receive content from the reader to render wherever you want */}
-          {reader.content}
-          {/* use the default footer */}
-          {/* <ReaderFooter {...reader} /> */}
-        </>
+        <WebReader
+          webpubManifestUrl={url}
+          // proxyUrl={"https://drb-api-qa.nypl.org/utils/proxy"}
+        />
       )}
     </>
   );

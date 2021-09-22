@@ -181,6 +181,7 @@ export default class EditionCardUtils {
 
   // The button should say "Read Online" if the media type is "read" or "embed"
   static getReadOnlineLink = (item: ApiItem) => {
+    console.log("item", item);
     const getReadLink = (item: ApiItem, mediaType: string) => {
       if (!item || !item.links) return undefined;
       const mediaTypes =

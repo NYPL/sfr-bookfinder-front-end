@@ -2,6 +2,7 @@ import React from "react";
 import ReaderLayout from "~/src/components/ReaderLayout/ReaderLayout";
 import { readFetcher } from "~/src/lib/api/SearchApi";
 import { LinkResult } from "~/src/types/LinkQuery";
+
 export async function getServerSideProps(context: any) {
   const linkResult: LinkResult = await readFetcher(context.query.linkId);
   return {
