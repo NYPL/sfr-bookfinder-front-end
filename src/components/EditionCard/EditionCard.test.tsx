@@ -1,5 +1,5 @@
 import React from "react";
-import { EditionCard, NYPL_SESSION_ID } from "./EditionCard";
+import { EditionCard } from "./EditionCard";
 import "@testing-library/jest-dom/extend-expect";
 import { screen, render } from "@testing-library/react";
 import { PLACEHOLDER_COVER_LINK } from "~/src/constants/editioncard";
@@ -7,6 +7,7 @@ import {
   eddEdition,
   fullEdition,
 } from "~/src/__tests__/fixtures/EditionCardFixture";
+import { NYPL_SESSION_ID } from "~/src/constants/auth";
 
 describe("Edition Card with Valid Data", () => {
   beforeEach(() => {

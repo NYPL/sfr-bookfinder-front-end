@@ -4,6 +4,8 @@ import { Instance, WorkEdition } from "~/src/types/DataModel";
 import * as DS from "@nypl/design-system-react-components";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
 import Link from "../Link/Link";
+import { useCookies } from "react-cookie";
+import { NYPL_SESSION_ID } from "~/src/constants/auth";
 
 // Creates an Instance card out of the Edition Year and Instance object
 // Note: Edition Year only needs to be passed because `instance.publication_date`
@@ -14,16 +16,13 @@ export const InstanceCard: React.FC<{
   edition: WorkEdition;
   instance: Instance;
 }> = (props) => {
+  // cookies defaults to be undefined if not fonud
+  const [cookies] = useCookies([NYPL_SESSION_ID]);
+
   const edition = props.edition;
   const instance: Instance = props.instance;
   const previewItem =
     instance && instance.items ? instance.items[0] : undefined;
-
-  const readOnlineLink = EditionCardUtils.getReadOnlineLink(previewItem);
-  const downloadLink = EditionCardUtils.getDownloadLink(
-    previewItem,
-    instance.title
-  );
 
   return (
     <DS.Card
@@ -41,17 +40,11 @@ export const InstanceCard: React.FC<{
           alt={"Cover"}
         ></DS.Image>
       }
-      ctas={
-        readOnlineLink || downloadLink ? (
-          <>
-            {readOnlineLink}
-            {downloadLink}
-          </>
-        ) : (
-          //TODO feature flags: Request button
-          <>{EditionCardUtils.getNoLinkElement(false)}</>
-        )
-      }
+      ctas={EditionCardUtils.getCtas(
+        previewItem,
+        instance.title,
+        !!cookies[NYPL_SESSION_ID]
+      )}
     >
       <div>
         {EditionCardUtils.getPublisherAndLocation(

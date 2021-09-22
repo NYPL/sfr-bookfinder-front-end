@@ -183,6 +183,7 @@ export default class EditionCardUtils {
   static getReadOnlineLink = (item: ApiItem) => {
     const getReadLink = (item: ApiItem, mediaType: string) => {
       if (!item || !item.links) return undefined;
+      /// TODO: feature `flags` object indicator
       const mediaTypes =
         mediaType === "read" ? MediaTypes.read : MediaTypes.embed;
       const selectedLink = item.links.find((link: ItemLink) =>
@@ -267,6 +268,40 @@ export default class EditionCardUtils {
     ) : (
       <>Find in Library Unavailable</>
     );
+  }
+
+  static getCtas(
+    item: ApiItem | undefined,
+    title: string,
+    isLoggedIn: boolean
+  ) {
+    const readOnlineLink = EditionCardUtils.getReadOnlineLink(item);
+    const downloadLink = EditionCardUtils.getDownloadLink(item, title);
+
+    // If a digital version exists, link directly
+    if (readOnlineLink || downloadLink) {
+      return (
+        <>
+          {readOnlineLink}
+          {downloadLink}
+        </>
+      );
+    }
+
+    const eddLink =
+      item && item.links
+        ? item.links.find((link) => {
+            return MediaTypes.edd.includes(link.mediaType);
+          })
+        : undefined;
+
+    // Offer EDD if available
+    if (eddLink !== undefined) {
+      const eddElement = EditionCardUtils.gedEddLink(eddLink, isLoggedIn);
+      return <>{eddElement}</>;
+    }
+
+    return <>{EditionCardUtils.getNoLinkElement(false)}</>;
   }
 
   static gedEddLink(eddLink: ItemLink, isLoggedIn: boolean) {
