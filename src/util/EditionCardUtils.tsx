@@ -183,7 +183,7 @@ export default class EditionCardUtils {
   static getReadOnlineLink = (item: ApiItem) => {
     const getReadLink = (item: ApiItem, mediaType: string) => {
       if (!item || !item.links) return undefined;
-      /// TODO: feature `flags` object indicator
+      /// TODO: use item.link.flags
       const mediaTypes =
         mediaType === "read" ? MediaTypes.read : MediaTypes.embed;
       const selectedLink = item.links.find((link: ItemLink) =>
@@ -297,14 +297,17 @@ export default class EditionCardUtils {
 
     // Offer EDD if available
     if (eddLink !== undefined) {
-      const eddElement = EditionCardUtils.gedEddLink(eddLink, isLoggedIn);
+      const eddElement = EditionCardUtils.getEddLinkElement(
+        eddLink,
+        isLoggedIn
+      );
       return <>{eddElement}</>;
     }
 
     return <>{EditionCardUtils.getNoLinkElement(false)}</>;
   }
 
-  static gedEddLink(eddLink: ItemLink, isLoggedIn: boolean) {
+  static getEddLinkElement(eddLink: ItemLink, isLoggedIn: boolean) {
     if (isLoggedIn) {
       return (
         <>
