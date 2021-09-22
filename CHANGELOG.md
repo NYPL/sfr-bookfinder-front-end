@@ -4,7 +4,7 @@
 
 ### Added
 
-- Added EDD button to the edition page
+- Added EDD button to the edition page and work page
 - Added strict nodejs and npm version for development
 
 ## [0.10.4]
