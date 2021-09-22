@@ -11,9 +11,13 @@
     "lint": "eslint --ignore-path .gitignore '*/**/*.{ts,tsx}'",
     "lint:fix": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix --ignore-path .gitignore"
   },
+  "engines": {
+    "node": "^14.0.0",
+    "npm": ">=6.0.0"
+  },
   "dependencies": {
     "@nypl/design-system-react-components": "~0.21.2",
-    "@nypl/dgx-header-component": "git+https://git@github.com/NYPL/dgx-header-component#reactupdate",
+    "@nypl/dgx-header-component": "git+https://git@github.com/NYPL/dgx-header-component.git#reactupdate",
     "@nypl/dgx-react-footer": "0.5.8",
     "@nypl/web-reader": "^0.2.0-alpha.3",
     "@types/node": "^14.14.33",
@@ -23,6 +27,7 @@
     "next": "^10.2.0",
     "next-transpile-modules": "^7.0.0",
     "react": "^16.14.0",
+    "react-cookie": "^4.1.1",
     "react-dom": "^16.14.0",
     "react-ga": "^2.4.1",
     "redux": "4.0.1",
