@@ -188,6 +188,9 @@ export default class EditionCardUtils {
         return item.links.find((link: ItemLink) => link.flags[type]);
       }
       const selectedLink = item.links.find(
+        // https://drb-api-qa.nypl.org/search/?query=keyword%3Acat
+        // FIXME: This is probably not the best way to check this.
+        // NOTE: application/webpub+json is flagged as 'download'
         (link: ItemLink) =>
           !link.flags.catalog && !link.flags.download && !link.flags.edd
       );
