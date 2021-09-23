@@ -11,8 +11,6 @@ import { formatUrl, truncateStringOnWhitespace } from "~/src/util/Util";
 import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
 import dynamic from "next/dynamic";
 const WebReader = dynamic(() => import("@nypl/web-reader"), { ssr: false });
-import { pdfjs } from "react-pdf";
-// pdfjs.GlobalWorkerOptions.workerSrc = `pdf.worker.min.js`;
 
 //The NYPL wrapper that wraps the Reader pages.
 const ReaderLayout: React.FC<{ linkResult: LinkResult }> = (props) => {
