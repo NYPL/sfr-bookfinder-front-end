@@ -182,19 +182,22 @@ export default class EditionCardUtils {
 
   // The button should say "Read Online" if the media type is "read" or "embed"
   static getReadOnlineLink = (item: ApiItem) => {
-    const getReadLink = (item: ApiItem) => {
+    const getReadLink = (item: ApiItem, type?: "reader" | undefined) => {
       if (!item || !item.links) return undefined;
+      if (type) {
+        return item.links.find((link: ItemLink) => link.flags[type]);
+      }
       const selectedLink = item.links.find(
-        // https://drb-api-qa.nypl.org/search/?query=keyword%3Acat
-        // FIXME: This is probably not the best way to check this.
-        // NOTE: application/webpub+json is flagged as 'download'
-        (link: ItemLink) => !link.flags.catalog && !link.flags.edd
+        (link: ItemLink) =>
+          !link.flags.catalog && !link.flags.download && !link.flags.edd
       );
       return selectedLink;
     };
 
+    const localLink = getReadLink(item, "reader");
+    const embeddedLink = getReadLink(item);
     //Prefer local link over embedded link
-    const readOnlineLink = getReadLink(item);
+    const readOnlineLink = localLink ? localLink : embeddedLink;
     if (readOnlineLink) {
       return (
         <Link
