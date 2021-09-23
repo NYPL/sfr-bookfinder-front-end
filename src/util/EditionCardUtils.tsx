@@ -188,13 +188,15 @@ export default class EditionCardUtils {
         // https://drb-api-qa.nypl.org/search/?query=keyword%3Acat
         // FIXME: This is probably not the best way to check this.
         // NOTE: application/webpub+json is flagged as 'download'
-        (link: ItemLink) => !link.flags.catalog && !link.flags.edd
+        (link: ItemLink) =>
+          !link.flags.catalog && !link.flags.download && !link.flags.edd
       );
       return selectedLink;
     };
 
     //Prefer local link over embedded link
     const readOnlineLink = getReadLink(item);
+    console.log(readOnlineLink);
     if (readOnlineLink) {
       return (
         <Link
