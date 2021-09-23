@@ -7,17 +7,18 @@ import IFrameReader from "../IFrameReader/IFrameReader";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
 import Layout from "../Layout/Layout";
 import * as gtag from "../../lib/Analytics";
-import { truncateStringOnWhitespace } from "~/src/util/Util";
+import { formatUrl, truncateStringOnWhitespace } from "~/src/util/Util";
 import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
 import dynamic from "next/dynamic";
 const WebReader = dynamic(() => import("@nypl/web-reader"), { ssr: false });
-import "@nypl/web-reader/dist/pdf-styles.css";
+import { pdfjs } from "react-pdf";
+// pdfjs.GlobalWorkerOptions.workerSrc = `pdf.worker.min.js`;
 
 //The NYPL wrapper that wraps the Reader pages.
 const ReaderLayout: React.FC<{ linkResult: LinkResult }> = (props) => {
   const link: ApiLink = props.linkResult.data;
   console.log("link", link);
-  const url = "https:" + link.url;
+  const url = formatUrl(link.url);
   const edition = link.work.editions[0];
 
   const isEmbed = MediaTypes.embed.includes(link.media_type);
@@ -59,7 +60,9 @@ const ReaderLayout: React.FC<{ linkResult: LinkResult }> = (props) => {
       {isRead && (
         <WebReader
           webpubManifestUrl={url}
-          // proxyUrl={"https://drb-api-qa.nypl.org/utils/proxy"}
+          proxyUrl={"https://cors-anywhere.herokuapp.com/"}
+          //TODO: put the proxy request in a root api call
+          // proxyUrl={"https://drb-api-qa.nypl.org/utils/proxy?proxy_url="}
         />
       )}
     </>
