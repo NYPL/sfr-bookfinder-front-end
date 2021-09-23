@@ -17,7 +17,6 @@ import {
   MAX_SUBTITILE_LENGTH,
   PLACEHOLDER_COVER_LINK,
 } from "../constants/editioncard";
-import { MediaTypes } from "../constants/mediaTypes";
 import * as gtag from "../lib/Analytics";
 import { ApiSearchQuery } from "../types/SearchQuery";
 
@@ -114,8 +113,10 @@ export default class EditionCardUtils {
 
   static getCover(links: ItemLink[]): string {
     if (!links || links.length === 0) return PLACEHOLDER_COVER_LINK;
+    // This is coming from edition > links, not item > links
+    // FIXME: confirm with the mediatype or potential flag?
     const coverLink = links.find((link) => {
-      return MediaTypes.display.includes(link.mediaType);
+      return ["image/jpeg", "image/png"].includes(link.mediaType);
     });
     return coverLink ? formatUrl(coverLink.url) : PLACEHOLDER_COVER_LINK;
   }
@@ -181,22 +182,19 @@ export default class EditionCardUtils {
 
   // The button should say "Read Online" if the media type is "read" or "embed"
   static getReadOnlineLink = (item: ApiItem) => {
-    const getReadLink = (item: ApiItem, mediaType: string) => {
+    const getReadLink = (item: ApiItem) => {
       if (!item || !item.links) return undefined;
-      /// TODO: use item.link.flags
-      const mediaTypes =
-        mediaType === "read" ? MediaTypes.read : MediaTypes.embed;
-      const selectedLink = item.links.find((link: ItemLink) =>
-        mediaTypes.includes(link.mediaType)
+      const selectedLink = item.links.find(
+        // https://drb-api-qa.nypl.org/search/?query=keyword%3Acat
+        // FIXME: This is probably not the best way to check this.
+        // NOTE: application/webpub+json is flagged as 'download'
+        (link: ItemLink) => !link.flags.catalog && !link.flags.edd
       );
       return selectedLink;
     };
 
-    const localLink = getReadLink(item, "read");
-    const embeddedLink = getReadLink(item, "embed");
-
     //Prefer local link over embedded link
-    const readOnlineLink = localLink ? localLink : embeddedLink;
+    const readOnlineLink = getReadLink(item);
     if (readOnlineLink) {
       return (
         <Link
@@ -213,12 +211,11 @@ export default class EditionCardUtils {
     return undefined;
   };
 
-  // eslint-disable-next-line consistent-return
   static getDownloadLink(editionItem: ApiItem, title: string) {
     if (!editionItem || !editionItem.links) return undefined;
 
-    const selectedLink = editionItem.links.find((link: ItemLink) =>
-      MediaTypes.download.includes(link.mediaType)
+    const selectedLink = editionItem.links.find(
+      (link: ItemLink) => link.flags.download
     );
 
     if (selectedLink && selectedLink.url) {
@@ -290,9 +287,7 @@ export default class EditionCardUtils {
 
     const eddLink =
       item && item.links
-        ? item.links.find((link) => {
-            return MediaTypes.edd.includes(link.mediaType);
-          })
+        ? item.links.find((link) => link.flags.edd)
         : undefined;
 
     // Offer EDD if available
@@ -341,5 +336,14 @@ export default class EditionCardUtils {
         </>
       );
     }
+  }
+
+  // Get any link except for catalog
+  static getPreviewItem(items: ApiItem[] | undefined) {
+    if (!items) return undefined;
+
+    return items.find((items) => {
+      return items.links.find((link) => !link.flags.catalog);
+    });
   }
 }

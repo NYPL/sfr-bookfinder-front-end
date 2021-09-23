@@ -21,8 +21,7 @@ export const InstanceCard: React.FC<{
 
   const edition = props.edition;
   const instance: Instance = props.instance;
-  const previewItem =
-    instance && instance.items ? instance.items[0] : undefined;
+  const previewItem = EditionCardUtils.getPreviewItem(instance.items);
 
   return (
     <DS.Card

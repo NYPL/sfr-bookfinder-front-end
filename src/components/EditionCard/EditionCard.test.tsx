@@ -44,7 +44,7 @@ describe("Edition Card with Valid Data", () => {
   });
   test("Shows download as link", () => {
     expect(screen.getByText("Download").closest("a").href).toEqual(
-      "https://test-link-url-2/"
+      "https://test-link-url/"
     );
   });
   test("Shows 'read online' as link", () => {

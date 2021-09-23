@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import * as DS from "@nypl/design-system-react-components";
 import { breadcrumbTitles } from "~/src/constants/labels";
 import { ApiLink, LinkResult } from "~/src/types/LinkQuery";
-import { MediaTypes } from "~/src/constants/mediaTypes";
 import IFrameReader from "../IFrameReader/IFrameReader";
 import WebpubViewer from "../WebpubViewer/WebpubViewer";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
@@ -17,8 +16,9 @@ const ReaderLayout: React.FC<{ linkResult: LinkResult }> = (props) => {
 
   const edition = link.work.editions[0];
 
-  const isEmbed = MediaTypes.embed.includes(link.media_type);
-  const isRead = MediaTypes.read.includes(link.media_type);
+  // FIXME: I assume this is an embed if not read, but need to confirm
+  const isRead = link.flags.reader;
+  const isEmbed = !isRead;
 
   useEffect(() => {
     gtag.drbEvents("Read", `${link.work.title}`);

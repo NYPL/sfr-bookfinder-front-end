@@ -13,7 +13,7 @@ export const EditionCard: React.FC<{ edition: WorkEdition; title: string }> = ({
 }) => {
   const [cookies] = useCookies([NYPL_SESSION_ID]);
 
-  const previewItem = edition && edition.items ? edition.items[0] : undefined;
+  const previewItem = EditionCardUtils.getPreviewItem(edition.items);
 
   const editionYearElem = (edition: WorkEdition) => {
     const editionDisplay = EditionCardUtils.editionYearText(edition);
