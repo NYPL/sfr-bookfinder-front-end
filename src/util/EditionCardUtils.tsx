@@ -188,7 +188,9 @@ export default class EditionCardUtils {
         return item.links.find((link: ItemLink) => link.flags[type]);
       // remove after 'embed' is ready
       return item.links.find(
-        (link: ItemLink) => !link.flags.edd && !link.flags.catalog
+        (link: ItemLink) =>
+          // PDF files are not supported yet
+          !link.flags.edd && !link.flags.catalog && !link.flags.download
       );
     };
 
