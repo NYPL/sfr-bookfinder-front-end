@@ -17,9 +17,9 @@ import {
   MAX_SUBTITILE_LENGTH,
   PLACEHOLDER_COVER_LINK,
 } from "../constants/editioncard";
-import { MediaTypes } from "../constants/mediaTypes";
 import * as gtag from "../lib/Analytics";
 import { ApiSearchQuery } from "../types/SearchQuery";
+import { MediaTypes } from "../constants/mediaTypes";
 
 // EditionCard holds all the methods needed to build an Edition Card
 export default class EditionCardUtils {
@@ -179,23 +179,17 @@ export default class EditionCardUtils {
       : "License: Unknown";
   }
 
-  // The button should say "Read Online" if the media type is "read" or "embed"
+  // "Read Online" button should only show up if the link was flagged as "reader" or "embed"
   static getReadOnlineLink = (item: ApiItem) => {
-    const getReadLink = (item: ApiItem, mediaType: string) => {
+    const getReadLink = (item: ApiItem, type: "reader" | "embed") => {
       if (!item || !item.links) return undefined;
-      const mediaTypes =
-        mediaType === "read" ? MediaTypes.read : MediaTypes.embed;
-      const selectedLink = item.links.find((link: ItemLink) =>
-        mediaTypes.includes(link.mediaType)
-      );
-      return selectedLink;
+      return item.links.find((link: ItemLink) => link.flags[type]);
     };
 
-    const localLink = getReadLink(item, "read");
+    const localLink = getReadLink(item, "reader");
     const embeddedLink = getReadLink(item, "embed");
-
-    //Prefer local link over embedded link
-    const readOnlineLink = localLink ? localLink : embeddedLink;
+    // Prefer local link over embedded link
+    const readOnlineLink = localLink ?? embeddedLink;
     if (readOnlineLink) {
       return (
         <Link
@@ -212,12 +206,11 @@ export default class EditionCardUtils {
     return undefined;
   };
 
-  // eslint-disable-next-line consistent-return
   static getDownloadLink(editionItem: ApiItem, title: string) {
     if (!editionItem || !editionItem.links) return undefined;
 
-    const selectedLink = editionItem.links.find((link: ItemLink) =>
-      MediaTypes.download.includes(link.mediaType)
+    const selectedLink = editionItem.links.find(
+      (link: ItemLink) => link.flags.download
     );
 
     if (selectedLink && selectedLink.url) {
@@ -269,7 +262,42 @@ export default class EditionCardUtils {
     );
   }
 
-  static gedEddLink(eddLink: ItemLink, isLoggedIn: boolean) {
+  static getCtas(
+    item: ApiItem | undefined,
+    title: string,
+    isLoggedIn: boolean
+  ) {
+    const readOnlineLink = EditionCardUtils.getReadOnlineLink(item);
+    const downloadLink = EditionCardUtils.getDownloadLink(item, title);
+
+    // If a digital version exists, link directly
+    if (readOnlineLink || downloadLink) {
+      return (
+        <>
+          {readOnlineLink}
+          {downloadLink}
+        </>
+      );
+    }
+
+    const eddLink =
+      item && item.links
+        ? item.links.find((link) => link.flags.edd)
+        : undefined;
+
+    // Offer EDD if available
+    if (eddLink !== undefined) {
+      const eddElement = EditionCardUtils.getEddLinkElement(
+        eddLink,
+        isLoggedIn
+      );
+      return <>{eddElement}</>;
+    }
+
+    return <>{EditionCardUtils.getNoLinkElement(false)}</>;
+  }
+
+  static getEddLinkElement(eddLink: ItemLink, isLoggedIn: boolean) {
     if (isLoggedIn) {
       return (
         <>
@@ -303,5 +331,25 @@ export default class EditionCardUtils {
         </>
       );
     }
+  }
+
+  // Get readable item or non-catalog item
+  static getPreviewItem(items: ApiItem[] | undefined) {
+    if (!items) return undefined;
+
+    const firstReadableItem = items.find((items) => {
+      return (
+        items.links &&
+        items.links.find((link) => link.flags.embed || link.flags.reader)
+      );
+    });
+
+    // If no readable link found, we just return any link that's not a catalog (edd)
+    return (
+      firstReadableItem ??
+      items.find((items) => {
+        return items.links && items.links.find((link) => !link.flags.catalog);
+      })
+    );
   }
 }
