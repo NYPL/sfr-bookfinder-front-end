@@ -88,12 +88,24 @@
                   {
                     "link_id": 3330416,
                     "mediaType": "text/html",
-                    "url": "test-link-url-2"
+                    "url": "test-link-url-2",
+                    "flags": {
+                      "catalog": false,
+                      "download": false,
+                      "reader": false,
+                      "embed": true
+                    }
                   },
                   {
                     "link_id": 3330415,
                     "mediaType": "application/pdf",
-                    "url": "test-link-url-3"
+                    "url": "test-link-url-3",
+                    "flags": {
+                      "catalog": false,
+                      "download": true,
+                      "reader": false,
+                      "embed": true
+                    }
                   }
                 ],
                 "location": null,
@@ -125,7 +137,12 @@
               {
                 "link_id": 1614426,
                 "mediaType": "image/jpeg",
-                "url": "test-cover-2"
+                "url": "test-cover-2",
+                "flags": {
+                  "catalog": false,
+                  "download": false,
+                  "reader": false
+                }
               }
             ],
             "measurements": [
@@ -373,7 +390,13 @@
                   {
                     "link_id": 3234,
                     "mediaType": "text/html",
-                    "url": "test-link-url-5"
+                    "url": "test-link-url-5",
+                    "flags": {
+                      "catalog": false,
+                      "download": false,
+                      "reader": false,
+                      "embed": true
+                    }
                   }
                 ],
                 "location": null,
@@ -420,7 +443,13 @@
                   {
                     "link_id": 3330415,
                     "mediaType": "application/pdf",
-                    "url": "test-link-url-4"
+                    "url": "test-link-url-4",
+                    "flags": {
+                      "catalog": false,
+                      "download": true,
+                      "reader": false,
+                      "embed": true
+                    }
                   }
                 ],
                 "location": null,

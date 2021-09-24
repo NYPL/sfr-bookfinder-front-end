@@ -16,8 +16,9 @@ const ReaderLayout: React.FC<{ linkResult: LinkResult }> = (props) => {
 
   const edition = link.work.editions[0];
 
-  // FIXME: I assume this is an embed if not read, but need to confirm
   const isRead = link.flags.reader;
+  // const isEmbed = link.flags.embed;
+  // remove when embed is ready
   const isEmbed = !isRead;
 
   useEffect(() => {

@@ -50,8 +50,8 @@ export const fullEdition: WorkEdition = {
           mediaType: "application/epub+xml",
           flags: {
             catalog: false,
-            download: true,
-            reader: false,
+            download: false,
+            reader: true,
           },
         },
         {

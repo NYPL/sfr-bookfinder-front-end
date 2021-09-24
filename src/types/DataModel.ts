@@ -62,7 +62,8 @@ export type LinkFlags = {
   catalog: boolean;
   download: boolean;
   reader: boolean;
-  edd?: boolean; // confirm with mike that this does not always show up
+  edd?: boolean;
+  embed?: boolean;
 };
 
 export type ItemLink = {

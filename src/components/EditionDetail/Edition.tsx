@@ -19,7 +19,14 @@ const Edition: React.FC<{ editionResult: EditionResult }> = (props) => {
   const { pathname, query } = router;
   const edition: ApiEdition = props.editionResult.data;
 
-  const featuredInstance = edition.instances[0];
+  //FIXME: Same logic applies here as 'Work.tsx' page
+  const featuredInstance = edition.instances.find(
+    (edition: any) =>
+      edition.items &&
+      edition.items.length &&
+      edition.items[0].links &&
+      edition.items[0].links.length
+  );
 
   const toggleShowAll = (e: React.ChangeEvent<HTMLInputElement>) => {
     router.push({

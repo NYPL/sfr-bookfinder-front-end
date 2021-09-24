@@ -20,8 +20,8 @@ const fullInstance: Instance = {
           mediaType: "application/epub+xml",
           flags: {
             catalog: false,
-            download: true,
-            reader: false,
+            download: false,
+            reader: true,
           },
         },
         {

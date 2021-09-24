@@ -5,6 +5,7 @@
 ### Added
 
 - Added EDD button to the edition page and work page
+- Add media type checking with `flags`
 - Added strict nodejs and npm version for development
 
 ## [0.10.4]

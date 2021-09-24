@@ -19,6 +19,7 @@ import {
 } from "../constants/editioncard";
 import * as gtag from "../lib/Analytics";
 import { ApiSearchQuery } from "../types/SearchQuery";
+import { MediaTypes } from "../constants/mediaTypes";
 
 // EditionCard holds all the methods needed to build an Edition Card
 export default class EditionCardUtils {
@@ -113,10 +114,8 @@ export default class EditionCardUtils {
 
   static getCover(links: ItemLink[]): string {
     if (!links || links.length === 0) return PLACEHOLDER_COVER_LINK;
-    // This is coming from edition > links, not item > links
-    // FIXME: confirm with the mediatype or potential flag?
     const coverLink = links.find((link) => {
-      return ["image/jpeg", "image/png"].includes(link.mediaType);
+      return MediaTypes.display.includes(link.mediaType);
     });
     return coverLink ? formatUrl(coverLink.url) : PLACEHOLDER_COVER_LINK;
   }
@@ -182,25 +181,21 @@ export default class EditionCardUtils {
 
   // The button should say "Read Online" if the media type is "read" or "embed"
   static getReadOnlineLink = (item: ApiItem) => {
-    const getReadLink = (item: ApiItem, type?: "reader" | undefined) => {
+    const getReadLink = (item: ApiItem, type: "reader" | "embed") => {
       if (!item || !item.links) return undefined;
-      if (type) {
+      // remove after 'embed' is ready
+      if (type === "reader")
         return item.links.find((link: ItemLink) => link.flags[type]);
-      }
-      const selectedLink = item.links.find(
-        // https://drb-api-qa.nypl.org/search/?query=keyword%3Acat
-        // FIXME: This is probably not the best way to check this.
-        // NOTE: application/webpub+json is flagged as 'download'
-        (link: ItemLink) =>
-          !link.flags.catalog && !link.flags.download && !link.flags.edd
+      // remove after 'embed' is ready
+      return item.links.find(
+        (link: ItemLink) => !link.flags.edd && !link.flags.catalog
       );
-      return selectedLink;
     };
 
     const localLink = getReadLink(item, "reader");
-    const embeddedLink = getReadLink(item);
-    //Prefer local link over embedded link
-    const readOnlineLink = localLink ? localLink : embeddedLink;
+    const embeddedLink = getReadLink(item, "embed");
+    // Prefer local link over embedded link
+    const readOnlineLink = localLink ?? embeddedLink;
     if (readOnlineLink) {
       return (
         <Link
@@ -349,7 +344,7 @@ export default class EditionCardUtils {
     if (!items) return undefined;
 
     return items.find((items) => {
-      return items.links.find((link) => !link.flags.catalog);
+      return items.links && items.links.find((link) => !link.flags.catalog);
     });
   }
 }

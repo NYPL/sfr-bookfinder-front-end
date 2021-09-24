@@ -67,12 +67,24 @@
               {
                 "link_id": 3667191,
                 "mediaType": "application/pdf",
-                "url": "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=mdp.39015002660481"
+                "url": "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=mdp.39015002660481",
+                "flags": {
+                  "catalog": false,
+                  "download": true,
+                  "reader": false,
+                  "embed": false
+                }
               },
               {
                 "link_id": 3667190,
                 "mediaType": "text/html",
-                "url": "babel.hathitrust.org/cgi/pt?id=mdp.39015002660481"
+                "url": "babel.hathitrust.org/cgi/pt?id=mdp.39015002660481",
+                "flags": {
+                  "catalog": false,
+                  "download": false,
+                  "reader": false,
+                  "embed": true
+                }
               }
             ],
             "location": null,
