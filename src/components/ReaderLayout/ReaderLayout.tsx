@@ -58,7 +58,9 @@ const ReaderLayout: React.FC<{ linkResult: LinkResult }> = (props) => {
       {isRead && (
         <WebReader
           webpubManifestUrl={url}
-          proxyUrl={"https://cors-anywhere.herokuapp.com/"}
+          // proxyUrl={"https://cors-anywhere.herokuapp.com/"}
+          proxyUrl={"http://localhost:3001/?requestUrl="}
+          pdfWorkerSrc={`${origin}/pdf-worker/pdf.worker.min.js`}
           //TODO: put the proxy request in a root api call
           // proxyUrl={"https://drb-api-qa.nypl.org/utils/proxy?proxy_url="}
         />
