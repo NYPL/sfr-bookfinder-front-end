@@ -10,10 +10,12 @@ import * as gtag from "../../lib/Analytics";
 import { formatUrl, truncateStringOnWhitespace } from "~/src/util/Util";
 import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
 const WebReader = dynamic(() => import("@nypl/web-reader"), { ssr: false });
-
 //The NYPL wrapper that wraps the Reader pages.
 const ReaderLayout: React.FC<{ linkResult: LinkResult }> = (props) => {
+  const router = useRouter();
+  const origin = router.basePath;
   const link: ApiLink = props.linkResult.data;
   console.log("link", link);
   const url = formatUrl(link.url);
@@ -21,17 +23,6 @@ const ReaderLayout: React.FC<{ linkResult: LinkResult }> = (props) => {
 
   const isEmbed = MediaTypes.embed.includes(link.media_type);
   const isRead = MediaTypes.read.includes(link.media_type);
-
-  // //TODO: Temporary hack
-  // const blah =
-  //   "https://drb-files-qa.s3.amazonaws.com/epubs/" +
-  //   link.url.split("/epubs/")[1];
-  // const url = blah.split("META-INF")[0] + "/manifest.json";
-  // console.log("url", url);
-  // useEffect(() => {
-  //   gtag.drbEvents("Read", `${link.work.title}`);
-  // }, [link]);
-
   return (
     <>
       {isEmbed && (
@@ -62,7 +53,7 @@ const ReaderLayout: React.FC<{ linkResult: LinkResult }> = (props) => {
           proxyUrl={"http://localhost:3001/?requestUrl="}
           pdfWorkerSrc={`${origin}/pdf-worker/pdf.worker.min.js`}
           //TODO: put the proxy request in a root api call
-          // proxyUrl={"https://drb-api-qa.nypl.org/utils/proxy?proxy_url="}
+          // proxyUrl={`${origin}/utils/proxy?proxy_url=`}
         />
       )}
     </>
