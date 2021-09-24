@@ -179,19 +179,11 @@ export default class EditionCardUtils {
       : "License: Unknown";
   }
 
-  // The button should say "Read Online" if the media type is "read" or "embed"
+  // "Read Online" button should only show up if the link was flagged as "reader" or "embed"
   static getReadOnlineLink = (item: ApiItem) => {
     const getReadLink = (item: ApiItem, type: "reader" | "embed") => {
       if (!item || !item.links) return undefined;
-      // remove after 'embed' is ready
-      if (type === "reader")
-        return item.links.find((link: ItemLink) => link.flags[type]);
-      // remove after 'embed' is ready
-      return item.links.find(
-        (link: ItemLink) =>
-          // PDF files are not supported yet
-          !link.flags.edd && !link.flags.catalog && !link.flags.download
-      );
+      return item.links.find((link: ItemLink) => link.flags[type]);
     };
 
     const localLink = getReadLink(item, "reader");

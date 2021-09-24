@@ -103,8 +103,7 @@
                     "flags": {
                       "catalog": false,
                       "download": true,
-                      "reader": false,
-                      "embed": true
+                      "reader": false
                     }
                   }
                 ],
@@ -448,7 +447,7 @@
                       "catalog": false,
                       "download": true,
                       "reader": false,
-                      "embed": true
+                      "embed": false
                     }
                   }
                 ],

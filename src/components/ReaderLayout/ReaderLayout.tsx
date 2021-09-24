@@ -17,9 +17,7 @@ const ReaderLayout: React.FC<{ linkResult: LinkResult }> = (props) => {
   const edition = link.work.editions[0];
 
   const isRead = link.flags.reader;
-  // const isEmbed = link.flags.embed;
-  // remove when embed is ready
-  const isEmbed = !isRead;
+  const isEmbed = link.flags.embed;
 
   useEffect(() => {
     gtag.drbEvents("Read", `${link.work.title}`);
