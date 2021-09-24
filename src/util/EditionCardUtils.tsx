@@ -333,12 +333,23 @@ export default class EditionCardUtils {
     }
   }
 
-  // Get any link except for catalog
+  // Get readable item or non-catalog item
   static getPreviewItem(items: ApiItem[] | undefined) {
     if (!items) return undefined;
 
-    return items.find((items) => {
-      return items.links && items.links.find((link) => !link.flags.catalog);
+    const firstReadableItem = items.find((items) => {
+      return (
+        items.links &&
+        items.links.find((link) => link.flags.embed || link.flags.reader)
+      );
     });
+
+    // If no readable link found, we just return any link that's not a catalog (edd)
+    return (
+      firstReadableItem ??
+      items.find((items) => {
+        return items.links && items.links.find((link) => !link.flags.catalog);
+      })
+    );
   }
 }

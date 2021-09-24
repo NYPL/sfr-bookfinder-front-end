@@ -19,7 +19,6 @@ const Edition: React.FC<{ editionResult: EditionResult }> = (props) => {
   const { pathname, query } = router;
   const edition: ApiEdition = props.editionResult.data;
 
-  //FIXME: Same logic applies here as 'Work.tsx' page
   const featuredInstance = edition.instances.find(
     (edition: any) =>
       edition.items &&

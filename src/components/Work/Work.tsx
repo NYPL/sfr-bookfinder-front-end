@@ -19,8 +19,6 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
   //Edition Card Preprocessing
   const authorsList = EditionCardUtils.getAuthorsList(work.authors);
 
-  // FIXME: This will show 'EDD' until Mike updates the backend to change the sorting (RO => EDD => None)
-  // https://github.com/NYPL/sfr-bookfinder-front-end/pull/273#issuecomment-921969699
   const firstReadableEdition = work.editions.find(
     (edition: any) =>
       edition.items &&
