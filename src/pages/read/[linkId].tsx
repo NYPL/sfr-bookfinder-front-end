@@ -5,10 +5,17 @@ import { LinkResult } from "~/src/types/LinkQuery";
 
 export async function getServerSideProps(context: any) {
   console.log("linkId", context.query);
+  try {
   const linkResult: LinkResult = await readFetcher(context.query.linkId);
   return {
     props: { linkResult: linkResult },
   };
+
+  } catch(e){
+    return {
+      notFound: true,
+    };
+  }
 }
 
 const WebReaderPage: React.FC<any> = (props) => {
