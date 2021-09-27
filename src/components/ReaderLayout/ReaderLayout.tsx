@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import * as DS from "@nypl/design-system-react-components";
 import { breadcrumbTitles } from "~/src/constants/labels";
 import { ApiLink, LinkResult } from "~/src/types/LinkQuery";
