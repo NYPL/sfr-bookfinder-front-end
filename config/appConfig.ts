@@ -8,7 +8,7 @@ export default {
   api: {
     url: {
       local: "localhost:5000",
-      development: "http://54.91.135.246",
+      development: "http://drb-api-qa.nypl.org",
       qa: "http://drb-api-qa.nypl.org",
       production: "http://drb-api-qa.nypl.org",
     },

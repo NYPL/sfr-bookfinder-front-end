@@ -13,7 +13,10 @@ import { useRouter } from "next/router";
 import { MediaTypes } from "~/src/constants/mediaTypes";
 const WebReader = dynamic(() => import("@nypl/web-reader"), { ssr: false });
 //The NYPL wrapper that wraps the Reader pages.
-const ReaderLayout: React.FC<{ linkResult: LinkResult }> = (props) => {
+const ReaderLayout: React.FC<{ linkResult: LinkResult; proxyUrl: string }> = (
+  props
+) => {
+  const proxyUrl = props.proxyUrl;
   const router = useRouter();
   const origin = router.basePath;
   const link: ApiLink = props.linkResult.data;
@@ -53,11 +56,8 @@ const ReaderLayout: React.FC<{ linkResult: LinkResult }> = (props) => {
       {isRead && (
         <WebReader
           webpubManifestUrl={url}
-          // proxyUrl={"https://cors-anywhere.herokuapp.com/"}
-          proxyUrl={"http://localhost:3001/?requestUrl="}
+          proxyUrl={proxyUrl}
           pdfWorkerSrc={`${origin}/pdf-worker/pdf.worker.min.js`}
-          //TODO: put the proxy request in a root api call
-          // proxyUrl={`${origin}/utils/proxy?proxy_url=`}
         />
       )}
     </>

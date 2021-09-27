@@ -8,6 +8,7 @@ import { ApiLanguageResponse } from "~/src/types/LanguagesQuery";
 
 const apiEnv = process.env["APP_ENV"];
 const apiUrl = process.env["API_URL"] || appConfig.api.url[apiEnv];
+
 const { searchPath, recordPath, editionPath, readPath, languagesPath } =
   appConfig.api;
 const searchUrl = apiUrl + searchPath;
@@ -15,6 +16,8 @@ const recordUrl = apiUrl + recordPath;
 const editionUrl = apiUrl + editionPath;
 const readUrl = apiUrl + readPath;
 const languagesUrl = apiUrl + languagesPath;
+export const proxyUrl =
+  process.env["PROXY_URL"] || apiUrl + "/utils/proxy?proxy_url=";
 
 const defaultWorkQuery: WorkQuery = {
   identifier: "",
