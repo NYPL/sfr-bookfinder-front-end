@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as DS from "@nypl/design-system-react-components";
 import { breadcrumbTitles } from "~/src/constants/labels";
 import { ApiLink, LinkResult } from "~/src/types/LinkQuery";
@@ -11,12 +11,10 @@ import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { MediaTypes } from "~/src/constants/mediaTypes";
+import { proxyUrl } from "~/src/lib/api/SearchApi";
 const WebReader = dynamic(() => import("@nypl/web-reader"), { ssr: false });
 //The NYPL wrapper that wraps the Reader pages.
-const ReaderLayout: React.FC<{ linkResult: LinkResult; proxyUrl: string }> = (
-  props
-) => {
-  const proxyUrl = props.proxyUrl;
+const ReaderLayout: React.FC<{ linkResult: LinkResult }> = (props) => {
   const router = useRouter();
   const origin = router.basePath;
   const link: ApiLink = props.linkResult.data;

@@ -17,7 +17,7 @@ const editionUrl = apiUrl + editionPath;
 const readUrl = apiUrl + readPath;
 const languagesUrl = apiUrl + languagesPath;
 export const proxyUrl =
-  process.env["PROXY_URL"] || apiUrl + "/utils/proxy?proxy_url=";
+  process.env["NEXT_PUBLIC_PROXY_URL"] || apiUrl + "/utils/proxy?proxy_url=";
 
 const defaultWorkQuery: WorkQuery = {
   identifier: "",
