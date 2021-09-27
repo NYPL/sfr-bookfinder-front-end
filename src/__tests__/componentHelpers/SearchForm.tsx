@@ -56,6 +56,7 @@ export const searchFormTests = (mockPush, hasHeader?) => {
         pathname: "/search",
         query: {
           query: "author:Tom Nook",
+          readerVersion: "v2",
         },
       });
     });

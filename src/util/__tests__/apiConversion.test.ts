@@ -105,6 +105,7 @@ describe("Converting search query to api query", () => {
       showAll: "true",
       query: 'keyword:"Civil War" OR Lincoln,author:last, first',
       sort: "title:asc",
+      readerVersion: "v2",
     };
 
     expect(toApiQuery(searchQuery)).toEqual(expectedApiQuery);
@@ -120,6 +121,7 @@ describe("Converting search query to api query", () => {
   test("converts searchQuery to apiQuery with minimal information", () => {
     const minimalApiQuery: ApiSearchQuery = {
       query: "keyword:cat",
+      readerVersion: "v2",
     };
     expect(
       toApiQuery({ queries: [{ field: SearchField.Keyword, query: "cat" }] })
