@@ -17,7 +17,6 @@ const ReaderLayout: React.FC<{ linkResult: LinkResult }> = (props) => {
   const router = useRouter();
   const origin = router.basePath;
   const link: ApiLink = props.linkResult.data;
-  console.log("link", link);
   const url = formatUrl(link.url);
   const edition = link.work.editions[0];
 

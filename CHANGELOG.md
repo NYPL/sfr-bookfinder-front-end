@@ -1,5 +1,8 @@
 # CHANGE LOG
-
+## [0.11.1]
+### Changed
+- Replaces webpub-viewer with web-reader.
+- PDFs are readable online
 ## [0.11.0]
 
 ### Added
