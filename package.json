@@ -17,11 +17,7 @@
   },
   "dependencies": {
     "@nypl/design-system-react-components": "~0.21.2",
-<<<<<<< HEAD
-    "@nypl/dgx-header-component": "git+https://git@github.com/NYPL/dgx-header-component.git#reactupdate",
-=======
     "@nypl/dgx-header-component": "git+https://git@github.com/NYPL/dgx-header-component#reactupdate",
->>>>>>> 8c9723c... don't pull minor DS changes
     "@nypl/dgx-react-footer": "0.5.8",
     "@nypl/web-reader": "^0.2.0-alpha.6",
     "@types/node": "^14.14.33",
