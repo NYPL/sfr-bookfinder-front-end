@@ -16,8 +16,6 @@ const recordUrl = apiUrl + recordPath;
 const editionUrl = apiUrl + editionPath;
 const readUrl = apiUrl + readPath;
 const languagesUrl = apiUrl + languagesPath;
-export const proxyUrl =
-  process.env["NEXT_PUBLIC_PROXY_URL"] || apiUrl + "/utils/proxy?proxy_url=";
 
 const defaultWorkQuery: WorkQuery = {
   identifier: "",
@@ -28,6 +26,11 @@ const defaultEditionQuery = {
   editionIdentifier: "",
   showAll: "true",
 };
+
+export const proxyUrlConstructor = () => {
+  return process.env["NEXT_PUBLIC_PROXY_URL"]
+    || apiUrl + "/utils/proxy?proxy_url=";
+}
 
 export const searchResultsFetcher = async (apiQuery: ApiSearchQuery) => {
   if (!apiQuery || !apiQuery.query) {

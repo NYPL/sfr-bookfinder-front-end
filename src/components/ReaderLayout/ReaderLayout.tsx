@@ -10,13 +10,13 @@ import { formatUrl, truncateStringOnWhitespace } from "~/src/util/Util";
 import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import { proxyUrl } from "~/src/lib/api/SearchApi";
 const WebReader = dynamic(() => import("@nypl/web-reader"), { ssr: false });
 //The NYPL wrapper that wraps the Reader pages.
-const ReaderLayout: React.FC<{ linkResult: LinkResult }> = (props) => {
+const ReaderLayout: React.FC<{ linkResult: LinkResult, proxyUrl: string }> = (props) => {
   const router = useRouter();
   const origin = router.basePath;
   const link: ApiLink = props.linkResult.data;
+  const proxyUrl = props.proxyUrl;
   const url = formatUrl(link.url);
   const edition = link.work.editions[0];
 

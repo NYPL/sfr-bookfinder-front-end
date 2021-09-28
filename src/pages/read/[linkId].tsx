@@ -1,13 +1,17 @@
 import React from "react";
 import ReaderLayout from "~/src/components/ReaderLayout/ReaderLayout";
-import { readFetcher } from "~/src/lib/api/SearchApi";
+import { readFetcher, proxyUrlConstructor } from "~/src/lib/api/SearchApi";
 import { LinkResult } from "~/src/types/LinkQuery";
 
 export async function getServerSideProps(context: any) {
   try {
     const linkResult: LinkResult = await readFetcher(context.query.linkId);
+    const proxyUrl: string = proxyUrlConstructor();
     return {
-      props: { linkResult: linkResult },
+      props: {
+          linkResult: linkResult,
+          proxyUrl: proxyUrl,
+      },
     };
   } catch (e) {
     return {
@@ -17,6 +21,6 @@ export async function getServerSideProps(context: any) {
 }
 
 const WebReaderPage: React.FC<any> = (props) => {
-  return <ReaderLayout linkResult={props.linkResult} />;
+  return <ReaderLayout linkResult={props.linkResult} proxyUrl={props.proxyUrl} />;
 };
 export default WebReaderPage;
