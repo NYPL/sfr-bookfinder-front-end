@@ -12,7 +12,9 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 const WebReader = dynamic(() => import("@nypl/web-reader"), { ssr: false });
 //The NYPL wrapper that wraps the Reader pages.
-const ReaderLayout: React.FC<{ linkResult: LinkResult, proxyUrl: string }> = (props) => {
+const ReaderLayout: React.FC<{ linkResult: LinkResult; proxyUrl: string }> = (
+  props
+) => {
   const router = useRouter();
   const origin = router.basePath;
   const link: ApiLink = props.linkResult.data;

@@ -28,9 +28,10 @@ const defaultEditionQuery = {
 };
 
 export const proxyUrlConstructor = () => {
-  return process.env["NEXT_PUBLIC_PROXY_URL"]
-    || apiUrl + "/utils/proxy?proxy_url=";
-}
+  return (
+    process.env["NEXT_PUBLIC_PROXY_URL"] || apiUrl + "/utils/proxy?proxy_url="
+  );
+};
 
 export const searchResultsFetcher = async (apiQuery: ApiSearchQuery) => {
   if (!apiQuery || !apiQuery.query) {

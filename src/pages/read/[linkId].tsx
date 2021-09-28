@@ -9,8 +9,8 @@ export async function getServerSideProps(context: any) {
     const proxyUrl: string = proxyUrlConstructor();
     return {
       props: {
-          linkResult: linkResult,
-          proxyUrl: proxyUrl,
+        linkResult: linkResult,
+        proxyUrl: proxyUrl,
       },
     };
   } catch (e) {
@@ -21,6 +21,8 @@ export async function getServerSideProps(context: any) {
 }
 
 const WebReaderPage: React.FC<any> = (props) => {
-  return <ReaderLayout linkResult={props.linkResult} proxyUrl={props.proxyUrl} />;
+  return (
+    <ReaderLayout linkResult={props.linkResult} proxyUrl={props.proxyUrl} />
+  );
 };
 export default WebReaderPage;
