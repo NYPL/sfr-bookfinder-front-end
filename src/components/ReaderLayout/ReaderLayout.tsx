@@ -21,8 +21,8 @@ const ReaderLayout: React.FC<{ linkResult: LinkResult }> = (props) => {
   const url = formatUrl(link.url);
   const edition = link.work.editions[0];
 
-  const isEmbed = MediaTypes.embed.includes(link.media_type);
-  const isRead = MediaTypes.read.includes(link.media_type);
+  const isEmbed = link.flags.embed;
+  const isRead = link.flags.reader;
 
   useEffect(() => {
     gtag.drbEvents("Read", `${link.work.title}`);
