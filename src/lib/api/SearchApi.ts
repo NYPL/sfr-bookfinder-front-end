@@ -20,11 +20,13 @@ const languagesUrl = apiUrl + languagesPath;
 const defaultWorkQuery: WorkQuery = {
   identifier: "",
   showAll: "true",
+  readerVersion: "v2",
 };
 
 const defaultEditionQuery = {
   editionIdentifier: "",
   showAll: "true",
+  readerVersion: "v2",
 };
 
 export const proxyUrlConstructor = () => {
@@ -54,6 +56,10 @@ export const workFetcher = async (query: WorkQuery) => {
       typeof query.showAll !== "undefined"
         ? query.showAll
         : defaultWorkQuery.showAll,
+    readerVersion:
+      typeof query.readerVersion !== "undefined"
+        ? query.readerVersion
+        : defaultWorkQuery.readerVersion,
   };
 
   const url = new URL(recordUrl + "/" + query.identifier);
@@ -74,6 +80,10 @@ export const editionFetcher = async (query: EditionQuery) => {
       typeof query.showAll !== "undefined"
         ? query.showAll
         : defaultEditionQuery.showAll,
+    readerVersion:
+      typeof query.readerVersion !== "undefined"
+        ? query.readerVersion
+        : defaultEditionQuery.readerVersion,
   };
 
   const url = new URL(editionUrl + "/" + query.editionIdentifier);

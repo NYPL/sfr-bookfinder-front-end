@@ -22,6 +22,7 @@ const ReaderLayout: React.FC<{ linkResult: LinkResult; proxyUrl: string }> = (
   const url = formatUrl(link.url);
   const edition = link.work.editions[0];
 
+  console.log("flags", link);
   const isEmbed = link.flags.embed;
   const isRead = link.flags.reader;
 
