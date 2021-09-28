@@ -11,6 +11,7 @@ export type ApiSearchQuery = {
   size?: number;
   page?: number;
   showAll?: string;
+  readerVersion?: string;
 };
 
 export type ApiFilter = {

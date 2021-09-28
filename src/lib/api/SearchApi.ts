@@ -8,6 +8,7 @@ import { ApiLanguageResponse } from "~/src/types/LanguagesQuery";
 
 const apiEnv = process.env["APP_ENV"];
 const apiUrl = process.env["API_URL"] || appConfig.api.url[apiEnv];
+
 const { searchPath, recordPath, editionPath, readPath, languagesPath } =
   appConfig.api;
 const searchUrl = apiUrl + searchPath;
@@ -19,11 +20,19 @@ const languagesUrl = apiUrl + languagesPath;
 const defaultWorkQuery: WorkQuery = {
   identifier: "",
   showAll: "true",
+  readerVersion: "v2",
 };
 
 const defaultEditionQuery = {
   editionIdentifier: "",
   showAll: "true",
+  readerVersion: "v2",
+};
+
+export const proxyUrlConstructor = () => {
+  return (
+    process.env["NEXT_PUBLIC_PROXY_URL"] || apiUrl + "/utils/proxy?proxy_url="
+  );
 };
 
 export const searchResultsFetcher = async (apiQuery: ApiSearchQuery) => {
@@ -47,6 +56,10 @@ export const workFetcher = async (query: WorkQuery) => {
       typeof query.showAll !== "undefined"
         ? query.showAll
         : defaultWorkQuery.showAll,
+    readerVersion:
+      typeof query.readerVersion !== "undefined"
+        ? query.readerVersion
+        : defaultWorkQuery.readerVersion,
   };
 
   const url = new URL(recordUrl + "/" + query.identifier);
@@ -67,6 +80,10 @@ export const editionFetcher = async (query: EditionQuery) => {
       typeof query.showAll !== "undefined"
         ? query.showAll
         : defaultEditionQuery.showAll,
+    readerVersion:
+      typeof query.readerVersion !== "undefined"
+        ? query.readerVersion
+        : defaultEditionQuery.readerVersion,
   };
 
   const url = new URL(editionUrl + "/" + query.editionIdentifier);

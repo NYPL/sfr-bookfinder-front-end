@@ -1,5 +1,8 @@
 # CHANGE LOG
-
+## [0.11.1]
+### Changed
+- Replaces webpub-viewer with web-reader.
+- PDFs are readable online
 ## [0.11.0]
 
 ### Added
@@ -19,6 +22,10 @@
 - Adds sidebar class to main when on search results page
 - re-adds advanced-search class to Advanced Search
 
+
+## [0.10.3-HOTFIX]
+- Adds sidebar class to main when on search results page
+- re-adds advanced-search class to Advanced Search
 ## [0.10.3]
 
 ### Fixed
