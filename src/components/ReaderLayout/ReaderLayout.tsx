@@ -10,7 +10,6 @@ import { formatUrl, truncateStringOnWhitespace } from "~/src/util/Util";
 import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import { MediaTypes } from "~/src/constants/mediaTypes";
 import { proxyUrl } from "~/src/lib/api/SearchApi";
 const WebReader = dynamic(() => import("@nypl/web-reader"), { ssr: false });
 //The NYPL wrapper that wraps the Reader pages.
