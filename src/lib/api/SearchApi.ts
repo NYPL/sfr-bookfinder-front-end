@@ -1,6 +1,10 @@
 import appConfig from "~/config/appConfig";
 import { WorkQuery, WorkResult } from "~/src/types/WorkQuery";
-import { ApiSearchQuery, ApiSearchResult } from "../../types/SearchQuery";
+import {
+  ApiSearchQuery,
+  ApiSearchResult,
+  SearchQueryDefaults,
+} from "../../types/SearchQuery";
 import { EditionQuery, EditionResult } from "~/src/types/EditionQuery";
 import { toLocationQuery } from "~/src/util/apiConversion";
 import { LinkResult } from "~/src/types/LinkQuery";
@@ -39,8 +43,16 @@ export const searchResultsFetcher = async (apiQuery: ApiSearchQuery) => {
   if (!apiQuery || !apiQuery.query) {
     throw new Error("no query");
   }
+
+  const searchApiQuery = {
+    ...apiQuery,
+    readerVersion:
+      typeof apiQuery.readerVersion !== "undefined"
+        ? apiQuery.readerVersion
+        : SearchQueryDefaults.readerVersion,
+  };
   const url = new URL(searchUrl);
-  url.search = new URLSearchParams(toLocationQuery(apiQuery)).toString();
+  url.search = new URLSearchParams(toLocationQuery(searchApiQuery)).toString();
 
   const res = await fetch(url.toString());
 
