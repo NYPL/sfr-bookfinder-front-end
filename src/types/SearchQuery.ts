@@ -34,6 +34,7 @@ export type SearchQuery = {
   // While the API supports sorting by multiple parameters, the front end only supports one parameter
   sort?: Sort;
   showAll?: boolean;
+  readerVersion?: "v2" | "v1";
 };
 
 export const SearchQueryDefaults: SearchQuery = {
@@ -43,6 +44,7 @@ export const SearchQueryDefaults: SearchQuery = {
   queries: [],
   sort: { field: "relevance", dir: "DESC" },
   showAll: false,
+  readerVersion: "v2",
 };
 
 export type ApiSearchResult = {

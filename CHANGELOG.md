@@ -3,6 +3,7 @@
 ### Changed
 - Replaces webpub-viewer with web-reader.
 - PDFs are readable online
+- Defaults to use readerVersion v2 in API
 ## [0.11.0]
 
 ### Added

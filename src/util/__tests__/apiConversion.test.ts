@@ -1,5 +1,4 @@
 /* eslint-env mocha */
-import React from "react";
 import { SearchField } from "~/src/types/DataModel";
 import { ApiSearchQuery, SearchQuery } from "~/src/types/SearchQuery";
 import { toApiQuery, toSearchQuery } from "../apiConversion";

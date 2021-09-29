@@ -10,6 +10,7 @@ import { formatUrl, truncateStringOnWhitespace } from "~/src/util/Util";
 import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
+import Link from "~/src/components/Link/Link";
 const WebReader = dynamic(() => import("@nypl/web-reader"), { ssr: false });
 //The NYPL wrapper that wraps the Reader pages.
 const ReaderLayout: React.FC<{ linkResult: LinkResult; proxyUrl: string }> = (
@@ -28,6 +29,15 @@ const ReaderLayout: React.FC<{ linkResult: LinkResult; proxyUrl: string }> = (
   useEffect(() => {
     gtag.drbEvents("Read", `${link.work.title}`);
   }, [link]);
+
+  const BackButton = () => {
+    return (
+      //Apeends design system classname to use Design System Link.
+      <span className="nypl-ds">
+        <Link to="/">Back to Digital Research Books</Link>
+      </span>
+    );
+  };
 
   return (
     <>
@@ -53,11 +63,14 @@ const ReaderLayout: React.FC<{ linkResult: LinkResult; proxyUrl: string }> = (
         </Layout>
       )}
       {isRead && (
-        <WebReader
-          webpubManifestUrl={url}
-          proxyUrl={proxyUrl}
-          pdfWorkerSrc={`${origin}/pdf-worker/pdf.worker.min.js`}
-        />
+        <div className="layout-container nypl--research">
+          <WebReader
+            webpubManifestUrl={url}
+            proxyUrl={proxyUrl}
+            pdfWorkerSrc={`${origin}/pdf-worker/pdf.worker.min.js`}
+            headerLeft={<BackButton />}
+          />
+        </div>
       )}
     </>
   );
