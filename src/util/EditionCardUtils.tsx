@@ -323,7 +323,9 @@ export default class EditionCardUtils {
         <>
           May be available via NYPL<br></br>
           <Link
-            to={`https://login.nypl.org/auth/login?redirect_uri=${window.location.href}`}
+            to={`https://login.nypl.org/auth/login?redirect_uri=${encodeURIComponent(
+              window.location.href
+            )}`}
             linkType={DS.LinkTypes.Button}
           >
             Log in for options
