@@ -32,9 +32,10 @@ const ReaderLayout: React.FC<{ linkResult: LinkResult; proxyUrl: string }> = (
 
   const BackButton = () => {
     return (
-      <>
+      //Apeends design system classname to use Design System Link.
+      <span className="nypl-ds">
         <Link to="/">Back to Digital Research Books</Link>
-      </>
+      </span>
     );
   };
 
@@ -62,7 +63,7 @@ const ReaderLayout: React.FC<{ linkResult: LinkResult; proxyUrl: string }> = (
         </Layout>
       )}
       {isRead && (
-        <div className="layout-container nypl-ds nypl--research">
+        <div className="layout-container nypl--research">
           <WebReader
             webpubManifestUrl={url}
             proxyUrl={proxyUrl}
