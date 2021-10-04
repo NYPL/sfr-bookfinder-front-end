@@ -1,9 +1,7 @@
 # CHANGE LOG
 ## [0.11.1]
 ### Changed
-- Replaces webpub-viewer with web-reader.
-- PDFs are readable online
-- Defaults to use readerVersion v2 in API
+- Adds web-reader and introduces an env variable to switch between `webpub-viewer` and `web-reader`
 ## [0.11.0]
 
 ### Added

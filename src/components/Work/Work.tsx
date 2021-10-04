@@ -16,7 +16,6 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
   const { pathname, query } = router;
 
   const work: ApiWork = props.workResult.data;
-  console.log("work", work);
   //Edition Card Preprocessing
   const authorsList = EditionCardUtils.getAuthorsList(work.authors);
 
@@ -26,7 +25,6 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
       edition.items.length &&
       EditionCardUtils.getPreviewItem(edition.items) !== undefined
   );
-  console.log("firstReadableEdition", firstReadableEdition);
 
   const toggleShowAll = (e: React.ChangeEvent<HTMLInputElement>) => {
     router.push({

@@ -286,8 +286,6 @@ export default class EditionCardUtils {
     const readOnlineLink = EditionCardUtils.getReadOnlineLink(item);
     const downloadLink = EditionCardUtils.getDownloadLink(item, title);
 
-    console.log("read online link", readOnlineLink);
-    console.log("download link", downloadLink);
     // If a digital version exists, link directly
     if (readOnlineLink || downloadLink) {
       return (
@@ -364,7 +362,6 @@ export default class EditionCardUtils {
       );
     });
 
-    console.log("firstReadableItem", firstReadableItem);
     // If no readable link found, we just return any link that's not a catalog (edd)
     return (
       firstReadableItem ??
