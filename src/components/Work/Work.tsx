@@ -106,7 +106,7 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
                 type={DS.ListTypes.Unordered}
                 modifiers={["no-list-styling"]}
               >
-                {work.editions.map((edition: ApiEdition) => (
+                {work.editions.map((edition: WorkEdition) => (
                   <li key={edition.edition_id}>
                     <EditionCard
                       edition={edition}
