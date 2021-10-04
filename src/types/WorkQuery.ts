@@ -1,5 +1,4 @@
-import { Agent, Language, Subject } from "./DataModel";
-import { ApiEdition } from "./EditionQuery";
+import { Agent, Date, Language, Subject, WorkEdition } from "./DataModel";
 
 export type WorkQuery = {
   identifier: string;
@@ -20,7 +19,7 @@ export type ApiWork = {
   authors?: Agent[];
   contributors?: string[];
   dates?: Date[];
-  editions?: ApiEdition[];
+  editions?: WorkEdition[];
   edition_count?: number;
   languages?: Language[];
   measurements?: string[];

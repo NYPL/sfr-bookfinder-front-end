@@ -44,7 +44,8 @@ export const SearchQueryDefaults: SearchQuery = {
   queries: [],
   sort: { field: "relevance", dir: "DESC" },
   showAll: false,
-  readerVersion: "v2",
+  readerVersion:
+    process.env["NEXT_PUBLIC_READER_VERSION"] === "v2" ? "v2" : "v1",
 };
 
 export type ApiSearchResult = {
