@@ -24,13 +24,15 @@ const languagesUrl = apiUrl + languagesPath;
 const defaultWorkQuery: WorkQuery = {
   identifier: "",
   showAll: "true",
-  readerVersion: process.env["NEXT_PUBLIC_READER_VERSION"] ? "v1" : "v2",
+  readerVersion:
+    process.env["NEXT_PUBLIC_READER_VERSION"] === "v2" ? "v2" : "v1",
 };
 
 const defaultEditionQuery = {
   editionIdentifier: "",
   showAll: "true",
-  readerVersion: process.env["NEXT_PUBLIC_READER_VERSION"] ? "v1" : "v2",
+  readerVersion:
+    process.env["NEXT_PUBLIC_READER_VERSION"] === "v2" ? "v2" : "v1",
 };
 
 export const proxyUrlConstructor = () => {
