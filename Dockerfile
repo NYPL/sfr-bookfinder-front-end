@@ -15,7 +15,6 @@ ENV PATH /app/node_modules/.bin:$PATH
 ENV PORT=3000 \
     NODE_ENV=production
 ENV NEXT_PUBLIC_AIRTABLE_API_KEY $airtable_api_key
-ENV NEXT_PUBLIC_READER_VERSION="v2"
 
 # Install dependencies.
 COPY package.json ./
