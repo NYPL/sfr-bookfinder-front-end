@@ -16,8 +16,10 @@
             ],
             "essential": true,
             "command": [
-                "--process", "APIProcess",
-                "--environment", "development"
+                "--process",
+                "APIProcess",
+                "--environment",
+                "development"
             ],
             "environment": [
                 {
@@ -32,7 +34,6 @@
                     "name": "ELASTICSEARCH_INDEX",
                     "value": "drb_dcdw_qa"
                 }
-
             ],
             "secrets": [
                 {
@@ -67,8 +68,11 @@
                 {
                     "name": "API_URL",
                     "value": "http://localhost:80"
+                },
+                {
+                    "name": "NEXT_PUBLIC_READER_VERSION",
+                    "value": "v1"
                 }
-
             ],
             "secrets": [
                 {
