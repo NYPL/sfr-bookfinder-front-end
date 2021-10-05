@@ -139,6 +139,7 @@ describe("Renders Search Results Page", () => {
           pathname: "/search",
           query: {
             query: "keyword:Animal Crossing",
+            readerVersion: "v2",
             size: "20",
           },
         });
@@ -161,6 +162,7 @@ describe("Renders Search Results Page", () => {
           pathname: "/search",
           query: {
             query: "keyword:Animal Crossing",
+            readerVersion: "v2",
             sort: "title:ASC",
           },
         });
@@ -182,6 +184,7 @@ describe("Renders Search Results Page", () => {
           pathname: "/search",
           query: {
             query: "keyword:Animal Crossing",
+            readerVersion: "v2",
             showAll: "true",
           },
         });
@@ -212,6 +215,7 @@ describe("Renders Search Results Page", () => {
           query: {
             filter: "language:English",
             query: "keyword:Animal Crossing",
+            readerVersion: "v2",
           },
         });
 
@@ -233,6 +237,7 @@ describe("Renders Search Results Page", () => {
           query: {
             filter: "format:epub_zip",
             query: "keyword:Animal Crossing",
+            readerVersion: "v2",
           },
         });
         fireEvent.click(screen.getByRole("button", { name: "Go Back" }));
@@ -434,6 +439,7 @@ describe("Renders Search Results Page", () => {
         query: {
           page: 2,
           query: "keyword:Animal Crossing",
+          readerVersion: "v2",
         },
       });
     });
@@ -446,6 +452,7 @@ describe("Renders Search Results Page", () => {
         query: {
           page: 2,
           query: "keyword:Animal Crossing",
+          readerVersion: "v2",
         },
       });
     });

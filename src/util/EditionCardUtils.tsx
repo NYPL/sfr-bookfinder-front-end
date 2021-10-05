@@ -17,9 +17,9 @@ import {
   MAX_SUBTITILE_LENGTH,
   PLACEHOLDER_COVER_LINK,
 } from "../constants/editioncard";
-import { MediaTypes } from "../constants/mediaTypes";
 import * as gtag from "../lib/Analytics";
 import { ApiSearchQuery } from "../types/SearchQuery";
+import { MediaTypes } from "../constants/mediaTypes";
 
 // EditionCard holds all the methods needed to build an Edition Card
 export default class EditionCardUtils {
@@ -179,23 +179,35 @@ export default class EditionCardUtils {
       : "License: Unknown";
   }
 
-  // The button should say "Read Online" if the media type is "read" or "embed"
-  static getReadOnlineLink = (item: ApiItem) => {
-    const getReadLink = (item: ApiItem, mediaType: string) => {
-      if (!item || !item.links) return undefined;
-      const mediaTypes =
-        mediaType === "read" ? MediaTypes.read : MediaTypes.embed;
-      const selectedLink = item.links.find((link: ItemLink) =>
-        mediaTypes.includes(link.mediaType)
+  static getReadLink = (item: ApiItem, type: "reader" | "embed") => {
+    const isReaderV2 = process.env["NEXT_PUBLIC_READER_VERSION"] === "v2";
+
+    if (!item || !item.links) return undefined;
+    return item.links.find((link: ItemLink) => {
+      if (isReaderV2) return link.flags[type];
+      return (
+        MediaTypes.read.includes(link.mediaType) ||
+        (MediaTypes.embed.includes(link.mediaType) && !link.flags["catalog"])
       );
-      return selectedLink;
-    };
+    });
+  };
 
-    const localLink = getReadLink(item, "read");
-    const embeddedLink = getReadLink(item, "embed");
+  static selectDownloadLink = (item: ApiItem) => {
+    const isReaderV2 = process.env["NEXT_PUBLIC_READER_VERSION"] === "v2";
 
-    //Prefer local link over embedded link
-    const readOnlineLink = localLink ? localLink : embeddedLink;
+    if (!item || !item.links) return undefined;
+    return item.links.find((link: ItemLink) => {
+      if (isReaderV2) return link.flags["download"];
+      return MediaTypes.download.includes(link.mediaType);
+    });
+  };
+
+  // "Read Online" button should only show up if the link was flagged as "reader" or "embed"
+  static getReadOnlineLink = (item: ApiItem) => {
+    const localLink = EditionCardUtils.getReadLink(item, "reader");
+    const embeddedLink = EditionCardUtils.getReadLink(item, "embed");
+    // Prefer local link over embedded link
+    const readOnlineLink = localLink ?? embeddedLink;
     if (readOnlineLink) {
       return (
         <Link
@@ -212,12 +224,10 @@ export default class EditionCardUtils {
     return undefined;
   };
 
-  // eslint-disable-next-line consistent-return
   static getDownloadLink(editionItem: ApiItem, title: string) {
     if (!editionItem || !editionItem.links) return undefined;
-    const selectedLink = editionItem.links.find((link: ItemLink) =>
-      MediaTypes.download.includes(link.mediaType)
-    );
+
+    const selectedLink = EditionCardUtils.selectDownloadLink(editionItem);
 
     if (selectedLink && selectedLink.url) {
       return (
@@ -265,6 +275,99 @@ export default class EditionCardUtils {
       </a>
     ) : (
       <>Find in Library Unavailable</>
+    );
+  }
+
+  static getCtas(
+    item: ApiItem | undefined,
+    title: string,
+    isLoggedIn: boolean
+  ) {
+    const readOnlineLink = EditionCardUtils.getReadOnlineLink(item);
+    const downloadLink = EditionCardUtils.getDownloadLink(item, title);
+
+    // If a digital version exists, link directly
+    if (readOnlineLink || downloadLink) {
+      return (
+        <>
+          {readOnlineLink}
+          {downloadLink}
+        </>
+      );
+    }
+
+    const eddLink =
+      item && item.links
+        ? item.links.find((link) => link.flags.edd)
+        : undefined;
+
+    // Offer EDD if available
+    if (eddLink !== undefined) {
+      const eddElement = EditionCardUtils.getEddLinkElement(
+        eddLink,
+        isLoggedIn
+      );
+      return <>{eddElement}</>;
+    }
+
+    return <>{EditionCardUtils.getNoLinkElement(false)}</>;
+  }
+
+  static getEddLinkElement(eddLink: ItemLink, isLoggedIn: boolean) {
+    if (isLoggedIn) {
+      return (
+        <>
+          You can request a partial scan via NYPL&nbsp;
+          <Link
+            to="https://www.nypl.org/research/scan-and-deliver"
+            target="_blank"
+          >
+            Scan and Deliver
+          </Link>
+          <Link
+            // Url starts with www
+            to={`//${eddLink.url}`}
+            linkType={DS.LinkTypes.Button}
+            target="_blank"
+          >
+            Request
+          </Link>
+        </>
+      );
+    } else {
+      return (
+        <>
+          May be available via NYPL<br></br>
+          <Link
+            to={`https://login.nypl.org/auth/login?redirect_uri=${encodeURIComponent(
+              window.location.href
+            )}`}
+            linkType={DS.LinkTypes.Button}
+          >
+            Log in for options
+          </Link>
+        </>
+      );
+    }
+  }
+
+  // Get readable item or non-catalog item
+  static getPreviewItem(items: ApiItem[] | undefined) {
+    if (!items) return undefined;
+
+    const firstReadableItem = items.find((item) => {
+      return (
+        EditionCardUtils.getReadLink(item, "reader") ||
+        EditionCardUtils.getReadLink(item, "embed")
+      );
+    });
+
+    // If no readable link found, we just return any link that's not a catalog (edd)
+    return (
+      firstReadableItem ??
+      items.find((items) => {
+        return items.links && items.links.find((link) => !link.flags.catalog);
+      })
     );
   }
 }

@@ -1,31 +1,57 @@
 # CHANGE LOG
+## [0.11.1]
+### Changed
+- Adds web-reader and introduces an env variable to switch between `webpub-viewer` and `web-reader`
+## [0.11.0]
+
+### Added
+
+- Added EDD button to the edition page and work page
+- Add media type checking with `flags`
+- Added strict nodejs and npm version for development
 
 ## [0.10.4]
+
 ### Changed
+
 - Clicking "Advanced Search" starts a new search
+
+## [0.10.3-HOTFIX]
+
+- Adds sidebar class to main when on search results page
+- re-adds advanced-search class to Advanced Search
+
 
 ## [0.10.3-HOTFIX]
 - Adds sidebar class to main when on search results page
 - re-adds advanced-search class to Advanced Search
 ## [0.10.3]
+
 ### Fixed
+
 - Added lang="en" to html
 - Moved `main` tag to `Layout` and ensured that they all had the `main-content` id to work with the NYPL header
 - Adds an "alert" role to search results so the screen reader reads that it loads in.
 - Changes link color to have adequate contrast on gray background
 
 ## [0.10.2-HOTFIX]
-- Makes searchQuery check more robust 
+
+- Makes searchQuery check more robust
 
 ## [0.10.2]
+
 ### Added
-- Clicking an author name now searches by viaf if the viaf is available. 
+
+- Clicking an author name now searches by viaf if the viaf is available.
 
 ### [0.10.1-HOTFIX]
+
 - Removes languages from Advanced Search if no language response is recieved
 
 ## [0.10.1]
-### Fixed 
+
+### Fixed
+
 - NYPL footer link hover now shows correct color
 - Fixed favicon
 - Fixed page title for search result and read online

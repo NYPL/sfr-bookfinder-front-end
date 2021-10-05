@@ -4,13 +4,16 @@ import Link from "../Link/Link";
 import { WorkEdition } from "~/src/types/DataModel";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
 import { PLACEHOLDER_COVER_LINK } from "~/src/constants/editioncard";
+import { useCookies } from "react-cookie";
+import { NYPL_SESSION_ID } from "~/src/constants/auth";
 
 export const EditionCard: React.FC<{ edition: WorkEdition; title: string }> = ({
   edition,
   title,
 }) => {
-  const previewItem = edition && edition.items ? edition.items[0] : undefined;
-  const readOnlineLink = EditionCardUtils.getReadOnlineLink(previewItem);
+  const [cookies] = useCookies([NYPL_SESSION_ID]);
+
+  const previewItem = EditionCardUtils.getPreviewItem(edition.items);
 
   const editionYearElem = (edition: WorkEdition) => {
     const editionDisplay = EditionCardUtils.editionYearText(edition);
@@ -27,7 +30,6 @@ export const EditionCard: React.FC<{ edition: WorkEdition; title: string }> = ({
     );
     return editionElem;
   };
-  const downloadLink = EditionCardUtils.getDownloadLink(previewItem, title);
 
   const coverUrl = EditionCardUtils.getCover(edition.links);
 
@@ -45,17 +47,11 @@ export const EditionCard: React.FC<{ edition: WorkEdition; title: string }> = ({
           }
         ></DS.Image>
       }
-      ctas={
-        readOnlineLink || downloadLink ? (
-          <>
-            {readOnlineLink}
-            {downloadLink}
-          </>
-        ) : (
-          //TODO feature flags: Request button
-          <>{EditionCardUtils.getNoLinkElement(false)}</>
-        )
-      }
+      ctas={EditionCardUtils.getCtas(
+        previewItem,
+        title,
+        !!cookies[NYPL_SESSION_ID]
+      )}
     >
       <div>
         {EditionCardUtils.getPublisherAndLocation(

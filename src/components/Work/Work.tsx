@@ -8,7 +8,7 @@ import { ApiWork, WorkResult } from "~/src/types/WorkQuery";
 import { breadcrumbTitles } from "~/src/constants/labels";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
 import SearchHeader from "../SearchHeader/SearchHeader";
-import { ApiEdition } from "~/src/types/EditionQuery";
+import { WorkEdition } from "~/src/types/DataModel";
 
 const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
   const router = useRouter();
@@ -20,11 +20,10 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
   const authorsList = EditionCardUtils.getAuthorsList(work.authors);
 
   const firstReadableEdition = work.editions.find(
-    (edition: any) =>
+    (edition: WorkEdition) =>
       edition.items &&
       edition.items.length &&
-      edition.items[0].links &&
-      edition.items[0].links.length
+      EditionCardUtils.getPreviewItem(edition.items) !== undefined
   );
 
   const toggleShowAll = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -107,7 +106,7 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
                 type={DS.ListTypes.Unordered}
                 modifiers={["no-list-styling"]}
               >
-                {work.editions.map((edition: ApiEdition) => (
+                {work.editions.map((edition: WorkEdition) => (
                   <li key={edition.edition_id}>
                     <EditionCard
                       edition={edition}

@@ -1,10 +1,10 @@
-import { Agent, Language, Subject } from "./DataModel";
-import { ApiEdition } from "./EditionQuery";
+import { Agent, Date, Language, Subject, WorkEdition } from "./DataModel";
 
 export type WorkQuery = {
   identifier: string;
   recordType?: "editions" | "instances";
   showAll?: "true" | "false";
+  readerVersion?: "v1" | "v2";
 };
 
 export type WorkResult = {
@@ -19,7 +19,7 @@ export type ApiWork = {
   authors?: Agent[];
   contributors?: string[];
   dates?: Date[];
-  editions?: ApiEdition[];
+  editions?: WorkEdition[];
   edition_count?: number;
   languages?: Language[];
   measurements?: string[];

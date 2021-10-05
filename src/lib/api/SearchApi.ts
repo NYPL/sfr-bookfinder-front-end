@@ -1,6 +1,10 @@
 import appConfig from "~/config/appConfig";
 import { WorkQuery, WorkResult } from "~/src/types/WorkQuery";
-import { ApiSearchQuery, ApiSearchResult } from "../../types/SearchQuery";
+import {
+  ApiSearchQuery,
+  ApiSearchResult,
+  SearchQueryDefaults,
+} from "../../types/SearchQuery";
 import { EditionQuery, EditionResult } from "~/src/types/EditionQuery";
 import { toLocationQuery } from "~/src/util/apiConversion";
 import { LinkResult } from "~/src/types/LinkQuery";
@@ -8,6 +12,7 @@ import { ApiLanguageResponse } from "~/src/types/LanguagesQuery";
 
 const apiEnv = process.env["APP_ENV"];
 const apiUrl = process.env["API_URL"] || appConfig.api.url[apiEnv];
+
 const { searchPath, recordPath, editionPath, readPath, languagesPath } =
   appConfig.api;
 const searchUrl = apiUrl + searchPath;
@@ -19,19 +24,37 @@ const languagesUrl = apiUrl + languagesPath;
 const defaultWorkQuery: WorkQuery = {
   identifier: "",
   showAll: "true",
+  readerVersion:
+    process.env["NEXT_PUBLIC_READER_VERSION"] === "v2" ? "v2" : "v1",
 };
 
 const defaultEditionQuery = {
   editionIdentifier: "",
   showAll: "true",
+  readerVersion:
+    process.env["NEXT_PUBLIC_READER_VERSION"] === "v2" ? "v2" : "v1",
+};
+
+export const proxyUrlConstructor = () => {
+  return (
+    process.env["NEXT_PUBLIC_PROXY_URL"] || apiUrl + "/utils/proxy?proxy_url="
+  );
 };
 
 export const searchResultsFetcher = async (apiQuery: ApiSearchQuery) => {
   if (!apiQuery || !apiQuery.query) {
     throw new Error("no query");
   }
+
+  const searchApiQuery = {
+    ...apiQuery,
+    readerVersion:
+      typeof apiQuery.readerVersion !== "undefined"
+        ? apiQuery.readerVersion
+        : SearchQueryDefaults.readerVersion,
+  };
   const url = new URL(searchUrl);
-  url.search = new URLSearchParams(toLocationQuery(apiQuery)).toString();
+  url.search = new URLSearchParams(toLocationQuery(searchApiQuery)).toString();
 
   const res = await fetch(url.toString());
 
@@ -47,6 +70,10 @@ export const workFetcher = async (query: WorkQuery) => {
       typeof query.showAll !== "undefined"
         ? query.showAll
         : defaultWorkQuery.showAll,
+    readerVersion:
+      typeof query.readerVersion !== "undefined"
+        ? query.readerVersion
+        : defaultWorkQuery.readerVersion,
   };
 
   const url = new URL(recordUrl + "/" + query.identifier);
@@ -67,6 +94,10 @@ export const editionFetcher = async (query: EditionQuery) => {
       typeof query.showAll !== "undefined"
         ? query.showAll
         : defaultEditionQuery.showAll,
+    readerVersion:
+      typeof query.readerVersion !== "undefined"
+        ? query.readerVersion
+        : defaultEditionQuery.readerVersion,
   };
 
   const url = new URL(editionUrl + "/" + query.editionIdentifier);

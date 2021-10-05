@@ -36,7 +36,13 @@
               {
                 "link_id": 2309913,
                 "mediaType": "text/html",
-                "url": "catalog.hathitrust.org/api/volumes/oclc/329985.html"
+                "url": "catalog.hathitrust.org/api/volumes/oclc/329985.html",
+                "flags": {
+                  "catalog": false,
+                  "download": false,
+                  "reader": false,
+                  "embed": true
+                }
               }
             ],
             "location": null,

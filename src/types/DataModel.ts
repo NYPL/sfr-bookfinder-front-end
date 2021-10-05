@@ -30,7 +30,7 @@ export type Instance = {
 export type Cover = {
   url: string;
   media_type: string;
-  flags: { temporary: boolean };
+  flags: LinkFlags;
 };
 
 export type Rights = {
@@ -58,10 +58,19 @@ export type EditionCardItem = {
   rights: Rights;
 };
 
+export type LinkFlags = {
+  catalog: boolean;
+  download: boolean;
+  reader: boolean;
+  edd?: boolean;
+  embed?: boolean;
+};
+
 export type ItemLink = {
   link_id: number;
   mediaType: string;
   url: string;
+  flags: LinkFlags;
 };
 
 export type Language = {
@@ -91,6 +100,7 @@ export type WorkEdition = {
   links?: ItemLink[];
   volume?: string;
   table_of_contents?: string;
+  title?: string;
   extent?: string;
   summary?: string;
   work_id?: number;

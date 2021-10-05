@@ -151,6 +151,7 @@ export const toApiQuery = (searchQuery: SearchQuery): ApiSearchQuery => {
       searchQuery.showAll !== SearchQueryDefaults.showAll && {
         showAll: searchQuery.showAll.toString(),
       }),
+    readerVersion: SearchQueryDefaults.readerVersion,
   };
 };
 

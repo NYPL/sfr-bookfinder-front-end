@@ -1,3 +1,4 @@
+import { LinkFlags } from "./DataModel";
 import { ApiWork } from "./WorkQuery";
 
 export type LinkResult = {
@@ -9,11 +10,7 @@ export type LinkResult = {
 
 export type ApiLink = {
   content?: string;
-  flags: {
-    catalog: boolean;
-    download: boolean;
-    reader: boolean;
-  };
+  flags: LinkFlags;
   link_id: number;
   media_type: string;
   url: string;

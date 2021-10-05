@@ -26,7 +26,6 @@ const SearchResults: React.FC<{
     ...SearchQueryDefaults,
     ...props.searchQuery,
   });
-
   const [isModalOpen, setModalOpen] = useState(false);
 
   const router = useRouter();
@@ -141,7 +140,6 @@ const SearchResults: React.FC<{
 
   return (
     <>
-      {" "}
       <div className="content-header">
         <DS.Breadcrumbs
           breadcrumbs={[{ url: "/", text: breadcrumbTitles.home }]}
