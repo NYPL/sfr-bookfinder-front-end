@@ -71,7 +71,7 @@
                 },
                 {
                     "name": "NEXT_PUBLIC_READER_VERSION",
-                    "value": "v1"
+                    "value": "v2"
                 }
             ],
             "secrets": [
