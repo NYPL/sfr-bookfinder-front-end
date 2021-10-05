@@ -179,15 +179,33 @@ export default class EditionCardUtils {
       : "License: Unknown";
   }
 
+  static getReadLink = (item: ApiItem, type: "reader" | "embed") => {
+    const isReaderV2 = process.env["NEXT_PUBLIC_READER_VERSION"] === "v2";
+
+    if (!item || !item.links) return undefined;
+    return item.links.find((link: ItemLink) => {
+      if (isReaderV2) return link.flags[type];
+      return (
+        MediaTypes.read.includes(link.mediaType) ||
+        (MediaTypes.embed.includes(link.mediaType) && !link.flags["catalog"])
+      );
+    });
+  };
+
+  static selectDownloadLink = (item: ApiItem) => {
+    const isReaderV2 = process.env["NEXT_PUBLIC_READER_VERSION"] === "v2";
+
+    if (!item || !item.links) return undefined;
+    return item.links.find((link: ItemLink) => {
+      if (isReaderV2) return link.flags["download"];
+      return MediaTypes.download.includes(link.mediaType);
+    });
+  };
+
   // "Read Online" button should only show up if the link was flagged as "reader" or "embed"
   static getReadOnlineLink = (item: ApiItem) => {
-    const getReadLink = (item: ApiItem, type: "reader" | "embed") => {
-      if (!item || !item.links) return undefined;
-      return item.links.find((link: ItemLink) => link.flags[type]);
-    };
-
-    const localLink = getReadLink(item, "reader");
-    const embeddedLink = getReadLink(item, "embed");
+    const localLink = EditionCardUtils.getReadLink(item, "reader");
+    const embeddedLink = EditionCardUtils.getReadLink(item, "embed");
     // Prefer local link over embedded link
     const readOnlineLink = localLink ?? embeddedLink;
     if (readOnlineLink) {
@@ -209,9 +227,7 @@ export default class EditionCardUtils {
   static getDownloadLink(editionItem: ApiItem, title: string) {
     if (!editionItem || !editionItem.links) return undefined;
 
-    const selectedLink = editionItem.links.find(
-      (link: ItemLink) => link.flags.download
-    );
+    const selectedLink = EditionCardUtils.selectDownloadLink(editionItem);
 
     if (selectedLink && selectedLink.url) {
       return (
@@ -339,10 +355,10 @@ export default class EditionCardUtils {
   static getPreviewItem(items: ApiItem[] | undefined) {
     if (!items) return undefined;
 
-    const firstReadableItem = items.find((items) => {
+    const firstReadableItem = items.find((item) => {
       return (
-        items.links &&
-        items.links.find((link) => link.flags.embed || link.flags.reader)
+        EditionCardUtils.getReadLink(item, "reader") ||
+        EditionCardUtils.getReadLink(item, "embed")
       );
     });
 

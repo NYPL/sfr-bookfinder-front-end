@@ -1,3 +1,7 @@
+const withTM = require("next-transpile-modules")([
+  "library-simplified-webpub-viewer",
+]);
+
 const path = require("path");
 
 const config = {
@@ -14,4 +18,4 @@ const config = {
   },
 };
 
-module.exports = config;
+module.exports = withTM(config);

@@ -100,6 +100,7 @@ export type WorkEdition = {
   links?: ItemLink[];
   volume?: string;
   table_of_contents?: string;
+  title?: string;
   extent?: string;
   summary?: string;
   work_id?: number;

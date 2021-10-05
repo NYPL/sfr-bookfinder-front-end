@@ -11,11 +11,15 @@ import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import Link from "~/src/components/Link/Link";
+import WebpubViewer from "../WebpubViewer/WebpubViewer";
+import { MediaTypes } from "~/src/constants/mediaTypes";
 const WebReader = dynamic(() => import("@nypl/web-reader"), { ssr: false });
 //The NYPL wrapper that wraps the Reader pages.
 const ReaderLayout: React.FC<{ linkResult: LinkResult; proxyUrl: string }> = (
   props
 ) => {
+  const readerVersion = process.env["NEXT_PUBLIC_READER_VERSION"];
+
   const router = useRouter();
   const origin = router.basePath;
   const link: ApiLink = props.linkResult.data;
@@ -23,8 +27,14 @@ const ReaderLayout: React.FC<{ linkResult: LinkResult; proxyUrl: string }> = (
   const url = formatUrl(link.url);
   const edition = link.work.editions[0];
 
-  const isEmbed = link.flags.embed;
-  const isRead = link.flags.reader;
+  const isEmbed =
+    readerVersion && readerVersion === "v2"
+      ? link.flags.embed
+      : MediaTypes.embed.includes(link.media_type);
+  const isRead =
+    readerVersion && readerVersion === "v2"
+      ? link.flags.reader
+      : MediaTypes.read.includes(link.media_type);
 
   useEffect(() => {
     gtag.drbEvents("Read", `${link.work.title}`);
@@ -38,6 +48,20 @@ const ReaderLayout: React.FC<{ linkResult: LinkResult; proxyUrl: string }> = (
       </span>
     );
   };
+
+  const webreaderContent =
+    readerVersion && readerVersion === "v2" ? (
+      <div className="layout-container nypl--research">
+        <WebReader
+          webpubManifestUrl={url}
+          proxyUrl={proxyUrl}
+          pdfWorkerSrc={`${origin}/pdf-worker/pdf.worker.min.js`}
+          headerLeft={<BackButton />}
+        />
+      </div>
+    ) : (
+      <WebpubViewer url={link.url} />
+    );
 
   return (
     <>
@@ -62,16 +86,7 @@ const ReaderLayout: React.FC<{ linkResult: LinkResult; proxyUrl: string }> = (
           <IFrameReader url={link.url} />
         </Layout>
       )}
-      {isRead && (
-        <div className="layout-container nypl--research">
-          <WebReader
-            webpubManifestUrl={url}
-            proxyUrl={proxyUrl}
-            pdfWorkerSrc={`${origin}/pdf-worker/pdf.worker.min.js`}
-            headerLeft={<BackButton />}
-          />
-        </div>
-      )}
+      {isRead && webreaderContent}
     </>
   );
 };
