@@ -1,4 +1,6 @@
 # CHANGE LOG
+## [0.11.2]
+- Defaults build to use reader version V2
 ## [0.11.1]
 ### Changed
 - Adds web-reader and introduces an env variable to switch between `webpub-viewer` and `web-reader`
