@@ -68,7 +68,11 @@ describe("Renders Work component when given valid work", () => {
       expect(
         (within(heading).getByRole("link") as HTMLLinkElement).href
       ).toContain("/edition");
+      expect(
+        (within(heading).getByRole("link") as HTMLLinkElement).href
+      ).toContain("?featured=1280883");
     });
+
     expect(screen.getAllByAltText("Cover for 1967 Edition").length).toBe(2);
     expect(
       screen.getAllByText(
@@ -178,6 +182,26 @@ describe("Edition Cards and toggles", () => {
         pathname: "",
         query: { showAll: true },
       });
+    });
+  });
+
+  describe("loading work with featured=862232", () => {
+    beforeEach(() => {
+      render(
+        <MockNextRouterContextProvider routerQuery={{ featured: "862232" }}>
+          <Work workResult={apiWork} />
+        </MockNextRouterContextProvider>
+      );
+    });
+
+    test("1980 edition shows up twice", () => {
+      expect(
+        screen.getByRole("heading", { name: "Featured Edition" })
+      ).toBeInTheDocument();
+      const featuredEditionHeadings = screen.getAllByRole("heading", {
+        name: "1980 Edition",
+      });
+      expect(featuredEditionHeadings.length).toEqual(2);
     });
   });
 });

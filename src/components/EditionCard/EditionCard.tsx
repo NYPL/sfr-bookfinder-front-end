@@ -17,10 +17,14 @@ export const EditionCard: React.FC<{ edition: WorkEdition; title: string }> = ({
 
   const editionYearElem = (edition: WorkEdition) => {
     const editionDisplay = EditionCardUtils.editionYearText(edition);
+
     const editionElem = edition ? (
       <Link
         to={{
           pathname: `/edition/${edition.edition_id}`,
+          ...(previewItem
+            ? { query: { featured: previewItem.item_id } }
+            : null),
         }}
       >
         {editionDisplay}

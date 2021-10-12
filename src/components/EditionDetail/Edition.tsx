@@ -11,21 +11,30 @@ import { breadcrumbTitles } from "~/src/constants/labels";
 import SearchHeader from "../SearchHeader/SearchHeader";
 import { truncateStringOnWhitespace } from "~/src/util/Util";
 import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
+import { Instance } from "~/src/types/DataModel";
 
 const Edition: React.FC<{ editionResult: EditionResult }> = (props) => {
   const router = useRouter();
 
   if (!props.editionResult) return <>Loading</>;
   const { pathname, query } = router;
+  const featuredItemId = query.featured as string;
   const edition: ApiEdition = props.editionResult.data;
 
-  const featuredInstance = edition.instances.find(
-    (edition: any) =>
-      edition.items &&
-      edition.items.length &&
-      edition.items[0].links &&
-      edition.items[0].links.length
-  );
+  const passedInFeaturedItem = featuredItemId
+    ? edition.instances.find((instance) =>
+        instance.items.map((item) => item.item_id).includes(featuredItemId)
+      )
+    : undefined;
+  const featuredInstance = passedInFeaturedItem
+    ? passedInFeaturedItem
+    : edition.instances.find(
+        (instance: Instance) =>
+          instance.items &&
+          instance.items.length &&
+          instance.items[0].links &&
+          instance.items[0].links.length
+      );
 
   const toggleShowAll = (e: React.ChangeEvent<HTMLInputElement>) => {
     router.push({
@@ -94,8 +103,7 @@ const Edition: React.FC<{ editionResult: EditionResult }> = (props) => {
           {edition.instances && (
             <div className="all-instances-header">
               <h3
-                // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number | ... Remove this comment to see the full error message
-                tabIndex="-1"
+                tabIndex={-1}
                 id="all-editions"
                 className="all-editions-tag bold"
               >

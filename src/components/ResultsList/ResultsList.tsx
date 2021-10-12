@@ -12,12 +12,14 @@ import { ApiWork } from "~/src/types/WorkQuery";
 
 export const getEditionsLinkElement = (work: ApiWork) => {
   const editionCount = work.edition_count;
+  const previewEdition = work.editions && work.editions[0];
+
   return editionCount > 1 ? (
     <Link
       className="link"
       to={{
         pathname: `work/${work.uuid}`,
-        query: { showAll: true },
+        query: { showAll: true, featured: previewEdition.edition_id },
         hash: "#all-editions",
       }}
     >
@@ -49,6 +51,7 @@ const ResultsList: React.FC<{ works: ApiWork[] }> = ({ works }) => {
               <Link
                 to={{
                   pathname: `/work/${work.uuid}`,
+                  query: { featured: previewEdition.edition_id },
                 }}
                 className="link link--no-underline"
               >
