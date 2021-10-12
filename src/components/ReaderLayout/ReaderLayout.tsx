@@ -14,6 +14,27 @@ import Link from "~/src/components/Link/Link";
 import WebpubViewer from "../WebpubViewer/WebpubViewer";
 import { MediaTypes } from "~/src/constants/mediaTypes";
 const WebReader = dynamic(() => import("@nypl/web-reader"), { ssr: false });
+import "@nypl/web-reader/dist/esm/index.css";
+// This is how we can import a css file as a url. It's complex, but necessary
+import cssInjectableUrl from '!file-loader?{"publicPath":"/_next/static","outputPath":"static"}!extract-loader!css-loader!@nypl/web-reader/dist/injectable-html-styles.css';
+
+const origin =
+  typeof window !== "undefined" && window.location?.origin
+    ? window.location.origin
+    : "";
+
+const injectables = [
+  {
+    type: "style",
+    url: `${origin}${cssInjectableUrl}`,
+  },
+  {
+    type: "style",
+    url: `${origin}/fonts/opendyslexic/opendyslexic.css`,
+    fontFamily: "opendyslexic",
+  },
+];
+
 //The NYPL wrapper that wraps the Reader pages.
 const ReaderLayout: React.FC<{ linkResult: LinkResult; proxyUrl: string }> = (
   props
@@ -56,6 +77,7 @@ const ReaderLayout: React.FC<{ linkResult: LinkResult; proxyUrl: string }> = (
           webpubManifestUrl={url}
           proxyUrl={proxyUrl}
           pdfWorkerSrc={`${origin}/pdf-worker/pdf.worker.min.js`}
+          injectables={injectables}
           headerLeft={<BackButton />}
         />
       </div>
