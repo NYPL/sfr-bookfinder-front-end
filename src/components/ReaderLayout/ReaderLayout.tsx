@@ -76,8 +76,8 @@ const ReaderLayout: React.FC<{ linkResult: LinkResult; proxyUrl: string }> = (
           webpubManifestUrl={url}
           proxyUrl={proxyUrl}
           pdfWorkerSrc={`${origin}/pdf-worker/pdf.worker.min.js`}
-          injectables={injectables}
           headerLeft={<BackButton />}
+          injectables={injectables}
         />
       </div>
     ) : (
