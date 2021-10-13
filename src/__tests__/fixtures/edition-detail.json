@@ -43,7 +43,7 @@
             "identifier": "7183098"
           }
         ],
-        "instance_id": 40727133,
+        "instance_id": 40727132,
         "items": [
           {
             "content_type": "ebook",
@@ -144,7 +144,7 @@
             "identifier": "7183098"
           }
         ],
-        "instance_id": 40727133,
+        "instance_id": 40727150,
         "items": [
           {
             "content_type": "ebook",
@@ -211,7 +211,7 @@
         "publishers": [
           {
             "lcnaf": "",
-            "name": "Miller,",
+            "name": "Publisher 1",
             "viaf": ""
           }
         ],

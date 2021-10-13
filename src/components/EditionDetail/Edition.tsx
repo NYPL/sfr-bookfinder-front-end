@@ -22,10 +22,14 @@ const Edition: React.FC<{ editionResult: EditionResult }> = (props) => {
   const edition: ApiEdition = props.editionResult.data;
 
   const passedInFeaturedItem = featuredItemId
-    ? edition.instances.find((instance) =>
-        instance.items.map((item) => item.item_id).includes(featuredItemId)
-      )
+    ? edition.instances.find((instance) => {
+        const itemIds: string[] = instance.items.map((item) => {
+          return item.item_id.toString();
+        });
+        return itemIds.includes(featuredItemId);
+      })
     : undefined;
+
   const featuredInstance = passedInFeaturedItem
     ? passedInFeaturedItem
     : edition.instances.find(
