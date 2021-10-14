@@ -1,6 +1,7 @@
 # CHANGE LOG
 ## [0.11.2]
 - Defaults build to use reader version V2
+- Adds Featured Item and Featured Edition parameters to the edition and work detail page
 ## [0.11.1]
 ### Changed
 - Adds web-reader and introduces an env variable to switch between `webpub-viewer` and `web-reader`

@@ -43,7 +43,7 @@ export type ApiItem = {
   content_type?: string;
   contributors?: Agent[];
   drm?: string;
-  item_id?: string;
+  item_id?: number;
   links?: ItemLink[];
   location?: string;
   modified?: string;

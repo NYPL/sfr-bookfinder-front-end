@@ -1,6 +1,9 @@
 {
   "data": {
-    "alt_titles": ["Alt title 1", "Alt title 2"],
+    "alt_titles": [
+      "Alt title 1",
+      "Alt title 2"
+    ],
     "authors": [
       {
         "lcnaf": "",
@@ -98,11 +101,11 @@
         "contributors": [],
         "dates": [
           {
-            "date": "1967",
+            "date": "1980",
             "type": "publication_date"
           },
           {
-            "date": "1967",
+            "date": "1980",
             "type": "copyright_date"
           }
         ],
@@ -117,13 +120,18 @@
               {
                 "lcnaf": "",
                 "name": "University of Michigan",
-                "roles": ["provider", "responsible"],
+                "roles": [
+                  "provider",
+                  "responsible"
+                ],
                 "viaf": ""
               },
               {
                 "lcnaf": "",
                 "name": "Google",
-                "roles": ["digitizer"],
+                "roles": [
+                  "digitizer"
+                ],
                 "viaf": ""
               }
             ],

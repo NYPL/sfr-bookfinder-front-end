@@ -265,6 +265,10 @@ describe("Renders Search Results Page", () => {
           screen.getByText("Happy Home Companion: Cute Tables").closest("a")
             .href
         ).toContain("/work/test-uuid-1");
+        expect(
+          screen.getByText("Happy Home Companion: Cute Tables").closest("a")
+            .href
+        ).toContain("featured=1453292");
       });
       test("subtitle displays", () => {
         expect(screen.getByText("Cute Tables Subtitle")).toBeInTheDocument();
@@ -281,6 +285,9 @@ describe("Renders Search Results Page", () => {
       test("Shows Year as Link in header", () => {
         expect(screen.getByText("1915 Edition").closest("a").href).toContain(
           "/edition/1453292"
+        );
+        expect(screen.getByText("1915 Edition").closest("a").href).toContain(
+          "featured=1956736"
         );
       });
       test("Shows Full Publisher", () => {
@@ -313,10 +320,16 @@ describe("Renders Search Results Page", () => {
           screen.getAllByText("Read Online")[0].closest("a").href
         ).toContain("read/3330416");
       });
-      test("Shows number of editions as link to edition page", () => {
+      test("Number of editions links to work page", () => {
         expect(
           screen.getByText("View All 3 Editions").closest("a").href
-        ).toContain("/work/test-uuid-1?showAll=true#all-editions");
+        ).toContain("/work/test-uuid-1?showAll=true");
+        expect(
+          screen.getByText("View All 3 Editions").closest("a").href
+        ).toContain("#all-editions");
+        expect(
+          screen.getByText("View All 3 Editions").closest("a").href
+        ).toContain("featured=1453292");
       });
     });
     describe("Second result has no data", () => {
@@ -324,6 +337,9 @@ describe("Renders Search Results Page", () => {
         expect(
           screen.getByText("Edition Year Unknown").closest("a").href
         ).toContain("/edition/1172733");
+        expect(
+          screen.getByText("Edition Year Unknown").closest("a").href
+        ).not.toContain("featured");
       });
       test("Shows Unknown Publisher", () => {
         expect(
@@ -357,6 +373,11 @@ describe("Renders Search Results Page", () => {
             .getByText("Happy Home Companion: super super super...")
             .closest("a").href
         ).toContain("/work/test-uuid-3");
+        expect(
+          screen
+            .getByText("Happy Home Companion: super super super...")
+            .closest("a").href
+        ).toContain("featured=1453292");
       });
 
       test("Subtitle displays truncated", () => {
@@ -375,6 +396,9 @@ describe("Renders Search Results Page", () => {
       test("Shows Year as Link in header", () => {
         expect(screen.getByText("1945 Edition").closest("a").href).toContain(
           "/edition/1453292"
+        );
+        expect(screen.getByText("1945 Edition").closest("a").href).toContain(
+          "featured=1956736"
         );
       });
       test("Truncates publisher place and first full publisher name", () => {
@@ -414,10 +438,16 @@ describe("Renders Search Results Page", () => {
           screen.getAllByText("Read Online")[1].closest("a").href
         ).toContain("read/3234");
       });
-      test("Shows number of editions as link to edition page", () => {
+      test("Number of editions links to work page", () => {
         expect(
           screen.getByText("View All 5 Editions").closest("a").href
-        ).toContain("/work/test-uuid-3?showAll=true#all-editions");
+        ).toContain("/work/test-uuid-3?showAll=true");
+        expect(
+          screen.getByText("View All 5 Editions").closest("a").href
+        ).toContain("#all-editions");
+        expect(
+          screen.getByText("View All 5 Editions").closest("a").href
+        ).toContain("featured=1453292");
       });
     });
   });
