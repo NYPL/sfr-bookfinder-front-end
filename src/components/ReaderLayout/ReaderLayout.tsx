@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useRouter } from "next/router";
 import * as DS from "@nypl/design-system-react-components";
 import { breadcrumbTitles } from "~/src/constants/labels";
 import { ApiLink, LinkResult } from "~/src/types/LinkQuery";
@@ -40,6 +41,8 @@ const injectables = [
 const ReaderLayout: React.FC<{ linkResult: LinkResult; proxyUrl: string }> = (
   props
 ) => {
+  const router = useRouter();
+
   const readerVersion = process.env["NEXT_PUBLIC_READER_VERSION"];
 
   const link: ApiLink = props.linkResult.data;
@@ -62,10 +65,15 @@ const ReaderLayout: React.FC<{ linkResult: LinkResult; proxyUrl: string }> = (
 
   const BackButton = () => {
     return (
-      //Apeends design system classname to use Design System Link.
-      <span className="nypl-ds">
-        <Link to="/">Back to Digital Research Books</Link>
-      </span>
+      //Apends design system classname to use Design System Link.
+      <DS.Button
+        onClick={() => router.back()}
+        buttonType={DS.ButtonTypes.Link}
+        type="button"
+        className="nypl-ds"
+      >
+        Back to Digital Research Books
+      </DS.Button>
     );
   };
 
