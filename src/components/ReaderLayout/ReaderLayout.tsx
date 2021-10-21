@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import * as DS from "@nypl/design-system-react-components";
 import { breadcrumbTitles } from "~/src/constants/labels";
 import { ApiLink, LinkResult } from "~/src/types/LinkQuery";
@@ -36,10 +36,11 @@ const injectables = [
 ];
 
 //The NYPL wrapper that wraps the Reader pages.
-const ReaderLayout: React.FC<{ linkResult: LinkResult; proxyUrl: string }> = (
-  props
-) => {
-  const [backUrl, setBackUrl] = useState("/");
+const ReaderLayout: React.FC<{
+  linkResult: LinkResult;
+  proxyUrl: string;
+  backUrl: string;
+}> = (props) => {
   const readerVersion = process.env["NEXT_PUBLIC_READER_VERSION"];
 
   const link: ApiLink = props.linkResult.data;
@@ -58,16 +59,12 @@ const ReaderLayout: React.FC<{ linkResult: LinkResult; proxyUrl: string }> = (
 
   useEffect(() => {
     gtag.drbEvents("Read", `${link.work.title}`);
-
-    if (document.referrer) {
-      setBackUrl(document.referrer);
-    }
   }, [link]);
 
   const BackButton = () => {
     return (
       //Apends design system classname to use Design System Link.
-      <DS.Link href={backUrl} className="nypl-ds">
+      <DS.Link href={props.backUrl} className="nypl-ds">
         Back to Digital Research Books
       </DS.Link>
     );
