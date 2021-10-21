@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 import * as DS from "@nypl/design-system-react-components";
 import { breadcrumbTitles } from "~/src/constants/labels";
 import { ApiLink, LinkResult } from "~/src/types/LinkQuery";
@@ -10,7 +9,6 @@ import * as gtag from "../../lib/Analytics";
 import { formatUrl, truncateStringOnWhitespace } from "~/src/util/Util";
 import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
 import dynamic from "next/dynamic";
-import Link from "~/src/components/Link/Link";
 import WebpubViewer from "../WebpubViewer/WebpubViewer";
 import { MediaTypes } from "~/src/constants/mediaTypes";
 const WebReader = dynamic(() => import("@nypl/web-reader"), { ssr: false });
@@ -41,8 +39,7 @@ const injectables = [
 const ReaderLayout: React.FC<{ linkResult: LinkResult; proxyUrl: string }> = (
   props
 ) => {
-  const router = useRouter();
-
+  const [backUrl, setBackUrl] = useState("/");
   const readerVersion = process.env["NEXT_PUBLIC_READER_VERSION"];
 
   const link: ApiLink = props.linkResult.data;
@@ -61,19 +58,18 @@ const ReaderLayout: React.FC<{ linkResult: LinkResult; proxyUrl: string }> = (
 
   useEffect(() => {
     gtag.drbEvents("Read", `${link.work.title}`);
+
+    if (document.referrer) {
+      setBackUrl(document.referrer);
+    }
   }, [link]);
 
   const BackButton = () => {
     return (
       //Apends design system classname to use Design System Link.
-      <DS.Button
-        onClick={() => router.back()}
-        buttonType={DS.ButtonTypes.Link}
-        type="button"
-        className="nypl-ds"
-      >
+      <DS.Link href={backUrl} className="nypl-ds">
         Back to Digital Research Books
-      </DS.Button>
+      </DS.Link>
     );
   };
 
