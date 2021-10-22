@@ -1,0 +1,35 @@
+{
+  "data": {
+    "content": "",
+    "flags": {
+      "catalog": false,
+      "download": false,
+      "reader": false,
+      "edd": false,
+      "embed": false
+    },
+    "link_id": 0,
+    "media_type": "",
+    "url": "",
+    "work": {
+      "alt_titles": [],
+      "authors": [],
+      "contributors": [],
+      "dates": [],
+      "editions": [],
+      "edition_count": 0,
+      "languages": [],
+      "measurements": [],
+      "medium": "",
+      "series": "",
+      "series_position": "",
+      "sub_title": "",
+      "subjects": [],
+      "title": "",
+      "uuid": ""
+    }
+  },
+  "responseType": "",
+  "status": 0,
+  "timestamp": ""
+}
