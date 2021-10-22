@@ -1,0 +1,12 @@
+.logo-link__icon {
+  height: 100%;
+  vertical-align: middle;
+  padding-right: 8px;
+}
+
+// Match DS/Webreader breakpoint
+@media screen and (max-width: 960px) {
+  .logo-link__label {
+    display: none;
+  }
+}

@@ -64,8 +64,14 @@ const ReaderLayout: React.FC<{
   const BackButton = () => {
     return (
       //Apends design system classname to use Design System Link.
-      <DS.Link href={props.backUrl} className="nypl-ds">
-        Back to Digital Research Books
+      <DS.Link href={props.backUrl} className="nypl-ds logo-link">
+        <DS.Icon
+          decorative
+          name={DS.LogoNames.logo_nypl}
+          className="logo-link__icon"
+          modifiers={["xlarge"]}
+        />
+        <span className="logo-link__label">Back to Digital Research Books</span>
       </DS.Link>
     );
   };
