@@ -1,10 +1,20 @@
 # CHANGE LOG
+
+## [0.11.3]
+
+- Added Back button link
+
 ## [0.11.2]
+
 - Defaults build to use reader version V2
 - Adds Featured Item and Featured Edition parameters to the edition and work detail page
+
 ## [0.11.1]
+
 ### Changed
+
 - Adds web-reader and introduces an env variable to switch between `webpub-viewer` and `web-reader`
+
 ## [0.11.0]
 
 ### Added
@@ -24,10 +34,11 @@
 - Adds sidebar class to main when on search results page
 - re-adds advanced-search class to Advanced Search
 
-
 ## [0.10.3-HOTFIX]
+
 - Adds sidebar class to main when on search results page
 - re-adds advanced-search class to Advanced Search
+
 ## [0.10.3]
 
 ### Fixed
