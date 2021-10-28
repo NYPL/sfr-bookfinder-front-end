@@ -50,23 +50,28 @@ describe("Renders edition component when given valid edition", () => {
     expect(screen.getByText(apiEdition.data.sub_title)).toBeInTheDocument();
   });
 
-  test("Featured Copy Card shows up twice in page", () => {
+  test("Three cards show up in page", () => {
     expect(
       screen.getByRole("heading", { name: "Featured Copy" })
     ).toBeInTheDocument();
     const featuredEditionHeadings = screen.getAllByRole("heading", {
       name: "1923",
     });
-    expect(featuredEditionHeadings.length).toEqual(2);
-    expect(screen.getAllByAltText("Cover").length).toBe(2);
-    expect(
-      screen.getAllByText("Published in Paris, France by Miller,").length
-    ).toBe(2);
+    expect(featuredEditionHeadings.length).toEqual(3);
+    expect(screen.getAllByAltText("Cover").length).toBe(3);
     expect(
       screen
         .getAllByText("License: Public Domain when viewed in the US")[0]
         .closest("a").href
     ).toContain("/license");
+  });
+
+  test("Featured Card, which has publisher 'Miller', shows up twice", () => {
+    expect(
+      screen.getAllByText("Published in Paris, France by Miller,", {
+        selector: "div",
+      }).length
+    ).toBe(2);
   });
   test("Shows Details Table", () => {
     expect(
@@ -174,6 +179,24 @@ describe("All Copies Toggle", () => {
         pathname: "",
         query: { showAll: true },
       });
+    });
+  });
+
+  describe("copy with featured=false", () => {
+    beforeEach(() => {
+      render(
+        <MockNextRouterContextProvider routerQuery={{ featured: "1234567" }}>
+          <Edition editionResult={apiEdition} />
+        </MockNextRouterContextProvider>
+      );
+    });
+
+    test("Featured Card, which has publisher 'Publisher 1', shows up twice", () => {
+      expect(
+        screen.getAllByText("Published in Paris, France by Publisher 1", {
+          selector: "div",
+        }).length
+      ).toBe(2);
     });
   });
 });

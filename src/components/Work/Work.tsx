@@ -14,17 +14,26 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
   const router = useRouter();
 
   const { pathname, query } = router;
+  const featuredEditionId = query.featured;
 
   const work: ApiWork = props.workResult.data;
   //Edition Card Preprocessing
   const authorsList = EditionCardUtils.getAuthorsList(work.authors);
 
-  const firstReadableEdition = work.editions.find(
-    (edition: WorkEdition) =>
-      edition.items &&
-      edition.items.length &&
-      EditionCardUtils.getPreviewItem(edition.items) !== undefined
-  );
+  const passedInFeaturedEdition = featuredEditionId
+    ? work.editions.find(
+        (edition) => edition.edition_id === Number(featuredEditionId)
+      )
+    : undefined;
+
+  const featuredEdition = passedInFeaturedEdition
+    ? passedInFeaturedEdition
+    : work.editions.find(
+        (edition: WorkEdition) =>
+          edition.items &&
+          edition.items.length &&
+          EditionCardUtils.getPreviewItem(edition.items) !== undefined
+      );
 
   const toggleShowAll = (e: React.ChangeEvent<HTMLInputElement>) => {
     router.push({
@@ -69,7 +78,7 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
 
         <div>
           <EditionCard
-            edition={firstReadableEdition}
+            edition={featuredEdition}
             title={work.title}
           ></EditionCard>
         </div>

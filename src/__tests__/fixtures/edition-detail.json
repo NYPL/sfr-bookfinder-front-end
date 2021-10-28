@@ -43,7 +43,7 @@
             "identifier": "7183098"
           }
         ],
-        "instance_id": 40727133,
+        "instance_id": 40727132,
         "items": [
           {
             "content_type": "ebook",
@@ -51,13 +51,18 @@
               {
                 "lcnaf": "",
                 "name": "University of Michigan",
-                "roles": ["provider", "responsible"],
+                "roles": [
+                  "provider",
+                  "responsible"
+                ],
                 "viaf": ""
               },
               {
                 "lcnaf": "",
                 "name": "Google",
-                "roles": ["digitizer"],
+                "roles": [
+                  "digitizer"
+                ],
                 "viaf": ""
               }
             ],
@@ -106,6 +111,107 @@
           {
             "lcnaf": "",
             "name": "Miller,",
+            "viaf": ""
+          }
+        ],
+        "summary": null,
+        "table_of_contents": null,
+        "title": "A history of South Africa from the earliest European settlement / "
+      },
+      {
+        "authors": [
+          {
+            "lcnaf": "true",
+            "name": "Edgar, John. ()",
+            "viaf": ""
+          }
+        ],
+        "contributors": [],
+        "dates": [
+          {
+            "date": "2000",
+            "type": "publication_date"
+          }
+        ],
+        "extent": "239 Seiten",
+        "identifiers": [
+          {
+            "authority": "oclc",
+            "identifier": "917807850"
+          },
+          {
+            "authority": "owi",
+            "identifier": "7183098"
+          }
+        ],
+        "instance_id": 40727150,
+        "items": [
+          {
+            "content_type": "ebook",
+            "contributors": [
+              {
+                "lcnaf": "",
+                "name": "University of Michigan",
+                "roles": [
+                  "provider",
+                  "responsible"
+                ],
+                "viaf": ""
+              },
+              {
+                "lcnaf": "",
+                "name": "Google",
+                "roles": [
+                  "digitizer"
+                ],
+                "viaf": ""
+              }
+            ],
+            "drm": null,
+            "item_id": 1234567,
+            "links": [
+              {
+                "link_id": 3667191,
+                "mediaType": "application/pdf",
+                "url": "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=mdp.39015002660481",
+                "flags": {
+                  "catalog": false,
+                  "download": true,
+                  "reader": false,
+                  "embed": false
+                }
+              },
+              {
+                "link_id": 3667190,
+                "mediaType": "text/html",
+                "url": "babel.hathitrust.org/cgi/pt?id=mdp.39015002660481",
+                "flags": {
+                  "catalog": false,
+                  "download": false,
+                  "reader": false,
+                  "embed": true
+                }
+              }
+            ],
+            "location": null,
+            "measurements": null,
+            "modified": null,
+            "rights": [
+              {
+                "license": "public_domain (us_only)",
+                "rightsStatement": "Public Domain when viewed in the US",
+                "source": "hathitrust"
+              }
+            ],
+            "source": "hathitrust"
+          }
+        ],
+        "languages": null,
+        "publication_place": "Paris, France",
+        "publishers": [
+          {
+            "lcnaf": "",
+            "name": "Publisher 1",
             "viaf": ""
           }
         ],
