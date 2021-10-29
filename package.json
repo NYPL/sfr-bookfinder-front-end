@@ -12,7 +12,7 @@
     "lint:fix": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix --ignore-path .gitignore"
   },
   "engines": {
-    "node": "^14.0.0",
+    "node": "^16.0.0",
     "npm": ">=6.0.0"
   },
   "dependencies": {
@@ -20,7 +20,6 @@
     "@nypl/dgx-header-component": "git+https://git@github.com/NYPL/dgx-header-component#reactupdate",
     "@nypl/dgx-react-footer": "0.5.8",
     "@nypl/web-reader": "0.2.4",
-    "@types/node": "^14.14.33",
     "@types/react": "^16.9.5",
     "css-loader": "^6.4.0",
     "extract-loader": "^5.1.0",
@@ -47,7 +46,7 @@
     "@types/gtag.js": "^0.0.4",
     "@types/jest": "^26.0.20",
     "@types/mocha": "^8.2.0",
-    "@types/node": "^14.14.33",
+    "@types/node": "^16.11.6",
     "@types/react": "^16.9.5",
     "@types/react-pdf": "^5.0.7",
     "@types/testing-library__jest-dom": "^5.9.5",
