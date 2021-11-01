@@ -30,7 +30,7 @@ export const searchFormRenderTests = (query?: SearchQuery) => {
   });
 };
 
-export const searchFormTests = (mockPush, hasHeader?) => {
+export const searchFormTests = (mockRouter, hasHeader?) => {
   describe("Search using Landing Page Searchbar", () => {
     test("Searching with a field and value calls Search api", () => {
       const categoryInput = screen.getByRole("combobox");
@@ -52,7 +52,7 @@ export const searchFormTests = (mockPush, hasHeader?) => {
         screen.queryByText("Please enter a search term")
       ).not.toBeInTheDocument();
 
-      expect(mockPush).toBeCalledWith({
+      expect(mockRouter).toMatchObject({
         pathname: "/search",
         query: {
           query: "author:Tom Nook",
@@ -71,7 +71,7 @@ export const searchFormTests = (mockPush, hasHeader?) => {
         : screen.getByRole("button", { name: "Search" });
       fireEvent.click(searchButton);
 
-      expect(mockPush).not.toBeCalled();
+      expect(mockRouter).toMatchObject({});
       expect(
         screen.getByText("Please enter a search term")
       ).toBeInTheDocument();

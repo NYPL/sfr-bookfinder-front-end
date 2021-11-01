@@ -1,33 +1,10 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
 import LicensePage from "../pages/license";
-import { MockNextRouterContextProvider } from "./testUtils/MockNextRouter";
+import renderer from "react-test-renderer";
 
-describe("Renders License Page", () => {
-  beforeEach(async () => {
-    render(
-      <MockNextRouterContextProvider>
-        <LicensePage />
-      </MockNextRouterContextProvider>
-    );
+jest.mock("next/router", () => require("next-router-mock"));
 
-    // Wait for page to be loaded
-    await screen.findByRole("heading", {
-      name: "Digital Research Books Beta",
-    });
-  });
-  // test("Renders NYPL header", () => {});
-  test("Breadcrumbs link to homepage", () => {
-    expect(
-      screen.getByRole("link", { name: "Digital Research Books Beta" })
-    ).toHaveAttribute("href", "/");
-  });
-  test("Shows Heading", () => {
-    expect(
-      screen.getByRole("heading", { name: "Digital Research Books Beta" })
-    ).toBeInTheDocument();
-  });
-  test("matches snapshot", () => {
-    expect(screen).toMatchInlineSnapshot();
-  });
+it("renders License page unchanged", () => {
+  const tree = renderer.create(<LicensePage />).toJSON();
+  expect(tree).toMatchSnapshot();
 });

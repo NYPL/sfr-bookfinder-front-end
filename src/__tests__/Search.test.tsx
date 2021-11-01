@@ -1,9 +1,5 @@
 import React from "react";
 import { act, fireEvent, render, screen, within } from "@testing-library/react";
-import {
-  mockPush,
-  MockNextRouterContextProvider,
-} from "./testUtils/MockNextRouter";
 import SearchResults from "../components/Search/Search";
 import { FacetItem, SearchField } from "../types/DataModel";
 import { ApiSearchResult, SearchQuery } from "../types/SearchQuery";
@@ -19,6 +15,10 @@ import { FilterLanguagesCommonTests } from "./componentHelpers/FilterLanguages";
 import { FilterFormatTests } from "./componentHelpers/FilterFormats";
 import { findFiltersForField } from "../util/SearchQueryUtils";
 import filterFields from "../constants/filters";
+import mockRouter from "next-router-mock";
+
+jest.mock("next/router", () => require("next-router-mock"));
+
 const searchResults: ApiSearchResult = require("./fixtures/results-list.json");
 const searchQuery: SearchQuery = {
   queries: [{ field: SearchField.Keyword, query: "Animal Crossing" }],
@@ -43,12 +43,7 @@ const emptySearchResults: ApiSearchResult = {
 describe("Renders Search Results Page", () => {
   beforeEach(() => {
     render(
-      <MockNextRouterContextProvider>
-        <SearchResults
-          searchQuery={searchQuery}
-          searchResults={searchResults}
-        />
-      </MockNextRouterContextProvider>
+      <SearchResults searchQuery={searchQuery} searchResults={searchResults} />
     );
     act(() => {
       resizeWindow(300, 1000);
@@ -71,7 +66,7 @@ describe("Renders Search Results Page", () => {
   describe("Header search Functionality", () => {
     searchFormRenderTests(searchQuery);
 
-    searchFormTests(mockPush);
+    searchFormTests(mockRouter);
   });
   test("Main Content shows the current search query with 'alert' role", () => {
     expect(screen.getByRole("alert")).toHaveTextContent(
@@ -135,7 +130,7 @@ describe("Renders Search Results Page", () => {
         expect(modalSorts).toBeVisible();
         fireEvent.change(modalSorts, { target: { value: 20 } });
         expect(modalSorts).toHaveValue("20");
-        expect(mockPush).toBeCalledWith({
+        expect(mockRouter).toMatchObject({
           pathname: "/search",
           query: {
             query: "keyword:Animal Crossing",
@@ -158,7 +153,7 @@ describe("Renders Search Results Page", () => {
         expect(sortBy).toBeVisible();
         fireEvent.change(sortBy, { target: { value: "Title A-Z" } });
         expect(sortBy).toHaveValue("Title A-Z");
-        expect(mockPush).toBeCalledWith({
+        expect(mockRouter).toMatchObject({
           pathname: "/search",
           query: {
             query: "keyword:Animal Crossing",
@@ -180,7 +175,7 @@ describe("Renders Search Results Page", () => {
         });
         fireEvent.click(modalCheckbox);
         expect(modalCheckbox).not.toBeChecked;
-        expect(mockPush).toBeCalledWith({
+        expect(mockRouter).toMatchObject({
           pathname: "/search",
           query: {
             query: "keyword:Animal Crossing",
@@ -210,7 +205,7 @@ describe("Renders Search Results Page", () => {
         });
 
         fireEvent.click(englishCheckbox);
-        expect(mockPush).toBeCalledWith({
+        expect(mockRouter).toMatchObject({
           pathname: "/search",
           query: {
             filter: "language:English",
@@ -232,7 +227,7 @@ describe("Renders Search Results Page", () => {
         const formats = screen.getByRole("group", { name: "Format" });
         const epub = within(formats).getByRole("checkbox", { name: "ePub" });
         fireEvent.click(epub);
-        expect(mockPush).toBeCalledWith({
+        expect(mockRouter).toMatchObject({
           pathname: "/search",
           query: {
             filter: "format:epub_zip",
@@ -251,7 +246,7 @@ describe("Renders Search Results Page", () => {
         true,
         findFiltersForField([], filterFields.startYear)[0],
         findFiltersForField([], filterFields.endYear)[0],
-        mockPush
+        mockRouter
       );
     });
   });
@@ -458,13 +453,13 @@ describe("Renders Search Results Page", () => {
       });
       expect(previousButton).toBeInTheDocument();
       userEvent.click(previousButton);
-      expect(mockPush).not.toBeCalled();
+      expect(mockRouter).toMatchObject({});
     });
     test("Next page button appears and is clickable", () => {
       const nextButton = screen.getByRole("button", { name: "Next page" });
       expect(nextButton).toBeInTheDocument();
       userEvent.click(nextButton);
-      expect(mockPush).toBeCalledWith({
+      expect(mockRouter).toMatchObject({
         pathname: "/search",
         query: {
           page: 2,
@@ -477,7 +472,7 @@ describe("Renders Search Results Page", () => {
       const twoButton = screen.getByRole("button", { name: "2" });
       expect(twoButton).toBeInTheDocument();
       userEvent.click(twoButton);
-      expect(mockPush).toBeCalledWith({
+      expect(mockRouter).toMatchObject({
         pathname: "/search",
         query: {
           page: 2,
@@ -492,26 +487,24 @@ describe("Renders Search Results Page", () => {
 describe("Renders correctly when perPage is greater than item count", () => {
   beforeEach(() => {
     render(
-      <MockNextRouterContextProvider>
-        <SearchResults
-          searchQuery={searchQuery}
-          searchResults={{
-            data: {
-              totalWorks: 2,
-              facets: { formats: [], languages: [] },
-              paging: {
-                currentPage: 1,
-                firstPage: 1,
-                lastPage: 1,
-                nextPage: 1,
-                previousPage: 1,
-                recordsPerPage: 10,
-              },
-              works: [],
+      <SearchResults
+        searchQuery={searchQuery}
+        searchResults={{
+          data: {
+            totalWorks: 2,
+            facets: { formats: [], languages: [] },
+            paging: {
+              currentPage: 1,
+              firstPage: 1,
+              lastPage: 1,
+              nextPage: 1,
+              previousPage: 1,
+              recordsPerPage: 10,
             },
-          }}
-        />
-      </MockNextRouterContextProvider>
+            works: [],
+          },
+        }}
+      />
     );
   });
 
@@ -523,26 +516,24 @@ describe("Renders correctly when perPage is greater than item count", () => {
 describe("Renders locale string correctly with large numbers", () => {
   beforeEach(() => {
     render(
-      <MockNextRouterContextProvider>
-        <SearchResults
-          searchQuery={searchQuery}
-          searchResults={{
-            data: {
-              totalWorks: 2013521,
-              facets: { formats: [], languages: [] },
-              paging: {
-                currentPage: 3123,
-                firstPage: 0,
-                lastPage: 201352,
-                nextPage: 3124,
-                previousPage: 3122,
-                recordsPerPage: 10,
-              },
-              works: [],
+      <SearchResults
+        searchQuery={searchQuery}
+        searchResults={{
+          data: {
+            totalWorks: 2013521,
+            facets: { formats: [], languages: [] },
+            paging: {
+              currentPage: 3123,
+              firstPage: 0,
+              lastPage: 201352,
+              nextPage: 3124,
+              previousPage: 3122,
+              recordsPerPage: 10,
             },
-          }}
-        />
-      </MockNextRouterContextProvider>
+            works: [],
+          },
+        }}
+      />
     );
   });
   test("Item Count shows correctly", () => {
@@ -555,12 +546,10 @@ describe("Renders locale string correctly with large numbers", () => {
 describe("Renders No Results when no results are shown", () => {
   beforeEach(() => {
     render(
-      <MockNextRouterContextProvider>
-        <SearchResults
-          searchQuery={searchQuery}
-          searchResults={emptySearchResults}
-        />
-      </MockNextRouterContextProvider>
+      <SearchResults
+        searchQuery={searchQuery}
+        searchResults={emptySearchResults}
+      />
     );
   });
 
@@ -599,12 +588,10 @@ describe("Renders seach header correctly when viaf search is passed", () => {
   };
   beforeEach(() => {
     render(
-      <MockNextRouterContextProvider>
-        <SearchResults
-          searchQuery={viafSearchQuery}
-          searchResults={searchResults}
-        />
-      </MockNextRouterContextProvider>
+      <SearchResults
+        searchQuery={viafSearchQuery}
+        searchResults={searchResults}
+      />
     );
   });
 

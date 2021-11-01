@@ -4,19 +4,14 @@ import "@testing-library/jest-dom/extend-expect";
 import { screen, render, within, fireEvent } from "@testing-library/react";
 import { breadcrumbTitles, inputTerms } from "~/src/constants/labels";
 import { WorkResult } from "~/src/types/WorkQuery";
-import {
-  mockPush,
-  MockNextRouterContextProvider,
-} from "~/src/__tests__/testUtils/MockNextRouter";
 const apiWork: WorkResult = require("../../__tests__/fixtures/work-detail.json");
+import mockRouter from "next-router-mock";
+
+jest.mock("next/router", () => require("next-router-mock"));
 
 describe("Renders Work component when given valid work", () => {
   beforeEach(() => {
-    render(
-      <MockNextRouterContextProvider>
-        <Work workResult={apiWork} />
-      </MockNextRouterContextProvider>
-    );
+    render(<Work workResult={apiWork} />);
   });
   test("Digital Research Books Beta links to homepage", () => {
     const homepagelinks = screen.getAllByRole("link", {
@@ -94,11 +89,7 @@ describe("Renders Work component when given valid work", () => {
 describe("Edition Cards and toggles", () => {
   describe("Work with no showAll query passed", () => {
     beforeEach(() => {
-      render(
-        <MockNextRouterContextProvider>
-          <Work workResult={apiWork} />
-        </MockNextRouterContextProvider>
-      );
+      render(<Work workResult={apiWork} />);
     });
 
     test("Edition Toggle defaults to checked", () => {
@@ -115,8 +106,7 @@ describe("Edition Cards and toggles", () => {
       ) as HTMLInputElement;
       fireEvent.click(toggle);
 
-      expect(mockPush).toHaveBeenCalledTimes(1);
-      expect(mockPush).toHaveBeenCalledWith({
+      expect(mockRouter).toMatchObject({
         pathname: "",
         query: { showAll: false },
       });
@@ -125,11 +115,8 @@ describe("Edition Cards and toggles", () => {
 
   describe("Work with showAll=true", () => {
     beforeEach(() => {
-      render(
-        <MockNextRouterContextProvider routerQuery={{ showAll: "true" }}>
-          <Work workResult={apiWork} />
-        </MockNextRouterContextProvider>
-      );
+      mockRouter.push("?showAll=true");
+      render(<Work workResult={apiWork} />);
     });
 
     test("Edition Toggle is unchecked", () => {
@@ -146,8 +133,7 @@ describe("Edition Cards and toggles", () => {
       ) as HTMLInputElement;
       fireEvent.click(toggle);
 
-      expect(mockPush).toHaveBeenCalledTimes(1);
-      expect(mockPush).toHaveBeenCalledWith({
+      expect(mockRouter).toMatchObject({
         pathname: "",
         query: { showAll: false },
       });
@@ -156,11 +142,8 @@ describe("Edition Cards and toggles", () => {
 
   describe("Work with showAll=false", () => {
     beforeEach(() => {
-      render(
-        <MockNextRouterContextProvider routerQuery={{ showAll: "false" }}>
-          <Work workResult={apiWork} />
-        </MockNextRouterContextProvider>
-      );
+      mockRouter.push("?showAll=false");
+      render(<Work workResult={apiWork} />);
     });
 
     test("Edition Toggle is checked", () => {
@@ -177,8 +160,7 @@ describe("Edition Cards and toggles", () => {
       ) as HTMLInputElement;
       fireEvent.click(toggle);
 
-      expect(mockPush).toHaveBeenCalledTimes(1);
-      expect(mockPush).toHaveBeenCalledWith({
+      expect(mockRouter).toMatchObject({
         pathname: "",
         query: { showAll: true },
       });
@@ -187,11 +169,8 @@ describe("Edition Cards and toggles", () => {
 
   describe("loading work with featured=862232", () => {
     beforeEach(() => {
-      render(
-        <MockNextRouterContextProvider routerQuery={{ featured: "862232" }}>
-          <Work workResult={apiWork} />
-        </MockNextRouterContextProvider>
-      );
+      mockRouter.push("?featured=862232");
+      render(<Work workResult={apiWork} />);
     });
 
     test("1980 edition shows up twice", () => {

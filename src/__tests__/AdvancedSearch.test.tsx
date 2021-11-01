@@ -1,9 +1,5 @@
 import React from "react";
 import AdvancedSearch from "../components/AdvancedSearch/AdvancedSearch";
-import {
-  MockNextRouterContextProvider,
-  mockPush,
-} from "~/src/__tests__/testUtils/MockNextRouter";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { FilterLanguagesCommonTests } from "./componentHelpers/FilterLanguages";
 import { FilterYearsTests } from "./componentHelpers/FilterYears";
@@ -11,6 +7,8 @@ import { FilterFormatTests } from "./componentHelpers/FilterFormats";
 import userEvent from "@testing-library/user-event";
 import { errorMessagesText, inputTerms } from "../constants/labels";
 import { ApiLanguageResponse } from "../types/LanguagesQuery";
+import mockRouter from "next-router-mock";
+jest.mock("next/router", () => require("next-router-mock"));
 
 const defaultLanguages: ApiLanguageResponse = {
   status: "200",
@@ -61,11 +59,7 @@ describe("renders advanced search correctly", () => {
 
 describe("Advanced Search submit", () => {
   test("Submits well formed query", () => {
-    render(
-      <MockNextRouterContextProvider>
-        <AdvancedSearch languages={defaultLanguages} />
-      </MockNextRouterContextProvider>
-    );
+    render(<AdvancedSearch languages={defaultLanguages} />);
 
     const inputValues = {
       Keyword: "cat",
@@ -95,19 +89,14 @@ describe("Advanced Search submit", () => {
       query: "keyword:cat,author:Nook,title:Handbook,subject:poetry",
       readerVersion: "v2",
     };
-    expect(mockPush).toHaveBeenCalledTimes(1);
-    expect(mockPush).toHaveBeenCalledWith({
+    expect(mockRouter).toMatchObject({
       pathname: "/search",
       query: expectedQuery,
     });
   });
 
   test("Submits only year start and subject", () => {
-    render(
-      <MockNextRouterContextProvider>
-        <AdvancedSearch languages={defaultLanguages} />
-      </MockNextRouterContextProvider>
-    );
+    render(<AdvancedSearch languages={defaultLanguages} />);
 
     fireEvent.change(screen.getByRole("spinbutton", { name: "From" }), {
       target: { value: "1990" },
@@ -123,19 +112,14 @@ describe("Advanced Search submit", () => {
       query: "keyword:cat",
       readerVersion: "v2",
     };
-    expect(mockPush).toHaveBeenCalledTimes(1);
-    expect(mockPush).toHaveBeenCalledWith({
+    expect(mockRouter).toMatchObject({
       pathname: "/search",
       query: expectedQuery,
     });
   });
 
   test("Submits only year end and author", () => {
-    render(
-      <MockNextRouterContextProvider>
-        <AdvancedSearch languages={defaultLanguages} />
-      </MockNextRouterContextProvider>
-    );
+    render(<AdvancedSearch languages={defaultLanguages} />);
 
     fireEvent.change(screen.getByRole("spinbutton", { name: "To" }), {
       target: { value: "1990" },
@@ -151,30 +135,21 @@ describe("Advanced Search submit", () => {
       query: "author:Shakespeare",
       readerVersion: "v2",
     };
-    expect(mockPush).toHaveBeenCalledTimes(1);
-    expect(mockPush).toHaveBeenCalledWith({
+    expect(mockRouter).toMatchObject({
       pathname: "/search",
       query: expectedQuery,
     });
   });
 
   test("shows error on empty query", () => {
-    render(
-      <MockNextRouterContextProvider>
-        <AdvancedSearch languages={defaultLanguages} />
-      </MockNextRouterContextProvider>
-    );
+    render(<AdvancedSearch languages={defaultLanguages} />);
     userEvent.click(screen.getByRole("button", { name: "Search" }));
-    expect(mockPush).toHaveBeenCalledTimes(0);
+    expect(mockRouter).toMatchObject({});
     expect(screen.getByText(errorMessagesText.emptySearch)).toBeInTheDocument();
   });
 
   test("show error on invalid year", () => {
-    render(
-      <MockNextRouterContextProvider>
-        <AdvancedSearch languages={defaultLanguages} />
-      </MockNextRouterContextProvider>
-    );
+    render(<AdvancedSearch languages={defaultLanguages} />);
 
     fireEvent.change(screen.getByRole("spinbutton", { name: "From" }), {
       target: { value: "1990" },
@@ -188,18 +163,14 @@ describe("Advanced Search submit", () => {
 
     userEvent.click(screen.getByRole("button", { name: "Search" }));
 
-    expect(mockPush).toHaveBeenCalledTimes(0);
+    expect(mockRouter).toMatchObject({});
     expect(screen.getByText(errorMessagesText.invalidDate)).toBeInTheDocument();
   });
 });
 
 describe("Advanced Search clear", () => {
   test("clears all searches", () => {
-    render(
-      <MockNextRouterContextProvider>
-        <AdvancedSearch languages={defaultLanguages} />
-      </MockNextRouterContextProvider>
-    );
+    render(<AdvancedSearch languages={defaultLanguages} />);
 
     const inputValues = {
       Keyword: "cat",
@@ -245,16 +216,12 @@ describe("Advanced Search clear", () => {
     });
 
     userEvent.click(screen.getByRole("button", { name: "Search" }));
-    expect(mockPush).toHaveBeenCalledTimes(0);
+    expect(mockRouter).toMatchObject({});
     expect(screen.getByText(errorMessagesText.emptySearch)).toBeInTheDocument();
   });
 
   test("Deleting search clears it from state", () => {
-    render(
-      <MockNextRouterContextProvider>
-        <AdvancedSearch languages={defaultLanguages} />
-      </MockNextRouterContextProvider>
-    );
+    render(<AdvancedSearch languages={defaultLanguages} />);
 
     fireEvent.change(screen.getByLabelText("Keyword"), {
       target: { value: "cat" },
@@ -269,7 +236,7 @@ describe("Advanced Search clear", () => {
     expect(screen.getByLabelText("Keyword")).toHaveValue("");
 
     userEvent.click(screen.getByRole("button", { name: "Search" }));
-    expect(mockPush).toHaveBeenCalledTimes(0);
+    expect(mockRouter).toMatchObject({});
     expect(screen.getByText(errorMessagesText.emptySearch)).toBeInTheDocument();
   });
 });

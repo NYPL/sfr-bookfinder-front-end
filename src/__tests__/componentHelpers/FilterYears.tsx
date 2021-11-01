@@ -2,12 +2,13 @@ import React from "react";
 import { fireEvent, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Filter } from "~/src/types/SearchQuery";
+import { MemoryRouter } from "next-router-mock";
 
 export const FilterYearsTests = (
   hasApplyButton: boolean,
   startYear?: Filter,
   endYear?: Filter,
-  mockPush?: jest.Mock<any, any>
+  mockRouter?: MemoryRouter
 ) => {
   test("Renders Filter Years", () => {
     expect(
@@ -38,7 +39,7 @@ export const FilterYearsTests = (
       expect(fromInput).toHaveValue(1990);
       userEvent.click(applyButton);
 
-      expect(mockPush).toBeCalledWith({
+      expect(mockRouter).toMatchObject({
         pathname: "/search",
         query: {
           filter: "startYear:1990",
@@ -58,7 +59,7 @@ export const FilterYearsTests = (
       fireEvent.change(toInput, { target: { value: 1990 } });
       userEvent.click(applyButton);
 
-      expect(mockPush).toBeCalledWith({
+      expect(mockRouter).toMatchObject({
         pathname: "/search",
         query: {
           filter: "endYear:1990",
@@ -83,7 +84,7 @@ export const FilterYearsTests = (
       fireEvent.change(toInput, { target: { value: 2000 } });
       userEvent.click(applyButton);
 
-      expect(mockPush).toBeCalledWith({
+      expect(mockRouter).toMatchObject({
         pathname: "/search",
         query: {
           filter: "startYear:1990,endYear:2000",
@@ -111,7 +112,7 @@ export const FilterYearsTests = (
       expect(
         screen.getByText("Start date must be before End date")
       ).toBeInTheDocument();
-      expect(mockPush).not.toBeCalled();
+      expect(mockRouter).toMatchObject({});
     });
   }
 };
