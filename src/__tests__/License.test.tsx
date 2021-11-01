@@ -1,13 +1,13 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import AboutPage from "../pages/about";
+import LicensePage from "../pages/license";
 import { MockNextRouterContextProvider } from "./testUtils/MockNextRouter";
 
-describe("Renders About Page", () => {
+describe("Renders License Page", () => {
   beforeEach(async () => {
     render(
       <MockNextRouterContextProvider>
-        <AboutPage />
+        <LicensePage />
       </MockNextRouterContextProvider>
     );
 
@@ -28,6 +28,6 @@ describe("Renders About Page", () => {
     ).toBeInTheDocument();
   });
   test("matches snapshot", () => {
-    expect(screen).toMatchSnapshot();
+    expect(screen).toMatchInlineSnapshot();
   });
 });

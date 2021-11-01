@@ -14,6 +14,5 @@ module.exports = {
   ],
   setupFiles: ["./jest.setEnv.ts"],
   setupFilesAfterEnv: ["./jest.setup.ts"],
-  snapshotSerializers: ["enzyme-to-json/serializer"],
   resetMocks: true,
 };
