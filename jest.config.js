@@ -12,7 +12,7 @@ module.exports = {
     "fixtures",
     "componentHelpers",
   ],
-  setupFiles: ["./jest.setEnv.ts"],
   setupFilesAfterEnv: ["./jest.setup.ts"],
   resetMocks: true,
+  testEnvironment: "jsdom",
 };

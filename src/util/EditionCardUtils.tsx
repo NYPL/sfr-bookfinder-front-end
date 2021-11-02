@@ -180,25 +180,16 @@ export default class EditionCardUtils {
   }
 
   static getReadLink = (item: ApiItem, type: "reader" | "embed") => {
-    const isReaderV2 = process.env["NEXT_PUBLIC_READER_VERSION"] === "v2";
-
     if (!item || !item.links) return undefined;
     return item.links.find((link: ItemLink) => {
-      if (isReaderV2) return link.flags[type];
-      return (
-        MediaTypes.read.includes(link.mediaType) ||
-        (MediaTypes.embed.includes(link.mediaType) && !link.flags["catalog"])
-      );
+      return link.flags[type];
     });
   };
 
   static selectDownloadLink = (item: ApiItem) => {
-    const isReaderV2 = process.env["NEXT_PUBLIC_READER_VERSION"] === "v2";
-
     if (!item || !item.links) return undefined;
     return item.links.find((link: ItemLink) => {
-      if (isReaderV2) return link.flags["download"];
-      return MediaTypes.download.includes(link.mediaType);
+      return link.flags["download"];
     });
   };
 

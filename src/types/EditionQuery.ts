@@ -3,7 +3,6 @@ import { Agent, Instance, Language } from "./DataModel";
 export type EditionQuery = {
   editionIdentifier: string;
   showAll?: "true" | "false";
-  readerVersion?: "v1" | "v2";
 };
 
 export type EditionResult = {

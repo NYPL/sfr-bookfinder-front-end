@@ -87,7 +87,6 @@ describe("Advanced Search submit", () => {
     const expectedQuery = {
       filter: "language:english,startYear:1990,endYear:1999,format:pdf",
       query: "keyword:cat,author:Nook,title:Handbook,subject:poetry",
-      readerVersion: "v2",
     };
     expect(mockRouter).toMatchObject({
       pathname: "/search",
@@ -110,7 +109,6 @@ describe("Advanced Search submit", () => {
     const expectedQuery = {
       filter: "startYear:1990",
       query: "keyword:cat",
-      readerVersion: "v2",
     };
     expect(mockRouter).toMatchObject({
       pathname: "/search",
@@ -133,7 +131,6 @@ describe("Advanced Search submit", () => {
     const expectedQuery = {
       filter: "endYear:1990",
       query: "author:Shakespeare",
-      readerVersion: "v2",
     };
     expect(mockRouter).toMatchObject({
       pathname: "/search",

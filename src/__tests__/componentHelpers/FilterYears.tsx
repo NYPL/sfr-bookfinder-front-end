@@ -44,7 +44,6 @@ export const FilterYearsTests = (
         query: {
           filter: "startYear:1990",
           query: "keyword:Animal Crossing",
-          readerVersion: "v2",
         },
       });
     });
@@ -64,7 +63,6 @@ export const FilterYearsTests = (
         query: {
           filter: "endYear:1990",
           query: "keyword:Animal Crossing",
-          readerVersion: "v2",
         },
       });
     });
@@ -89,7 +87,6 @@ export const FilterYearsTests = (
         query: {
           filter: "startYear:1990,endYear:2000",
           query: "keyword:Animal Crossing",
-          readerVersion: "v2",
         },
       });
     });

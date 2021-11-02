@@ -4,7 +4,6 @@ export type WorkQuery = {
   identifier: string;
   recordType?: "editions" | "instances";
   showAll?: "true" | "false";
-  readerVersion?: "v1" | "v2";
 };
 
 export type WorkResult = {
