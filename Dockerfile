@@ -20,7 +20,7 @@ ENV NEXT_PUBLIC_READER_VERSION=v2
 
 # Install dependencies.
 COPY package.json ./
-RUN npm install
+RUN npm run install:ci
 
 # Copy the app files.
 COPY . ./

@@ -50,7 +50,7 @@ jobs:
             ${{ runner.os }}-
 
       - name: Install Dependencies
-        run: npm install
+        run: npm run install:ci
 
       - name: Lint
         run: npm run lint
@@ -83,7 +83,7 @@ jobs:
             ${{ runner.os }}-
 
       - name: Install Dependencies
-        run: npm install
+        run: npm run install:ci
 
       - name: Typecheck
         run: node_modules/typescript/bin/tsc --noEmit
@@ -116,7 +116,7 @@ jobs:
             ${{ runner.os }}-
 
       - name: Install Dependencies
-        run: npm install
+        run: npm run install:ci
 
       - name: Test
         run: npm run test

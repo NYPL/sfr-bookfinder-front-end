@@ -6,9 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "install:ci": "npm install --legacy-peer-deps",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:strict": "NODE_OPTIONS=\"--experimental-vm-modules --unhandled-rejections=warn-with-error-code\" jest --verbose=true",
     "lint": "eslint --ignore-path .gitignore '*/**/*.{ts,tsx}'",
     "lint:fix": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix --ignore-path .gitignore"
   },
