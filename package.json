@@ -8,6 +8,7 @@
     "start": "next start",
     "test": "jest",
     "test:watch": "jest --watch",
+    "test:strict": "NODE_OPTIONS=\"--experimental-vm-modules --unhandled-rejections=warn-with-error-code\" jest --verbose=true",
     "lint": "eslint --ignore-path .gitignore '*/**/*.{ts,tsx}'",
     "lint:fix": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix --ignore-path .gitignore"
   },
@@ -50,7 +51,6 @@
     "@types/testing-library__jest-dom": "^5.9.5",
     "@typescript-eslint/eslint-plugin": "^4.10.0",
     "@typescript-eslint/parser": "^4.10.0",
-    "axios": "^0.24.0",
     "babel-core": "^6.26.3",
     "babel-jest": "^26.6.3",
     "babel-preset-env": "^1.7.0",
