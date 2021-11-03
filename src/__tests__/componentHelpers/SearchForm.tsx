@@ -1,4 +1,4 @@
-import { fireEvent, screen, within } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { inputTerms } from "~/src/constants/labels";
 import { SearchQuery } from "~/src/types/SearchQuery";
@@ -30,7 +30,7 @@ export const searchFormRenderTests = (query?: SearchQuery) => {
   });
 };
 
-export const searchFormTests = (mockRouter, hasHeader?) => {
+export const searchFormTests = (mockRouter) => {
   describe("Search using Landing Page Searchbar", () => {
     test("Searching with a field and value calls Search api", () => {
       const categoryInput = screen.getByRole("combobox");
@@ -39,9 +39,7 @@ export const searchFormTests = (mockRouter, hasHeader?) => {
       userEvent.clear(textInput);
       userEvent.type(textInput, "Tom Nook");
 
-      const searchButton = hasHeader
-        ? within(screen.getByRole("main")).getByText("Search")
-        : screen.getByRole("button", { name: "Search" });
+      const searchButton = screen.getByRole("button", { name: "Search" });
       fireEvent.click(searchButton);
 
       expect(screen.getByRole("combobox")).toHaveValue("author");
@@ -65,9 +63,7 @@ export const searchFormTests = (mockRouter, hasHeader?) => {
       userEvent.clear(textInput);
 
       expect(textInput).toHaveValue("");
-      const searchButton = hasHeader
-        ? within(screen.getByRole("main")).getByText("Search")
-        : screen.getByRole("button", { name: "Search" });
+      const searchButton = screen.getByRole("button", { name: "Search" });
       fireEvent.click(searchButton);
 
       expect(mockRouter).toMatchObject({});

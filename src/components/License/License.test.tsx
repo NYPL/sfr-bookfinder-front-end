@@ -1,9 +1,10 @@
 import React from "react";
-import AboutPage from "../pages/about";
+import License from "./License";
 import renderer from "react-test-renderer";
+
 jest.mock("next/router", () => require("next-router-mock"));
 
-it("renders about unchanged", () => {
-  const tree = renderer.create(<AboutPage />).toJSON();
+it("renders License page unchanged", async () => {
+  const tree = await renderer.create(<License />).toJSON();
   expect(tree).toMatchSnapshot();
 });

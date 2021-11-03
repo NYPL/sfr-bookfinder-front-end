@@ -1,14 +1,14 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import Subjects from "~/config/subjectListConfig";
-import LandingPage from "../pages/index";
+import LandingPage from "./Landing";
 import {
   searchFormRenderTests,
   searchFormTests,
-} from "./componentHelpers/SearchForm";
-import mockRouter from "next-router-mock";
+} from "../../__tests__/componentHelpers/SearchForm";
 
 jest.mock("next/router", () => require("next-router-mock"));
+import mockRouter from "next-router-mock";
 
 describe("Renders Index Page", () => {
   beforeEach(async () => {
@@ -53,5 +53,5 @@ describe("Search using Landing Page Searchbar", () => {
       name: "Digital Research Books Beta",
     });
   });
-  searchFormTests(mockRouter, true);
+  searchFormTests(mockRouter);
 });
