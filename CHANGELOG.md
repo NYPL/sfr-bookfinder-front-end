@@ -1,4 +1,8 @@
 # CHANGE LOG
+## [0.12.0]
+- Upgraded to use Node 16
+- Removed Enzyme
+- Removed Reader V1
 
 ## [0.11.3]
 

@@ -11,7 +11,6 @@ export type ApiSearchQuery = {
   size?: number;
   page?: number;
   showAll?: string;
-  readerVersion?: string;
 };
 
 export type ApiFilter = {
@@ -34,7 +33,6 @@ export type SearchQuery = {
   // While the API supports sorting by multiple parameters, the front end only supports one parameter
   sort?: Sort;
   showAll?: boolean;
-  readerVersion?: "v2" | "v1";
 };
 
 export const SearchQueryDefaults: SearchQuery = {
@@ -44,8 +42,6 @@ export const SearchQueryDefaults: SearchQuery = {
   queries: [],
   sort: { field: "relevance", dir: "DESC" },
   showAll: false,
-  readerVersion:
-    process.env["NEXT_PUBLIC_READER_VERSION"] === "v2" ? "v2" : "v1",
 };
 
 export type ApiSearchResult = {

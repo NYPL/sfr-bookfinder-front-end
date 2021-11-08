@@ -1,6 +1,5 @@
 {
   "query": "keyword:\"Civil War\" OR Lincoln,author:last, first",
-  "readerVersion": "v2",
   "filter": "language:Spanish,startYear:1800,endYear:2000",
   "sort": "title:asc",
   "size": 20,

@@ -1,29 +1,24 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import Subjects from "~/config/subjectListConfig";
-import LandingPage from "../pages/index";
-import {
-  mockPush,
-  MockNextRouterContextProvider,
-} from "./testUtils/MockNextRouter";
+import LandingPage from "./Landing";
 import {
   searchFormRenderTests,
   searchFormTests,
-} from "./componentHelpers/SearchForm";
+} from "../../__tests__/componentHelpers/SearchForm";
+
+jest.mock("next/router", () => require("next-router-mock"));
+import mockRouter from "next-router-mock";
+
 describe("Renders Index Page", () => {
   beforeEach(async () => {
-    render(
-      <MockNextRouterContextProvider>
-        <LandingPage />
-      </MockNextRouterContextProvider>
-    );
+    render(<LandingPage />);
 
     // Wait for page to be loaded
     await screen.findByRole("heading", {
       name: "Digital Research Books Beta",
     });
   });
-  // test("Renders NYPL header", () => {});
   test("Breadcrumbs link to homepage", () => {
     expect(
       screen.getByRole("link", { name: "Digital Research Books Beta" })
@@ -52,15 +47,11 @@ describe("Renders Index Page", () => {
 
 describe("Search using Landing Page Searchbar", () => {
   beforeEach(async () => {
-    render(
-      <MockNextRouterContextProvider>
-        <LandingPage />
-      </MockNextRouterContextProvider>
-    );
+    render(<LandingPage />);
     // Wait for page to be loaded
     await screen.findByRole("heading", {
       name: "Digital Research Books Beta",
     });
   });
-  searchFormTests(mockPush, true);
+  searchFormTests(mockRouter);
 });

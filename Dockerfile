@@ -1,5 +1,5 @@
 # Build the environment.
-FROM node:14.16.0-alpine
+FROM node:16.13.0-alpine
 
 # Install git to resolve issues installing the
 # nypl/dgx-header-component package.
@@ -20,7 +20,7 @@ ENV NEXT_PUBLIC_READER_VERSION=v2
 
 # Install dependencies.
 COPY package.json ./
-RUN npm install
+RUN npm run install:ci
 
 # Copy the app files.
 COPY . ./
