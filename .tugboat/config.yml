@@ -1,0 +1,11 @@
+services:
+  drb-front-end:
+    image: tugboatqa/node:16
+    default: true
+    expose: 80
+    commands:
+      build:
+        - npm install
+        - npm run build
+      start:
+        - npm run start &
