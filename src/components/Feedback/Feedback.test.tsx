@@ -65,7 +65,6 @@ describe("Feedback", () => {
         name: "Comments (Required)",
       });
       const yesRadio = screen.getByLabelText("Yes");
-      expect(true).toBeTruthy;
       fireEvent.change(feedback, { target: { value: "test value" } });
       fireEvent.click(yesRadio);
 
