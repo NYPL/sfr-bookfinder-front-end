@@ -2,7 +2,7 @@ services:
   drb-front-end:
     image: tugboatqa/node:16
     default: true
-    expose: 80
+    expose: 3000
     commands:
       build:
         - npm install
