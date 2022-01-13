@@ -41,6 +41,12 @@ $fontFamily: "system-ui";
 
 @import "./dividers.scss";
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html {
   font-family: $fontFamily;
   height: 100%;
