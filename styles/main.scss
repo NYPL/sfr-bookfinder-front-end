@@ -56,7 +56,7 @@ body {
 }
 
 .nypl-ds {
-  overflow: unset;
+  overflow-x: hidden;
   fieldset {
     border: none;
   }
