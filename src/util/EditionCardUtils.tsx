@@ -20,6 +20,8 @@ import {
 import * as gtag from "../lib/Analytics";
 import { ApiSearchQuery } from "../types/SearchQuery";
 import { MediaTypes } from "../constants/mediaTypes";
+import { CardActions } from "@nypl/design-system-react-components";
+import { LinkTypes } from "~/../nypl-design-system/dist";
 
 // EditionCard holds all the methods needed to build an Edition Card
 export default class EditionCardUtils {
@@ -70,13 +72,10 @@ export default class EditionCardUtils {
     return truncateStringOnWhitespace(subtitle, MAX_SUBTITILE_LENGTH);
   }
 
-  // Author
-  static getAuthorIdentifier(author: Agent) {
-    return (
-      (author.viaf && ["viaf", "viaf"]) ||
-      (author.lcnaf && ["lcnaf", "lcnaf"]) || ["name", "author"]
-    );
-  }
+  /** Get comma-separated list of authors that link to an author search
+   * @param authors - the array of Author Agents
+   * @returns JSX.Elements with linked authors
+   */
 
   static getAuthorsList(authors: Agent[]): JSX.Element[] {
     if (!authors || authors.length === 0) return null;
@@ -205,7 +204,7 @@ export default class EditionCardUtils {
           to={{
             pathname: `/read/${readOnlineLink.link_id}`,
           }}
-          linkType={DS.LinkTypes.Button}
+          linkType={LinkTypes.Button}
         >
           Read Online
         </Link>
@@ -222,7 +221,7 @@ export default class EditionCardUtils {
 
     if (selectedLink && selectedLink.url) {
       return (
-        <DS.Link type={DS.LinkTypes.Action}>
+        <DS.Link type={LinkTypes.Action}>
           <a
             href={`${formatUrl(selectedLink.url)}`}
             onClick={() => {
@@ -280,10 +279,10 @@ export default class EditionCardUtils {
     // If a digital version exists, link directly
     if (readOnlineLink || downloadLink) {
       return (
-        <>
+        <CardActions>
           {readOnlineLink}
           {downloadLink}
-        </>
+        </CardActions>
       );
     }
 

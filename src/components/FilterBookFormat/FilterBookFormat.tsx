@@ -1,4 +1,8 @@
-import * as DS from "@nypl/design-system-react-components";
+import {
+  Checkbox,
+  CheckboxGroup,
+  CheckboxGroupLayoutTypes,
+} from "@nypl/design-system-react-components";
 import React from "react";
 import { Filter } from "~/src/types/SearchQuery";
 import { FormatTypes } from "~/src/constants/labels";
@@ -22,23 +26,25 @@ const FilterBookFormat: React.FC<{
   };
 
   return (
-    <fieldset>
-      <legend>Format</legend>
-      {FormatTypes.map((formatType: any) => (
-        <DS.Checkbox
-          checkboxId={`format-${formatType.value}`}
-          name={`filter-format-${formatType.value}`}
-          checked={isSelected(selectedFormats, formatType.value)}
-          onChange={(e) => toggleSelected(e, formatType.value)}
-          labelOptions={{
-            id: `format-${formatType.value}=label`,
-            labelContent: <>{formatType.label}</>,
-          }}
-          key={`facet-format-${formatType.value}`}
-          attributes={{ "aria-labelledby": `format-${formatType.value}=label` }}
-        />
-      ))}
-    </fieldset>
+    <CheckboxGroup
+      layout={CheckboxGroupLayoutTypes.Column}
+      name="formats-list"
+      labelText="Format"
+      optReqFlag={false}
+      showHelperInvalidText
+      showLabel
+    >
+      <>
+        {FormatTypes.map((formatType: { value: string; label: string }) => (
+          <Checkbox
+            key={"checkbox-" + formatType.label}
+            labelText={formatType.label}
+            onChange={(e) => toggleSelected(e, formatType.value)}
+            isChecked={isSelected(selectedFormats, formatType.value)}
+          />
+        ))}
+      </>
+    </CheckboxGroup>
   );
 };
 

@@ -1,6 +1,6 @@
 import React from "react";
 
-import * as DS from "@nypl/design-system-react-components";
+import { Heading, Box } from "@nypl/design-system-react-components";
 
 import SearchForm from "../SearchForm/SearchForm";
 import Link from "../Link/Link";
@@ -14,12 +14,14 @@ const SearchHeader: React.FC<{
   searchQuery?: SearchQuery;
 }> = ({ searchQuery }) => {
   return (
-    <div className="search-header-container">
-      <div className="search-header" aria-label="Digital Research Books Beta">
-        <DS.Heading level={2}>
+    <Box className="search-header-container">
+      <Box className="search-header">
+        <Heading level={2}>
           <Link to="/">Digital Research Books Beta</Link>
-        </DS.Heading>
-        <SearchForm searchQuery={searchQuery} isHeader />
+        </Heading>
+        <Box className="search-header-form">
+          <SearchForm searchQuery={searchQuery} isHeader />
+        </Box>
         <div className="advanced-search">
           <Link
             to={{
@@ -31,8 +33,8 @@ const SearchHeader: React.FC<{
             Advanced Search
           </Link>
         </div>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 

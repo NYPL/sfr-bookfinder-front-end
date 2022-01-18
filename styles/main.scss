@@ -13,33 +13,33 @@ $fontFamily: "system-ui";
 
 /** Import Design System Styles and mixins */
 @import "~@nypl/design-system-react-components/dist/styles.css";
-@import "~@nypl/design-system-react-components/dist/resources.scss";
+// @import "~@nypl/design-system-react-components/dist/resources.scss";
 
 /**
  * Import custom rules for this project.
  */
 
-@import "./mixins/Mixins.scss";
-@import "./components/Landing.scss";
+// @import "./mixins/Mixins.scss";
+// @import "./components/Landing.scss";
 @import "./../src/components/SearchHeader/SearchHeader.scss";
-@import "./../src/components/ResultsSorts/ResultsSorts.scss";
-@import "./../src/components/ResultsList/ResultsList.scss";
-@import "./../src/components/FilterYears/FilterYears.scss";
-@import "./../src/components/LanguageAccordion/LanguageAccordion.scss";
-@import "./shared/DefinitionList.scss";
+// @import "./../src/components/ResultsSorts/ResultsSorts.scss";
+// @import "./../src/components/ResultsList/ResultsList.scss";
+// @import "./../src/components/FilterYears/FilterYears.scss";
+// @import "./../src/components/LanguageAccordion/LanguageAccordion.scss";
+// @import "./shared/DefinitionList.scss";
 
-@import "./../src/components/Work/Work.scss";
-@import "./components/Search.scss";
-@import "./components/WorkDetail.scss";
-@import "./components/IFrameReader.scss";
-@import "./components/Loading.scss";
-@import "./components/AdvancedSearch.scss";
+// @import "./../src/components/Work/Work.scss";
+// @import "./components/Search.scss";
+// @import "./components/WorkDetail.scss";
+// @import "./components/IFrameReader.scss";
+// @import "./components/Loading.scss";
+// @import "./components/AdvancedSearch.scss";
 @import "./components/Feedback.scss";
-@import "./components/RequestDigitization.scss";
-@import "./components/Citations.scss";
-@import "./components/ReaderLayout.scss";
+// @import "./components/RequestDigitization.scss";
+// @import "./components/Citations.scss";
+// @import "./components/ReaderLayout.scss";
 
-@import "./dividers.scss";
+// @import "./dividers.scss";
 
 html {
   font-family: $fontFamily;
@@ -80,11 +80,11 @@ body {
   }
 }
 
-.breadcrumbs {
-  &--space-under {
-    @include space-stack-s;
-  }
-}
+// .breadcrumbs {
+//   &--space-under {
+//     @include space-stack-s;
+//   }
+// }
 
 fieldset {
   border: none;

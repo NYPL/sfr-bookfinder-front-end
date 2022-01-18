@@ -1,5 +1,5 @@
 import React from "react";
-import * as DS from "@nypl/design-system-react-components";
+import { List, ListTypes } from "@nypl/design-system-react-components";
 
 import Link from "~/src/components/Link/Link";
 import { unique, flattenDeep, uniqueAndSortByFrequency } from "~/src/util/Util";
@@ -27,35 +27,16 @@ const getLanguagesForWork = (work: ApiWork) =>
 const WorkDetailDefinitionList: React.FC<{ work: ApiWork }> = ({ work }) => {
   const languages = getLanguagesForWork(work);
   return (
-    <div>
-      <DS.Heading level={3}>Details</DS.Heading>
-      <dl className="nypl-details-table">
+    <List title="Details" type={ListTypes.Definition}>
+      {/* TODO: Extraneous fragment is workaround for "Child is Null" error in DS */}
+      <>
         {work.alt_titles && work.alt_titles.length > 0 && (
           <>
             <dt>Alternative Titles</dt>
-            <dd>
-              <DS.List
-                type={DS.ListTypes.Unordered}
-                modifiers={["no-list-styling"]}
-              >
-                {work.alt_titles.map((title: string, i: number) => (
-                  <li key={`alt-title-${i}`}>
-                    <Link
-                      to={{
-                        pathname: "/search",
-                        query: {
-                          query: `title:${title}`,
-                        },
-                      }}
-                    >
-                      {title}
-                    </Link>
-                  </li>
-                ))}
-              </DS.List>
-            </dd>
+            <dd>{work.alt_titles}</dd>
           </>
         )}
+
         {work.series && (
           <>
             <dt>Series</dt>
@@ -65,20 +46,14 @@ const WorkDetailDefinitionList: React.FC<{ work: ApiWork }> = ({ work }) => {
             </dd>
           </>
         )}
+
         <dt>Authors</dt>
-        <dd>
-          <ul className="definitions definitions-authors">
-            {EditionCardUtils.getAuthorsList(work.authors)}
-          </ul>
-        </dd>
+        <dd>{EditionCardUtils.getAuthorsList(work.authors)}</dd>
         {work.subjects && work.subjects.length > 0 && (
           <>
             <dt>Subjects</dt>
             <dd>
-              <DS.List
-                type={DS.ListTypes.Unordered}
-                modifiers={["no-list-styling"]}
-              >
+              <List type={ListTypes.Unordered} noStyling>
                 {unique(work.subjects, "heading")
                   .sort((a: Subject, b: Subject) =>
                     a.heading &&
@@ -101,7 +76,7 @@ const WorkDetailDefinitionList: React.FC<{ work: ApiWork }> = ({ work }) => {
                       </Link>
                     </li>
                   ))}
-              </DS.List>
+              </List>
             </dd>
           </>
         )}
@@ -109,16 +84,16 @@ const WorkDetailDefinitionList: React.FC<{ work: ApiWork }> = ({ work }) => {
           <>
             <dt>Languages</dt>
             <dd>
-              <ul className="definitions definitions-languages">
+              <List type={ListTypes.Unordered} noStyling>
                 {languages.map((language, i) => (
                   <li key={`language${i.toString()}`}>{language}</li>
                 ))}
-              </ul>
+              </List>
             </dd>
           </>
         )}
-      </dl>
-    </div>
+      </>
+    </List>
   );
 };
 

@@ -32,11 +32,11 @@ export const findFiltersForField = (
   });
 };
 
-export const findFiltersExceptField = (
+export const findFiltersExceptFields = (
   filters: Filter[],
-  field: string
+  fields: string[]
 ): Filter[] => {
   return filters.filter((filter: Filter) => {
-    return filter.field !== field;
+    return !fields.includes(filter.field);
   });
 };

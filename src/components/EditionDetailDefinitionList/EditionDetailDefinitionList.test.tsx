@@ -3,15 +3,12 @@ import EditionDetailDefinitionList from "./EditionDetailDefinitionList";
 import "@testing-library/jest-dom/extend-expect";
 import { screen, render } from "@testing-library/react";
 import { ApiEdition, EditionResult } from "~/src/types/EditionQuery";
-const editionDetailFullData: EditionResult = require("../../__tests__/fixtures/edition-detail.json");
+import Edition from "../EditionDetail/Edition";
+const apiEdition: EditionResult = require("../../__tests__/fixtures/edition-detail.json");
 
 describe("Edition Detail table with all information", () => {
   beforeEach(() => {
-    render(
-      <EditionDetailDefinitionList
-        edition={editionDetailFullData.data}
-      ></EditionDetailDefinitionList>
-    );
+    render(<Edition editionResult={apiEdition}></Edition>);
   });
   test("shows heading", () => {
     expect(

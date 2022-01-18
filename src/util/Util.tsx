@@ -4,24 +4,6 @@ import React from "react";
 export const formatUrl = (link: any) =>
   link.startsWith("http") ? link : `https://${link}`;
 
-// Given an array of JSX elements, return JSX that joins them with the Joiner.
-export const joinArrayOfElements = (array: any, joiner: any) => {
-  if (!array || !array.length) {
-    return undefined;
-  }
-  return array.map((item: any, idx: any) => {
-    if (!item) return undefined;
-    return idx < array.length - 1 ? (
-      <React.Fragment key={`join-${item.key}`}>
-        {item}
-        {joiner}
-      </React.Fragment>
-    ) : (
-      <React.Fragment key={`join-${item.key}`}>{item}</React.Fragment>
-    );
-  });
-};
-
 // return unique elements of array
 export const unique = (array: any, propertyName: any) =>
   array //

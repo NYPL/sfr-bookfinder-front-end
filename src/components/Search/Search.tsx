@@ -1,5 +1,22 @@
 import React, { useState } from "react";
-import * as DS from "@nypl/design-system-react-components";
+import {
+  Breadcrumbs,
+  ButtonTypes,
+  ColorVariants,
+  Heading,
+  IconNames,
+  IconRotationTypes,
+  Pagination,
+  Template,
+  TemplateBreakout,
+  TemplateContent,
+  TemplateContentTop,
+  TemplateContentPrimary,
+  TemplateContentSidebar,
+  Button,
+  Icon,
+  Modal,
+} from "@nypl/design-system-react-components";
 import { useRouter } from "next/router";
 import { FacetItem, Query } from "~/src/types/DataModel";
 import {
@@ -139,139 +156,122 @@ const SearchResults: React.FC<{
   };
 
   return (
-    <>
-      <div className="content-header">
-        <DS.Breadcrumbs
-          breadcrumbs={[{ url: "/", text: breadcrumbTitles.home }]}
+    <Template>
+      <TemplateBreakout>
+        <Breadcrumbs
+          breadcrumbsData={[
+            { url: "/", text: breadcrumbTitles.home },
+            { url: "/search", text: breadcrumbTitles.search },
+          ]}
+          colorVariant={ColorVariants.Research}
         />
-        <SearchHeader searchQuery={searchQuery}></SearchHeader>
-      </div>
-      <div className="content-top">
-        <div className="search-heading">
-          <div role="alert">
-            <DS.Heading
-              level={1}
-              id="page-title-heading"
-              blockName="page-title"
-            >
-              <>Search results for {getDisplayItemsHeading(searchQuery)}</>
-            </DS.Heading>
-          </div>
-          <hr />
-          <div className="search-subheading">
-            <DS.Heading level={2} id="page-counter" className="page-counter">
-              {numberOfWorks > 0
-                ? `Viewing ${firstElement.toLocaleString()} - ${
-                    numberOfWorks < lastElement
-                      ? numberOfWorks.toLocaleString()
-                      : lastElement.toLocaleString()
-                  } of ${numberOfWorks.toLocaleString()} items`
-                : "Viewing 0 items"}
-            </DS.Heading>
-            <form
-              hidden
-              className="sort-form search-widescreen-show"
-              name="sortForm"
-            >
-              <ResultsSorts
-                perPage={searchQuery.perPage}
-                sort={searchQuery.sort}
-                onChangePerPage={(e) => onChangePerPage(e)}
-                onChangeSort={(e) => onChangeSort(e)}
-              />
-            </form>
-          </div>
-          <hr hidden className="search-widescreen-show" />
-        </div>
-        <DS.Button
-          className="filter-button"
-          id="filter-button"
-          buttonType={DS.ButtonTypes.Secondary}
-          onClick={() => {
-            setModalOpen(true);
-          }}
-        >
-          {`Filters (${filterCount})`}
-        </DS.Button>
-      </div>
-      <div
-        className={
-          "content-secondary content-secondary--with-sidebar-left search-widescreen-show"
-        }
-        hidden
-      >
-        <form className="search-filter">
-          <DS.Heading level={2} id="filter-desktop-header">
-            Refine Results
-          </DS.Heading>
-          <hr />
-          <Filters
-            filters={searchQuery.filters}
-            showAll={searchQuery.showAll}
-            languages={getAvailableLanguages(searchResults)}
-            changeFilters={(filters: Filter[]) => {
-              changeFilters(filters);
-            }}
-            changeShowAll={(showAll: boolean) => {
-              changeShowAll(showAll);
-            }}
-          />
-        </form>
-      </div>
-      <div className="content-primary content-primary--with-sidebar-left">
-        <ResultsList works={works} />
-        {isModalOpen && (
-          <DS.Modal>
-            <DS.Button
-              buttonType={DS.ButtonTypes.Link}
-              onClick={() => {
-                setModalOpen(false);
-              }}
-            >
-              <DS.Icon
-                decorative={true}
-                name={DS.IconNames.arrow}
-                iconRotation={DS.IconRotationTypes.rotate90}
-              />
-              Go Back
-            </DS.Button>
-            <div className="search-navigation">
-              <ResultsSorts
-                perPage={searchQuery.perPage}
-                sort={searchQuery.sort}
-                onChangePerPage={(e) => onChangePerPage(e)}
-                onChangeSort={(e) => onChangeSort(e)}
-              />
+        <SearchHeader searchQuery={searchQuery} />
+      </TemplateBreakout>
+      <TemplateContent sidebar="left">
+        <TemplateContentTop>
+          <div className="search-heading">
+            <div role="alert">
+              <Heading level={1} id="page-title-heading">
+                <>Search results for {getDisplayItemsHeading(searchQuery)}</>
+              </Heading>
             </div>
-            <form name="filterForm">
-              <DS.Heading level={2} id="filter-desktop-header">
-                Refine Results
-              </DS.Heading>
-              <Filters
-                filters={searchQuery.filters}
-                showAll={searchQuery.showAll}
-                languages={getAvailableLanguages(searchResults)}
-                changeFilters={(filters: Filter[]) => {
-                  changeFilters(filters);
-                }}
-                changeShowAll={(showAll: boolean) => {
-                  changeShowAll(showAll);
-                }}
-              />
-            </form>
-          </DS.Modal>
-        )}
-        {searchPaging.lastPage > 1 && (
-          <div className="content-bottom">
-            <DS.Pagination
-              pageCount={searchPaging.lastPage ? searchPaging.lastPage : 1}
-              currentPage={searchPaging.currentPage}
-              onPageChange={(e) => onPageChange(e)}
-            />
+            <hr />
+            <div className="search-subheading">
+              <Heading level={2} id="page-counter" className="page-counter">
+                {numberOfWorks > 0
+                  ? `Viewing ${firstElement.toLocaleString()} - ${
+                      numberOfWorks < lastElement
+                        ? numberOfWorks.toLocaleString()
+                        : lastElement.toLocaleString()
+                    } of ${numberOfWorks.toLocaleString()} items`
+                  : "Viewing 0 items"}
+              </Heading>
+              <form
+                hidden
+                className="sort-form search-widescreen-show"
+                name="sortForm"
+              >
+                <ResultsSorts
+                  perPage={searchQuery.perPage}
+                  sort={searchQuery.sort}
+                  onChangePerPage={(e) => onChangePerPage(e)}
+                  onChangeSort={(e) => onChangeSort(e)}
+                />
+              </form>
+            </div>
+            <hr hidden className="search-widescreen-show" />
           </div>
-        )}
-      </div>
-    </>
+        </TemplateContentTop>
+        <TemplateContentSidebar>
+          <form className="search-filter">
+            <Heading level={2} id="filter-desktop-header">
+              Refine Results
+            </Heading>
+            <hr />
+            <Filters
+              filters={searchQuery.filters}
+              showAll={searchQuery.showAll}
+              languages={getAvailableLanguages(searchResults)}
+              changeFilters={(filters: Filter[]) => {
+                changeFilters(filters);
+              }}
+              changeShowAll={(showAll: boolean) => {
+                changeShowAll(showAll);
+              }}
+            />
+          </form>
+        </TemplateContentSidebar>
+        <TemplateContentPrimary>
+          <ResultsList works={works} />
+          {isModalOpen && (
+            <Modal>
+              <Button
+                buttonType={ButtonTypes.Link}
+                onClick={() => {
+                  setModalOpen(false);
+                }}
+              >
+                <Icon
+                  decorative={true}
+                  name={IconNames.Arrow}
+                  iconRotation={IconRotationTypes.Rotate90}
+                />
+                Go Back
+              </Button>
+              <div className="search-navigation">
+                <ResultsSorts
+                  perPage={searchQuery.perPage}
+                  sort={searchQuery.sort}
+                  onChangePerPage={(e) => onChangePerPage(e)}
+                  onChangeSort={(e) => onChangeSort(e)}
+                />
+              </div>
+              <form name="filterForm">
+                <Heading level={2} id="filter-desktop-header">
+                  Refine Results
+                </Heading>
+                <Filters
+                  filters={searchQuery.filters}
+                  showAll={searchQuery.showAll}
+                  languages={getAvailableLanguages(searchResults)}
+                  changeFilters={(filters: Filter[]) => {
+                    changeFilters(filters);
+                  }}
+                  changeShowAll={(showAll: boolean) => {
+                    changeShowAll(showAll);
+                  }}
+                />
+              </form>
+            </Modal>
+          )}
+          <Pagination
+            onPageChange={(e: number) => onPageChange(e)}
+            initialPage={searchPaging.currentPage}
+            pageCount={searchPaging.lastPage ? searchPaging.lastPage : 1}
+          />
+        </TemplateContentPrimary>
+      </TemplateContent>
+    </Template>
   );
 };
 

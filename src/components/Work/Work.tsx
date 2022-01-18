@@ -1,7 +1,16 @@
 import React from "react";
 import { useRouter } from "next/router";
-import * as DS from "@nypl/design-system-react-components";
-import { joinArrayOfElements } from "~/src/util/Util";
+import {
+  Breadcrumbs,
+  ColorVariants,
+  Heading,
+  SimpleGrid,
+  Template,
+  TemplateBreakout,
+  TemplateContent,
+  Toggle,
+  ToggleSizes,
+} from "@nypl/design-system-react-components";
 import { EditionCard } from "~/src/components/EditionCard/EditionCard";
 import WorkDetailDefinitionList from "~/src/components/WorkDetailDefinitionList/WorkDetailDefinitionList";
 import { ApiWork, WorkResult } from "~/src/types/WorkQuery";
@@ -46,34 +55,33 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
   };
 
   return (
-    <div className="layout-container">
-      <div className="content-header">
-        <DS.Breadcrumbs
-          breadcrumbs={[{ url: "/", text: breadcrumbTitles.home }]}
+    <Template>
+      <TemplateBreakout>
+        <Breadcrumbs
+          colorVariant={ColorVariants.Research}
+          breadcrumbsData={[{ url: "/", text: breadcrumbTitles.home }]}
         />
         <SearchHeader />
-      </div>
+      </TemplateBreakout>
 
-      <div className="content-primary work-detail">
+      <TemplateContent>
         <div className="nypl-item-header" role="alert">
-          <DS.Heading level={1} id="work-title" blockName="page-title">
+          <Heading level={1} id="work-title">
             {work.title}
-          </DS.Heading>
+          </Heading>
 
           {work.sub_title && (
             <div className="search-result-item__subtitle">{work.sub_title}</div>
           )}
           {authorsList && authorsList.length && (
-            <div className="authors-container">
-              By {joinArrayOfElements(authorsList, ", ")}
-            </div>
+            <div className="authors-container">By {authorsList}</div>
           )}
         </div>
 
         <div>
-          <DS.Heading level={2} id="featured-edition">
+          <Heading level={2} id="featured-edition">
             Featured Edition
-          </DS.Heading>
+          </Heading>
         </div>
 
         <div>
@@ -89,46 +97,37 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
           {work.editions && (
             <>
               <div className="all-editions-header">
-                <DS.Heading
+                <Heading
                   level={3}
                   id="all-editions"
                   className="all-editions-tag bold"
                 >
                   All Editions
-                </DS.Heading>
+                </Heading>
 
-                <DS.Checkbox
-                  name="show-all"
-                  checkboxId="show-all-editions"
-                  labelOptions={{
-                    id: "show-all-label",
-
-                    labelContent: (
-                      <>Show only items currently available online</>
-                    ),
-                  }}
-                  checked={query.showAll === "false"}
-                  onChange={(e) => toggleShowAll(e)}
+                <Toggle
+                  labelText="Show only items currently available online"
+                  size={ToggleSizes.Small}
+                  isChecked={router.query.showAll === "false"}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    toggleShowAll(e)
+                  }
                 />
               </div>
-              <DS.List
-                type={DS.ListTypes.Unordered}
-                modifiers={["no-list-styling"]}
-              >
+              <SimpleGrid columns={1}>
                 {work.editions.map((edition: WorkEdition) => (
-                  <li key={edition.edition_id}>
-                    <EditionCard
-                      edition={edition}
-                      title={work.title}
-                    ></EditionCard>
-                  </li>
+                  <EditionCard
+                    key={edition.edition_id}
+                    edition={edition}
+                    title={work.title}
+                  ></EditionCard>
                 ))}
-              </DS.List>
+              </SimpleGrid>
             </>
           )}
         </div>
-      </div>
-    </div>
+      </TemplateContent>
+    </Template>
   );
 };
 

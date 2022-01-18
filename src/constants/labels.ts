@@ -36,6 +36,8 @@ export const allWorkLabels = {
 
 export const breadcrumbTitles = {
   home: "Digital Research Books Beta",
+  search: "Search Results",
+  advancedSearch: "Advanced Search",
 };
 
 export const documentTitles = {

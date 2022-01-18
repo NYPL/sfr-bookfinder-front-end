@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import * as DS from "@nypl/design-system-react-components";
+import {
+  DSProvider,
+  SkeletonLoader,
+} from "@nypl/design-system-react-components";
 import { Header, navConfig } from "@nypl/dgx-header-component";
 import Footer from "@nypl/dgx-react-footer";
 import Feedback from "~/src/components/Feedback/Feedback";
-import Loading from "../Loading/Loading";
 import { useRouter } from "next/router";
 
 /**
@@ -11,10 +13,7 @@ import { useRouter } from "next/router";
  * and other set up information to all its children.
  */
 
-const Layout: React.FC<{ sideBar?: boolean }> = ({
-  sideBar = false,
-  children,
-}) => {
+const Layout: React.FC<{}> = ({ children }) => {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
 
@@ -44,22 +43,21 @@ const Layout: React.FC<{ sideBar?: boolean }> = ({
         skipNav={{ target: "main-content" }}
         navData={navConfig.current}
       />
-      <div className="layout-container nypl-ds nypl--research">
-        <main
-          id="main-content"
-          className={`main${sideBar ? " main--with-sidebar" : ""}`}
-        >
-          {router.isFallback || loading ? (
-            <>
-              <Loading />
-              <DS.SkeletonLoader />
-            </>
-          ) : (
-            <>{children}</>
-          )}
-        </main>
-        {!loading && <Feedback location={router.asPath} />}
-      </div>
+      <DSProvider>
+        <div className="layout-container">
+          <main id="main-content">
+            {router.isFallback || loading ? (
+              <>
+                <SkeletonLoader />
+              </>
+            ) : (
+              <>{children}</>
+            )}
+          </main>
+          {!loading && <Feedback location={router.asPath} />}
+        </div>
+      </DSProvider>
+
       <Footer urlType="absolute" />
     </>
   );

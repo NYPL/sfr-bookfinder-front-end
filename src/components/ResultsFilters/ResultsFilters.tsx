@@ -1,12 +1,17 @@
 import React, { useState } from "react";
-import * as DS from "@nypl/design-system-react-components";
+import {
+  Toggle,
+  ToggleSizes,
+  VStack,
+  FullDateType,
+} from "@nypl/design-system-react-components";
 import LanguageAccordion from "../LanguageAccordion/LanguageAccordion";
 import FilterBookFormat from "../FilterBookFormat/FilterBookFormat";
 import FilterYears from "../FilterYears/FilterYears";
 import { FacetItem } from "~/src/types/DataModel";
 import { Filter } from "~/src/types/SearchQuery";
 import {
-  findFiltersExceptField,
+  findFiltersExceptFields,
   findFiltersForField,
 } from "~/src/util/SearchQueryUtils";
 import { errorMessagesText } from "~/src/constants/labels";
@@ -39,7 +44,7 @@ const Filters: React.FC<{
   const onLanguageChange = (e, language) => {
     const languageFilters = findFiltersForField(filters, filterFields.language);
     const newFilters = [
-      ...findFiltersExceptField(filters, filterFields.language),
+      ...findFiltersExceptFields(filters, [filterFields.language]),
       ...(e.target.checked
         ? [
             ...languageFilters,
@@ -56,7 +61,7 @@ const Filters: React.FC<{
   const onBookFormatChange = (e, format) => {
     const formatFilters = findFiltersForField(filters, filterFields.format);
     const newFilters = [
-      ...findFiltersExceptField(filters, filterFields.format),
+      ...findFiltersExceptFields(filters, [filterFields.format]),
       ...(e.target.checked
         ? [...formatFilters, { field: filterFields.format, value: format }]
         : formatFilters.filter((filter) => {
@@ -67,14 +72,14 @@ const Filters: React.FC<{
     changeFilters(newFilters);
   };
 
-  const onDateChange = (
-    e: React.FormEvent<HTMLInputElement>,
-    isStart: boolean
-  ) => {
-    const field = isStart ? filterFields.startYear : filterFields.endYear;
+  const onDateChange = (e: FullDateType) => {
     const newFilters = [
-      ...findFiltersExceptField(filters, field),
-      ...[{ field: field, value: e.currentTarget.value }],
+      ...findFiltersExceptFields(filters, [
+        filterFields.startYear,
+        filterFields.endYear,
+      ]),
+      ...[{ field: filterFields.startYear, value: e.startDate }],
+      ...[{ field: filterFields.endYear, value: e.endDate }],
     ];
     setFilters(newFilters);
   };
@@ -114,22 +119,15 @@ const Filters: React.FC<{
   const yearEnd = findFiltersForField(filters, filterFields.endYear);
 
   return (
-    <>
-      <div className="toggle-container">
-        <DS.Checkbox
-          checkboxId="avail_online"
-          checked={!showAll}
-          onChange={(e) => {
-            toggleShowAll(e);
-          }}
-          labelOptions={{
-            id: "avail_online_label",
-            labelContent: <>Available Online</>,
-          }}
-          attributes={{ "aria-labelledby": "avail_online_label" }}
-          name="avail_online"
-        />
-      </div>
+    <VStack align="left" spacing="1em">
+      <Toggle
+        labelText="Available Online"
+        onChange={(e) => {
+          toggleShowAll(e);
+        }}
+        isChecked={!showAll}
+        size={ToggleSizes.Small}
+      />
       <LanguageAccordion
         languages={languages}
         showCount={true}
@@ -145,13 +143,13 @@ const Filters: React.FC<{
       <FilterYears
         startFilter={yearStart && yearStart[0]}
         endFilter={yearEnd && yearEnd[0]}
-        onDateChange={(e, isStart) => {
-          onDateChange(e, isStart);
+        onDateChange={(e) => {
+          onDateChange(e);
         }}
         dateRangeError={dateRangeError}
         onSubmit={() => submitDateForm()}
       />
-    </>
+    </VStack>
   );
 };
 
