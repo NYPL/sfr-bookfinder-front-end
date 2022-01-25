@@ -19,6 +19,8 @@ jobs:
       BASE_URL: ${{ secrets.RSPEC_TEST_URL }}
       SEARCH_TERM: ${{ secrets.RSPEC_TEST_STRING }}
       TEST_DRIVER: ${{ secrets.RSPEC_TEST_DRIVER }}
+      CATALOG_USERNAME: ${{ secrets.CATALOG_USERNAME }}
+      CATALOG_USER_PIN: ${{ secrets.CATALOG_USER_PIN }}
 
     services:
       chrome:
