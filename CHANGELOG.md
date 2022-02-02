@@ -1,5 +1,12 @@
 # CHANGE LOG
 
+## [0.12.0]
+
+- Upgraded to use Node 16
+- Removed Enzyme
+- Removed Reader V1
+- Upgraded webreader to 0.3.3
+
 ## [0.11.3]
 
 - Added Back button link

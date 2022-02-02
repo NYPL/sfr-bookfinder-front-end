@@ -1,10 +1,6 @@
-const withTM = require("next-transpile-modules")([
-  "library-simplified-webpub-viewer",
-]);
-
 const path = require("path");
 
-const config = {
+module.exports = {
   future: {
     webpack5: true,
   },
@@ -17,5 +13,3 @@ const config = {
     includePaths: [path.join(__dirname, "styles")],
   },
 };
-
-module.exports = withTM(config);

@@ -5,7 +5,7 @@ import userEvent from "@testing-library/user-event";
 
 describe("Feedback", () => {
   beforeEach(() => {
-    render(<Feedback location={"/testing?testQuery"}></Feedback>);
+    render(<Feedback location={"/testing?testQuery"} />);
   });
 
   describe("Feedback button", () => {
@@ -56,6 +56,8 @@ describe("Feedback", () => {
   });
 
   describe("Form Submission", () => {
+    const fakeFetch = jest.fn();
+    window.fetch = fakeFetch;
     test("should invoke method when success and feedback set", () => {
       jest.spyOn(window, "alert").mockImplementation(() => jest.fn());
 
@@ -63,14 +65,13 @@ describe("Feedback", () => {
         name: "Comments (Required)",
       });
       const yesRadio = screen.getByLabelText("Yes");
-
       fireEvent.change(feedback, { target: { value: "test value" } });
       fireEvent.click(yesRadio);
 
       expect(feedback).toHaveValue("test value");
       expect(yesRadio).toBeChecked();
-
       fireEvent.click(screen.getByRole("button", { name: "Submit" }));
+      expect(fetch).toHaveBeenCalledTimes(1);
       expect(window.alert).toBeCalledWith(
         "Thank you, your feedback has been submitted."
       );

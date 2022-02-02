@@ -1,35 +1,50 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders License page correctly 1`] = `
-<Fragment>
+exports[`renders License page unchanged 1`] = `
+Array [
   <div
     className="content-header"
   >
-    <Breadcrumbs
-      breadcrumbs={
-        Array [
-          Object {
-            "text": "Digital Research Books Beta",
-            "url": "/",
-          },
-        ]
-      }
-      modifiers={
-        Array [
-          "space-under",
-        ]
-      }
-    />
-  </div>
+    <nav
+      aria-label="Breadcrumbs"
+      className="breadcrumbs breadcrumbs--space-under "
+      role="navigation"
+    >
+      <ul
+        className="breadcrumbs__list"
+      >
+        <li
+          className="breadcrumbs__item"
+        >
+          <span
+            aria-hidden={true}
+            className="breadcrumbs__icon breadcrumbs__icon--small "
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<svg viewBox=\\"0 0 24 14\\" xmlns=\\"http://www.w3.org/2000/svg\\"><path fill-rule=\\"evenodd\\" clip-rule=\\"evenodd\\" d=\\"M10.526 12.871L.263 1.676 1.737.324 12 11.52 22.263.324l1.474 1.352L13.474 12.87a2 2 0 01-2.948 0z\\"></path></svg>",
+              }
+            }
+            role="img"
+          />
+          <a
+            className="breadcrumbs__link"
+            href="/"
+          >
+            Digital Research Books Beta
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>,
   <div
     className="content-primary"
   >
-    <Heading
-      blockName="page-title"
+    <h1
+      className="page-title__heading "
       id="page-title-heading"
-      level={1}
-      text="License Explanations"
-    />
+    >
+      License Explanations
+    </h1>
     <h2
       id="pd"
     >
@@ -52,11 +67,12 @@ exports[`renders License page correctly 1`] = `
       Creative Commons Licenses
     </h2>
     <p>
-      <Link
+      <a
+        className="link "
         href="https://creativecommons.org/"
       >
         Creative Commons licenses
-      </Link>
+      </a>
        
       allow rights-holders to grant people the right to freely use their creations in certain ways and perhaps by meeting certain requirements. There are several licenses with different combinations of four basic clauses:
     </p>
@@ -92,81 +108,92 @@ exports[`renders License page correctly 1`] = `
     </p>
     <ul>
       <li>
-        <Link
+        <a
+          className="link "
           href="https://creativecommons.org/licenses/by/3.0/"
         >
           Attribution 3.0 Unported (CC BY 3.0)
-        </Link>
+        </a>
       </li>
       <li>
-        <Link
+        <a
+          className="link "
           href="https://creativecommons.org/licenses/by/4.0/"
         >
           Attribution 4.0 International (CC BY 4.0)
-        </Link>
+        </a>
       </li>
       <li>
-        <Link
+        <a
+          className="link "
           href="https://creativecommons.org/licenses/by-sa/3.0/"
         >
           Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
-        </Link>
+        </a>
       </li>
       <li>
-        <Link
+        <a
+          className="link "
           href="https://creativecommons.org/licenses/by-sa/4.0/"
         >
           Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
-        </Link>
+        </a>
       </li>
       <li>
-        <Link
+        <a
+          className="link "
           href="https://creativecommons.org/licenses/by-nd/3.0/"
         >
           Attribution-NoDerivs 3.0 Unported (CC BY-ND 3.0)
-        </Link>
+        </a>
       </li>
       <li>
-        <Link
+        <a
+          className="link "
           href="https://creativecommons.org/licenses/by-nd/4.0/"
         >
           Attribution-NoDerivatives 4.0 International (CC BY-ND 4.0)
-        </Link>
+        </a>
       </li>
       <li>
-        <Link
+        <a
+          className="link "
           href="https://creativecommons.org/licenses/by-nc/4.0/"
         >
           Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)
-        </Link>
+        </a>
       </li>
       <li>
-        <Link
+        <a
+          className="link "
           href="https://creativecommons.org/licenses/by-nc-sa/3.0/"
         >
           Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0)
-        </Link>
+        </a>
       </li>
       <li>
-        <Link
+        <a
+          className="link "
           href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
         >
           Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)
-        </Link>
+        </a>
       </li>
       <li>
-        <Link
+        <a
+          className="link "
           href="https://creativecommons.org/licenses/by-nc-nd/3.0/"
         >
           Attribution-NonCommercial-NoDerivs 3.0 Unported (CC BY-NC-ND 3.0)
-        </Link>
+        </a>
       </li>
       <li>
-        <Link
+        <a
+          className="link "
           href="https://creativecommons.org/licenses/by-nc-nd/4.0/"
         >
           Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)
-        </Link>
+        </a>
       </li>
     </ul>
     <h2>
@@ -175,11 +202,12 @@ exports[`renders License page correctly 1`] = `
     <p>
       The
        
-      <Link
+      <a
+        className="link "
         href="https://creativecommons.org/publicdomain/zero/1.0/"
       >
         CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
-      </Link>
+      </a>
        
       waives all rights under worldwide copyright law. It allows you to use, adapt, share, and distribute the work as if it were in the Public domain.
     </p>
@@ -189,13 +217,14 @@ exports[`renders License page correctly 1`] = `
     <p>
       For a work licensed under the
        
-      <Link
+      <a
+        className="link "
         href="http://www.gnu.org/licenses/gpl.html"
       >
         GNU General Public License
-      </Link>
+      </a>
       , you may copy, distribute and modify the work as long as any modifications are also made available under the GPL.
     </p>
-  </div>
-</Fragment>
+  </div>,
+]
 `;

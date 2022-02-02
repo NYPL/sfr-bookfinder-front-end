@@ -9,7 +9,6 @@ import * as gtag from "../../lib/Analytics";
 import { formatUrl, truncateStringOnWhitespace } from "~/src/util/Util";
 import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
 import dynamic from "next/dynamic";
-import WebpubViewer from "../WebpubViewer/WebpubViewer";
 import { MediaTypes } from "~/src/constants/mediaTypes";
 import ReaderLogoSvg from "../Svgs/ReaderLogoSvg";
 const WebReader = dynamic(() => import("@nypl/web-reader"), { ssr: false });
@@ -42,21 +41,13 @@ const ReaderLayout: React.FC<{
   proxyUrl: string;
   backUrl: string;
 }> = (props) => {
-  const readerVersion = process.env["NEXT_PUBLIC_READER_VERSION"];
-
   const link: ApiLink = props.linkResult.data;
   const proxyUrl = props.proxyUrl;
   const url = formatUrl(link.url);
   const edition = link.work.editions[0];
 
-  const isEmbed =
-    readerVersion && readerVersion === "v2"
-      ? link.flags.embed
-      : MediaTypes.embed.includes(link.media_type);
-  const isRead =
-    readerVersion && readerVersion === "v2"
-      ? link.flags.reader
-      : MediaTypes.read.includes(link.media_type);
+  const isEmbed = MediaTypes.embed.includes(link.media_type);
+  const isRead = MediaTypes.read.includes(link.media_type);
 
   useEffect(() => {
     gtag.drbEvents("Read", `${link.work.title}`);
@@ -73,21 +64,6 @@ const ReaderLayout: React.FC<{
       </DS.Link>
     );
   };
-
-  const webreaderContent =
-    readerVersion && readerVersion === "v2" ? (
-      <div className="layout-container nypl--research">
-        <WebReader
-          webpubManifestUrl={url}
-          proxyUrl={proxyUrl}
-          pdfWorkerSrc={`${origin}/pdf-worker/pdf.worker.min.js`}
-          headerLeft={<BackButton />}
-          injectables={injectables}
-        />
-      </div>
-    ) : (
-      <WebpubViewer url={link.url} />
-    );
 
   return (
     <>
@@ -112,7 +88,15 @@ const ReaderLayout: React.FC<{
           <IFrameReader url={link.url} />
         </Layout>
       )}
-      {isRead && webreaderContent}
+      {isRead && (
+        <WebReader
+          webpubManifestUrl={url}
+          proxyUrl={proxyUrl}
+          pdfWorkerSrc={`${origin}/pdf-worker/pdf.worker.min.js`}
+          headerLeft={<BackButton />}
+          injectables={injectables}
+        />
+      )}
     </>
   );
 };

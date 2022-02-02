@@ -3,20 +3,14 @@ import Edition from "./Edition";
 import "@testing-library/jest-dom/extend-expect";
 import { screen, render, within, fireEvent } from "@testing-library/react";
 import { breadcrumbTitles, inputTerms } from "~/src/constants/labels";
-import {
-  mockPush,
-  MockNextRouterContextProvider,
-} from "~/src/__tests__/testUtils/MockNextRouter";
 import { EditionResult } from "~/src/types/EditionQuery";
 const apiEdition: EditionResult = require("../../__tests__/fixtures/edition-detail.json");
+import mockRouter from "next-router-mock";
 
+jest.mock("next/router", () => require("next-router-mock"));
 describe("Renders edition component when given valid edition", () => {
   beforeEach(() => {
-    render(
-      <MockNextRouterContextProvider>
-        <Edition editionResult={apiEdition} />
-      </MockNextRouterContextProvider>
-    );
+    render(<Edition editionResult={apiEdition} />);
   });
   test("Breadcrumbs link to homepage and work page", () => {
     const nav = screen.getByRole("navigation");
@@ -91,17 +85,15 @@ describe("Renders edition component when given valid edition", () => {
 describe("Breadcrumb truncates on long title", () => {
   beforeEach(() => {
     render(
-      <MockNextRouterContextProvider>
-        <Edition
-          editionResult={{
-            data: {
-              instances: [],
-              title:
-                "super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super long title",
-            },
-          }}
-        />
-      </MockNextRouterContextProvider>
+      <Edition
+        editionResult={{
+          data: {
+            instances: [],
+            title:
+              "super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super long title",
+          },
+        }}
+      />
     );
   });
   test("title shows up truncated in breadcrumb", () => {
@@ -122,11 +114,7 @@ describe("Breadcrumb truncates on long title", () => {
 describe("All Copies Toggle", () => {
   describe("edition with no showAll query passed", () => {
     beforeEach(() => {
-      render(
-        <MockNextRouterContextProvider>
-          <Edition editionResult={apiEdition} />
-        </MockNextRouterContextProvider>
-      );
+      render(<Edition editionResult={apiEdition} />);
     });
 
     test("Edition Toggle defaults to checked", () => {
@@ -143,8 +131,7 @@ describe("All Copies Toggle", () => {
       ) as HTMLInputElement;
       fireEvent.click(toggle);
 
-      expect(mockPush).toHaveBeenCalledTimes(1);
-      expect(mockPush).toHaveBeenCalledWith({
+      expect(mockRouter).toMatchObject({
         pathname: "",
         query: { showAll: false },
       });
@@ -153,11 +140,8 @@ describe("All Copies Toggle", () => {
 
   describe("copy with showAll=false", () => {
     beforeEach(() => {
-      render(
-        <MockNextRouterContextProvider routerQuery={{ showAll: "false" }}>
-          <Edition editionResult={apiEdition} />
-        </MockNextRouterContextProvider>
-      );
+      mockRouter.push("?showAll=false");
+      render(<Edition editionResult={apiEdition} />);
     });
 
     test("Item Toggle is checked", () => {
@@ -174,21 +158,17 @@ describe("All Copies Toggle", () => {
       ) as HTMLInputElement;
       fireEvent.click(toggle);
 
-      expect(mockPush).toHaveBeenCalledTimes(1);
-      expect(mockPush).toHaveBeenCalledWith({
+      expect(mockRouter).toMatchObject({
         pathname: "",
         query: { showAll: true },
       });
     });
   });
 
-  describe("copy with featured=false", () => {
+  describe("copy with featured id", () => {
     beforeEach(() => {
-      render(
-        <MockNextRouterContextProvider routerQuery={{ featured: "1234567" }}>
-          <Edition editionResult={apiEdition} />
-        </MockNextRouterContextProvider>
-      );
+      mockRouter.push("?featured=1234567");
+      render(<Edition editionResult={apiEdition} />);
     });
 
     test("Featured Card, which has publisher 'Publisher 1', shows up twice", () => {
