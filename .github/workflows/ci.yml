@@ -8,7 +8,7 @@ name: CI
 on:
   # will run on all PRs that are opened or updated (synchronized)
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened, labeled, unlabeled]
 
 jobs:
   # changelog must be edited for every PR

@@ -25,6 +25,8 @@ Create a `.env` file and add the `APP_ENV` and `API_URL`. See `.env.sample` for 
 
 Run `npm run dev` to start the local server at `localhost:3000`
 
+To view pdfs locally through the webreader, you will need to set up a local proxy.  If you used environment variables from `.env.sample` you should be able to pull the [web-reader](https://github.com/NYPL-Simplified/web-reader) repo, install it, and run `npm run cors-proxy`.  See the web-reader repo for more [instructions](https://github.com/NYPL-Simplified/web-reader#cors-proxy)
+
 ### Dependencies
 
 - NextJS
