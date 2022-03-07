@@ -1,4 +1,6 @@
 # CHANGE LOG
+## [PRERELEASE]
+upgraded webreader to V1
 
 ## [0.12.0]
 
