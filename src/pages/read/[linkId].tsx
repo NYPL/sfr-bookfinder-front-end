@@ -7,7 +7,10 @@ export async function getServerSideProps(context: any) {
   try {
     const linkResult: LinkResult = await readFetcher(context.query.linkId);
     const proxyUrl: string = proxyUrlConstructor();
-    const backUrl = context.req.headers.referer ?? "/";
+    const backUrl = getBackUrl(
+      context.req.headers.referer,
+      context.req.headers.host
+    );
     return {
       props: {
         linkResult: linkResult,
@@ -21,6 +24,10 @@ export async function getServerSideProps(context: any) {
     };
   }
 }
+
+export const getBackUrl = (referer: string, host: string) => {
+  return referer && referer.includes(host) ? referer : "/";
+};
 
 const WebReaderPage: React.FC<any> = (props) => {
   return (
