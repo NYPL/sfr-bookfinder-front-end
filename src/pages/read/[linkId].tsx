@@ -2,6 +2,7 @@ import React from "react";
 import ReaderLayout from "~/src/components/ReaderLayout/ReaderLayout";
 import { readFetcher, proxyUrlConstructor } from "~/src/lib/api/SearchApi";
 import { LinkResult } from "~/src/types/LinkQuery";
+import { getBackUrl } from "~/src/util/LinkUtils";
 
 export async function getServerSideProps(context: any) {
   try {
@@ -24,10 +25,6 @@ export async function getServerSideProps(context: any) {
     };
   }
 }
-
-export const getBackUrl = (referer: string, host: string) => {
-  return referer && referer.includes(host) ? referer : "/";
-};
 
 const WebReaderPage: React.FC<any> = (props) => {
   return (
