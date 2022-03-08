@@ -1,4 +1,4 @@
-import { getBackUrl } from "../util/LinkUtils";
+import { getBackUrl } from "../LinkUtils";
 
 describe("Generates back url", () => {
   const host = "drb-qa.nypl.org";

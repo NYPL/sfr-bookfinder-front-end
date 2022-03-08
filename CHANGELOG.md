@@ -1,6 +1,7 @@
 # CHANGE LOG
 ## [PRERELEASE]
-upgraded webreader to V1
+- upgraded webreader to V1
+- Fixed back button on webreader when user follows link from external site
 
 ## [0.12.0]
 
