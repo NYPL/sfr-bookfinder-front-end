@@ -5,7 +5,7 @@ import { screen, render, within, fireEvent } from "@testing-library/react";
 import { breadcrumbTitles, inputTerms } from "~/src/constants/labels";
 import { WorkResult } from "~/src/types/WorkQuery";
 const apiWork: WorkResult = require("../../__tests__/fixtures/work-detail.json");
-const apiWorkOnlyCatalog: WorkResult = require("../../__tests__/fixtures/work-only-catalog.json");
+const apiWorkOnlyCatalog: WorkResult = require("../../__tests__/fixtures/work-only-catalog-link.json");
 import mockRouter from "next-router-mock";
 
 jest.mock("next/router", () => require("next-router-mock"));
