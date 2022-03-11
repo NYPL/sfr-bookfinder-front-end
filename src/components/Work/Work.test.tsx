@@ -191,14 +191,9 @@ describe("Render work with only catalog edition available", () => {
     render(<Work workResult={apiWorkOnlyCatalog} />);
   });
 
-  test("Show message under Featured Edition when only catalog edition is available", () => {
+  test("Featured Edition does not show when only catalog edition is available", () => {
     expect(
-      screen.getByRole("heading", { name: "Featured Edition" })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "Sorry, there are no editions currently available online."
-      )
-    ).toBeInTheDocument();
+      screen.queryByRole("heading", { name: "Featured Edition" })
+    ).not.toBeInTheDocument();
   });
 });

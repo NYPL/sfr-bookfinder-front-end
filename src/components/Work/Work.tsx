@@ -69,22 +69,20 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
             </div>
           )}
         </div>
-        <div>
-          <DS.Heading level={2} id="featured-edition">
-            Featured Edition
-          </DS.Heading>
-        </div>
-        {featuredEdition ? (
-          <div>
-            <EditionCard
-              edition={featuredEdition}
-              title={work.title}
-            ></EditionCard>
-          </div>
-        ) : (
-          <DS.HelperErrorText isError={false}>
-            Sorry, there are no editions currently available online.
-          </DS.HelperErrorText>
+        {featuredEdition && (
+          <>
+            <div>
+              <DS.Heading level={2} id="featured-edition">
+                Featured Edition
+              </DS.Heading>
+            </div>
+            <div>
+              <EditionCard
+                edition={featuredEdition}
+                title={work.title}
+              ></EditionCard>
+            </div>
+          </>
         )}
         <hr />
         <WorkDetailDefinitionList work={work} />
