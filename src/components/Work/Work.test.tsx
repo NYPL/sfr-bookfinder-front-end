@@ -5,6 +5,7 @@ import { screen, render, within, fireEvent } from "@testing-library/react";
 import { breadcrumbTitles, inputTerms } from "~/src/constants/labels";
 import { WorkResult } from "~/src/types/WorkQuery";
 const apiWork: WorkResult = require("../../__tests__/fixtures/work-detail.json");
+const apiWorkOnlyCatalog: WorkResult = require("../../__tests__/fixtures/work-only-catalog-link.json");
 import mockRouter from "next-router-mock";
 
 jest.mock("next/router", () => require("next-router-mock"));
@@ -182,5 +183,17 @@ describe("Edition Cards and toggles", () => {
       });
       expect(featuredEditionHeadings.length).toEqual(2);
     });
+  });
+});
+
+describe("Render work with only catalog edition available", () => {
+  beforeEach(() => {
+    render(<Work workResult={apiWorkOnlyCatalog} />);
+  });
+
+  test("Featured Edition does not show when only catalog edition is available", () => {
+    expect(
+      screen.queryByRole("heading", { name: "Featured Edition" })
+    ).not.toBeInTheDocument();
   });
 });
