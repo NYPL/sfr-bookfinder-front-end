@@ -1,8 +1,4 @@
 # CHANGE LOG
-## [0.13.0]
-- upgraded webreader to V1
-- Fixed back button on webreader when user follows link from external site
-- Handle error when there is only catalog link for a work item
 
 ## [0.12.0]
 
