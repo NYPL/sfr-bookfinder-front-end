@@ -12,6 +12,7 @@ import dynamic from "next/dynamic";
 import { MediaTypes } from "~/src/constants/mediaTypes";
 import ReaderLogoSvg from "../Svgs/ReaderLogoSvg";
 const WebReader = dynamic(() => import("@nypl/web-reader"), { ssr: false });
+import "@nypl/web-reader/dist/esm/index.css";
 // This is how we can import a css file as a url. It's complex, but necessary
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore

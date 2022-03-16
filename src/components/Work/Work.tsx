@@ -69,21 +69,19 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
             </div>
           )}
         </div>
-        {featuredEdition && (
-          <>
-            <div>
-              <DS.Heading level={2} id="featured-edition">
-                Featured Edition
-              </DS.Heading>
-            </div>
-            <div>
-              <EditionCard
-                edition={featuredEdition}
-                title={work.title}
-              ></EditionCard>
-            </div>
-          </>
-        )}
+
+        <div>
+          <DS.Heading level={2} id="featured-edition">
+            Featured Edition
+          </DS.Heading>
+        </div>
+
+        <div>
+          <EditionCard
+            edition={featuredEdition}
+            title={work.title}
+          ></EditionCard>
+        </div>
         <hr />
         <WorkDetailDefinitionList work={work} />
         <hr />
