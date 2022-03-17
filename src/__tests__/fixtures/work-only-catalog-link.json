@@ -1,0 +1,105 @@
+{
+    "data": {
+        "alt_titles": [],
+        "authors": [],
+        "contributors": [
+            {
+                "lcnaf": "",
+                "name": "Pynchon, William,",
+                "roles": [
+                    "Contributor"
+                ],
+                "viaf": ""
+            }
+        ],
+        "dates": null,
+        "edition_count": 1,
+        "editions": [
+            {
+                "alt_titles": [],
+                "contributors": [],
+                "dates": [
+                    {
+                        "date": "1650",
+                        "type": "publication_date"
+                    },
+                    {
+                        "date": "2003-10-20",
+                        "type": "catalog_date"
+                    }
+                ],
+                "edition": null,
+                "edition_id": 4292508,
+                "edition_statement": null,
+                "extent": "1 v. (53 p.)",
+                "items": [
+                    {
+                        "content_type": "ebook",
+                        "contributors": [],
+                        "drm": null,
+                        "item_id": 4943167,
+                        "links": [
+                            {
+                                "flags": {
+                                    "catalog": true,
+                                    "download": false,
+                                    "reader": false
+                                },
+                                "link_id": 6113936,
+                                "mediaType": "text/html",
+                                "url": "www.nypl.org/research/collections/shared-collection-catalog/bib/b15804181"
+                            }
+                        ],
+                        "location": null,
+                        "measurements": null,
+                        "modified": null,
+                        "rights": [],
+                        "source": "nypl"
+                    }
+                ],
+                "languages": [
+                    {
+                        "iso_2": "en",
+                        "iso_3": "eng",
+                        "language": "English"
+                    }
+                ],
+                "links": [],
+                "measurements": [],
+                "publication_date": 1650,
+                "publication_place": "New York (State)",
+                "publishers": [],
+                "sub_title": null,
+                "summary": "{\"Testimony against Hugh Parsons, taken before Judge William Pynchon at Springfield, Massachusetts. \"}",
+                "table_of_contents": null,
+                "title": "Testimony against Hugh Parsons charged with witchcraft,",
+                "volume": null,
+                "work_uuid": "38fd9f4c-23f3-4642-b449-d3478b12f1e2"
+            }
+        ],
+        "languages": [
+            {
+                "iso_2": "en",
+                "iso_3": "eng",
+                "language": "English"
+            }
+        ],
+        "measurements": [],
+        "medium": null,
+        "series": null,
+        "series_position": null,
+        "sub_title": null,
+        "subjects": [
+            {
+                "authority": "lcsh",
+                "controlNo": "",
+                "heading": "Trials (Witchcraft) -- Springfield"
+            }
+        ],
+        "title": "Testimony against Hugh Parsons charged with witchcraft,",
+        "uuid": "38fd9f4c-23f3-4642-b449-d3478b12f1e2"
+    },
+    "responseType": "singleWork",
+    "status": 200,
+    "timestamp": "Wed, 09 Mar 2022 22:09:52 GMT"
+}
