@@ -10,6 +10,23 @@ jobs:
   regression-test:
     name: Run rspec regression tests
     runs-on: ubuntu-latest
+
+
+    steps:
+    - uses: actions/checkout@v2-beta
+      with:
+        # Private version of https://github.com/actions/hello-world-docker-action
+        repository: USER/private-hello-world-docker-action
+        ref: refs/tags/v1
+        token: ${{ secrets.GitHub_PAT }} # `GitHub_PAT` is a secret that contains your PAT to clone that private repo
+    - name: Run the private action
+      uses: ./
+      with:
+        who-to-greet: "Mona the Octocat"
+
+
+
+        
     strategy:
       matrix:
         ruby-version: ["3.0.0"]

@@ -39,11 +39,11 @@ const Layout: React.FC<{ sideBar?: boolean }> = ({
 
   return (
     <>
-      <Header
+      {/* <Header
         urlType="absolute"
         skipNav={{ target: "main-content" }}
         navData={navConfig.current}
-      />
+      /> */}
       <div className="layout-container nypl-ds nypl--research">
         <main
           id="main-content"
