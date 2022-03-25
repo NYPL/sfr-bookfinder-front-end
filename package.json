@@ -22,7 +22,7 @@
     "css-loader": "^6.5.0",
     "extract-loader": "^5.1.0",
     "focus-trap-react": "^8.8.2",
-    "next": "^10.2.0",
+    "next": "^12.1.1",
     "next-absolute-url": "^1.2.2",
     "next-transpile-modules": "^7.0.0",
     "react": "^17.0.0",

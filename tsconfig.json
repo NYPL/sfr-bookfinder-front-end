@@ -1,11 +1,17 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "~/*": ["*"]
+      "~/*": [
+        "*"
+      ]
     },
     "allowJs": true,
     "skipLibCheck": true,
@@ -17,14 +23,23 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "outDir": "dist",
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "incremental": true
   },
   "include": [
     "next-env.d.ts",
     "decs.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "next.config.js"
-, "src/components/Citations/APACitation.jsx", "src/components/Citations/formatCitation.jsx", "src/components/RequestDigital/RequestDigital.jsx", "src/__tests__/index.test.tsx"  ],
-  "exclude": ["node_modules", "jest.config.js", "setupTests.js"]
+    "next.config.js",
+    "src/components/Citations/APACitation.jsx",
+    "src/components/Citations/formatCitation.jsx",
+    "src/components/RequestDigital/RequestDigital.jsx",
+    "src/__tests__/index.test.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "jest.config.js",
+    "setupTests.js"
+  ]
 }
