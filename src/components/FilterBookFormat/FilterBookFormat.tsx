@@ -1,4 +1,4 @@
-import * as DS from "@nypl/design-system-react-components";
+import { Checkbox } from "@nypl/design-system-react-components";
 import React from "react";
 import { Filter } from "~/src/types/SearchQuery";
 import { FormatTypes } from "~/src/constants/labels";
@@ -25,17 +25,11 @@ const FilterBookFormat: React.FC<{
     <fieldset>
       <legend>Format</legend>
       {FormatTypes.map((formatType: any) => (
-        <DS.Checkbox
-          checkboxId={`format-${formatType.value}`}
-          name={`filter-format-${formatType.value}`}
-          checked={isSelected(selectedFormats, formatType.value)}
+        <Checkbox
+          key={"checkbox-" + formatType.label}
+          labelText={formatType.label}
           onChange={(e) => toggleSelected(e, formatType.value)}
-          labelOptions={{
-            id: `format-${formatType.value}=label`,
-            labelContent: <>{formatType.label}</>,
-          }}
-          key={`facet-format-${formatType.value}`}
-          attributes={{ "aria-labelledby": `format-${formatType.value}=label` }}
+          isChecked={isSelected(selectedFormats, formatType.value)}
         />
       ))}
     </fieldset>

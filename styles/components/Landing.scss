@@ -5,7 +5,6 @@
 $link-hover-grey-background: #135772;
 
 .hero__body-text {
-  @include space-inset-m;
   .link {
     color: var(--ui-link-secondary);
   }
@@ -14,18 +13,14 @@ $link-hover-grey-background: #135772;
   }
 }
 .searchbar-container {
-  @include breakout;
   background-color: var(--ui-gray-light);
 }
 
 .searchbar {
-  @include wrapper;
-  @include space-inset-m;
-
   display: flex;
   flex-direction: column;
 
-  @media (max-width: $breakpoint-small) {
+  @media (max-width: 320px) {
     flex-direction: row;
   }
 }
@@ -43,9 +38,8 @@ $link-hover-grey-background: #135772;
   }
 }
 
-.search-examples {
-  @include space-inset-m;
-  & li {
-    @include space-stack-s;
-  }
-}
+// .search-examples {
+//   & li {
+//     @include space-stack-s;
+//   }
+// }

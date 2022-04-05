@@ -1,27 +1,35 @@
 import React from "react";
-import * as DS from "@nypl/design-system-react-components";
-import Link from "~/src/components/Link/Link";
+import {
+  Breadcrumbs,
+  BreadcrumbsTypes,
+  Heading,
+  HeadingLevels,
+  Link,
+  Template,
+  TemplateBreakout,
+  TemplateContentPrimary,
+} from "@nypl/design-system-react-components";
 import { breadcrumbTitles } from "~/src/constants/labels";
 
 const About: React.FC = () => {
   return (
-    <>
-      <div className="content-header">
-        <DS.Breadcrumbs
-          modifiers={["space-under"]}
-          breadcrumbs={[{ url: "/", text: breadcrumbTitles.home }]}
+    <Template>
+      <TemplateBreakout>
+        <Breadcrumbs
+          breadcrumbsType={BreadcrumbsTypes.Research}
+          breadcrumbsData={[{ url: "/", text: breadcrumbTitles.home }]}
         />
-      </div>
+      </TemplateBreakout>
 
-      <div className="content-primary">
-        <DS.Heading level={1} id="page-title-heading" blockName="page-title">
+      <TemplateContentPrimary>
+        <Heading level={HeadingLevels.One}>
           <span>
             <span className="rn-section-title__emphasis">
               Digital Research Books
             </span>{" "}
             Beta
           </span>
-        </DS.Heading>
+        </Heading>
 
         <p>
           Digital Research Books Beta is an experimental project, now in early
@@ -34,9 +42,9 @@ const About: React.FC = () => {
           All the materials in Digital Research Books Beta are completely free
           to read and most of them you can download and keep, with no library
           card required. The books are either in the{" "}
-          <Link to="/license">public domain</Link>, with no restrictions on your
-          use of them, or under{" "}
-          <Link to="/license">Creative Commons licences</Link> that may have
+          <Link href="/license">public domain</Link>, with no restrictions on
+          your use of them, or under{" "}
+          <Link href="/license">Creative Commons licences</Link> that may have
           some conditions, but only on redistribution or adaptation.
         </p>
 
@@ -44,7 +52,7 @@ const About: React.FC = () => {
           In addition to collecting these digital editions, we group all the
           editions of the same title together as a single “work.” For instance
           there are many editions of{" "}
-          <Link to="/work/e34d73df-f32b-49e1-8fdf-151db2a7806a">
+          <Link href="/work/e34d73df-f32b-49e1-8fdf-151db2a7806a">
             Mary Wollstonecraft’s A Vindication of the Rights of Woman
           </Link>
           , many of them available digitally. We group them all together under a
@@ -53,35 +61,32 @@ const About: React.FC = () => {
           instance--easy to understand.
         </p>
 
-        <DS.Heading
-          level={2}
+        <Heading
+          level={HeadingLevels.Two}
           id="sources-and-data-heading"
-          blockName="page-title"
           text="Sources and Data"
         />
 
         <p>
           The material in Digital Research Books Beta are drawn from several
           public sources, mainly{" "}
-          <DS.Link href="https://www.hathitrust.org/">HathiTrust</DS.Link>,{" "}
-          <DS.Link href="https://doabooks.org/">
+          <Link href="https://www.hathitrust.org/">HathiTrust</Link>,{" "}
+          <Link href="https://doabooks.org/">
             The Directory of Open Access Books
-          </DS.Link>
-          , and{" "}
-          <DS.Link href="http://www.gutenberg.org/">Project Gutenberg</DS.Link>.
+          </Link>
+          , and <Link href="http://www.gutenberg.org/">Project Gutenberg</Link>.
           We are continuously adding more books from these and other sources. We
           then cross-reference them with library records from NYPL and{" "}
-          <DS.Link href="https://www.worldcat.org/">WorldCat</DS.Link>, using
-          OCLC’s experimental{" "}
-          <DS.Link href="http://classify.oclc.org/classify2/">Classify</DS.Link>{" "}
+          <Link href="https://www.worldcat.org/">WorldCat</Link>, using OCLC’s
+          experimental{" "}
+          <Link href="http://classify.oclc.org/classify2/">Classify</Link>{" "}
           service to make connections between different editions of the same
           work.
         </p>
 
-        <DS.Heading
-          level={2}
+        <Heading
+          level={HeadingLevels.Two}
           id="beta-testing-heading"
-          blockName="page-title"
           text="What does Beta Testing mean?"
         />
 
@@ -112,8 +117,8 @@ const About: React.FC = () => {
           think. If there are things you like or dislike, if there’s a feature
           missing, if you find an error please tell us in the feedback!
         </p>
-      </div>
-    </>
+      </TemplateContentPrimary>
+    </Template>
   );
 };
 

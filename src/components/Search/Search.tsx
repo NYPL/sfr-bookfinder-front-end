@@ -1,5 +1,23 @@
 import React, { useState } from "react";
-import * as DS from "@nypl/design-system-react-components";
+import {
+  Breadcrumbs,
+  ButtonTypes,
+  Heading,
+  IconNames,
+  IconRotationTypes,
+  Pagination,
+  Template,
+  TemplateBreakout,
+  TemplateContent,
+  TemplateContentTop,
+  TemplateContentPrimary,
+  TemplateContentSidebar,
+  Button,
+  Icon,
+  Modal,
+  HeadingLevels,
+  BreadcrumbsTypes,
+} from "@nypl/design-system-react-components";
 import { useRouter } from "next/router";
 import { FacetItem, Query } from "~/src/types/DataModel";
 import {
@@ -139,27 +157,28 @@ const SearchResults: React.FC<{
   };
 
   return (
-    <>
-      <div className="content-header">
-        <DS.Breadcrumbs
-          breadcrumbs={[{ url: "/", text: breadcrumbTitles.home }]}
+    <Template>
+      <TemplateBreakout>
+        <Breadcrumbs
+          breadcrumbsType={BreadcrumbsTypes.Research}
+          breadcrumbsData={[{ url: "/", text: breadcrumbTitles.home }]}
         />
         <SearchHeader searchQuery={searchQuery}></SearchHeader>
-      </div>
-      <div className="content-top">
-        <div className="search-heading">
+      </TemplateBreakout>
+      <TemplateContent>
+        <TemplateContentTop>
           <div role="alert">
-            <DS.Heading
-              level={1}
-              id="page-title-heading"
-              blockName="page-title"
-            >
+            <Heading level={HeadingLevels.One} id="page-title-heading">
               <>Search results for {getDisplayItemsHeading(searchQuery)}</>
-            </DS.Heading>
+            </Heading>
           </div>
           <hr />
           <div className="search-subheading">
-            <DS.Heading level={2} id="page-counter" className="page-counter">
+            <Heading
+              level={HeadingLevels.Two}
+              id="page-counter"
+              className="page-counter"
+            >
               {numberOfWorks > 0
                 ? `Viewing ${firstElement.toLocaleString()} - ${
                     numberOfWorks < lastElement
@@ -167,7 +186,7 @@ const SearchResults: React.FC<{
                       : lastElement.toLocaleString()
                   } of ${numberOfWorks.toLocaleString()} items`
                 : "Viewing 0 items"}
-            </DS.Heading>
+            </Heading>
             <form
               hidden
               className="sort-form search-widescreen-show"
@@ -182,28 +201,23 @@ const SearchResults: React.FC<{
             </form>
           </div>
           <hr hidden className="search-widescreen-show" />
-        </div>
-        <DS.Button
+        </TemplateContentTop>
+        <Button
           className="filter-button"
           id="filter-button"
-          buttonType={DS.ButtonTypes.Secondary}
+          buttonType={ButtonTypes.Secondary}
           onClick={() => {
             setModalOpen(true);
           }}
         >
           {`Filters (${filterCount})`}
-        </DS.Button>
-      </div>
-      <div
-        className={
-          "content-secondary content-secondary--with-sidebar-left search-widescreen-show"
-        }
-        hidden
-      >
+        </Button>
+      </TemplateContent>
+      <TemplateContentSidebar>
         <form className="search-filter">
-          <DS.Heading level={2} id="filter-desktop-header">
+          <Heading level={HeadingLevels.Two} id="filter-desktop-header">
             Refine Results
-          </DS.Heading>
+          </Heading>
           <hr />
           <Filters
             filters={searchQuery.filters}
@@ -217,24 +231,24 @@ const SearchResults: React.FC<{
             }}
           />
         </form>
-      </div>
-      <div className="content-primary content-primary--with-sidebar-left">
+      </TemplateContentSidebar>
+      <TemplateContentPrimary>
         <ResultsList works={works} />
         {isModalOpen && (
-          <DS.Modal>
-            <DS.Button
-              buttonType={DS.ButtonTypes.Link}
+          <Modal>
+            <Button
+              buttonType={ButtonTypes.Link}
               onClick={() => {
                 setModalOpen(false);
               }}
             >
-              <DS.Icon
+              <Icon
                 decorative={true}
-                name={DS.IconNames.arrow}
-                iconRotation={DS.IconRotationTypes.rotate90}
+                name={IconNames.Arrow}
+                iconRotation={IconRotationTypes.Rotate90}
               />
               Go Back
-            </DS.Button>
+            </Button>
             <div className="search-navigation">
               <ResultsSorts
                 perPage={searchQuery.perPage}
@@ -244,9 +258,9 @@ const SearchResults: React.FC<{
               />
             </div>
             <form name="filterForm">
-              <DS.Heading level={2} id="filter-desktop-header">
+              <Heading level={HeadingLevels.Two} id="filter-desktop-header">
                 Refine Results
-              </DS.Heading>
+              </Heading>
               <Filters
                 filters={searchQuery.filters}
                 showAll={searchQuery.showAll}
@@ -259,19 +273,19 @@ const SearchResults: React.FC<{
                 }}
               />
             </form>
-          </DS.Modal>
+          </Modal>
         )}
         {searchPaging.lastPage > 1 && (
           <div className="content-bottom">
-            <DS.Pagination
+            <Pagination
               pageCount={searchPaging.lastPage ? searchPaging.lastPage : 1}
               currentPage={searchPaging.currentPage}
               onPageChange={(e) => onPageChange(e)}
             />
           </div>
         )}
-      </div>
-    </>
+      </TemplateContentPrimary>
+    </Template>
   );
 };
 

@@ -1,5 +1,16 @@
 import React from "react";
-import * as DS from "@nypl/design-system-react-components";
+import {
+  Card,
+  CardContent,
+  CardActions,
+  CardHeading,
+  Grid,
+  GridItem,
+  HeadingLevels,
+  ImageRatios,
+  ImageSizes,
+  LayoutTypes,
+} from "@nypl/design-system-react-components";
 import Link from "../Link/Link";
 import { WorkEdition } from "~/src/types/DataModel";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
@@ -38,34 +49,52 @@ export const EditionCard: React.FC<{ edition: WorkEdition; title: string }> = ({
   const coverUrl = EditionCardUtils.getCover(edition.links);
 
   return (
-    <DS.Card
+    <Card
       id={`card-${edition.edition_id}`}
-      heading={<h3>{editionYearElem(edition)}</h3>}
-      image={
-        <DS.Image
-          src={coverUrl}
-          alt={
-            coverUrl === PLACEHOLDER_COVER_LINK
-              ? "Placeholder Cover"
-              : `Cover for ${EditionCardUtils.editionYearText(edition)}`
-          }
-        ></DS.Image>
-      }
-      ctas={EditionCardUtils.getCtas(
-        previewItem,
-        title,
-        !!cookies[NYPL_SESSION_ID]
-      )}
+      layout={LayoutTypes.Row}
+      imageProps={{
+        src: coverUrl,
+        alt:
+          coverUrl === PLACEHOLDER_COVER_LINK
+            ? "Placeholder Cover"
+            : `Cover for ${EditionCardUtils.editionYearText(edition)}`,
+        size: ImageSizes.Small,
+        aspectRatio: ImageRatios.Original,
+      }}
+      isCentered
+      border
     >
-      <div>
-        {EditionCardUtils.getPublisherAndLocation(
-          edition.publication_place,
-          edition.publishers
-        )}
-      </div>
-      <div>{EditionCardUtils.getLanguageDisplayText(edition)}</div>
-      <Link to="/license">{EditionCardUtils.getLicense(previewItem)}</Link>
-    </DS.Card>
+      <CardHeading level={HeadingLevels.Four} id="stack1-heading1">
+        {editionYearElem(edition)}
+      </CardHeading>
+      <CardContent>
+        <Grid
+          templateRows="repeat(1, 1fr)"
+          templateColumns="repeat(3, 1fr)"
+          gap="32"
+        >
+          <GridItem colSpan={2}>
+            {EditionCardUtils.getPublisherAndLocation(
+              edition.publication_place,
+              edition.publishers
+            )}
+            <div>{EditionCardUtils.getLanguageDisplayText(edition)}</div>
+            <Link to="/license">
+              {EditionCardUtils.getLicense(previewItem)}
+            </Link>
+          </GridItem>
+          <GridItem colSpan={1}>
+            <CardActions>
+              {EditionCardUtils.getCtas(
+                previewItem,
+                title,
+                !!cookies[NYPL_SESSION_ID]
+              )}
+            </CardActions>
+          </GridItem>
+        </Grid>
+      </CardContent>
+    </Card>
   );
 };
 

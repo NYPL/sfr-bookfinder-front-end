@@ -1,6 +1,21 @@
 import React from "react";
 import { useRouter } from "next/router";
-import * as DS from "@nypl/design-system-react-components";
+import {
+  Breadcrumbs,
+  BreadcrumbsTypes,
+  Heading,
+  HeadingLevels,
+  HorizontalRule,
+  HStack,
+  List,
+  ListTypes,
+  Template,
+  TemplateBreakout,
+  TemplateContent,
+  TemplateContentPrimary,
+  Toggle,
+  ToggleSizes,
+} from "@nypl/design-system-react-components";
 
 import { ApiEdition, EditionResult } from "~/src/types/EditionQuery";
 
@@ -51,10 +66,11 @@ const Edition: React.FC<{ editionResult: EditionResult }> = (props) => {
   };
 
   return (
-    <>
-      <div className="content-header">
-        <DS.Breadcrumbs
-          breadcrumbs={[
+    <Template>
+      <TemplateBreakout>
+        <Breadcrumbs
+          breadcrumbsType={BreadcrumbsTypes.Research}
+          breadcrumbsData={[
             { url: "/", text: breadcrumbTitles.home },
             {
               url: `/work/${edition.work_uuid}`,
@@ -63,11 +79,11 @@ const Edition: React.FC<{ editionResult: EditionResult }> = (props) => {
           ]}
         />
         <SearchHeader />
-      </div>
+      </TemplateBreakout>
 
-      <div className="content-top">
+      <TemplateContent>
         {edition && (
-          <DS.Heading level={1} id="edition-title" blockName="page-title">
+          <Heading level={HeadingLevels.One}>
             <Link
               to={{
                 pathname: `/work/${edition.work_uuid}`,
@@ -77,7 +93,7 @@ const Edition: React.FC<{ editionResult: EditionResult }> = (props) => {
             >
               {edition.title}
             </Link>
-          </DS.Heading>
+          </Heading>
         )}
 
         {edition.sub_title && (
@@ -85,14 +101,14 @@ const Edition: React.FC<{ editionResult: EditionResult }> = (props) => {
             {edition.sub_title}
           </div>
         )}
-      </div>
+      </TemplateContent>
 
       <div className="content-primary">
         {featuredInstance && (
           <>
-            <DS.Heading level={2} id="featured-edition">
+            <Heading level={HeadingLevels.Two} id="featured-edition">
               Featured Copy
-            </DS.Heading>
+            </Heading>
 
             <div id="featured-edition-card">
               <InstanceCard edition={edition} instance={featuredInstance} />
@@ -100,46 +116,42 @@ const Edition: React.FC<{ editionResult: EditionResult }> = (props) => {
           </>
         )}
 
-        <div id="nypl-item-details">
-          <hr />
-          <EditionDetailDefinitionList edition={edition} />
-          <hr />
-          {edition.instances && (
-            <div className="all-instances-header">
-              <h3
-                tabIndex={-1}
-                id="all-editions"
-                className="all-editions-tag bold"
-              >
-                All Copies
-              </h3>
+        <TemplateContentPrimary>
+          <div id="nypl-item-details">
+            <HorizontalRule />
+            <EditionDetailDefinitionList edition={edition} />
+            <HorizontalRule />
+            {edition.instances && (
+              <HStack>
+                <h3
+                  tabIndex={-1}
+                  id="all-editions"
+                  className="all-editions-tag bold"
+                >
+                  All Copies
+                </h3>
 
-              <DS.Checkbox
-                name="show-all"
-                checkboxId="show-all-editions"
-                labelOptions={{
-                  id: "show-all-label",
-
-                  labelContent: <>Show only items currently available online</>,
-                }}
-                checked={router.query.showAll === "false"}
-                onChange={(e) => toggleShowAll(e)}
-              />
-            </div>
-          )}
-          <DS.List
-            type={DS.ListTypes.Unordered}
-            modifiers={["no-list-styling"]}
-          >
-            {edition.instances.map((instance) => (
-              <li key={instance.instance_id}>
-                <InstanceCard edition={edition} instance={instance} />
-              </li>
-            ))}
-          </DS.List>
-        </div>
+                <Toggle
+                  labelText="Show only items currently available online"
+                  size={ToggleSizes.Small}
+                  isChecked={router.query.showAll === "false"}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    toggleShowAll(e)
+                  }
+                />
+              </HStack>
+            )}
+            <List type={ListTypes.Unordered}>
+              {edition.instances.map((instance) => (
+                <li key={instance.instance_id}>
+                  <InstanceCard edition={edition} instance={instance} />
+                </li>
+              ))}
+            </List>
+          </div>
+        </TemplateContentPrimary>
       </div>
-    </>
+    </Template>
   );
 };
 

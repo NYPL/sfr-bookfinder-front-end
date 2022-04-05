@@ -1,5 +1,10 @@
 import React from "react";
-import * as DS from "@nypl/design-system-react-components";
+import {
+  Heading,
+  HeadingLevels,
+  List,
+  ListTypes,
+} from "@nypl/design-system-react-components";
 import { ApiEdition } from "~/src/types/EditionQuery";
 import { Agent } from "~/src/types/DataModel";
 
@@ -12,13 +17,9 @@ const getPublishersList = (publishers: Agent[]): JSX.Element[] => {
   }
   return publishers.map((publisher: Agent) => {
     return (
-      <DS.List
-        type={DS.ListTypes.Unordered}
-        modifiers={["no-list-styling"]}
-        key={publisher.name}
-      >
+      <List type={ListTypes.Unordered} key={publisher.name}>
         <li>{publisher.name}</li>
-      </DS.List>
+      </List>
     );
   });
 };
@@ -28,9 +29,9 @@ export const EditionDetailDefinitionList: React.FC<{ edition: ApiEdition }> = ({
 }) => {
   return (
     <div>
-      <DS.Heading level={3} id="work-details">
+      <Heading level={HeadingLevels.Three} id="work-details">
         Details
-      </DS.Heading>
+      </Heading>
       <dl className="nypl-details-table">
         <dt>Publication Date</dt>
         <dd>
@@ -56,16 +57,13 @@ export const EditionDetailDefinitionList: React.FC<{ edition: ApiEdition }> = ({
           <>
             <dt>Languages</dt>
             <dd>
-              <DS.List
-                type={DS.ListTypes.Unordered}
-                modifiers={["no-list-styling"]}
-              >
+              <List type={ListTypes.Unordered}>
                 {edition.languages.map((lang) => {
                   return (
                     <li key={`language-${lang.language}`}>{lang.language}</li>
                   );
                 })}
-              </DS.List>
+              </List>
             </dd>
           </>
         )}

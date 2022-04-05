@@ -1,23 +1,31 @@
 /* eslint-disable max-len */
 import React from "react";
-import * as DS from "@nypl/design-system-react-components";
+import {
+  Breadcrumbs,
+  BreadcrumbsTypes,
+  Heading,
+  HeadingLevels,
+  Link,
+  Template,
+  TemplateBreakout,
+  TemplateContent,
+} from "@nypl/design-system-react-components";
 import { breadcrumbTitles } from "~/src/constants/labels";
 
 const License: React.FC = () => {
   return (
-    <>
-      <div className="content-header">
-        <DS.Breadcrumbs
-          modifiers={["space-under"]}
-          breadcrumbs={[{ url: "/", text: breadcrumbTitles.home }]}
+    <Template>
+      <TemplateBreakout>
+        <Breadcrumbs
+          breadcrumbsType={BreadcrumbsTypes.Research}
+          breadcrumbsData={[{ url: "/", text: breadcrumbTitles.home }]}
         />
-      </div>
+      </TemplateBreakout>
 
-      <div className="content-primary">
-        <DS.Heading
-          level={1}
+      <TemplateContent>
+        <Heading
+          level={HeadingLevels.One}
           id="page-title-heading"
-          blockName="page-title"
           text="License Explanations"
         />
 
@@ -40,9 +48,9 @@ const License: React.FC = () => {
         <h2 id="cc">Creative Commons Licenses</h2>
 
         <p>
-          <DS.Link href="https://creativecommons.org/">
+          <Link href="https://creativecommons.org/">
             Creative Commons licenses
-          </DS.Link>{" "}
+          </Link>{" "}
           allow rights-holders to grant people the right to freely use their
           creations in certain ways and perhaps by meeting certain requirements.
           There are several licenses with different combinations of four basic
@@ -90,72 +98,72 @@ const License: React.FC = () => {
 
         <ul>
           <li>
-            <DS.Link href="https://creativecommons.org/licenses/by/3.0/">
+            <Link href="https://creativecommons.org/licenses/by/3.0/">
               Attribution 3.0 Unported (CC BY 3.0)
-            </DS.Link>
+            </Link>
           </li>
 
           <li>
-            <DS.Link href="https://creativecommons.org/licenses/by/4.0/">
+            <Link href="https://creativecommons.org/licenses/by/4.0/">
               Attribution 4.0 International (CC BY 4.0)
-            </DS.Link>
+            </Link>
           </li>
 
           <li>
-            <DS.Link href="https://creativecommons.org/licenses/by-sa/3.0/">
+            <Link href="https://creativecommons.org/licenses/by-sa/3.0/">
               Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
-            </DS.Link>
+            </Link>
           </li>
 
           <li>
-            <DS.Link href="https://creativecommons.org/licenses/by-sa/4.0/">
+            <Link href="https://creativecommons.org/licenses/by-sa/4.0/">
               Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
-            </DS.Link>
+            </Link>
           </li>
 
           <li>
-            <DS.Link href="https://creativecommons.org/licenses/by-nd/3.0/">
+            <Link href="https://creativecommons.org/licenses/by-nd/3.0/">
               Attribution-NoDerivs 3.0 Unported (CC BY-ND 3.0)
-            </DS.Link>
+            </Link>
           </li>
 
           <li>
-            <DS.Link href="https://creativecommons.org/licenses/by-nd/4.0/">
+            <Link href="https://creativecommons.org/licenses/by-nd/4.0/">
               Attribution-NoDerivatives 4.0 International (CC BY-ND 4.0)
-            </DS.Link>
+            </Link>
           </li>
 
           <li>
-            <DS.Link href="https://creativecommons.org/licenses/by-nc/4.0/">
+            <Link href="https://creativecommons.org/licenses/by-nc/4.0/">
               Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)
-            </DS.Link>
+            </Link>
           </li>
 
           <li>
-            <DS.Link href="https://creativecommons.org/licenses/by-nc-sa/3.0/">
+            <Link href="https://creativecommons.org/licenses/by-nc-sa/3.0/">
               Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA
               3.0)
-            </DS.Link>
+            </Link>
           </li>
 
           <li>
-            <DS.Link href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+            <Link href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
               Attribution-NonCommercial-ShareAlike 4.0 International (CC
               BY-NC-SA 4.0)
-            </DS.Link>
+            </Link>
           </li>
 
           <li>
-            <DS.Link href="https://creativecommons.org/licenses/by-nc-nd/3.0/">
+            <Link href="https://creativecommons.org/licenses/by-nc-nd/3.0/">
               Attribution-NonCommercial-NoDerivs 3.0 Unported (CC BY-NC-ND 3.0)
-            </DS.Link>
+            </Link>
           </li>
 
           <li>
-            <DS.Link href="https://creativecommons.org/licenses/by-nc-nd/4.0/">
+            <Link href="https://creativecommons.org/licenses/by-nc-nd/4.0/">
               Attribution-NonCommercial-NoDerivatives 4.0 International (CC
               BY-NC-ND 4.0)
-            </DS.Link>
+            </Link>
           </li>
         </ul>
 
@@ -163,9 +171,9 @@ const License: React.FC = () => {
 
         <p>
           The{" "}
-          <DS.Link href="https://creativecommons.org/publicdomain/zero/1.0/">
+          <Link href="https://creativecommons.org/publicdomain/zero/1.0/">
             CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
-          </DS.Link>{" "}
+          </Link>{" "}
           waives all rights under worldwide copyright law. It allows you to use,
           adapt, share, and distribute the work as if it were in the Public
           domain.
@@ -175,14 +183,14 @@ const License: React.FC = () => {
 
         <p>
           For a work licensed under the{" "}
-          <DS.Link href="http://www.gnu.org/licenses/gpl.html">
+          <Link href="http://www.gnu.org/licenses/gpl.html">
             GNU General Public License
-          </DS.Link>
+          </Link>
           , you may copy, distribute and modify the work as long as any
           modifications are also made available under the GPL.
         </p>
-      </div>
-    </>
+      </TemplateContent>
+    </Template>
   );
 };
 

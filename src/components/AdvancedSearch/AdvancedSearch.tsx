@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 
 import {
   findFiltersForField,
-  findFiltersExceptField,
+  findFiltersExceptFields,
   findQueryForField,
 } from "~/src/util/SearchQueryUtils";
 import {
@@ -14,13 +14,30 @@ import {
 import FilterYears from "~/src/components/FilterYears/FilterYears";
 import { SearchQuery, SearchQueryDefaults } from "~/src/types/SearchQuery";
 
-import * as DS from "@nypl/design-system-react-components";
+import {
+  Breadcrumbs,
+  BreadcrumbsTypes,
+  Button,
+  ButtonTypes,
+  Form,
+  FormField,
+  FormRow,
+  FullDateType,
+  Heading,
+  HeadingLevels,
+  Template,
+  TemplateBreakout,
+  TemplateContent,
+  TextInput,
+  TextInputTypes,
+} from "@nypl/design-system-react-components";
 import LanguageAccordion from "../LanguageAccordion/LanguageAccordion";
 import FilterBookFormat from "../FilterBookFormat/FilterBookFormat";
 import { FacetItem } from "~/src/types/DataModel";
 import { toLocationQuery, toApiQuery } from "~/src/util/apiConversion";
 import filterFields from "~/src/constants/filters";
 import { ApiLanguageResponse } from "~/src/types/LanguagesQuery";
+import { ButtonGroup } from "~/../nypl-design-system/node_modules/@chakra-ui/react/dist/chakra-ui-react.cjs";
 
 const AdvancedSearch: React.FC<{
   languages: ApiLanguageResponse;
@@ -106,7 +123,9 @@ const AdvancedSearch: React.FC<{
     setSearchQuery({
       ...searchQuery,
       filters: [
-        ...findFiltersExceptField(searchQuery.filters, filterFields.language),
+        ...findFiltersExceptFields(searchQuery.filters, [
+          filterFields.language,
+        ]),
         ...(e.target.checked
           ? [
               ...languageFilters,
@@ -128,7 +147,7 @@ const AdvancedSearch: React.FC<{
     setSearchQuery({
       ...searchQuery,
       filters: [
-        ...findFiltersExceptField(searchQuery.filters, filterFields.format),
+        ...findFiltersExceptFields(searchQuery.filters, [filterFields.format]),
         ...(e.target.checked
           ? [...formatFilters, { field: "format", value: format }]
           : formatFilters.filter((filter) => {
@@ -138,14 +157,13 @@ const AdvancedSearch: React.FC<{
     });
   };
 
-  const onDateChange = (
-    e: React.FormEvent<HTMLInputElement>,
-    isStart: boolean
-  ) => {
-    const field = isStart ? filterFields.startYear : filterFields.endYear;
+  const onDateChange = (e: FullDateType) => {
     const newFilters = [
-      ...findFiltersExceptField(searchQuery.filters, field),
-      ...[{ field: field, value: e.currentTarget.value }],
+      ...findFiltersExceptFields(searchQuery.filters, [
+        filterFields.startYear,
+        filterFields.endYear,
+      ]),
+      ...[{ field: filterFields.startYear, value: e.startDate.toString() }],
     ];
     setSearchQuery({
       ...searchQuery,
@@ -162,104 +180,116 @@ const AdvancedSearch: React.FC<{
     filterFields.endYear
   );
 
-  return (
-    <>
-      <div className="content-top">
-        <DS.Breadcrumbs
-          modifiers={["space-under"]}
-          breadcrumbs={[{ url: "/", text: breadcrumbTitles.home }]}
-        />
-      </div>
-      <div className="content-primary advanced-search">
-        <DS.Heading level={1}>Advanced Search</DS.Heading>
+  // Because each FormRow has two InputTerms each,
+  // create an array of nested arrays, each with two InputTerms.
+  const inputTermRows: { key: string; label: string }[][] = inputTerms.reduce(
+    function (rows, key, index) {
+      return (
+        (index % 2 === 0
+          ? rows.push([key])
+          : rows[rows.length - 1].push(key)) && rows
+      );
+    },
+    []
+  );
 
-        <form
-          onSubmit={(e) => {
-            submit(e);
-          }}
-        >
-          {emptySearchError && (
-            <DS.HelperErrorText isError={true}>
-              {emptySearchError}
-            </DS.HelperErrorText>
+  return (
+    <Template>
+      <TemplateBreakout>
+        <Breadcrumbs
+          breadcrumbsType={BreadcrumbsTypes.Research}
+          breadcrumbsData={[{ url: "/", text: breadcrumbTitles.home }]}
+        />
+      </TemplateBreakout>
+      <TemplateContent>
+        <Heading level={HeadingLevels.One}>Advanced Search</Heading>
+
+        <Form action="/search" method="get">
+          {/* Search Terms */}
+          {inputTermRows.map(
+            (inputTerms: { key: string; label: string }[], i: number) => {
+              return (
+                <FormRow key={`input-row-${i}`}>
+                  {inputTerms.map((field: { key: string; label: string }) => {
+                    <FormField>
+                      <TextInput
+                        id={`search-${field.label}`}
+                        isRequired
+                        labelText={field.label}
+                        value={
+                          findQueryForField(searchQuery.queries, field.key)
+                            ? findQueryForField(searchQuery.queries, field.key)
+                                .query
+                            : ""
+                        }
+                        onChange={(e) => onQueryChange(e, field.key)}
+                        showLabel
+                        type={TextInputTypes.text}
+                      />
+                    </FormField>;
+                  })}
+                </FormRow>
+              );
+            }
           )}
-          {dateRangeError && (
-            <DS.HelperErrorText isError={true}>
-              {dateRangeError}
-            </DS.HelperErrorText>
-          )}
-          <fieldset>
-            <div className="search-fields">
-              {inputTerms.map((field: { key: string; label: string }) => {
-                return (
-                  <div key={`field-${field.key}`}>
-                    <DS.Label
-                      htmlFor={`${field.key}-input`}
-                      id={`${field.key}-label`}
-                    >
-                      {field.label}
-                    </DS.Label>
-                    <DS.Input
-                      id={`${field.key}-input`}
-                      ariaLabel={`Input for ${field.label}`}
-                      value={
-                        findQueryForField(searchQuery.queries, field.key)
-                          ? findQueryForField(searchQuery.queries, field.key)
-                              .query
-                          : ""
-                      }
-                      onChange={(e) => onQueryChange(e, field.key)}
-                    />
-                  </div>
-                );
-              })}
-            </div>
-          </fieldset>
-          {languages && languages.length > 0 && (
-            <LanguageAccordion
-              languages={languages}
-              showCount={false}
-              selectedLanguages={findFiltersForField(
-                searchQuery.filters,
-                "language"
-              )}
-              onLanguageChange={(e, language) => onLanguageChange(e, language)}
+          <FormField>
+            {languages && languages.length > 0 && (
+              <LanguageAccordion
+                languages={languages}
+                showCount={false}
+                selectedLanguages={findFiltersForField(
+                  searchQuery.filters,
+                  "language"
+                )}
+                onLanguageChange={(e, language) =>
+                  onLanguageChange(e, language)
+                }
+              />
+            )}
+          </FormField>
+          <FormField>
+            <FilterYears
+              startFilter={startFilter && startFilter[0]}
+              endFilter={endFilter && endFilter[0]}
+              onDateChange={(e: FullDateType) => {
+                onDateChange(e);
+              }}
             />
-          )}
-          <FilterYears
-            startFilter={startFilter && startFilter[0]}
-            endFilter={endFilter && endFilter[0]}
-            onDateChange={(e, isStart) => {
-              onDateChange(e, isStart);
-            }}
-          />
-          <FilterBookFormat
-            selectedFormats={findFiltersForField(searchQuery.filters, "format")}
-            onFormatChange={(e, format) => {
-              onBookFormatChange(e, format);
-            }}
-          />
-          <hr />
-          <div className="button-container">
-            <DS.Button
-              id="search-button"
-              buttonType={DS.ButtonTypes.Primary}
-              type="submit"
-            >
-              Search
-            </DS.Button>
-            <DS.Button
-              id="clear-button"
-              buttonType={DS.ButtonTypes.Secondary}
-              type="reset"
-              onClick={() => clearSearch()}
-            >
-              Clear
-            </DS.Button>
-          </div>
-        </form>
-      </div>
-    </>
+          </FormField>
+          <FormField>
+            <FilterBookFormat
+              selectedFormats={findFiltersForField(
+                searchQuery.filters,
+                "format"
+              )}
+              onFormatChange={(e, format) => {
+                onBookFormatChange(e, format);
+              }}
+            />
+          </FormField>
+          <FormField>
+            <ButtonGroup>
+              <Button
+                type="submit"
+                buttonType={ButtonTypes.Primary}
+                onClick={(e) => {
+                  submit(e);
+                }}
+              >
+                Search
+              </Button>
+              <Button
+                type="reset"
+                buttonType={ButtonTypes.Secondary}
+                onClick={() => clearSearch()}
+              >
+                Clear
+              </Button>
+            </ButtonGroup>
+          </FormField>
+        </Form>
+      </TemplateContent>
+    </Template>
   );
 };
 

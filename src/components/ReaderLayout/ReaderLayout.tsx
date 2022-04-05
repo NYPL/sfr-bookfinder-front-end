@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import * as DS from "@nypl/design-system-react-components";
+import { Breadcrumbs, BreadcrumbsTypes, Icon, Link } from "@nypl/design-system-react-components";
 import { breadcrumbTitles } from "~/src/constants/labels";
 import { ApiLink, LinkResult } from "~/src/types/LinkQuery";
 import IFrameReader from "../IFrameReader/IFrameReader";
@@ -55,12 +55,12 @@ const ReaderLayout: React.FC<{
   const BackButton = () => {
     return (
       //Apends design system classname to use Design System Link.
-      <DS.Link href={props.backUrl} className="nypl-ds logo-link">
-        <DS.Icon decorative className="logo-link__icon" modifiers={["large"]}>
+      <Link href={props.backUrl} className="nypl-ds logo-link">
+        <Icon decorative className="logo-link__icon">
           <ReaderLogoSvg />
-        </DS.Icon>
+        </Icon>
         <span className="logo-link__label">Back to Digital Research Books</span>
-      </DS.Link>
+      </Link>
     );
   };
 
@@ -68,8 +68,9 @@ const ReaderLayout: React.FC<{
     <>
       {isEmbed && (
         <Layout>
-          <DS.Breadcrumbs
-            breadcrumbs={[
+          <Breadcrumbs
+            breadcrumbsType={BreadcrumbsTypes.Research}
+            breadcrumbsData={[
               { url: "/", text: breadcrumbTitles.home },
               {
                 url: `/work/${edition.work_uuid}`,
