@@ -5,12 +5,12 @@ import {
   BreadcrumbsTypes,
   Heading,
   HeadingLevels,
-  Link,
   Template,
   TemplateBreakout,
   TemplateContent,
 } from "@nypl/design-system-react-components";
 import { breadcrumbTitles } from "~/src/constants/labels";
+import Link from "../Link/Link";
 
 const License: React.FC = () => {
   return (
@@ -48,7 +48,7 @@ const License: React.FC = () => {
         <h2 id="cc">Creative Commons Licenses</h2>
 
         <p>
-          <Link href="https://creativecommons.org/">
+          <Link to="https://creativecommons.org/">
             Creative Commons licenses
           </Link>{" "}
           allow rights-holders to grant people the right to freely use their
@@ -98,69 +98,69 @@ const License: React.FC = () => {
 
         <ul>
           <li>
-            <Link href="https://creativecommons.org/licenses/by/3.0/">
+            <Link to="https://creativecommons.org/licenses/by/3.0/">
               Attribution 3.0 Unported (CC BY 3.0)
             </Link>
           </li>
 
           <li>
-            <Link href="https://creativecommons.org/licenses/by/4.0/">
+            <Link to="https://creativecommons.org/licenses/by/4.0/">
               Attribution 4.0 International (CC BY 4.0)
             </Link>
           </li>
 
           <li>
-            <Link href="https://creativecommons.org/licenses/by-sa/3.0/">
+            <Link to="https://creativecommons.org/licenses/by-sa/3.0/">
               Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
             </Link>
           </li>
 
           <li>
-            <Link href="https://creativecommons.org/licenses/by-sa/4.0/">
+            <Link to="https://creativecommons.org/licenses/by-sa/4.0/">
               Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
             </Link>
           </li>
 
           <li>
-            <Link href="https://creativecommons.org/licenses/by-nd/3.0/">
+            <Link to="https://creativecommons.org/licenses/by-nd/3.0/">
               Attribution-NoDerivs 3.0 Unported (CC BY-ND 3.0)
             </Link>
           </li>
 
           <li>
-            <Link href="https://creativecommons.org/licenses/by-nd/4.0/">
+            <Link to="https://creativecommons.org/licenses/by-nd/4.0/">
               Attribution-NoDerivatives 4.0 International (CC BY-ND 4.0)
             </Link>
           </li>
 
           <li>
-            <Link href="https://creativecommons.org/licenses/by-nc/4.0/">
+            <Link to="https://creativecommons.org/licenses/by-nc/4.0/">
               Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)
             </Link>
           </li>
 
           <li>
-            <Link href="https://creativecommons.org/licenses/by-nc-sa/3.0/">
+            <Link to="https://creativecommons.org/licenses/by-nc-sa/3.0/">
               Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA
               3.0)
             </Link>
           </li>
 
           <li>
-            <Link href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+            <Link to="https://creativecommons.org/licenses/by-nc-sa/4.0/">
               Attribution-NonCommercial-ShareAlike 4.0 International (CC
               BY-NC-SA 4.0)
             </Link>
           </li>
 
           <li>
-            <Link href="https://creativecommons.org/licenses/by-nc-nd/3.0/">
+            <Link to="https://creativecommons.org/licenses/by-nc-nd/3.0/">
               Attribution-NonCommercial-NoDerivs 3.0 Unported (CC BY-NC-ND 3.0)
             </Link>
           </li>
 
           <li>
-            <Link href="https://creativecommons.org/licenses/by-nc-nd/4.0/">
+            <Link to="https://creativecommons.org/licenses/by-nc-nd/4.0/">
               Attribution-NonCommercial-NoDerivatives 4.0 International (CC
               BY-NC-ND 4.0)
             </Link>
@@ -171,7 +171,7 @@ const License: React.FC = () => {
 
         <p>
           The{" "}
-          <Link href="https://creativecommons.org/publicdomain/zero/1.0/">
+          <Link to="https://creativecommons.org/publicdomain/zero/1.0/">
             CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
           </Link>{" "}
           waives all rights under worldwide copyright law. It allows you to use,
@@ -183,7 +183,7 @@ const License: React.FC = () => {
 
         <p>
           For a work licensed under the{" "}
-          <Link href="http://www.gnu.org/licenses/gpl.html">
+          <Link to="http://www.gnu.org/licenses/gpl.html">
             GNU General Public License
           </Link>
           , you may copy, distribute and modify the work as long as any

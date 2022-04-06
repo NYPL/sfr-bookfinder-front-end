@@ -1,5 +1,9 @@
 import React, { useEffect } from "react";
-import { Breadcrumbs, BreadcrumbsTypes, Icon, Link } from "@nypl/design-system-react-components";
+import {
+  Breadcrumbs,
+  BreadcrumbsTypes,
+  Icon,
+} from "@nypl/design-system-react-components";
 import { breadcrumbTitles } from "~/src/constants/labels";
 import { ApiLink, LinkResult } from "~/src/types/LinkQuery";
 import IFrameReader from "../IFrameReader/IFrameReader";
@@ -16,6 +20,7 @@ const WebReader = dynamic(() => import("@nypl/web-reader"), { ssr: false });
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import cssInjectableUrl from '!file-loader?{"publicPath":"/_next/static","outputPath":"static"}!extract-loader!css-loader!@nypl/web-reader/dist/injectable-html-styles.css';
+import Link from "../Link/Link";
 
 const origin =
   typeof window !== "undefined" && window.location?.origin
@@ -55,7 +60,7 @@ const ReaderLayout: React.FC<{
   const BackButton = () => {
     return (
       //Apends design system classname to use Design System Link.
-      <Link href={props.backUrl} className="nypl-ds logo-link">
+      <Link to={props.backUrl} className="nypl-ds logo-link">
         <Icon decorative className="logo-link__icon">
           <ReaderLogoSvg />
         </Icon>

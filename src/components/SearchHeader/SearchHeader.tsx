@@ -1,7 +1,5 @@
 import React from "react";
-
-import * as DS from "@nypl/design-system-react-components";
-
+import { Heading, HeadingLevels } from "@nypl/design-system-react-components";
 import SearchForm from "../SearchForm/SearchForm";
 import Link from "../Link/Link";
 import { SearchQuery } from "~/src/types/SearchQuery";
@@ -16,9 +14,9 @@ const SearchHeader: React.FC<{
   return (
     <div className="search-header-container">
       <div className="search-header" aria-label="Digital Research Books Beta">
-        <DS.Heading level={2}>
+        <Heading level={HeadingLevels.Two}>
           <Link to="/">Digital Research Books Beta</Link>
-        </DS.Heading>
+        </Heading>
         <SearchForm searchQuery={searchQuery} isHeader />
         <div className="advanced-search">
           <Link

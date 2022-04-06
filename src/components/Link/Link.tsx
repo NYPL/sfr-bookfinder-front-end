@@ -18,7 +18,6 @@ const Link = React.forwardRef(
       <BaseLink href={to} passHref>
         <DS.Link
           type={linkType}
-          modifiers={modifiers}
           attributes={{ ref: ref, onClick: onClick, ...props }}
         >
           {children}

@@ -4,12 +4,12 @@ import {
   BreadcrumbsTypes,
   Heading,
   HeadingLevels,
-  Link,
   Template,
   TemplateBreakout,
   TemplateContentPrimary,
 } from "@nypl/design-system-react-components";
 import { breadcrumbTitles } from "~/src/constants/labels";
+import Link from "../Link/Link";
 
 const About: React.FC = () => {
   return (
@@ -42,9 +42,9 @@ const About: React.FC = () => {
           All the materials in Digital Research Books Beta are completely free
           to read and most of them you can download and keep, with no library
           card required. The books are either in the{" "}
-          <Link href="/license">public domain</Link>, with no restrictions on
-          your use of them, or under{" "}
-          <Link href="/license">Creative Commons licences</Link> that may have
+          <Link to="/license">public domain</Link>, with no restrictions on your
+          use of them, or under{" "}
+          <Link to="/license">Creative Commons licences</Link> that may have
           some conditions, but only on redistribution or adaptation.
         </p>
 
@@ -52,7 +52,7 @@ const About: React.FC = () => {
           In addition to collecting these digital editions, we group all the
           editions of the same title together as a single “work.” For instance
           there are many editions of{" "}
-          <Link href="/work/e34d73df-f32b-49e1-8fdf-151db2a7806a">
+          <Link to="/work/e34d73df-f32b-49e1-8fdf-151db2a7806a">
             Mary Wollstonecraft’s A Vindication of the Rights of Woman
           </Link>
           , many of them available digitally. We group them all together under a
@@ -70,18 +70,17 @@ const About: React.FC = () => {
         <p>
           The material in Digital Research Books Beta are drawn from several
           public sources, mainly{" "}
-          <Link href="https://www.hathitrust.org/">HathiTrust</Link>,{" "}
-          <Link href="https://doabooks.org/">
+          <Link to="https://www.hathitrust.org/">HathiTrust</Link>,{" "}
+          <Link to="https://doabooks.org/">
             The Directory of Open Access Books
           </Link>
-          , and <Link href="http://www.gutenberg.org/">Project Gutenberg</Link>.
+          , and <Link to="http://www.gutenberg.org/">Project Gutenberg</Link>.
           We are continuously adding more books from these and other sources. We
           then cross-reference them with library records from NYPL and{" "}
-          <Link href="https://www.worldcat.org/">WorldCat</Link>, using OCLC’s
+          <Link to="https://www.worldcat.org/">WorldCat</Link>, using OCLC’s
           experimental{" "}
-          <Link href="http://classify.oclc.org/classify2/">Classify</Link>{" "}
-          service to make connections between different editions of the same
-          work.
+          <Link to="http://classify.oclc.org/classify2/">Classify</Link> to make
+          connections between different editions of the same work.
         </p>
 
         <Heading

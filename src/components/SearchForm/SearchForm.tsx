@@ -5,11 +5,12 @@ import { SearchQuery, SearchQueryDefaults } from "~/src/types/SearchQuery";
 import { errorMessagesText, inputTerms } from "~/src/constants/labels";
 import { toLocationQuery, toApiQuery } from "~/src/util/apiConversion";
 import { Query, SearchField } from "~/src/types/DataModel";
+import Link from "../Link/Link";
 
 const SearchForm: React.FC<{
   searchQuery?: SearchQuery;
   isHeader?: boolean; //Is this searchForm in the header (search/work/edition pages), or on its own (homepage)
-}> = ({ searchQuery }) => {
+}> = ({ searchQuery, isHeader }) => {
   const initialDefaultQuery: Query = { query: "", field: SearchField.Keyword };
 
   // The display query is the query that's auto-populated in the searchbar.
@@ -85,17 +86,17 @@ const SearchForm: React.FC<{
           onChange: (e) => onQueryChange(e),
         }}
         labelText="Search"
-        // helperErrorText={
-        //   !isHeader && (
-        //     <p className="advanced-search-message">
-        //       Use{" "}
-        //       <Link to="/advanced-search" className="link">
-        //         Advanced Search
-        //       </Link>{" "}
-        //       to narrow your results.
-        //     </p>
-        //   )
-        // }
+        helperText={
+          !isHeader && (
+            <p className="advanced-search-message">
+              Use{" "}
+              <Link to="/advanced-search" className="link">
+                Advanced Search
+              </Link>{" "}
+              to narrow your results.
+            </p>
+          )
+        }
       />
     </Box>
   );

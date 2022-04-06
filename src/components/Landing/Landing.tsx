@@ -58,13 +58,6 @@ const LandingPage: React.FC<any> = () => {
             Search the World's Research Collections
           </Heading>
           <SearchForm />
-          <p className="advanced-search-message">
-            Use{" "}
-            <Link to="/advanced-search" className="link">
-              Advanced Search
-            </Link>{" "}
-            to narrow your results.
-          </p>
         </TemplateContentTop>
         <TemplateContentPrimary>
           <Heading level={HeadingLevels.Two}>Search Examples</Heading>
