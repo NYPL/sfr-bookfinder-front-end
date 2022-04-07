@@ -9,8 +9,11 @@ import { breadcrumbTitles } from "~/src/constants/labels";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
 import SearchHeader from "../SearchHeader/SearchHeader";
 import { WorkEdition } from "~/src/types/DataModel";
+import Link from "../Link/Link";
 
-const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
+const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
+  props
+) => {
   const router = useRouter();
 
   const { pathname, query } = router;
@@ -56,9 +59,16 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
 
       <div className="content-primary work-detail">
         <div className="nypl-item-header" role="alert">
-          <DS.Heading level={1} id="work-title" blockName="page-title">
-            {work.title}
-          </DS.Heading>
+          <div className="item-title">
+            <DS.Heading level={1} id="work-title" blockName="page-title">
+              {work.title}
+            </DS.Heading>
+            {props.backUrl && (
+              <div className="back-to-search-link">
+                <Link to={props.backUrl}>Back to search results</Link>
+              </div>
+            )}
+          </div>
 
           {work.sub_title && (
             <div className="search-result-item__subtitle">{work.sub_title}</div>
