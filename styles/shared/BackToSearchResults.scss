@@ -10,7 +10,7 @@
         flex-direction: row;
         .back-to-search-link {
             padding-left: var(--space-s);
-            min-width: 190px;
+            white-space: nowrap;
         }
     }
 }
