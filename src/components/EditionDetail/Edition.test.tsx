@@ -8,6 +8,9 @@ const apiEdition: EditionResult = require("../../__tests__/fixtures/edition-deta
 import mockRouter from "next-router-mock";
 
 jest.mock("next/router", () => require("next-router-mock"));
+
+const backUrl = "/search?query=author%3AEdgar%2C+John%2C+1876-";
+
 describe("Renders edition component when given valid edition", () => {
   beforeEach(() => {
     render(<Edition editionResult={apiEdition} />);
@@ -177,6 +180,40 @@ describe("All Copies Toggle", () => {
           selector: "div",
         }).length
       ).toBe(2);
+    });
+  });
+});
+
+describe("Edition - Back to search results link", () => {
+  describe("Show back to search results link with backUrl provided", () => {
+    beforeEach(() => {
+      render(<Edition editionResult={apiEdition} backUrl={backUrl} />);
+    });
+
+    test("Shows back to search results link", () => {
+      expect(
+        screen.getByRole("link", { name: "Back to search results" })
+      ).toBeInTheDocument();
+    });
+    test("Back to search results links to search page", () => {
+      expect(
+        screen.getByRole("link", { name: "Back to search results" })
+      ).toHaveAttribute(
+        "href",
+        "/search?query=author%3AEdgar%2C+John%2C+1876-"
+      );
+    });
+  });
+
+  describe("Does not show back to search results link", () => {
+    beforeEach(() => {
+      render(<Edition editionResult={apiEdition} />);
+    });
+
+    test("Does not show back to search results link", () => {
+      expect(
+        screen.queryByRole("link", { name: "Back to search results" })
+      ).not.toBeInTheDocument();
     });
   });
 });
