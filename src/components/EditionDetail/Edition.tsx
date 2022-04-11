@@ -13,7 +13,9 @@ import { truncateStringOnWhitespace } from "~/src/util/Util";
 import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
 import { Instance } from "~/src/types/DataModel";
 
-const Edition: React.FC<{ editionResult: EditionResult }> = (props) => {
+const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
+  props
+) => {
   const router = useRouter();
 
   if (!props.editionResult) return <>Loading</>;
@@ -66,19 +68,26 @@ const Edition: React.FC<{ editionResult: EditionResult }> = (props) => {
       </div>
 
       <div className="content-top">
-        {edition && (
-          <DS.Heading level={1} id="edition-title" blockName="page-title">
-            <Link
-              to={{
-                pathname: `/work/${edition.work_uuid}`,
-              }}
-              title={edition.title}
-              className="link link--no-underline"
-            >
-              {edition.title}
-            </Link>
-          </DS.Heading>
-        )}
+        <div className="item-title">
+          {edition && (
+            <DS.Heading level={1} id="edition-title" blockName="page-title">
+              <Link
+                to={{
+                  pathname: `/work/${edition.work_uuid}`,
+                }}
+                title={edition.title}
+                className="link link--no-underline"
+              >
+                {edition.title}
+              </Link>
+            </DS.Heading>
+          )}
+          {props.backUrl && (
+            <div className="back-to-search-link">
+              <Link to={props.backUrl}>Back to search results</Link>
+            </div>
+          )}
+        </div>
 
         {edition.sub_title && (
           <div className="search-result-item__subtitle">
