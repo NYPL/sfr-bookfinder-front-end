@@ -1,5 +1,5 @@
 # CHANGE LOG
-## [PRERELEASE]
+## [0.13.1]
 - Added "Back to search results" link for works and editions
 
 ## [0.13.0]
