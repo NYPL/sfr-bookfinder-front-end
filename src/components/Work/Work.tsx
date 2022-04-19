@@ -16,7 +16,7 @@ import { joinArrayOfElements } from "~/src/util/Util";
 import { EditionCard } from "~/src/components/EditionCard/EditionCard";
 import WorkDetailDefinitionList from "~/src/components/WorkDetailDefinitionList/WorkDetailDefinitionList";
 import { ApiWork, WorkResult } from "~/src/types/WorkQuery";
-import { breadcrumbTitles } from "~/src/constants/labels";
+import { defaultBreadcrumbs } from "~/src/constants/labels";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
 import SearchHeader from "../SearchHeader/SearchHeader";
 import { WorkEdition } from "~/src/types/DataModel";
@@ -61,7 +61,7 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
       <TemplateBreakout>
         <Breadcrumbs
           breadcrumbsType={BreadcrumbsTypes.Research}
-          breadcrumbsData={[{ url: "/", text: breadcrumbTitles.home }]}
+          breadcrumbsData={defaultBreadcrumbs}
         />
         <SearchHeader />
       </TemplateBreakout>

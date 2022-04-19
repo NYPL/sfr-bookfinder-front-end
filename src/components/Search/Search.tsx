@@ -31,7 +31,7 @@ import ResultsList from "../ResultsList/ResultsList";
 import { toLocationQuery, toApiQuery } from "~/src/util/apiConversion";
 import Filters from "../ResultsFilters/ResultsFilters";
 import ResultsSorts from "../ResultsSorts/ResultsSorts";
-import { breadcrumbTitles } from "~/src/constants/labels";
+import { defaultBreadcrumbs } from "~/src/constants/labels";
 import SearchHeader from "../SearchHeader/SearchHeader";
 import { ApiWork } from "~/src/types/WorkQuery";
 
@@ -161,7 +161,7 @@ const SearchResults: React.FC<{
       <TemplateBreakout>
         <Breadcrumbs
           breadcrumbsType={BreadcrumbsTypes.Research}
-          breadcrumbsData={[{ url: "/", text: breadcrumbTitles.home }]}
+          breadcrumbsData={defaultBreadcrumbs}
         />
         <SearchHeader searchQuery={searchQuery}></SearchHeader>
       </TemplateBreakout>

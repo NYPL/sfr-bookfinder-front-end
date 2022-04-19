@@ -1,3 +1,5 @@
+import { BreadcrumbsDataProps } from "~/../nypl-design-system/dist/components/Breadcrumbs/Breadcrumbs";
+
 export const workDetailDefinitionLabels = {
   alt_titles: "Alternative Titles",
   summary: "Summary",
@@ -34,9 +36,23 @@ export const allWorkLabels = {
   measurements: "Measurements",
 };
 
-export const breadcrumbTitles = {
-  home: "Digital Research Books Beta",
+const breadcrumbUrls = {
+  home: "https://www.nypl.org",
+  research: "https://www.nypl.org/research",
+  drb: "/",
 };
+
+const breadcrumbTitles = {
+  home: "Home",
+  research: "Research",
+  drb: "Digital Research Books Beta",
+};
+
+export const defaultBreadcrumbs: BreadcrumbsDataProps[] = [
+  { url: breadcrumbUrls.home, text: breadcrumbTitles.home },
+  { url: breadcrumbUrls.research, text: breadcrumbTitles.research },
+  { url: breadcrumbUrls.drb, text: breadcrumbTitles.drb },
+];
 
 export const documentTitles = {
   home: "Digital Research Books Beta | NYPL",

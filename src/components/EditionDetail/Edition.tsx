@@ -22,7 +22,7 @@ import { ApiEdition, EditionResult } from "~/src/types/EditionQuery";
 import EditionDetailDefinitionList from "~/src/components/EditionDetailDefinitionList/EditionDetailDefinitionList";
 import Link from "~/src/components/Link/Link";
 import { InstanceCard } from "../InstanceCard/InstanceCard";
-import { breadcrumbTitles } from "~/src/constants/labels";
+import { defaultBreadcrumbs } from "~/src/constants/labels";
 import SearchHeader from "../SearchHeader/SearchHeader";
 import { truncateStringOnWhitespace } from "~/src/util/Util";
 import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
@@ -71,7 +71,7 @@ const Edition: React.FC<{ editionResult: EditionResult }> = (props) => {
         <Breadcrumbs
           breadcrumbsType={BreadcrumbsTypes.Research}
           breadcrumbsData={[
-            { url: "/", text: breadcrumbTitles.home },
+            ...defaultBreadcrumbs,
             {
               url: `/work/${edition.work_uuid}`,
               text: truncateStringOnWhitespace(edition.title, MAX_TITLE_LENGTH),

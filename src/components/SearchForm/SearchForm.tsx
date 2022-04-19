@@ -54,6 +54,8 @@ const SearchForm: React.FC<{
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLTextAreaElement>
   ) => {
+    console.log(shownQuery);
+    console.log(searchQuery);
     setShownQuery({ query: e.target.value, field: shownQuery.field });
   };
 
@@ -63,14 +65,15 @@ const SearchForm: React.FC<{
       | React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     setShownQuery({
-      field: SearchField[e.target.value],
+      field: e.target.value as SearchField,
       query: shownQuery.query,
     });
   };
 
   return (
-    <Box>
+    <Box className="search-bar">
       <SearchBar
+        id="search-bar"
         invalidText={isFormError ? errorMessagesText.emptySearch : ""}
         onSubmit={(e) => submitSearch(e)}
         selectProps={{
@@ -83,21 +86,20 @@ const SearchForm: React.FC<{
           labelText: "Item Search",
           name: "textInputName",
           placeholder: "Enter a search term",
+          value: shownQuery.query,
           onChange: (e) => onQueryChange(e),
         }}
         labelText="Search"
-        helperText={
-          !isHeader && (
-            <p className="advanced-search-message">
-              Use{" "}
-              <Link to="/advanced-search" className="link">
-                Advanced Search
-              </Link>{" "}
-              to narrow your results.
-            </p>
-          )
-        }
       />
+      <Box className="advanced-search-message">
+        <Link
+          to="/advanced-search"
+          className="link"
+          modifiers={isHeader && ["dark-background"]}
+        >
+          Advanced Search
+        </Link>
+      </Box>
     </Box>
   );
 };

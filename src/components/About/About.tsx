@@ -8,7 +8,7 @@ import {
   TemplateBreakout,
   TemplateContentPrimary,
 } from "@nypl/design-system-react-components";
-import { breadcrumbTitles } from "~/src/constants/labels";
+import { defaultBreadcrumbs } from "~/src/constants/labels";
 import Link from "../Link/Link";
 
 const About: React.FC = () => {
@@ -17,7 +17,7 @@ const About: React.FC = () => {
       <TemplateBreakout>
         <Breadcrumbs
           breadcrumbsType={BreadcrumbsTypes.Research}
-          breadcrumbsData={[{ url: "/", text: breadcrumbTitles.home }]}
+          breadcrumbsData={defaultBreadcrumbs}
         />
       </TemplateBreakout>
 

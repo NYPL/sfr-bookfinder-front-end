@@ -9,7 +9,7 @@ import {
 import {
   inputTerms,
   errorMessagesText,
-  breadcrumbTitles,
+  defaultBreadcrumbs,
 } from "~/src/constants/labels";
 import FilterYears from "~/src/components/FilterYears/FilterYears";
 import { SearchQuery, SearchQueryDefaults } from "~/src/types/SearchQuery";
@@ -198,7 +198,7 @@ const AdvancedSearch: React.FC<{
       <TemplateBreakout>
         <Breadcrumbs
           breadcrumbsType={BreadcrumbsTypes.Research}
-          breadcrumbsData={[{ url: "/", text: breadcrumbTitles.home }]}
+          breadcrumbsData={defaultBreadcrumbs}
         />
       </TemplateBreakout>
       <TemplateContent>

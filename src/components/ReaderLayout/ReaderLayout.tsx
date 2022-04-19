@@ -4,7 +4,7 @@ import {
   BreadcrumbsTypes,
   Icon,
 } from "@nypl/design-system-react-components";
-import { breadcrumbTitles } from "~/src/constants/labels";
+import { defaultBreadcrumbs } from "~/src/constants/labels";
 import { ApiLink, LinkResult } from "~/src/types/LinkQuery";
 import IFrameReader from "../IFrameReader/IFrameReader";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
@@ -76,7 +76,7 @@ const ReaderLayout: React.FC<{
           <Breadcrumbs
             breadcrumbsType={BreadcrumbsTypes.Research}
             breadcrumbsData={[
-              { url: "/", text: breadcrumbTitles.home },
+              ...defaultBreadcrumbs,
               {
                 url: `/work/${edition.work_uuid}`,
                 text: truncateStringOnWhitespace(

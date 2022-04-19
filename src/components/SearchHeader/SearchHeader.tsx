@@ -1,7 +1,10 @@
 import React from "react";
-import { Heading, HeadingLevels } from "@nypl/design-system-react-components";
+import {
+  Box,
+  Heading,
+  HeadingLevels,
+} from "@nypl/design-system-react-components";
 import SearchForm from "../SearchForm/SearchForm";
-import Link from "../Link/Link";
 import { SearchQuery } from "~/src/types/SearchQuery";
 
 /**
@@ -12,25 +15,37 @@ const SearchHeader: React.FC<{
   searchQuery?: SearchQuery;
 }> = ({ searchQuery }) => {
   return (
-    <div className="search-header-container">
-      <div className="search-header" aria-label="Digital Research Books Beta">
-        <Heading level={HeadingLevels.Two}>
-          <Link to="/">Digital Research Books Beta</Link>
-        </Heading>
+    <>
+      <Box
+        className="search-header-container"
+        bg="var(--nypl-colors-section-research-primary)"
+      >
+        <Box
+          className="search-header"
+          aria-label="Digital Research Books Beta"
+          m="0 auto"
+          maxW="1280px"
+          width="100%"
+          p="var(--nypl-space-s)"
+          color="var(--nypl-colors-white)"
+        >
+          <Heading level={HeadingLevels.Two} additionalStyles={{ m: "0" }}>
+            <>
+              Digital Research Books <sup>Beta</sup>
+            </>
+          </Heading>
+        </Box>
+      </Box>
+      <Box
+        className="search-header-form"
+        m="0 auto"
+        maxW="1280px"
+        width="100%"
+        p="var(--nypl-space-s)"
+      >
         <SearchForm searchQuery={searchQuery} isHeader />
-        <div className="advanced-search">
-          <Link
-            to={{
-              pathname: "/advanced-search",
-            }}
-            modifiers={["dark-background"]}
-            className="link"
-          >
-            Advanced Search
-          </Link>
-        </div>
-      </div>
-    </div>
+      </Box>
+    </>
   );
 };
 

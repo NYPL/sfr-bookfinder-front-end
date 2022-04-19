@@ -10,18 +10,18 @@ $breakpoint-margin: 35px;
   justify-content: space-between;
   flex-flow: column;
 
-  @media (min-width: $breakpoint-medium + $breakpoint-margin) {
+  @media (min-width: (var(--nypl-breakpoint-medium) + $breakpoint-margin)) {
     align-items: center;
     flex-flow: row;
   }
 }
 .search-filter {
   @include space-stack-xs;
-  border-top: 2px solid var(--section-research-primary);
+  border-top: 2px solid var(--nypl-colors-section-research-primary);
   background-color: var(--ui-gray-xlight);
   display: none;
 
-  @media (min-width: $breakpoint-medium + $breakpoint-margin) {
+  @media (min-width: (var(--nypl-breakpoint-medium) + $breakpoint-margin)) {
     display: block;
   }
 
@@ -36,7 +36,7 @@ $breakpoint-margin: 35px;
 .search-widescreen-show {
   display: none;
 
-  @media (min-width: $breakpoint-medium + $breakpoint-margin) {
+  @media (min-width: (var(--nypl-breakpoint-medium) + $breakpoint-margin)) {
     display: block !important;
   }
 }
@@ -46,7 +46,7 @@ $breakpoint-margin: 35px;
 
   width: 100%;
 
-  @media (min-width: $breakpoint-medium + $breakpoint-margin) {
+  @media (min-width: (var(--nypl-breakpoint-medium) + $breakpoint-margin)) {
     display: none;
   }
 }

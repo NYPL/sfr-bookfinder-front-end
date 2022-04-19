@@ -17,7 +17,7 @@ import {
 import SearchForm from "~/src/components/SearchForm/SearchForm";
 import Subjects from "~/config/subjectListConfig";
 import Link from "~/src/components/Link/Link";
-import { breadcrumbTitles } from "~/src/constants/labels";
+import { defaultBreadcrumbs } from "~/src/constants/labels";
 
 const LandingPage: React.FC<any> = () => {
   const subHeader = (
@@ -33,7 +33,7 @@ const LandingPage: React.FC<any> = () => {
       <TemplateBreakout>
         <Breadcrumbs
           breadcrumbsType={BreadcrumbsTypes.Research}
-          breadcrumbsData={[{ url: "/", text: breadcrumbTitles.home }]}
+          breadcrumbsData={defaultBreadcrumbs}
         />
         <div
           aria-label="Digital Research Books Beta"
@@ -42,11 +42,11 @@ const LandingPage: React.FC<any> = () => {
           <Hero
             heroType={HeroTypes.SecondaryResearch}
             heading={
-              <Heading
-                level={HeadingLevels.One}
-                id="1"
-                text="Digital Research Books Beta"
-              />
+              <Heading level={HeadingLevels.One} id="1">
+                <>
+                  Digital Research Books <sup>Beta</sup>
+                </>
+              </Heading>
             }
             subHeaderText={subHeader}
           />

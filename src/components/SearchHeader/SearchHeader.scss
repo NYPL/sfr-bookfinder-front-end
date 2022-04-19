@@ -1,27 +1,26 @@
-.search-header-container {
-    background-color: var(--nypl-colors-section-research-primary);
+.search-header {
+  @media (min-width: var(--nypl-breakpoint-medium)) {
+    flex-flow: row;
+    align-items: flex-start;
   }
-  .search-header {
-    margin: auto;
-    width: 100%;
-    max-width: 1280px;
+}
+
+.search-header-form {
+  // flex: 1;
+  @media (max-width: 490px) {
+    // display: block;
     display: flex;
-    text-decoration: none;
-    align-items: center;
-    justify-content: center;
-    h2 {
-      max-width: 250px;
-      a {
-        color: var(--nypl-colors-white);
-      }
-    }
-  
-    @media (min-width: 960px) {
-      flex-flow: row;
-      align-items: flex-start;
+    button {
+      width: 100%;
     }
   }
-  
-  .search-header-form {
-    flex: 1;
+  @media (min-width: 870px) {
+    .search-bar {
+      width: 85%;
+    }
   }
+  select {
+    padding-left: var(--nypl-space-xs);
+    padding-right: var(--nypl-space-l);
+  }
+}
