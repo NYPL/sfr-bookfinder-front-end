@@ -28,8 +28,7 @@ $link-hover-grey-background: #135772;
   flex: 1 0 auto;
 }
 .advanced-search-message {
-  flex: 0 1 auto;
-  align-self: flex-end;
+  overflow: auto;
   .link {
     float: right;
   }

@@ -20,30 +20,31 @@ const SearchHeader: React.FC<{
         className="search-header-container"
         bg="var(--nypl-colors-section-research-primary)"
       >
+        <Heading
+          level={HeadingLevels.Two}
+          additionalStyles={{
+            m: "0 auto",
+            maxW: "1280px",
+            w: "100%",
+            p: "var(--nypl-space-s)",
+            color: "var(--nypl-colors-white)",
+          }}
+        >
+          <>
+            Digital Research Books <sup>Beta</sup>
+          </>
+        </Heading>
+      </Box>
+      <Box bg="var(--nypl-colors-ui-gray-x-light-cool)">
         <Box
-          className="search-header"
-          aria-label="Digital Research Books Beta"
+          className="search-header-form"
           m="0 auto"
           maxW="1280px"
           width="100%"
           p="var(--nypl-space-s)"
-          color="var(--nypl-colors-white)"
         >
-          <Heading level={HeadingLevels.Two} additionalStyles={{ m: "0" }}>
-            <>
-              Digital Research Books <sup>Beta</sup>
-            </>
-          </Heading>
+          <SearchForm searchQuery={searchQuery} isHeader />
         </Box>
-      </Box>
-      <Box
-        className="search-header-form"
-        m="0 auto"
-        maxW="1280px"
-        width="100%"
-        p="var(--nypl-space-s)"
-      >
-        <SearchForm searchQuery={searchQuery} isHeader />
       </Box>
     </>
   );

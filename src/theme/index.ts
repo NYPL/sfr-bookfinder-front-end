@@ -1,5 +1,5 @@
 import { extendTheme } from "@chakra-ui/react";
-import SearchHeader from "./SearchHeader";
+import SearchHeader from "./searchHeader";
 
 const theme = extendTheme({
   components: {

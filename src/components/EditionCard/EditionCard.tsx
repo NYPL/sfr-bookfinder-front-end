@@ -2,7 +2,6 @@ import React from "react";
 import {
   Card,
   CardContent,
-  CardActions,
   CardHeading,
   Grid,
   GridItem,
@@ -10,6 +9,7 @@ import {
   ImageRatios,
   ImageSizes,
   LayoutTypes,
+  Box,
 } from "@nypl/design-system-react-components";
 import Link from "../Link/Link";
 import { WorkEdition } from "~/src/types/DataModel";
@@ -58,11 +58,11 @@ export const EditionCard: React.FC<{ edition: WorkEdition; title: string }> = ({
           coverUrl === PLACEHOLDER_COVER_LINK
             ? "Placeholder Cover"
             : `Cover for ${EditionCardUtils.editionYearText(edition)}`,
-        size: ImageSizes.Small,
+        size: ImageSizes.ExtraSmall,
         aspectRatio: ImageRatios.Original,
       }}
       isCentered
-      border
+      isBordered
     >
       <CardHeading level={HeadingLevels.Four} id="stack1-heading1">
         {editionYearElem(edition)}
@@ -78,19 +78,17 @@ export const EditionCard: React.FC<{ edition: WorkEdition; title: string }> = ({
               edition.publication_place,
               edition.publishers
             )}
-            <div>{EditionCardUtils.getLanguageDisplayText(edition)}</div>
+            <Box>{EditionCardUtils.getLanguageDisplayText(edition)}</Box>
             <Link to="/license">
               {EditionCardUtils.getLicense(previewItem)}
             </Link>
           </GridItem>
           <GridItem colSpan={1}>
-            <CardActions>
-              {EditionCardUtils.getCtas(
-                previewItem,
-                title,
-                !!cookies[NYPL_SESSION_ID]
-              )}
-            </CardActions>
+            {EditionCardUtils.getCtas(
+              previewItem,
+              title,
+              !!cookies[NYPL_SESSION_ID]
+            )}
           </GridItem>
         </Grid>
       </CardContent>

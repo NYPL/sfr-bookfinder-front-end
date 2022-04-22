@@ -1,5 +1,5 @@
 import React from "react";
-import * as DS from "@nypl/design-system-react-components";
+import { Label, Select } from "@nypl/design-system-react-components";
 import { sortMap, numbersPerPage } from "~/src/constants/sorts";
 import { deepEqual } from "~/src/util/Util";
 import { Sort } from "~/src/types/DataModel";
@@ -12,32 +12,30 @@ const ResultsSorts: React.FC<{
 }> = ({ perPage, sort, onChangePerPage, onChangeSort }) => {
   return (
     <fieldset>
-      <DS.Label htmlFor="items-per-page" id="per-page-label">
+      <Label htmlFor="items-per-page" id="per-page-label">
         Items Per Page
-      </DS.Label>
-      <DS.Select
+      </Label>
+      <Select
         id="items-per-page"
         name="ItemsPerPageSelect"
         isRequired={false}
-        ariaLabel="Items Per Page Select"
-        labelId="per-page-label"
-        selectedOption={perPage.toString()}
+        labelText="Items Per Page Select"
+        value={perPage.toString()}
         onChange={(e) => onChangePerPage(e)}
       >
         {numbersPerPage.map((pageNum: string) => {
           return <option key={`per-page-${pageNum}`}>{pageNum}</option>;
         })}
-      </DS.Select>
-      <DS.Label htmlFor="items-sort-by" id="sort-by-label">
+      </Select>
+      <Label htmlFor="items-sort-by" id="sort-by-label">
         Sort By
-      </DS.Label>
-      <DS.Select
+      </Label>
+      <Select
         id="sort-by"
         name="SortBySelect"
         isRequired={false}
-        ariaLabel="Sort By Select"
-        labelId="sort-by-label"
-        selectedOption={Object.keys(sortMap).find((key) =>
+        labelText="Sort By Select"
+        value={Object.keys(sortMap).find((key) =>
           deepEqual(sortMap[key], sort)
         )}
         onChange={(e) => onChangeSort(e)}
@@ -47,7 +45,7 @@ const ResultsSorts: React.FC<{
             <option key={`sort-option-${sortOption}`}>{sortOption}</option>
           );
         })}
-      </DS.Select>
+      </Select>
     </fieldset>
   );
 };

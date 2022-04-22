@@ -127,6 +127,7 @@ const Filters: React.FC<{
         }}
         isChecked={!showAll}
         size={ToggleSizes.Small}
+        id="available-online-toggle"
       />
       <LanguageAccordion
         languages={languages}

@@ -1,26 +1,12 @@
-.search-header {
-  @media (min-width: var(--nypl-breakpoint-medium)) {
-    flex-flow: row;
-    align-items: flex-start;
-  }
-}
-
 .search-header-form {
-  // flex: 1;
-  @media (max-width: 490px) {
-    // display: block;
-    display: flex;
-    button {
-      width: 100%;
-    }
-  }
-  @media (min-width: 870px) {
+  @media (min-width: 38em) {
     .search-bar {
       width: 85%;
     }
   }
-  select {
-    padding-left: var(--nypl-space-xs);
-    padding-right: var(--nypl-space-l);
+}
+#searchbar-form-search-bar > div {
+  @media (max-width: 38em) {
+    margin-bottom: var(--nypl-space-xs);
   }
 }

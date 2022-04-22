@@ -54,8 +54,6 @@ const SearchForm: React.FC<{
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLTextAreaElement>
   ) => {
-    console.log(shownQuery);
-    console.log(searchQuery);
     setShownQuery({ query: e.target.value, field: shownQuery.field });
   };
 
@@ -79,8 +77,9 @@ const SearchForm: React.FC<{
         selectProps={{
           labelText: "Select a search category",
           name: "selectName",
-          optionsData: inputTerms.map((field) => field.key),
+          optionsData: inputTerms.map((field) => field.label),
           onChange: (e) => onFieldChange(e),
+          value: shownQuery.field,
         }}
         textInputProps={{
           labelText: "Item Search",

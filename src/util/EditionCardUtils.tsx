@@ -9,9 +9,12 @@ import {
   Identifier,
 } from "../types/DataModel";
 import {
+  CardActions,
   Icon,
+  IconAlign,
   IconNames,
   IconRotationTypes,
+  IconSizes,
   LinkTypes,
 } from "@nypl/design-system-react-components";
 import Link from "~/src/components/Link/Link";
@@ -236,9 +239,12 @@ export default class EditionCardUtils {
         >
           <Icon
             name={IconNames.Download}
+            align={IconAlign.Left}
+            size={IconSizes.Small}
             decorative
             iconRotation={IconRotationTypes.Rotate0}
           />
+          Download PDF
         </Link>
       );
     }
@@ -281,10 +287,10 @@ export default class EditionCardUtils {
     // If a digital version exists, link directly
     if (readOnlineLink || downloadLink) {
       return (
-        <>
+        <CardActions>
           {readOnlineLink}
           {downloadLink}
-        </>
+        </CardActions>
       );
     }
 
