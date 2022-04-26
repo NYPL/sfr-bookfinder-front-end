@@ -1,4 +1,4 @@
-import { Checkbox } from "@nypl/design-system-react-components";
+import { Checkbox, CheckboxGroup } from "@nypl/design-system-react-components";
 import React from "react";
 import { Filter } from "~/src/types/SearchQuery";
 import { FormatTypes } from "~/src/constants/labels";
@@ -22,8 +22,7 @@ const FilterBookFormat: React.FC<{
   };
 
   return (
-    <fieldset>
-      <legend>Format</legend>
+    <CheckboxGroup labelText="Format">
       {FormatTypes.map((formatType: any) => (
         <Checkbox
           key={"checkbox-" + formatType.label}
@@ -32,7 +31,7 @@ const FilterBookFormat: React.FC<{
           isChecked={isSelected(selectedFormats, formatType.value)}
         />
       ))}
-    </fieldset>
+    </CheckboxGroup>
   );
 };
 

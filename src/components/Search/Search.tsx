@@ -18,6 +18,7 @@ import {
   HeadingLevels,
   BreadcrumbsTypes,
   Box,
+  HorizontalRule,
 } from "@nypl/design-system-react-components";
 import { useRouter } from "next/router";
 import { FacetItem, Query } from "~/src/types/DataModel";
@@ -175,7 +176,7 @@ const SearchResults: React.FC<{
               </Heading>
             </Box>
           </Box>
-          <hr />
+          <HorizontalRule bg="section.research.primary" />
           <Box
             className="search-subheading"
             display="flex"
@@ -222,7 +223,7 @@ const SearchResults: React.FC<{
             <Heading level={HeadingLevels.Two} id="filter-desktop-header">
               Refine Results
             </Heading>
-            <hr />
+            <HorizontalRule bg="section.research.primary" />
             <Filters
               filters={searchQuery.filters}
               showAll={searchQuery.showAll}

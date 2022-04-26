@@ -119,7 +119,7 @@ const Filters: React.FC<{
   const yearEnd = findFiltersForField(filters, filterFields.endYear);
 
   return (
-    <VStack align="left" spacing="1em">
+    <VStack align="left" spacing="s">
       <Toggle
         labelText="Available Online"
         onChange={(e) => {
