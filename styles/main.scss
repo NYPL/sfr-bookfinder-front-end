@@ -20,7 +20,7 @@
   */
  
  // @import "./mixins/Mixins.scss";
- @import "./components/Landing.scss";
+//  @import "./components/Landing.scss";
  @import "./../src/components/SearchHeader/SearchHeader.scss";
  // @import "./../src/components/ResultsSorts/ResultsSorts.scss";
  // @import "./../src/components/ResultsList/ResultsList.scss";
@@ -29,7 +29,7 @@
  // @import "./shared/DefinitionList.scss";
  
  // @import "./../src/components/Work/Work.scss";
- // @import "./components/Search.scss";
+//  @import "./components/Search.scss";
  // @import "./components/WorkDetail.scss";
  // @import "./components/IFrameReader.scss";
  // @import "./components/Loading.scss";
@@ -80,12 +80,13 @@
    }
  }
  
- // .breadcrumbs {
- //   &--space-under {
- //     @include space-stack-s;
- //   }
- // }
- 
- fieldset {
-   border: none;
+ .card-body {
+   width: 100%;
  }
+
+.advanced-search-message {
+  overflow: auto;
+  .link {
+    float: right;
+  }
+}

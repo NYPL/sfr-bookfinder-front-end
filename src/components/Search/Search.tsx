@@ -81,13 +81,13 @@ const SearchResults: React.FC<{
     return facets;
   };
 
-  const getFilterCount = (searchQuery: SearchQuery) => {
-    return searchQuery.showAll !== SearchQueryDefaults.showAll
-      ? searchQuery.filters.length + 1
-      : searchQuery.filters.length;
-  };
+  // const getFilterCount = (searchQuery: SearchQuery) => {
+  //   return searchQuery.showAll !== SearchQueryDefaults.showAll
+  //     ? searchQuery.filters.length + 1
+  //     : searchQuery.filters.length;
+  // };
 
-  const filterCount = getFilterCount(searchQuery);
+  // const filterCount = getFilterCount(searchQuery);
   const numberOfWorks = searchResults.data.totalWorks;
   const works: ApiWork[] = searchResults.data.works;
 
@@ -176,11 +176,18 @@ const SearchResults: React.FC<{
             </Box>
           </Box>
           <hr />
-          <Box className="search-subheading">
+          <Box
+            className="search-subheading"
+            display="flex"
+            justifyContent="space-between"
+            flex="column"
+            alignItems="center"
+          >
             <Heading
               level={HeadingLevels.Two}
               id="page-counter"
               className="page-counter"
+              additionalStyles={{ m: "0" }}
             >
               {numberOfWorks > 0
                 ? `Viewing ${firstElement.toLocaleString()} - ${
@@ -190,11 +197,7 @@ const SearchResults: React.FC<{
                   } of ${numberOfWorks.toLocaleString()} items`
                 : "Viewing 0 items"}
             </Heading>
-            <form
-              hidden
-              className="sort-form search-widescreen-show"
-              name="sortForm"
-            >
+            <form className="sort-form search-widescreen-show" name="sortForm">
               <ResultsSorts
                 perPage={searchQuery.perPage}
                 sort={searchQuery.sort}
@@ -203,8 +206,7 @@ const SearchResults: React.FC<{
               />
             </form>
           </Box>
-          <hr className="search-widescreen-show" />
-          <Button
+          {/* <Button
             className="filter-button"
             id="filter-button"
             buttonType={ButtonTypes.Secondary}
@@ -213,7 +215,7 @@ const SearchResults: React.FC<{
             }}
           >
             {`Filters (${filterCount})`}
-          </Button>
+          </Button> */}
         </TemplateContentTop>
         <TemplateContentSidebar>
           <form className="search-filter">

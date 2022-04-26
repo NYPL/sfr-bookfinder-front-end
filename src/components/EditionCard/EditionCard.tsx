@@ -3,13 +3,12 @@ import {
   Card,
   CardContent,
   CardHeading,
-  Grid,
-  GridItem,
   HeadingLevels,
   ImageRatios,
   ImageSizes,
   LayoutTypes,
   Box,
+  CardActions,
 } from "@nypl/design-system-react-components";
 import Link from "../Link/Link";
 import { WorkEdition } from "~/src/types/DataModel";
@@ -63,35 +62,29 @@ export const EditionCard: React.FC<{ edition: WorkEdition; title: string }> = ({
       }}
       isCentered
       isBordered
+      isAlignedRightActions
+      p="s"
     >
       <CardHeading level={HeadingLevels.Four} id="stack1-heading1">
         {editionYearElem(edition)}
       </CardHeading>
       <CardContent>
-        <Grid
-          templateRows="repeat(1, 1fr)"
-          templateColumns="repeat(3, 1fr)"
-          gap="32"
-        >
-          <GridItem colSpan={2}>
-            {EditionCardUtils.getPublisherAndLocation(
-              edition.publication_place,
-              edition.publishers
-            )}
-            <Box>{EditionCardUtils.getLanguageDisplayText(edition)}</Box>
-            <Link to="/license">
-              {EditionCardUtils.getLicense(previewItem)}
-            </Link>
-          </GridItem>
-          <GridItem colSpan={1}>
-            {EditionCardUtils.getCtas(
-              previewItem,
-              title,
-              !!cookies[NYPL_SESSION_ID]
-            )}
-          </GridItem>
-        </Grid>
+        <Box>
+          {EditionCardUtils.getPublisherAndLocation(
+            edition.publication_place,
+            edition.publishers
+          )}
+          <Box>{EditionCardUtils.getLanguageDisplayText(edition)}</Box>
+          <Link to="/license">{EditionCardUtils.getLicense(previewItem)}</Link>
+        </Box>
       </CardContent>
+      <CardActions display="flex" flexDir="column" whiteSpace="nowrap" gap={4}>
+        {EditionCardUtils.getCtas(
+          previewItem,
+          title,
+          !!cookies[NYPL_SESSION_ID]
+        )}
+      </CardActions>
     </Card>
   );
 };

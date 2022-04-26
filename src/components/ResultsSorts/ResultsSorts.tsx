@@ -1,5 +1,9 @@
 import React from "react";
-import { Label, Select } from "@nypl/design-system-react-components";
+import {
+  Fieldset,
+  LabelPositions,
+  Select,
+} from "@nypl/design-system-react-components";
 import { sortMap, numbersPerPage } from "~/src/constants/sorts";
 import { deepEqual } from "~/src/util/Util";
 import { Sort } from "~/src/types/DataModel";
@@ -11,15 +15,21 @@ const ResultsSorts: React.FC<{
   onChangeSort: (e) => void;
 }> = ({ perPage, sort, onChangePerPage, onChangeSort }) => {
   return (
-    <fieldset>
-      <Label htmlFor="items-per-page" id="per-page-label">
-        Items Per Page
-      </Label>
+    <Fieldset
+      id="sort-fieldset"
+      border="none"
+      display="flex"
+      alignItems="center"
+      flexDir="row"
+      justifyContent="flex-end"
+      gap="s"
+    >
       <Select
         id="items-per-page"
-        name="ItemsPerPageSelect"
+        name="itemsPerPageSelect"
         isRequired={false}
-        labelText="Items Per Page Select"
+        labelText="Items Per Page"
+        labelPosition={LabelPositions.Inline}
         value={perPage.toString()}
         onChange={(e) => onChangePerPage(e)}
       >
@@ -27,14 +37,12 @@ const ResultsSorts: React.FC<{
           return <option key={`per-page-${pageNum}`}>{pageNum}</option>;
         })}
       </Select>
-      <Label htmlFor="items-sort-by" id="sort-by-label">
-        Sort By
-      </Label>
       <Select
         id="sort-by"
-        name="SortBySelect"
+        name="sortBySelect"
         isRequired={false}
-        labelText="Sort By Select"
+        labelText="Sort By"
+        labelPosition={LabelPositions.Inline}
         value={Object.keys(sortMap).find((key) =>
           deepEqual(sortMap[key], sort)
         )}
@@ -46,7 +54,7 @@ const ResultsSorts: React.FC<{
           );
         })}
       </Select>
-    </fieldset>
+    </Fieldset>
   );
 };
 

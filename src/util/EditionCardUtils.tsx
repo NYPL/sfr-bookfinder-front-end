@@ -9,7 +9,7 @@ import {
   Identifier,
 } from "../types/DataModel";
 import {
-  CardActions,
+  Box,
   Icon,
   IconAlign,
   IconNames,
@@ -214,6 +214,10 @@ export default class EditionCardUtils {
             pathname: `/read/${readOnlineLink.link_id}`,
           }}
           linkType={LinkTypes.Button}
+          style={{
+            padding: "var(--nypl-space-xs) var(--nypl-space-m)",
+            width: "130px",
+          }}
         >
           Read Online
         </Link>
@@ -287,10 +291,10 @@ export default class EditionCardUtils {
     // If a digital version exists, link directly
     if (readOnlineLink || downloadLink) {
       return (
-        <CardActions>
-          {readOnlineLink}
-          {downloadLink}
-        </CardActions>
+        <>
+          <Box>{readOnlineLink}</Box>
+          <Box>{downloadLink}</Box>
+        </>
       );
     }
 

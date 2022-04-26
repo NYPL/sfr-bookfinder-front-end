@@ -25,7 +25,10 @@ const LandingPage: React.FC<any> = () => {
       Find millions of digital books for research from multiple sources
       world-wide--all free to read, download, and keep. No library card
       required. This is an early beta test, so we want your feedback!{" "}
-      <Link to="/about">Read more about the project</Link>.
+      <Link to="/about" color="ui.white">
+        Read more about the project
+      </Link>
+      .
     </div>
   );
   return (
@@ -40,9 +43,10 @@ const LandingPage: React.FC<any> = () => {
           className="hero-container"
         >
           <Hero
-            heroType={HeroTypes.SecondaryResearch}
+            backgroundColor="section.research.primary"
+            heroType={HeroTypes.Tertiary}
             heading={
-              <Heading level={HeadingLevels.One} id="1">
+              <Heading level={HeadingLevels.One} id="tertiary-hero">
                 <>
                   Digital Research Books <sup>Beta</sup>
                 </>
@@ -54,9 +58,7 @@ const LandingPage: React.FC<any> = () => {
       </TemplateBreakout>
       <TemplateContent>
         <TemplateContentTop>
-          <Heading level={HeadingLevels.Two}>
-            Search the World's Research Collections
-          </Heading>
+          Search the World's Research Collections
           <SearchForm />
         </TemplateContentTop>
         <TemplateContentPrimary>

@@ -2,37 +2,31 @@
 * Link hover color when we are using a grey background
 * This should be removed when this functionality is added to Design System.
 */
-$link-hover-grey-background: #135772;
+// $link-hover-grey-background: #135772;
 
-.hero__body-text {
-  .link {
-    color: var(--ui-link-secondary);
-  }
-  .link:hover {
-    color: $link-hover-grey-background;
-  }
-}
-.searchbar-container {
-  background-color: var(--ui-gray-light);
-}
+// .hero__body-text {
+//   .link {
+//     color: var(--ui-link-secondary);
+//   }
+//   .link:hover {
+//     color: $link-hover-grey-background;
+//   }
+// }
+// .searchbar-container {
+//   background-color: var(--ui-gray-light);
+// }
 
-.searchbar {
-  display: flex;
-  flex-direction: column;
+// .searchbar {
+//   display: flex;
+//   flex-direction: column;
 
-  @media (max-width: 320px) {
-    flex-direction: row;
-  }
-}
-.bar-content {
-  flex: 1 0 auto;
-}
-.advanced-search-message {
-  overflow: auto;
-  .link {
-    float: right;
-  }
-}
+//   @media (max-width: 320px) {
+//     flex-direction: row;
+//   }
+// }
+// .bar-content {
+//   flex: 1 0 auto;
+// }
 
 // .search-examples {
 //   & li {

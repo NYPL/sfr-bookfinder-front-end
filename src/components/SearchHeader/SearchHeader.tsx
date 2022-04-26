@@ -16,18 +16,15 @@ const SearchHeader: React.FC<{
 }> = ({ searchQuery }) => {
   return (
     <>
-      <Box
-        className="search-header-container"
-        bg="var(--nypl-colors-section-research-primary)"
-      >
+      <Box className="search-header-container" bg="section.research.primary">
         <Heading
           level={HeadingLevels.Two}
           additionalStyles={{
             m: "0 auto",
             maxW: "1280px",
             w: "100%",
-            p: "var(--nypl-space-s)",
-            color: "var(--nypl-colors-white)",
+            p: "s",
+            color: "ui.white",
           }}
         >
           <>
@@ -35,13 +32,13 @@ const SearchHeader: React.FC<{
           </>
         </Heading>
       </Box>
-      <Box bg="var(--nypl-colors-ui-gray-x-light-cool)">
+      <Box bg="ui.gray.x-light-cool">
         <Box
           className="search-header-form"
           m="0 auto"
           maxW="1280px"
           width="100%"
-          p="var(--nypl-space-s)"
+          p="s"
         >
           <SearchForm searchQuery={searchQuery} isHeader />
         </Box>

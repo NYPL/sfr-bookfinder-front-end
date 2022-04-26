@@ -2,9 +2,6 @@
 // the breakpoints to be hit and the elements to be flexed at the same time
 $breakpoint-margin: 35px;
 
-.search-heading {
-  @include space-stack-m;
-}
 .search-subheading {
   display: flex;
   justify-content: space-between;
@@ -16,7 +13,6 @@ $breakpoint-margin: 35px;
   }
 }
 .search-filter {
-  @include space-stack-xs;
   border-top: 2px solid var(--nypl-colors-section-research-primary);
   background-color: var(--ui-gray-xlight);
   display: none;
@@ -24,11 +20,6 @@ $breakpoint-margin: 35px;
   @media (min-width: (var(--nypl-breakpoint-medium) + $breakpoint-margin)) {
     display: block;
   }
-
-  h2 {
-    @include space-inset-xs;
-  }
-
   legend {
     font-weight: bold;
   }
@@ -42,7 +33,6 @@ $breakpoint-margin: 35px;
 }
 
 .filter-button {
-  @include space-stack-s;
 
   width: 100%;
 
@@ -57,8 +47,4 @@ $breakpoint-margin: 35px;
 
 .content-bottom {
   margin: 0 auto;
-}
-
-.toggle-container {
-  @include space-inset-xs;
 }
