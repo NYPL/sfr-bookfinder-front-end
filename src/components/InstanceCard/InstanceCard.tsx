@@ -36,12 +36,14 @@ export const InstanceCard: React.FC<{
     <Card
       imageProps={{
         src: EditionCardUtils.getCover(edition.links),
-        size: ImageSizes.Small,
+        size: ImageSizes.ExtraSmall,
         aspectRatio: ImageRatios.Original,
       }}
       layout={LayoutTypes.Row}
-      border
+      isBordered
+      isAlignedRightActions
       id={`card-${instance.instance_id}`}
+      p="s"
     >
       <CardHeading level={HeadingLevels.Three}>
         {edition.publication_date
@@ -58,7 +60,7 @@ export const InstanceCard: React.FC<{
         <div>{EditionCardUtils.getWorldCatElem(instance)}</div>
         <Link to="/license">{EditionCardUtils.getLicense(previewItem)}</Link>
       </CardContent>
-      <CardActions>
+      <CardActions whiteSpace="nowrap">
         {EditionCardUtils.getCtas(
           previewItem,
           instance.title,

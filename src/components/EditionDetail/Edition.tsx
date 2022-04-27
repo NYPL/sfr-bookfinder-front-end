@@ -3,16 +3,15 @@ import { useRouter } from "next/router";
 import {
   Breadcrumbs,
   BreadcrumbsTypes,
+  Flex,
   Heading,
   HeadingLevels,
   HorizontalRule,
-  HStack,
-  List,
-  ListTypes,
   Template,
   TemplateBreakout,
   TemplateContent,
   TemplateContentPrimary,
+  TemplateContentTop,
   Toggle,
   ToggleSizes,
 } from "@nypl/design-system-react-components";
@@ -27,6 +26,7 @@ import SearchHeader from "../SearchHeader/SearchHeader";
 import { truncateStringOnWhitespace } from "~/src/util/Util";
 import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
 import { Instance } from "~/src/types/DataModel";
+import { SimpleGrid } from "~/../nypl-design-system/node_modules/@chakra-ui/layout/dist/chakra-ui-layout.cjs";
 
 const Edition: React.FC<{ editionResult: EditionResult }> = (props) => {
   const router = useRouter();
@@ -82,75 +82,75 @@ const Edition: React.FC<{ editionResult: EditionResult }> = (props) => {
       </TemplateBreakout>
 
       <TemplateContent>
-        {edition && (
-          <Heading level={HeadingLevels.One}>
-            <Link
-              to={{
-                pathname: `/work/${edition.work_uuid}`,
-              }}
-              title={edition.title}
-              className="link link--no-underline"
-            >
-              {edition.title}
-            </Link>
-          </Heading>
-        )}
-
-        {edition.sub_title && (
-          <div className="search-result-item__subtitle">
-            {edition.sub_title}
-          </div>
-        )}
-      </TemplateContent>
-
-      <div className="content-primary">
-        {featuredInstance && (
-          <>
-            <Heading level={HeadingLevels.Two} id="featured-edition">
-              Featured Copy
+        <TemplateContentTop>
+          {edition && (
+            <Heading level={HeadingLevels.One}>
+              <Link
+                to={{
+                  pathname: `/work/${edition.work_uuid}`,
+                }}
+                title={edition.title}
+                className="link link--no-underline"
+              >
+                {edition.title}
+              </Link>
             </Heading>
+          )}
 
-            <div id="featured-edition-card">
-              <InstanceCard edition={edition} instance={featuredInstance} />
+          {edition.sub_title && (
+            <div className="search-result-item__subtitle">
+              {edition.sub_title}
             </div>
-          </>
-        )}
+          )}
+          <div className="content-primary">
+            {featuredInstance && (
+              <>
+                <Heading level={HeadingLevels.Two} id="featured-edition">
+                  Featured Copy
+                </Heading>
 
-        <TemplateContentPrimary>
-          <div id="nypl-item-details">
-            <HorizontalRule />
-            <EditionDetailDefinitionList edition={edition} />
-            <HorizontalRule />
-            {edition.instances && (
-              <HStack>
-                <h3
-                  tabIndex={-1}
-                  id="all-editions"
-                  className="all-editions-tag bold"
-                >
-                  All Copies
-                </h3>
-
-                <Toggle
-                  labelText="Show only items currently available online"
-                  size={ToggleSizes.Small}
-                  isChecked={router.query.showAll === "false"}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    toggleShowAll(e)
-                  }
-                />
-              </HStack>
+                <div id="featured-edition-card">
+                  <InstanceCard edition={edition} instance={featuredInstance} />
+                </div>
+              </>
             )}
-            <List type={ListTypes.Unordered}>
-              {edition.instances.map((instance) => (
-                <li key={instance.instance_id}>
-                  <InstanceCard edition={edition} instance={instance} />
-                </li>
-              ))}
-            </List>
           </div>
+        </TemplateContentTop>
+        <TemplateContentPrimary>
+          <EditionDetailDefinitionList edition={edition} />
+          <HorizontalRule bg="section.research.primary" />
+          {edition.instances && (
+            <Flex justify="space-between">
+              <Heading
+                level={HeadingLevels.Three}
+                id="all-editions"
+                className="all-editions-tag bold"
+              >
+                All Copies
+              </Heading>
+
+              <Toggle
+                labelText="Show only items currently available online"
+                size={ToggleSizes.Small}
+                isChecked={router.query.showAll === "false"}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  toggleShowAll(e)
+                }
+                id="show-all-toggle"
+              />
+            </Flex>
+          )}
+          <SimpleGrid columns={1} spacing="s">
+            {edition.instances.map((instance) => (
+              <InstanceCard
+                key={instance.instance_id}
+                edition={edition}
+                instance={instance}
+              />
+            ))}
+          </SimpleGrid>
         </TemplateContentPrimary>
-      </div>
+      </TemplateContent>
     </Template>
   );
 };

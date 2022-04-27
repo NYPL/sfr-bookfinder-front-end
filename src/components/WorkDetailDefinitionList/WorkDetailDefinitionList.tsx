@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Heading,
-  HeadingLevels,
-  List,
-  ListTypes,
-} from "@nypl/design-system-react-components";
+import { List, ListTypes } from "@nypl/design-system-react-components";
 import Link from "~/src/components/Link/Link";
 import { unique, flattenDeep, uniqueAndSortByFrequency } from "~/src/util/Util";
 import { Language, Subject } from "~/src/types/DataModel";
@@ -31,30 +26,12 @@ const getLanguagesForWork = (work: ApiWork) =>
 const WorkDetailDefinitionList: React.FC<{ work: ApiWork }> = ({ work }) => {
   const languages = getLanguagesForWork(work);
   return (
-    <div>
-      <Heading level={HeadingLevels.Three}>Details</Heading>
-      <dl className="nypl-details-table">
+    <List title="Details" type={ListTypes.Description}>
+      <>
         {work.alt_titles && work.alt_titles.length > 0 && (
           <>
             <dt>Alternative Titles</dt>
-            <dd>
-              <List type={ListTypes.Unordered}>
-                {work.alt_titles.map((title: string, i: number) => (
-                  <li key={`alt-title-${i}`}>
-                    <Link
-                      to={{
-                        pathname: "/search",
-                        query: {
-                          query: `title:${title}`,
-                        },
-                      }}
-                    >
-                      {title}
-                    </Link>
-                  </li>
-                ))}
-              </List>
-            </dd>
+            <dd>{work.alt_titles}</dd>
           </>
         )}
         {work.series && (
@@ -67,16 +44,12 @@ const WorkDetailDefinitionList: React.FC<{ work: ApiWork }> = ({ work }) => {
           </>
         )}
         <dt>Authors</dt>
-        <dd>
-          <ul className="definitions definitions-authors">
-            {EditionCardUtils.getAuthorsList(work.authors)}
-          </ul>
-        </dd>
+        <dd>{EditionCardUtils.getAuthorsList(work.authors)}</dd>
         {work.subjects && work.subjects.length > 0 && (
           <>
             <dt>Subjects</dt>
             <dd>
-              <List type={ListTypes.Unordered}>
+              <List type={ListTypes.Unordered} noStyling>
                 {unique(work.subjects, "heading")
                   .sort((a: Subject, b: Subject) =>
                     a.heading &&
@@ -107,16 +80,16 @@ const WorkDetailDefinitionList: React.FC<{ work: ApiWork }> = ({ work }) => {
           <>
             <dt>Languages</dt>
             <dd>
-              <ul className="definitions definitions-languages">
+              <List type={ListTypes.Unordered} noStyling>
                 {languages.map((language, i) => (
                   <li key={`language${i.toString()}`}>{language}</li>
                 ))}
-              </ul>
+              </List>
             </dd>
           </>
         )}
-      </dl>
-    </div>
+      </>
+    </List>
   );
 };
 

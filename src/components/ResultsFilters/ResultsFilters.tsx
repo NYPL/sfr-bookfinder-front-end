@@ -78,8 +78,8 @@ const Filters: React.FC<{
         filterFields.startYear,
         filterFields.endYear,
       ]),
-      ...[{ field: filterFields.startYear, value: e.startDate.toString() }],
-      ...[{ field: filterFields.endYear, value: e.endDate.toString() }],
+      ...[{ field: filterFields.startYear, value: e.startDate.getFullYear() }],
+      ...[{ field: filterFields.endYear, value: e.endDate.getFullYear() }],
     ];
     setFilters(newFilters);
   };

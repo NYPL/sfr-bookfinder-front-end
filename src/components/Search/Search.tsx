@@ -19,6 +19,7 @@ import {
   BreadcrumbsTypes,
   Box,
   HorizontalRule,
+  Flex,
 } from "@nypl/design-system-react-components";
 import { useRouter } from "next/router";
 import { FacetItem, Query } from "~/src/types/DataModel";
@@ -66,7 +67,7 @@ const SearchResults: React.FC<{
     //If not, the actual query is shown.
     const queries = searchQuery.queries.map((query: Query, index: any) => {
       const joiner = index < searchQuery.queries.length - 1 ? " and " : "";
-      return `${query.field}: "${query.query}${joiner}"`;
+      return `${query.field}: "${query.query}"${joiner}`;
     });
     return queries && queries.join("");
   };
@@ -177,13 +178,7 @@ const SearchResults: React.FC<{
             </Box>
           </Box>
           <HorizontalRule bg="section.research.primary" />
-          <Box
-            className="search-subheading"
-            display="flex"
-            justifyContent="space-between"
-            flex="column"
-            alignItems="center"
-          >
+          <Flex justify="space-between" align="center">
             <Heading
               level={HeadingLevels.Two}
               id="page-counter"
@@ -206,7 +201,7 @@ const SearchResults: React.FC<{
                 onChangeSort={(e) => onChangeSort(e)}
               />
             </form>
-          </Box>
+          </Flex>
           {/* <Button
             className="filter-button"
             id="filter-button"

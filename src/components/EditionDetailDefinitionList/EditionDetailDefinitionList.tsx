@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Heading,
-  HeadingLevels,
-  List,
-  ListTypes,
-} from "@nypl/design-system-react-components";
+import { List, ListTypes } from "@nypl/design-system-react-components";
 import { ApiEdition } from "~/src/types/EditionQuery";
 import { Agent } from "~/src/types/DataModel";
 
@@ -17,7 +12,7 @@ const getPublishersList = (publishers: Agent[]): JSX.Element[] => {
   }
   return publishers.map((publisher: Agent) => {
     return (
-      <List type={ListTypes.Unordered} key={publisher.name}>
+      <List type={ListTypes.Unordered} key={publisher.name} noStyling>
         <li>{publisher.name}</li>
       </List>
     );
@@ -28,11 +23,8 @@ export const EditionDetailDefinitionList: React.FC<{ edition: ApiEdition }> = ({
   edition,
 }) => {
   return (
-    <div>
-      <Heading level={HeadingLevels.Three} id="work-details">
-        Details
-      </Heading>
-      <dl className="nypl-details-table">
+    <List title="Details" type={ListTypes.Description}>
+      <>
         <dt>Publication Date</dt>
         <dd>
           {edition.publication_date ? edition.publication_date : "Unknown Date"}
@@ -44,6 +36,7 @@ export const EditionDetailDefinitionList: React.FC<{ edition: ApiEdition }> = ({
             ? edition.publication_place
             : "Unknown Place"}
         </dd>
+
         <dt>Publisher(s)</dt>
         <dd>{getPublishersList(edition.publishers)}</dd>
 
@@ -57,7 +50,7 @@ export const EditionDetailDefinitionList: React.FC<{ edition: ApiEdition }> = ({
           <>
             <dt>Languages</dt>
             <dd>
-              <List type={ListTypes.Unordered}>
+              <List type={ListTypes.Unordered} noStyling>
                 {edition.languages.map((lang) => {
                   return (
                     <li key={`language-${lang.language}`}>{lang.language}</li>
@@ -91,8 +84,8 @@ export const EditionDetailDefinitionList: React.FC<{ edition: ApiEdition }> = ({
             <dd>{edition.summary}</dd>
           </>
         )}
-      </dl>
-    </div>
+      </>
+    </List>
   );
 };
 

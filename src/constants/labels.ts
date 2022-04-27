@@ -42,10 +42,11 @@ const breadcrumbUrls = {
   drb: "/",
 };
 
-const breadcrumbTitles = {
+export const breadcrumbTitles = {
   home: "Home",
   research: "Research",
   drb: "Digital Research Books Beta",
+  advancedSearch: "Advanced Search",
 };
 
 export const defaultBreadcrumbs: BreadcrumbsDataProps[] = [
@@ -71,10 +72,10 @@ export const filtersLabels = {
 };
 
 export const inputTerms = [
-  { key: "keyword", label: "Keyword" },
-  { key: "author", label: "Author" },
-  { key: "title", label: "Title" },
-  { key: "subject", label: "Subject" },
+  { key: "keyword", label: "keyword" },
+  { key: "author", label: "author" },
+  { key: "title", label: "title" },
+  { key: "subject", label: "subject" },
 ];
 
 export const FormatTypes = [

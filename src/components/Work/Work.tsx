@@ -11,6 +11,11 @@ import {
   TemplateContent,
   Toggle,
   ToggleSizes,
+  HorizontalRule,
+  Box,
+  TemplateContentTop,
+  TemplateContentPrimary,
+  Flex,
 } from "@nypl/design-system-react-components";
 import { joinArrayOfElements } from "~/src/util/Util";
 import { EditionCard } from "~/src/components/EditionCard/EditionCard";
@@ -67,71 +72,67 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
       </TemplateBreakout>
 
       <TemplateContent>
-        <div className="nypl-item-header" role="alert">
-          <Heading level={HeadingLevels.One} id="work-title">
-            {work.title}
-          </Heading>
+        <TemplateContentTop>
+          <Box>
+            <Heading level={HeadingLevels.One} id="work-title">
+              {work.title}
+            </Heading>
 
-          {work.sub_title && (
-            <div className="search-result-item__subtitle">{work.sub_title}</div>
-          )}
-          {authorsList && authorsList.length && (
-            <div className="authors-container">
-              By {joinArrayOfElements(authorsList, ", ")}
-            </div>
-          )}
-        </div>
-        {featuredEdition && (
-          <>
-            <div>
-              <Heading level={HeadingLevels.Two} id="featured-edition">
-                Featured Edition
-              </Heading>
-            </div>
-            <div>
-              <EditionCard
-                edition={featuredEdition}
-                title={work.title}
-              ></EditionCard>
-            </div>
-          </>
-        )}
-        <hr />
-        <WorkDetailDefinitionList work={work} />
-        <hr />
-        <div id="nypl-item-details">
-          {work.editions && (
+            {work.sub_title && <Box>{work.sub_title}</Box>}
+            {authorsList && authorsList.length && (
+              <Box>By {joinArrayOfElements(authorsList, ", ")}</Box>
+            )}
+          </Box>
+          {featuredEdition && (
             <>
-              <div className="all-editions-header">
-                <Heading
-                  level={HeadingLevels.Three}
-                  id="all-editions"
-                  className="all-editions-tag bold"
-                >
-                  All Editions
+              <Box>
+                <Heading level={HeadingLevels.Two} id="featured-edition">
+                  Featured Edition
                 </Heading>
-
-                <Toggle
-                  labelText="Show only items currently available online"
-                  size={ToggleSizes.Small}
-                  isChecked={router.query.showAll === "false"}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    toggleShowAll(e)
-                  }
-                />
-              </div>
-              <SimpleGrid columns={1}>
-                {work.editions.map((edition: WorkEdition) => (
-                  <EditionCard
-                    key={edition.edition_id}
-                    edition={edition}
-                    title={work.title}
-                  ></EditionCard>
-                ))}
-              </SimpleGrid>
+              </Box>
+              <Box>
+                <EditionCard
+                  edition={featuredEdition}
+                  title={work.title}
+                ></EditionCard>
+              </Box>
             </>
           )}
-        </div>
+        </TemplateContentTop>
+        <TemplateContentPrimary>
+          <WorkDetailDefinitionList work={work} />
+          <HorizontalRule bg="section.research.primary" />
+          <Box id="nypl-item-details">
+            {work.editions && (
+              <>
+                <Flex justify="space-between">
+                  <Heading level={HeadingLevels.Three} id="all-editions">
+                    All Editions
+                  </Heading>
+
+                  <Toggle
+                    labelText="Show only items currently available online"
+                    size={ToggleSizes.Small}
+                    isChecked={router.query.showAll === "false"}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      toggleShowAll(e)
+                    }
+                    id="show-all-toggle"
+                  />
+                </Flex>
+                <SimpleGrid columns={1}>
+                  {work.editions.map((edition: WorkEdition) => (
+                    <EditionCard
+                      key={edition.edition_id}
+                      edition={edition}
+                      title={work.title}
+                    ></EditionCard>
+                  ))}
+                </SimpleGrid>
+              </>
+            )}
+          </Box>
+        </TemplateContentPrimary>
       </TemplateContent>
     </Template>
   );
