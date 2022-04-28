@@ -1,12 +1,14 @@
 import React from "react";
 import { useRouter } from "next/router";
 import {
+  Box,
   Breadcrumbs,
   BreadcrumbsTypes,
   Flex,
   Heading,
   HeadingLevels,
   HorizontalRule,
+  SimpleGrid,
   Template,
   TemplateBreakout,
   TemplateContent,
@@ -26,9 +28,10 @@ import SearchHeader from "../SearchHeader/SearchHeader";
 import { truncateStringOnWhitespace } from "~/src/util/Util";
 import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
 import { Instance } from "~/src/types/DataModel";
-import { SimpleGrid } from "~/../nypl-design-system/node_modules/@chakra-ui/layout/dist/chakra-ui-layout.cjs";
 
-const Edition: React.FC<{ editionResult: EditionResult }> = (props) => {
+const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
+  props
+) => {
   const router = useRouter();
 
   if (!props.editionResult) return <>Loading</>;
@@ -83,20 +86,30 @@ const Edition: React.FC<{ editionResult: EditionResult }> = (props) => {
 
       <TemplateContent>
         <TemplateContentTop>
-          {edition && (
-            <Heading level={HeadingLevels.One}>
-              <Link
-                to={{
-                  pathname: `/work/${edition.work_uuid}`,
-                }}
-                title={edition.title}
-                className="link link--no-underline"
+          <Flex direction={{ base: "column", md: "row" }}>
+            {edition && (
+              <Heading level={HeadingLevels.One}>
+                <Link
+                  to={{
+                    pathname: `/work/${edition.work_uuid}`,
+                  }}
+                  title={edition.title}
+                  className="link link--no-underline"
+                >
+                  {edition.title}
+                </Link>
+              </Heading>
+            )}
+            {props.backUrl && (
+              <Box
+                whiteSpace="nowrap"
+                lineHeight="calc(1.1 * var(--nypl-fontSizes-heading-primary))"
+                pl="s"
               >
-                {edition.title}
-              </Link>
-            </Heading>
-          )}
-
+                <Link to={props.backUrl}>Back to search results</Link>
+              </Box>
+            )}
+          </Flex>
           {edition.sub_title && (
             <div className="search-result-item__subtitle">
               {edition.sub_title}
@@ -140,7 +153,7 @@ const Edition: React.FC<{ editionResult: EditionResult }> = (props) => {
               />
             </Flex>
           )}
-          <SimpleGrid columns={1} spacing="s">
+          <SimpleGrid columns={1} gap="s">
             {edition.instances.map((instance) => (
               <InstanceCard
                 key={instance.instance_id}

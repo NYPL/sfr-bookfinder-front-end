@@ -25,8 +25,11 @@ import { defaultBreadcrumbs } from "~/src/constants/labels";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
 import SearchHeader from "../SearchHeader/SearchHeader";
 import { WorkEdition } from "~/src/types/DataModel";
+import Link from "../Link/Link";
 
-const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
+const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
+  props
+) => {
   const router = useRouter();
 
   const { pathname, query } = router;
@@ -74,10 +77,20 @@ const WorkDetail: React.FC<{ workResult: WorkResult }> = (props) => {
       <TemplateContent>
         <TemplateContentTop>
           <Box>
-            <Heading level={HeadingLevels.One} id="work-title">
-              {work.title}
-            </Heading>
-
+            <Flex direction={{ base: "column", md: "row" }}>
+              <Heading level={HeadingLevels.One} id="work-title">
+                {work.title}
+              </Heading>
+              {props.backUrl && (
+                <Box
+                  whiteSpace={{ md: "nowrap" }}
+                  lineHeight="calc(1.1 * var(--nypl-fontSizes-heading-primary))"
+                  pl={{ md: "s" }}
+                >
+                  <Link to={props.backUrl}>Back to search results</Link>
+                </Box>
+              )}
+            </Flex>
             {work.sub_title && <Box>{work.sub_title}</Box>}
             {authorsList && authorsList.length && (
               <Box>By {joinArrayOfElements(authorsList, ", ")}</Box>

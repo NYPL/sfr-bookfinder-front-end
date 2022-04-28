@@ -10,6 +10,8 @@ import mockRouter from "next-router-mock";
 
 jest.mock("next/router", () => require("next-router-mock"));
 
+const backUrl = "/search?query=keyword%3AYoruba&sort=title%3ADESC";
+
 describe("Renders Work component when given valid work", () => {
   beforeEach(() => {
     render(<Work workResult={apiWork} />);
@@ -195,5 +197,39 @@ describe("Render work with only catalog edition available", () => {
     expect(
       screen.queryByRole("heading", { name: "Featured Edition" })
     ).not.toBeInTheDocument();
+  });
+});
+
+describe("Work - Back to search results link", () => {
+  describe("Show back to search results link with backUrl provided", () => {
+    beforeEach(() => {
+      render(<Work workResult={apiWork} backUrl={backUrl} />);
+    });
+
+    test("Shows back to search results link", () => {
+      expect(
+        screen.getByRole("link", { name: "Back to search results" })
+      ).toBeInTheDocument();
+    });
+    test("Back to search results links to search page", () => {
+      expect(
+        screen.getByRole("link", { name: "Back to search results" })
+      ).toHaveAttribute(
+        "href",
+        "/search?query=keyword%3AYoruba&sort=title%3ADESC"
+      );
+    });
+  });
+
+  describe("Does not show back to search results link", () => {
+    beforeEach(() => {
+      render(<Work workResult={apiWork} />);
+    });
+
+    test("Does not show back to search results link", () => {
+      expect(
+        screen.queryByRole("link", { name: "Back to search results" })
+      ).not.toBeInTheDocument();
+    });
   });
 });

@@ -1,4 +1,4 @@
-import { getBackUrl } from "../LinkUtils";
+import { getBackToSearchUrl, getBackUrl } from "../LinkUtils";
 
 describe("Generates back url", () => {
   const host = "drb-qa.nypl.org";
@@ -12,6 +12,22 @@ describe("Generates back url", () => {
     const referer =
       "https://drb-qa.nypl.org/search?query=keyword%3A%22climate+change%22&filter=format%3Apdf";
     const backUrl = getBackUrl(referer, host);
+    expect(backUrl).toEqual(referer);
+  });
+});
+
+describe("Generate back to serach url", () => {
+  const host = "drb-qa.nypl.org";
+  test("getBackToSearchUrl returns null for non-search referer", () => {
+    const referer = "https://drb-qa.nypl.org/edition/1780467?featured=2178893";
+    const backUrl = getBackToSearchUrl(referer, host);
+    expect(backUrl).toEqual(null);
+  });
+
+  test("getBackToSearchUrl returns to search page for search referer", () => {
+    const referer =
+      "https://drb-qa.nypl.org/search?query=keyword%3A%22climate+change%22&filter=format%3Apdf";
+    const backUrl = getBackToSearchUrl(referer, host);
     expect(backUrl).toEqual(referer);
   });
 });
