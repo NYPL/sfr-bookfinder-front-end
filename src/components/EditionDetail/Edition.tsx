@@ -102,9 +102,9 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
             )}
             {props.backUrl && (
               <Box
-                whiteSpace="nowrap"
+                whiteSpace={{ md: "nowrap" }}
                 lineHeight="calc(1.1 * var(--nypl-fontSizes-heading-primary))"
-                pl="s"
+                pl={{ md: "s" }}
               >
                 <Link to={props.backUrl}>Back to search results</Link>
               </Box>
