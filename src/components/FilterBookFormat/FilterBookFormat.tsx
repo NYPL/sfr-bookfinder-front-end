@@ -22,13 +22,18 @@ const FilterBookFormat: React.FC<{
   };
 
   return (
-    <CheckboxGroup labelText="Format">
+    <CheckboxGroup
+      labelText="Format"
+      id="format-checkbox-group"
+      name="Format Checkbox Group"
+    >
       {FormatTypes.map((formatType: any) => (
         <Checkbox
           key={"checkbox-" + formatType.label}
           labelText={formatType.label}
           onChange={(e) => toggleSelected(e, formatType.value)}
           isChecked={isSelected(selectedFormats, formatType.value)}
+          id={formatType.label + "-checkbox"}
         />
       ))}
     </CheckboxGroup>

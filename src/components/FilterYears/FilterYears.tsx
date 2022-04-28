@@ -92,13 +92,14 @@ const FilterYears: React.FC<{
         nameFrom="pub-year-from"
         nameTo="pub-year-to"
         invalidText={dateRangeError}
-        showOptReqLabel={false}
+        showRequiredLabel={false}
         initialDate={startFilter ? startFilter.value.toString() : ""}
         initialDateTo={endFilter ? endFilter.value.toString() : ""}
         onChange={(e: FullDateType) => {
           changeDate(e);
         }}
         isDateRange
+        id="year-filter-date-picker"
       />
       {onSubmit && (
         <Button id="year-filter-button" onClick={() => onSubmit()}>

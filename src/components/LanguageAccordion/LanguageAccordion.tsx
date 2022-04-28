@@ -41,8 +41,9 @@ const LanguageAccordion: React.FC<{
               labelText="List of Languages"
               layout={LayoutTypes.Column}
               name="languages-list"
-              optReqFlag={false}
+              showRequiredLabel={false}
               showLabel={false}
+              id="languages-checkbox-group"
             >
               {languages.map((language) => {
                 return (
@@ -54,6 +55,7 @@ const LanguageAccordion: React.FC<{
                     }`}
                     isChecked={!!selectedLanguageFilter(language.value)}
                     onChange={(e) => toggleSelected(e, language.value)}
+                    id={language.value + "-checkbox"}
                   />
                 );
               })}
