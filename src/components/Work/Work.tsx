@@ -17,7 +17,10 @@ import {
   TemplateContentPrimary,
   Flex,
 } from "@nypl/design-system-react-components";
-import { joinArrayOfElements } from "~/src/util/Util";
+import {
+  joinArrayOfElements,
+  truncateStringOnWhitespace,
+} from "~/src/util/Util";
 import { EditionCard } from "~/src/components/EditionCard/EditionCard";
 import WorkDetailDefinitionList from "~/src/components/WorkDetailDefinitionList/WorkDetailDefinitionList";
 import { ApiWork, WorkResult } from "~/src/types/WorkQuery";
@@ -26,6 +29,7 @@ import EditionCardUtils from "~/src/util/EditionCardUtils";
 import SearchHeader from "../SearchHeader/SearchHeader";
 import { WorkEdition } from "~/src/types/DataModel";
 import Link from "../Link/Link";
+import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
 
 const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
   props
@@ -69,7 +73,13 @@ const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
       <TemplateBreakout>
         <Breadcrumbs
           breadcrumbsType={BreadcrumbsTypes.Research}
-          breadcrumbsData={defaultBreadcrumbs}
+          breadcrumbsData={[
+            ...defaultBreadcrumbs,
+            {
+              url: `/work/${work.uuid}`,
+              text: truncateStringOnWhitespace(work.title, MAX_TITLE_LENGTH),
+            },
+          ]}
         />
         <SearchHeader />
       </TemplateBreakout>

@@ -20,6 +20,9 @@ import {
   Box,
   HorizontalRule,
   Flex,
+  Form,
+  FormGaps,
+  IconSizes,
 } from "@nypl/design-system-react-components";
 import { useRouter } from "next/router";
 import { FacetItem, Query } from "~/src/types/DataModel";
@@ -83,13 +86,13 @@ const SearchResults: React.FC<{
     return facets;
   };
 
-  // const getFilterCount = (searchQuery: SearchQuery) => {
-  //   return searchQuery.showAll !== SearchQueryDefaults.showAll
-  //     ? searchQuery.filters.length + 1
-  //     : searchQuery.filters.length;
-  // };
+  const getFilterCount = (searchQuery: SearchQuery) => {
+    return searchQuery.showAll !== SearchQueryDefaults.showAll
+      ? searchQuery.filters.length + 1
+      : searchQuery.filters.length;
+  };
 
-  // const filterCount = getFilterCount(searchQuery);
+  const filterCount = getFilterCount(searchQuery);
   const numberOfWorks = searchResults.data.totalWorks;
   const works: ApiWork[] = searchResults.data.works;
 
@@ -193,32 +196,34 @@ const SearchResults: React.FC<{
                   } of ${numberOfWorks.toLocaleString()} items`
                 : "Viewing 0 items"}
             </Heading>
-            <form className="sort-form search-widescreen-show" name="sortForm">
+            <Form
+              id="results-sorts-form"
+              display={{ base: "none", md: "block" }}
+            >
               <ResultsSorts
                 perPage={searchQuery.perPage}
                 sort={searchQuery.sort}
                 onChangePerPage={(e) => onChangePerPage(e)}
                 onChangeSort={(e) => onChangeSort(e)}
               />
-            </form>
+            </Form>
           </Flex>
-          {/* <Button
-            className="filter-button"
-            id="filter-button"
-            buttonType={ButtonTypes.Secondary}
-            onClick={() => {
-              setModalOpen(true);
-            }}
-          >
-            {`Filters (${filterCount})`}
-          </Button> */}
         </TemplateContentTop>
         <TemplateContentSidebar>
-          <form className="search-filter">
-            <Heading level={HeadingLevels.Two} id="filter-desktop-header">
+          <Form
+            id="search-filter-form"
+            bg="ui.gray.x-light-cool"
+            p="xs"
+            gap={FormGaps.ExtraSmall}
+            display={{ base: "none", md: "block" }}
+          >
+            <Heading
+              level={HeadingLevels.Two}
+              id="filter-desktop-header"
+              additionalStyles={{ m: "0" }}
+            >
               Refine Results
             </Heading>
-            <HorizontalRule bg="section.research.primary" />
             <Filters
               filters={searchQuery.filters}
               showAll={searchQuery.showAll}
@@ -230,10 +235,19 @@ const SearchResults: React.FC<{
                 changeShowAll(showAll);
               }}
             />
-          </form>
-        </TemplateContentSidebar>
-        <TemplateContentPrimary>
-          <ResultsList works={works} />
+          </Form>
+          <Button
+            className="filter-button"
+            id="filter-button"
+            buttonType={ButtonTypes.Secondary}
+            onClick={() => {
+              setModalOpen(true);
+            }}
+            width="100%"
+            display={{ md: "none" }}
+          >
+            {`Filters (${filterCount})`}
+          </Button>
           {isModalOpen && (
             <Modal>
               <Button
@@ -246,11 +260,12 @@ const SearchResults: React.FC<{
                 <Icon
                   decorative={true}
                   name={IconNames.Arrow}
+                  size={IconSizes.Medium}
                   iconRotation={IconRotationTypes.Rotate90}
                 />
                 Go Back
               </Button>
-              <Box className="search-navigation">
+              <Box>
                 <ResultsSorts
                   perPage={searchQuery.perPage}
                   sort={searchQuery.sort}
@@ -276,9 +291,12 @@ const SearchResults: React.FC<{
               </form>
             </Modal>
           )}
+        </TemplateContentSidebar>
+        <TemplateContentPrimary>
+          <ResultsList works={works} />
           <Pagination
             pageCount={searchPaging.lastPage ? searchPaging.lastPage : 1}
-            currentPage={searchPaging.currentPage}
+            initialPage={searchPaging.currentPage}
             onPageChange={(e) => onPageChange(e)}
           />
         </TemplateContentPrimary>

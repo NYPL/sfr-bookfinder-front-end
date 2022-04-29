@@ -38,23 +38,18 @@ const LandingPage: React.FC<any> = () => {
           breadcrumbsType={BreadcrumbsTypes.Research}
           breadcrumbsData={defaultBreadcrumbs}
         />
-        <div
-          aria-label="Digital Research Books Beta"
-          className="hero-container"
-        >
-          <Hero
-            backgroundColor="section.research.primary"
-            heroType={HeroTypes.Tertiary}
-            heading={
-              <Heading level={HeadingLevels.One} id="tertiary-hero">
-                <>
-                  Digital Research Books <sup>Beta</sup>
-                </>
-              </Heading>
-            }
-            subHeaderText={subHeader}
-          />
-        </div>
+        <Hero
+          backgroundColor="section.research.primary"
+          heroType={HeroTypes.Tertiary}
+          heading={
+            <Heading level={HeadingLevels.One} id="tertiary-hero">
+              <>
+                Digital Research Books <sup>Beta</sup>
+              </>
+            </Heading>
+          }
+          subHeaderText={subHeader}
+        />
       </TemplateBreakout>
       <TemplateContent>
         <TemplateContentTop>

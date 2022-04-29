@@ -215,7 +215,6 @@ export default class EditionCardUtils {
           }}
           linkType={LinkTypes.Button}
           style={{
-            padding: "var(--nypl-space-xs) var(--nypl-space-m)",
             width: "130px",
           }}
         >

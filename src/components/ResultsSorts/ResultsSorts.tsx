@@ -17,11 +17,9 @@ const ResultsSorts: React.FC<{
   return (
     <Fieldset
       id="sort-fieldset"
-      border="none"
       display="flex"
       alignItems="center"
-      flexDir="row"
-      justifyContent="flex-end"
+      flexDir={{ base: "column", md: "row" }}
       gap="s"
     >
       <Select
@@ -32,6 +30,7 @@ const ResultsSorts: React.FC<{
         labelPosition={LabelPositions.Inline}
         value={perPage.toString()}
         onChange={(e) => onChangePerPage(e)}
+        width="100%"
       >
         {numbersPerPage.map((pageNum: string) => {
           return <option key={`per-page-${pageNum}`}>{pageNum}</option>;
@@ -47,6 +46,7 @@ const ResultsSorts: React.FC<{
           deepEqual(sortMap[key], sort)
         )}
         onChange={(e) => onChangeSort(e)}
+        width="100%"
       >
         {Object.keys(sortMap).map((sortOption: string) => {
           return (

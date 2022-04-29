@@ -44,7 +44,7 @@ const ResultsList: React.FC<{ works: ApiWork[] }> = ({ works }) => {
     );
   }
   return (
-    <VStack align="left" spacing="s">
+    <VStack align="left" spacing="m">
       {works.map((work) => {
         const previewEdition = work.editions && work.editions[0];
 
