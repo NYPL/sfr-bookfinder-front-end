@@ -50,14 +50,14 @@ describe("Renders Search Results Page", () => {
     });
   });
 
-  test("Digital Research Books Beta links to homepage", () => {
-    const homepagelinks = screen.getAllByRole("link", {
-      name: "Digital Research Books Beta",
-    });
-    homepagelinks.forEach((link) => {
-      expect(link).toHaveAttribute("href", "/");
-    });
-  });
+  // test("Digital Research Books Beta links to homepage", () => {
+  //   const homepagelinks = screen.getAllByRole("link", {
+  //     name: "Digital Research Books Beta",
+  //   });
+  //   homepagelinks.forEach((link) => {
+  //     expect(link).toHaveAttribute("href", "/");
+  //   });
+  // });
   test("DRB Header is shown", () => {
     expect(
       screen.getByRole("heading", { name: "Digital Research Books Beta" })
@@ -70,7 +70,7 @@ describe("Renders Search Results Page", () => {
   });
   test("Main Content shows the current search query with 'alert' role", () => {
     expect(screen.getByRole("alert")).toHaveTextContent(
-      "Search results for keyword: Animal Crossing"
+      'Search results for keyword: "Animal Crossing"'
     );
   });
   test("Item Count shows correctly", () => {
@@ -86,30 +86,37 @@ describe("Renders Search Results Page", () => {
     test("clicking 'filters' button shows filters contents", () => {
       fireEvent.click(screen.getByText("Filters (0)"));
       expect(
-        screen.getByRole("combobox", { name: "Items Per Page" })
+        screen.getByRole("combobox", { name: "Items Per Page Items Per Page" })
       ).toHaveValue("10");
-      expect(screen.getByRole("combobox", { name: "Sort By" })).toHaveValue(
-        "Relevance"
-      );
       expect(
-        screen.getByRole("checkbox", { name: "Available Online" })
+        screen.getByRole("combobox", { name: "Sort By Sort By" })
+      ).toHaveValue("Relevance");
+      expect(
+        screen.getAllByRole("checkbox", { name: "Available Online" })[0]
       ).toBeChecked();
-      const languages = screen.getByRole("group", { name: "Languages" });
+      fireEvent.click(
+        screen.getAllByRole("button", { name: "Filter Languages" })[0]
+      );
+      const languages = screen.getByRole("group", {
+        name: "List of Languages",
+      });
       expect(languages).toBeInTheDocument();
       // expect(
       //   within(languages).getByRole("checkbox", { name: "Filter Languages" })
       // ).not.toBeChecked();
       FilterFormatTests();
-      const pubYear = screen.getByRole("group", { name: "Publication Year" });
+      const pubYear = screen.getAllByRole("group", {
+        name: "Publication Year",
+      })[0];
       expect(pubYear).toBeInTheDocument();
       expect(
         within(pubYear).getByRole("spinbutton", {
-          name: "To",
+          name: "To To",
         })
       ).toHaveValue(null);
       expect(
         within(pubYear).getByRole("spinbutton", {
-          name: "From",
+          name: "From From",
         })
       ).toHaveValue(null);
 
@@ -168,9 +175,9 @@ describe("Renders Search Results Page", () => {
     });
     describe("Available Online", () => {
       test("Changing checkbox sends new search", () => {
-        const modalCheckbox = screen.getByRole("checkbox", {
+        const modalCheckbox = screen.getAllByRole("checkbox", {
           name: "Available Online",
-        });
+        })[0];
         fireEvent.click(modalCheckbox);
         expect(modalCheckbox).not.toBeChecked;
         expect(mockRouter).toMatchObject({
@@ -195,7 +202,12 @@ describe("Renders Search Results Page", () => {
       FilterLanguagesCommonTests(screen, availableLanguages, true);
 
       test("Clicking new language sends new search", () => {
-        const languages = screen.getByRole("group", { name: "Languages" });
+        fireEvent.click(
+          screen.getAllByRole("button", { name: "Filter Languages" })[0]
+        );
+        const languages = screen.getByRole("group", {
+          name: "List of Languages",
+        });
 
         const englishCheckbox = within(languages).getByRole("checkbox", {
           name: "English (6)",
@@ -220,7 +232,7 @@ describe("Renders Search Results Page", () => {
     });
     describe("Format filter", () => {
       test("Clicking new format sends new search", () => {
-        const formats = screen.getByRole("group", { name: "Format" });
+        const formats = screen.getAllByRole("group", { name: "Format" })[0];
         const epub = within(formats).getByRole("checkbox", { name: "ePub" });
         fireEvent.click(epub);
         expect(mockRouter).toMatchObject({
@@ -301,9 +313,9 @@ describe("Renders Search Results Page", () => {
         ).toEqual("https://test-cover-2/");
       });
       test("Shows download as link", () => {
-        expect(screen.getAllByText("Download")[0].closest("a").href).toEqual(
-          "https://test-link-url-3/"
-        );
+        expect(
+          screen.getAllByText("Download PDF")[0].closest("a").href
+        ).toEqual("https://test-link-url-3/");
       });
       test("Shows 'read online' as link", () => {
         expect(
@@ -421,7 +433,7 @@ describe("Renders Search Results Page", () => {
       });
       test("Does not show download link", () => {
         // The found `download` link is from the first result
-        expect(screen.getAllByText("Download")[1]).not.toBeDefined();
+        expect(screen.getAllByText("Download PDF")[1]).not.toBeDefined();
       });
       test("Shows 'read online' as link", () => {
         expect(
@@ -442,18 +454,16 @@ describe("Renders Search Results Page", () => {
     });
   });
   describe("Pagination appears", () => {
-    test("Previous page button appears and is disabled", () => {
-      const previousButton = screen.getByRole("button", {
+    test("Previous page link does not appear", () => {
+      const previousLink = screen.queryByRole("link", {
         name: "Previous page",
       });
-      expect(previousButton).toBeInTheDocument();
-      userEvent.click(previousButton);
-      expect(mockRouter).toMatchObject({});
+      expect(previousLink).not.toBeInTheDocument();
     });
-    test("Next page button appears and is clickable", () => {
-      const nextButton = screen.getByRole("button", { name: "Next page" });
-      expect(nextButton).toBeInTheDocument();
-      userEvent.click(nextButton);
+    test("Next page link appears and is clickable", () => {
+      const nextLink = screen.getByRole("link", { name: "Next page" });
+      expect(nextLink).toBeInTheDocument();
+      userEvent.click(nextLink);
       expect(mockRouter).toMatchObject({
         pathname: "/search",
         query: {
@@ -463,7 +473,7 @@ describe("Renders Search Results Page", () => {
       });
     });
     test("Middle numbers are clickable", () => {
-      const twoButton = screen.getByRole("button", { name: "2" });
+      const twoButton = screen.getByRole("link", { name: "Page 2" });
       expect(twoButton).toBeInTheDocument();
       userEvent.click(twoButton);
       expect(mockRouter).toMatchObject({
@@ -548,7 +558,7 @@ describe("Renders No Results when no results are shown", () => {
 
   test("Main Content shows the current search query", () => {
     expect(
-      screen.getByText("Search results for keyword: Animal Crossing")
+      screen.getByText('Search results for keyword: "Animal Crossing"')
     ).toBeInTheDocument();
   });
   test("Item Count shows correctly", () => {
@@ -562,19 +572,19 @@ describe("Renders No Results when no results are shown", () => {
     ).toBeInTheDocument();
   });
   test("Pagination does not appear", () => {
-    const previousButton = screen.queryByRole("button", {
+    const previousLink = screen.queryByRole("link", {
       name: "Previous page",
     });
-    const nextButton = screen.queryByRole("button", {
+    const nextLink = screen.queryByRole("link", {
       name: "Next page",
     });
 
-    expect(previousButton).not.toBeInTheDocument();
-    expect(nextButton).not.toBeInTheDocument();
+    expect(previousLink).not.toBeInTheDocument();
+    expect(nextLink).not.toBeInTheDocument();
   });
 });
 
-describe("Renders seach header correctly when viaf search is passed", () => {
+describe("Renders search header correctly when viaf search is passed", () => {
   const viafSearchQuery: SearchQuery = {
     queries: [{ field: SearchField.Viaf, query: "12345" }],
     display: { field: SearchField.Author, query: "display author" },
@@ -590,13 +600,15 @@ describe("Renders seach header correctly when viaf search is passed", () => {
 
   test("Main Content shows the viaf query", () => {
     expect(
-      screen.getByText("Search results for author: display author")
+      screen.getByText('Search results for author: "display author"')
     ).toBeInTheDocument();
   });
 
   test("Search bar is prepopulated with the author name", () => {
-    expect(screen.getByRole("combobox")).toHaveValue("author");
-    expect(screen.getByRole("textbox", { name: "Search" })).toHaveValue(
+    expect(
+      screen.getByRole("combobox", { name: "Select a search category" })
+    ).toHaveValue("author");
+    expect(screen.getByRole("textbox", { name: "Item Search" })).toHaveValue(
       "display author"
     );
   });

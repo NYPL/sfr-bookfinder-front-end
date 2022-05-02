@@ -1,4 +1,4 @@
-import { within } from "@testing-library/react";
+import { fireEvent, within } from "@testing-library/react";
 import { FacetItem } from "~/src/types/DataModel";
 import { ApiLanguage } from "~/src/types/LanguagesQuery";
 import { Filter } from "~/src/types/SearchQuery";
@@ -20,7 +20,12 @@ export const FilterLanguagesCommonTests = (
   // });
 
   test("Language Filters shows all available languages", () => {
-    const languageGroup = screen.getByRole("group", { name: "Languages" });
+    fireEvent.click(
+      screen.getAllByRole("button", { name: "Filter Languages" })[0]
+    );
+    const languageGroup = screen.getByRole("group", {
+      name: "List of Languages",
+    });
     expect(languageGroup).toBeVisible();
 
     languages.forEach((lang: ApiLanguage) => {

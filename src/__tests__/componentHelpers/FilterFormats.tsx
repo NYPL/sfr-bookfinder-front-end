@@ -1,7 +1,7 @@
 import { screen, within } from "@testing-library/react";
 
 export const FilterFormatTests = () => {
-  const formats = screen.getByRole("group", { name: "Format" });
+  const formats = screen.getAllByRole("group", { name: "Format" })[0];
   expect(formats).toBeInTheDocument();
   expect(
     within(formats).getByRole("checkbox", { name: "ePub" })

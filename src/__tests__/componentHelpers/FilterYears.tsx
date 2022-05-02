@@ -13,24 +13,28 @@ export const FilterYearsTests = (
   test("Renders Filter Years", () => {
     expect(
       screen.getByRole("spinbutton", {
-        name: "From",
+        name: "From From",
       })
     ).toHaveValue((startYear && startYear.value) || null);
     expect(
       screen.getByRole("spinbutton", {
-        name: "To",
+        name: "To To",
       })
     ).toHaveValue((endYear && endYear.value) || null);
     if (hasApplyButton) {
-      expect(screen.getByRole("button", { name: "Apply" })).toBeInTheDocument();
+      expect(
+        screen.getAllByRole("button", { name: "Apply" })[0]
+      ).toBeInTheDocument();
     }
   });
 
   if (hasApplyButton) {
     test("Submits filters with only 'from' value", () => {
-      const yearGroup = screen.getByRole("group", { name: "Publication Year" });
+      const yearGroup = screen.getAllByRole("group", {
+        name: "Publication Year",
+      })[0];
       const fromInput = within(yearGroup).getByRole("spinbutton", {
-        name: "From",
+        name: "From From",
       });
       const applyButton = within(yearGroup).getByRole("button", {
         name: "Apply",
@@ -48,9 +52,11 @@ export const FilterYearsTests = (
       });
     });
     test("Submits filters with only 'to' value", () => {
-      const yearGroup = screen.getByRole("group", { name: "Publication Year" });
+      const yearGroup = screen.getAllByRole("group", {
+        name: "Publication Year",
+      })[0];
       const toInput = within(yearGroup).getByRole("spinbutton", {
-        name: "To",
+        name: "To To",
       });
       const applyButton = within(yearGroup).getByRole("button", {
         name: "Apply",
@@ -68,12 +74,14 @@ export const FilterYearsTests = (
     });
 
     test("Submits search with both 'from' and 'to'", () => {
-      const yearGroup = screen.getByRole("group", { name: "Publication Year" });
+      const yearGroup = screen.getAllByRole("group", {
+        name: "Publication Year",
+      })[0];
       const toInput = within(yearGroup).getByRole("spinbutton", {
-        name: "To",
+        name: "To To",
       });
       const fromInput = within(yearGroup).getByRole("spinbutton", {
-        name: "From",
+        name: "From From",
       });
       const applyButton = within(yearGroup).getByRole("button", {
         name: "Apply",
@@ -92,12 +100,14 @@ export const FilterYearsTests = (
     });
 
     test("shows error text when 'to' is after 'from", () => {
-      const yearGroup = screen.getByRole("group", { name: "Publication Year" });
+      const yearGroup = screen.getAllByRole("group", {
+        name: "Publication Year",
+      })[0];
       const toInput = within(yearGroup).getByRole("spinbutton", {
-        name: "To",
+        name: "To To",
       });
       const fromInput = within(yearGroup).getByRole("spinbutton", {
-        name: "From",
+        name: "From From",
       });
       const applyButton = within(yearGroup).getByRole("button", {
         name: "Apply",
