@@ -72,7 +72,8 @@ const SearchForm: React.FC<{
     <Box className="search-bar">
       <SearchBar
         id="search-bar"
-        invalidText={isFormError ? errorMessagesText.emptySearch : ""}
+        invalidText={errorMessagesText.emptySearch}
+        isInvalid={isFormError}
         onSubmit={(e) => submitSearch(e)}
         selectProps={{
           labelText: "Select a search category",

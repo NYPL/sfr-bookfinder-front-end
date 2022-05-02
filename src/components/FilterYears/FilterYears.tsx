@@ -1,9 +1,11 @@
 import React from "react";
 import {
-  FullDateType,
-  DatePicker,
-  DatePickerTypes,
   Button,
+  Fieldset,
+  FormField,
+  FormRow,
+  TextInput,
+  TextInputTypes,
 } from "@nypl/design-system-react-components";
 
 import { Filter } from "~/src/types/SearchQuery";
@@ -18,7 +20,10 @@ import { Filter } from "~/src/types/SearchQuery";
 const FilterYears: React.FC<{
   startFilter: Filter;
   endFilter: Filter;
-  onDateChange: (e: FullDateType) => void;
+  onDateChange: (
+    e: React.ChangeEvent<HTMLInputElement>,
+    isStart: boolean
+  ) => void;
   // The date range error to show.
   // If no error should be shown, this should be an empty string
   dateRangeError?: string;
@@ -27,8 +32,11 @@ const FilterYears: React.FC<{
   const { startFilter, endFilter, onDateChange, dateRangeError, onSubmit } =
     props;
 
-  const changeDate = (e: FullDateType) => {
-    onDateChange(e);
+  const changeDate = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    isStart: boolean
+  ) => {
+    onDateChange(e, isStart);
   };
 
   // FilterYears can either be a form on its own (widescreen sidebar) or it can be a part of a larger form (advanced search)
@@ -41,72 +49,44 @@ const FilterYears: React.FC<{
   }
 
   return (
-    // <fieldset className="date-range">
-    //   <legend>Publication Year</legend>
-    //   <div className="year-input-group">
-    //     <div className="year-input">
-    //       <Label id="date-from-label" htmlFor="date-filter-from">
-    //         From
-    //       </Label>
-    //       <Input
-    //         type={TextInputTypes.number}
-    //         id="date-filter-from"
-    //         attributes={{ "aria-labelledby": "date-from-label" }}
-    //         value={startFilter ? startFilter.value : ""}
-    //         onChange={(e) => changeDate(true, e)}
-    //       />
-    //       <HelperErrorText isError={false}> EX. 1901 </HelperErrorText>
-    //     </div>
-    //     <div className="year-input">
-    //       <Label id="date-to-label" htmlFor="date-filter-to">
-    //         To
-    //       </Label>
-    //       <Input
-    //         attributes={{ "aria-labelledby": "date-to-label" }}
-    //         type={TextInputTypes.number}
-    //         id="date-filter-to"
-    //         value={endFilter ? endFilter.value : ""}
-    //         onChange={(e) => changeDate(false, e)}
-    //       />
-    //       <HelperErrorText isError={false}> EX. 2000 </HelperErrorText>
-    //     </div>
-    //   </div>
-    //   {dateRangeError && (
-    //     <HelperErrorText isError={true}>{dateRangeError}</HelperErrorText>
-    //   )}
-    //   {onSubmit && (
-    //     <Button
-    //       id="year-filter-button"
-    //       type="button"
-    //       onClick={() => onSubmit()}
-    //     >
-    //       Apply
-    //     </Button>
-    //   )}
-    // </fieldset>
-    <>
-      <DatePicker
-        dateFormat="yyyy"
-        dateType={DatePickerTypes.Year}
-        labelText="Publication Year"
-        nameFrom="pub-year-from"
-        nameTo="pub-year-to"
-        invalidText={dateRangeError}
-        showRequiredLabel={false}
-        initialDate={startFilter ? startFilter.value.toString() : ""}
-        initialDateTo={endFilter ? endFilter.value.toString() : ""}
-        onChange={(e: FullDateType) => {
-          changeDate(e);
-        }}
-        isDateRange
-        id="year-filter-date-picker"
-      />
+    <Fieldset legendText="Publication Year" id="date-range">
+      <FormRow>
+        <FormField>
+          <TextInput
+            labelText="From"
+            type={TextInputTypes.number}
+            defaultValue={startFilter ? startFilter.value.toString() : ""}
+            helperText="EX. 1901"
+            isInvalid={dateRangeError !== ""}
+            id="date-filter-from"
+            name="Date From"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              changeDate(e, true);
+            }}
+          />
+        </FormField>
+        <FormField>
+          <TextInput
+            labelText="To"
+            type={TextInputTypes.number}
+            defaultValue={endFilter ? endFilter.value.toString() : ""}
+            helperText="EX. 2000"
+            invalidText={dateRangeError}
+            isInvalid={dateRangeError !== ""}
+            id="date-filter-to"
+            name="Date To"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              changeDate(e, false);
+            }}
+          />
+        </FormField>
+      </FormRow>
       {onSubmit && (
         <Button id="year-filter-button" onClick={() => onSubmit()}>
           Apply
         </Button>
       )}
-    </>
+    </Fieldset>
   );
 };
 

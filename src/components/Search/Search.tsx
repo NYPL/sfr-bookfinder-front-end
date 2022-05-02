@@ -198,7 +198,8 @@ const SearchResults: React.FC<{
             </Heading>
             <Form
               id="results-sorts-form"
-              display={{ base: "none", md: "block" }}
+              display={{ base: "none", md: "block !important" }}
+              // visibility={{ base: "hidden", md: "visible" }}
             >
               <ResultsSorts
                 perPage={searchQuery.perPage}
@@ -210,32 +211,6 @@ const SearchResults: React.FC<{
           </Flex>
         </TemplateContentTop>
         <TemplateContentSidebar>
-          <Form
-            id="search-filter-form"
-            bg="ui.gray.x-light-cool"
-            p="xs"
-            gap={FormGaps.ExtraSmall}
-            display={{ base: "none", md: "block" }}
-          >
-            <Heading
-              level={HeadingLevels.Two}
-              id="filter-desktop-header"
-              additionalStyles={{ m: "0" }}
-            >
-              Refine Results
-            </Heading>
-            <Filters
-              filters={searchQuery.filters}
-              showAll={searchQuery.showAll}
-              languages={getAvailableLanguages(searchResults)}
-              changeFilters={(filters: Filter[]) => {
-                changeFilters(filters);
-              }}
-              changeShowAll={(showAll: boolean) => {
-                changeShowAll(showAll);
-              }}
-            />
-          </Form>
           <Button
             className="filter-button"
             id="filter-button"
@@ -245,6 +220,7 @@ const SearchResults: React.FC<{
             }}
             width="100%"
             display={{ md: "none" }}
+            // visibility={{ base: "visible", md: "hidden" }}
           >
             {`Filters (${filterCount})`}
           </Button>
@@ -291,6 +267,33 @@ const SearchResults: React.FC<{
               </form>
             </Modal>
           )}
+          <Form
+            id="search-filter-form"
+            bg="ui.gray.x-light-cool"
+            p="xs"
+            gap={FormGaps.ExtraSmall}
+            display={{ base: "none", md: "block !important" }}
+            // visibility={{ base: "hidden", md: "visible" }}
+          >
+            <Heading
+              level={HeadingLevels.Two}
+              id="filter-desktop-header"
+              additionalStyles={{ m: "0" }}
+            >
+              Refine Results
+            </Heading>
+            <Filters
+              filters={searchQuery.filters}
+              showAll={searchQuery.showAll}
+              languages={getAvailableLanguages(searchResults)}
+              changeFilters={(filters: Filter[]) => {
+                changeFilters(filters);
+              }}
+              changeShowAll={(showAll: boolean) => {
+                changeShowAll(showAll);
+              }}
+            />
+          </Form>
         </TemplateContentSidebar>
         <TemplateContentPrimary>
           <ResultsList works={works} />

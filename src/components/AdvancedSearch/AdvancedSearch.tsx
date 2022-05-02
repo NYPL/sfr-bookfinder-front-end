@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 
 import {
   findFiltersForField,
-  findFiltersExceptFields,
+  findFiltersExceptField,
   findQueryForField,
 } from "~/src/util/SearchQueryUtils";
 import {
@@ -24,7 +24,6 @@ import {
   Form,
   FormField,
   FormRow,
-  FullDateType,
   Heading,
   HeadingLevels,
   HelperErrorText,
@@ -127,9 +126,7 @@ const AdvancedSearch: React.FC<{
     setSearchQuery({
       ...searchQuery,
       filters: [
-        ...findFiltersExceptFields(searchQuery.filters, [
-          filterFields.language,
-        ]),
+        ...findFiltersExceptField(searchQuery.filters, filterFields.language),
         ...(e.target.checked
           ? [
               ...languageFilters,
@@ -151,7 +148,7 @@ const AdvancedSearch: React.FC<{
     setSearchQuery({
       ...searchQuery,
       filters: [
-        ...findFiltersExceptFields(searchQuery.filters, [filterFields.format]),
+        ...findFiltersExceptField(searchQuery.filters, filterFields.format),
         ...(e.target.checked
           ? [...formatFilters, { field: "format", value: format }]
           : formatFilters.filter((filter) => {
@@ -161,16 +158,17 @@ const AdvancedSearch: React.FC<{
     });
   };
 
-  const onDateChange = (e: FullDateType) => {
+  const onDateChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    isStart: boolean
+  ) => {
+    const field = isStart ? filterFields.startYear : filterFields.endYear;
     const newFilters = [
-      ...findFiltersExceptFields(searchQuery.filters, [
-        filterFields.startYear,
-        filterFields.endYear,
-      ]),
+      ...findFiltersExceptField(searchQuery.filters, field),
       ...[
         {
-          field: filterFields.startYear,
-          value: e.startDate.getFullYear(),
+          field: field,
+          value: e.currentTarget.value,
         },
       ],
     ];
@@ -275,8 +273,11 @@ const AdvancedSearch: React.FC<{
               <FilterYears
                 startFilter={startFilter && startFilter[0]}
                 endFilter={endFilter && endFilter[0]}
-                onDateChange={(e: FullDateType) => {
-                  onDateChange(e);
+                onDateChange={(
+                  e: React.ChangeEvent<HTMLInputElement>,
+                  isStart: boolean
+                ) => {
+                  onDateChange(e, isStart);
                 }}
               />
             </FormField>
