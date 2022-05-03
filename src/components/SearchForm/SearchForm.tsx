@@ -78,7 +78,7 @@ const SearchForm: React.FC<{
         selectProps={{
           labelText: "Select a search category",
           name: "selectName",
-          optionsData: inputTerms.map((field) => field.label),
+          optionsData: inputTerms.map((field) => field.key),
           onChange: (e) => onFieldChange(e),
           value: shownQuery.field,
         }}

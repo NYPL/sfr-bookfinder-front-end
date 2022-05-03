@@ -11,9 +11,10 @@ import { Sort } from "~/src/types/DataModel";
 const ResultsSorts: React.FC<{
   perPage: number;
   sort: Sort;
+  isModal?: boolean;
   onChangePerPage: (e) => void;
   onChangeSort: (e) => void;
-}> = ({ perPage, sort, onChangePerPage, onChangeSort }) => {
+}> = ({ perPage, sort, isModal, onChangePerPage, onChangeSort }) => {
   return (
     <Fieldset
       id="sort-fieldset"
@@ -23,7 +24,7 @@ const ResultsSorts: React.FC<{
       gap="s"
     >
       <Select
-        id="items-per-page"
+        id={isModal ? "items-per-page-modal" : "items-per-page"}
         name="itemsPerPageSelect"
         isRequired={false}
         labelText="Items Per Page"
@@ -37,7 +38,7 @@ const ResultsSorts: React.FC<{
         })}
       </Select>
       <Select
-        id="sort-by"
+        id={isModal ? "sort-by-modal" : "sort-by"}
         name="sortBySelect"
         isRequired={false}
         labelText="Sort By"
