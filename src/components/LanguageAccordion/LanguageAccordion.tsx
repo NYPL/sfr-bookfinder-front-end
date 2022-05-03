@@ -10,6 +10,26 @@ import { Filter } from "~/src/types/SearchQuery";
 
 // An Accordion of languages
 
+function areEqual(
+  prevProps: {
+    languages: FacetItem[];
+    showCount: boolean;
+    selectedLanguages: Filter[];
+    onLanguageChange: any;
+  },
+  nextProps: {
+    languages: FacetItem[];
+    showCount: boolean;
+    selectedLanguages: Filter[];
+    onLanguageChange: any;
+  }
+) {
+  return (
+    prevProps.languages === nextProps.languages &&
+    prevProps.selectedLanguages.length === nextProps.selectedLanguages.length
+  );
+}
+
 const LanguageAccordion: React.FC<{
   languages: FacetItem[];
   showCount: boolean;
@@ -67,4 +87,4 @@ const LanguageAccordion: React.FC<{
   );
 };
 
-export default LanguageAccordion;
+export default React.memo(LanguageAccordion, areEqual);

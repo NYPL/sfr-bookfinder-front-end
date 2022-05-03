@@ -4,6 +4,7 @@ import {
   Fieldset,
   FormField,
   FormRow,
+  HelperErrorText,
   TextInput,
   TextInputTypes,
 } from "@nypl/design-system-react-components";
@@ -57,7 +58,6 @@ const FilterYears: React.FC<{
             type={TextInputTypes.number}
             defaultValue={startFilter ? startFilter.value.toString() : ""}
             helperText="EX. 1901"
-            isInvalid={dateRangeError !== ""}
             id="date-filter-from"
             name="Date From"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,8 +71,6 @@ const FilterYears: React.FC<{
             type={TextInputTypes.number}
             defaultValue={endFilter ? endFilter.value.toString() : ""}
             helperText="EX. 2000"
-            invalidText={dateRangeError}
-            isInvalid={dateRangeError !== ""}
             id="date-filter-to"
             name="Date To"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -81,6 +79,9 @@ const FilterYears: React.FC<{
           />
         </FormField>
       </FormRow>
+      {dateRangeError && (
+        <HelperErrorText isInvalid={true} text={dateRangeError} />
+      )}
       {onSubmit && (
         <Button id="year-filter-button" onClick={() => onSubmit()}>
           Apply

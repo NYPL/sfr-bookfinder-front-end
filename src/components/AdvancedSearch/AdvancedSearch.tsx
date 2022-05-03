@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import {
@@ -54,14 +54,20 @@ const AdvancedSearch: React.FC<{
   const [emptySearchError, setEmptySearchError] = useState(false);
   const [dateRangeError, setDateRangeError] = useState("");
 
-  const languages: FacetItem[] = previousLanguages
-    ? previousLanguages.data.map((language) => {
-        return {
-          value: language.language,
-          count: language.count,
-        };
-      })
-    : [];
+  const [languages, setLanguages] = useState<FacetItem[]>([]);
+
+  useEffect(() => {
+    setLanguages(
+      previousLanguages
+        ? previousLanguages.data.map((language) => {
+            return {
+              value: language.language,
+              count: language.count,
+            };
+          })
+        : []
+    );
+  }, [previousLanguages]);
 
   const submit = (e) => {
     e.preventDefault();
@@ -106,7 +112,6 @@ const AdvancedSearch: React.FC<{
     const allQueries = searchQuery.queries.filter((query) => {
       return query.field !== queryKey;
     });
-
     // If the new query is not empty, add it
     if (newQuery.query.length > 0) {
       allQueries.push(newQuery);
@@ -122,20 +127,20 @@ const AdvancedSearch: React.FC<{
       searchQuery.filters,
       filterFields.language
     );
-
+    const newFilters = [
+      ...findFiltersExceptField(searchQuery.filters, filterFields.language),
+      ...(e.target.checked
+        ? [
+            ...languageFilters,
+            { field: filterFields.language, value: language },
+          ]
+        : languageFilters.filter((filter) => {
+            return filter.value !== language;
+          })),
+    ];
     setSearchQuery({
       ...searchQuery,
-      filters: [
-        ...findFiltersExceptField(searchQuery.filters, filterFields.language),
-        ...(e.target.checked
-          ? [
-              ...languageFilters,
-              { field: filterFields.language, value: language },
-            ]
-          : languageFilters.filter((filter) => {
-              return filter.value !== language;
-            })),
-      ],
+      filters: newFilters,
     });
   };
 
@@ -150,7 +155,7 @@ const AdvancedSearch: React.FC<{
       filters: [
         ...findFiltersExceptField(searchQuery.filters, filterFields.format),
         ...(e.target.checked
-          ? [...formatFilters, { field: "format", value: format }]
+          ? [...formatFilters, { field: filterFields.format, value: format }]
           : formatFilters.filter((filter) => {
               return filter.value !== format;
             })),
@@ -228,10 +233,10 @@ const AdvancedSearch: React.FC<{
             {inputTermRows.map(
               (inputTerms: { key: string; label: string }[], i: number) => {
                 return (
-                  <FormRow key={`input-row-${i}`}>
+                  <FormRow key={`input-row-${inputTerms[i].key}`}>
                     {inputTerms.map((field: { key: string; label: string }) => {
                       return (
-                        <FormField key={`input-field-${i}`}>
+                        <FormField key={`input-field-${field.key}`}>
                           <TextInput
                             id={`search-${field.label}`}
                             labelText={field.label}
@@ -261,7 +266,7 @@ const AdvancedSearch: React.FC<{
                   showCount={false}
                   selectedLanguages={findFiltersForField(
                     searchQuery.filters,
-                    "language"
+                    filterFields.language
                   )}
                   onLanguageChange={(e, language) =>
                     onLanguageChange(e, language)
@@ -285,7 +290,7 @@ const AdvancedSearch: React.FC<{
               <FilterBookFormat
                 selectedFormats={findFiltersForField(
                   searchQuery.filters,
-                  "format"
+                  filterFields.format
                 )}
                 onFormatChange={(e, format) => {
                   onBookFormatChange(e, format);
