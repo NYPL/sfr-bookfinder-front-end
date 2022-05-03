@@ -86,10 +86,10 @@ describe("Renders Search Results Page", () => {
     test("clicking 'filters' button shows filters contents", () => {
       fireEvent.click(screen.getByText("Filters (0)"));
       expect(
-        screen.getByRole("combobox", { name: "Items Per Page Items Per Page" })
+        screen.getAllByRole("combobox", { name: "Items Per Page" })[0]
       ).toHaveValue("10");
       expect(
-        screen.getByRole("combobox", { name: "Sort By Sort By" })
+        screen.getAllByRole("combobox", { name: "Sort By" })[0]
       ).toHaveValue("Relevance");
       expect(
         screen.getAllByRole("checkbox", { name: "Available Online" })[0]
@@ -111,12 +111,12 @@ describe("Renders Search Results Page", () => {
       expect(pubYear).toBeInTheDocument();
       expect(
         within(pubYear).getByRole("spinbutton", {
-          name: "To To",
+          name: "To",
         })
       ).toHaveValue(null);
       expect(
         within(pubYear).getByRole("spinbutton", {
-          name: "From From",
+          name: "From",
         })
       ).toHaveValue(null);
 
@@ -130,10 +130,12 @@ describe("Renders Search Results Page", () => {
     });
     describe("Per Page filters", () => {
       test("Changes Sort By sends new search", () => {
-        const allSorts = screen.getAllByLabelText("Items Per Page");
-        const wideSorts = allSorts[0];
-        expect(wideSorts).not.toBeVisible();
-        const modalSorts = allSorts[1];
+        const allSorts = screen.getAllByRole("combobox", {
+          name: "Items Per Page",
+        });
+        const wideSorts = allSorts[1];
+        // expect(wideSorts).not.toBeVisible();
+        const modalSorts = allSorts[0];
         expect(modalSorts).toBeVisible();
         fireEvent.change(modalSorts, { target: { value: 20 } });
         expect(modalSorts).toHaveValue("20");
@@ -154,7 +156,7 @@ describe("Renders Search Results Page", () => {
       test("Changing items sends new search ", () => {
         const allSorts = screen.getAllByLabelText("Sort By");
         const wideSorts = allSorts[0];
-        expect(wideSorts).not.toBeVisible();
+        // expect(wideSorts).not.toBeVisible();
         const sortBy = allSorts[1];
         expect(sortBy).toBeVisible();
         fireEvent.change(sortBy, { target: { value: "Title A-Z" } });

@@ -12,14 +12,14 @@ export const FilterYearsTests = (
 ) => {
   test("Renders Filter Years", () => {
     expect(
-      screen.getByRole("spinbutton", {
-        name: "From From",
-      })
+      screen.getAllByRole("spinbutton", {
+        name: "From",
+      })[0]
     ).toHaveValue((startYear && startYear.value) || null);
     expect(
-      screen.getByRole("spinbutton", {
-        name: "To To",
-      })
+      screen.getAllByRole("spinbutton", {
+        name: "To",
+      })[0]
     ).toHaveValue((endYear && endYear.value) || null);
     if (hasApplyButton) {
       expect(
@@ -34,7 +34,7 @@ export const FilterYearsTests = (
         name: "Publication Year",
       })[0];
       const fromInput = within(yearGroup).getByRole("spinbutton", {
-        name: "From From",
+        name: "From",
       });
       const applyButton = within(yearGroup).getByRole("button", {
         name: "Apply",
@@ -56,7 +56,7 @@ export const FilterYearsTests = (
         name: "Publication Year",
       })[0];
       const toInput = within(yearGroup).getByRole("spinbutton", {
-        name: "To To",
+        name: "To",
       });
       const applyButton = within(yearGroup).getByRole("button", {
         name: "Apply",
@@ -78,10 +78,10 @@ export const FilterYearsTests = (
         name: "Publication Year",
       })[0];
       const toInput = within(yearGroup).getByRole("spinbutton", {
-        name: "To To",
+        name: "To",
       });
       const fromInput = within(yearGroup).getByRole("spinbutton", {
-        name: "From From",
+        name: "From",
       });
       const applyButton = within(yearGroup).getByRole("button", {
         name: "Apply",
@@ -104,10 +104,10 @@ export const FilterYearsTests = (
         name: "Publication Year",
       })[0];
       const toInput = within(yearGroup).getByRole("spinbutton", {
-        name: "To To",
+        name: "To",
       });
       const fromInput = within(yearGroup).getByRole("spinbutton", {
-        name: "From From",
+        name: "From",
       });
       const applyButton = within(yearGroup).getByRole("button", {
         name: "Apply",

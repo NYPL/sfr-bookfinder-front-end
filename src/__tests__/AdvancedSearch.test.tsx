@@ -58,7 +58,7 @@ describe("renders advanced search correctly", () => {
 });
 
 describe("Advanced Search submit", () => {
-  test("Submits well formed query", () => {
+  test("Submits well formed query", async () => {
     render(<AdvancedSearch languages={defaultLanguages} />);
 
     const inputValues = {
@@ -67,13 +67,14 @@ describe("Advanced Search submit", () => {
       Subject: "poetry",
       Title: "Handbook",
     };
+
+    fireEvent.click(screen.getByRole("button", { name: "Filter Languages" }));
+    userEvent.click(await screen.findByRole("checkbox", { name: "english" }));
     inputTerms.forEach((val) => {
       fireEvent.change(screen.getByLabelText(val.label), {
         target: { value: inputValues[val.label] },
       });
     });
-
-    userEvent.click(screen.getByRole("checkbox", { name: "english" }));
     fireEvent.change(screen.getByRole("spinbutton", { name: "From" }), {
       target: { value: "1990" },
     });
@@ -175,13 +176,14 @@ describe("Advanced Search clear", () => {
       Subject: "poetry",
       Title: "Handbook",
     };
+
+    fireEvent.click(screen.getByRole("button", { name: "Filter Languages" }));
+    userEvent.click(screen.getByRole("checkbox", { name: "english" }));
     inputTerms.forEach((val) => {
       fireEvent.change(screen.getByLabelText(val.label), {
         target: { value: inputValues[val.label] },
       });
     });
-
-    userEvent.click(screen.getByRole("checkbox", { name: "english" }));
     fireEvent.change(screen.getByRole("spinbutton", { name: "From" }), {
       target: { value: "1990" },
     });
