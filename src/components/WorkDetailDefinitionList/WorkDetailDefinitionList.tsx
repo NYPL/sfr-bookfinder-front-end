@@ -31,7 +31,22 @@ const WorkDetailDefinitionList: React.FC<{ work: ApiWork }> = ({ work }) => {
         {work.alt_titles && work.alt_titles.length > 0 && (
           <>
             <dt>Alternative Titles</dt>
-            <dd>{work.alt_titles}</dd>
+            <dd>
+              <List type={ListTypes.Unordered} noStyling>
+                {work.alt_titles.map((title: string, i: number) => (
+                  <li key={`alt-title-${i}`}>
+                    <Link
+                      to={{
+                        pathname: "/search",
+                        query: { query: `title:${title}` },
+                      }}
+                    >
+                      {title}
+                    </Link>
+                  </li>
+                ))}
+              </List>
+            </dd>
           </>
         )}
         {work.series && (

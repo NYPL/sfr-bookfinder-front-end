@@ -72,10 +72,10 @@ export const filtersLabels = {
 };
 
 export const inputTerms = [
-  { key: "keyword", label: "keyword" },
-  { key: "author", label: "author" },
-  { key: "title", label: "title" },
-  { key: "subject", label: "subject" },
+  { key: "keyword", label: "Keyword" },
+  { key: "author", label: "Author" },
+  { key: "title", label: "Title" },
+  { key: "subject", label: "Subject" },
 ];
 
 export const FormatTypes = [
