@@ -243,6 +243,7 @@ const SearchResults: React.FC<{
               </Button>
               <Box>
                 <ResultsSorts
+                  isModal={true}
                   perPage={searchQuery.perPage}
                   sort={searchQuery.sort}
                   onChangePerPage={(e) => onChangePerPage(e)}
@@ -257,6 +258,7 @@ const SearchResults: React.FC<{
                   filters={searchQuery.filters}
                   showAll={searchQuery.showAll}
                   languages={getAvailableLanguages(searchResults)}
+                  isModal={true}
                   changeFilters={(filters: Filter[]) => {
                     changeFilters(filters);
                   }}

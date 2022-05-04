@@ -21,6 +21,7 @@ import { Filter } from "~/src/types/SearchQuery";
 const FilterYears: React.FC<{
   startFilter: Filter;
   endFilter: Filter;
+  isModal?: boolean;
   onDateChange: (
     e: React.ChangeEvent<HTMLInputElement>,
     isStart: boolean
@@ -30,8 +31,14 @@ const FilterYears: React.FC<{
   dateRangeError?: string;
   onSubmit?: () => void;
 }> = (props) => {
-  const { startFilter, endFilter, onDateChange, dateRangeError, onSubmit } =
-    props;
+  const {
+    startFilter,
+    endFilter,
+    isModal,
+    onDateChange,
+    dateRangeError,
+    onSubmit,
+  } = props;
 
   const changeDate = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -58,7 +65,7 @@ const FilterYears: React.FC<{
             type={TextInputTypes.number}
             defaultValue={startFilter ? startFilter.value.toString() : ""}
             helperText="EX. 1901"
-            id="date-filter-from"
+            id={isModal ? "date-filter-from-modal" : "date-filter-from"}
             name="Date From"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               changeDate(e, true);
@@ -71,7 +78,7 @@ const FilterYears: React.FC<{
             type={TextInputTypes.number}
             defaultValue={endFilter ? endFilter.value.toString() : ""}
             helperText="EX. 2000"
-            id="date-filter-to"
+            id={isModal ? "date-filter-to-modal" : "date-filter-to"}
             name="Date To"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               changeDate(e, false);
@@ -83,7 +90,10 @@ const FilterYears: React.FC<{
         <HelperErrorText isInvalid={true} text={dateRangeError} />
       )}
       {onSubmit && (
-        <Button id="year-filter-button" onClick={() => onSubmit()}>
+        <Button
+          id={isModal ? "year-filter-button-modal" : "year-filter-button"}
+          onClick={() => onSubmit()}
+        >
           Apply
         </Button>
       )}
