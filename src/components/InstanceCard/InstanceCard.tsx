@@ -38,6 +38,7 @@ export const InstanceCard: React.FC<{
         src: EditionCardUtils.getCover(edition.links),
         size: ImageSizes.ExtraSmall,
         aspectRatio: ImageRatios.Original,
+        alt: "Cover",
       }}
       layout={LayoutTypes.Row}
       isBordered
