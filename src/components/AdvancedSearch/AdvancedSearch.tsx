@@ -65,11 +65,11 @@ const AdvancedSearch: React.FC<{
   const [formatFilters, setFormatFilters] = useState<Filter[]>(
     findFiltersForField(searchQuery.filters, filterFields.format)
   );
-  const [startFilter, setStartFilter] = useState<Filter[]>(
-    findFiltersForField(searchQuery.filters, filterFields.startYear)
+  const [startFilter, setStartFilter] = useState<Filter>(
+    findFiltersForField(searchQuery.filters, filterFields.startYear)[0]
   );
-  const [endFilter, setEndFilter] = useState<Filter[]>(
-    findFiltersForField(searchQuery.filters, filterFields.endYear)
+  const [endFilter, setEndFilter] = useState<Filter>(
+    findFiltersForField(searchQuery.filters, filterFields.endYear)[0]
   );
 
   useEffect(() => {
@@ -93,8 +93,8 @@ const AdvancedSearch: React.FC<{
     } else {
       setEmptySearchError(false);
     }
-    const startYear = startFilter[0];
-    const endYear = endFilter[0];
+    const startYear = startFilter;
+    const endYear = endFilter;
     if (startYear && endYear && endYear.value < startYear.value) {
       setDateRangeError(errorMessagesText.invalidDate);
       return;
@@ -102,14 +102,14 @@ const AdvancedSearch: React.FC<{
       setDateRangeError("");
     }
 
+    const filters = [...languageFilters];
+    if (startFilter) filters.push(startFilter);
+    if (endFilter) filters.push(endFilter);
+    filters.push(...formatFilters);
+
     const newSearchQuery = {
       ...searchQuery,
-      filters: [
-        ...languageFilters,
-        ...startFilter,
-        ...endFilter,
-        ...formatFilters,
-      ],
+      filters: filters,
       queries: queries,
     };
 
@@ -122,8 +122,8 @@ const AdvancedSearch: React.FC<{
   const clearSearch = () => {
     setQueries([]);
     setLanguageFilters([]);
-    setStartFilter([]);
-    setEndFilter([]);
+    setStartFilter(undefined);
+    setEndFilter(undefined);
     setFormatFilters([]);
   };
 
@@ -173,16 +173,12 @@ const AdvancedSearch: React.FC<{
     isStart: boolean
   ) => {
     const field = isStart ? filterFields.startYear : filterFields.endYear;
-    const newFilters = [
-      ...[
-        {
-          field: field,
-          value: e.currentTarget.value,
-        },
-      ],
-    ];
-    if (isStart) setStartFilter(newFilters);
-    else setEndFilter(newFilters);
+    const newFilter = {
+      field: field,
+      value: e.currentTarget.value,
+    };
+    if (isStart) setStartFilter(newFilter);
+    else setEndFilter(newFilter);
   };
 
   // Because each FormRow has two InputTerms each,
