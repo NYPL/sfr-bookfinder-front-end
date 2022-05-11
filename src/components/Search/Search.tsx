@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Breadcrumbs,
   ButtonTypes,
@@ -23,6 +23,7 @@ import {
   Form,
   FormGaps,
   IconSizes,
+  useWindowSize,
 } from "@nypl/design-system-react-components";
 import { useRouter } from "next/router";
 import { FacetItem, Query } from "~/src/types/DataModel";
@@ -51,6 +52,21 @@ const SearchResults: React.FC<{
     ...props.searchQuery,
   });
   const [isModalOpen, setModalOpen] = useState(false);
+  const [displayForm, setDisplayForm] = useState("none");
+  const [displayFilterButton, setDisplayFilterButton] = useState("none");
+
+  const windowDimensions = useWindowSize();
+  const breakpointMedium = 600;
+
+  useEffect(() => {
+    if (windowDimensions.width <= breakpointMedium) {
+      setDisplayForm("none");
+      setDisplayFilterButton("block !important");
+    } else {
+      setDisplayForm("block !important");
+      setDisplayFilterButton("none");
+    }
+  }, [windowDimensions.width]);
 
   const router = useRouter();
 
@@ -198,7 +214,7 @@ const SearchResults: React.FC<{
             </Heading>
             <Form
               id="results-sorts-form"
-              display={{ base: "none", md: "block !important" }}
+              display={displayForm}
               // visibility={{ base: "hidden", md: "visible" }}
             >
               <ResultsSorts
@@ -219,7 +235,7 @@ const SearchResults: React.FC<{
               setModalOpen(true);
             }}
             width="100%"
-            display={{ md: "none" }}
+            display={displayFilterButton}
             // visibility={{ base: "visible", md: "hidden" }}
           >
             {`Filters (${filterCount})`}
@@ -274,7 +290,7 @@ const SearchResults: React.FC<{
             bg="ui.gray.x-light-cool"
             p="xs"
             gap={FormGaps.ExtraSmall}
-            display={{ base: "none", md: "block !important" }}
+            display={displayForm}
             // visibility={{ base: "hidden", md: "visible" }}
           >
             <Heading

@@ -9,18 +9,12 @@ export const FilterLanguagesCommonTests = (
   showCount: boolean,
   selectedLanguages?: Filter[]
 ) => {
-  // test("Language Filter appears", () => {
-  //   fireEvent.click(
-  //     screen.getAllByRole("button", { name: "Filter Languages" })[0]
-  //   );
-  //   const languages = screen.getByRole("group", { name: "List of Languages" });
+  test("Language Filter appears", () => {
+    fireEvent.click(screen.getByRole("button", { name: "Filter Languages" }));
+    const languages = screen.getByRole("group", { name: "List of Languages" });
 
-  //   const accordionControl = within(languages).getByRole("checkbox", {
-  //     name: "Filter Languages",
-  //   });
-  //   fireEvent.click(accordionControl);
-  //   expect(accordionControl).not.toBeChecked();
-  // });
+    expect(languages).toBeInTheDocument();
+  });
 
   test("Language Filters shows all available languages", () => {
     fireEvent.click(

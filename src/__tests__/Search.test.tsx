@@ -53,6 +53,7 @@ describe("Renders Search Results Page", () => {
   // test("Digital Research Books Beta links to homepage", () => {
   //   const homepagelinks = screen.getAllByRole("link", {
   //     name: "Digital Research Books Beta",
+  //     current: "page",
   //   });
   //   homepagelinks.forEach((link) => {
   //     expect(link).toHaveAttribute("href", "/");
@@ -86,17 +87,15 @@ describe("Renders Search Results Page", () => {
     test("clicking 'filters' button shows filters contents", () => {
       fireEvent.click(screen.getByText("Filters (0)"));
       expect(
-        screen.getAllByRole("combobox", { name: "Items Per Page" })[0]
+        screen.getByRole("combobox", { name: "Items Per Page", hidden: false })
       ).toHaveValue("10");
-      expect(
-        screen.getAllByRole("combobox", { name: "Sort By" })[0]
-      ).toHaveValue("Relevance");
-      expect(
-        screen.getAllByRole("checkbox", { name: "Available Online" })[0]
-      ).toBeChecked();
-      fireEvent.click(
-        screen.getAllByRole("button", { name: "Filter Languages" })[0]
+      expect(screen.getByRole("combobox", { name: "Sort By" })).toHaveValue(
+        "Relevance"
       );
+      expect(
+        screen.getByRole("checkbox", { name: "Available Online" })
+      ).toBeChecked();
+      fireEvent.click(screen.getByRole("button", { name: "Filter Languages" }));
       const languages = screen.getByRole("group", {
         name: "List of Languages",
       });
@@ -105,9 +104,9 @@ describe("Renders Search Results Page", () => {
       //   within(languages).getByRole("checkbox", { name: "Filter Languages" })
       // ).not.toBeChecked();
       FilterFormatTests();
-      const pubYear = screen.getAllByRole("group", {
+      const pubYear = screen.getByRole("group", {
         name: "Publication Year",
-      })[0];
+      });
       expect(pubYear).toBeInTheDocument();
       expect(
         within(pubYear).getByRole("spinbutton", {
@@ -130,12 +129,10 @@ describe("Renders Search Results Page", () => {
     });
     describe("Per Page filters", () => {
       test("Changes Sort By sends new search", () => {
-        const allSorts = screen.getAllByRole("combobox", {
-          name: "Items Per Page",
-        });
-        const wideSorts = allSorts[1];
-        // expect(wideSorts).not.toBeVisible();
-        const modalSorts = allSorts[0];
+        const allSorts = screen.getAllByLabelText("Items Per Page");
+        const wideSorts = allSorts[0];
+        expect(wideSorts).not.toBeVisible();
+        const modalSorts = allSorts[1];
         expect(modalSorts).toBeVisible();
         fireEvent.change(modalSorts, { target: { value: 20 } });
         expect(modalSorts).toHaveValue("20");
@@ -156,7 +153,7 @@ describe("Renders Search Results Page", () => {
       test("Changing items sends new search ", () => {
         const allSorts = screen.getAllByLabelText("Sort By");
         const wideSorts = allSorts[0];
-        // expect(wideSorts).not.toBeVisible();
+        expect(wideSorts).not.toBeVisible();
         const sortBy = allSorts[1];
         expect(sortBy).toBeVisible();
         fireEvent.change(sortBy, { target: { value: "Title A-Z" } });
@@ -177,9 +174,9 @@ describe("Renders Search Results Page", () => {
     });
     describe("Available Online", () => {
       test("Changing checkbox sends new search", () => {
-        const modalCheckbox = screen.getAllByRole("checkbox", {
+        const modalCheckbox = screen.getByRole("checkbox", {
           name: "Available Online",
-        })[0];
+        });
         fireEvent.click(modalCheckbox);
         expect(modalCheckbox).not.toBeChecked;
         expect(mockRouter).toMatchObject({
@@ -205,7 +202,7 @@ describe("Renders Search Results Page", () => {
 
       test("Clicking new language sends new search", () => {
         fireEvent.click(
-          screen.getAllByRole("button", { name: "Filter Languages" })[0]
+          screen.getByRole("button", { name: "Filter Languages" })
         );
         const languages = screen.getByRole("group", {
           name: "List of Languages",
@@ -234,7 +231,7 @@ describe("Renders Search Results Page", () => {
     });
     describe("Format filter", () => {
       test("Clicking new format sends new search", () => {
-        const formats = screen.getAllByRole("group", { name: "Format" })[0];
+        const formats = screen.getByRole("group", { name: "Format" });
         const epub = within(formats).getByRole("checkbox", { name: "ePub" });
         fireEvent.click(epub);
         expect(mockRouter).toMatchObject({
