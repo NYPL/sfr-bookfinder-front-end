@@ -17,9 +17,7 @@ export const FilterLanguagesCommonTests = (
   });
 
   test("Language Filters shows all available languages", () => {
-    fireEvent.click(
-      screen.getAllByRole("button", { name: "Filter Languages" })[0]
-    );
+    fireEvent.click(screen.getByRole("button", { name: "Filter Languages" }));
     const languageGroup = screen.getByRole("group", {
       name: "List of Languages",
     });
