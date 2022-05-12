@@ -50,15 +50,12 @@ describe("Renders Search Results Page", () => {
     });
   });
 
-  // test("Digital Research Books Beta links to homepage", () => {
-  //   const homepagelinks = screen.getAllByRole("link", {
-  //     name: "Digital Research Books Beta",
-  //     current: "page",
-  //   });
-  //   homepagelinks.forEach((link) => {
-  //     expect(link).toHaveAttribute("href", "/");
-  //   });
-  // });
+  test("Digital Research Books Beta doesn't have href attribute", () => {
+    const homepagelinks = screen.getAllByText("Digital Research Books Beta");
+    homepagelinks.forEach((link) => {
+      expect(link).not.toHaveAttribute("href");
+    });
+  });
   test("DRB Header is shown", () => {
     expect(
       screen.getByRole("heading", { name: "Digital Research Books Beta" })
