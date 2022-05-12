@@ -1,4 +1,7 @@
 # CHANGE LOG
+## [Pre-release]
+- Decouples search query into separate states for each individual form field
+
 ## [0.13.1]
 - Added "Back to search results" link for works and editions
 

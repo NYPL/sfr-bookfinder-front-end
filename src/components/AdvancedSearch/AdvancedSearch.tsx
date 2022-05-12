@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 
 import {
   findFiltersForField,
-  findFiltersExceptField,
   findQueryForField,
 } from "~/src/util/SearchQueryUtils";
 import {
@@ -13,7 +12,11 @@ import {
   breadcrumbTitles,
 } from "~/src/constants/labels";
 import FilterYears from "~/src/components/FilterYears/FilterYears";
-import { SearchQuery, SearchQueryDefaults } from "~/src/types/SearchQuery";
+import {
+  Filter,
+  SearchQuery,
+  SearchQueryDefaults,
+} from "~/src/types/SearchQuery";
 
 import {
   Breadcrumbs,
@@ -37,7 +40,7 @@ import {
 } from "@nypl/design-system-react-components";
 import LanguageAccordion from "../LanguageAccordion/LanguageAccordion";
 import FilterBookFormat from "../FilterBookFormat/FilterBookFormat";
-import { FacetItem } from "~/src/types/DataModel";
+import { FacetItem, Query } from "~/src/types/DataModel";
 import { toLocationQuery, toApiQuery } from "~/src/util/apiConversion";
 import filterFields from "~/src/constants/filters";
 import { ApiLanguageResponse } from "~/src/types/LanguagesQuery";
@@ -47,7 +50,7 @@ const AdvancedSearch: React.FC<{
 }> = ({ languages: previousLanguages }) => {
   const router = useRouter();
 
-  const [searchQuery, setSearchQuery] = useState<SearchQuery>({
+  const [searchQuery] = useState<SearchQuery>({
     ...SearchQueryDefaults,
   });
 
@@ -55,6 +58,19 @@ const AdvancedSearch: React.FC<{
   const [dateRangeError, setDateRangeError] = useState("");
 
   const [languages, setLanguages] = useState<FacetItem[]>([]);
+  const [languageFilters, setLanguageFilters] = useState(
+    findFiltersForField(searchQuery.filters, filterFields.language)
+  );
+  const [queries, setQueries] = useState<Query[]>(searchQuery.queries);
+  const [formatFilters, setFormatFilters] = useState<Filter[]>(
+    findFiltersForField(searchQuery.filters, filterFields.format)
+  );
+  const [startFilter, setStartFilter] = useState<Filter>(
+    findFiltersForField(searchQuery.filters, filterFields.startYear)[0]
+  );
+  const [endFilter, setEndFilter] = useState<Filter>(
+    findFiltersForField(searchQuery.filters, filterFields.endYear)[0]
+  );
 
   useEffect(() => {
     setLanguages(
@@ -71,21 +87,14 @@ const AdvancedSearch: React.FC<{
 
   const submit = (e) => {
     e.preventDefault();
-    if (!searchQuery.queries || searchQuery.queries.length < 1) {
+    if (!queries || queries.length < 1) {
       setEmptySearchError(true);
       return;
     } else {
       setEmptySearchError(false);
     }
-
-    const startYear = findFiltersForField(
-      searchQuery.filters,
-      filterFields.startYear
-    )[0];
-    const endYear = findFiltersForField(
-      searchQuery.filters,
-      filterFields.endYear
-    )[0];
+    const startYear = startFilter;
+    const endYear = endFilter;
     if (startYear && endYear && endYear.value < startYear.value) {
       setDateRangeError(errorMessagesText.invalidDate);
       return;
@@ -93,14 +102,29 @@ const AdvancedSearch: React.FC<{
       setDateRangeError("");
     }
 
+    const filters = [...languageFilters];
+    if (startFilter) filters.push(startFilter);
+    if (endFilter) filters.push(endFilter);
+    filters.push(...formatFilters);
+
+    const newSearchQuery = {
+      ...searchQuery,
+      filters: filters,
+      queries: queries,
+    };
+
     router.push({
       pathname: "/search",
-      query: toLocationQuery(toApiQuery(searchQuery)),
+      query: toLocationQuery(toApiQuery(newSearchQuery)),
     });
   };
 
   const clearSearch = () => {
-    setSearchQuery(SearchQueryDefaults);
+    setQueries([]);
+    setLanguageFilters([]);
+    setStartFilter(undefined);
+    setEndFilter(undefined);
+    setFormatFilters([]);
   };
 
   const onQueryChange = (e, queryKey) => {
@@ -109,26 +133,18 @@ const AdvancedSearch: React.FC<{
       query: e.target.value,
     };
 
-    const allQueries = searchQuery.queries.filter((query) => {
+    const allQueries = queries.filter((query) => {
       return query.field !== queryKey;
     });
     // If the new query is not empty, add it
     if (newQuery.query.length > 0) {
       allQueries.push(newQuery);
     }
-    setSearchQuery({
-      ...searchQuery,
-      queries: allQueries,
-    });
+    setQueries([...allQueries]);
   };
 
   const onLanguageChange = (e, language) => {
-    const languageFilters = findFiltersForField(
-      searchQuery.filters,
-      filterFields.language
-    );
-    const newFilters = [
-      ...findFiltersExceptField(searchQuery.filters, filterFields.language),
+    setLanguageFilters([
       ...(e.target.checked
         ? [
             ...languageFilters,
@@ -137,30 +153,19 @@ const AdvancedSearch: React.FC<{
         : languageFilters.filter((filter) => {
             return filter.value !== language;
           })),
-    ];
-    setSearchQuery({
-      ...searchQuery,
-      filters: newFilters,
-    });
+    ]);
   };
 
   const onBookFormatChange = (e, format) => {
-    const formatFilters = findFiltersForField(
-      searchQuery.filters,
-      filterFields.format
-    );
+    const newFilters = [
+      ...(e.target.checked
+        ? [...formatFilters, { field: filterFields.format, value: format }]
+        : formatFilters.filter((filter) => {
+            return filter.value !== format;
+          })),
+    ];
 
-    setSearchQuery({
-      ...searchQuery,
-      filters: [
-        ...findFiltersExceptField(searchQuery.filters, filterFields.format),
-        ...(e.target.checked
-          ? [...formatFilters, { field: filterFields.format, value: format }]
-          : formatFilters.filter((filter) => {
-              return filter.value !== format;
-            })),
-      ],
-    });
+    setFormatFilters(newFilters);
   };
 
   const onDateChange = (
@@ -168,29 +173,13 @@ const AdvancedSearch: React.FC<{
     isStart: boolean
   ) => {
     const field = isStart ? filterFields.startYear : filterFields.endYear;
-    const newFilters = [
-      ...findFiltersExceptField(searchQuery.filters, field),
-      ...[
-        {
-          field: field,
-          value: e.currentTarget.value,
-        },
-      ],
-    ];
-    setSearchQuery({
-      ...searchQuery,
-      filters: newFilters,
-    });
+    const newFilter = {
+      field: field,
+      value: e.currentTarget.value,
+    };
+    if (isStart) setStartFilter(newFilter);
+    else setEndFilter(newFilter);
   };
-
-  const startFilter = findFiltersForField(
-    searchQuery.filters,
-    filterFields.startYear
-  );
-  const endFilter = findFiltersForField(
-    searchQuery.filters,
-    filterFields.endYear
-  );
 
   // Because each FormRow has two InputTerms each,
   // create an array of nested arrays, each with two InputTerms.
@@ -241,11 +230,8 @@ const AdvancedSearch: React.FC<{
                             id={`search-${field.label}`}
                             labelText={field.label}
                             value={
-                              findQueryForField(searchQuery.queries, field.key)
-                                ? findQueryForField(
-                                    searchQuery.queries,
-                                    field.key
-                                  ).query
+                              findQueryForField(queries, field.key)
+                                ? findQueryForField(queries, field.key).query
                                 : ""
                             }
                             onChange={(e) => onQueryChange(e, field.key)}
@@ -264,10 +250,7 @@ const AdvancedSearch: React.FC<{
                 <LanguageAccordion
                   languages={languages}
                   showCount={false}
-                  selectedLanguages={findFiltersForField(
-                    searchQuery.filters,
-                    filterFields.language
-                  )}
+                  selectedLanguages={languageFilters}
                   onLanguageChange={(e, language) =>
                     onLanguageChange(e, language)
                   }
@@ -288,10 +271,7 @@ const AdvancedSearch: React.FC<{
             </FormField>
             <FormField>
               <FilterBookFormat
-                selectedFormats={findFiltersForField(
-                  searchQuery.filters,
-                  filterFields.format
-                )}
+                selectedFormats={formatFilters}
                 onFormatChange={(e, format) => {
                   onBookFormatChange(e, format);
                 }}
