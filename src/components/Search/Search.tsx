@@ -41,6 +41,7 @@ import ResultsSorts from "../ResultsSorts/ResultsSorts";
 import { defaultBreadcrumbs } from "~/src/constants/labels";
 import SearchHeader from "../SearchHeader/SearchHeader";
 import { ApiWork } from "~/src/types/WorkQuery";
+import { breakpoints } from "~/src/constants/breakpoints";
 
 const SearchResults: React.FC<{
   searchQuery: SearchQuery;
@@ -56,10 +57,9 @@ const SearchResults: React.FC<{
   const [displayFilterButton, setDisplayFilterButton] = useState("none");
 
   const windowDimensions = useWindowSize();
-  const breakpointMedium = 600;
 
   useEffect(() => {
-    if (windowDimensions.width <= breakpointMedium) {
+    if (windowDimensions.width <= breakpoints.medium) {
       setDisplayForm("none");
       setDisplayFilterButton("block !important");
     } else {
