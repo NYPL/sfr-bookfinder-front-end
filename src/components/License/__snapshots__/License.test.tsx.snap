@@ -1,46 +1,100 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders License page unchanged 1`] = `
-Array [
+<div
+  className="css-1xdhyk6"
+>
   <div
-    className="content-header"
+    className="css-0"
   >
     <nav
-      aria-label="Breadcrumbs"
-      className="breadcrumbs breadcrumbs--space-under "
-      role="navigation"
+      aria-label="Breadcrumb"
+      className="chakra-breadcrumb css-1xdhyk6"
     >
-      <ul
-        className="breadcrumbs__list"
+      <ol
+        className="chakra-breadcrumb__list css-0"
       >
         <li
-          className="breadcrumbs__item"
+          className="chakra-breadcrumb__list-item css-18biwo"
+        >
+          <a
+            className="chakra-breadcrumb__link css-0"
+            href="https://www.nypl.org"
+          >
+            <span
+              className="breadcrumb-label"
+            >
+              Home
+            </span>
+          </a>
+          <span
+            className="css-t4q1nq"
+            role="presentation"
+          >
+            /
+          </span>
+        </li>
+        <li
+          className="chakra-breadcrumb__list-item css-18biwo"
+        >
+          <a
+            className="chakra-breadcrumb__link css-0"
+            href="https://www.nypl.org/research"
+          >
+            <svg
+              aria-hidden={true}
+              className="chakra-icon breadcrumbs-icon css-1vgifmd"
+              focusable={false}
+              id="undefined__backarrow"
+              role="img"
+              viewBox="0 0 24 14"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <title>
+                arrow icon
+              </title>
+              <path
+                clipRule="evenodd"
+                d="M10.526 12.871L.263 1.676 1.737.324 12 11.52 22.263.324l1.474 1.352L13.474 12.87a2 2 0 01-2.948 0z"
+                fillRule="evenodd"
+              />
+            </svg>
+            <span
+              className="breadcrumb-label"
+            >
+              Research
+            </span>
+          </a>
+          <span
+            className="css-t4q1nq"
+            role="presentation"
+          >
+            /
+          </span>
+        </li>
+        <li
+          className="chakra-breadcrumb__list-item css-18biwo"
         >
           <span
-            aria-hidden={true}
-            className="breadcrumbs__icon breadcrumbs__icon--small "
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<svg viewBox=\\"0 0 24 14\\" xmlns=\\"http://www.w3.org/2000/svg\\"><path fill-rule=\\"evenodd\\" clip-rule=\\"evenodd\\" d=\\"M10.526 12.871L.263 1.676 1.737.324 12 11.52 22.263.324l1.474 1.352L13.474 12.87a2 2 0 01-2.948 0z\\"></path></svg>",
-              }
-            }
-            role="img"
-          />
-          <a
-            className="breadcrumbs__link"
-            href="/"
+            aria-current="page"
+            className="chakra-breadcrumb__link css-0"
           >
-            Digital Research Books Beta
-          </a>
+            <span
+              className="breadcrumb-label"
+            >
+              Digital Research Books Beta
+            </span>
+          </span>
         </li>
-      </ul>
+      </ol>
     </nav>
-  </div>,
-  <div
-    className="content-primary"
+  </div>
+  <main
+    className="css-0"
+    id="mainContent"
   >
     <h1
-      className="page-title__heading "
+      className="chakra-heading css-1xdhyk6"
       id="page-title-heading"
     >
       License Explanations
@@ -68,8 +122,12 @@ Array [
     </h2>
     <p>
       <a
-        className="link "
+        className="css-1xdhyk6"
         href="https://creativecommons.org/"
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+        rel={null}
+        target={null}
       >
         Creative Commons licenses
       </a>
@@ -109,88 +167,132 @@ Array [
     <ul>
       <li>
         <a
-          className="link "
+          className="css-1xdhyk6"
           href="https://creativecommons.org/licenses/by/3.0/"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          rel={null}
+          target={null}
         >
           Attribution 3.0 Unported (CC BY 3.0)
         </a>
       </li>
       <li>
         <a
-          className="link "
+          className="css-1xdhyk6"
           href="https://creativecommons.org/licenses/by/4.0/"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          rel={null}
+          target={null}
         >
           Attribution 4.0 International (CC BY 4.0)
         </a>
       </li>
       <li>
         <a
-          className="link "
+          className="css-1xdhyk6"
           href="https://creativecommons.org/licenses/by-sa/3.0/"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          rel={null}
+          target={null}
         >
           Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
         </a>
       </li>
       <li>
         <a
-          className="link "
+          className="css-1xdhyk6"
           href="https://creativecommons.org/licenses/by-sa/4.0/"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          rel={null}
+          target={null}
         >
           Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
         </a>
       </li>
       <li>
         <a
-          className="link "
+          className="css-1xdhyk6"
           href="https://creativecommons.org/licenses/by-nd/3.0/"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          rel={null}
+          target={null}
         >
           Attribution-NoDerivs 3.0 Unported (CC BY-ND 3.0)
         </a>
       </li>
       <li>
         <a
-          className="link "
+          className="css-1xdhyk6"
           href="https://creativecommons.org/licenses/by-nd/4.0/"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          rel={null}
+          target={null}
         >
           Attribution-NoDerivatives 4.0 International (CC BY-ND 4.0)
         </a>
       </li>
       <li>
         <a
-          className="link "
+          className="css-1xdhyk6"
           href="https://creativecommons.org/licenses/by-nc/4.0/"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          rel={null}
+          target={null}
         >
           Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)
         </a>
       </li>
       <li>
         <a
-          className="link "
+          className="css-1xdhyk6"
           href="https://creativecommons.org/licenses/by-nc-sa/3.0/"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          rel={null}
+          target={null}
         >
           Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0)
         </a>
       </li>
       <li>
         <a
-          className="link "
+          className="css-1xdhyk6"
           href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          rel={null}
+          target={null}
         >
           Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)
         </a>
       </li>
       <li>
         <a
-          className="link "
+          className="css-1xdhyk6"
           href="https://creativecommons.org/licenses/by-nc-nd/3.0/"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          rel={null}
+          target={null}
         >
           Attribution-NonCommercial-NoDerivs 3.0 Unported (CC BY-NC-ND 3.0)
         </a>
       </li>
       <li>
         <a
-          className="link "
+          className="css-1xdhyk6"
           href="https://creativecommons.org/licenses/by-nc-nd/4.0/"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          rel={null}
+          target={null}
         >
           Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)
         </a>
@@ -203,8 +305,12 @@ Array [
       The
        
       <a
-        className="link "
+        className="css-1xdhyk6"
         href="https://creativecommons.org/publicdomain/zero/1.0/"
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+        rel={null}
+        target={null}
       >
         CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
       </a>
@@ -218,13 +324,17 @@ Array [
       For a work licensed under the
        
       <a
-        className="link "
+        className="css-1xdhyk6"
         href="http://www.gnu.org/licenses/gpl.html"
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+        rel={null}
+        target={null}
       >
         GNU General Public License
       </a>
       , you may copy, distribute and modify the work as long as any modifications are also made available under the GPL.
     </p>
-  </div>,
-]
+  </main>
+</div>
 `;

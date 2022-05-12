@@ -43,7 +43,7 @@ describe("Edition Card with Valid Data", () => {
     ).toEqual("https://test-cover/");
   });
   test("Shows download as link", () => {
-    expect(screen.getByText("Download").closest("a").href).toEqual(
+    expect(screen.getByText("Download PDF").closest("a").href).toEqual(
       "https://test-link-url-2/"
     );
   });
@@ -88,7 +88,7 @@ describe("Edition Year with Minimal Data", () => {
   });
   test("Not available ctas", () => {
     expect(screen.getByText("Not yet available")).toBeInTheDocument();
-    expect(screen.queryByText("Download")).not.toBeInTheDocument();
+    expect(screen.queryByText("Download PDF")).not.toBeInTheDocument();
     expect(screen.queryByText("Read Online")).not.toBeInTheDocument();
   });
 });
@@ -97,7 +97,7 @@ describe("Edition with EDD", () => {
   test("Shows Download and Read Online button when edition has both EDD and readable links", () => {
     render(<EditionCard edition={fullEdition} title={"title"}></EditionCard>);
 
-    expect(screen.queryByText("Download")).toBeInTheDocument();
+    expect(screen.queryByText("Download PDF")).toBeInTheDocument();
     expect(screen.queryByText("Read Online")).toBeInTheDocument();
     expect(screen.queryByText("Log in for options")).not.toBeInTheDocument();
     expect(screen.queryByText("Request")).not.toBeInTheDocument();
@@ -114,7 +114,7 @@ describe("Edition with EDD", () => {
       "href",
       expect.stringContaining("https://login.nypl.org/auth/login")
     );
-    expect(screen.queryByText("Download")).not.toBeInTheDocument();
+    expect(screen.queryByText("Download PDF")).not.toBeInTheDocument();
     expect(screen.queryByText("Read Online")).not.toBeInTheDocument();
   });
 
@@ -134,7 +134,7 @@ describe("Edition with EDD", () => {
     expect(
       screen.getByRole("link", { name: "Scan and Deliver" })
     ).toHaveAttribute("href", "https://www.nypl.org/research/scan-and-deliver");
-    expect(screen.queryByText("Download")).not.toBeInTheDocument();
+    expect(screen.queryByText("Download PDF")).not.toBeInTheDocument();
     expect(screen.queryByText("Read Online")).not.toBeInTheDocument();
   });
 });
