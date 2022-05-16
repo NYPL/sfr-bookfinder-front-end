@@ -6,10 +6,10 @@ import {
   findQueryForField,
 } from "~/src/util/SearchQueryUtils";
 import {
-  inputTerms,
   errorMessagesText,
   defaultBreadcrumbs,
   breadcrumbTitles,
+  inputTermRows,
 } from "~/src/constants/labels";
 import FilterYears from "~/src/components/FilterYears/FilterYears";
 import {
@@ -180,19 +180,6 @@ const AdvancedSearch: React.FC<{
     if (isStart) setStartFilter(newFilter);
     else setEndFilter(newFilter);
   };
-
-  // Because each FormRow has two InputTerms each,
-  // create an array of nested arrays, each with two InputTerms.
-  const inputTermRows: { key: string; label: string }[][] = inputTerms.reduce(
-    function (rows, key, index) {
-      return (
-        (index % 2 === 0
-          ? rows.push([key])
-          : rows[rows.length - 1].push(key)) && rows
-      );
-    },
-    []
-  );
 
   return (
     <Template>

@@ -5,6 +5,8 @@ import {
   BreadcrumbsTypes,
   Heading,
   HeadingLevels,
+  List,
+  ListTypes,
   Template,
   TemplateBreakout,
   TemplateContent,
@@ -23,13 +25,9 @@ const License: React.FC = () => {
       </TemplateBreakout>
 
       <TemplateContent>
-        <Heading
-          level={HeadingLevels.One}
-          id="page-title-heading"
-          text="License Explanations"
-        />
+        <Heading level={HeadingLevels.One}>License Explanations</Heading>
 
-        <h2 id="pd">Public Domain</h2>
+        <Heading level={HeadingLevels.Two}>Public Domain</Heading>
 
         <p>
           Works in the public domain have no copyright (in most cases because
@@ -37,7 +35,7 @@ const License: React.FC = () => {
           and distribute the work in any way you wish.
         </p>
 
-        <h2 id="pd_us">Public Domain (US Only)</h2>
+        <Heading level={HeadingLevels.Two}>Public Domain (US Only)</Heading>
 
         <p>
           Works may be in the public domain in the Unites States (where you can
@@ -45,7 +43,7 @@ const License: React.FC = () => {
           copyright laws and restrictions outside the United States.
         </p>
 
-        <h2 id="cc">Creative Commons Licenses</h2>
+        <Heading level={HeadingLevels.Two}>Creative Commons Licenses</Heading>
 
         <p>
           <Link to="https://creativecommons.org/">
@@ -57,7 +55,7 @@ const License: React.FC = () => {
           clauses:
         </p>
 
-        <dl>
+        <List type={ListTypes.Description}>
           <dt>BY</dt>
 
           <dd>
@@ -88,7 +86,7 @@ const License: React.FC = () => {
             you must distribute your contributions under the same license as the
             original.
           </dd>
-        </dl>
+        </List>
 
         <p>
           The following Creative Commons licenses are applied to materials in
@@ -96,7 +94,7 @@ const License: React.FC = () => {
           specifics:
         </p>
 
-        <ul>
+        <List type={ListTypes.Unordered}>
           <li>
             <Link to="https://creativecommons.org/licenses/by/3.0/">
               Attribution 3.0 Unported (CC BY 3.0)
@@ -165,9 +163,11 @@ const License: React.FC = () => {
               BY-NC-ND 4.0)
             </Link>
           </li>
-        </ul>
+        </List>
 
-        <h2>CC0 Public Domain Dedication</h2>
+        <Heading level={HeadingLevels.Two}>
+          CC0 Public Domain Dedication
+        </Heading>
 
         <p>
           The{" "}
@@ -179,7 +179,7 @@ const License: React.FC = () => {
           domain.
         </p>
 
-        <h2>GNU General Public License</h2>
+        <Heading level={HeadingLevels.Two}>GNU General Public License</Heading>
 
         <p>
           For a work licensed under the{" "}
