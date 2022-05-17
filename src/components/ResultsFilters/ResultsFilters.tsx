@@ -27,12 +27,14 @@ const Filters: React.FC<{
   filters: Filter[];
   showAll: boolean;
   languages: FacetItem[];
+  isModal?: boolean;
   changeFilters: (newFilters?: Filter[]) => void;
   changeShowAll: (showAll: boolean) => void;
 }> = ({
   filters: propFilters,
   showAll: propShowAll,
   languages,
+  isModal,
   changeFilters,
   changeShowAll,
 }) => {
@@ -126,23 +128,28 @@ const Filters: React.FC<{
         }}
         isChecked={!showAll}
         size={ToggleSizes.Small}
-        id={"available-online-toggle"}
+        id={
+          isModal ? "available-online-toggle-modal" : "available-online-toggle"
+        }
       />
       <LanguageAccordion
         languages={languages}
         showCount={true}
         selectedLanguages={findFiltersForField(filters, filterFields.language)}
+        isModal={isModal}
         onLanguageChange={(e, language) => {
           onLanguageChange(e, language);
         }}
       />
       <FilterBookFormat
         selectedFormats={findFiltersForField(filters, filterFields.format)}
+        isModal={isModal}
         onFormatChange={(e, format) => onBookFormatChange(e, format)}
       />
       <FilterYears
         startFilter={yearStart && yearStart[0]}
         endFilter={yearEnd && yearEnd[0]}
+        isModal={isModal}
         onDateChange={(
           e: React.ChangeEvent<HTMLInputElement>,
           isStart: boolean
