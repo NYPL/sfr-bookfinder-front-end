@@ -164,7 +164,7 @@ describe("Instance with EDD", () => {
       ></InstanceCard>
     );
 
-    expect(screen.queryByText("Download")).toBeInTheDocument();
+    expect(screen.queryByText("Download PDF")).toBeInTheDocument();
     expect(screen.queryByText("Read Online")).toBeInTheDocument();
     expect(screen.queryByText("Log in for options")).not.toBeInTheDocument();
     expect(screen.queryByText("Request")).not.toBeInTheDocument();
@@ -183,7 +183,7 @@ describe("Instance with EDD", () => {
       "href",
       expect.stringContaining("https://login.nypl.org/auth/login")
     );
-    expect(screen.queryByText("Download")).not.toBeInTheDocument();
+    expect(screen.queryByText("Download PDF")).not.toBeInTheDocument();
     expect(screen.queryByText("Read Online")).not.toBeInTheDocument();
   });
 
@@ -205,7 +205,7 @@ describe("Instance with EDD", () => {
     expect(
       screen.getByRole("link", { name: "Scan and Deliver" })
     ).toHaveAttribute("href", "https://www.nypl.org/research/scan-and-deliver");
-    expect(screen.queryByText("Download")).not.toBeInTheDocument();
+    expect(screen.queryByText("Download PDF")).not.toBeInTheDocument();
     expect(screen.queryByText("Read Online")).not.toBeInTheDocument();
   });
 });

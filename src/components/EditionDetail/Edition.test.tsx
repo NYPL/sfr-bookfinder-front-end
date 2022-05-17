@@ -15,22 +15,18 @@ describe("Renders edition component when given valid edition", () => {
   beforeEach(() => {
     render(<Edition editionResult={apiEdition} />);
   });
-  test("Breadcrumbs link to homepage and work page", () => {
+  test("Breadcrumbs link to nypl homepage and drb homepage", () => {
     const nav = screen.getByRole("navigation");
     expect(
       within(nav).getByRole("link", { name: breadcrumbTitles.home })
-    ).toHaveAttribute("href", "/");
+    ).toHaveAttribute("href", "https://www.nypl.org");
     expect(
-      (
-        within(nav).getByRole("link", {
-          name: apiEdition.data.title,
-        }) as HTMLAnchorElement
-      ).href
-    ).toContain("/work/");
+      within(nav).getByRole("link", { name: breadcrumbTitles.drb })
+    ).toHaveAttribute("href", "/");
   });
   test("Shows Header with Searchbar", () => {
     expect(
-      screen.getByRole("heading", { name: breadcrumbTitles.home })
+      screen.getByRole("heading", { name: breadcrumbTitles.drb })
     ).toBeInTheDocument();
     expect(screen.getByRole("combobox")).toHaveValue(inputTerms[0].key);
     expect(screen.getByRole("textbox")).toBeInTheDocument;
@@ -102,15 +98,13 @@ describe("Breadcrumb truncates on long title", () => {
   test("title shows up truncated in breadcrumb", () => {
     const nav = screen.getByRole("navigation");
     expect(
-      within(nav).getByRole("link", { name: breadcrumbTitles.home })
+      within(nav).getByRole("link", { name: breadcrumbTitles.drb })
     ).toHaveAttribute("href", "/");
     expect(
-      (
-        within(nav).getByRole("link", {
-          name: "super super super super super super super super super super super super...",
-        }) as HTMLAnchorElement
-      ).href
-    ).toContain("/work/");
+      within(nav).getByText(
+        "super super super super super super super super super super super super..."
+      )
+    ).toBeInTheDocument();
   });
 });
 

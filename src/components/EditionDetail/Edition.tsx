@@ -94,7 +94,6 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
                     pathname: `/work/${edition.work_uuid}`,
                   }}
                   title={edition.title}
-                  className="link link--no-underline"
                 >
                   {edition.title}
                 </Link>
@@ -110,37 +109,25 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
               </Box>
             )}
           </Flex>
-          {edition.sub_title && (
-            <div className="search-result-item__subtitle">
-              {edition.sub_title}
-            </div>
-          )}
-          <div className="content-primary">
+          {edition.sub_title && <Box>{edition.sub_title}</Box>}
+          <Box>
             {featuredInstance && (
               <>
-                <Heading level={HeadingLevels.Two} id="featured-edition">
-                  Featured Copy
-                </Heading>
+                <Heading level={HeadingLevels.Two}>Featured Copy</Heading>
 
-                <div id="featured-edition-card">
+                <Box>
                   <InstanceCard edition={edition} instance={featuredInstance} />
-                </div>
+                </Box>
               </>
             )}
-          </div>
+          </Box>
         </TemplateContentTop>
         <TemplateContentPrimary>
           <EditionDetailDefinitionList edition={edition} />
           <HorizontalRule bg="section.research.primary" />
           {edition.instances && (
             <Flex justify="space-between">
-              <Heading
-                level={HeadingLevels.Three}
-                id="all-editions"
-                className="all-editions-tag bold"
-              >
-                All Copies
-              </Heading>
+              <Heading level={HeadingLevels.Three}>All Copies</Heading>
 
               <Toggle
                 labelText="Show only items currently available online"

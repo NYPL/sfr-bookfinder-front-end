@@ -34,11 +34,9 @@ const LanguageAccordion: React.FC<{
   languages: FacetItem[];
   showCount: boolean;
   selectedLanguages: Filter[];
-  isModal?: boolean;
   onLanguageChange: (e, language: string) => void;
 }> = (props) => {
-  const { languages, showCount, selectedLanguages, isModal, onLanguageChange } =
-    props;
+  const { languages, showCount, selectedLanguages, onLanguageChange } = props;
 
   const selectedLanguageFilter = (language: string) => {
     return selectedLanguages.find((langFilter) => {
@@ -65,11 +63,7 @@ const LanguageAccordion: React.FC<{
               name="languages-list"
               showRequiredLabel={false}
               showLabel={false}
-              id={
-                isModal
-                  ? "languages-checkbox-group-modal"
-                  : "languages-checkbox-group"
-              }
+              id="languages-checkbox-group"
             >
               {languages.map((language) => {
                 return (
@@ -81,11 +75,7 @@ const LanguageAccordion: React.FC<{
                     }`}
                     isChecked={!!selectedLanguageFilter(language.value)}
                     onChange={(e) => toggleSelected(e, language.value)}
-                    id={
-                      isModal
-                        ? language.value + "-modal-checkbox"
-                        : language.value + "-checkbox"
-                    }
+                    id={language.value + "-checkbox"}
                   />
                 );
               })}
@@ -93,6 +83,7 @@ const LanguageAccordion: React.FC<{
           ),
         },
       ]}
+      bg="ui.white"
     />
   );
 };

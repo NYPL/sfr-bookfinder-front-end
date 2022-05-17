@@ -1,7 +1,7 @@
 .feedback {
   display: none;
 
-  @media (min-width: 800px) {
+  @media (min-width: 600px) {
     display: block;
     position: static;
     bottom: 0;
@@ -19,7 +19,7 @@
 .feedback-button {
   display: none;
 
-  @media (min-width: 800px) {
+  @media (min-width: 600px) {
     background: #377f8b;
     display: inline-block;
     color: #fff;

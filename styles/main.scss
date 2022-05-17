@@ -20,20 +20,10 @@
   */
  
  // @import "./mixins/Mixins.scss";
-//  @import "./components/Landing.scss";
  @import "./../src/components/SearchHeader/SearchHeader.scss";
- // @import "./../src/components/ResultsSorts/ResultsSorts.scss";
- // @import "./../src/components/ResultsList/ResultsList.scss";
- // @import "./../src/components/FilterYears/FilterYears.scss";
- // @import "./../src/components/LanguageAccordion/LanguageAccordion.scss";
- // @import "./shared/DefinitionList.scss";
  
- // @import "./../src/components/Work/Work.scss";
-//  @import "./components/Search.scss";
- // @import "./components/WorkDetail.scss";
- // @import "./components/IFrameReader.scss";
- // @import "./components/Loading.scss";
- // @import "./components/AdvancedSearch.scss";
+ @import "./components/IFrameReader.scss";
+ @import "./components/Loading.scss";
  @import "./components/Feedback.scss";
  // @import "./components/RequestDigitization.scss";
  // @import "./components/Citations.scss";
