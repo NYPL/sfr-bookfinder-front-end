@@ -6,9 +6,10 @@ import { FormatTypes } from "~/src/constants/labels";
 // A Checkbox List of formats
 const FilterBookFormat: React.FC<{
   selectedFormats: Filter[];
+  isModal?: boolean;
   onFormatChange: (e, format: string) => void;
 }> = (props) => {
-  const { selectedFormats, onFormatChange } = props;
+  const { selectedFormats, isModal, onFormatChange } = props;
 
   const isSelected = (formats: Filter[], format: string) => {
     const selected = formats.find((selectedFormat) => {
@@ -24,7 +25,7 @@ const FilterBookFormat: React.FC<{
   return (
     <CheckboxGroup
       labelText="Format"
-      id="format-checkbox-group"
+      id={isModal ? "format-checkbox-group-modal" : "format-checkbox-group"}
       name="Format Checkbox Group"
     >
       {FormatTypes.map((formatType: any) => (
@@ -33,7 +34,11 @@ const FilterBookFormat: React.FC<{
           labelText={formatType.label}
           onChange={(e) => toggleSelected(e, formatType.value)}
           isChecked={isSelected(selectedFormats, formatType.value)}
-          id={formatType.label + "-checkbox"}
+          id={
+            isModal
+              ? formatType.label + "-modal-checkbox"
+              : formatType.label + "-checkbox"
+          }
         />
       ))}
     </CheckboxGroup>
