@@ -1,5 +1,3 @@
-import { BreadcrumbsDataProps } from "~/../nypl-design-system/dist/components/Breadcrumbs/Breadcrumbs";
-
 export const workDetailDefinitionLabels = {
   alt_titles: "Alternative Titles",
   summary: "Summary",
@@ -49,7 +47,7 @@ export const breadcrumbTitles = {
   advancedSearch: "Advanced Search",
 };
 
-export const defaultBreadcrumbs: BreadcrumbsDataProps[] = [
+export const defaultBreadcrumbs = [
   { url: breadcrumbUrls.home, text: breadcrumbTitles.home },
   { url: breadcrumbUrls.research, text: breadcrumbTitles.research },
   { url: breadcrumbUrls.drb, text: breadcrumbTitles.drb },

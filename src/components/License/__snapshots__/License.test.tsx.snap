@@ -95,12 +95,11 @@ exports[`renders License page unchanged 1`] = `
   >
     <h1
       className="chakra-heading css-1xdhyk6"
-      id="page-title-heading"
     >
       License Explanations
     </h1>
     <h2
-      id="pd"
+      className="chakra-heading css-1xdhyk6"
     >
       Public Domain
     </h2>
@@ -108,7 +107,7 @@ exports[`renders License page unchanged 1`] = `
       Works in the public domain have no copyright (in most cases because the copyright term has expired) and you are free to use, adapt, share, and distribute the work in any way you wish.
     </p>
     <h2
-      id="pd_us"
+      className="chakra-heading css-1xdhyk6"
     >
       Public Domain (US Only)
     </h2>
@@ -116,7 +115,7 @@ exports[`renders License page unchanged 1`] = `
       Works may be in the public domain in the Unites States (where you can use and distribute them without restriction), but still subject to copyright laws and restrictions outside the United States.
     </p>
     <h2
-      id="cc"
+      className="chakra-heading css-1xdhyk6"
     >
       Creative Commons Licenses
     </h2>
@@ -134,37 +133,43 @@ exports[`renders License page unchanged 1`] = `
        
       allow rights-holders to grant people the right to freely use their creations in certain ways and perhaps by meeting certain requirements. There are several licenses with different combinations of four basic clauses:
     </p>
-    <dl>
-      <dt>
-        BY
-      </dt>
-      <dd>
-        Attribution — You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
-      </dd>
-      <dt>
-        NC
-      </dt>
-      <dd>
-        NonCommercial — You may not use the material for commercial purposes.
-         
-      </dd>
-      <dt>
-        ND
-      </dt>
-      <dd>
-        NoDerivatives — If you remix, transform, or build upon the material, you may not distribute the modified material.
-      </dd>
-      <dt>
-        SA
-      </dt>
-      <dd>
-        ShareAlike — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
-      </dd>
-    </dl>
+    <section
+      className="css-1xdhyk6"
+    >
+      <dl>
+        <dt>
+          BY
+        </dt>
+        <dd>
+          Attribution — You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
+        </dd>
+        <dt>
+          NC
+        </dt>
+        <dd>
+          NonCommercial — You may not use the material for commercial purposes.
+           
+        </dd>
+        <dt>
+          ND
+        </dt>
+        <dd>
+          NoDerivatives — If you remix, transform, or build upon the material, you may not distribute the modified material.
+        </dd>
+        <dt>
+          SA
+        </dt>
+        <dd>
+          ShareAlike — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
+        </dd>
+      </dl>
+    </section>
     <p>
       The following Creative Commons licenses are applied to materials in Digital Research Books Beta. Refer to linked license descriptions for specifics:
     </p>
-    <ul>
+    <ul
+      className="css-1xdhyk6"
+    >
       <li>
         <a
           className="css-1xdhyk6"
@@ -298,7 +303,9 @@ exports[`renders License page unchanged 1`] = `
         </a>
       </li>
     </ul>
-    <h2>
+    <h2
+      className="chakra-heading css-1xdhyk6"
+    >
       CC0 Public Domain Dedication
     </h2>
     <p>
@@ -317,7 +324,9 @@ exports[`renders License page unchanged 1`] = `
        
       waives all rights under worldwide copyright law. It allows you to use, adapt, share, and distribute the work as if it were in the Public domain.
     </p>
-    <h2>
+    <h2
+      className="chakra-heading css-1xdhyk6"
+    >
       GNU General Public License
     </h2>
     <p>

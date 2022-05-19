@@ -21,7 +21,7 @@ export async function getServerSideProps(context: any) {
 
 const SearchResults: React.FC<any> = (props) => {
   return (
-    <Layout sideBar>
+    <Layout>
       <Search
         searchQuery={props.searchQuery}
         searchResults={props.searchResults}
