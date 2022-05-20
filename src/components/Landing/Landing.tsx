@@ -21,7 +21,7 @@ import { defaultBreadcrumbs } from "~/src/constants/labels";
 
 const LandingPage: React.FC<any> = () => {
   const subHeader = (
-    <div className="hero__body-text">
+    <span>
       Find millions of digital books for research from multiple sources
       world-wide--all free to read, download, and keep. No library card
       required. This is an early beta test, so we want your feedback!{" "}
@@ -29,7 +29,7 @@ const LandingPage: React.FC<any> = () => {
         Read more about the project
       </Link>
       .
-    </div>
+    </span>
   );
   return (
     <Template>
