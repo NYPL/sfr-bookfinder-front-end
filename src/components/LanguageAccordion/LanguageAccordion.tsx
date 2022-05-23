@@ -94,6 +94,7 @@ const LanguageAccordion: React.FC<{
         },
       ]}
       bg="ui.white"
+      isDefaultOpen={true}
     />
   );
 };

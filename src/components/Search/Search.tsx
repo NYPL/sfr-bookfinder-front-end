@@ -183,7 +183,13 @@ const SearchResults: React.FC<{
       <TemplateBreakout>
         <Breadcrumbs
           breadcrumbsType={BreadcrumbsTypes.Research}
-          breadcrumbsData={defaultBreadcrumbs}
+          breadcrumbsData={[
+            ...defaultBreadcrumbs,
+            {
+              url: `/search`,
+              text: "Search Results",
+            },
+          ]}
         />
         <SearchHeader searchQuery={searchQuery}></SearchHeader>
       </TemplateBreakout>
