@@ -6,6 +6,7 @@ import {
   HeadingLevels,
   Hero,
   HeroTypes,
+  Link,
   List,
   ListTypes,
   Template,
@@ -16,7 +17,6 @@ import {
 } from "@nypl/design-system-react-components";
 import SearchForm from "~/src/components/SearchForm/SearchForm";
 import Subjects from "~/config/subjectListConfig";
-import Link from "~/src/components/Link/Link";
 import { defaultBreadcrumbs } from "~/src/constants/labels";
 
 const LandingPage: React.FC<any> = () => {
@@ -25,7 +25,7 @@ const LandingPage: React.FC<any> = () => {
       Find millions of digital books for research from multiple sources
       world-wide--all free to read, download, and keep. No library card
       required. This is an early beta test, so we want your feedback!{" "}
-      <Link to="/about" color="ui.white">
+      <Link href="/about" _hover={{ color: "ui.white" }} color="ui.white">
         Read more about the project
       </Link>
       .
@@ -62,7 +62,7 @@ const LandingPage: React.FC<any> = () => {
           <List type={ListTypes.Unordered} id="subject-list">
             {Subjects.map((sub: any) => (
               <li key={`subject-link-${sub.url}`}>
-                <Link to={sub.url}>{sub.text}</Link>
+                <Link href={sub.url}>{sub.text}</Link>
               </li>
             ))}
           </List>
