@@ -16,17 +16,15 @@ describe("Renders Work component when given valid work", () => {
   beforeEach(() => {
     render(<Work workResult={apiWork} />);
   });
-  test("Digital Research Books Beta links to homepage", () => {
-    const homepagelinks = screen.getAllByRole("link", {
-      name: "Digital Research Books Beta",
-    });
+  test("Digital Research Books Beta doesn't have href attribute", () => {
+    const homepagelinks = screen.getAllByText("Digital Research Books Beta");
     homepagelinks.forEach((link) => {
-      expect(link).toHaveAttribute("href", "/");
+      expect(link).not.toHaveAttribute("href");
     });
   });
   test("Shows Header with Searchbar", () => {
     expect(
-      screen.getByRole("heading", { name: breadcrumbTitles.home })
+      screen.getByRole("heading", { name: breadcrumbTitles.drb })
     ).toBeInTheDocument();
     expect(screen.getByRole("combobox")).toHaveValue(inputTerms[0].key);
     expect(screen.getByRole("textbox")).toBeInTheDocument;

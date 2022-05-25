@@ -7,7 +7,9 @@ export const searchFormRenderTests = (query?: SearchQuery) => {
   test("Searchbar select defaults", () => {
     const expectedSearchField =
       query && query.queries ? query.queries[0].field : inputTerms[0].key;
-    expect(screen.getByRole("combobox")).toHaveValue(expectedSearchField);
+    expect(
+      screen.getByRole("combobox", { name: "Select a search category" })
+    ).toHaveValue(expectedSearchField);
   });
   test("Searchbar has the correct options", () => {
     const options = screen.getAllByRole("option");
@@ -19,7 +21,7 @@ export const searchFormRenderTests = (query?: SearchQuery) => {
   test("Searchbar has correct input", () => {
     const expectedSearchValue =
       query && query.queries ? query.queries[0].query : "";
-    expect(screen.getByRole("textbox", { name: "Search" })).toHaveValue(
+    expect(screen.getByRole("textbox", { name: "Item Search" })).toHaveValue(
       expectedSearchValue
     );
   });
@@ -33,8 +35,10 @@ export const searchFormRenderTests = (query?: SearchQuery) => {
 export const searchFormTests = (mockRouter) => {
   describe("Search using Landing Page Searchbar", () => {
     test("Searching with a field and value calls Search api", () => {
-      const categoryInput = screen.getByRole("combobox");
-      const textInput = screen.getByRole("textbox", { name: "Search" });
+      const categoryInput = screen.getByRole("combobox", {
+        name: "Select a search category",
+      });
+      const textInput = screen.getByRole("textbox", { name: "Item Search" });
       fireEvent.change(categoryInput, { target: { value: "author" } });
       userEvent.clear(textInput);
       userEvent.type(textInput, "Tom Nook");
@@ -42,8 +46,10 @@ export const searchFormTests = (mockRouter) => {
       const searchButton = screen.getByRole("button", { name: "Search" });
       fireEvent.click(searchButton);
 
-      expect(screen.getByRole("combobox")).toHaveValue("author");
-      expect(screen.getByRole("textbox", { name: "Search" })).toHaveValue(
+      expect(
+        screen.getByRole("combobox", { name: "Select a search category" })
+      ).toHaveValue("author");
+      expect(screen.getByRole("textbox", { name: "Item Search" })).toHaveValue(
         "Tom Nook"
       );
       expect(
@@ -59,7 +65,7 @@ export const searchFormTests = (mockRouter) => {
     });
 
     test("Searching with no search term shows error", () => {
-      const textInput = screen.getByRole("textbox", { name: "Search" });
+      const textInput = screen.getByRole("textbox", { name: "Item Search" });
       userEvent.clear(textInput);
 
       expect(textInput).toHaveValue("");

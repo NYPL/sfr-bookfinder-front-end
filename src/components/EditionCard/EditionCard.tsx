@@ -1,5 +1,15 @@
 import React from "react";
-import * as DS from "@nypl/design-system-react-components";
+import {
+  Card,
+  CardContent,
+  CardHeading,
+  HeadingLevels,
+  ImageRatios,
+  ImageSizes,
+  LayoutTypes,
+  Box,
+  CardActions,
+} from "@nypl/design-system-react-components";
 import Link from "../Link/Link";
 import { WorkEdition } from "~/src/types/DataModel";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
@@ -38,34 +48,46 @@ export const EditionCard: React.FC<{ edition: WorkEdition; title: string }> = ({
   const coverUrl = EditionCardUtils.getCover(edition.links);
 
   return (
-    <DS.Card
+    <Card
       id={`card-${edition.edition_id}`}
-      heading={<h3>{editionYearElem(edition)}</h3>}
-      image={
-        <DS.Image
-          src={coverUrl}
-          alt={
-            coverUrl === PLACEHOLDER_COVER_LINK
-              ? "Placeholder Cover"
-              : `Cover for ${EditionCardUtils.editionYearText(edition)}`
-          }
-        ></DS.Image>
-      }
-      ctas={EditionCardUtils.getCtas(
-        previewItem,
-        title,
-        !!cookies[NYPL_SESSION_ID]
-      )}
+      layout={LayoutTypes.Row}
+      imageProps={{
+        src: coverUrl,
+        alt:
+          coverUrl === PLACEHOLDER_COVER_LINK
+            ? "Placeholder Cover"
+            : `Cover for ${EditionCardUtils.editionYearText(edition)}`,
+        size: ImageSizes.ExtraSmall,
+        aspectRatio: ImageRatios.Original,
+      }}
+      isCentered
+      isBordered
+      isAlignedRightActions
+      p="s"
+      flexFlow={{ md: "column nowrap", lg: "row" }}
+      alignItems={{ md: "flex-start", lg: "center" }}
     >
-      <div>
-        {EditionCardUtils.getPublisherAndLocation(
-          edition.publication_place,
-          edition.publishers
+      <CardHeading level={HeadingLevels.Four} id="stack1-heading1">
+        {editionYearElem(edition)}
+      </CardHeading>
+      <CardContent>
+        <Box>
+          {EditionCardUtils.getPublisherAndLocation(
+            edition.publication_place,
+            edition.publishers
+          )}
+          <Box>{EditionCardUtils.getLanguageDisplayText(edition)}</Box>
+          <Link to="/license">{EditionCardUtils.getLicense(previewItem)}</Link>
+        </Box>
+      </CardContent>
+      <CardActions display="flex" flexDir="column" whiteSpace="nowrap" gap={4}>
+        {EditionCardUtils.getCtas(
+          previewItem,
+          title,
+          !!cookies[NYPL_SESSION_ID]
         )}
-      </div>
-      <div>{EditionCardUtils.getLanguageDisplayText(edition)}</div>
-      <Link to="/license">{EditionCardUtils.getLicense(previewItem)}</Link>
-    </DS.Card>
+      </CardActions>
+    </Card>
   );
 };
 

@@ -28,7 +28,9 @@ export const FilterYearsTests = (
 
   if (hasApplyButton) {
     test("Submits filters with only 'from' value", () => {
-      const yearGroup = screen.getByRole("group", { name: "Publication Year" });
+      const yearGroup = screen.getByRole("group", {
+        name: "Publication Year",
+      });
       const fromInput = within(yearGroup).getByRole("spinbutton", {
         name: "From",
       });
@@ -48,7 +50,9 @@ export const FilterYearsTests = (
       });
     });
     test("Submits filters with only 'to' value", () => {
-      const yearGroup = screen.getByRole("group", { name: "Publication Year" });
+      const yearGroup = screen.getByRole("group", {
+        name: "Publication Year",
+      });
       const toInput = within(yearGroup).getByRole("spinbutton", {
         name: "To",
       });
@@ -68,7 +72,9 @@ export const FilterYearsTests = (
     });
 
     test("Submits search with both 'from' and 'to'", () => {
-      const yearGroup = screen.getByRole("group", { name: "Publication Year" });
+      const yearGroup = screen.getByRole("group", {
+        name: "Publication Year",
+      });
       const toInput = within(yearGroup).getByRole("spinbutton", {
         name: "To",
       });
@@ -92,7 +98,9 @@ export const FilterYearsTests = (
     });
 
     test("shows error text when 'to' is after 'from", () => {
-      const yearGroup = screen.getByRole("group", { name: "Publication Year" });
+      const yearGroup = screen.getByRole("group", {
+        name: "Publication Year",
+      });
       const toInput = within(yearGroup).getByRole("spinbutton", {
         name: "To",
       });

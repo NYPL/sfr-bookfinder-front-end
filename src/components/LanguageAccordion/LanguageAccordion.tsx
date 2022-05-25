@@ -1,17 +1,44 @@
 import { FacetItem } from "~/src/types/DataModel";
-import * as DS from "@nypl/design-system-react-components";
+import {
+  Accordion,
+  Checkbox,
+  CheckboxGroup,
+  LayoutTypes,
+} from "@nypl/design-system-react-components";
 import React from "react";
 import { Filter } from "~/src/types/SearchQuery";
 
 // An Accordion of languages
 
+function areEqual(
+  prevProps: {
+    languages: FacetItem[];
+    showCount: boolean;
+    selectedLanguages: Filter[];
+    onLanguageChange: any;
+  },
+  nextProps: {
+    languages: FacetItem[];
+    showCount: boolean;
+    selectedLanguages: Filter[];
+    onLanguageChange: any;
+  }
+) {
+  return (
+    prevProps.languages === nextProps.languages &&
+    prevProps.selectedLanguages.length === nextProps.selectedLanguages.length
+  );
+}
+
 const LanguageAccordion: React.FC<{
   languages: FacetItem[];
   showCount: boolean;
   selectedLanguages: Filter[];
-  onLanguageChange: any;
+  isModal?: boolean;
+  onLanguageChange: (e, language: string) => void;
 }> = (props) => {
-  const { languages, showCount, selectedLanguages, onLanguageChange } = props;
+  const { languages, showCount, selectedLanguages, isModal, onLanguageChange } =
+    props;
 
   const selectedLanguageFilter = (language: string) => {
     return selectedLanguages.find((langFilter) => {
@@ -27,52 +54,49 @@ const LanguageAccordion: React.FC<{
   };
 
   return (
-    <fieldset className="language-accordion">
-      <legend>
-        <DS.Label htmlFor="lanaguage-select">Languages</DS.Label>
-      </legend>
-      <DS.Accordion
-        inputId="language-select"
-        accordionLabel="Filter Languages"
-        defaultOpen={true}
-        modifiers={["fixed-height"]}
-      >
-        <div style={{ height: "300px" }}>
-          <DS.List
-            id="languages-list"
-            className="languages-list"
-            type={DS.ListTypes.Unordered}
-            modifiers={["no-list-styling"]}
-          >
-            {languages.map((language) => {
-              return (
-                <li key={`check-${language.value}`}>
-                  <DS.Checkbox
+    <Accordion
+      accordionData={[
+        {
+          label: "Filter Languages",
+          panel: (
+            <CheckboxGroup
+              labelText="List of Languages"
+              layout={LayoutTypes.Column}
+              name="languages-list"
+              showRequiredLabel={false}
+              showLabel={false}
+              id={
+                isModal
+                  ? "languages-checkbox-group-modal"
+                  : "languages-checkbox-group"
+              }
+            >
+              {languages.map((language) => {
+                return (
+                  <Checkbox
+                    key={`check-${language.value}`}
                     name="Languages"
-                    checkboxId={`checkbox-${language.value}`}
-                    labelOptions={{
-                      id: `checkbox-label-${language.value}`,
-                      labelContent: (
-                        <>
-                          {language.value}{" "}
-                          {showCount ? `(${language.count})` : ""}
-                        </>
-                      ),
-                    }}
-                    checked={!!selectedLanguageFilter(language.value)}
+                    labelText={`${language.value} ${
+                      showCount ? "(" + language.count + ")" : ""
+                    }`}
+                    isChecked={!!selectedLanguageFilter(language.value)}
                     onChange={(e) => toggleSelected(e, language.value)}
-                    attributes={{
-                      "aria-labelledby": `checkbox-label-${language.value}`,
-                    }}
+                    id={
+                      isModal
+                        ? language.value + "-modal-checkbox"
+                        : language.value + "-checkbox"
+                    }
                   />
-                </li>
-              );
-            })}
-          </DS.List>
-        </div>
-      </DS.Accordion>
-    </fieldset>
+                );
+              })}
+            </CheckboxGroup>
+          ),
+        },
+      ]}
+      bg="ui.white"
+      isDefaultOpen={true}
+    />
   );
 };
 
-export default LanguageAccordion;
+export default React.memo(LanguageAccordion, areEqual);

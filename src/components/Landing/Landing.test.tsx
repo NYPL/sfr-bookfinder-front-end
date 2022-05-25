@@ -19,10 +19,10 @@ describe("Renders Index Page", () => {
       name: "Digital Research Books Beta",
     });
   });
-  test("Breadcrumbs link to homepage", () => {
-    expect(
-      screen.getByRole("link", { name: "Digital Research Books Beta" })
-    ).toHaveAttribute("href", "/");
+  test("Current page breadcrumb doesn't have href attribute", () => {
+    expect(screen.getByText("Digital Research Books Beta")).not.toHaveAttribute(
+      "href"
+    );
   });
   test("Shows Heading", () => {
     expect(

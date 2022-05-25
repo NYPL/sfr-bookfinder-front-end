@@ -1,5 +1,13 @@
 import React from "react";
-import * as DS from "@nypl/design-system-react-components";
+import {
+  Button,
+  Fieldset,
+  FormField,
+  FormRow,
+  HelperErrorText,
+  TextInput,
+  TextInputTypes,
+} from "@nypl/design-system-react-components";
 
 import { Filter } from "~/src/types/SearchQuery";
 
@@ -13,8 +21,9 @@ import { Filter } from "~/src/types/SearchQuery";
 const FilterYears: React.FC<{
   startFilter: Filter;
   endFilter: Filter;
+  isModal?: boolean;
   onDateChange: (
-    e: React.FormEvent<HTMLInputElement>,
+    e: React.ChangeEvent<HTMLInputElement>,
     isStart: boolean
   ) => void;
   // The date range error to show.
@@ -22,12 +31,18 @@ const FilterYears: React.FC<{
   dateRangeError?: string;
   onSubmit?: () => void;
 }> = (props) => {
-  const { startFilter, endFilter, onDateChange, dateRangeError, onSubmit } =
-    props;
+  const {
+    startFilter,
+    endFilter,
+    isModal,
+    onDateChange,
+    dateRangeError,
+    onSubmit,
+  } = props;
 
   const changeDate = (
-    isStart: boolean,
-    e: React.FormEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
+    isStart: boolean
   ) => {
     onDateChange(e, isStart);
   };
@@ -42,49 +57,47 @@ const FilterYears: React.FC<{
   }
 
   return (
-    <fieldset className="date-range">
-      <legend>Publication Year</legend>
-      <div className="year-input-group">
-        <div className="year-input">
-          <DS.Label id="date-from-label" htmlFor="date-filter-from">
-            From
-          </DS.Label>
-          <DS.Input
-            type={DS.InputTypes.number}
-            id="date-filter-from"
-            attributes={{ "aria-labelledby": "date-from-label" }}
-            value={startFilter ? startFilter.value : ""}
-            onChange={(e) => changeDate(true, e)}
+    <Fieldset legendText="Publication Year" id="date-range">
+      <FormRow>
+        <FormField>
+          <TextInput
+            labelText="From"
+            type={TextInputTypes.number}
+            defaultValue={startFilter ? startFilter.value.toString() : ""}
+            helperText="EX. 1901"
+            id={isModal ? "date-filter-from-modal" : "date-filter-from"}
+            name="Date From"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              changeDate(e, true);
+            }}
           />
-          <DS.HelperErrorText isError={false}> EX. 1901 </DS.HelperErrorText>
-        </div>
-        <div className="year-input">
-          <DS.Label id="date-to-label" htmlFor="date-filter-to">
-            To
-          </DS.Label>
-          <DS.Input
-            attributes={{ "aria-labelledby": "date-to-label" }}
-            type={DS.InputTypes.number}
-            id="date-filter-to"
-            value={endFilter ? endFilter.value : ""}
-            onChange={(e) => changeDate(false, e)}
+        </FormField>
+        <FormField>
+          <TextInput
+            labelText="To"
+            type={TextInputTypes.number}
+            defaultValue={endFilter ? endFilter.value.toString() : ""}
+            helperText="EX. 2000"
+            id={isModal ? "date-filter-to-modal" : "date-filter-to"}
+            name="Date To"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              changeDate(e, false);
+            }}
           />
-          <DS.HelperErrorText isError={false}> EX. 2000 </DS.HelperErrorText>
-        </div>
-      </div>
+        </FormField>
+      </FormRow>
       {dateRangeError && (
-        <DS.HelperErrorText isError={true}>{dateRangeError}</DS.HelperErrorText>
+        <HelperErrorText isInvalid={true} text={dateRangeError} />
       )}
       {onSubmit && (
-        <DS.Button
-          id="year-filter-button"
-          type="button"
+        <Button
+          id={isModal ? "year-filter-button-modal" : "year-filter-button"}
           onClick={() => onSubmit()}
         >
           Apply
-        </DS.Button>
+        </Button>
       )}
-    </fieldset>
+    </Fieldset>
   );
 };
 

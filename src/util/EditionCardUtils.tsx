@@ -8,7 +8,15 @@ import {
   WorkEdition,
   Identifier,
 } from "../types/DataModel";
-import * as DS from "@nypl/design-system-react-components";
+import {
+  Box,
+  Icon,
+  IconAlign,
+  IconNames,
+  IconRotationTypes,
+  IconSizes,
+  LinkTypes,
+} from "@nypl/design-system-react-components";
 import Link from "~/src/components/Link/Link";
 import { formatUrl, truncateStringOnWhitespace } from "./Util";
 import {
@@ -205,7 +213,10 @@ export default class EditionCardUtils {
           to={{
             pathname: `/read/${readOnlineLink.link_id}`,
           }}
-          linkType={DS.LinkTypes.Button}
+          linkType={LinkTypes.Button}
+          style={{
+            width: "130px",
+          }}
         >
           Read Online
         </Link>
@@ -222,23 +233,22 @@ export default class EditionCardUtils {
 
     if (selectedLink && selectedLink.url) {
       return (
-        <DS.Link type={DS.LinkTypes.Action}>
-          <a
-            href={`${formatUrl(selectedLink.url)}`}
-            onClick={() => {
-              gtag.drbEvents("Download", `${title}`);
-            }}
-          >
-            <DS.Icon
-              name={DS.IconNames.download}
-              blockName="more-link"
-              modifiers={["left"]}
-              decorative
-              iconRotation={DS.IconRotationTypes.rotate0}
-            />
-            Download
-          </a>
-        </DS.Link>
+        <Link
+          to={`${formatUrl(selectedLink.url)}`}
+          linkType={LinkTypes.Action}
+          onClick={() => {
+            gtag.drbEvents("Download", `${title}`);
+          }}
+        >
+          <Icon
+            name={IconNames.Download}
+            align={IconAlign.Left}
+            size={IconSizes.Small}
+            decorative
+            iconRotation={IconRotationTypes.Rotate0}
+          />
+          Download PDF
+        </Link>
       );
     }
   }
@@ -281,8 +291,8 @@ export default class EditionCardUtils {
     if (readOnlineLink || downloadLink) {
       return (
         <>
-          {readOnlineLink}
-          {downloadLink}
+          <Box>{readOnlineLink}</Box>
+          <Box>{downloadLink}</Box>
         </>
       );
     }
@@ -318,7 +328,7 @@ export default class EditionCardUtils {
           <Link
             // Url starts with www
             to={`//${eddLink.url}`}
-            linkType={DS.LinkTypes.Button}
+            linkType={LinkTypes.Button}
             target="_blank"
           >
             Request
@@ -333,7 +343,7 @@ export default class EditionCardUtils {
             to={`https://login.nypl.org/auth/login?redirect_uri=${encodeURIComponent(
               window.location.href
             )}`}
-            linkType={DS.LinkTypes.Button}
+            linkType={LinkTypes.Button}
           >
             Log in for options
           </Link>

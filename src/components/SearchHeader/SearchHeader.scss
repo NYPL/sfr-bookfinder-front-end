@@ -1,62 +1,12 @@
-.search-header-container {
-    @include breakout;
-    background-color: var(--section-research-primary);
+.search-header-form {
+  @media (min-width: 38em) {
+    .search-bar {
+      width: 85%;
+    }
+  }
 }
-.search-header {
-    @include wrapper;
-    @include space-stack-l;
-
-    display: flex;
-    flex-flow: column;
-    align-items: center;
-
-    @media (min-width: $breakpoint-medium) {
-        flex-flow: row;
-        align-items: flex-start;
-    }
-    .advanced-search {
-        padding-top: var(--space-l);
-    }
-
-    .search-form {
-        @include space-inline-s;
-        padding-top: var(--space-m);
-        flex: 1 1 50%;
-        width: 100%;
-
-        .helper-text--error {
-            color: white
-        }
-    }   
-    
-    h2 { 
-        //Uses the heading-xl mixin from design system
-        color: var(--ui-white);
-        font-size: var(--font-size-4);
-        font-weight: 300;
-        letter-spacing: 0;
-        line-height: 1.1;
-        margin: 0.25em 0 0.5em;
-        width: auto;
-      
-        .link {
-          color: inherit;
-          text-decoration: none;
-      
-          &:hover {
-            color: var(--ui-gray-light);
-            text-decoration: underline;
-          }
-        }
-
-        @media (min-width: #{$breakpoint-medium}) {
-            max-width: 300px;
-        }
-    
-    }
-    .link {
-        @include space-stack-m;
-    }
-    
+#searchbar-form-search-bar > div {
+  @media (max-width: 38em) {
+    margin-bottom: var(--nypl-space-xs);
+  }
 }
-
