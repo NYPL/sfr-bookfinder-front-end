@@ -6,10 +6,6 @@ import {
   CardActions,
   CardContent,
   CardHeading,
-  HeadingLevels,
-  ImageRatios,
-  ImageSizes,
-  LayoutTypes,
 } from "@nypl/design-system-react-components";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
 import Link from "../Link/Link";
@@ -36,17 +32,17 @@ export const InstanceCard: React.FC<{
     <Card
       imageProps={{
         src: EditionCardUtils.getCover(edition.links),
-        size: ImageSizes.ExtraSmall,
-        aspectRatio: ImageRatios.Original,
+        size: "xsmall",
+        aspectRatio: "original",
         alt: "Cover",
       }}
-      layout={LayoutTypes.Row}
+      layout="row"
       isBordered
       isAlignedRightActions
       id={`card-${instance.instance_id}`}
       p="s"
     >
-      <CardHeading level={HeadingLevels.Three}>
+      <CardHeading level="three">
         {edition.publication_date
           ? edition.publication_date
           : "Edition Year Unknown"}

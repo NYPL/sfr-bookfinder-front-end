@@ -1,9 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  Breadcrumbs,
-  BreadcrumbsTypes,
-  Icon,
-} from "@nypl/design-system-react-components";
+import { Breadcrumbs, Icon } from "@nypl/design-system-react-components";
 import { defaultBreadcrumbs } from "~/src/constants/labels";
 import { ApiLink, LinkResult } from "~/src/types/LinkQuery";
 import IFrameReader from "../IFrameReader/IFrameReader";
@@ -74,7 +70,7 @@ const ReaderLayout: React.FC<{
       {isEmbed && (
         <Layout>
           <Breadcrumbs
-            breadcrumbsType={BreadcrumbsTypes.Research}
+            breadcrumbsType="research"
             breadcrumbsData={[
               ...defaultBreadcrumbs,
               {

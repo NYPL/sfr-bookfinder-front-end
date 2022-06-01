@@ -16,7 +16,7 @@
     "@chakra-ui/react": "^1.8.8",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
-    "@nypl/design-system-react-components": "~0.26.1",
+    "@nypl/design-system-react-components": "^1.0.0",
     "@nypl/dgx-header-component": "git+https://git@github.com/NYPL/dgx-header-component#reactupdate",
     "@nypl/dgx-react-footer": "0.5.8",
     "@nypl/web-reader": "^1.0.0",

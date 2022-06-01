@@ -20,7 +20,6 @@ import {
 
 import {
   Breadcrumbs,
-  BreadcrumbsTypes,
   Button,
   ButtonGroup,
   ButtonTypes,
@@ -28,7 +27,6 @@ import {
   FormField,
   FormRow,
   Heading,
-  HeadingLevels,
   HelperErrorText,
   Template,
   TemplateBreakout,
@@ -185,7 +183,7 @@ const AdvancedSearch: React.FC<{
     <Template>
       <TemplateBreakout>
         <Breadcrumbs
-          breadcrumbsType={BreadcrumbsTypes.Research}
+          breadcrumbsType="research"
           breadcrumbsData={[
             ...defaultBreadcrumbs,
             { url: "/advanced-search", text: breadcrumbTitles.advancedSearch },
@@ -194,7 +192,7 @@ const AdvancedSearch: React.FC<{
       </TemplateBreakout>
       <TemplateContent>
         <TemplateContentTop>
-          <Heading level={HeadingLevels.One}>Advanced Search</Heading>
+          <Heading level="one">Advanced Search</Heading>
           {emptySearchError && (
             <HelperErrorText text={errorMessagesText.emptySearch} isInvalid />
           )}

@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   Breadcrumbs,
-  ButtonTypes,
   Heading,
-  IconNames,
-  IconRotationTypes,
   Pagination,
   Template,
   TemplateBreakout,
@@ -14,15 +11,10 @@ import {
   TemplateContentSidebar,
   Button,
   Icon,
-  Modal,
-  HeadingLevels,
-  BreadcrumbsTypes,
   Box,
   HorizontalRule,
   Flex,
   Form,
-  FormGaps,
-  IconSizes,
   useWindowSize,
 } from "@nypl/design-system-react-components";
 import { useRouter } from "next/router";
@@ -42,6 +34,7 @@ import { defaultBreadcrumbs } from "~/src/constants/labels";
 import SearchHeader from "../SearchHeader/SearchHeader";
 import { ApiWork } from "~/src/types/WorkQuery";
 import { breakpoints } from "~/src/constants/breakpoints";
+import { Modal } from "@chakra-ui/react";
 
 const SearchResults: React.FC<{
   searchQuery: SearchQuery;
@@ -182,7 +175,7 @@ const SearchResults: React.FC<{
     <Template>
       <TemplateBreakout>
         <Breadcrumbs
-          breadcrumbsType={BreadcrumbsTypes.Research}
+          breadcrumbsType="research"
           breadcrumbsData={[
             ...defaultBreadcrumbs,
             {
@@ -197,7 +190,7 @@ const SearchResults: React.FC<{
         <TemplateContentTop>
           <Box className="search-heading">
             <Box role="alert">
-              <Heading level={HeadingLevels.One} id="page-title-heading">
+              <Heading level="one" id="page-title-heading">
                 <>Search results for {getDisplayItemsHeading(searchQuery)}</>
               </Heading>
             </Box>
@@ -205,10 +198,10 @@ const SearchResults: React.FC<{
           <HorizontalRule bg="section.research.primary" />
           <Flex justify="space-between" align="center">
             <Heading
-              level={HeadingLevels.Two}
+              level="two"
               id="page-counter"
               className="page-counter"
-              additionalStyles={{ m: "0" }}
+              __css={{ m: "0" }}
             >
               {numberOfWorks > 0
                 ? `Viewing ${firstElement.toLocaleString()} - ${
@@ -236,7 +229,7 @@ const SearchResults: React.FC<{
           <Button
             className="filter-button"
             id="filter-button"
-            buttonType={ButtonTypes.Secondary}
+            buttonType="secondary"
             onClick={() => {
               setModalOpen(true);
             }}
@@ -247,9 +240,15 @@ const SearchResults: React.FC<{
             {`Filters (${filterCount})`}
           </Button>
           {isModalOpen && (
-            <Modal>
+            <Modal
+              isOpen={false}
+              onClose={() => {
+                //TODO
+                console.log("closed");
+              }}
+            >
               <Button
-                buttonType={ButtonTypes.Link}
+                buttonType="link"
                 onClick={() => {
                   setModalOpen(false);
                 }}
@@ -257,9 +256,9 @@ const SearchResults: React.FC<{
               >
                 <Icon
                   decorative={true}
-                  name={IconNames.Arrow}
-                  size={IconSizes.Medium}
-                  iconRotation={IconRotationTypes.Rotate90}
+                  name="arrow"
+                  size="medium"
+                  iconRotation="rotate90"
                 />
                 Go Back
               </Button>
@@ -273,7 +272,7 @@ const SearchResults: React.FC<{
                 />
               </Box>
               <form name="filterForm">
-                <Heading level={HeadingLevels.Two} id="filter-desktop-header">
+                <Heading level="two" id="filter-desktop-header">
                   Refine Results
                 </Heading>
                 <Filters
@@ -295,15 +294,11 @@ const SearchResults: React.FC<{
             id="search-filter-form"
             bg="ui.gray.x-light-cool"
             p="xs"
-            gap={FormGaps.ExtraSmall}
+            gap="grid.xs"
             display={displayForm}
             // visibility={{ base: "hidden", md: "visible" }}
           >
-            <Heading
-              level={HeadingLevels.Two}
-              id="filter-desktop-header"
-              additionalStyles={{ m: "0" }}
-            >
+            <Heading level="two" id="filter-desktop-header" __css={{ m: "0" }}>
               Refine Results
             </Heading>
             <Filters

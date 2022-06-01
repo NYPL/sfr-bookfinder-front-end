@@ -1,11 +1,6 @@
 import React from "react";
 import Link from "~/src/components/Link/Link";
-import {
-  Box,
-  Heading,
-  HeadingLevels,
-  VStack,
-} from "@nypl/design-system-react-components";
+import { Box, Heading, VStack } from "@nypl/design-system-react-components";
 import { EditionCard } from "~/src/components/EditionCard/EditionCard";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
 import EmptySearchSvg from "../Svgs/EmptySearchSvg";
@@ -50,7 +45,7 @@ const ResultsList: React.FC<{ works: ApiWork[] }> = ({ works }) => {
 
         return (
           <Box key={`search-result-${work.uuid}`} className="search-result">
-            <Heading level={HeadingLevels.Two}>
+            <Heading level="two">
               <Link
                 to={{
                   pathname: `/work/${work.uuid}`,

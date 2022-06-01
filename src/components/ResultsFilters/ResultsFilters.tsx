@@ -1,9 +1,5 @@
 import React, { useState } from "react";
-import {
-  Toggle,
-  ToggleSizes,
-  VStack,
-} from "@nypl/design-system-react-components";
+import { Toggle, VStack } from "@nypl/design-system-react-components";
 import LanguageAccordion from "../LanguageAccordion/LanguageAccordion";
 import FilterBookFormat from "../FilterBookFormat/FilterBookFormat";
 import FilterYears from "../FilterYears/FilterYears";
@@ -127,7 +123,7 @@ const Filters: React.FC<{
           toggleShowAll(e);
         }}
         isChecked={!showAll}
-        size={ToggleSizes.Small}
+        size="small"
         id={
           isModal ? "available-online-toggle-modal" : "available-online-toggle"
         }

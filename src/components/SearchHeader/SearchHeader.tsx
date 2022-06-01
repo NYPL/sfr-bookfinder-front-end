@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Heading,
-  HeadingLevels,
-  Hero,
-  HeroTypes,
-} from "@nypl/design-system-react-components";
+import { Box, Heading, Hero } from "@nypl/design-system-react-components";
 import SearchForm from "../SearchForm/SearchForm";
 import { SearchQuery } from "~/src/types/SearchQuery";
 /**
@@ -19,9 +13,9 @@ const SearchHeader: React.FC<{
     <>
       <Hero
         backgroundColor="section.research.primary"
-        heroType={HeroTypes.Tertiary}
+        heroType="tertiary"
         heading={
-          <Heading level={HeadingLevels.One} id="tertiary-hero">
+          <Heading level="one" id="tertiary-hero">
             <>
               Digital Research Books <sup>Beta</sup>
             </>
