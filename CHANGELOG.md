@@ -3,6 +3,7 @@
 - Upgrade to NYPL Design System version 0.26.1
 - Decouples search query into separate states for each individual form field
 - Updates unit tests and snapshots
+- Change format filters to "Readable", "Downloadable", and "Requestable"
 
 ## [0.13.1]
 - Added "Back to search results" link for works and editions
