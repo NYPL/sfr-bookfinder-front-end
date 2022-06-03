@@ -22,7 +22,6 @@ import {
   Breadcrumbs,
   Button,
   ButtonGroup,
-  ButtonTypes,
   Form,
   FormField,
   FormRow,
@@ -34,7 +33,6 @@ import {
   TemplateContentPrimary,
   TemplateContentTop,
   TextInput,
-  TextInputTypes,
 } from "@nypl/design-system-react-components";
 import LanguageAccordion from "../LanguageAccordion/LanguageAccordion";
 import FilterBookFormat from "../FilterBookFormat/FilterBookFormat";
@@ -221,7 +219,7 @@ const AdvancedSearch: React.FC<{
                             }
                             onChange={(e) => onQueryChange(e, field.key)}
                             showLabel
-                            type={TextInputTypes.text}
+                            type="text"
                           />
                         </FormField>
                       );
@@ -266,7 +264,7 @@ const AdvancedSearch: React.FC<{
               <ButtonGroup>
                 <Button
                   type="submit"
-                  buttonType={ButtonTypes.Primary}
+                  buttonType="primary"
                   onClick={(e) => {
                     submit(e);
                   }}
@@ -276,7 +274,7 @@ const AdvancedSearch: React.FC<{
                 </Button>
                 <Button
                   type="reset"
-                  buttonType={ButtonTypes.Secondary}
+                  buttonType="secondary"
                   onClick={() => clearSearch()}
                   id="reset-button"
                 >

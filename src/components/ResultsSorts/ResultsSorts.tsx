@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  Fieldset,
-  LabelPositions,
-  Select,
-} from "@nypl/design-system-react-components";
+import { Fieldset, Select } from "@nypl/design-system-react-components";
 import { sortMap, numbersPerPage } from "~/src/constants/sorts";
 import { deepEqual } from "~/src/util/Util";
 import { Sort } from "~/src/types/DataModel";
@@ -28,7 +24,7 @@ const ResultsSorts: React.FC<{
         name="itemsPerPageSelect"
         isRequired={false}
         labelText="Items Per Page"
-        labelPosition={LabelPositions.Inline}
+        labelPosition="inline"
         value={perPage.toString()}
         onChange={(e) => onChangePerPage(e)}
         width="100%"
@@ -42,7 +38,7 @@ const ResultsSorts: React.FC<{
         name="sortBySelect"
         isRequired={false}
         labelText="Sort By"
-        labelPosition={LabelPositions.Inline}
+        labelPosition="inline"
         value={Object.keys(sortMap).find((key) =>
           deepEqual(sortMap[key], sort)
         )}

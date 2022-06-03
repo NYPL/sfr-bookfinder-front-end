@@ -3,7 +3,6 @@ import {
   Accordion,
   Checkbox,
   CheckboxGroup,
-  LayoutTypes,
 } from "@nypl/design-system-react-components";
 import React from "react";
 import { Filter } from "~/src/types/SearchQuery";
@@ -61,7 +60,7 @@ const LanguageAccordion: React.FC<{
           panel: (
             <CheckboxGroup
               labelText="List of Languages"
-              layout={LayoutTypes.Column}
+              layout="column"
               name="languages-list"
               showRequiredLabel={false}
               showLabel={false}

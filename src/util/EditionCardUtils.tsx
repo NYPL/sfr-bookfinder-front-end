@@ -213,7 +213,7 @@ export default class EditionCardUtils {
           to={{
             pathname: `/read/${readOnlineLink.link_id}`,
           }}
-          linkType={LinkTypes.Button}
+          linkType="button"
           style={{
             width: "130px",
           }}
@@ -235,17 +235,17 @@ export default class EditionCardUtils {
       return (
         <Link
           to={`${formatUrl(selectedLink.url)}`}
-          linkType={LinkTypes.Action}
+          linkType="action"
           onClick={() => {
             gtag.drbEvents("Download", `${title}`);
           }}
         >
           <Icon
-            name={IconNames.Download}
-            align={IconAlign.Left}
-            size={IconSizes.Small}
+            name="download"
+            align="left"
+            size="small"
             decorative
-            iconRotation={IconRotationTypes.Rotate0}
+            iconRotation="rotate0"
           />
           Download PDF
         </Link>
@@ -328,7 +328,7 @@ export default class EditionCardUtils {
           <Link
             // Url starts with www
             to={`//${eddLink.url}`}
-            linkType={LinkTypes.Button}
+            linkType="button"
             target="_blank"
           >
             Request
@@ -343,7 +343,7 @@ export default class EditionCardUtils {
             to={`https://login.nypl.org/auth/login?redirect_uri=${encodeURIComponent(
               window.location.href
             )}`}
-            linkType={LinkTypes.Button}
+            linkType="button"
           >
             Log in for options
           </Link>
