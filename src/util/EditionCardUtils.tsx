@@ -8,15 +8,7 @@ import {
   WorkEdition,
   Identifier,
 } from "../types/DataModel";
-import {
-  Box,
-  Icon,
-  IconAlign,
-  IconNames,
-  IconRotationTypes,
-  IconSizes,
-  LinkTypes,
-} from "@nypl/design-system-react-components";
+import { Box, Icon } from "@nypl/design-system-react-components";
 import Link from "~/src/components/Link/Link";
 import { formatUrl, truncateStringOnWhitespace } from "./Util";
 import {

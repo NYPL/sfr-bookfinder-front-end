@@ -127,12 +127,11 @@ describe("Renders Search Results Page", () => {
     describe("Per Page filters", () => {
       test("Changes Sort By sends new search", () => {
         const allSorts = screen.getAllByLabelText("Items Per Page");
-        const wideSorts = allSorts[0];
-        expect(wideSorts).not.toBeVisible();
-        const modalSorts = allSorts[1];
+        const modalSorts = allSorts[0];
         expect(modalSorts).toBeVisible();
+        const wideSorts = allSorts[1];
+        expect(wideSorts).not.toBeVisible();
         fireEvent.change(modalSorts, { target: { value: 20 } });
-        expect(modalSorts).toHaveValue("20");
         expect(mockRouter).toMatchObject({
           pathname: "/search",
           query: {
@@ -140,6 +139,8 @@ describe("Renders Search Results Page", () => {
             size: "20",
           },
         });
+        expect(modalSorts).toHaveValue("20");
+
         fireEvent.click(screen.getByRole("button", { name: "Go Back" }));
         expect(
           screen.getByRole("button", { name: "Filters (0)" })
@@ -149,9 +150,9 @@ describe("Renders Search Results Page", () => {
     describe("Sorts filters", () => {
       test("Changing items sends new search ", () => {
         const allSorts = screen.getAllByLabelText("Sort By");
-        const wideSorts = allSorts[0];
+        const wideSorts = allSorts[1];
         expect(wideSorts).not.toBeVisible();
-        const sortBy = allSorts[1];
+        const sortBy = allSorts[0];
         expect(sortBy).toBeVisible();
         fireEvent.change(sortBy, { target: { value: "Title A-Z" } });
         expect(sortBy).toHaveValue("Title A-Z");
@@ -218,12 +219,17 @@ describe("Renders Search Results Page", () => {
           },
         });
 
-        expect(englishCheckbox).toBeChecked();
-
         fireEvent.click(screen.getByRole("button", { name: "Go Back" }));
-        expect(
-          screen.getByRole("button", { name: "Filters (1)" })
-        ).toBeInTheDocument();
+        fireEvent.click(screen.getByRole("button", { name: "Filters (1)" }));
+
+        const languages2 = screen.getByRole("group", {
+          name: "List of Languages",
+        });
+
+        const englishCheckbox2 = within(languages2).getByRole("checkbox", {
+          name: "English (6)",
+        });
+        expect(englishCheckbox2).toBeChecked();
       });
     });
     describe("Format filter", () => {

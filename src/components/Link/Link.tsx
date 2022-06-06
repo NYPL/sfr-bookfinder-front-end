@@ -9,23 +9,13 @@ interface IProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   linkType?: DS.LinkTypes;
 }
 
-const Link = React.forwardRef(
-  (
-    { children, to, linkType, onClick, modifiers, ...props }: IProps,
-    ref: any
-  ) => {
-    return (
-      <BaseLink href={to} passHref>
-        <DS.Link
-          type={linkType}
-          attributes={{ ref: ref, onClick: onClick, ...props }}
-        >
-          {children}
-        </DS.Link>
-      </BaseLink>
-    );
-  }
-);
+const Link = ({ children, to, linkType }: IProps) => {
+  return (
+    <BaseLink href={to} passHref>
+      <DS.Link type={linkType}>{children}</DS.Link>
+    </BaseLink>
+  );
+};
 
 Link.displayName = "Link";
 
