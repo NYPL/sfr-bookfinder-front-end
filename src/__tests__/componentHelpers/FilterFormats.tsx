@@ -4,12 +4,12 @@ export const FilterFormatTests = () => {
   const formats = screen.getByRole("group", { name: "Format" });
   expect(formats).toBeInTheDocument();
   expect(
-    within(formats).getByRole("checkbox", { name: "ePub" })
+    within(formats).getByRole("checkbox", { name: "Readable" })
   ).not.toBeChecked();
   expect(
-    within(formats).getByRole("checkbox", { name: "PDF" })
+    within(formats).getByRole("checkbox", { name: "Downloadable" })
   ).not.toBeChecked();
   expect(
-    within(formats).getByRole("checkbox", { name: "Html" })
+    within(formats).getByRole("checkbox", { name: "Requestable" })
   ).not.toBeChecked();
 };

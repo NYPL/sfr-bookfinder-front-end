@@ -235,12 +235,14 @@ describe("Renders Search Results Page", () => {
     describe("Format filter", () => {
       test("Clicking new format sends new search", () => {
         const formats = screen.getByRole("group", { name: "Format" });
-        const epub = within(formats).getByRole("checkbox", { name: "ePub" });
-        fireEvent.click(epub);
+        const downloadable = within(formats).getByRole("checkbox", {
+          name: "Downloadable",
+        });
+        fireEvent.click(downloadable);
         expect(mockRouter).toMatchObject({
           pathname: "/search",
           query: {
-            filter: "format:epub_zip",
+            filter: "format:downloadable",
             query: "keyword:Animal Crossing",
           },
         });

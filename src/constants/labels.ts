@@ -88,9 +88,9 @@ export const inputTermRows = [
 ];
 
 export const FormatTypes = [
-  { value: "pdf", label: "PDF" },
-  { value: "epub_zip", label: "ePub" },
-  { value: "html", label: "Html" },
+  { value: "readable", label: "Readable" },
+  { value: "downloadable", label: "Downloadable" },
+  { value: "requestable", label: "Requestable" },
 ];
 
 export const errorMessagesText = {
