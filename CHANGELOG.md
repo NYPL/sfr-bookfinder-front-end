@@ -4,6 +4,8 @@
 - Decouples search query into separate states for each individual form field
 - Updates unit tests and snapshots
 - CHORE: removes tugboat deploy
+- Change format filters to "Readable", "Downloadable", and "Requestable"
+
 ## [0.13.1]
 - Added "Back to search results" link for works and editions
 
