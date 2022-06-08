@@ -1,5 +1,5 @@
 import React from "react";
-import { List, ListTypes } from "@nypl/design-system-react-components";
+import { List } from "@nypl/design-system-react-components";
 import { ApiEdition } from "~/src/types/EditionQuery";
 import { Agent } from "~/src/types/DataModel";
 
@@ -12,7 +12,7 @@ const getPublishersList = (publishers: Agent[]): JSX.Element[] => {
   }
   return publishers.map((publisher: Agent) => {
     return (
-      <List type={ListTypes.Unordered} key={publisher.name} noStyling>
+      <List type="ul" key={publisher.name} noStyling>
         <li>{publisher.name}</li>
       </List>
     );
@@ -23,7 +23,7 @@ export const EditionDetailDefinitionList: React.FC<{ edition: ApiEdition }> = ({
   edition,
 }) => {
   return (
-    <List title="Details" type={ListTypes.Description}>
+    <List title="Details" type="dl">
       <>
         <dt>Publication Date</dt>
         <dd>
@@ -50,7 +50,7 @@ export const EditionDetailDefinitionList: React.FC<{ edition: ApiEdition }> = ({
           <>
             <dt>Languages</dt>
             <dd>
-              <List type={ListTypes.Unordered} noStyling>
+              <List type="ul" noStyling>
                 {edition.languages.map((lang) => {
                   return (
                     <li key={`language-${lang.language}`}>{lang.language}</li>

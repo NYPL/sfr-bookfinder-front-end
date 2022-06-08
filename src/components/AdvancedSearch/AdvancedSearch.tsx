@@ -20,15 +20,12 @@ import {
 
 import {
   Breadcrumbs,
-  BreadcrumbsTypes,
   Button,
   ButtonGroup,
-  ButtonTypes,
   Form,
   FormField,
   FormRow,
   Heading,
-  HeadingLevels,
   HelperErrorText,
   Template,
   TemplateBreakout,
@@ -36,7 +33,6 @@ import {
   TemplateContentPrimary,
   TemplateContentTop,
   TextInput,
-  TextInputTypes,
 } from "@nypl/design-system-react-components";
 import LanguageAccordion from "../LanguageAccordion/LanguageAccordion";
 import FilterBookFormat from "../FilterBookFormat/FilterBookFormat";
@@ -185,7 +181,7 @@ const AdvancedSearch: React.FC<{
     <Template>
       <TemplateBreakout>
         <Breadcrumbs
-          breadcrumbsType={BreadcrumbsTypes.Research}
+          breadcrumbsType="research"
           breadcrumbsData={[
             ...defaultBreadcrumbs,
             { url: "/advanced-search", text: breadcrumbTitles.advancedSearch },
@@ -194,7 +190,7 @@ const AdvancedSearch: React.FC<{
       </TemplateBreakout>
       <TemplateContent>
         <TemplateContentTop>
-          <Heading level={HeadingLevels.One}>Advanced Search</Heading>
+          <Heading level="one">Advanced Search</Heading>
           {emptySearchError && (
             <HelperErrorText text={errorMessagesText.emptySearch} isInvalid />
           )}
@@ -223,7 +219,7 @@ const AdvancedSearch: React.FC<{
                             }
                             onChange={(e) => onQueryChange(e, field.key)}
                             showLabel
-                            type={TextInputTypes.text}
+                            type="text"
                           />
                         </FormField>
                       );
@@ -268,7 +264,7 @@ const AdvancedSearch: React.FC<{
               <ButtonGroup>
                 <Button
                   type="submit"
-                  buttonType={ButtonTypes.Primary}
+                  buttonType="primary"
                   onClick={(e) => {
                     submit(e);
                   }}
@@ -278,7 +274,7 @@ const AdvancedSearch: React.FC<{
                 </Button>
                 <Button
                   type="reset"
-                  buttonType={ButtonTypes.Secondary}
+                  buttonType="secondary"
                   onClick={() => clearSearch()}
                   id="reset-button"
                 >

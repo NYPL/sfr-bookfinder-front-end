@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { useRouter } from "next/router";
 import { SearchBar, Box } from "@nypl/design-system-react-components";
 import { SearchQuery, SearchQueryDefaults } from "~/src/types/SearchQuery";
@@ -79,7 +79,7 @@ const SearchForm: React.FC<{
           labelText: "Select a search category",
           name: "selectName",
           optionsData: inputTerms.map((field) => field.key),
-          onChange: (e) => onFieldChange(e),
+          onChange: (e: ChangeEvent<HTMLInputElement>) => onFieldChange(e),
           value: shownQuery.field,
         }}
         textInputProps={{

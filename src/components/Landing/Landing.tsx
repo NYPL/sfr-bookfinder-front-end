@@ -1,14 +1,10 @@
 import React from "react";
 import {
   Breadcrumbs,
-  BreadcrumbsTypes,
   Heading,
-  HeadingLevels,
   Hero,
-  HeroTypes,
   Link,
   List,
-  ListTypes,
   Template,
   TemplateBreakout,
   TemplateContent,
@@ -35,14 +31,14 @@ const LandingPage: React.FC<any> = () => {
     <Template>
       <TemplateBreakout>
         <Breadcrumbs
-          breadcrumbsType={BreadcrumbsTypes.Research}
+          breadcrumbsType="research"
           breadcrumbsData={defaultBreadcrumbs}
         />
         <Hero
           backgroundColor="section.research.primary"
-          heroType={HeroTypes.Tertiary}
+          heroType="tertiary"
           heading={
-            <Heading level={HeadingLevels.One} id="tertiary-hero">
+            <Heading level="one" id="tertiary-hero">
               <>
                 Digital Research Books <sup>Beta</sup>
               </>
@@ -57,9 +53,9 @@ const LandingPage: React.FC<any> = () => {
           <SearchForm />
         </TemplateContentTop>
         <TemplateContentPrimary>
-          <Heading level={HeadingLevels.Two}>Search Examples</Heading>
+          <Heading level="two">Search Examples</Heading>
 
-          <List type={ListTypes.Unordered} id="subject-list">
+          <List type="ul" id="subject-list">
             {Subjects.map((sub: any) => (
               <li key={`subject-link-${sub.url}`}>
                 <Link href={sub.url}>{sub.text}</Link>

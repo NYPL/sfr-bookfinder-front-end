@@ -1,5 +1,5 @@
 import React from "react";
-import { List, ListTypes } from "@nypl/design-system-react-components";
+import { List } from "@nypl/design-system-react-components";
 import Link from "~/src/components/Link/Link";
 import { unique, flattenDeep, uniqueAndSortByFrequency } from "~/src/util/Util";
 import { Language, Subject } from "~/src/types/DataModel";
@@ -26,13 +26,13 @@ const getLanguagesForWork = (work: ApiWork) =>
 const WorkDetailDefinitionList: React.FC<{ work: ApiWork }> = ({ work }) => {
   const languages = getLanguagesForWork(work);
   return (
-    <List title="Details" type={ListTypes.Description}>
+    <List title="Details" type="dl">
       <>
         {work.alt_titles && work.alt_titles.length > 0 && (
           <>
             <dt>Alternative Titles</dt>
             <dd>
-              <List type={ListTypes.Unordered} noStyling>
+              <List type="ul" noStyling>
                 {work.alt_titles.map((title: string, i: number) => (
                   <li key={`alt-title-${i}`}>
                     <Link
@@ -64,7 +64,7 @@ const WorkDetailDefinitionList: React.FC<{ work: ApiWork }> = ({ work }) => {
           <>
             <dt>Subjects</dt>
             <dd>
-              <List type={ListTypes.Unordered} noStyling>
+              <List type="ul" noStyling>
                 {unique(work.subjects, "heading")
                   .sort((a: Subject, b: Subject) =>
                     a.heading &&
@@ -95,7 +95,7 @@ const WorkDetailDefinitionList: React.FC<{ work: ApiWork }> = ({ work }) => {
           <>
             <dt>Languages</dt>
             <dd>
-              <List type={ListTypes.Unordered} noStyling>
+              <List type="ul" noStyling>
                 {languages.map((language, i) => (
                   <li key={`language${i.toString()}`}>{language}</li>
                 ))}

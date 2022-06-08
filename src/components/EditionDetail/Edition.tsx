@@ -3,10 +3,8 @@ import { useRouter } from "next/router";
 import {
   Box,
   Breadcrumbs,
-  BreadcrumbsTypes,
   Flex,
   Heading,
-  HeadingLevels,
   HorizontalRule,
   SimpleGrid,
   Template,
@@ -15,7 +13,6 @@ import {
   TemplateContentPrimary,
   TemplateContentTop,
   Toggle,
-  ToggleSizes,
 } from "@nypl/design-system-react-components";
 
 import { ApiEdition, EditionResult } from "~/src/types/EditionQuery";
@@ -72,7 +69,7 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
     <Template>
       <TemplateBreakout>
         <Breadcrumbs
-          breadcrumbsType={BreadcrumbsTypes.Research}
+          breadcrumbsType="research"
           breadcrumbsData={[
             ...defaultBreadcrumbs,
             {
@@ -88,7 +85,7 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
         <TemplateContentTop>
           <Flex direction={{ base: "column", md: "row" }}>
             {edition && (
-              <Heading level={HeadingLevels.One}>
+              <Heading level="one">
                 <Link
                   to={{
                     pathname: `/work/${edition.work_uuid}`,
@@ -113,7 +110,7 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
           <Box>
             {featuredInstance && (
               <>
-                <Heading level={HeadingLevels.Two}>Featured Copy</Heading>
+                <Heading level="two">Featured Copy</Heading>
 
                 <Box>
                   <InstanceCard edition={edition} instance={featuredInstance} />
@@ -127,11 +124,11 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
           <HorizontalRule bg="section.research.primary" />
           {edition.instances && (
             <Flex justify="space-between">
-              <Heading level={HeadingLevels.Three}>All Copies</Heading>
+              <Heading level="three">All Copies</Heading>
 
               <Toggle
                 labelText="Show only items currently available online"
-                size={ToggleSizes.Small}
+                size="small"
                 isChecked={router.query.showAll === "false"}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   toggleShowAll(e)
