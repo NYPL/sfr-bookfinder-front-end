@@ -3,10 +3,6 @@ import {
   Card,
   CardContent,
   CardHeading,
-  HeadingLevels,
-  ImageRatios,
-  ImageSizes,
-  LayoutTypes,
   Box,
   CardActions,
 } from "@nypl/design-system-react-components";
@@ -50,15 +46,15 @@ export const EditionCard: React.FC<{ edition: WorkEdition; title: string }> = ({
   return (
     <Card
       id={`card-${edition.edition_id}`}
-      layout={LayoutTypes.Row}
+      layout="row"
       imageProps={{
         src: coverUrl,
         alt:
           coverUrl === PLACEHOLDER_COVER_LINK
             ? "Placeholder Cover"
             : `Cover for ${EditionCardUtils.editionYearText(edition)}`,
-        size: ImageSizes.ExtraSmall,
-        aspectRatio: ImageRatios.Original,
+        size: "xsmall",
+        aspectRatio: "original",
       }}
       isCentered
       isBordered
@@ -67,7 +63,7 @@ export const EditionCard: React.FC<{ edition: WorkEdition; title: string }> = ({
       flexFlow={{ md: "column nowrap", lg: "row" }}
       alignItems={{ md: "flex-start", lg: "center" }}
     >
-      <CardHeading level={HeadingLevels.Four} id="stack1-heading1">
+      <CardHeading level="four" id="stack1-heading1">
         {editionYearElem(edition)}
       </CardHeading>
       <CardContent>

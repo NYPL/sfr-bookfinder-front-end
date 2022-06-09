@@ -1,6 +1,6 @@
 # CHANGE LOG
 ## [Pre-release]
-- Upgrade to NYPL Design System version 0.26.1
+- Upgrade to NYPL Design System version 1.0.0
 - Decouples search query into separate states for each individual form field
 - Updates unit tests and snapshots
 - CHORE: removes tugboat deploy

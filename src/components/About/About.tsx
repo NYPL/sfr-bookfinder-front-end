@@ -1,9 +1,7 @@
 import React from "react";
 import {
   Breadcrumbs,
-  BreadcrumbsTypes,
   Heading,
-  HeadingLevels,
   Template,
   TemplateBreakout,
   TemplateContent,
@@ -17,7 +15,7 @@ const About: React.FC = () => {
     <Template>
       <TemplateBreakout>
         <Breadcrumbs
-          breadcrumbsType={BreadcrumbsTypes.Research}
+          breadcrumbsType="research"
           breadcrumbsData={[
             ...defaultBreadcrumbs,
             { url: "/about", text: "About" },
@@ -26,7 +24,7 @@ const About: React.FC = () => {
       </TemplateBreakout>
       <TemplateContent>
         <TemplateContentPrimary>
-          <Heading level={HeadingLevels.One}>
+          <Heading level="one">
             <span>
               <span className="rn-section-title__emphasis">
                 Digital Research Books
@@ -66,7 +64,7 @@ const About: React.FC = () => {
           </p>
 
           <Heading
-            level={HeadingLevels.Two}
+            level="two"
             id="sources-and-data-heading"
             text="Sources and Data"
           />
@@ -88,7 +86,7 @@ const About: React.FC = () => {
           </p>
 
           <Heading
-            level={HeadingLevels.Two}
+            level="two"
             id="beta-testing-heading"
             text="What does Beta Testing mean?"
           />

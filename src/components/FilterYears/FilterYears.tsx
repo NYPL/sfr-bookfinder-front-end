@@ -6,7 +6,6 @@ import {
   FormRow,
   HelperErrorText,
   TextInput,
-  TextInputTypes,
 } from "@nypl/design-system-react-components";
 
 import { Filter } from "~/src/types/SearchQuery";
@@ -62,7 +61,7 @@ const FilterYears: React.FC<{
         <FormField>
           <TextInput
             labelText="From"
-            type={TextInputTypes.number}
+            type="number"
             defaultValue={startFilter ? startFilter.value.toString() : ""}
             helperText="EX. 1901"
             id={isModal ? "date-filter-from-modal" : "date-filter-from"}
@@ -75,7 +74,7 @@ const FilterYears: React.FC<{
         <FormField>
           <TextInput
             labelText="To"
-            type={TextInputTypes.number}
+            type="number"
             defaultValue={endFilter ? endFilter.value.toString() : ""}
             helperText="EX. 2000"
             id={isModal ? "date-filter-to-modal" : "date-filter-to"}

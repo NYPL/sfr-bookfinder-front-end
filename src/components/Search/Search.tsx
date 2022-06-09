@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Breadcrumbs,
-  ButtonTypes,
   Heading,
-  IconNames,
-  IconRotationTypes,
   Pagination,
   Template,
   TemplateBreakout,
@@ -14,16 +11,11 @@ import {
   TemplateContentSidebar,
   Button,
   Icon,
-  Modal,
-  HeadingLevels,
-  BreadcrumbsTypes,
   Box,
   HorizontalRule,
   Flex,
   Form,
-  FormGaps,
-  IconSizes,
-  useWindowSize,
+  useModal,
 } from "@nypl/design-system-react-components";
 import { useRouter } from "next/router";
 import { FacetItem, Query } from "~/src/types/DataModel";
@@ -41,7 +33,6 @@ import ResultsSorts from "../ResultsSorts/ResultsSorts";
 import { defaultBreadcrumbs } from "~/src/constants/labels";
 import SearchHeader from "../SearchHeader/SearchHeader";
 import { ApiWork } from "~/src/types/WorkQuery";
-import { breakpoints } from "~/src/constants/breakpoints";
 
 const SearchResults: React.FC<{
   searchQuery: SearchQuery;
@@ -52,21 +43,8 @@ const SearchResults: React.FC<{
     ...SearchQueryDefaults,
     ...props.searchQuery,
   });
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [displayForm, setDisplayForm] = useState("none");
-  const [displayFilterButton, setDisplayFilterButton] = useState("none");
 
-  const windowDimensions = useWindowSize();
-
-  useEffect(() => {
-    if (windowDimensions.width <= breakpoints.medium) {
-      setDisplayForm("none");
-      setDisplayFilterButton("block !important");
-    } else {
-      setDisplayForm("block !important");
-      setDisplayFilterButton("none");
-    }
-  }, [windowDimensions.width]);
+  const { onClose, onOpen, Modal } = useModal();
 
   const router = useRouter();
 
@@ -182,7 +160,7 @@ const SearchResults: React.FC<{
     <Template>
       <TemplateBreakout>
         <Breadcrumbs
-          breadcrumbsType={BreadcrumbsTypes.Research}
+          breadcrumbsType="research"
           breadcrumbsData={[
             ...defaultBreadcrumbs,
             {
@@ -197,7 +175,7 @@ const SearchResults: React.FC<{
         <TemplateContentTop>
           <Box className="search-heading">
             <Box role="alert">
-              <Heading level={HeadingLevels.One} id="page-title-heading">
+              <Heading level="one" id="page-title-heading">
                 <>Search results for {getDisplayItemsHeading(searchQuery)}</>
               </Heading>
             </Box>
@@ -205,10 +183,10 @@ const SearchResults: React.FC<{
           <HorizontalRule bg="section.research.primary" />
           <Flex justify="space-between" align="center">
             <Heading
-              level={HeadingLevels.Two}
+              level="two"
               id="page-counter"
               className="page-counter"
-              additionalStyles={{ m: "0" }}
+              __css={{ m: "0" }}
             >
               {numberOfWorks > 0
                 ? `Viewing ${firstElement.toLocaleString()} - ${
@@ -218,11 +196,7 @@ const SearchResults: React.FC<{
                   } of ${numberOfWorks.toLocaleString()} items`
                 : "Viewing 0 items"}
             </Heading>
-            <Form
-              id="results-sorts-form"
-              display={displayForm}
-              // visibility={{ base: "hidden", md: "visible" }}
-            >
+            <Form id="results-sorts-form" display={["none", "none", "block"]}>
               <ResultsSorts
                 perPage={searchQuery.perPage}
                 sort={searchQuery.sort}
@@ -234,76 +208,70 @@ const SearchResults: React.FC<{
         </TemplateContentTop>
         <TemplateContentSidebar>
           <Button
-            className="filter-button"
             id="filter-button"
-            buttonType={ButtonTypes.Secondary}
-            onClick={() => {
-              setModalOpen(true);
+            onClick={onOpen}
+            buttonType="secondary"
+            __css={{
+              width: "100%",
+              display: {
+                base: "block",
+                md: "none",
+              },
             }}
-            width="100%"
-            display={displayFilterButton}
-            // visibility={{ base: "visible", md: "hidden" }}
           >
             {`Filters (${filterCount})`}
           </Button>
-          {isModalOpen && (
-            <Modal>
-              <Button
-                buttonType={ButtonTypes.Link}
-                onClick={() => {
-                  setModalOpen(false);
-                }}
-                id="modal-button"
-              >
-                <Icon
-                  decorative={true}
-                  name={IconNames.Arrow}
-                  size={IconSizes.Medium}
-                  iconRotation={IconRotationTypes.Rotate90}
-                />
-                Go Back
-              </Button>
-              <Box>
-                <ResultsSorts
-                  isModal={true}
-                  perPage={searchQuery.perPage}
-                  sort={searchQuery.sort}
-                  onChangePerPage={(e) => onChangePerPage(e)}
-                  onChangeSort={(e) => onChangeSort(e)}
-                />
-              </Box>
-              <form name="filterForm">
-                <Heading level={HeadingLevels.Two} id="filter-desktop-header">
-                  Refine Results
-                </Heading>
-                <Filters
-                  filters={searchQuery.filters}
-                  showAll={searchQuery.showAll}
-                  languages={getAvailableLanguages(searchResults)}
-                  isModal={true}
-                  changeFilters={(filters: Filter[]) => {
-                    changeFilters(filters);
-                  }}
-                  changeShowAll={(showAll: boolean) => {
-                    changeShowAll(showAll);
-                  }}
-                />
-              </form>
-            </Modal>
-          )}
+          <Modal
+            bodyContent={
+              <>
+                <Button buttonType="link" onClick={onClose} id="modal-button">
+                  <Flex align="center">
+                    <Icon
+                      decorative={true}
+                      name="arrow"
+                      size="medium"
+                      iconRotation="rotate90"
+                    />
+                    Go Back
+                  </Flex>
+                </Button>
+                <Box>
+                  <ResultsSorts
+                    isModal={true}
+                    perPage={searchQuery.perPage}
+                    sort={searchQuery.sort}
+                    onChangePerPage={(e) => onChangePerPage(e)}
+                    onChangeSort={(e) => onChangeSort(e)}
+                  />
+                </Box>
+                <form name="filterForm">
+                  <Heading level="two" id="filter-desktop-header">
+                    Refine Results
+                  </Heading>
+                  <Filters
+                    filters={searchQuery.filters}
+                    showAll={searchQuery.showAll}
+                    languages={getAvailableLanguages(searchResults)}
+                    isModal={true}
+                    changeFilters={(filters: Filter[]) => {
+                      changeFilters(filters);
+                    }}
+                    changeShowAll={(showAll: boolean) => {
+                      changeShowAll(showAll);
+                    }}
+                  />
+                </form>
+              </>
+            }
+          />
           <Form
             id="search-filter-form"
             bg="ui.gray.x-light-cool"
             p="xs"
-            gap={FormGaps.ExtraSmall}
-            display={displayForm}
-            // visibility={{ base: "hidden", md: "visible" }}
+            gap="grid.xs"
+            display={["none", "none", "block"]}
           >
-            <Heading
-              level={HeadingLevels.Two}
-              id="filter-desktop-header"
-              additionalStyles={{ m: "0" }}
-            >
+            <Heading level="two" id="filter-desktop-header" __css={{ m: "0" }}>
               Refine Results
             </Heading>
             <Filters
