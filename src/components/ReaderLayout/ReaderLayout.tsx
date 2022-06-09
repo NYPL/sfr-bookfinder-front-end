@@ -20,8 +20,13 @@ const WebReader = dynamic(() => import("@nypl/web-reader"), { ssr: false });
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import readiumBefore from "!file-loader!extract-loader!css-loader!@nypl/web-reader/dist/injectable-html-styles/ReadiumCSS-before.css";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import readiumDefault from "!file-loader!extract-loader!css-loader!@nypl/web-reader/dist/injectable-html-styles/ReadiumCSS-default.css";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import readiumAfter from "!file-loader!extract-loader!css-loader!@nypl/web-reader/dist/injectable-html-styles/ReadiumCSS-after.css";
+
 import Link from "../Link/Link";
 
 const origin =
