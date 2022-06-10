@@ -90,9 +90,9 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
                   to={{
                     pathname: `/work/${edition.work_uuid}`,
                   }}
-                  title={edition.title}
+                  title={edition.work_title}
                 >
-                  {edition.title}
+                  {edition.work_title}
                 </Link>
               </Heading>
             )}
@@ -107,6 +107,11 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
             )}
           </Flex>
           {edition.sub_title && <Box>{edition.sub_title}</Box>}
+          {edition.work_authors && edition.work_authors.length && (
+            <Box>
+              By <span>{edition.work_authors.join(", ")}</span>
+            </Box>
+          )}
           <Box>
             {featuredInstance && (
               <>

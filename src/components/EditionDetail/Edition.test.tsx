@@ -34,15 +34,20 @@ describe("Renders edition component when given valid edition", () => {
       "/advanced-search"
     );
   });
-  test("Shows edition Title in Heading", () => {
+  test("Shows work work Title in Heading", () => {
     expect(
-      screen.getByRole("heading", { name: apiEdition.data.title })
+      screen.getByRole("heading", { name: apiEdition.data.work_title })
     ).toBeInTheDocument();
   });
   test("Shows edition Subtitle", () => {
     expect(screen.getByText(apiEdition.data.sub_title)).toBeInTheDocument();
   });
 
+  test("Shows Author name", () => {
+    apiEdition.data.work_authors.forEach((author) =>
+      expect(screen.getByText(author)).toBeInTheDocument()
+    );
+  });
   test("Three cards show up in page", () => {
     expect(
       screen.getByRole("heading", { name: "Featured Copy" })

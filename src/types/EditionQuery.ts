@@ -29,4 +29,6 @@ export type ApiEdition = {
   instances: Instance[];
   title?: string;
   sub_title?: string;
+  work_title?: string;
+  work_authors?: string[];
 };
