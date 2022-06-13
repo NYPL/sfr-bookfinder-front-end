@@ -107,6 +107,30 @@ export default class EditionCardUtils {
     });
   }
 
+  static getAuthorsListByName(authors: string[]): JSX.Element[] {
+    if (!authors || authors.length === 0) return null;
+    return authors.map((author: string, i: number) => {
+      const authorLinkText = author;
+      const query: ApiSearchQuery = {
+        query: `author:${author}`,
+      };
+      return (
+        <React.Fragment key={`author-${author}`}>
+          <Link
+            to={{
+              pathname: "/search",
+              query: query,
+            }}
+            className="link"
+          >
+            {authorLinkText}
+          </Link>
+          {i < authors.length - 1 && ", "}
+        </React.Fragment>
+      );
+    });
+  }
+
   /** Get Cover Image
    * @param covers - The list of covers
    * @returns The URL of the cover that should be displayed.
