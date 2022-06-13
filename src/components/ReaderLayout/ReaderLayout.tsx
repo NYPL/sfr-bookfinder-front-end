@@ -15,7 +15,14 @@ const WebReader = dynamic(() => import("@nypl/web-reader"), { ssr: false });
 // This is how we can import a css file as a url. It's complex, but necessary
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import cssInjectableUrl from '!file-loader?{"publicPath":"/_next/static","outputPath":"static"}!extract-loader!css-loader!@nypl/web-reader/dist/injectable-html-styles.css';
+import readiumBefore from "!file-loader!extract-loader!css-loader!@nypl/web-reader/dist/injectable-html-styles/ReadiumCSS-before.css";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import readiumDefault from "!file-loader!extract-loader!css-loader!@nypl/web-reader/dist/injectable-html-styles/ReadiumCSS-default.css";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import readiumAfter from "!file-loader!extract-loader!css-loader!@nypl/web-reader/dist/injectable-html-styles/ReadiumCSS-after.css";
+
 import Link from "../Link/Link";
 
 const origin =
@@ -26,7 +33,15 @@ const origin =
 const injectables = [
   {
     type: "style",
-    url: `${origin}${cssInjectableUrl}`,
+    url: `${origin}${readiumBefore}`,
+  },
+  {
+    type: "style",
+    url: `${origin}${readiumDefault}`,
+  },
+  {
+    type: "style",
+    url: `${origin}${readiumAfter}`,
   },
   {
     type: "style",
@@ -95,7 +110,7 @@ const ReaderLayout: React.FC<{
           proxyUrl={proxyUrl}
           pdfWorkerSrc={`${origin}/pdf-worker/pdf.worker.min.js`}
           headerLeft={<BackButton />}
-          injectables={injectables}
+          injectablesFixed={injectables}
         />
       )}
     </>

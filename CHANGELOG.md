@@ -5,6 +5,7 @@
 - Updates unit tests and snapshots
 - CHORE: removes tugboat deploy
 - Change format filters to "Readable", "Downloadable", and "Requestable"
+- Upgrade to Web Reader version 3.1.0
 
 ## [0.13.1]
 - Added "Back to search results" link for works and editions
