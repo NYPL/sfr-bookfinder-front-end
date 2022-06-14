@@ -19,7 +19,7 @@
     "@nypl/design-system-react-components": "^1.0.0",
     "@nypl/dgx-header-component": "git+https://git@github.com/NYPL/dgx-header-component#reactupdate",
     "@nypl/dgx-react-footer": "0.5.8",
-    "@nypl/web-reader": "^1.0.0",
+    "@nypl/web-reader": "^3.1.0",
     "@types/node": "^16.11.6",
     "@types/react": "^16.9.5",
     "css-loader": "^6.5.0",
