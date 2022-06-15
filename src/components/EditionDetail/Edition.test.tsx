@@ -47,11 +47,21 @@ describe("Renders edition component when given valid edition", () => {
       expect(screen.getByText(author.name)).toBeInTheDocument()
     );
   });
-  test("viaf is included in search query for author link", () => {
-    const authorElement = screen.getByText("Shakespeare, William- ()");
-    expect(authorElement.closest("a").href).toContain(
-      "query=viaf%3A96994048&display=author%3AShakespeare%2C+William-+%28%29"
-    );
+  describe("Author links redirect to correct search query", () => {
+    test("Author without viaf", () => {
+      const authorElement = screen.getByText("Edgar, John, 1876-");
+      expect(authorElement.closest("a").href).toContain(
+        "query=author%3AEdgar%2C+John%2C+1876-"
+      );
+    });
+    test("Author with viaf", () => {
+      const authorElementWithViaf = screen.getByText(
+        "Shakespeare, William- ()"
+      );
+      expect(authorElementWithViaf.closest("a").href).toContain(
+        "query=viaf%3A96994048&display=author%3AShakespeare%2C+William-+%28%29"
+      );
+    });
   });
   test("Three cards show up in page", () => {
     expect(
