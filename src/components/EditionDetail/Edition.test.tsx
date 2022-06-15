@@ -42,10 +42,15 @@ describe("Renders edition component when given valid edition", () => {
   test("Shows edition Subtitle", () => {
     expect(screen.getByText(apiEdition.data.sub_title)).toBeInTheDocument();
   });
-
-  test("Shows Author name", () => {
+  test("Shows Author name in Link", () => {
     apiEdition.data.work_authors.forEach((author) =>
-      expect(screen.getByText(author)).toBeInTheDocument()
+      expect(screen.getByText(author.name)).toBeInTheDocument()
+    );
+  });
+  test("viaf is included in search query for author link", () => {
+    const authorElement = screen.getByText("Shakespeare, William- ()");
+    expect(authorElement.closest("a").href).toContain(
+      "query=viaf%3A96994048&display=author%3AShakespeare%2C+William-+%28%29"
     );
   });
   test("Three cards show up in page", () => {

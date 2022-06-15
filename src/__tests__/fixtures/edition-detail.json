@@ -259,7 +259,18 @@
     "title": "A history of South Africa from the earliest European settlement",
     "volume": "Volume number",
     "work_authors": [
-      "Edgar, John, 1876-"
+      {
+          "lcnaf": "",
+          "name": "Edgar, John, 1876-",
+          "primary": "true",
+          "viaf": ""
+      },
+      {
+          "lcnaf": "n78095332",
+          "name": "Shakespeare, William- ()",
+          "primary": "true",
+          "viaf": "96994048"
+      }
     ],
     "work_uuid": "0007511d-29be-4a3c-9965-fe367c55b1f8",
     "work_title": "A history of South Africa from the earliest European settlement"
