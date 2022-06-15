@@ -30,5 +30,5 @@ export type ApiEdition = {
   title?: string;
   sub_title?: string;
   work_title?: string;
-  work_authors?: string[];
+  work_authors?: Agent[];
 };

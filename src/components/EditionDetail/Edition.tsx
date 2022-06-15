@@ -39,9 +39,7 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
   const { pathname, query } = router;
   const featuredItemId = query.featured as string;
   const edition: ApiEdition = props.editionResult.data;
-  const authorsList = EditionCardUtils.getAuthorsListByName(
-    edition.work_authors
-  );
+  const authorsList = EditionCardUtils.getAuthorsList(edition.work_authors);
 
   const passedInFeaturedItem = featuredItemId
     ? edition.instances.find((instance) => {
