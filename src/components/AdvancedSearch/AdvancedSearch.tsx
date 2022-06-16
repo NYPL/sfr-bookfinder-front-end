@@ -57,7 +57,7 @@ const AdvancedSearch: React.FC<{
   const [languageFilters, setLanguageFilters] = useState(
     findFiltersForField(searchQuery.filters, filterFields.language)
   );
-  const [queries, setQueries] = useState<Query[]>(searchQuery.queries);
+  const [queries, setQueries] = useState<Query[]>([]);
   const [formatFilters, setFormatFilters] = useState<Filter[]>(
     findFiltersForField(searchQuery.filters, filterFields.format)
   );

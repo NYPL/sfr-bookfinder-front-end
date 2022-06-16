@@ -206,9 +206,6 @@ export default class EditionCardUtils {
             pathname: `/read/${readOnlineLink.link_id}`,
           }}
           linkType="button"
-          style={{
-            width: "130px",
-          }}
         >
           Read Online
         </Link>
@@ -263,9 +260,7 @@ export default class EditionCardUtils {
       ? `https://www.worldcat.org/oclc/${oclc.identifier}`
       : undefined;
     return oclc ? (
-      <a href={oclcLink} className="link">
-        Find in a library
-      </a>
+      <Link to={oclcLink}>Find in a library</Link>
     ) : (
       <>Find in Library Unavailable</>
     );

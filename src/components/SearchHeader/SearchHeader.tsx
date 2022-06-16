@@ -30,7 +30,7 @@ const SearchHeader: React.FC<{
           width="100%"
           p="s"
         >
-          <SearchForm searchQuery={searchQuery} isHeader />
+          <SearchForm searchQuery={searchQuery} />
         </Box>
       </Box>
     </>

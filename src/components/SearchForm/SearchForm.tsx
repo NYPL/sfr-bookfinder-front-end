@@ -9,8 +9,7 @@ import Link from "../Link/Link";
 
 const SearchForm: React.FC<{
   searchQuery?: SearchQuery;
-  isHeader?: boolean; //Is this searchForm in the header (search/work/edition pages), or on its own (homepage)
-}> = ({ searchQuery, isHeader }) => {
+}> = ({ searchQuery }) => {
   const initialDefaultQuery: Query = { query: "", field: SearchField.Keyword };
 
   // The display query is the query that's auto-populated in the searchbar.
@@ -69,7 +68,7 @@ const SearchForm: React.FC<{
   };
 
   return (
-    <Box className="search-bar">
+    <Box className="search-bar" overflow="auto">
       <SearchBar
         id="search-bar"
         invalidText={errorMessagesText.emptySearch}
@@ -91,14 +90,8 @@ const SearchForm: React.FC<{
         }}
         labelText="Search"
       />
-      <Box className="advanced-search-message">
-        <Link
-          to="/advanced-search"
-          className="link"
-          modifiers={isHeader && ["dark-background"]}
-        >
-          Advanced Search
-        </Link>
+      <Box float="right">
+        <Link to="/advanced-search">Advanced Search</Link>
       </Box>
     </Box>
   );
