@@ -57,7 +57,7 @@ export const InstanceCard: React.FC<{
         <div>{EditionCardUtils.getWorldCatElem(instance)}</div>
         <Link to="/license">{EditionCardUtils.getLicense(previewItem)}</Link>
       </CardContent>
-      <CardActions whiteSpace="nowrap">
+      <CardActions display="flex" flexDir="column" whiteSpace="nowrap" gap={4}>
         {EditionCardUtils.getCtas(
           previewItem,
           instance.title,
