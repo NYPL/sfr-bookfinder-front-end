@@ -1,24 +1,57 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders License page unchanged 1`] = `
+.emotion-4 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-6 {
+  -webkit-margin-start: 0.5rem;
+  margin-inline-start: 0.5rem;
+  -webkit-margin-end: 0.5rem;
+  margin-inline-end: 0.5rem;
+}
+
+.emotion-9 {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  line-height: 1em;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  color: currentColor;
+}
+
+.emotion-18 {
+  width: 100%;
+}
+
 <div
-  className="css-1xdhyk6"
+  className="emotion-0"
 >
   <div
-    className="css-0"
+    className="emotion-1"
   >
     <nav
       aria-label="Breadcrumb"
-      className="chakra-breadcrumb css-1xdhyk6"
+      className="chakra-breadcrumb emotion-0"
     >
       <ol
-        className="chakra-breadcrumb__list css-0"
+        className="chakra-breadcrumb__list emotion-1"
       >
         <li
-          className="chakra-breadcrumb__list-item css-18biwo"
+          className="chakra-breadcrumb__list-item emotion-4"
         >
           <a
-            className="chakra-breadcrumb__link css-0"
+            className="chakra-breadcrumb__link emotion-1"
             href="https://www.nypl.org"
           >
             <span
@@ -28,22 +61,22 @@ exports[`renders License page unchanged 1`] = `
             </span>
           </a>
           <span
-            className="css-t4q1nq"
+            className="emotion-6"
             role="presentation"
           >
             /
           </span>
         </li>
         <li
-          className="chakra-breadcrumb__list-item css-18biwo"
+          className="chakra-breadcrumb__list-item emotion-4"
         >
           <a
-            className="chakra-breadcrumb__link css-0"
+            className="chakra-breadcrumb__link emotion-1"
             href="https://www.nypl.org/research"
           >
             <svg
               aria-hidden={true}
-              className="chakra-icon breadcrumbs-icon css-1vgifmd"
+              className="chakra-icon breadcrumbs-icon emotion-9"
               focusable={false}
               id="undefined__backarrow"
               role="img"
@@ -66,18 +99,18 @@ exports[`renders License page unchanged 1`] = `
             </span>
           </a>
           <span
-            className="css-t4q1nq"
+            className="emotion-6"
             role="presentation"
           >
             /
           </span>
         </li>
         <li
-          className="chakra-breadcrumb__list-item css-18biwo"
+          className="chakra-breadcrumb__list-item emotion-4"
         >
           <span
             aria-current="page"
-            className="chakra-breadcrumb__link css-0"
+            className="chakra-breadcrumb__link emotion-1"
           >
             <span
               className="breadcrumb-label"
@@ -90,16 +123,16 @@ exports[`renders License page unchanged 1`] = `
     </nav>
   </div>
   <main
-    className="css-0"
+    className="emotion-1"
     id="mainContent"
   >
     <h1
-      className="chakra-heading css-1xdhyk6"
+      className="chakra-heading emotion-0"
     >
       License Explanations
     </h1>
     <h2
-      className="chakra-heading css-1xdhyk6"
+      className="chakra-heading emotion-0"
     >
       Public Domain
     </h2>
@@ -107,7 +140,7 @@ exports[`renders License page unchanged 1`] = `
       Works in the public domain have no copyright (in most cases because the copyright term has expired) and you are free to use, adapt, share, and distribute the work in any way you wish.
     </p>
     <h2
-      className="chakra-heading css-1xdhyk6"
+      className="chakra-heading emotion-0"
     >
       Public Domain (US Only)
     </h2>
@@ -115,13 +148,13 @@ exports[`renders License page unchanged 1`] = `
       Works may be in the public domain in the Unites States (where you can use and distribute them without restriction), but still subject to copyright laws and restrictions outside the United States.
     </p>
     <h2
-      className="chakra-heading css-1xdhyk6"
+      className="chakra-heading emotion-0"
     >
       Creative Commons Licenses
     </h2>
     <p>
       <a
-        className="css-1xdhyk6"
+        className="emotion-18"
         href="https://creativecommons.org/"
         onClick={[Function]}
         onMouseEnter={[Function]}
@@ -134,7 +167,7 @@ exports[`renders License page unchanged 1`] = `
       allow rights-holders to grant people the right to freely use their creations in certain ways and perhaps by meeting certain requirements. There are several licenses with different combinations of four basic clauses:
     </p>
     <section
-      className="css-1xdhyk6"
+      className="emotion-0"
     >
       <dl>
         <dt>
@@ -168,11 +201,11 @@ exports[`renders License page unchanged 1`] = `
       The following Creative Commons licenses are applied to materials in Digital Research Books Beta. Refer to linked license descriptions for specifics:
     </p>
     <ul
-      className="css-1xdhyk6"
+      className="emotion-0"
     >
       <li>
         <a
-          className="css-1xdhyk6"
+          className="emotion-18"
           href="https://creativecommons.org/licenses/by/3.0/"
           onClick={[Function]}
           onMouseEnter={[Function]}
@@ -184,7 +217,7 @@ exports[`renders License page unchanged 1`] = `
       </li>
       <li>
         <a
-          className="css-1xdhyk6"
+          className="emotion-18"
           href="https://creativecommons.org/licenses/by/4.0/"
           onClick={[Function]}
           onMouseEnter={[Function]}
@@ -196,7 +229,7 @@ exports[`renders License page unchanged 1`] = `
       </li>
       <li>
         <a
-          className="css-1xdhyk6"
+          className="emotion-18"
           href="https://creativecommons.org/licenses/by-sa/3.0/"
           onClick={[Function]}
           onMouseEnter={[Function]}
@@ -208,7 +241,7 @@ exports[`renders License page unchanged 1`] = `
       </li>
       <li>
         <a
-          className="css-1xdhyk6"
+          className="emotion-18"
           href="https://creativecommons.org/licenses/by-sa/4.0/"
           onClick={[Function]}
           onMouseEnter={[Function]}
@@ -220,7 +253,7 @@ exports[`renders License page unchanged 1`] = `
       </li>
       <li>
         <a
-          className="css-1xdhyk6"
+          className="emotion-18"
           href="https://creativecommons.org/licenses/by-nd/3.0/"
           onClick={[Function]}
           onMouseEnter={[Function]}
@@ -232,7 +265,7 @@ exports[`renders License page unchanged 1`] = `
       </li>
       <li>
         <a
-          className="css-1xdhyk6"
+          className="emotion-18"
           href="https://creativecommons.org/licenses/by-nd/4.0/"
           onClick={[Function]}
           onMouseEnter={[Function]}
@@ -244,7 +277,7 @@ exports[`renders License page unchanged 1`] = `
       </li>
       <li>
         <a
-          className="css-1xdhyk6"
+          className="emotion-18"
           href="https://creativecommons.org/licenses/by-nc/4.0/"
           onClick={[Function]}
           onMouseEnter={[Function]}
@@ -256,7 +289,7 @@ exports[`renders License page unchanged 1`] = `
       </li>
       <li>
         <a
-          className="css-1xdhyk6"
+          className="emotion-18"
           href="https://creativecommons.org/licenses/by-nc-sa/3.0/"
           onClick={[Function]}
           onMouseEnter={[Function]}
@@ -268,7 +301,7 @@ exports[`renders License page unchanged 1`] = `
       </li>
       <li>
         <a
-          className="css-1xdhyk6"
+          className="emotion-18"
           href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
           onClick={[Function]}
           onMouseEnter={[Function]}
@@ -280,7 +313,7 @@ exports[`renders License page unchanged 1`] = `
       </li>
       <li>
         <a
-          className="css-1xdhyk6"
+          className="emotion-18"
           href="https://creativecommons.org/licenses/by-nc-nd/3.0/"
           onClick={[Function]}
           onMouseEnter={[Function]}
@@ -292,7 +325,7 @@ exports[`renders License page unchanged 1`] = `
       </li>
       <li>
         <a
-          className="css-1xdhyk6"
+          className="emotion-18"
           href="https://creativecommons.org/licenses/by-nc-nd/4.0/"
           onClick={[Function]}
           onMouseEnter={[Function]}
@@ -304,7 +337,7 @@ exports[`renders License page unchanged 1`] = `
       </li>
     </ul>
     <h2
-      className="chakra-heading css-1xdhyk6"
+      className="chakra-heading emotion-0"
     >
       CC0 Public Domain Dedication
     </h2>
@@ -312,7 +345,7 @@ exports[`renders License page unchanged 1`] = `
       The
        
       <a
-        className="css-1xdhyk6"
+        className="emotion-18"
         href="https://creativecommons.org/publicdomain/zero/1.0/"
         onClick={[Function]}
         onMouseEnter={[Function]}
@@ -325,7 +358,7 @@ exports[`renders License page unchanged 1`] = `
       waives all rights under worldwide copyright law. It allows you to use, adapt, share, and distribute the work as if it were in the Public domain.
     </p>
     <h2
-      className="chakra-heading css-1xdhyk6"
+      className="chakra-heading emotion-0"
     >
       GNU General Public License
     </h2>
@@ -333,7 +366,7 @@ exports[`renders License page unchanged 1`] = `
       For a work licensed under the
        
       <a
-        className="css-1xdhyk6"
+        className="emotion-18"
         href="http://www.gnu.org/licenses/gpl.html"
         onClick={[Function]}
         onMouseEnter={[Function]}
