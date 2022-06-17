@@ -305,7 +305,9 @@ export default class EditionCardUtils {
     if (isLoggedIn) {
       return (
         <>
-          You can request a partial scan via NYPL&nbsp;
+          <Box whiteSpace="initial">
+            You can request a partial scan via NYPL
+          </Box>
           <Link
             to="https://www.nypl.org/research/scan-and-deliver"
             target="_blank"
