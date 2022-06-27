@@ -68,7 +68,7 @@ const SearchForm: React.FC<{
   };
 
   return (
-    <Box className="search-bar" overflow="auto">
+    <Box width={{ md: "85%" }} overflow="auto">
       <SearchBar
         id="search-bar"
         invalidText={errorMessagesText.emptySearch}
