@@ -113,7 +113,7 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
           </Flex>
           {edition.sub_title && <Box>{edition.sub_title}</Box>}
           {authorsList && authorsList.length && (
-            <Box>By {joinArrayOfElements(authorsList, ", ")}</Box>
+            <Box>By {joinArrayOfElements(authorsList, "")}</Box>
           )}
           <Box>
             {featuredInstance && (

@@ -100,7 +100,7 @@ const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
             </Flex>
             {work.sub_title && <Box>{work.sub_title}</Box>}
             {authorsList && authorsList.length && (
-              <Box>By {joinArrayOfElements(authorsList, ", ")}</Box>
+              <Box>By {joinArrayOfElements(authorsList, "")}</Box>
             )}
           </Box>
           {featuredEdition && (
