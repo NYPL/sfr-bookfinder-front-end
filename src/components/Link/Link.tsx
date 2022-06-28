@@ -12,7 +12,9 @@ interface IProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
 const Link = ({ children, to, linkType }: IProps) => {
   return (
     <BaseLink href={to} passHref>
-      <DS.Link type={linkType}>{children}</DS.Link>
+      <DS.Link type={linkType} __css={{ width: "100%" }}>
+        {children}
+      </DS.Link>
     </BaseLink>
   );
 };
