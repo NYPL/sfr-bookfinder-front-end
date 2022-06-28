@@ -258,7 +258,22 @@
     "table_of_contents": "La marchandisation des services d'eau : les réformes des années 1980-1990. La fragmentation par les réseaux. Géographie des nouveaux assemblages en Afrique subsaharienne. Le pluralisme sans l'équité? L'écartèlement des territoires nationaux. Spatialisation et territorialisation des services d'eau : une inégale fragmentation.",
     "title": "A history of South Africa from the earliest European settlement",
     "volume": "Volume number",
-    "work_uuid": "0007511d-29be-4a3c-9965-fe367c55b1f8"
+    "work_authors": [
+      {
+          "lcnaf": "",
+          "name": "Edgar, John, 1876-",
+          "primary": "true",
+          "viaf": ""
+      },
+      {
+          "lcnaf": "n78095332",
+          "name": "Shakespeare, William- ()",
+          "primary": "true",
+          "viaf": "96994048"
+      }
+    ],
+    "work_uuid": "0007511d-29be-4a3c-9965-fe367c55b1f8",
+    "work_title": "A history of South Africa from the earliest European settlement"
   },
   "responseType": "singleEdition",
   "status": 200,

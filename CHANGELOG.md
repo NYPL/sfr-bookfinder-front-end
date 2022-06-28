@@ -6,6 +6,7 @@
 - CHORE: removes tugboat deploy
 - Change format filters to "Readable", "Downloadable", and "Requestable"
 - Upgrade to Web Reader version 3.1.0
+- Adds author and work title to edition detail page
 
 ## [0.13.1]
 - Added "Back to search results" link for works and editions

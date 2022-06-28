@@ -22,9 +22,13 @@ import Link from "~/src/components/Link/Link";
 import { InstanceCard } from "../InstanceCard/InstanceCard";
 import { defaultBreadcrumbs } from "~/src/constants/labels";
 import SearchHeader from "../SearchHeader/SearchHeader";
-import { truncateStringOnWhitespace } from "~/src/util/Util";
+import {
+  joinArrayOfElements,
+  truncateStringOnWhitespace,
+} from "~/src/util/Util";
 import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
 import { Instance } from "~/src/types/DataModel";
+import EditionCardUtils from "~/src/util/EditionCardUtils";
 
 const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
   props
@@ -35,6 +39,7 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
   const { pathname, query } = router;
   const featuredItemId = query.featured as string;
   const edition: ApiEdition = props.editionResult.data;
+  const authorsList = EditionCardUtils.getAuthorsList(edition.work_authors);
 
   const passedInFeaturedItem = featuredItemId
     ? edition.instances.find((instance) => {
@@ -90,9 +95,9 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
                   to={{
                     pathname: `/work/${edition.work_uuid}`,
                   }}
-                  title={edition.title}
+                  title={edition.work_title}
                 >
-                  {edition.title}
+                  {edition.work_title}
                 </Link>
               </Heading>
             )}
@@ -107,6 +112,9 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
             )}
           </Flex>
           {edition.sub_title && <Box>{edition.sub_title}</Box>}
+          {authorsList && authorsList.length && (
+            <Box>By {joinArrayOfElements(authorsList, "")}</Box>
+          )}
           <Box>
             {featuredInstance && (
               <>
