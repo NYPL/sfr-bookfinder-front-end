@@ -17,8 +17,8 @@ export const getBackToSearchUrl = (referer: string, host: string) => {
 export const extractQueryParam = (
   query: ParsedUrlQuery,
   param: string
-): string[] => {
+): string | undefined => {
   const extracted = query?.[param];
 
-  return extracted ? (Array.isArray(extracted) ? extracted : [extracted]) : [];
+  return typeof extracted === "string" ? extracted : undefined;
 };

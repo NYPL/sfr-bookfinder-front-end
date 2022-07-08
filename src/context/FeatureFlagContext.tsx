@@ -1,47 +1,70 @@
 import { useRouter } from "next/router";
+import { ParsedUrlQuery } from "querystring";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { extractQueryParam } from "../util/LinkUtils";
-import { flattenDeep } from "../util/Util";
+
+interface FeatureFlag {
+  [flag: string]: boolean;
+}
 
 type FeatureFlagContextType = {
-  activeFeatureFlags: string[];
-  setActiveFeatureFlags: (activeFeatureFlags: string[]) => void;
+  featureFlags: FeatureFlag;
+  setFeatureFlags: (featureFlags: FeatureFlag) => void;
   isFlagActive: (flag: string) => boolean;
 };
 
 export const FeatureFlagContext =
   createContext<FeatureFlagContextType>(undefined);
 
+const extractFeatureFlagParams = (query: ParsedUrlQuery) => {
+  const featureFlags = {};
+  for (const param in query) {
+    if (param.includes("featureFlag_")) {
+      const featureFlag = param.split("_")[1];
+      featureFlags[featureFlag] = JSON.parse(extractQueryParam(query, param));
+    }
+  }
+  return featureFlags;
+};
+
 export const FeatureFlagProvider: React.FC = ({ children }) => {
-  const [activeFeatureFlags, setActiveFeatureFlags] = useState<string[]>([]);
+  const [featureFlags, setFeatureFlags] = useState<FeatureFlag>({});
   const isFlagActive = (flag: string) => {
-    return activeFeatureFlags.includes(flag);
+    return featureFlags[flag];
   };
 
   const router = useRouter();
   const { query } = router;
 
   useEffect(() => {
-    const storedFeatureFlagsStr = sessionStorage.getItem("features");
-    let storedFeatureFlags: string[] = [];
+    const storedFeatureFlagsStr = sessionStorage.getItem("featureFlags");
+    let storedFeatureFlags: FeatureFlag = {};
     if (storedFeatureFlagsStr) {
       try {
         storedFeatureFlags = JSON.parse(storedFeatureFlagsStr);
+        for (const flag in storedFeatureFlags) {
+          const featureFlag = "featureFlag_" + flag;
+          if (!query[featureFlag]) {
+            router.push({ query: { [featureFlag]: storedFeatureFlags[flag] } });
+          }
+        }
       } catch (e) {
         throw new Error(e);
       }
     }
-    const newFeatureFlags = flattenDeep([
-      ...storedFeatureFlags,
-      ...extractQueryParam(query, "feature"),
-    ]);
-    sessionStorage.setItem("features", JSON.stringify(newFeatureFlags));
-    setActiveFeatureFlags(newFeatureFlags);
-  }, [query]);
+
+    const newFeatureFlags = extractFeatureFlagParams(query);
+    sessionStorage.setItem("featureFlags", JSON.stringify(newFeatureFlags));
+    setFeatureFlags(newFeatureFlags);
+  }, [query, router]);
 
   return (
     <FeatureFlagContext.Provider
-      value={{ activeFeatureFlags, setActiveFeatureFlags, isFlagActive }}
+      value={{
+        featureFlags: featureFlags,
+        setFeatureFlags: setFeatureFlags,
+        isFlagActive,
+      }}
     >
       {children}
     </FeatureFlagContext.Provider>

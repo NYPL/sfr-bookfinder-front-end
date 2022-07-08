@@ -39,23 +39,23 @@ describe("Generate back to serach url", () => {
 });
 
 describe("Extracts query parameter from url", () => {
-  test("extractQueryParam returns array with a single flag", () => {
+  test("extractQueryParam returns a single flag", () => {
     mockRouter.setCurrentUrl(
       "https://drb-qa.nypl.org/edition/1780467?feature=new_feature"
     );
     const features = extractQueryParam(mockRouter.query, "feature");
-    expect(features).toEqual(["new_feature"]);
+    expect(features).toEqual("new_feature");
   });
-  test("extractQueryParam returns array with multiple flags", () => {
+  test("extractQueryParam returns undefined if multiple flags", () => {
     mockRouter.setCurrentUrl(
       "https://drb-qa.nypl.org/edition/1780467?feature=new_feature&feature=new_feature2"
     );
     const features = extractQueryParam(mockRouter.query, "feature");
-    expect(features).toEqual(["new_feature", "new_feature2"]);
+    expect(features).toBeUndefined();
   });
-  test("extractQueryParam returns empty array if query doesn't exist", () => {
+  test("extractQueryParam returns undefined if query doesn't exist", () => {
     mockRouter.setCurrentUrl("https://drb-qa.nypl.org/edition/1780467");
     const features = extractQueryParam(mockRouter.query, "feature");
-    expect(features).toEqual([]);
+    expect(features).toBeUndefined();
   });
 });
