@@ -1,4 +1,10 @@
-import { getBackToSearchUrl, getBackUrl } from "../LinkUtils";
+import {
+  extractQueryParam,
+  getBackToSearchUrl,
+  getBackUrl,
+} from "../LinkUtils";
+import mockRouter from "next-router-mock";
+jest.mock("next/router", () => require("next-router-mock"));
 
 describe("Generates back url", () => {
   const host = "drb-qa.nypl.org";
@@ -29,5 +35,27 @@ describe("Generate back to serach url", () => {
       "https://drb-qa.nypl.org/search?query=keyword%3A%22climate+change%22&filter=format%3Apdf";
     const backUrl = getBackToSearchUrl(referer, host);
     expect(backUrl).toEqual(referer);
+  });
+});
+
+describe("Extracts query parameter from url", () => {
+  test("extractQueryParam returns array with a single flag", () => {
+    mockRouter.setCurrentUrl(
+      "https://drb-qa.nypl.org/edition/1780467?feature=new_feature"
+    );
+    const features = extractQueryParam(mockRouter.query, "feature");
+    expect(features).toEqual(["new_feature"]);
+  });
+  test("extractQueryParam returns array with multiple flags", () => {
+    mockRouter.setCurrentUrl(
+      "https://drb-qa.nypl.org/edition/1780467?feature=new_feature&feature=new_feature2"
+    );
+    const features = extractQueryParam(mockRouter.query, "feature");
+    expect(features).toEqual(["new_feature", "new_feature2"]);
+  });
+  test("extractQueryParam returns empty array if query doesn't exist", () => {
+    mockRouter.setCurrentUrl("https://drb-qa.nypl.org/edition/1780467");
+    const features = extractQueryParam(mockRouter.query, "feature");
+    expect(features).toEqual([]);
   });
 });
