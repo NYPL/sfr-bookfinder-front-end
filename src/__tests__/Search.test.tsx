@@ -1,5 +1,6 @@
 import React from "react";
-import { act, fireEvent, render, screen, within } from "@testing-library/react";
+import { act, fireEvent, screen, within } from "@testing-library/react";
+import { render } from "./testUtils/render";
 import SearchResults from "../components/Search/Search";
 import { FacetItem, SearchField } from "../types/DataModel";
 import { ApiSearchResult, SearchQuery } from "../types/SearchQuery";
@@ -621,5 +622,39 @@ describe("Renders search header correctly when viaf search is passed", () => {
     expect(screen.getByText("display author").closest("a").href).toContain(
       "http://localhost/search?query=viaf%3A12345&display=author%3Adisplay+author"
     );
+  });
+});
+
+describe("Renders total works correctly when feature flag is set", () => {
+  beforeEach(() => {
+    act(() => {
+      resizeWindow(300, 1000);
+    });
+  });
+  test("Total works is shown when feature flag query is true", () => {
+    mockRouter.push("?feature_totalCount=true");
+    render(
+      <SearchResults searchQuery={searchQuery} searchResults={searchResults} />
+    );
+    expect(screen.getByText("Total number of works: 26")).toBeInTheDocument();
+  });
+
+  test("Total works is not shown when feature flag query is false", () => {
+    mockRouter.push("?feature_totalCount=false");
+    render(
+      <SearchResults searchQuery={searchQuery} searchResults={searchResults} />
+    );
+    expect(
+      screen.queryByText("Total number of works: 26")
+    ).not.toBeInTheDocument();
+  });
+
+  test("Total works is not shown when feature flag query is not passed", () => {
+    render(
+      <SearchResults searchQuery={searchQuery} searchResults={searchResults} />
+    );
+    expect(
+      screen.queryByText("Total number of works: 26")
+    ).not.toBeInTheDocument();
   });
 });

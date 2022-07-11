@@ -19,7 +19,7 @@ export const FeatureFlagContext =
 const extractFeatureFlagParams = (query: ParsedUrlQuery) => {
   const featureFlags = {};
   for (const param in query) {
-    if (param.includes("featureFlag_")) {
+    if (param.includes("feature_")) {
       const featureFlag = param.split("_")[1];
       featureFlags[featureFlag] = JSON.parse(extractQueryParam(query, param));
     }
@@ -43,9 +43,11 @@ export const FeatureFlagProvider: React.FC = ({ children }) => {
       try {
         storedFeatureFlags = JSON.parse(storedFeatureFlagsStr);
         for (const flag in storedFeatureFlags) {
-          const featureFlag = "featureFlag_" + flag;
+          const featureFlag = "feature_" + flag;
           if (!query[featureFlag]) {
-            router.push({ query: { [featureFlag]: storedFeatureFlags[flag] } });
+            router.push({
+              query: { ...query, [featureFlag]: storedFeatureFlags[flag] },
+            });
           }
         }
       } catch (e) {
@@ -71,7 +73,7 @@ export const FeatureFlagProvider: React.FC = ({ children }) => {
   );
 };
 
-export default function useFeatureFlags() {
+export const useFeatureFlags = () => {
   const context = useContext(FeatureFlagContext);
   if (typeof context === "undefined") {
     throw new Error(
@@ -79,4 +81,6 @@ export default function useFeatureFlags() {
     );
   }
   return context;
-}
+};
+
+export default useFeatureFlags;
