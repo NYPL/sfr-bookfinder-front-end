@@ -3,9 +3,9 @@ import { ParsedUrlQuery } from "querystring";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { extractQueryParam } from "../util/LinkUtils";
 
-interface FeatureFlag {
+type FeatureFlag = {
   [flag: string]: boolean;
-}
+};
 
 type FeatureFlagContextType = {
   featureFlags: FeatureFlag;
