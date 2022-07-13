@@ -41,14 +41,14 @@ describe("Generate back to serach url", () => {
 describe("Extracts query parameter from url", () => {
   test("extractQueryParam returns a single flag", () => {
     mockRouter.setCurrentUrl(
-      "https://drb-qa.nypl.org/edition/1780467?feature=new_feature"
+      "https://drb-qa.nypl.org/edition/1780467?feature=true"
     );
     const features = extractQueryParam(mockRouter.query, "feature");
-    expect(features).toEqual("new_feature");
+    expect(features).toEqual("true");
   });
-  test("extractQueryParam returns undefined if multiple flags", () => {
+  test("extractQueryParam returns undefined if multiple flags have the same name", () => {
     mockRouter.setCurrentUrl(
-      "https://drb-qa.nypl.org/edition/1780467?feature=new_feature&feature=new_feature2"
+      "https://drb-qa.nypl.org/edition/1780467?feature=false&feature=true"
     );
     const features = extractQueryParam(mockRouter.query, "feature");
     expect(features).toBeUndefined();
