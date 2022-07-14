@@ -629,30 +629,52 @@ describe("Renders total works correctly when feature flag is set", () => {
   beforeEach(() => {
     act(() => {
       resizeWindow(300, 1000);
+      Object.defineProperty(window, "sessionStorage", {
+        value: {
+          getItem: jest.fn(() => null),
+          setItem: jest.fn(() => null),
+        },
+        writable: true,
+      });
     });
   });
-  test("Total works is shown when feature flag query is true", () => {
+
+  test("Shown when feature flag query is true", () => {
     mockRouter.push("?feature_totalCount=true");
     render(
       <SearchResults searchQuery={searchQuery} searchResults={searchResults} />
     );
+    expect(window.sessionStorage.getItem).toHaveBeenCalledTimes(1);
+    expect(window.sessionStorage.setItem).toHaveBeenCalledTimes(1);
+    expect(window.sessionStorage.setItem).toHaveBeenCalledWith(
+      "featureFlags",
+      JSON.stringify({ totalCount: true })
+    );
     expect(screen.getByText("Total number of works: 26")).toBeInTheDocument();
   });
 
-  test("Total works is not shown when feature flag query is false", () => {
+  test("Not shown when feature flag query is false", () => {
     mockRouter.push("?feature_totalCount=false");
     render(
       <SearchResults searchQuery={searchQuery} searchResults={searchResults} />
+    );
+    expect(window.sessionStorage.getItem).toHaveBeenCalledTimes(1);
+    expect(window.sessionStorage.setItem).toHaveBeenCalledTimes(1);
+    expect(window.sessionStorage.setItem).toHaveBeenCalledWith(
+      "featureFlags",
+      JSON.stringify({ totalCount: false })
     );
     expect(
       screen.queryByText("Total number of works: 26")
     ).not.toBeInTheDocument();
   });
 
-  test("Total works is not shown when feature flag query is not passed", () => {
+  test("Not shown when feature flag query is not passed", () => {
     render(
       <SearchResults searchQuery={searchQuery} searchResults={searchResults} />
     );
+    expect(window.sessionStorage.getItem).toHaveBeenCalledTimes(1);
+    expect(window.sessionStorage.setItem).toHaveBeenCalledTimes(1);
     expect(
       screen.queryByText("Total number of works: 26")
     ).not.toBeInTheDocument();
