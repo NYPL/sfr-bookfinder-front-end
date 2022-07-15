@@ -1,4 +1,10 @@
-import { getBackToSearchUrl, getBackUrl } from "../LinkUtils";
+import {
+  extractQueryParam,
+  getBackToSearchUrl,
+  getBackUrl,
+} from "../LinkUtils";
+import mockRouter from "next-router-mock";
+jest.mock("next/router", () => require("next-router-mock"));
 
 describe("Generates back url", () => {
   const host = "drb-qa.nypl.org";
@@ -29,5 +35,27 @@ describe("Generate back to serach url", () => {
       "https://drb-qa.nypl.org/search?query=keyword%3A%22climate+change%22&filter=format%3Apdf";
     const backUrl = getBackToSearchUrl(referer, host);
     expect(backUrl).toEqual(referer);
+  });
+});
+
+describe("Extracts query parameter from url", () => {
+  test("extractQueryParam returns a single flag", () => {
+    mockRouter.setCurrentUrl(
+      "https://drb-qa.nypl.org/edition/1780467?feature=true"
+    );
+    const features = extractQueryParam(mockRouter.query, "feature");
+    expect(features).toEqual("true");
+  });
+  test("extractQueryParam returns undefined if multiple flags have the same name", () => {
+    mockRouter.setCurrentUrl(
+      "https://drb-qa.nypl.org/edition/1780467?feature=false&feature=true"
+    );
+    const features = extractQueryParam(mockRouter.query, "feature");
+    expect(features).toBeUndefined();
+  });
+  test("extractQueryParam returns undefined if query doesn't exist", () => {
+    mockRouter.setCurrentUrl("https://drb-qa.nypl.org/edition/1780467");
+    const features = extractQueryParam(mockRouter.query, "feature");
+    expect(features).toBeUndefined();
   });
 });

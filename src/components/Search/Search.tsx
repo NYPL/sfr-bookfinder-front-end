@@ -33,6 +33,8 @@ import ResultsSorts from "../ResultsSorts/ResultsSorts";
 import { defaultBreadcrumbs } from "~/src/constants/labels";
 import SearchHeader from "../SearchHeader/SearchHeader";
 import { ApiWork } from "~/src/types/WorkQuery";
+import useFeatureFlags from "~/src/context/FeatureFlagContext";
+import TotalWorks from "../TotalWorks/TotalWorks";
 
 const SearchResults: React.FC<{
   searchQuery: SearchQuery;
@@ -43,6 +45,7 @@ const SearchResults: React.FC<{
     ...SearchQueryDefaults,
     ...props.searchQuery,
   });
+  const { isFlagActive } = useFeatureFlags();
 
   const { onClose, onOpen, Modal } = useModal();
 
@@ -173,6 +176,11 @@ const SearchResults: React.FC<{
       </TemplateBreakout>
       <TemplateContent sidebar="left">
         <TemplateContentTop>
+          {isFlagActive("totalCount") && (
+            <Box float="right">
+              <TotalWorks totalWorks={numberOfWorks} />
+            </Box>
+          )}
           <Box className="search-heading">
             <Box role="alert">
               <Heading level="one" id="page-title-heading">
