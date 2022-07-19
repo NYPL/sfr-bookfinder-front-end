@@ -11,6 +11,7 @@ module.exports = {
     "testUtils",
     "fixtures",
     "componentHelpers",
+    "/playwright/"
   ],
   setupFilesAfterEnv: ["./jest.setup.ts"],
   resetMocks: true,
