@@ -8,6 +8,7 @@
 - Upgrade to Web Reader version 3.1.0
 - Adds author and work title to edition detail page
 - Adds feature flag functionality
+- Adds Cucumber & Playwright test setup
 
 ## [0.13.1]
 - Added "Back to search results" link for works and editions
