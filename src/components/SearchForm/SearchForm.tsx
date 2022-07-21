@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { useRouter } from "next/router";
-import * as DS from "@nypl/design-system-react-components";
+import { SearchBar, Box } from "@nypl/design-system-react-components";
 import { SearchQuery, SearchQueryDefaults } from "~/src/types/SearchQuery";
 import { errorMessagesText, inputTerms } from "~/src/constants/labels";
 import { toLocationQuery, toApiQuery } from "~/src/util/apiConversion";
 import { Query, SearchField } from "~/src/types/DataModel";
+import Link from "../Link/Link";
 
 const SearchForm: React.FC<{
   searchQuery?: SearchQuery;
-  isHeader?: boolean; //Is this searchForm in the header (search/work/edition pages), or on its own (homepage)
 }> = ({ searchQuery }) => {
   const initialDefaultQuery: Query = { query: "", field: SearchField.Keyword };
 
@@ -32,7 +32,7 @@ const SearchForm: React.FC<{
 
   const router = useRouter();
 
-  const submitSearch = (e) => {
+  const submitSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (!shownQuery.query) {
       setFormError(true);
@@ -48,58 +48,52 @@ const SearchForm: React.FC<{
     });
   };
 
-  const onQueryChange = (e) => {
+  const onQueryChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     setShownQuery({ query: e.target.value, field: shownQuery.field });
   };
 
-  const onFieldChange = (e) => {
-    setShownQuery({ field: e.target.value, query: shownQuery.query });
-  };
-
-  const getSearchOptions = (fields: string[]) => {
-    return fields.map((field) => {
-      return <option key={`search-type-${field}`}>{field}</option>;
+  const onFieldChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setShownQuery({
+      field: e.target.value as SearchField,
+      query: shownQuery.query,
     });
   };
 
   return (
-    <div className="search-form">
-      <DS.SearchBar onSubmit={(e) => submitSearch(e)} ariaLabel="Search Bar">
-        <DS.Select
-          name={"field"}
-          selectedOption={shownQuery.field}
-          isRequired={true}
-          onChange={(e: any) => onFieldChange(e)}
-          labelId={"search-button"}
-        >
-          {getSearchOptions(inputTerms.map((field) => field.key))}
-        </DS.Select>
-        <DS.Input
-          errored={isFormError}
-          type={DS.InputTypes.text}
-          value={shownQuery.query}
-          onChange={(e: any) => onQueryChange(e)}
-          ariaLabelledBy={"search-button"}
-        />
-        <DS.Button
-          id="search-button"
-          buttonType={DS.ButtonTypes.Primary}
-          type="submit"
-        >
-          <DS.Icon
-            name={DS.IconNames.search}
-            decorative={true}
-            modifiers={["small", "icon-left"]}
-          />
-          Search
-        </DS.Button>
-      </DS.SearchBar>
-      {isFormError && (
-        <DS.HelperErrorText isError={true} id={"search-bar-error"}>
-          {errorMessagesText.emptySearch}
-        </DS.HelperErrorText>
-      )}
-    </div>
+    <Box width={{ md: "85%" }} overflow="auto">
+      <SearchBar
+        id="search-bar"
+        invalidText={errorMessagesText.emptySearch}
+        isInvalid={isFormError}
+        onSubmit={(e) => submitSearch(e)}
+        selectProps={{
+          labelText: "Select a search category",
+          name: "selectName",
+          optionsData: inputTerms.map((field) => field.key),
+          onChange: (e: ChangeEvent<HTMLInputElement>) => onFieldChange(e),
+          value: shownQuery.field,
+        }}
+        textInputProps={{
+          labelText: "Item Search",
+          name: "textInputName",
+          placeholder: "Enter a search term",
+          value: shownQuery.query,
+          onChange: (e) => onQueryChange(e),
+        }}
+        labelText="Search"
+      />
+      <Box float="right">
+        <Link to="/advanced-search">Advanced Search</Link>
+      </Box>
+    </Box>
   );
 };
 

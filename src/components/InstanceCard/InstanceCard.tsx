@@ -1,7 +1,12 @@
 import React from "react";
 
 import { Instance, WorkEdition } from "~/src/types/DataModel";
-import * as DS from "@nypl/design-system-react-components";
+import {
+  Card,
+  CardActions,
+  CardContent,
+  CardHeading,
+} from "@nypl/design-system-react-components";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
 import Link from "../Link/Link";
 import { useCookies } from "react-cookie";
@@ -24,35 +29,41 @@ export const InstanceCard: React.FC<{
   const previewItem = EditionCardUtils.getPreviewItem(instance.items);
 
   return (
-    <DS.Card
+    <Card
+      imageProps={{
+        src: EditionCardUtils.getCover(edition.links),
+        size: "xsmall",
+        aspectRatio: "original",
+        alt: "Cover",
+      }}
+      layout="row"
+      isBordered
+      isAlignedRightActions
       id={`card-${instance.instance_id}`}
-      heading={
-        <DS.Heading level={3}>
-          {edition.publication_date
-            ? edition.publication_date
-            : "Edition Year Unknown"}
-        </DS.Heading>
-      }
-      image={
-        <DS.Image
-          src={EditionCardUtils.getCover(edition.links)}
-          alt={"Cover"}
-        ></DS.Image>
-      }
-      ctas={EditionCardUtils.getCtas(
-        previewItem,
-        instance.title,
-        !!cookies[NYPL_SESSION_ID]
-      )}
+      p="s"
     >
-      <div>
-        {EditionCardUtils.getPublisherAndLocation(
-          instance.publication_place,
-          instance.publishers
+      <CardHeading level="three">
+        {edition.publication_date
+          ? edition.publication_date
+          : "Edition Year Unknown"}
+      </CardHeading>
+      <CardContent>
+        <div>
+          {EditionCardUtils.getPublisherAndLocation(
+            instance.publication_place,
+            instance.publishers
+          )}
+        </div>
+        <div>{EditionCardUtils.getWorldCatElem(instance)}</div>
+        <Link to="/license">{EditionCardUtils.getLicense(previewItem)}</Link>
+      </CardContent>
+      <CardActions display="flex" flexDir="column" whiteSpace="nowrap" gap={4}>
+        {EditionCardUtils.getCtas(
+          previewItem,
+          instance.title,
+          !!cookies[NYPL_SESSION_ID]
         )}
-      </div>
-      <div>{EditionCardUtils.getWorldCatElem(instance)}</div>
-      <Link to="/license">{EditionCardUtils.getLicense(previewItem)}</Link>
-    </DS.Card>
+      </CardActions>
+    </Card>
   );
 };

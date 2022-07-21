@@ -8,7 +8,7 @@ import {
   WorkEdition,
   Identifier,
 } from "../types/DataModel";
-import * as DS from "@nypl/design-system-react-components";
+import { Box, Icon } from "@nypl/design-system-react-components";
 import Link from "~/src/components/Link/Link";
 import { formatUrl, truncateStringOnWhitespace } from "./Util";
 import {
@@ -205,7 +205,7 @@ export default class EditionCardUtils {
           to={{
             pathname: `/read/${readOnlineLink.link_id}`,
           }}
-          linkType={DS.LinkTypes.Button}
+          linkType="button"
         >
           Read Online
         </Link>
@@ -222,23 +222,22 @@ export default class EditionCardUtils {
 
     if (selectedLink && selectedLink.url) {
       return (
-        <DS.Link type={DS.LinkTypes.Action}>
-          <a
-            href={`${formatUrl(selectedLink.url)}`}
-            onClick={() => {
-              gtag.drbEvents("Download", `${title}`);
-            }}
-          >
-            <DS.Icon
-              name={DS.IconNames.download}
-              blockName="more-link"
-              modifiers={["left"]}
-              decorative
-              iconRotation={DS.IconRotationTypes.rotate0}
-            />
-            Download
-          </a>
-        </DS.Link>
+        <Link
+          to={`${formatUrl(selectedLink.url)}`}
+          linkType="action"
+          onClick={() => {
+            gtag.drbEvents("Download", `${title}`);
+          }}
+        >
+          <Icon
+            name="download"
+            align="left"
+            size="small"
+            decorative
+            iconRotation="rotate0"
+          />
+          Download PDF
+        </Link>
       );
     }
   }
@@ -261,9 +260,7 @@ export default class EditionCardUtils {
       ? `https://www.worldcat.org/oclc/${oclc.identifier}`
       : undefined;
     return oclc ? (
-      <a href={oclcLink} className="link">
-        Find in a library
-      </a>
+      <Link to={oclcLink}>Find in a library</Link>
     ) : (
       <>Find in Library Unavailable</>
     );
@@ -281,8 +278,8 @@ export default class EditionCardUtils {
     if (readOnlineLink || downloadLink) {
       return (
         <>
-          {readOnlineLink}
-          {downloadLink}
+          <Box>{readOnlineLink}</Box>
+          <Box>{downloadLink}</Box>
         </>
       );
     }
@@ -308,7 +305,9 @@ export default class EditionCardUtils {
     if (isLoggedIn) {
       return (
         <>
-          You can request a partial scan via NYPL&nbsp;
+          <Box whiteSpace="initial">
+            You can request a partial scan via NYPL
+          </Box>
           <Link
             to="https://www.nypl.org/research/scan-and-deliver"
             target="_blank"
@@ -318,7 +317,7 @@ export default class EditionCardUtils {
           <Link
             // Url starts with www
             to={`//${eddLink.url}`}
-            linkType={DS.LinkTypes.Button}
+            linkType="button"
             target="_blank"
           >
             Request
@@ -333,7 +332,7 @@ export default class EditionCardUtils {
             to={`https://login.nypl.org/auth/login?redirect_uri=${encodeURIComponent(
               window.location.href
             )}`}
-            linkType={DS.LinkTypes.Button}
+            linkType="button"
           >
             Log in for options
           </Link>

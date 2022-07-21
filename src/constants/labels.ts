@@ -34,9 +34,24 @@ export const allWorkLabels = {
   measurements: "Measurements",
 };
 
-export const breadcrumbTitles = {
-  home: "Digital Research Books Beta",
+const breadcrumbUrls = {
+  home: "https://www.nypl.org",
+  research: "https://www.nypl.org/research",
+  drb: "/",
 };
+
+export const breadcrumbTitles = {
+  home: "Home",
+  research: "Research",
+  drb: "Digital Research Books Beta",
+  advancedSearch: "Advanced Search",
+};
+
+export const defaultBreadcrumbs = [
+  { url: breadcrumbUrls.home, text: breadcrumbTitles.home },
+  { url: breadcrumbUrls.research, text: breadcrumbTitles.research },
+  { url: breadcrumbUrls.drb, text: breadcrumbTitles.drb },
+];
 
 export const documentTitles = {
   home: "Digital Research Books Beta | NYPL",
@@ -61,10 +76,21 @@ export const inputTerms = [
   { key: "subject", label: "Subject" },
 ];
 
+export const inputTermRows = [
+  [
+    { key: "keyword", label: "Keyword" },
+    { key: "author", label: "Author" },
+  ],
+  [
+    { key: "title", label: "Title" },
+    { key: "subject", label: "Subject" },
+  ],
+];
+
 export const FormatTypes = [
-  { value: "pdf", label: "PDF" },
-  { value: "epub_zip", label: "ePub" },
-  { value: "html", label: "Html" },
+  { value: "readable", label: "Readable" },
+  { value: "downloadable", label: "Downloadable" },
+  { value: "requestable", label: "Requestable" },
 ];
 
 export const errorMessagesText = {

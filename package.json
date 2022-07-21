@@ -1,6 +1,6 @@
 {
   "name": "sfr-bookfinder-front-end",
-  "version": "0.13.1",
+  "version": "0.14.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -13,15 +13,20 @@
     "lint:fix": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix --ignore-path .gitignore"
   },
   "dependencies": {
-    "@nypl/design-system-react-components": "~0.21.2",
+    "@chakra-ui/react": "^1.8.8",
+    "@chakra-ui/system": "^2.1.1",
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "@nypl/design-system-react-components": "^1.0.0",
     "@nypl/dgx-header-component": "git+https://git@github.com/NYPL/dgx-header-component#reactupdate",
     "@nypl/dgx-react-footer": "0.5.8",
-    "@nypl/web-reader": "^1.0.0",
+    "@nypl/web-reader": "^3.1.0",
     "@types/node": "^16.11.6",
     "@types/react": "^16.9.5",
     "css-loader": "^6.5.0",
     "extract-loader": "^5.1.0",
     "focus-trap-react": "^8.8.2",
+    "framer-motion": "^6.2.10",
     "next": "^10.2.0",
     "next-absolute-url": "^1.2.2",
     "next-transpile-modules": "^7.0.0",
@@ -35,6 +40,7 @@
   },
   "devDependencies": {
     "@axe-core/react": "^4.1.1",
+    "@emotion/jest": "^11.9.3",
     "@testing-library/dom": "^8.10.1",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",

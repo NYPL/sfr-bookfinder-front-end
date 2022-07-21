@@ -9,6 +9,7 @@ import Head from "next/head";
 import appConfig from "~/config/appConfig";
 import { documentTitles } from "../constants/labels";
 import "@nypl/web-reader/dist/esm/index.css";
+import { FeatureFlagProvider } from "../context/FeatureFlagContext";
 
 /**
  * Determines if we are running on server or in the client.
@@ -75,7 +76,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
         {/* <!-- End Google Analytics --> */}
       </Head>
-      <Component {...pageProps} />
+      <FeatureFlagProvider>
+        <Component {...pageProps} />
+      </FeatureFlagProvider>
     </>
   );
 }

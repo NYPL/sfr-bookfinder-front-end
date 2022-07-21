@@ -15,22 +15,18 @@ describe("Renders edition component when given valid edition", () => {
   beforeEach(() => {
     render(<Edition editionResult={apiEdition} />);
   });
-  test("Breadcrumbs link to homepage and work page", () => {
+  test("Breadcrumbs link to nypl homepage and drb homepage", () => {
     const nav = screen.getByRole("navigation");
     expect(
       within(nav).getByRole("link", { name: breadcrumbTitles.home })
-    ).toHaveAttribute("href", "/");
+    ).toHaveAttribute("href", "https://www.nypl.org");
     expect(
-      (
-        within(nav).getByRole("link", {
-          name: apiEdition.data.title,
-        }) as HTMLAnchorElement
-      ).href
-    ).toContain("/work/");
+      within(nav).getByRole("link", { name: breadcrumbTitles.drb })
+    ).toHaveAttribute("href", "/");
   });
   test("Shows Header with Searchbar", () => {
     expect(
-      screen.getByRole("heading", { name: breadcrumbTitles.home })
+      screen.getByRole("heading", { name: breadcrumbTitles.drb })
     ).toBeInTheDocument();
     expect(screen.getByRole("combobox")).toHaveValue(inputTerms[0].key);
     expect(screen.getByRole("textbox")).toBeInTheDocument;
@@ -38,15 +34,35 @@ describe("Renders edition component when given valid edition", () => {
       "/advanced-search"
     );
   });
-  test("Shows edition Title in Heading", () => {
+  test("Shows work work Title in Heading", () => {
     expect(
-      screen.getByRole("heading", { name: apiEdition.data.title })
+      screen.getByRole("heading", { name: apiEdition.data.work_title })
     ).toBeInTheDocument();
   });
   test("Shows edition Subtitle", () => {
     expect(screen.getByText(apiEdition.data.sub_title)).toBeInTheDocument();
   });
-
+  test("Shows Author name in Link", () => {
+    apiEdition.data.work_authors.forEach((author) =>
+      expect(screen.getByText(author.name)).toBeInTheDocument()
+    );
+  });
+  describe("Author links redirect to correct search query", () => {
+    test("Author without viaf", () => {
+      const authorElement = screen.getByText("Edgar, John, 1876-");
+      expect(authorElement.closest("a").href).toContain(
+        "query=author%3AEdgar%2C+John%2C+1876-"
+      );
+    });
+    test("Author with viaf", () => {
+      const authorElementWithViaf = screen.getByText(
+        "Shakespeare, William- ()"
+      );
+      expect(authorElementWithViaf.closest("a").href).toContain(
+        "query=viaf%3A96994048&display=author%3AShakespeare%2C+William-+%28%29"
+      );
+    });
+  });
   test("Three cards show up in page", () => {
     expect(
       screen.getByRole("heading", { name: "Featured Copy" })
@@ -102,15 +118,13 @@ describe("Breadcrumb truncates on long title", () => {
   test("title shows up truncated in breadcrumb", () => {
     const nav = screen.getByRole("navigation");
     expect(
-      within(nav).getByRole("link", { name: breadcrumbTitles.home })
+      within(nav).getByRole("link", { name: breadcrumbTitles.drb })
     ).toHaveAttribute("href", "/");
     expect(
-      (
-        within(nav).getByRole("link", {
-          name: "super super super super super super super super super super super super...",
-        }) as HTMLAnchorElement
-      ).href
-    ).toContain("/work/");
+      within(nav).getByText(
+        "super super super super super super super super super super super super..."
+      )
+    ).toBeInTheDocument();
   });
 });
 

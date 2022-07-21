@@ -1,17 +1,34 @@
 import React from "react";
 import { useRouter } from "next/router";
-import * as DS from "@nypl/design-system-react-components";
+import {
+  Box,
+  Breadcrumbs,
+  Flex,
+  Heading,
+  HorizontalRule,
+  SimpleGrid,
+  Template,
+  TemplateBreakout,
+  TemplateContent,
+  TemplateContentPrimary,
+  TemplateContentTop,
+  Toggle,
+} from "@nypl/design-system-react-components";
 
 import { ApiEdition, EditionResult } from "~/src/types/EditionQuery";
 
 import EditionDetailDefinitionList from "~/src/components/EditionDetailDefinitionList/EditionDetailDefinitionList";
 import Link from "~/src/components/Link/Link";
 import { InstanceCard } from "../InstanceCard/InstanceCard";
-import { breadcrumbTitles } from "~/src/constants/labels";
+import { defaultBreadcrumbs } from "~/src/constants/labels";
 import SearchHeader from "../SearchHeader/SearchHeader";
-import { truncateStringOnWhitespace } from "~/src/util/Util";
+import {
+  joinArrayOfElements,
+  truncateStringOnWhitespace,
+} from "~/src/util/Util";
 import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
 import { Instance } from "~/src/types/DataModel";
+import EditionCardUtils from "~/src/util/EditionCardUtils";
 
 const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
   props
@@ -22,6 +39,7 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
   const { pathname, query } = router;
   const featuredItemId = query.featured as string;
   const edition: ApiEdition = props.editionResult.data;
+  const authorsList = EditionCardUtils.getAuthorsList(edition.work_authors);
 
   const passedInFeaturedItem = featuredItemId
     ? edition.instances.find((instance) => {
@@ -53,11 +71,12 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
   };
 
   return (
-    <>
-      <div className="content-header">
-        <DS.Breadcrumbs
-          breadcrumbs={[
-            { url: "/", text: breadcrumbTitles.home },
+    <Template>
+      <TemplateBreakout>
+        <Breadcrumbs
+          breadcrumbsType="research"
+          breadcrumbsData={[
+            ...defaultBreadcrumbs,
             {
               url: `/work/${edition.work_uuid}`,
               text: truncateStringOnWhitespace(edition.title, MAX_TITLE_LENGTH),
@@ -65,90 +84,79 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
           ]}
         />
         <SearchHeader />
-      </div>
+      </TemplateBreakout>
 
-      <div className="content-top">
-        <div className="item-title">
-          {edition && (
-            <DS.Heading level={1} id="edition-title" blockName="page-title">
-              <Link
-                to={{
-                  pathname: `/work/${edition.work_uuid}`,
-                }}
-                title={edition.title}
-                className="link link--no-underline"
+      <TemplateContent>
+        <TemplateContentTop>
+          <Flex direction={{ base: "column", md: "row" }}>
+            {edition && (
+              <Heading level="one">
+                <Link
+                  to={{
+                    pathname: `/work/${edition.work_uuid}`,
+                  }}
+                  title={edition.work_title}
+                >
+                  {edition.work_title}
+                </Link>
+              </Heading>
+            )}
+            {props.backUrl && (
+              <Box
+                whiteSpace={{ md: "nowrap" }}
+                lineHeight="calc(1.1 * var(--nypl-fontSizes-heading-primary))"
+                pl={{ md: "s" }}
               >
-                {edition.title}
-              </Link>
-            </DS.Heading>
+                <Link to={props.backUrl}>Back to search results</Link>
+              </Box>
+            )}
+          </Flex>
+          {edition.sub_title && <Box>{edition.sub_title}</Box>}
+          {authorsList && authorsList.length && (
+            <Box>By {joinArrayOfElements(authorsList, "")}</Box>
           )}
-          {props.backUrl && (
-            <div className="back-to-search-link">
-              <Link to={props.backUrl}>Back to search results</Link>
-            </div>
-          )}
-        </div>
+          <Box>
+            {featuredInstance && (
+              <>
+                <Heading level="two">Featured Copy</Heading>
 
-        {edition.sub_title && (
-          <div className="search-result-item__subtitle">
-            {edition.sub_title}
-          </div>
-        )}
-      </div>
-
-      <div className="content-primary">
-        {featuredInstance && (
-          <>
-            <DS.Heading level={2} id="featured-edition">
-              Featured Copy
-            </DS.Heading>
-
-            <div id="featured-edition-card">
-              <InstanceCard edition={edition} instance={featuredInstance} />
-            </div>
-          </>
-        )}
-
-        <div id="nypl-item-details">
-          <hr />
+                <Box>
+                  <InstanceCard edition={edition} instance={featuredInstance} />
+                </Box>
+              </>
+            )}
+          </Box>
+        </TemplateContentTop>
+        <TemplateContentPrimary>
           <EditionDetailDefinitionList edition={edition} />
-          <hr />
+          <HorizontalRule bg="section.research.primary" />
           {edition.instances && (
-            <div className="all-instances-header">
-              <h3
-                tabIndex={-1}
-                id="all-editions"
-                className="all-editions-tag bold"
-              >
-                All Copies
-              </h3>
+            <Flex justify="space-between">
+              <Heading level="three">All Copies</Heading>
 
-              <DS.Checkbox
-                name="show-all"
-                checkboxId="show-all-editions"
-                labelOptions={{
-                  id: "show-all-label",
-
-                  labelContent: <>Show only items currently available online</>,
-                }}
-                checked={router.query.showAll === "false"}
-                onChange={(e) => toggleShowAll(e)}
+              <Toggle
+                labelText="Show only items currently available online"
+                size="small"
+                isChecked={router.query.showAll === "false"}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  toggleShowAll(e)
+                }
+                id="show-all-toggle"
               />
-            </div>
+            </Flex>
           )}
-          <DS.List
-            type={DS.ListTypes.Unordered}
-            modifiers={["no-list-styling"]}
-          >
+          <SimpleGrid columns={1} gap="s">
             {edition.instances.map((instance) => (
-              <li key={instance.instance_id}>
-                <InstanceCard edition={edition} instance={instance} />
-              </li>
+              <InstanceCard
+                key={instance.instance_id}
+                edition={edition}
+                instance={instance}
+              />
             ))}
-          </DS.List>
-        </div>
-      </div>
-    </>
+          </SimpleGrid>
+        </TemplateContentPrimary>
+      </TemplateContent>
+    </Template>
   );
 };
 

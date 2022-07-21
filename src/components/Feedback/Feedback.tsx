@@ -63,6 +63,9 @@ const Feedback: React.FC<any> = ({ location }) => {
             setFormHidden(true);
           },
           clickOutsideDeactivates: true,
+          tabbableOptions: {
+            displayCheck: "none",
+          },
         }}
         active={!formHidden}
       >

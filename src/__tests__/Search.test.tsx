@@ -1,5 +1,6 @@
 import React from "react";
-import { act, fireEvent, render, screen, within } from "@testing-library/react";
+import { act, fireEvent, screen, within } from "@testing-library/react";
+import { render } from "./testUtils/render";
 import SearchResults from "../components/Search/Search";
 import { FacetItem, SearchField } from "../types/DataModel";
 import { ApiSearchResult, SearchQuery } from "../types/SearchQuery";
@@ -50,12 +51,10 @@ describe("Renders Search Results Page", () => {
     });
   });
 
-  test("Digital Research Books Beta links to homepage", () => {
-    const homepagelinks = screen.getAllByRole("link", {
-      name: "Digital Research Books Beta",
-    });
+  test("Digital Research Books Beta doesn't have href attribute", () => {
+    const homepagelinks = screen.getAllByText("Digital Research Books Beta");
     homepagelinks.forEach((link) => {
-      expect(link).toHaveAttribute("href", "/");
+      expect(link).not.toHaveAttribute("href");
     });
   });
   test("DRB Header is shown", () => {
@@ -70,7 +69,7 @@ describe("Renders Search Results Page", () => {
   });
   test("Main Content shows the current search query with 'alert' role", () => {
     expect(screen.getByRole("alert")).toHaveTextContent(
-      "Search results for keyword: Animal Crossing"
+      'Search results for keyword: "Animal Crossing"'
     );
   });
   test("Item Count shows correctly", () => {
@@ -86,7 +85,7 @@ describe("Renders Search Results Page", () => {
     test("clicking 'filters' button shows filters contents", () => {
       fireEvent.click(screen.getByText("Filters (0)"));
       expect(
-        screen.getByRole("combobox", { name: "Items Per Page" })
+        screen.getByRole("combobox", { name: "Items Per Page", hidden: false })
       ).toHaveValue("10");
       expect(screen.getByRole("combobox", { name: "Sort By" })).toHaveValue(
         "Relevance"
@@ -94,13 +93,18 @@ describe("Renders Search Results Page", () => {
       expect(
         screen.getByRole("checkbox", { name: "Available Online" })
       ).toBeChecked();
-      const languages = screen.getByRole("group", { name: "Languages" });
+      fireEvent.click(screen.getByRole("button", { name: "Filter Languages" }));
+      const languages = screen.getByRole("group", {
+        name: "List of Languages",
+      });
       expect(languages).toBeInTheDocument();
       // expect(
       //   within(languages).getByRole("checkbox", { name: "Filter Languages" })
       // ).not.toBeChecked();
       FilterFormatTests();
-      const pubYear = screen.getByRole("group", { name: "Publication Year" });
+      const pubYear = screen.getByRole("group", {
+        name: "Publication Year",
+      });
       expect(pubYear).toBeInTheDocument();
       expect(
         within(pubYear).getByRole("spinbutton", {
@@ -124,12 +128,11 @@ describe("Renders Search Results Page", () => {
     describe("Per Page filters", () => {
       test("Changes Sort By sends new search", () => {
         const allSorts = screen.getAllByLabelText("Items Per Page");
-        const wideSorts = allSorts[0];
-        expect(wideSorts).not.toBeVisible();
-        const modalSorts = allSorts[1];
+        const modalSorts = allSorts[0];
         expect(modalSorts).toBeVisible();
+        const wideSorts = allSorts[1];
+        expect(wideSorts).not.toBeVisible();
         fireEvent.change(modalSorts, { target: { value: 20 } });
-        expect(modalSorts).toHaveValue("20");
         expect(mockRouter).toMatchObject({
           pathname: "/search",
           query: {
@@ -137,6 +140,8 @@ describe("Renders Search Results Page", () => {
             size: "20",
           },
         });
+        expect(modalSorts).toHaveValue("20");
+
         fireEvent.click(screen.getByRole("button", { name: "Go Back" }));
         expect(
           screen.getByRole("button", { name: "Filters (0)" })
@@ -146,9 +151,9 @@ describe("Renders Search Results Page", () => {
     describe("Sorts filters", () => {
       test("Changing items sends new search ", () => {
         const allSorts = screen.getAllByLabelText("Sort By");
-        const wideSorts = allSorts[0];
+        const wideSorts = allSorts[1];
         expect(wideSorts).not.toBeVisible();
-        const sortBy = allSorts[1];
+        const sortBy = allSorts[0];
         expect(sortBy).toBeVisible();
         fireEvent.change(sortBy, { target: { value: "Title A-Z" } });
         expect(sortBy).toHaveValue("Title A-Z");
@@ -195,7 +200,12 @@ describe("Renders Search Results Page", () => {
       FilterLanguagesCommonTests(screen, availableLanguages, true);
 
       test("Clicking new language sends new search", () => {
-        const languages = screen.getByRole("group", { name: "Languages" });
+        fireEvent.click(
+          screen.getByRole("button", { name: "Filter Languages" })
+        );
+        const languages = screen.getByRole("group", {
+          name: "List of Languages",
+        });
 
         const englishCheckbox = within(languages).getByRole("checkbox", {
           name: "English (6)",
@@ -210,23 +220,30 @@ describe("Renders Search Results Page", () => {
           },
         });
 
-        expect(englishCheckbox).toBeChecked();
-
         fireEvent.click(screen.getByRole("button", { name: "Go Back" }));
-        expect(
-          screen.getByRole("button", { name: "Filters (1)" })
-        ).toBeInTheDocument();
+        fireEvent.click(screen.getByRole("button", { name: "Filters (1)" }));
+
+        const languages2 = screen.getByRole("group", {
+          name: "List of Languages",
+        });
+
+        const englishCheckbox2 = within(languages2).getByRole("checkbox", {
+          name: "English (6)",
+        });
+        expect(englishCheckbox2).toBeChecked();
       });
     });
     describe("Format filter", () => {
       test("Clicking new format sends new search", () => {
         const formats = screen.getByRole("group", { name: "Format" });
-        const epub = within(formats).getByRole("checkbox", { name: "ePub" });
-        fireEvent.click(epub);
+        const downloadable = within(formats).getByRole("checkbox", {
+          name: "Downloadable",
+        });
+        fireEvent.click(downloadable);
         expect(mockRouter).toMatchObject({
           pathname: "/search",
           query: {
-            filter: "format:epub_zip",
+            filter: "format:downloadable",
             query: "keyword:Animal Crossing",
           },
         });
@@ -301,9 +318,9 @@ describe("Renders Search Results Page", () => {
         ).toEqual("https://test-cover-2/");
       });
       test("Shows download as link", () => {
-        expect(screen.getAllByText("Download")[0].closest("a").href).toEqual(
-          "https://test-link-url-3/"
-        );
+        expect(
+          screen.getAllByText("Download PDF")[0].closest("a").href
+        ).toEqual("https://test-link-url-3/");
       });
       test("Shows 'read online' as link", () => {
         expect(
@@ -421,7 +438,7 @@ describe("Renders Search Results Page", () => {
       });
       test("Does not show download link", () => {
         // The found `download` link is from the first result
-        expect(screen.getAllByText("Download")[1]).not.toBeDefined();
+        expect(screen.getAllByText("Download PDF")[1]).not.toBeDefined();
       });
       test("Shows 'read online' as link", () => {
         expect(
@@ -442,18 +459,16 @@ describe("Renders Search Results Page", () => {
     });
   });
   describe("Pagination appears", () => {
-    test("Previous page button appears and is disabled", () => {
-      const previousButton = screen.getByRole("button", {
+    test("Previous page link does not appear", () => {
+      const previousLink = screen.queryByRole("link", {
         name: "Previous page",
       });
-      expect(previousButton).toBeInTheDocument();
-      userEvent.click(previousButton);
-      expect(mockRouter).toMatchObject({});
+      expect(previousLink).not.toBeInTheDocument();
     });
-    test("Next page button appears and is clickable", () => {
-      const nextButton = screen.getByRole("button", { name: "Next page" });
-      expect(nextButton).toBeInTheDocument();
-      userEvent.click(nextButton);
+    test("Next page link appears and is clickable", () => {
+      const nextLink = screen.getByRole("link", { name: "Next page" });
+      expect(nextLink).toBeInTheDocument();
+      userEvent.click(nextLink);
       expect(mockRouter).toMatchObject({
         pathname: "/search",
         query: {
@@ -463,7 +478,7 @@ describe("Renders Search Results Page", () => {
       });
     });
     test("Middle numbers are clickable", () => {
-      const twoButton = screen.getByRole("button", { name: "2" });
+      const twoButton = screen.getByRole("link", { name: "Page 2" });
       expect(twoButton).toBeInTheDocument();
       userEvent.click(twoButton);
       expect(mockRouter).toMatchObject({
@@ -548,7 +563,7 @@ describe("Renders No Results when no results are shown", () => {
 
   test("Main Content shows the current search query", () => {
     expect(
-      screen.getByText("Search results for keyword: Animal Crossing")
+      screen.getByText('Search results for keyword: "Animal Crossing"')
     ).toBeInTheDocument();
   });
   test("Item Count shows correctly", () => {
@@ -562,19 +577,19 @@ describe("Renders No Results when no results are shown", () => {
     ).toBeInTheDocument();
   });
   test("Pagination does not appear", () => {
-    const previousButton = screen.queryByRole("button", {
+    const previousLink = screen.queryByRole("link", {
       name: "Previous page",
     });
-    const nextButton = screen.queryByRole("button", {
+    const nextLink = screen.queryByRole("link", {
       name: "Next page",
     });
 
-    expect(previousButton).not.toBeInTheDocument();
-    expect(nextButton).not.toBeInTheDocument();
+    expect(previousLink).not.toBeInTheDocument();
+    expect(nextLink).not.toBeInTheDocument();
   });
 });
 
-describe("Renders seach header correctly when viaf search is passed", () => {
+describe("Renders search header correctly when viaf search is passed", () => {
   const viafSearchQuery: SearchQuery = {
     queries: [{ field: SearchField.Viaf, query: "12345" }],
     display: { field: SearchField.Author, query: "display author" },
@@ -590,13 +605,15 @@ describe("Renders seach header correctly when viaf search is passed", () => {
 
   test("Main Content shows the viaf query", () => {
     expect(
-      screen.getByText("Search results for author: display author")
+      screen.getByText('Search results for author: "display author"')
     ).toBeInTheDocument();
   });
 
   test("Search bar is prepopulated with the author name", () => {
-    expect(screen.getByRole("combobox")).toHaveValue("author");
-    expect(screen.getByRole("textbox", { name: "Search" })).toHaveValue(
+    expect(
+      screen.getByRole("combobox", { name: "Select a search category" })
+    ).toHaveValue("author");
+    expect(screen.getByRole("textbox", { name: "Item Search" })).toHaveValue(
       "display author"
     );
   });
@@ -605,5 +622,61 @@ describe("Renders seach header correctly when viaf search is passed", () => {
     expect(screen.getByText("display author").closest("a").href).toContain(
       "http://localhost/search?query=viaf%3A12345&display=author%3Adisplay+author"
     );
+  });
+});
+
+describe("Renders total works correctly when feature flag is set", () => {
+  beforeEach(() => {
+    act(() => {
+      resizeWindow(300, 1000);
+      Object.defineProperty(window, "sessionStorage", {
+        value: {
+          getItem: jest.fn(() => null),
+          setItem: jest.fn(() => null),
+        },
+        writable: true,
+      });
+    });
+  });
+
+  test("Shown when feature flag query is true", () => {
+    mockRouter.push("?feature_totalCount=true");
+    render(
+      <SearchResults searchQuery={searchQuery} searchResults={searchResults} />
+    );
+    expect(window.sessionStorage.getItem).toHaveBeenCalledTimes(1);
+    expect(window.sessionStorage.setItem).toHaveBeenCalledTimes(1);
+    expect(window.sessionStorage.setItem).toHaveBeenCalledWith(
+      "featureFlags",
+      JSON.stringify({ totalCount: true })
+    );
+    expect(screen.getByText("Total number of works: 26")).toBeInTheDocument();
+  });
+
+  test("Not shown when feature flag query is false", () => {
+    mockRouter.push("?feature_totalCount=false");
+    render(
+      <SearchResults searchQuery={searchQuery} searchResults={searchResults} />
+    );
+    expect(window.sessionStorage.getItem).toHaveBeenCalledTimes(1);
+    expect(window.sessionStorage.setItem).toHaveBeenCalledTimes(1);
+    expect(window.sessionStorage.setItem).toHaveBeenCalledWith(
+      "featureFlags",
+      JSON.stringify({ totalCount: false })
+    );
+    expect(
+      screen.queryByText("Total number of works: 26")
+    ).not.toBeInTheDocument();
+  });
+
+  test("Not shown when feature flag query is not passed", () => {
+    render(
+      <SearchResults searchQuery={searchQuery} searchResults={searchResults} />
+    );
+    expect(window.sessionStorage.getItem).toHaveBeenCalledTimes(1);
+    expect(window.sessionStorage.setItem).toHaveBeenCalledTimes(1);
+    expect(
+      screen.queryByText("Total number of works: 26")
+    ).not.toBeInTheDocument();
   });
 });

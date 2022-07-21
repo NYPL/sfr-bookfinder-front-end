@@ -1,5 +1,5 @@
 import React from "react";
-import * as DS from "@nypl/design-system-react-components";
+import { Fieldset, Select } from "@nypl/design-system-react-components";
 import { sortMap, numbersPerPage } from "~/src/constants/sorts";
 import { deepEqual } from "~/src/util/Util";
 import { Sort } from "~/src/types/DataModel";
@@ -7,48 +7,51 @@ import { Sort } from "~/src/types/DataModel";
 const ResultsSorts: React.FC<{
   perPage: number;
   sort: Sort;
+  isModal?: boolean;
   onChangePerPage: (e) => void;
   onChangeSort: (e) => void;
-}> = ({ perPage, sort, onChangePerPage, onChangeSort }) => {
+}> = ({ perPage, sort, isModal, onChangePerPage, onChangeSort }) => {
   return (
-    <fieldset>
-      <DS.Label htmlFor="items-per-page" id="per-page-label">
-        Items Per Page
-      </DS.Label>
-      <DS.Select
-        id="items-per-page"
-        name="ItemsPerPageSelect"
+    <Fieldset
+      id="sort-fieldset"
+      display="flex"
+      alignItems="center"
+      flexDir={{ base: "column", md: "row" }}
+      gap="s"
+    >
+      <Select
+        id={isModal ? "items-per-page-modal" : "items-per-page"}
+        name="itemsPerPageSelect"
         isRequired={false}
-        ariaLabel="Items Per Page Select"
-        labelId="per-page-label"
-        selectedOption={perPage.toString()}
+        labelText="Items Per Page"
+        labelPosition="inline"
+        value={perPage.toString()}
         onChange={(e) => onChangePerPage(e)}
+        width="100%"
       >
         {numbersPerPage.map((pageNum: string) => {
           return <option key={`per-page-${pageNum}`}>{pageNum}</option>;
         })}
-      </DS.Select>
-      <DS.Label htmlFor="items-sort-by" id="sort-by-label">
-        Sort By
-      </DS.Label>
-      <DS.Select
-        id="sort-by"
-        name="SortBySelect"
+      </Select>
+      <Select
+        id={isModal ? "sort-by-modal" : "sort-by"}
+        name="sortBySelect"
         isRequired={false}
-        ariaLabel="Sort By Select"
-        labelId="sort-by-label"
-        selectedOption={Object.keys(sortMap).find((key) =>
+        labelText="Sort By"
+        labelPosition="inline"
+        value={Object.keys(sortMap).find((key) =>
           deepEqual(sortMap[key], sort)
         )}
         onChange={(e) => onChangeSort(e)}
+        width="100%"
       >
         {Object.keys(sortMap).map((sortOption: string) => {
           return (
             <option key={`sort-option-${sortOption}`}>{sortOption}</option>
           );
         })}
-      </DS.Select>
-    </fieldset>
+      </Select>
+    </Fieldset>
   );
 };
 

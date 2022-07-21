@@ -58,7 +58,7 @@ describe("renders advanced search correctly", () => {
 });
 
 describe("Advanced Search submit", () => {
-  test("Submits well formed query", () => {
+  test("Submits well formed query", async () => {
     render(<AdvancedSearch languages={defaultLanguages} />);
 
     const inputValues = {
@@ -67,25 +67,26 @@ describe("Advanced Search submit", () => {
       Subject: "poetry",
       Title: "Handbook",
     };
+
+    fireEvent.click(screen.getByRole("button", { name: "Filter Languages" }));
+    userEvent.click(await screen.findByRole("checkbox", { name: "english" }));
     inputTerms.forEach((val) => {
       fireEvent.change(screen.getByLabelText(val.label), {
         target: { value: inputValues[val.label] },
       });
     });
-
-    userEvent.click(screen.getByRole("checkbox", { name: "english" }));
     fireEvent.change(screen.getByRole("spinbutton", { name: "From" }), {
       target: { value: "1990" },
     });
     fireEvent.change(screen.getByRole("spinbutton", { name: "To" }), {
       target: { value: "1999" },
     });
-    userEvent.click(screen.getByRole("checkbox", { name: "PDF" }));
+    userEvent.click(screen.getByRole("checkbox", { name: "Readable" }));
 
     userEvent.click(screen.getByRole("button", { name: "Search" }));
 
     const expectedQuery = {
-      filter: "language:english,startYear:1990,endYear:1999,format:pdf",
+      filter: "language:english,startYear:1990,endYear:1999,format:readable",
       query: "keyword:cat,author:Nook,title:Handbook,subject:poetry",
     };
     expect(mockRouter).toMatchObject({
@@ -175,25 +176,26 @@ describe("Advanced Search clear", () => {
       Subject: "poetry",
       Title: "Handbook",
     };
+
+    fireEvent.click(screen.getByRole("button", { name: "Filter Languages" }));
+    userEvent.click(screen.getByRole("checkbox", { name: "english" }));
     inputTerms.forEach((val) => {
       fireEvent.change(screen.getByLabelText(val.label), {
         target: { value: inputValues[val.label] },
       });
     });
-
-    userEvent.click(screen.getByRole("checkbox", { name: "english" }));
     fireEvent.change(screen.getByRole("spinbutton", { name: "From" }), {
       target: { value: "1990" },
     });
     fireEvent.change(screen.getByRole("spinbutton", { name: "To" }), {
       target: { value: "1999" },
     });
-    userEvent.click(screen.getByRole("checkbox", { name: "PDF" }));
+    userEvent.click(screen.getByRole("checkbox", { name: "Readable" }));
 
     expect(screen.getByLabelText("english")).toBeChecked();
     expect(screen.getByLabelText("From")).toHaveValue(1990);
     expect(screen.getByLabelText("To")).toHaveValue(1999);
-    expect(screen.getByLabelText("PDF")).toBeChecked();
+    expect(screen.getByLabelText("Readable")).toBeChecked();
 
     inputTerms.forEach((val) => {
       expect(screen.getByLabelText(val.label)).toHaveValue(
@@ -206,7 +208,7 @@ describe("Advanced Search clear", () => {
     expect(screen.getByLabelText("english")).not.toBeChecked();
     expect(screen.getByLabelText("From")).toHaveValue(null);
     expect(screen.getByLabelText("To")).toHaveValue(null);
-    expect(screen.getByLabelText("PDF")).not.toBeChecked();
+    expect(screen.getByLabelText("Readable")).not.toBeChecked();
 
     inputTerms.forEach((val) => {
       expect(screen.getByLabelText(val.label)).toHaveValue("");

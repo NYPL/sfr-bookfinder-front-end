@@ -1,8 +1,6 @@
 import React from "react";
 import Link from "~/src/components/Link/Link";
-
-import * as DS from "@nypl/design-system-react-components";
-
+import { Box, Heading, VStack } from "@nypl/design-system-react-components";
 import { EditionCard } from "~/src/components/EditionCard/EditionCard";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
 import EmptySearchSvg from "../Svgs/EmptySearchSvg";
@@ -41,13 +39,13 @@ const ResultsList: React.FC<{ works: ApiWork[] }> = ({ works }) => {
     );
   }
   return (
-    <DS.List type={DS.ListTypes.Unordered} modifiers={["no-list-styling"]}>
+    <VStack align="left" spacing="m">
       {works.map((work) => {
         const previewEdition = work.editions && work.editions[0];
 
         return (
-          <li key={`search-result-${work.uuid}`} className="search-result">
-            <DS.Heading level={2}>
+          <Box key={`search-result-${work.uuid}`} className="search-result">
+            <Heading level="two">
               <Link
                 to={{
                   pathname: `/work/${work.uuid}`,
@@ -57,17 +55,17 @@ const ResultsList: React.FC<{ works: ApiWork[] }> = ({ works }) => {
               >
                 {truncateStringOnWhitespace(work.title, MAX_TITLE_LENGTH)}
               </Link>
-            </DS.Heading>
+            </Heading>
             <span>{EditionCardUtils.getSubtitle(work.sub_title)}</span>
             {EditionCardUtils.getAuthorsList(work.authors) && (
               <span>By {EditionCardUtils.getAuthorsList(work.authors)} </span>
             )}
             <EditionCard edition={previewEdition} title={work.title} />
             <div className="editions-link">{getEditionsLinkElement(work)}</div>
-          </li>
+          </Box>
         );
       })}
-    </DS.List>
+    </VStack>
   );
 };
 
