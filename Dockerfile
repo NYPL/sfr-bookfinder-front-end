@@ -19,7 +19,7 @@ ENV NEXT_PUBLIC_AIRTABLE_API_KEY $airtable_api_key
 ENV NEXT_PUBLIC_READER_VERSION=v2
 
 # Install dependencies.
-COPY package.json ./
+COPY package.json package-lock.json ./
 RUN npm run install:ci
 
 # Copy the app files.
