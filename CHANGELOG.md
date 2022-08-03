@@ -1,4 +1,8 @@
 # CHANGE LOG
+
+## [Pre-release]
+- Adds Cucumber & Playwright test setup
+
 ## [0.14.0]
 - Upgrade to NYPL Design System version 1.0.0
 - Decouples search query into separate states for each individual form field

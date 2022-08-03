@@ -10,7 +10,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint --ignore-path .gitignore '*/**/*.{ts,tsx}'",
-    "lint:fix": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix --ignore-path .gitignore"
+    "lint:fix": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix --ignore-path .gitignore",
+    "cucumber": "NODE_OPTIONS='--experimental-loader ts-node/esm' cucumber-js"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.8.8",
@@ -40,7 +41,9 @@
   },
   "devDependencies": {
     "@axe-core/react": "^4.1.1",
+    "@cucumber/cucumber": "^8.5.0",
     "@emotion/jest": "^11.9.3",
+    "@playwright/test": "^1.23.4",
     "@testing-library/dom": "^8.10.1",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
@@ -69,6 +72,7 @@
     "jest": "^27.3.1",
     "next-router-mock": "^0.5.3",
     "prettier": "^2.2.1",
-    "react-test-renderer": "^17.0.2"
+    "react-test-renderer": "^17.0.2",
+    "ts-node": "^10.9.1"
   }
 }
