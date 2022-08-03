@@ -37,5 +37,5 @@
     "src/components/RequestDigital/RequestDigital.jsx",
     "src/__tests__/index.test.tsx"
   ],
-  "exclude": ["node_modules", "jest.config.js", "setupTests.js"]
+  "exclude": ["node_modules", "jest.config.js", "setupTests.js", "playwright"]
 }
