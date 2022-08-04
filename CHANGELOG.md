@@ -3,6 +3,7 @@
 ## [Pre-release]
 - Adds Cucumber & Playwright test setup
 - Fix QA deploy
+- Fix back to search results bug 
 
 ## [0.14.0]
 - Upgrade to NYPL Design System version 1.0.0

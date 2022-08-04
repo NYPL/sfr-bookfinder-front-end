@@ -9,7 +9,7 @@ export const getBackUrl = (referer: string, host: string) => {
 };
 
 export const getBackToSearchUrl = (referer: string, host: string) => {
-  return isRefererInternal(referer, host) && referer.includes("search")
+  return isRefererInternal(referer, host) && referer.includes("/search")
     ? referer
     : null;
 };
