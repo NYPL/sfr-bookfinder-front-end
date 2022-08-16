@@ -21,11 +21,11 @@ When("I input an author search term", async function (this: CustomWorld) {
 });
 
 Then(
-    "I count how many titles are returned",
+    "I count how many titles are returned with my author",
     async function (this: CustomWorld) {
         await this.page.locator("//h1[contains(text(), 'Digital Research Books')]").waitFor();
         const textIWant = this.page.locator("//div[@class='search-result css-0']/span[2]/a[contains(text(),\"Corelli, Marie\")]");
         expect(await textIWant.count()).toBeGreaterThan(5);
-        console.log(textIWant);
+        // console.log(textIWant);
     }
 );
