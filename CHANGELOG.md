@@ -1,6 +1,6 @@
 # CHANGE LOG
 
-## [Pre-release]
+## [0.14.1]
 - Adds Cucumber & Playwright test setup
 - Fix QA deploy
 - Fix back to search results bug 
