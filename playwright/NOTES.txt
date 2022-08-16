@@ -6,3 +6,6 @@ actually need to run npm run cucumber -- playwright/features/homePageElements.fe
 
 run all tests: npm run cucumber -- playwright/features
 run single test: npm run cucumber -- playwright/features/homePageElements.feature
+
+this.page.pause()
+
