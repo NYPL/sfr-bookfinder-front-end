@@ -12,7 +12,7 @@ Given(
 );
 When("I change the dropdown to author", async function (this: CustomWorld) {
     const dropdown = await this.page.$('#searchbar-select-search-bar')
-    await dropdown.selectOption({value: 'author'})
+    await dropdown.selectOption({ value: 'author' })
 });
 
 When("I input an author search term", async function (this: CustomWorld) {
@@ -26,6 +26,6 @@ Then(
         await this.page.locator("//h1[contains(text(), 'Digital Research Books')]").waitFor();
         const textIWant = this.page.locator("//div[@class='search-result css-0']/span[2]/a[contains(text(),\"Corelli, Marie\")]");
         expect(await textIWant.count()).toBeGreaterThan(5);
-        // console.log(textIWant);
+
     }
 );
