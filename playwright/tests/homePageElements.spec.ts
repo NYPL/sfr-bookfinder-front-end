@@ -3,9 +3,7 @@ import { expect } from "@playwright/test";
 import { CustomWorld } from "../support/setup";
 
 Given("I am on the DRB home page", async function (this: CustomWorld) {
-  // return await this.page.goto("https://drb-qa.nypl.org/");
   return await this.page.goto("https://digital-research-books-beta.nypl.org/");
-  // return await this.page.goto("https://sfr-bookfinder-front-end.vercel.app/");
 });
 
 Then("I see the site name", async function (this: CustomWorld) {
@@ -42,8 +40,6 @@ Then(
 );
 
 Then("I see the site name H1", async function (this: CustomWorld) {
-  //   await expect(this.page.locator("//h1")).toBeVisible();
-  // });
   await expect(this.page.locator("//h1")).toContainText(
     "Digital Research Books"
   );
@@ -63,14 +59,14 @@ Then(
     await expect(
       this.page.locator("//main[@id='mainContent']/div[1]")
     ).toContainText("Search the World's Research Collections");
-  });
+  }
+);
 
 Then("I see search type drop down", async function (this: CustomWorld) {
   await expect(
-    this.page.locator("//select[@aria-label='Select a search category']")
+    this.page.locator('[aria-label="Select a search category"]')
   ).toBeVisible();
 });
-
 Then("I see input field", async function (this: CustomWorld) {
   await expect(
     this.page.locator("//*[@id='searchbar-textinput-search-bar']")
@@ -84,12 +80,22 @@ Then("I see search button", async function (this: CustomWorld) {
 });
 
 Then("I see advanced search link", async function (this: CustomWorld) {
-  await expect(
-    this.page.locator("//*[@id='mainContent']/div[1]/div/div[2]/a")
-  ).toBeVisible();
+  await expect(this.page.locator("text=Advanced Search")).toBeVisible();
 });
 
 Then("I see second H2 - Search Examples", async function (this: CustomWorld) {
   await expect(this.page.locator("//h2")).toBeVisible();
   await expect(this.page.locator("//h2")).toContainText("Search Examples");
+});
+Then("I see 5 search examples", async function (this: CustomWorld) {
+  const searchexamples = this.page.locator("//*[@id='subject-list']/li/a");
+  await expect(searchexamples).toHaveCount(5);
+});
+Then("I see the footer", async function (this: CustomWorld) {
+  await expect(this.page.locator("#footer")).toBeVisible();
+});
+Then("I see the feedback button", async function (this: CustomWorld) {
+  await expect(
+    this.page.locator("//*[@class='feedback-button']")
+  ).toBeVisible();
 });
