@@ -4,6 +4,5 @@ Feature: Author Search
         Given I want to do an author search
         When I change the dropdown to author
         When I input an author search term
-        Then I count how many titles are returned with my author
-# Then I expect expect at least 6 to contain my author
+        Then I expect at least 5 title by my author
 
