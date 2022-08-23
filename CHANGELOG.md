@@ -1,11 +1,19 @@
 # CHANGE LOG
 
+## [Pre-release]
+
+- add features and tests for home page elements
+- add features and tests for keyword search
+- add features and tests for author search
+
 ## [0.14.1]
+
 - Adds Cucumber & Playwright test setup
 - Fix QA deploy
-- Fix back to search results bug 
+- Fix back to search results bug
 
 ## [0.14.0]
+
 - Upgrade to NYPL Design System version 1.0.0
 - Decouples search query into separate states for each individual form field
 - Updates unit tests and snapshots
@@ -16,9 +24,11 @@
 - Adds feature flag functionality
 
 ## [0.13.1]
+
 - Added "Back to search results" link for works and editions
 
 ## [0.13.0]
+
 - upgraded webreader to V1
 - Fixed back button on webreader when user follows link from external site
 - Handle error when there is only catalog link for a work item
