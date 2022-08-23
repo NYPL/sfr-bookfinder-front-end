@@ -14,17 +14,13 @@ Then("I see the site name", async function (this: CustomWorld) {
 
 Then("I see the Home breadcrumb", async function (this: CustomWorld) {
   await expect(
-    this.page.locator(
-      "//span[@class='breadcrumb-label'][contains(text(), 'Home')]"
-    )
+    this.page.locator("//ol/li/a/span[contains(text(), 'Home')]")
   ).toBeVisible();
 });
 
 Then("I see the Research breadcrumb", async function (this: CustomWorld) {
   await expect(
-    this.page.locator(
-      "//span[@class='breadcrumb-label'][contains(text(), 'Home')]"
-    )
+    this.page.locator("//ol/li[2]/a/span[contains(text(), 'Research')]")
   ).toBeVisible();
 });
 
@@ -33,7 +29,7 @@ Then(
   async function (this: CustomWorld) {
     await expect(
       this.page.locator(
-        "//span[@class='breadcrumb-label'][contains(text(), 'Digital Research Books Beta')]"
+        "//ol/li[3]/span/span[contains(text(), 'Digital Research Books Beta')]"
       )
     ).toBeVisible();
   }
@@ -47,18 +43,18 @@ Then("I see the site name H1", async function (this: CustomWorld) {
 
 Then("I see the intro text", async function (this: CustomWorld) {
   await expect(
-    this.page.locator("//div[@data-testid='hero-content']/p/span")
-  ).toContainText(
-    "Find millions of digital books for research from multiple sources"
-  );
+    this.page.locator(
+      "text=Find millions of digital books for research from multiple sources"
+    )
+  ).toBeVisible();
 });
 
 Then(
   "I see first H2 - Search the Worlds Research Collections",
   async function (this: CustomWorld) {
     await expect(
-      this.page.locator("//main[@id='mainContent']/div[1]")
-    ).toContainText("Search the World's Research Collections");
+      this.page.locator("text=Search the World's Research Collections")
+    ).toBeVisible();
   }
 );
 
@@ -68,15 +64,11 @@ Then("I see search type drop down", async function (this: CustomWorld) {
   ).toBeVisible();
 });
 Then("I see input field", async function (this: CustomWorld) {
-  await expect(
-    this.page.locator("//*[@id='searchbar-textinput-search-bar']")
-  ).toBeVisible();
+  await expect(this.page.locator("[aria-label='Item Search']")).toBeVisible();
 });
 
 Then("I see search button", async function (this: CustomWorld) {
-  await expect(
-    this.page.locator("//*[@id='searchbar-button-search-bar']")
-  ).toBeVisible();
+  await expect(this.page.locator("//*[@data-testid='button']")).toBeVisible();
 });
 
 Then("I see advanced search link", async function (this: CustomWorld) {
@@ -92,10 +84,10 @@ Then("I see 5 search examples", async function (this: CustomWorld) {
   await expect(searchexamples).toHaveCount(5);
 });
 Then("I see the footer", async function (this: CustomWorld) {
-  await expect(this.page.locator("#footer")).toBeVisible();
+  await expect(this.page.locator("footer")).toBeVisible();
 });
 Then("I see the feedback button", async function (this: CustomWorld) {
   await expect(
-    this.page.locator("//*[@class='feedback-button']")
+    await this.page.locator("button", { hasText: "Feedback" })
   ).toBeVisible();
 });
