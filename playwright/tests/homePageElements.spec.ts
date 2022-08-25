@@ -13,14 +13,14 @@ Then("I see the site name", async function (this: CustomWorld) {
 });
 
 Then("I see the Home breadcrumb", async function (this: CustomWorld) {
-  await expect(
-    this.page.locator("//ol/li/a/span[contains(text(), 'Home')]")
-  ).toBeVisible();
+  await expect(this.page.locator("a", { hasText: "Home" })).toBeVisible();
 });
 
 Then("I see the Research breadcrumb", async function (this: CustomWorld) {
   await expect(
-    this.page.locator("//ol/li[2]/a/span[contains(text(), 'Research')]")
+    this.page.locator("[href='https://www.nypl.org/research']", {
+      hasText: "Research",
+    })
   ).toBeVisible();
 });
 
@@ -28,9 +28,7 @@ Then(
   "I see the Digital Research Books Beta breadcrumb",
   async function (this: CustomWorld) {
     await expect(
-      this.page.locator(
-        "//ol/li[3]/span/span[contains(text(), 'Digital Research Books Beta')]"
-      )
+      this.page.locator("li", { hasText: "Digital Research Books Beta" })
     ).toBeVisible();
   }
 );
