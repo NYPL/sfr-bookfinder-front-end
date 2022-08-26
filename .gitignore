@@ -14,3 +14,7 @@ build
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+# troubleshooting files
+vega.feature
+vega.spec.ts
