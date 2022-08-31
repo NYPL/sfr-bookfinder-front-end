@@ -21,9 +21,7 @@ Then(
     await this.page
       .locator("//h1[contains(text(), 'Digital Research Books')]")
       .waitFor();
-    const textIWant = this.page.locator(
-      "//div[@class='search-result css-0']/span[2]/a[contains(text(),\"Corelli, Marie\")]"
-    );
+    const textIWant = this.page.locator("a", { hasText: " Corelli, Marie" });
     expect(await textIWant.count()).toBeGreaterThan(5);
   }
 );
