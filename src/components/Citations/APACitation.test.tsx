@@ -14,22 +14,17 @@ import APACitation from "../../src/app/components/Citations/APACitation";
 
 configure({ adapter: new Adapter() });
 
-// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
 describe("APA Citation", () => {
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
   describe("getInitials", () => {
-    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
     it("should transform names into initials", () => {
       expect(APACitation.getInitials("Test name")).to.equal("T. N.");
     });
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
   describe("formatCitationData()", () => {
     let component;
     let instance: any;
     let stubFormatNames: any;
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'before'.
     before(() => {
       stubFormatNames = stub(APACitation.prototype, "formatAgentNames").returns(
         "Agent, T."
@@ -55,18 +50,15 @@ describe("APA Citation", () => {
       instance = component.instance();
     });
 
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'after'.
     after(() => {
       stubFormatNames.restore();
     });
 
-    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
     it("should assign title and subtitle to title", () => {
       instance.formatCitationData();
       expect(instance.title).to.equal("Testing: subTest");
     });
 
-    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
     it("should set output from formatAgentNames to all agent names", () => {
       instance.formatCitationData();
       expect(instance.authors).to.equal("Agent, T.");
@@ -75,21 +67,18 @@ describe("APA Citation", () => {
       expect(instance.illustrators).to.equal("Agent, T., Illus.");
     });
 
-    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
     it("should set publication/publisher fields", () => {
       instance.formatCitationData();
       expect(instance.pubYear).to.equal(" (2020)");
       expect(instance.publishers).to.equal("publisher1, publisher2");
     });
 
-    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
     it("should set edition/volume fields", () => {
       instance.formatCitationData();
       expect(instance.volume).to.equal(" (Test Volume)");
       expect(instance.edition).to.equal(" (Test Edition)");
     });
 
-    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
     it("should set link as an <a> element", () => {
       instance.formatCitationData();
       const linkElem = mount(<span>{instance.link}</span>);
@@ -98,7 +87,6 @@ describe("APA Citation", () => {
     });
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
   describe("formatAgentNames()", () => {
     let component;
     let instance: any;
@@ -108,7 +96,6 @@ describe("APA Citation", () => {
     let stubFormatData: any;
     let stubReturnMonograph: any;
 
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'before'.
     before(() => {
       stubFormatData = stub(APACitation.prototype, "formatCitationData");
       stubReturnMonograph = stub(
@@ -119,13 +106,11 @@ describe("APA Citation", () => {
       instance = component.instance();
     });
 
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'after'.
     after(() => {
       stubFormatData.restore();
       stubReturnMonograph.restore();
     });
 
-    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
     it("should turn names into a comma-delimited list of initialized names", () => {
       const agentNames = instance.formatAgentNames("testing");
       expect(agentNames).to.equal(
@@ -133,17 +118,14 @@ describe("APA Citation", () => {
       );
     });
 
-    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
     it("should turn names into a comma-delimited list of initialized names, with initial first", () => {
       const agentNames = instance.formatAgentNames("testing", true);
       expect(agentNames).to.equal("A. Test, O. Test, S. N. Test, S. A. Test");
     });
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
   describe("returnMonographCitation()", () => {
     let component;
-    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
     it("should return formatted monograph citation", () => {
       component = mount(
         <APACitation
@@ -170,7 +152,6 @@ describe("APA Citation", () => {
       expect(citationText).to.equal(outText);
     });
 
-    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
     it("should return formatted monograph citation with editors if no authors", () => {
       component = mount(
         <APACitation
@@ -195,7 +176,6 @@ describe("APA Citation", () => {
       expect(citationText).to.equal(outText);
     });
 
-    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
     it("should return formatted monograph citation with volume if included", () => {
       component = mount(
         <APACitation
@@ -220,9 +200,7 @@ describe("APA Citation", () => {
       expect(citationText).to.equal(outText);
     });
 
-    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
     describe("returnGovernmentReport()", () => {
-      // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
       it("should return formattedw report citation", () => {
         component = mount(
           <APACitation
@@ -247,7 +225,6 @@ describe("APA Citation", () => {
         expect(citationText).to.equal(outText);
       });
 
-      // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
       it("should return formatted report citation with editors if no authors", () => {
         component = mount(
           <APACitation
