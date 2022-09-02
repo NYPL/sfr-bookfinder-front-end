@@ -40,7 +40,6 @@
     "next.config.js",
     "cucumber.js",
     "src/components/Citations/APACitation.jsx",
-    "src/components/Citations/APACitation.test.jsx",
     "src/components/Citations/formatCitation.jsx",
     "src/components/RequestDigital/RequestDigital.jsx",
     "src/__tests__/index.test.tsx"
