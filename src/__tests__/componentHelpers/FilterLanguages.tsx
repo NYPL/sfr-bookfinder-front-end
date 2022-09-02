@@ -1,4 +1,4 @@
-import { fireEvent, within } from "@testing-library/react";
+import { within } from "@testing-library/react";
 import { FacetItem } from "~/src/types/DataModel";
 import { ApiLanguage } from "~/src/types/LanguagesQuery";
 import { Filter } from "~/src/types/SearchQuery";
