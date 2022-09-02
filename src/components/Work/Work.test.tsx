@@ -26,7 +26,7 @@ describe("Renders Work component when given valid work", () => {
     expect(
       screen.getByRole("heading", { name: breadcrumbTitles.drb })
     ).toBeInTheDocument();
-    expect(screen.getByRole("combobox")).toHaveValue(inputTerms[0].text);
+    expect(screen.getByRole("combobox")).toHaveValue(inputTerms[0].value);
     expect(screen.getByRole("textbox")).toBeInTheDocument;
     expect(screen.getByText("Advanced Search").closest("a").href).toContain(
       "/advanced-search"
