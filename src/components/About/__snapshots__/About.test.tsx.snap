@@ -108,7 +108,7 @@ exports[`renders about unchanged 1`] = `
               </title>
               <path
                 clipRule="evenodd"
-                d="M10.526 12.871L.263 1.676 1.737.324 12 11.52 22.263.324l1.474 1.352L13.474 12.87a2 2 0 01-2.948 0z"
+                d="M10.526 12.871.263 1.676 1.737.324 12 11.52 22.263.324l1.474 1.352L13.474 12.87a2 2 0 0 1-2.948 0z"
                 fillRule="evenodd"
               />
             </svg>
@@ -173,6 +173,7 @@ exports[`renders about unchanged 1`] = `
           href="/license"
           onClick={[Function]}
           onMouseEnter={[Function]}
+          onTouchStart={[Function]}
           rel={null}
           target={null}
         >
@@ -185,6 +186,7 @@ exports[`renders about unchanged 1`] = `
           href="/license"
           onClick={[Function]}
           onMouseEnter={[Function]}
+          onTouchStart={[Function]}
           rel={null}
           target={null}
         >
@@ -200,6 +202,7 @@ exports[`renders about unchanged 1`] = `
           href="/work/e34d73df-f32b-49e1-8fdf-151db2a7806a"
           onClick={[Function]}
           onMouseEnter={[Function]}
+          onTouchStart={[Function]}
           rel={null}
           target={null}
         >
@@ -221,6 +224,7 @@ exports[`renders about unchanged 1`] = `
           href="https://www.hathitrust.org/"
           onClick={[Function]}
           onMouseEnter={[Function]}
+          onTouchStart={[Function]}
           rel={null}
           target={null}
         >
@@ -233,6 +237,7 @@ exports[`renders about unchanged 1`] = `
           href="https://doabooks.org/"
           onClick={[Function]}
           onMouseEnter={[Function]}
+          onTouchStart={[Function]}
           rel={null}
           target={null}
         >
@@ -244,6 +249,7 @@ exports[`renders about unchanged 1`] = `
           href="http://www.gutenberg.org/"
           onClick={[Function]}
           onMouseEnter={[Function]}
+          onTouchStart={[Function]}
           rel={null}
           target={null}
         >
@@ -256,6 +262,7 @@ exports[`renders about unchanged 1`] = `
           href="https://www.worldcat.org/"
           onClick={[Function]}
           onMouseEnter={[Function]}
+          onTouchStart={[Function]}
           rel={null}
           target={null}
         >
@@ -268,6 +275,7 @@ exports[`renders about unchanged 1`] = `
           href="http://classify.oclc.org/classify2/"
           onClick={[Function]}
           onMouseEnter={[Function]}
+          onTouchStart={[Function]}
           rel={null}
           target={null}
         >
