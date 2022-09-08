@@ -14,8 +14,8 @@
     "cucumber": "NODE_OPTIONS='--experimental-loader ts-node/esm' cucumber-js"
   },
   "dependencies": {
-    "@chakra-ui/react": ">=1.8.5 <=1.8.8",
-    "@chakra-ui/system": ">=1.11.0 <=1.12.1",
+    "@chakra-ui/react": "1.8.8",
+    "@chakra-ui/system": "1.12.1",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@nypl/design-system-react-components": "^1.1.0",

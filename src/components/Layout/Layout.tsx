@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import {
   DSProvider,
-  SkeletonLoader,
   Header,
-  Footer,
+  SkeletonLoader,
 } from "@nypl/design-system-react-components";
 import Feedback from "~/src/components/Feedback/Feedback";
 import { useRouter } from "next/router";
@@ -50,7 +49,6 @@ const Layout: React.FC = ({ children }) => {
           )}
         </main>
         {!loading && <Feedback location={router.asPath} />}
-        <Footer />
       </DSProvider>
     </>
   );

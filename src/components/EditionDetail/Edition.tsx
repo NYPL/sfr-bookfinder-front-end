@@ -4,6 +4,7 @@ import {
   Box,
   Breadcrumbs,
   Flex,
+  Footer,
   Heading,
   HorizontalRule,
   SimpleGrid,
@@ -12,6 +13,7 @@ import {
   TemplateContent,
   TemplateContentPrimary,
   TemplateContentTop,
+  TemplateFooter,
   Toggle,
 } from "@nypl/design-system-react-components";
 
@@ -156,6 +158,9 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
           </SimpleGrid>
         </TemplateContentPrimary>
       </TemplateContent>
+      <TemplateFooter>
+        <Footer />
+      </TemplateFooter>
     </Template>
   );
 };

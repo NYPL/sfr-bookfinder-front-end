@@ -1,6 +1,7 @@
 import React from "react";
 import {
   Breadcrumbs,
+  Footer,
   Heading,
   Hero,
   Link,
@@ -10,6 +11,7 @@ import {
   TemplateContent,
   TemplateContentPrimary,
   TemplateContentTop,
+  TemplateFooter,
 } from "@nypl/design-system-react-components";
 import SearchForm from "~/src/components/SearchForm/SearchForm";
 import Subjects from "~/config/subjectListConfig";
@@ -64,6 +66,9 @@ const LandingPage: React.FC<any> = () => {
           </List>
         </TemplateContentPrimary>
       </TemplateContent>
+      <TemplateFooter>
+        <Footer />
+      </TemplateFooter>
     </Template>
   );
 };

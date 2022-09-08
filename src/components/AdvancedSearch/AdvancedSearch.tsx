@@ -22,6 +22,7 @@ import {
   Breadcrumbs,
   Button,
   ButtonGroup,
+  Footer,
   Form,
   FormField,
   FormRow,
@@ -32,6 +33,7 @@ import {
   TemplateContent,
   TemplateContentPrimary,
   TemplateContentTop,
+  TemplateFooter,
   TextInput,
 } from "@nypl/design-system-react-components";
 import LanguageAccordion from "../LanguageAccordion/LanguageAccordion";
@@ -285,6 +287,9 @@ const AdvancedSearch: React.FC<{
           </Form>
         </TemplateContentPrimary>
       </TemplateContent>
+      <TemplateFooter>
+        <Footer />
+      </TemplateFooter>
     </Template>
   );
 };
