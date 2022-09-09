@@ -16,6 +16,8 @@ import {
   Flex,
   Form,
   useModal,
+  TemplateFooter,
+  Footer,
 } from "@nypl/design-system-react-components";
 import { useRouter } from "next/router";
 import { FacetItem, Query } from "~/src/types/DataModel";
@@ -305,6 +307,9 @@ const SearchResults: React.FC<{
           />
         </TemplateContentPrimary>
       </TemplateContent>
+      <TemplateFooter>
+        <Footer />
+      </TemplateFooter>
     </Template>
   );
 };

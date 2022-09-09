@@ -70,10 +70,10 @@ export const filtersLabels = {
 };
 
 export const inputTerms = [
-  { key: "keyword", label: "Keyword" },
-  { key: "author", label: "Author" },
-  { key: "title", label: "Title" },
-  { key: "subject", label: "Subject" },
+  { text: "Keyword", value: "keyword" },
+  { text: "Author", value: "author" },
+  { text: "Title", value: "title" },
+  { text: "Subject", value: "subject" },
 ];
 
 export const inputTermRows = [

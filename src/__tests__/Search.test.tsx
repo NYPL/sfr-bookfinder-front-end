@@ -93,7 +93,6 @@ describe("Renders Search Results Page", () => {
       expect(
         screen.getByRole("checkbox", { name: "Available Online" })
       ).toBeChecked();
-      fireEvent.click(screen.getByRole("button", { name: "Filter Languages" }));
       const languages = screen.getByRole("group", {
         name: "List of Languages",
       });
@@ -200,9 +199,6 @@ describe("Renders Search Results Page", () => {
       FilterLanguagesCommonTests(screen, availableLanguages, true);
 
       test("Clicking new language sends new search", () => {
-        fireEvent.click(
-          screen.getByRole("button", { name: "Filter Languages" })
-        );
         const languages = screen.getByRole("group", {
           name: "List of Languages",
         });
