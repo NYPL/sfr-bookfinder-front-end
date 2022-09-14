@@ -6,6 +6,7 @@
 - add features and tests for keyword search
 - add features and tests for author search
 - add features and tests for title search
+- add features and tests for subjects search
 
 ## [0.14.1]
 

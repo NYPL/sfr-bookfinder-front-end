@@ -3,7 +3,8 @@ import { expect } from "@playwright/test";
 import { CustomWorld } from "../support/setup";
 
 Given("I am on the DRB home page", async function (this: CustomWorld) {
-  return await this.page.goto("https://digital-research-books-beta.nypl.org/");
+  //return await this.page.goto("https://digital-research-books-beta.nypl.org/");
+  return await this.page.goto(`${this.parameters.appUrl}`);
 });
 
 Then("I see the site name", async function (this: CustomWorld) {
@@ -18,9 +19,7 @@ Then("I see the Home breadcrumb", async function (this: CustomWorld) {
 
 Then("I see the Research breadcrumb", async function (this: CustomWorld) {
   await expect(
-    this.page.locator("[href='https://www.nypl.org/research']", {
-      hasText: "Research",
-    })
+    this.page.locator('.breadcrumb-label:text-is("Research")')
   ).toBeVisible();
 });
 
