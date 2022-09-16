@@ -6,7 +6,6 @@ Given(
   "I am on the DRB home page for searching",
   async function (this: CustomWorld) {
     return await this.page.goto(`${this.parameters.appUrl}`);
-    //return await this.page.goto("https://digital-research-books-beta.nypl.org/");
   }
 );
 

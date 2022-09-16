@@ -3,7 +3,6 @@ import { expect } from "@playwright/test";
 import { CustomWorld } from "../support/setup";
 
 Given("I am on the DRB home page", async function (this: CustomWorld) {
-  //return await this.page.goto("https://digital-research-books-beta.nypl.org/");
   return await this.page.goto(`${this.parameters.appUrl}`);
 });
 

@@ -3,7 +3,6 @@ import { expect } from "@playwright/test";
 import { CustomWorld } from "../support/setup";
 
 Given("I want to do a subject search", async function (this: CustomWorld) {
-  // return await this.page.goto("https://digital-research-books-beta.nypl.org/");
   return await this.page.goto(`${this.parameters.appUrl}`);
 });
 When("I change the dropdown to subject", async function (this: CustomWorld) {
