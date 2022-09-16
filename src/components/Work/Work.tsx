@@ -13,6 +13,8 @@ import {
   TemplateContentTop,
   TemplateContentPrimary,
   Flex,
+  Footer,
+  TemplateFooter,
 } from "@nypl/design-system-react-components";
 import {
   joinArrayOfElements,
@@ -154,6 +156,9 @@ const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
           </Box>
         </TemplateContentPrimary>
       </TemplateContent>
+      <TemplateFooter>
+        <Footer />
+      </TemplateFooter>
     </Template>
   );
 };

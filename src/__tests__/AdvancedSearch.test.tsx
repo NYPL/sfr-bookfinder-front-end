@@ -68,11 +68,10 @@ describe("Advanced Search submit", () => {
       Title: "Handbook",
     };
 
-    fireEvent.click(screen.getByRole("button", { name: "Filter Languages" }));
     userEvent.click(await screen.findByRole("checkbox", { name: "english" }));
     inputTerms.forEach((val) => {
-      fireEvent.change(screen.getByLabelText(val.label), {
-        target: { value: inputValues[val.label] },
+      fireEvent.change(screen.getByLabelText(val.text), {
+        target: { value: inputValues[val.text] },
       });
     });
     fireEvent.change(screen.getByRole("spinbutton", { name: "From" }), {
@@ -177,11 +176,10 @@ describe("Advanced Search clear", () => {
       Title: "Handbook",
     };
 
-    fireEvent.click(screen.getByRole("button", { name: "Filter Languages" }));
     userEvent.click(screen.getByRole("checkbox", { name: "english" }));
     inputTerms.forEach((val) => {
-      fireEvent.change(screen.getByLabelText(val.label), {
-        target: { value: inputValues[val.label] },
+      fireEvent.change(screen.getByLabelText(val.text), {
+        target: { value: inputValues[val.text] },
       });
     });
     fireEvent.change(screen.getByRole("spinbutton", { name: "From" }), {
@@ -198,8 +196,8 @@ describe("Advanced Search clear", () => {
     expect(screen.getByLabelText("Readable")).toBeChecked();
 
     inputTerms.forEach((val) => {
-      expect(screen.getByLabelText(val.label)).toHaveValue(
-        inputValues[val.label]
+      expect(screen.getByLabelText(val.text)).toHaveValue(
+        inputValues[val.text]
       );
     });
 
@@ -211,7 +209,7 @@ describe("Advanced Search clear", () => {
     expect(screen.getByLabelText("Readable")).not.toBeChecked();
 
     inputTerms.forEach((val) => {
-      expect(screen.getByLabelText(val.label)).toHaveValue("");
+      expect(screen.getByLabelText(val.text)).toHaveValue("");
     });
 
     userEvent.click(screen.getByRole("button", { name: "Search" }));
