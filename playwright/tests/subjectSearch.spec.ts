@@ -22,7 +22,6 @@ Then(
   "Then for each title on the page, I visit the details page and expect to see the subject listed",
   async function (this: CustomWorld) {
     const titles = this.page.locator("h2 a");
-    const count = await titles.count();
 
     for (let i = 0; i < 10; ++i) {
       await titles.nth(i);
