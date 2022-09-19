@@ -23,7 +23,7 @@ export const EditionDetailDefinitionList: React.FC<{ edition: ApiEdition }> = ({
   edition,
 }) => {
   return (
-    <List title="Details" type="dl">
+    <List title="Details" type="dl" id="details-list">
       <>
         <dt>Publication Date</dt>
         <dd>
