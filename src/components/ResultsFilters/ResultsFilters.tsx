@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Toggle, VStack } from "@nypl/design-system-react-components";
+import { Button, Toggle, VStack } from "@nypl/design-system-react-components";
 import LanguageAccordion from "../LanguageAccordion/LanguageAccordion";
 import FilterBookFormat from "../FilterBookFormat/FilterBookFormat";
 import FilterYears from "../FilterYears/FilterYears";
@@ -128,6 +128,23 @@ const Filters: React.FC<{
           isModal ? "available-online-toggle-modal" : "available-online-toggle"
         }
       />
+      {!isModal && filters.length > 0 ? (
+        <Button
+          id="clear-filters-button"
+          buttonType="secondary"
+          type="reset"
+          onClick={() => {
+            setFilters([]);
+            changeFilters([]);
+          }}
+          __css={{
+            color: "ui.link.primary",
+            borderColor: "ui.link.primary",
+          }}
+        >
+          Clear Filters
+        </Button>
+      ) : null}
       <LanguageAccordion
         languages={languages}
         showCount={true}

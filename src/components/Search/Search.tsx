@@ -274,6 +274,28 @@ const SearchResults: React.FC<{
               </>
             }
           />
+          {searchQuery.filters.length > 0 ? (
+            <Button
+              id="clear-filters-button"
+              buttonType="secondary"
+              type="reset"
+              onClick={() => {
+                changeFilters([]);
+              }}
+              __css={{
+                marginTop: "var(--nypl-space-s)",
+                color: "ui.link.primary",
+                borderColor: "ui.link.primary",
+                width: "100%",
+                display: {
+                  base: "block",
+                  md: "none",
+                },
+              }}
+            >
+              Clear Filters
+            </Button>
+          ) : null}
           <Form
             id="search-filter-form"
             bg="ui.gray.x-light-cool"
