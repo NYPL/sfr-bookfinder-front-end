@@ -258,6 +258,47 @@ describe("Renders Search Results Page", () => {
       );
     });
   });
+  describe("Clear Filters", () => {
+    test("Renders when a filter is applied", () => {
+      expect(
+        screen.queryByRole("button", { name: "Clear Filters" })
+      ).not.toBeInTheDocument();
+
+      const filtersButton = screen.getByText("Filters (0)");
+      fireEvent.click(filtersButton);
+      const formats = screen.getByRole("group", { name: "Format" });
+      const downloadable = within(formats).getByRole("checkbox", {
+        name: "Downloadable",
+      });
+      fireEvent.click(downloadable);
+      fireEvent.click(screen.getByRole("button", { name: "Go Back" }));
+
+      expect(
+        screen.getByRole("button", { name: "Clear Filters" })
+      ).toBeInTheDocument();
+    });
+
+    test("Resets filters when clicked", () => {
+      const filtersButton = screen.getByText("Filters (0)");
+      fireEvent.click(filtersButton);
+      const formats = screen.getByRole("group", { name: "Format" });
+      const downloadable = within(formats).getByRole("checkbox", {
+        name: "Downloadable",
+      });
+      fireEvent.click(downloadable);
+      fireEvent.click(screen.getByRole("button", { name: "Go Back" }));
+      const clearFiltersButton = screen.getByRole("button", {
+        name: "Clear Filters",
+      });
+      fireEvent.click(clearFiltersButton);
+      expect(mockRouter).toMatchObject({
+        pathname: "/search",
+        query: {
+          query: "keyword:Animal Crossing",
+        },
+      });
+    });
+  });
   describe("Search Results", () => {
     describe("First result has full data", () => {
       test("Title links to work page", () => {
