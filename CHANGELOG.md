@@ -10,6 +10,7 @@
 - Upgrade to NYPL Design System version 1.1.0
 - Upgrade to React 17.0.2
 - Upgrade to Next 12.2.5
+- Add "Clear Filters" button for search
 
 ## [0.14.1]
 
