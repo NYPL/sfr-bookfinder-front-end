@@ -220,7 +220,7 @@ const SearchResults: React.FC<{
           <Button
             id="filter-button"
             onClick={onOpen}
-            buttonType="secondary"
+            buttonType="primary"
             __css={{
               width: "100%",
               display: {
