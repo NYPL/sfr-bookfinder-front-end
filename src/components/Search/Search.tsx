@@ -274,7 +274,7 @@ const SearchResults: React.FC<{
               </>
             }
           />
-          {searchQuery.filters.length > 0 ? (
+          {searchQuery.filters.length > 0 && (
             <Button
               id="clear-filters-button"
               buttonType="secondary"
@@ -295,7 +295,7 @@ const SearchResults: React.FC<{
             >
               Clear Filters
             </Button>
-          ) : null}
+          )}
           <Form
             id="search-filter-form"
             bg="ui.gray.x-light-cool"

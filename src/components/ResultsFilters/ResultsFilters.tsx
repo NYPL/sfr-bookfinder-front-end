@@ -128,7 +128,7 @@ const Filters: React.FC<{
           isModal ? "available-online-toggle-modal" : "available-online-toggle"
         }
       />
-      {!isModal && filters.length > 0 ? (
+      {!isModal && filters.length > 0 && (
         <Button
           id="clear-filters-button"
           buttonType="secondary"
@@ -144,7 +144,7 @@ const Filters: React.FC<{
         >
           Clear Filters
         </Button>
-      ) : null}
+      )}
       <LanguageAccordion
         languages={languages}
         showCount={true}
