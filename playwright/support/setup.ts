@@ -48,7 +48,7 @@ export class CustomWorld extends World {
   private newBrowser = async (): Promise<Browser> => {
     return await chromium.launch({
       headless: false,
-      slowMo: 1000,
+      slowMo: 500,
     });
   };
 }
