@@ -2,6 +2,7 @@
 
 ## [Pre-release]
 
+- add features and tests for link targets
 - add features and tests for home page elements
 - add features and tests for keyword search
 - add features and tests for author search
