@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import {
+  findFilterForField,
   findFiltersForField,
   findQueryForField,
 } from "~/src/util/SearchQueryUtils";
@@ -22,6 +23,7 @@ import {
   Breadcrumbs,
   Button,
   ButtonGroup,
+  Checkbox,
   Footer,
   Form,
   FormField,
@@ -64,10 +66,13 @@ const AdvancedSearch: React.FC<{
     findFiltersForField(searchQuery.filters, filterFields.format)
   );
   const [startFilter, setStartFilter] = useState<Filter>(
-    findFiltersForField(searchQuery.filters, filterFields.startYear)[0]
+    findFilterForField(searchQuery.filters, filterFields.startYear)
   );
   const [endFilter, setEndFilter] = useState<Filter>(
-    findFiltersForField(searchQuery.filters, filterFields.endYear)[0]
+    findFilterForField(searchQuery.filters, filterFields.endYear)
+  );
+  const [govDocFilter, setGovDocFilter] = useState<Filter>(
+    findFilterForField(searchQuery.filters, filterFields.govDoc)
   );
 
   useEffect(() => {
@@ -104,6 +109,8 @@ const AdvancedSearch: React.FC<{
     if (startFilter) filters.push(startFilter);
     if (endFilter) filters.push(endFilter);
     filters.push(...formatFilters);
+    if (!!govDocFilter && govDocFilter.value === "onlyGovDoc")
+      filters.push(govDocFilter);
 
     const newSearchQuery = {
       ...searchQuery,
@@ -123,6 +130,7 @@ const AdvancedSearch: React.FC<{
     setStartFilter(undefined);
     setEndFilter(undefined);
     setFormatFilters([]);
+    setGovDocFilter(undefined);
   };
 
   const onQueryChange = (e, queryKey) => {
@@ -179,6 +187,14 @@ const AdvancedSearch: React.FC<{
     else setEndFilter(newFilter);
   };
 
+  const onGovDocChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked) {
+      setGovDocFilter({ field: filterFields.govDoc, value: "onlyGovDoc" });
+    } else {
+      setGovDocFilter({ field: filterFields.govDoc, value: "all" });
+    }
+  };
+
   return (
     <Template>
       <TemplateBreakout>
@@ -230,6 +246,18 @@ const AdvancedSearch: React.FC<{
                 );
               }
             )}
+            <FormField>
+              <Checkbox
+                id="gov-doc-checkbox"
+                labelText="Show only US government documents"
+                onChange={(e) => {
+                  onGovDocChange(e);
+                }}
+                isChecked={
+                  !!govDocFilter && govDocFilter.value === "onlyGovDoc"
+                }
+              />
+            </FormField>
             <FormField>
               {languages && languages.length > 0 && (
                 <LanguageAccordion

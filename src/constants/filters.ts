@@ -3,6 +3,7 @@ const filterFields = {
   format: "format",
   startYear: "startYear",
   endYear: "endYear",
+  govDoc: "govDoc",
 };
 
 export default filterFields;
