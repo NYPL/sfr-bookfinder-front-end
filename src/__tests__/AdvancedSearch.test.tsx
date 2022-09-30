@@ -41,6 +41,13 @@ describe("renders advanced search correctly", () => {
     test("Format filter is shown", () => {
       FilterFormatTests();
     });
+    test("Gov doc filter is shown", () => {
+      const govDocCheckbox = screen.getByRole("checkbox", {
+        name: "Show only US government documents",
+      });
+      expect(govDocCheckbox).toBeInTheDocument();
+      expect(govDocCheckbox).not.toBeChecked();
+    });
     test("Submit and clear buttons are shown", () => {
       expect(
         screen.getByRole("button", { name: "Search" })
@@ -189,11 +196,19 @@ describe("Advanced Search clear", () => {
       target: { value: "1999" },
     });
     userEvent.click(screen.getByRole("checkbox", { name: "Readable" }));
+    userEvent.click(
+      screen.getByRole("checkbox", {
+        name: "Show only US government documents",
+      })
+    );
 
     expect(screen.getByLabelText("english")).toBeChecked();
     expect(screen.getByLabelText("From")).toHaveValue(1990);
     expect(screen.getByLabelText("To")).toHaveValue(1999);
     expect(screen.getByLabelText("Readable")).toBeChecked();
+    expect(
+      screen.getByLabelText("Show only US government documents")
+    ).toBeChecked();
 
     inputTerms.forEach((val) => {
       expect(screen.getByLabelText(val.text)).toHaveValue(
@@ -207,6 +222,9 @@ describe("Advanced Search clear", () => {
     expect(screen.getByLabelText("From")).toHaveValue(null);
     expect(screen.getByLabelText("To")).toHaveValue(null);
     expect(screen.getByLabelText("Readable")).not.toBeChecked();
+    expect(
+      screen.getByLabelText("Show only US government documents")
+    ).not.toBeChecked();
 
     inputTerms.forEach((val) => {
       expect(screen.getByLabelText(val.text)).toHaveValue("");

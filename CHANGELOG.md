@@ -7,6 +7,7 @@
 - add features and tests for author search
 - add features and tests for title search
 - add features and tests for subjects search
+- Add government doc filter for search results and advanced search
 - Upgrade to NYPL Design System version 1.1.0
 - Upgrade to React 17.0.2
 - Upgrade to Next 12.2.5
