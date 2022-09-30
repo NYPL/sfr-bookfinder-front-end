@@ -155,10 +155,6 @@ const Filters: React.FC<{
             setFilters([]);
             changeFilters([]);
           }}
-          __css={{
-            color: "ui.link.primary",
-            borderColor: "ui.link.primary",
-          }}
         >
           Clear Filters
         </Button>

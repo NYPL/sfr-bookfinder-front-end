@@ -221,7 +221,7 @@ const SearchResults: React.FC<{
             id="filter-button"
             onClick={onOpen}
             buttonType="primary"
-            __css={{
+            sx={{
               width: "100%",
               display: {
                 base: "block",
@@ -282,10 +282,8 @@ const SearchResults: React.FC<{
               onClick={() => {
                 changeFilters([]);
               }}
-              __css={{
+              sx={{
                 marginTop: "var(--nypl-space-s)",
-                color: "ui.link.primary",
-                borderColor: "ui.link.primary",
                 width: "100%",
                 display: {
                   base: "block",
