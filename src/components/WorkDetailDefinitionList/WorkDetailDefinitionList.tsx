@@ -26,7 +26,7 @@ const getLanguagesForWork = (work: ApiWork) =>
 const WorkDetailDefinitionList: React.FC<{ work: ApiWork }> = ({ work }) => {
   const languages = getLanguagesForWork(work);
   return (
-    <List title="Details" type="dl">
+    <List title="Details" type="dl" id="details-list">
       <>
         {work.alt_titles && work.alt_titles.length > 0 && (
           <>

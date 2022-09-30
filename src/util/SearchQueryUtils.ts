@@ -23,6 +23,13 @@ export const findQueryForField = (queries: Query[], field: string): Query => {
   });
 };
 
+export const findFilterForField = (
+  filters: Filter[],
+  field: string
+): Filter => {
+  return filters.find((filter: Filter) => filter.field === field);
+};
+
 export const findFiltersForField = (
   filters: Filter[],
   field: string

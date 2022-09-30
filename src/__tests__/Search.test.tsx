@@ -257,6 +257,25 @@ describe("Renders Search Results Page", () => {
         mockRouter
       );
     });
+    describe("Gov Doc Filter", () => {
+      test("Clicking show only gov docs sends new search", () => {
+        const govDocCheckbox = screen.getByRole("checkbox", {
+          name: "Show only US government documents",
+        });
+        fireEvent.click(govDocCheckbox);
+        expect(mockRouter).toMatchObject({
+          pathname: "/search",
+          query: {
+            filter: "govDoc:onlyGovDoc",
+            query: "keyword:Animal Crossing",
+          },
+        });
+        fireEvent.click(screen.getByRole("button", { name: "Go Back" }));
+        expect(
+          screen.getByRole("button", { name: "Filters (1)" })
+        ).toBeInTheDocument();
+      });
+    });
   });
   describe("Clear Filters", () => {
     test("Renders when a filter is applied", () => {
