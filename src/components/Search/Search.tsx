@@ -18,6 +18,7 @@ import {
   useModal,
   TemplateFooter,
   Footer,
+  useNYPLBreakpoints,
 } from "@nypl/design-system-react-components";
 import { useRouter } from "next/router";
 import { FacetItem, Query } from "~/src/types/DataModel";
@@ -50,6 +51,8 @@ const SearchResults: React.FC<{
   const { isFlagActive } = useFeatureFlags();
 
   const { onClose, onOpen, Modal } = useModal();
+
+  const { isLargerThanMedium } = useNYPLBreakpoints();
 
   const router = useRouter();
 
@@ -217,20 +220,18 @@ const SearchResults: React.FC<{
           </Flex>
         </TemplateContentTop>
         <TemplateContentSidebar>
-          <Button
-            id="filter-button"
-            onClick={onOpen}
-            buttonType="primary"
-            sx={{
-              width: "100%",
-              display: {
-                base: "block",
-                md: "none",
-              },
-            }}
-          >
-            {`Filters (${filterCount})`}
-          </Button>
+          {!isLargerThanMedium && (
+            <Button
+              id="filter-button"
+              onClick={onOpen}
+              buttonType="primary"
+              sx={{
+                width: "100%",
+              }}
+            >
+              {`Filters (${filterCount})`}
+            </Button>
+          )}
           <Modal
             bodyContent={
               <>
@@ -274,7 +275,7 @@ const SearchResults: React.FC<{
               </>
             }
           />
-          {searchQuery.filters.length > 0 && (
+          {searchQuery.filters.length > 0 && !isLargerThanMedium && (
             <Button
               id="clear-filters-button"
               buttonType="secondary"
@@ -285,10 +286,6 @@ const SearchResults: React.FC<{
               sx={{
                 marginTop: "var(--nypl-space-s)",
                 width: "100%",
-                display: {
-                  base: "block",
-                  md: "none",
-                },
               }}
             >
               Clear Filters
