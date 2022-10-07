@@ -6,7 +6,6 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "build:newrelic": "NODE_OPTIONS='-r @newrelic/next' next build",
     "start:newrelic": "NODE_OPTIONS='-r @newrelic/next' next start",
     "install:ci": "npm install --legacy-peer-deps",
     "test": "jest",
