@@ -2,6 +2,7 @@
 
 ## [Pre-release]
 
+- add features and tests for item details pages
 - add features and tests for link targets
 - add features and tests for home page elements
 - add features and tests for keyword search
