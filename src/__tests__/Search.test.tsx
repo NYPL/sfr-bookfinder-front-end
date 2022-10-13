@@ -695,3 +695,52 @@ describe("Renders total works correctly when feature flag is set", () => {
     ).not.toBeInTheDocument();
   });
 });
+
+describe("Renders selected languages in language accordion when there are no matching results", () => {
+  beforeEach(() => {
+    const languageSearchQuery: SearchQuery = {
+      queries: [
+        {
+          field: SearchField.Title,
+          query: '"New York City"',
+        },
+      ],
+      filters: [
+        {
+          field: "language",
+          value: "Russian",
+        },
+      ],
+    };
+    render(
+      <SearchResults
+        searchQuery={languageSearchQuery}
+        searchResults={emptySearchResults}
+      />
+    );
+  });
+
+  test("Show Russian (0) checkbox", () => {
+    const formats = screen.getByRole("group", { name: "Format" });
+    const requestable = within(formats).getByRole("checkbox", {
+      name: "Requestable",
+    });
+    fireEvent.click(requestable);
+    expect(mockRouter).toMatchObject({
+      pathname: "/search",
+      query: {
+        filter: "language:Russian,format:requestable",
+        query: 'title:"New York City"',
+      },
+    });
+    const languages = screen.getByRole("group", {
+      name: "List of Languages",
+    });
+
+    const russianCheckbox = within(languages).getByRole("checkbox", {
+      name: "Russian (0)",
+    });
+
+    expect(russianCheckbox).toBeInTheDocument();
+  });
+});
