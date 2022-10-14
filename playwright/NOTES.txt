@@ -14,6 +14,9 @@ run single test:
 npm run cucumber -- playwright/features/homePageElements.feature
 
 to add a sleep:
+await page.waitForTimeout(3000);
+
+to debug:
 this.page.pause()
 
 to debug a test:
@@ -26,3 +29,5 @@ to target the nth:
 
 to run test on qa site instead of prod, change the url here:
 npm run cucumber -- playwright/features/ReadOnlineTargets.feature --world-parameters '{"appUrl": "https://drb-qa.nypl.org/"}'
+
+https://digital-research-books-beta.nypl.org/
