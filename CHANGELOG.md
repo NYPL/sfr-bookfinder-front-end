@@ -10,7 +10,8 @@
 - add features and tests for title search
 - add features and tests for subjects search
 - Add government doc filter for search results and advanced search
-- Upgrade to NYPL Design System version 1.1.0
+- Add "Clear Filters" button for search
+- Upgrade to NYPL Design System version 1.1.2
 - Upgrade to React 17.0.2
 - Upgrade to Next 12.2.5
 - Fix undefined-heading id on details list heading bug

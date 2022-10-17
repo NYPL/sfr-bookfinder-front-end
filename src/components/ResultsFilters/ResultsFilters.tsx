@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { Checkbox, Toggle, VStack } from "@nypl/design-system-react-components";
+import {
+  Button,
+  Checkbox,
+  Toggle,
+  VStack,
+} from "@nypl/design-system-react-components";
 import LanguageAccordion from "../LanguageAccordion/LanguageAccordion";
 import FilterBookFormat from "../FilterBookFormat/FilterBookFormat";
 import FilterYears from "../FilterYears/FilterYears";
@@ -141,6 +146,19 @@ const Filters: React.FC<{
           isModal ? "available-online-toggle-modal" : "available-online-toggle"
         }
       />
+      {!isModal && filters.length > 0 && (
+        <Button
+          id="clear-filters-button"
+          buttonType="secondary"
+          type="reset"
+          onClick={() => {
+            setFilters([]);
+            changeFilters([]);
+          }}
+        >
+          Clear Filters
+        </Button>
+      )}
       <Checkbox
         id="gov-doc-checkbox"
         labelText="Show only US government documents"
