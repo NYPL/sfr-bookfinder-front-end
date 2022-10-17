@@ -39,6 +39,7 @@
     "**/*.tsx",
     "next.config.js",
     "cucumber.js",
+    "newrelic.js",
     "src/components/Citations/APACitation.jsx",
     "src/components/Citations/APACitation.test.jsx",
     "src/components/Citations/formatCitation.jsx",

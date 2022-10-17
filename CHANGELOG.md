@@ -2,6 +2,8 @@
 
 ## [Pre-release]
 
+- add features and tests for item details pages
+- add features and tests for link targets
 - add features and tests for home page elements
 - add features and tests for keyword search
 - add features and tests for author search
@@ -13,6 +15,8 @@
 - Upgrade to React 17.0.2
 - Upgrade to Next 12.2.5
 - Fix undefined-heading id on details list heading bug
+- Add instrumentation for New Relic
+- Selected language filters are displayed until removed/cleared
 
 ## [0.14.1]
 
