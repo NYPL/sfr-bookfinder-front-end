@@ -15,6 +15,7 @@
 - Upgrade to Next 12.2.5
 - Fix undefined-heading id on details list heading bug
 - Add instrumentation for New Relic
+- Selected language filters are displayed until removed/cleared
 
 ## [0.14.1]
 

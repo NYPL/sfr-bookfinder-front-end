@@ -37,6 +37,8 @@ import SearchHeader from "../SearchHeader/SearchHeader";
 import { ApiWork } from "~/src/types/WorkQuery";
 import useFeatureFlags from "~/src/context/FeatureFlagContext";
 import TotalWorks from "../TotalWorks/TotalWorks";
+import filterFields from "~/src/constants/filters";
+import { findFiltersForField } from "~/src/util/SearchQueryUtils";
 
 const SearchResults: React.FC<{
   searchQuery: SearchQuery;
@@ -81,6 +83,19 @@ const SearchResults: React.FC<{
       searchResults &&
       searchResults.data.facets &&
       searchResults.data.facets["languages"];
+
+    const selectedLanguages = findFiltersForField(
+      searchQuery.filters,
+      filterFields.language
+    );
+    // adds selected language to available languages if it doesn't exist
+    if (selectedLanguages) {
+      selectedLanguages.forEach((lang) => {
+        if (!facets.find((facet) => facet.value === lang.value)) {
+          facets.push({ value: lang.value.toString(), count: 0 });
+        }
+      });
+    }
 
     return facets;
   };
