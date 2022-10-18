@@ -1,9 +1,8 @@
 import { Given, Then, When } from "@cucumber/cucumber";
 import { expect } from "@playwright/test";
 import { CustomWorld } from "../support/setup";
-// require("dotenv").config();
-// import dotenv from "dotenv";
-// import path from "path";
+import dotenv from "dotenv";
+dotenv.config();
 
 Given("I have done a keyword search", async function (this: CustomWorld) {
   await this.page.goto(`${this.parameters.appUrl}`);
@@ -21,10 +20,9 @@ Then(
   }
 );
 Then("I log in to the catalog", async function (this: CustomWorld) {
-  await this.page.locator("#code").fill("insert env var");
-  await this.page.locator("#pin").fill("insert env var");
+  await this.page.locator("#code").fill(process.env.CATALOG_USERNAME);
+  await this.page.locator("#pin").fill(process.env.CATALOG_USER_PIN);
   await this.page.locator('input[type="submit"] >> text="Submit"').click();
-  //   await this.page.waitForTimeout(10000);
 });
 Then("I click the first request button", async function (this: CustomWorld) {
   await this.page.locator("text=Request >> nth=2").click();
