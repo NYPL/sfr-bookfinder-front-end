@@ -9,6 +9,10 @@ WORKDIR /
 
 ARG airtable_api_key
 
+# Newrelic settings
+ARG NEW_RELIC_LICENSE_KEY
+ARG NEW_RELIC_APP_NAME 
+
 # Set environment variables. NODE_ENV is set early because we
 # want to use it when running `npm install` and `npm run build`.
 ENV PATH /app/node_modules/.bin:$PATH
@@ -17,6 +21,8 @@ ENV PORT=3000 \
 ENV NEXT_PUBLIC_AIRTABLE_API_KEY $airtable_api_key
 # Sets READER_VERSION at build time.  To revert, remove this variable entirely.
 ENV NEXT_PUBLIC_READER_VERSION=v2
+ENV NEW_RELIC_LICENSE_KEY $NEW_RELIC_LICENSE_KEY
+ENV NEW_RELIC_APP_NAME $NEW_RELIC_APP_NAME
 
 # Install dependencies.
 COPY package.json package-lock.json ./
@@ -31,4 +37,4 @@ EXPOSE $PORT
 RUN npm run build
 
 # CMD is the default command when running the docker container.
-CMD npm start
+CMD npm run start:newrelic
