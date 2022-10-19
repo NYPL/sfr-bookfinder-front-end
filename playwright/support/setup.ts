@@ -48,14 +48,14 @@ export class CustomWorld extends World {
   private newBrowser = async (): Promise<Browser> => {
     return await chromium.launch({
       headless: false,
-      slowMo: 500,
+      slowMo: 1200,
     });
   };
 }
 
 setWorldConstructor(CustomWorld);
 
-setDefaultTimeout(30 * 1000);
+setDefaultTimeout(10 * 1000);
 
 Before(async function (this: CustomWorld) {
   const contextOptions = {
