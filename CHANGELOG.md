@@ -1,6 +1,6 @@
 # CHANGE LOG
 
-## [Pre-release]
+## [0.15.0]
 
 - add features and tests for item details pages
 - add features and tests for EDD requests
