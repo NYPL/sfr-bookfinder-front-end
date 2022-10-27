@@ -1,8 +1,5 @@
 # CHANGE LOG
 
-## [Pre-release]
-- Fix issue where absolute link is prefixed by host
-
 ## [0.15.0]
 
 - add features and tests for item details pages

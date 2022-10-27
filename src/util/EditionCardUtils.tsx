@@ -316,7 +316,7 @@ export default class EditionCardUtils {
           </Link>
           <Link
             // Url starts with www
-            to={`https://${eddLink.url}`}
+            to={`//${eddLink.url}`}
             linkType="button"
             target="_blank"
           >
