@@ -93,7 +93,6 @@ describe("Renders Search Results Page", () => {
       expect(
         screen.getByRole("checkbox", { name: "Available Online" })
       ).toBeChecked();
-      fireEvent.click(screen.getByRole("button", { name: "Filter Languages" }));
       const languages = screen.getByRole("group", {
         name: "List of Languages",
       });
@@ -200,9 +199,6 @@ describe("Renders Search Results Page", () => {
       FilterLanguagesCommonTests(screen, availableLanguages, true);
 
       test("Clicking new language sends new search", () => {
-        fireEvent.click(
-          screen.getByRole("button", { name: "Filter Languages" })
-        );
         const languages = screen.getByRole("group", {
           name: "List of Languages",
         });
@@ -260,6 +256,66 @@ describe("Renders Search Results Page", () => {
         findFiltersForField([], filterFields.endYear)[0],
         mockRouter
       );
+    });
+    describe("Gov Doc Filter", () => {
+      test("Clicking show only gov docs sends new search", () => {
+        const govDocCheckbox = screen.getByRole("checkbox", {
+          name: "Show only US government documents",
+        });
+        fireEvent.click(govDocCheckbox);
+        expect(mockRouter).toMatchObject({
+          pathname: "/search",
+          query: {
+            filter: "govDoc:onlyGovDoc",
+            query: "keyword:Animal Crossing",
+          },
+        });
+        fireEvent.click(screen.getByRole("button", { name: "Go Back" }));
+        expect(
+          screen.getByRole("button", { name: "Filters (1)" })
+        ).toBeInTheDocument();
+      });
+    });
+  });
+  describe("Clear Filters", () => {
+    test("Renders when a filter is applied", () => {
+      expect(
+        screen.queryByRole("button", { name: "Clear Filters" })
+      ).not.toBeInTheDocument();
+
+      const filtersButton = screen.getByText("Filters (0)");
+      fireEvent.click(filtersButton);
+      const formats = screen.getByRole("group", { name: "Format" });
+      const downloadable = within(formats).getByRole("checkbox", {
+        name: "Downloadable",
+      });
+      fireEvent.click(downloadable);
+      fireEvent.click(screen.getByRole("button", { name: "Go Back" }));
+
+      expect(
+        screen.getByRole("button", { name: "Clear Filters" })
+      ).toBeInTheDocument();
+    });
+
+    test("Resets filters when clicked", () => {
+      const filtersButton = screen.getByText("Filters (0)");
+      fireEvent.click(filtersButton);
+      const formats = screen.getByRole("group", { name: "Format" });
+      const downloadable = within(formats).getByRole("checkbox", {
+        name: "Downloadable",
+      });
+      fireEvent.click(downloadable);
+      fireEvent.click(screen.getByRole("button", { name: "Go Back" }));
+      const clearFiltersButton = screen.getByRole("button", {
+        name: "Clear Filters",
+      });
+      fireEvent.click(clearFiltersButton);
+      expect(mockRouter).toMatchObject({
+        pathname: "/search",
+        query: {
+          query: "keyword:Animal Crossing",
+        },
+      });
     });
   });
   describe("Search Results", () => {
@@ -678,5 +734,54 @@ describe("Renders total works correctly when feature flag is set", () => {
     expect(
       screen.queryByText("Total number of works: 26")
     ).not.toBeInTheDocument();
+  });
+});
+
+describe("Renders selected languages in language accordion when there are no matching results", () => {
+  beforeEach(() => {
+    const languageSearchQuery: SearchQuery = {
+      queries: [
+        {
+          field: SearchField.Title,
+          query: '"New York City"',
+        },
+      ],
+      filters: [
+        {
+          field: "language",
+          value: "Russian",
+        },
+      ],
+    };
+    render(
+      <SearchResults
+        searchQuery={languageSearchQuery}
+        searchResults={emptySearchResults}
+      />
+    );
+  });
+
+  test("Show Russian (0) checkbox", () => {
+    const formats = screen.getByRole("group", { name: "Format" });
+    const requestable = within(formats).getByRole("checkbox", {
+      name: "Requestable",
+    });
+    fireEvent.click(requestable);
+    expect(mockRouter).toMatchObject({
+      pathname: "/search",
+      query: {
+        filter: "language:Russian,format:requestable",
+        query: 'title:"New York City"',
+      },
+    });
+    const languages = screen.getByRole("group", {
+      name: "List of Languages",
+    });
+
+    const russianCheckbox = within(languages).getByRole("checkbox", {
+      name: "Russian (0)",
+    });
+
+    expect(russianCheckbox).toBeInTheDocument();
   });
 });

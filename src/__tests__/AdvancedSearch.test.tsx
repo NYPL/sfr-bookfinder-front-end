@@ -41,6 +41,13 @@ describe("renders advanced search correctly", () => {
     test("Format filter is shown", () => {
       FilterFormatTests();
     });
+    test("Gov doc filter is shown", () => {
+      const govDocCheckbox = screen.getByRole("checkbox", {
+        name: "Show only US government documents",
+      });
+      expect(govDocCheckbox).toBeInTheDocument();
+      expect(govDocCheckbox).not.toBeChecked();
+    });
     test("Submit and clear buttons are shown", () => {
       expect(
         screen.getByRole("button", { name: "Search" })
@@ -68,11 +75,10 @@ describe("Advanced Search submit", () => {
       Title: "Handbook",
     };
 
-    fireEvent.click(screen.getByRole("button", { name: "Filter Languages" }));
     userEvent.click(await screen.findByRole("checkbox", { name: "english" }));
     inputTerms.forEach((val) => {
-      fireEvent.change(screen.getByLabelText(val.label), {
-        target: { value: inputValues[val.label] },
+      fireEvent.change(screen.getByLabelText(val.text), {
+        target: { value: inputValues[val.text] },
       });
     });
     fireEvent.change(screen.getByRole("spinbutton", { name: "From" }), {
@@ -177,11 +183,10 @@ describe("Advanced Search clear", () => {
       Title: "Handbook",
     };
 
-    fireEvent.click(screen.getByRole("button", { name: "Filter Languages" }));
     userEvent.click(screen.getByRole("checkbox", { name: "english" }));
     inputTerms.forEach((val) => {
-      fireEvent.change(screen.getByLabelText(val.label), {
-        target: { value: inputValues[val.label] },
+      fireEvent.change(screen.getByLabelText(val.text), {
+        target: { value: inputValues[val.text] },
       });
     });
     fireEvent.change(screen.getByRole("spinbutton", { name: "From" }), {
@@ -191,15 +196,23 @@ describe("Advanced Search clear", () => {
       target: { value: "1999" },
     });
     userEvent.click(screen.getByRole("checkbox", { name: "Readable" }));
+    userEvent.click(
+      screen.getByRole("checkbox", {
+        name: "Show only US government documents",
+      })
+    );
 
     expect(screen.getByLabelText("english")).toBeChecked();
     expect(screen.getByLabelText("From")).toHaveValue(1990);
     expect(screen.getByLabelText("To")).toHaveValue(1999);
     expect(screen.getByLabelText("Readable")).toBeChecked();
+    expect(
+      screen.getByLabelText("Show only US government documents")
+    ).toBeChecked();
 
     inputTerms.forEach((val) => {
-      expect(screen.getByLabelText(val.label)).toHaveValue(
-        inputValues[val.label]
+      expect(screen.getByLabelText(val.text)).toHaveValue(
+        inputValues[val.text]
       );
     });
 
@@ -209,9 +222,12 @@ describe("Advanced Search clear", () => {
     expect(screen.getByLabelText("From")).toHaveValue(null);
     expect(screen.getByLabelText("To")).toHaveValue(null);
     expect(screen.getByLabelText("Readable")).not.toBeChecked();
+    expect(
+      screen.getByLabelText("Show only US government documents")
+    ).not.toBeChecked();
 
     inputTerms.forEach((val) => {
-      expect(screen.getByLabelText(val.label)).toHaveValue("");
+      expect(screen.getByLabelText(val.text)).toHaveValue("");
     });
 
     userEvent.click(screen.getByRole("button", { name: "Search" }));

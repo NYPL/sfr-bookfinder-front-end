@@ -1,11 +1,33 @@
 # CHANGE LOG
 
+## [0.15.0]
+
+- add features and tests for item details pages
+- add features and tests for EDD requests
+- add features and tests for item details pages
+- add features and tests for link targets
+- add features and tests for home page elements
+- add features and tests for keyword search
+- add features and tests for author search
+- add features and tests for title search
+- add features and tests for subjects search
+- Add government doc filter for search results and advanced search
+- Add "Clear Filters" button for search
+- Upgrade to NYPL Design System version 1.1.2
+- Upgrade to React 17.0.2
+- Upgrade to Next 12.2.5
+- Fix undefined-heading id on details list heading bug
+- Add instrumentation for New Relic
+- Selected language filters are displayed until removed/cleared
+
 ## [0.14.1]
+
 - Adds Cucumber & Playwright test setup
 - Fix QA deploy
-- Fix back to search results bug 
+- Fix back to search results bug
 
 ## [0.14.0]
+
 - Upgrade to NYPL Design System version 1.0.0
 - Decouples search query into separate states for each individual form field
 - Updates unit tests and snapshots
@@ -16,9 +38,11 @@
 - Adds feature flag functionality
 
 ## [0.13.1]
+
 - Added "Back to search results" link for works and editions
 
 ## [0.13.0]
+
 - upgraded webreader to V1
 - Fixed back button on webreader when user follows link from external site
 - Handle error when there is only catalog link for a work item

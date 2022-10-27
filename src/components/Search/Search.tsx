@@ -16,6 +16,9 @@ import {
   Flex,
   Form,
   useModal,
+  TemplateFooter,
+  Footer,
+  useNYPLBreakpoints,
 } from "@nypl/design-system-react-components";
 import { useRouter } from "next/router";
 import { FacetItem, Query } from "~/src/types/DataModel";
@@ -35,6 +38,8 @@ import SearchHeader from "../SearchHeader/SearchHeader";
 import { ApiWork } from "~/src/types/WorkQuery";
 import useFeatureFlags from "~/src/context/FeatureFlagContext";
 import TotalWorks from "../TotalWorks/TotalWorks";
+import filterFields from "~/src/constants/filters";
+import { findFiltersForField } from "~/src/util/SearchQueryUtils";
 
 const SearchResults: React.FC<{
   searchQuery: SearchQuery;
@@ -48,6 +53,8 @@ const SearchResults: React.FC<{
   const { isFlagActive } = useFeatureFlags();
 
   const { onClose, onOpen, Modal } = useModal();
+
+  const { isLargerThanMedium } = useNYPLBreakpoints();
 
   const router = useRouter();
 
@@ -79,6 +86,19 @@ const SearchResults: React.FC<{
       searchResults &&
       searchResults.data.facets &&
       searchResults.data.facets["languages"];
+
+    const selectedLanguages = findFiltersForField(
+      searchQuery.filters,
+      filterFields.language
+    );
+    // adds selected language to available languages if it doesn't exist
+    if (selectedLanguages) {
+      selectedLanguages.forEach((lang) => {
+        if (!facets.find((facet) => facet.value === lang.value)) {
+          facets.push({ value: lang.value.toString(), count: 0 });
+        }
+      });
+    }
 
     return facets;
   };
@@ -215,20 +235,18 @@ const SearchResults: React.FC<{
           </Flex>
         </TemplateContentTop>
         <TemplateContentSidebar>
-          <Button
-            id="filter-button"
-            onClick={onOpen}
-            buttonType="secondary"
-            __css={{
-              width: "100%",
-              display: {
-                base: "block",
-                md: "none",
-              },
-            }}
-          >
-            {`Filters (${filterCount})`}
-          </Button>
+          {!isLargerThanMedium && (
+            <Button
+              id="filter-button"
+              onClick={onOpen}
+              buttonType="primary"
+              sx={{
+                width: "100%",
+              }}
+            >
+              {`Filters (${filterCount})`}
+            </Button>
+          )}
           <Modal
             bodyContent={
               <>
@@ -272,6 +290,22 @@ const SearchResults: React.FC<{
               </>
             }
           />
+          {searchQuery.filters.length > 0 && !isLargerThanMedium && (
+            <Button
+              id="clear-filters-button"
+              buttonType="secondary"
+              type="reset"
+              onClick={() => {
+                changeFilters([]);
+              }}
+              sx={{
+                marginTop: "var(--nypl-space-s)",
+                width: "100%",
+              }}
+            >
+              Clear Filters
+            </Button>
+          )}
           <Form
             id="search-filter-form"
             bg="ui.gray.x-light-cool"
@@ -305,6 +339,9 @@ const SearchResults: React.FC<{
           />
         </TemplateContentPrimary>
       </TemplateContent>
+      <TemplateFooter>
+        <Footer />
+      </TemplateFooter>
     </Template>
   );
 };

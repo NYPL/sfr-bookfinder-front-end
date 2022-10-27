@@ -1,11 +1,17 @@
 import React, { useState } from "react";
-import { Toggle, VStack } from "@nypl/design-system-react-components";
+import {
+  Button,
+  Checkbox,
+  Toggle,
+  VStack,
+} from "@nypl/design-system-react-components";
 import LanguageAccordion from "../LanguageAccordion/LanguageAccordion";
 import FilterBookFormat from "../FilterBookFormat/FilterBookFormat";
 import FilterYears from "../FilterYears/FilterYears";
 import { FacetItem } from "~/src/types/DataModel";
 import { Filter } from "~/src/types/SearchQuery";
 import {
+  findFilterForField,
   findFiltersExceptField,
   findFiltersForField,
 } from "~/src/util/SearchQueryUtils";
@@ -88,8 +94,8 @@ const Filters: React.FC<{
   };
 
   const submitDateForm = () => {
-    const startYear = findFiltersForField(filters, filterFields.startYear)[0];
-    const endYear = findFiltersForField(filters, filterFields.endYear)[0];
+    const startYear = findFilterForField(filters, filterFields.startYear);
+    const endYear = findFilterForField(filters, filterFields.endYear);
     if (!startYear && !endYear) {
       setDateRangeError(errorMessagesText.emptySearch);
     }
@@ -112,8 +118,20 @@ const Filters: React.FC<{
     changeShowAll(!e.target.checked);
   };
 
-  const yearStart = findFiltersForField(filters, filterFields.startYear);
-  const yearEnd = findFiltersForField(filters, filterFields.endYear);
+  const onGovDocChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newFilters = [
+      ...findFiltersExceptField(filters, filterFields.govDoc),
+    ];
+    if (e.target.checked) {
+      newFilters.push({ field: filterFields.govDoc, value: "onlyGovDoc" });
+    }
+    setFilters(newFilters);
+    changeFilters(newFilters);
+  };
+
+  const yearStart = findFilterForField(filters, filterFields.startYear);
+  const yearEnd = findFilterForField(filters, filterFields.endYear);
+  const govDocFilter = findFilterForField(filters, filterFields.govDoc);
 
   return (
     <VStack align="left" spacing="s">
@@ -127,6 +145,27 @@ const Filters: React.FC<{
         id={
           isModal ? "available-online-toggle-modal" : "available-online-toggle"
         }
+      />
+      {!isModal && filters.length > 0 && (
+        <Button
+          id="clear-filters-button"
+          buttonType="secondary"
+          type="reset"
+          onClick={() => {
+            setFilters([]);
+            changeFilters([]);
+          }}
+        >
+          Clear Filters
+        </Button>
+      )}
+      <Checkbox
+        id="gov-doc-checkbox"
+        labelText="Show only US government documents"
+        onChange={(e) => {
+          onGovDocChange(e);
+        }}
+        isChecked={!!govDocFilter && govDocFilter.value === "onlyGovDoc"}
       />
       <LanguageAccordion
         languages={languages}
@@ -143,8 +182,8 @@ const Filters: React.FC<{
         onFormatChange={(e, format) => onBookFormatChange(e, format)}
       />
       <FilterYears
-        startFilter={yearStart && yearStart[0]}
-        endFilter={yearEnd && yearEnd[0]}
+        startFilter={yearStart}
+        endFilter={yearEnd}
         isModal={isModal}
         onDateChange={(
           e: React.ChangeEvent<HTMLInputElement>,
