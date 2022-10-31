@@ -1,5 +1,8 @@
 # CHANGE LOG
 
+## [0.15.1]
+- Fix absolute link is prefixed by host issue
+
 ## [0.15.0]
 
 - add features and tests for item details pages
