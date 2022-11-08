@@ -1,5 +1,8 @@
 # CHANGE LOG
 
+## [Pre-release]
+- Add github actions to automate tag and release
+
 ## [0.15.1]
 
 - Fix absolute link is prefixed by host issue
