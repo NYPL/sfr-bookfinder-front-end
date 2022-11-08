@@ -1,5 +1,8 @@
 # CHANGE LOG
 
+## [Pre-release]
+- Replace DS Header component with dgx-header-component
+
 ## [0.15.1]
 
 - Fix absolute link is prefixed by host issue
