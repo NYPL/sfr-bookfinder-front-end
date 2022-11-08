@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import {
   DSProvider,
-  Header,
   SkeletonLoader,
 } from "@nypl/design-system-react-components";
 import Feedback from "~/src/components/Feedback/Feedback";
 import { useRouter } from "next/router";
+import { Header, navConfig } from "@nypl/dgx-header-component";
 
 /**
  * Container class providing header, footer,
@@ -38,7 +38,10 @@ const Layout: React.FC = ({ children }) => {
   return (
     <>
       <DSProvider>
-        <Header />
+        <Header
+          skipNav={{ target: "main-content" }}
+          navData={navConfig.current}
+        />
         <main id="main-content">
           {router.isFallback || loading ? (
             <>
