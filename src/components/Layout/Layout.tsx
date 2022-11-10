@@ -12,7 +12,10 @@ import { Header, navConfig } from "@nypl/dgx-header-component";
  * and other set up information to all its children.
  */
 
-const Layout: React.FC = ({ children }) => {
+const Layout: React.FC<{ children; isTestMode?: boolean }> = ({
+  children,
+  isTestMode = false,
+}) => {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
 
@@ -38,10 +41,12 @@ const Layout: React.FC = ({ children }) => {
   return (
     <>
       <DSProvider>
-        <Header
-          skipNav={{ target: "main-content" }}
-          navData={navConfig.current}
-        />
+        {!isTestMode && (
+          <Header
+            skipNav={{ target: "main-content" }}
+            navData={navConfig.current}
+          />
+        )}
         <main id="main-content">
           {router.isFallback || loading ? (
             <>
