@@ -1,6 +1,7 @@
 # CHANGE LOG
 
 ## [Pre-release]
+- Add github actions to automate tag and release
 - Replace DS Header component with dgx-header-component
 
 ## [0.15.1]
