@@ -43,6 +43,7 @@ const Layout: React.FC<{ children; isTestMode?: boolean }> = ({
       <DSProvider>
         {!isTestMode && (
           <Header
+            urlType="absolute"
             skipNav={{ target: "main-content" }}
             navData={navConfig.current}
           />
