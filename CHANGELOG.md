@@ -2,7 +2,7 @@
 
 ## [Pre-release]
 - Add github actions to automate tag and release
-- Replace DS Header component with dgx-header-component
+- Replace DS Header component with dgx-header-component v2.8.0-r16-rc-2
 
 ## [0.15.1]
 
