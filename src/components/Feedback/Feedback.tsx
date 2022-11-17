@@ -11,8 +11,7 @@ const Feedback: React.FC<any> = ({ location }) => {
   );
   const { formHidden, showCommentErrorMessage, feedback, foundSuccess } = state;
 
-  const feedbackField: RefObject<HTMLTextAreaElement> =
-    React.createRef<HTMLTextAreaElement>();
+  const feedbackField: RefObject<HTMLTextAreaElement> = React.createRef<HTMLTextAreaElement>();
 
   const closeForm = () => {
     dispatch({ type: "RESET" });
