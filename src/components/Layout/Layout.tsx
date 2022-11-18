@@ -34,7 +34,6 @@ const Layout: React.FC = ({ children }) => {
       router.events.off("routeChangeError", end);
     };
   }, [router.events]);
-
   return (
     <>
       <DSProvider>

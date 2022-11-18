@@ -12,6 +12,9 @@ import {
   TemplateContentPrimary,
   TemplateContentTop,
   TemplateFooter,
+  Text,
+  Toggle,
+  useColorMode,
 } from "@nypl/design-system-react-components";
 import SearchForm from "~/src/components/SearchForm/SearchForm";
 import Subjects from "~/config/subjectListConfig";
@@ -29,6 +32,8 @@ const LandingPage: React.FC<any> = () => {
       .
     </span>
   );
+  const { colorMode, toggleColorMode } = useColorMode();
+
   return (
     <Template>
       <TemplateBreakout>
@@ -51,8 +56,14 @@ const LandingPage: React.FC<any> = () => {
       </TemplateBreakout>
       <TemplateContent>
         <TemplateContentTop>
-          Search the World's Research Collections
+          <Text>Search the World's Research Collections</Text>
           <SearchForm />
+          <Toggle
+            isChecked={colorMode === "dark"}
+            id={"dark-mode-toggle"}
+            onChange={toggleColorMode}
+            labelText="Toggle Dark Mode"
+          />
         </TemplateContentTop>
         <TemplateContentPrimary>
           <Heading level="two">Search Examples</Heading>

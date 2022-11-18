@@ -3,3 +3,10 @@
     margin-bottom: var(--nypl-space-xs);
   }
 }
+
+#search-bar {
+  _dark: {
+    color: "pink";
+    background-color: "yellow";
+  }
+}
