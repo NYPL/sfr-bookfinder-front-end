@@ -14,7 +14,7 @@ When(
   "I input a subject search term and submit",
   async function (this: CustomWorld) {
     await this.page.locator("[aria-label='Item Search']").fill("Petroleum");
-    await this.page.locator('[data-testid="button"]').click();
+    await this.page.locator("#searchbar-button-search-bar").click();
   }
 );
 
