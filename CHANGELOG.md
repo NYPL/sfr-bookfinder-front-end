@@ -1,6 +1,6 @@
 # CHANGE LOG
 
-## [Pre-release]
+## [0.16.0]
 - Add github actions to automate tag and release
 - Replace DS Header component with dgx-header-component v2.8.0-r16-rc-2
 
