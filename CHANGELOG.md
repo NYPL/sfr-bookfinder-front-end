@@ -1,6 +1,7 @@
 # CHANGE LOG
 
 ## [0.16.0]
+
 - Add github actions to automate tag and release
 - Replace DS Header component with dgx-header-component v2.8.0-r16-rc-2
 
@@ -10,6 +11,7 @@
 
 ## [0.15.0]
 
+- add features and tests for government docs filter
 - add features and tests for advanced search
 - add features and tests for item details pages
 - add features and tests for EDD requests
