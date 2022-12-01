@@ -1,5 +1,9 @@
 # CHANGE LOG
 
+## [Pre-release]
+
+- add features and tests for government docs filter
+
 ## [0.16.0]
 
 - Add github actions to automate tag and release
@@ -11,7 +15,6 @@
 
 ## [0.15.0]
 
-- add features and tests for government docs filter
 - add features and tests for advanced search
 - add features and tests for item details pages
 - add features and tests for EDD requests
