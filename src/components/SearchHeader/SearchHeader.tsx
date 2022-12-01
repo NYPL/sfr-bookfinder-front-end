@@ -22,7 +22,7 @@ const SearchHeader: React.FC<{
           </Heading>
         }
       />
-      <Box bg="ui.gray.x-light-cool">
+      <Box bg="ui.gray.x-light-cool" _dark={{ bg: "dark.ui.bg.default" }}>
         <Box m="0 auto" maxW="1280px" width="100%" p="s">
           <SearchForm searchQuery={searchQuery} />
         </Box>

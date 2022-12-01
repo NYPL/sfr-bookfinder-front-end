@@ -312,6 +312,7 @@ const SearchResults: React.FC<{
             p="xs"
             gap="grid.xs"
             display={["none", "none", "block"]}
+            _dark={{ bg: "dark.ui.bg.default" }}
           >
             <Heading level="two" id="filter-desktop-header" __css={{ m: "0" }}>
               Refine Results
