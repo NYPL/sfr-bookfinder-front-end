@@ -53,7 +53,11 @@ const setTitle = (query: any) => {
   }
 };
 
-function MyApp({ Component, pageProps }: AppProps) {
+type PageProps = {
+  cookies: any;
+};
+
+function MyApp({ Component, pageProps }: AppProps<PageProps>) {
   const router = useRouter();
 
   const colorModeManager =
