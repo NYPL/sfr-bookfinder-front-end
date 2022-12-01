@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import {
-  DSProvider,
   SkeletonLoader,
+  Toggle,
+  useColorMode,
 } from "@nypl/design-system-react-components";
 import Feedback from "~/src/components/Feedback/Feedback";
 import { useRouter } from "next/router";
@@ -18,6 +19,8 @@ const Layout: React.FC<{ children; isTestMode?: boolean }> = ({
 }) => {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
+
+  const { colorMode, toggleColorMode } = useColorMode();
 
   useEffect(() => {
     const start = () => setLoading(true);
@@ -39,25 +42,44 @@ const Layout: React.FC<{ children; isTestMode?: boolean }> = ({
   }, [router.events]);
   return (
     <>
-      <DSProvider>
-        {!isTestMode && (
-          <Header
-            urlType="absolute"
-            skipNav={{ target: "main-content" }}
-            navData={navConfig.current}
-          />
+      {colorMode && (
+        <Toggle
+          bgColor="ui.bg.default"
+          borderRadius="32px"
+          bottom={{ base: "xs", md: "auto" }}
+          boxShadow="0px 0px 12px 0px rgba(0,0,0,0.4)"
+          left={{ base: "xs", md: "auto" }}
+          paddingEnd="s"
+          paddingStart="12px"
+          py="xs"
+          position="fixed"
+          right={{ base: "xs", md: "xs" }}
+          top={{ base: "auto", md: "xs" }}
+          zIndex="2"
+          _dark={{ bgColor: "dark.ui.bg.default" }}
+          isChecked={colorMode === "dark"}
+          id={"dark-mode-toggle"}
+          onChange={toggleColorMode}
+          labelText="Toggle Dark Mode"
+        />
+      )}
+      {!isTestMode && (
+        <Header
+          urlType="absolute"
+          skipNav={{ target: "main-content" }}
+          navData={navConfig.current}
+        />
+      )}
+      <main id="main-content">
+        {router.isFallback || loading ? (
+          <>
+            <SkeletonLoader />
+          </>
+        ) : (
+          <>{children}</>
         )}
-        <main id="main-content">
-          {router.isFallback || loading ? (
-            <>
-              <SkeletonLoader />
-            </>
-          ) : (
-            <>{children}</>
-          )}
-        </main>
-        {!loading && <Feedback location={router.asPath} />}
-      </DSProvider>
+      </main>
+      {!loading && <Feedback location={router.asPath} />}
     </>
   );
 };

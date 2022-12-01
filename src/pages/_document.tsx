@@ -1,6 +1,5 @@
 import React from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
-import { ColorModeScript } from "@nypl/design-system-react-components";
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -11,12 +10,10 @@ class MyDocument extends Document {
   }
 
   render() {
-    const initialColorMode = "dark";
     return (
       <Html lang="en">
         <Head />
         <body>
-          <ColorModeScript initialColorMode={initialColorMode} />
           <Main />
           <NextScript />
         </body>

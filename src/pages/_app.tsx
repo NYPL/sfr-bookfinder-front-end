@@ -10,6 +10,11 @@ import appConfig from "~/config/appConfig";
 import { documentTitles } from "../constants/labels";
 import "@nypl/web-reader/dist/esm/index.css";
 import { FeatureFlagProvider } from "../context/FeatureFlagContext";
+import {
+  cookieStorageManager,
+  DSProvider,
+  localStorageManager,
+} from "@nypl/design-system-react-components";
 
 /**
  * Determines if we are running on server or in the client.
@@ -51,6 +56,11 @@ const setTitle = (query: any) => {
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
+  const colorModeManager =
+    typeof pageProps.cookies === "string"
+      ? cookieStorageManager(pageProps.cookies)
+      : localStorageManager;
+
   return (
     <>
       <Head>
@@ -77,7 +87,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         {/* <!-- End Google Analytics --> */}
       </Head>
       <FeatureFlagProvider>
-        <Component {...pageProps} />
+        <DSProvider colorModeManager={colorModeManager}>
+          <Component {...pageProps} />
+        </DSProvider>
       </FeatureFlagProvider>
     </>
   );
