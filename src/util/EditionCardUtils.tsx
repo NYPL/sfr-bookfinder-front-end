@@ -112,8 +112,11 @@ export default class EditionCardUtils {
    * @returns The URL of the cover that should be displayed.
    */
 
-  static getCover(links: ItemLink[]): string {
-    if (!links || links.length === 0) return PLACEHOLDER_COVER_LINK;
+  static getCover(links: ItemLink[], colorMode = "light"): string {
+    if (!links || links.length === 0)
+      return colorMode === "dark"
+        ? "/images/library-book-dark-mode.png"
+        : PLACEHOLDER_COVER_LINK;
     const coverLink = links.find((link) => {
       return MediaTypes.display.includes(link.mediaType);
     });

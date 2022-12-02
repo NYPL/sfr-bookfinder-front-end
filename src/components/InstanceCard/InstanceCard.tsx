@@ -6,6 +6,7 @@ import {
   CardActions,
   CardContent,
   CardHeading,
+  useColorMode,
 } from "@nypl/design-system-react-components";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
 import Link from "../Link/Link";
@@ -23,6 +24,7 @@ export const InstanceCard: React.FC<{
 }> = (props) => {
   // cookies defaults to be undefined if not fonud
   const [cookies] = useCookies([NYPL_SESSION_ID]);
+  const { colorMode } = useColorMode();
 
   const edition = props.edition;
   const instance: Instance = props.instance;
@@ -31,7 +33,7 @@ export const InstanceCard: React.FC<{
   return (
     <Card
       imageProps={{
-        src: EditionCardUtils.getCover(edition.links),
+        src: EditionCardUtils.getCover(edition.links, colorMode),
         size: "xsmall",
         aspectRatio: "original",
         alt: "Cover",

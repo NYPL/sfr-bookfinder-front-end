@@ -5,6 +5,7 @@ import {
   CardHeading,
   Box,
   CardActions,
+  useColorMode,
 } from "@nypl/design-system-react-components";
 import Link from "../Link/Link";
 import { WorkEdition } from "~/src/types/DataModel";
@@ -40,8 +41,9 @@ export const EditionCard: React.FC<{ edition: WorkEdition; title: string }> = ({
     );
     return editionElem;
   };
+  const { colorMode } = useColorMode();
 
-  const coverUrl = EditionCardUtils.getCover(edition.links);
+  const coverUrl = EditionCardUtils.getCover(edition.links, colorMode);
 
   return (
     <Card
