@@ -16,13 +16,12 @@ Then("I click the Latin filter", async function (this: CustomWorld) {
 });
 
 Then(
-  "for at least 10 titles on the page, I should see Latin in the language field",
+  "for at least 20 titles on the page, I should see Latin in the language field",
   async function (this: CustomWorld) {
     await this.page
       .locator("//h1[contains(text(), 'Digital Research Books')]")
       .waitFor();
     const textIWant = this.page.locator("div", { hasText: "Languages: Latin" });
     expect(await textIWant.count()).toBeGreaterThan(20);
-    console.log(textIWant);
   }
 );
