@@ -31,5 +31,4 @@ jobs:
         run: |
           echo "WORLD_PARAMETERS={\"appUrl\": \"https://digital-research-books-beta.nypl.org/", \"headless\": true}"
       - name: Run Cucumber
-        run: |
-        npm run cucumber -- playwright/features/languageFilter.feature  --world-parameters '{"appUrl": "https://digital-research-books-beta.nypl.org/"}'
+        run: npm run cucumber -- playwright/features/languageFilter.feature  --world-parameters '{"appUrl": "https://digital-research-books-beta.nypl.org/"}'
