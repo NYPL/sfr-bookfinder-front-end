@@ -29,4 +29,4 @@ jobs:
         run: |
           echo "WORLD_PARAMETERS={\"appUrl\": \"https://digital-research-books-beta.nypl.org\", \"headless\": true}" >> $GITHUB_ENV
       - name: Run Cucumber
-        run: npm run cucumber -- playwright/features/languageFilter.feature  --world-parameters '${{ env.WORLD_PARAMETERS }}'
+        run: npm run cucumber -- --world-parameters '${{ env.WORLD_PARAMETERS }}'
