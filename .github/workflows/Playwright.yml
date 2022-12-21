@@ -1,11 +1,11 @@
 name: Playwright
 
-on: [push]
+on:
+  [push]
   # push:
   #   branches: [playwright-GHA]
   # schedule:
   #   - cron: "00 12 * * 0-6"
-
 
 jobs:
   tests:
@@ -28,5 +28,5 @@ jobs:
       # - name: Set the world parameters as an env var
       #   run: |
       #     echo "WORLD_PARAMETERS={\"appUrl\": \"https://digital-research-books-beta.nypl.org/", \"headless\": true}" >> $GITHUB_ENV
-      - name: Run Cucumber
-        run: npm run cucumber -- playwright/features/languageFilter.feature  --world-parameters '{"appUrl": "https://digital-research-books-beta.nypl.org/", \"headless\": true}'
+      # - name: Run Cucumber
+      #   run: npm run cucumber -- playwright/features/languageFilter.feature  --world-parameters '{"appUrl": "https://digital-research-books-beta.nypl.org/", \"headless\": true}'
