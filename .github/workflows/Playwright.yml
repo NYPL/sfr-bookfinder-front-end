@@ -25,8 +25,8 @@ jobs:
       - name: Install Playwright Browser Utils
         run: npx playwright install --with-deps
 
-      # - name: Set the world parameters as an env var
-      #   run: |
-      #     echo "WORLD_PARAMETERS={\"appUrl\": \"https://digital-research-books-beta.nypl.org/", \"headless\": true}" >> $GITHUB_ENV
+      - name: Set the world parameters as an env var
+        run: |
+          echo "WORLD_PARAMETERS={\"appUrl\": \"https://digital-research-books-beta.nypl.org\", \"headless\": true}" >> $GITHUB_ENV
       - name: Run Cucumber
-        run: npm run cucumber -- playwright/features/languageFilter.feature  --world-parameters '{"appUrl": "https://digital-research-books-beta.nypl.org/", \"headless\": true}'
+        run: npm run cucumber -- playwright/features/languageFilter.feature  --world-parameters '${{ env.WORLD_PARAMETERS }}'
