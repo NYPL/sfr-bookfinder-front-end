@@ -2,6 +2,7 @@
 
 ## [Pre-release]
 
+- add features and tests for publication year filter
 - add features and tests for language filter
 
 ## [0.16.0]
