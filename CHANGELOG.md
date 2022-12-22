@@ -2,10 +2,11 @@
 
 ## [Pre-release]
 
-- add features and tests for government docs filter
+- add features and tests for language filter
 
 ## [0.16.0]
 
+- add features and tests for government docs filter
 - Add github actions to automate tag and release
 - Replace DS Header component with dgx-header-component v2.8.0-r16-rc-2
 
