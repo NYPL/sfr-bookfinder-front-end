@@ -20,7 +20,7 @@
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@newrelic/next": "^0.3.0",
-    "@nypl/design-system-react-components": "github:NYPL/nypl-design-system#DSD-1219/dark-mode-color-palette-adjustments",
+    "@nypl/design-system-react-components": "github:NYPL/nypl-design-system#dark-mode-feature-branch",
     "@nypl/dgx-header-component": "2.8.0-r16-rc-2",
     "@nypl/web-reader": "^3.1.0",
     "@types/node": "^16.11.6",
