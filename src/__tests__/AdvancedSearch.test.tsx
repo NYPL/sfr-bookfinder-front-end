@@ -219,8 +219,8 @@ describe("Advanced Search clear", () => {
     userEvent.click(screen.getByRole("button", { name: "Clear" }));
 
     expect(screen.getByLabelText("english")).not.toBeChecked();
-    // expect(screen.getByLabelText("From")).toHaveValue(null);
-    // expect(screen.getByLabelText("To")).toHaveValue(null);
+    expect(screen.getByLabelText("From")).toHaveValue(null);
+    expect(screen.getByLabelText("To")).toHaveValue(null);
     expect(screen.getByLabelText("Readable")).not.toBeChecked();
     expect(
       screen.getByLabelText("Show only US government documents")

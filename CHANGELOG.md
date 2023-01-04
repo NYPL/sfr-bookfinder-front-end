@@ -3,6 +3,7 @@
 ## [Pre-release]
 
 - add features and tests for language filter
+- chore: fresh package-lock.json install and fix install errors
 
 ## [0.16.0]
 

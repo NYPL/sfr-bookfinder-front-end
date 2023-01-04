@@ -6,12 +6,10 @@ module.exports = {
   },
   parser: "@typescript-eslint/parser",
   parserOptions: {
-    extraFileExtensions: ".mjs",
     project: "tsconfig.json",
     sourceType: "module",
     ecmaFeatures: {
       jsx: true,
-      module: true,
     },
   },
   plugins: [
