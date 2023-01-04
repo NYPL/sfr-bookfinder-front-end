@@ -43,9 +43,10 @@
   },
   "devDependencies": {
     "@axe-core/react": "^4.1.1",
-    "@cucumber/cucumber": "^8.5.0",
+    "@chakra-ui/theme-tools": "^2.0.16",
+    "@cucumber/cucumber": "^8.10.0",
     "@emotion/jest": "^11.9.3",
-    "@playwright/test": "^1.23.4",
+    "@playwright/test": "^1.29.1",
     "@testing-library/dom": "^8.10.1",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",

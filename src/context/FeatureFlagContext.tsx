@@ -13,9 +13,8 @@ type FeatureFlagContextType = {
   isFlagActive: (flag: string) => boolean;
 };
 
-export const FeatureFlagContext = createContext<FeatureFlagContextType>(
-  undefined
-);
+export const FeatureFlagContext =
+  createContext<FeatureFlagContextType>(undefined);
 
 const extractFeatureFlagParams = (query: ParsedUrlQuery) => {
   const featureFlags = {};

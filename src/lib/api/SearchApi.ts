@@ -9,13 +9,8 @@ import { ApiLanguageResponse } from "~/src/types/LanguagesQuery";
 const apiEnv = process.env["APP_ENV"];
 const apiUrl = process.env["API_URL"] || appConfig.api.url[apiEnv];
 
-const {
-  searchPath,
-  recordPath,
-  editionPath,
-  readPath,
-  languagesPath,
-} = appConfig.api;
+const { searchPath, recordPath, editionPath, readPath, languagesPath } =
+  appConfig.api;
 const searchUrl = apiUrl + searchPath;
 const recordUrl = apiUrl + recordPath;
 const editionUrl = apiUrl + editionPath;
