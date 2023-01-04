@@ -30,12 +30,12 @@ jobs:
       CI: true
     steps:
       - uses: actions/checkout@v2
-      - id: nvmrc
-        run: echo ::set-output name=NODE_VERSION::$(cat .nvmrc)
 
-      - name: Use Node Version from nvmrc
-        uses: actions/setup-node@v1
-        with: { node-version: "${{ steps.nvmrc.outputs.NODE_VERSION }}" }
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version-file: ".nvmrc"
+          cache: npm
 
       - name: Cache node modules
         uses: actions/cache@v2
@@ -63,12 +63,12 @@ jobs:
       CI: true
     steps:
       - uses: actions/checkout@v2
-      - id: nvmrc
-        run: echo ::set-output name=NODE_VERSION::$(cat .nvmrc)
 
-      - name: Use Node Version from nvmrc
-        uses: actions/setup-node@v1
-        with: { node-version: "${{ steps.nvmrc.outputs.NODE_VERSION }}" }
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version-file: ".nvmrc"
+          cache: npm
 
       - name: Cache node modules
         uses: actions/cache@v2
@@ -96,12 +96,12 @@ jobs:
       CI: true
     steps:
       - uses: actions/checkout@v2
-      - id: nvmrc
-        run: echo ::set-output name=NODE_VERSION::$(cat .nvmrc)
 
-      - name: Use Node Version from nvmrc
-        uses: actions/setup-node@v1
-        with: { node-version: "${{ steps.nvmrc.outputs.NODE_VERSION }}" }
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version-file: ".nvmrc"
+          cache: npm
 
       - name: Cache node modules
         uses: actions/cache@v2
@@ -126,16 +126,11 @@ jobs:
     # Don't push anything to ECR, just build the docker image to make sure there are no build failures
     name: Build Docker Image
     runs-on: ubuntu-latest
+    env:
+      CI: true
     steps:
       - name: checkout
         uses: actions/checkout@v2
-
-      - id: nvmrc
-        run: echo ::set-output name=NODE_VERSION::$(cat .nvmrc)
-
-      - name: Set up node with version from nvm
-        uses: actions/setup-node@v2
-        with: { node-version: "${{ steps.nvmrc.outputs.NODE_VERSION }}" }
 
       - name: Build image
         env:
