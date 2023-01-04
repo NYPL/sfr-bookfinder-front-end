@@ -7,7 +7,6 @@
     "build": "next build",
     "start": "next start",
     "start:newrelic": "NODE_OPTIONS='-r @newrelic/next' next start",
-    "install:ci": "npm install --legacy-peer-deps",
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint --ignore-path .gitignore '*/**/*.{ts,tsx}'",
