@@ -2,7 +2,9 @@
 
 ## [Pre-release]
 
+- add features and tests for publication year filter
 - add features and tests for language filter
+- Upgrade dgx-header-component to v2.8.0-r16-rc-3
 
 ## [0.16.0]
 
