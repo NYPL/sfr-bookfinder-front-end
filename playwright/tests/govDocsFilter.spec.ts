@@ -31,6 +31,5 @@ Then(
       .waitFor();
     const textIWant = this.page.locator("a", { hasText: "United States" });
     expect(await textIWant.count()).toBeGreaterThan(3);
-    console.log(textIWant);
   }
 );

@@ -16,7 +16,6 @@
   "dependencies": {
     "@chakra-ui/react": "1.8.8",
     "@chakra-ui/system": "1.12.1",
-    "@chakra-ui/theme-tools": "^2.0.16",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@newrelic/next": "^0.3.0",

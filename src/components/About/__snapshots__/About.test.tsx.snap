@@ -562,7 +562,6 @@ exports[`renders about unchanged 1`] = `
         >
           <div
             className="emotion-1"
-            data-testid="test"
           >
             <img
               alt="NYPL Main Building Facade"
