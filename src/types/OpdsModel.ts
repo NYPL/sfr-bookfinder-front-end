@@ -1,11 +1,11 @@
 export type Opds2Feed = {
-  facets: OpdsFacet[];
-  groups: Opds2Feed[];
-  images: OpdsImage[];
+  facets?: OpdsFacet[];
+  groups?: Opds2Feed[];
+  images?: OpdsImage[];
   links: OpdsLink[];
   metadata: OpdsMetadata;
-  navigation: OpdsNavigation[];
-  publications: OpdsPublication[];
+  navigation?: OpdsNavigation[];
+  publications?: OpdsPublication[];
 };
 
 export type OpdsFacet = {
@@ -14,63 +14,28 @@ export type OpdsFacet = {
 };
 
 export type OpdsLink = {
-  alternate: string;
-  bitrate: number;
-  children: any[];
-  duration: number;
-  height: number;
   href: string;
-  language: string;
-  properties: any;
-  rel: string;
-  templated: boolean;
-  title: string;
+  rel: string | string[];
   type: string;
-  width: number;
 };
 
 export type OpdsMetadata = {
-  abridged: string;
-  alternate: number;
-  artist: string;
-  author: string;
-  belongsTo: string;
-  bitrate: number;
-  collection: string;
-  colorist: string;
-  contributor: string;
-  description: string;
-  duration: number;
-  editor: string;
-  height: number;
-  href: string;
-  identifier: string;
-  illustrator: string;
-  imprint: string;
-  inker: string;
-  language: string;
-  letterer: string;
-  links: OpdsLink[];
-  modified: string;
-  name: string;
-  narrator: string;
-  numberOfPages: number;
-  numberOfItems: number;
-  penciler: string;
-  position: string;
-  published: number;
-  publisher: string;
-  readingOrder: ReadingOrder[];
-  rel: string;
-  resources: Resource[];
-  series: string;
-  sortAs: string;
-  subject: string;
-  subtitle: string;
+  "@type"?: string;
+  alternate?: string | string[];
+  created?: string;
+  creator?: string;
+  currentPage?: number;
+  description?: string;
+  itemsPerPage?: number;
+  language?: string;
+  locationCreated?: string;
+  modified?: string;
+  numberOfItems?: number;
+  published?: number;
+  publisher?: string;
+  sortAs?: string;
+  subtitle?: string;
   title: string;
-  translator: string;
-  type: string;
-  width: number;
 };
 
 export type ReadingOrder = {
@@ -121,17 +86,6 @@ export type OpdsPublication = {
 };
 
 export type OpdsImage = {
-  alternate: string;
-  bitrate: number;
-  children: any[];
-  duration: number;
-  height: number;
   href: string;
-  language: string;
-  properties: any;
-  rel: string;
-  templated: boolean;
-  title: string;
   type: string;
-  width: number;
 };

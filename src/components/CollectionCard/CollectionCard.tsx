@@ -7,7 +7,6 @@ import {
   Heading,
   Text,
 } from "@nypl/design-system-react-components";
-import Link from "../Link/Link";
 import { PLACEHOLDER_COVER_LINK } from "~/src/constants/editioncard";
 import { Opds2Feed } from "~/src/types/OpdsModel";
 import CollectionUtils from "~/src/util/CollectionUtils";
@@ -15,21 +14,6 @@ import CollectionUtils from "~/src/util/CollectionUtils";
 export const CollectionCard: React.FC<{ collection: Opds2Feed }> = ({
   collection,
 }) => {
-  const collectionTitleElem = (collection: Opds2Feed) => {
-    const collectionElem = collection ? (
-      <Link
-        to={{
-          pathname: collection.links[0].href,
-        }}
-      >
-        {collection.metadata.title}
-      </Link>
-    ) : (
-      <>{collection.metadata.title}</>
-    );
-    return collectionElem;
-  };
-
   const coverUrl = CollectionUtils.getCover(collection);
   const collectionId = CollectionUtils.getId(collection.links);
 
@@ -43,19 +27,20 @@ export const CollectionCard: React.FC<{ collection: Opds2Feed }> = ({
           coverUrl === PLACEHOLDER_COVER_LINK
             ? "Placeholder Cover"
             : `Cover for ${collection.metadata.title}`,
-        size: "xsmall",
         aspectRatio: "twoByOne",
       }}
-      mainActionLink={"/collection/" + collectionId}
+      mainActionLink={collection.links[0].href}
       isBordered
       width="264px"
       minHeight="405px"
     >
-      <CardHeading level="one" size="callout" id="stack1-heading1">
+      <CardHeading level="one" id="stack1-heading1">
         <Text size="caption" isUppercase>
           <b>Collection</b>
         </Text>
-        {collectionTitleElem(collection)}
+        <Heading size="tertiary" color="ui.link.primary">
+          {collection.metadata.title}
+        </Heading>
       </CardHeading>
       <CardContent>
         <Box>

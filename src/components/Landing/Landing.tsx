@@ -18,7 +18,9 @@ import { defaultBreadcrumbs } from "~/src/constants/labels";
 import CollectionList from "../CollectionList/CollectionList";
 import { Opds2Feed } from "~/src/types/OpdsModel";
 
-const LandingPage: React.FC<{ collections: Opds2Feed }> = ({ collections }) => {
+const LandingPage: React.FC<{ collections?: Opds2Feed }> = ({
+  collections,
+}) => {
   const subHeader = (
     <span>
       Find millions of digital books for research from multiple sources

@@ -5,7 +5,7 @@ import { Opds2Feed, OpdsLink } from "../types/OpdsModel";
 
 export default class CollectionUtils {
   /** Get Cover Image
-   * @param covers - The list of covers
+   * @param collection - The collection
    * @returns The URL of the cover that should be displayed.
    */
   static getCover(collection: Opds2Feed): string {
@@ -17,9 +17,11 @@ export default class CollectionUtils {
     return coverLink ? formatUrl(coverLink.href) : PLACEHOLDER_COVER_LINK;
   }
 
+  // TODO: replace with collection_id property that will be added on backend response
   static getId(links: OpdsLink[]): string {
     if (!links || links.length === 0) return "";
-    const id = links[0].href.match(/.*\/(.*)\?/g);
+    const link = links[0].href;
+    const id = link.substring(link.lastIndexOf("/") + 1, link.indexOf("?"));
     return id[0] ?? "";
   }
 }

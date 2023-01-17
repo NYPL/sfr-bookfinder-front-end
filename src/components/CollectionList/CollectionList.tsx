@@ -8,22 +8,26 @@ export const CollectionList: React.FC<{ collections: Opds2Feed }> = ({
 }) => {
   return (
     <Box>
-      <Flex wrap="wrap" gap="l">
-        {collections.groups.map((collection, index) => {
-          if (index < 8)
-            return <CollectionCard key={index} collection={collection} />;
-        })}
-        {collections.groups.length > 8 && (
-          <Link
-            type="forwards"
-            href="/collections"
-            marginTop="m"
-            marginLeft="auto"
-          >
-            View All Collections
-          </Link>
-        )}
-      </Flex>
+      {collections ? (
+        <Flex wrap="wrap" gap="l">
+          {collections.groups.map((collection, index) => {
+            if (index < 8)
+              return <CollectionCard key={index} collection={collection} />;
+          })}
+          {collections.groups.length > 8 && (
+            <Link
+              type="forwards"
+              href="/collections"
+              marginTop="m"
+              marginLeft="auto"
+            >
+              View All Collections
+            </Link>
+          )}
+        </Flex>
+      ) : (
+        "No collections available"
+      )}
     </Box>
   );
 };
