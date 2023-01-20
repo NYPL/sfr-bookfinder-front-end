@@ -33,14 +33,25 @@ export const CollectionCard: React.FC<{ collection: Opds2Feed }> = ({
       isBordered
       width="264px"
       minHeight="405px"
+      sx={{
+        "a > h2": {
+          color: "ui.link.primary",
+          textDecoration: "underline",
+        },
+        "h1 > a": {
+          textDecoration: "none",
+          _hover: {
+            p: { color: "initial" },
+            h2: { color: "ui.link.secondary" },
+          },
+        },
+      }}
     >
       <CardHeading level="one" id="stack1-heading1">
         <Text size="caption" isUppercase>
           <b>Collection</b>
         </Text>
-        <Heading size="tertiary" color="ui.link.primary">
-          {collection.metadata.title}
-        </Heading>
+        <Heading size="tertiary">{collection.metadata.title}</Heading>
       </CardHeading>
       <CardContent>
         <Box>

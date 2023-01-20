@@ -16,8 +16,12 @@ export const collectionFetcher = async (query: CollectionQuery) => {
   const res = await fetch(url.toString());
 
   if (res.ok) {
-    const collectionResult: CollectionResult = await res.json();
-    return collectionResult;
+    try {
+      const collectionResult: CollectionResult = await res.json();
+      return collectionResult;
+    } catch (e) {
+      throw new Error(e.error);
+    }
   } else {
     throw new Error(
       `cannot find collection with identifier ${query.identifier}`
