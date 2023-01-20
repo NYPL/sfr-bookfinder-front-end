@@ -48,7 +48,7 @@ export const CollectionCard: React.FC<{ collection: Opds2Feed }> = ({
       }}
     >
       <CardHeading level="one" id="stack1-heading1">
-        <Text size="caption" isUppercase>
+        <Text size="caption" isUppercase marginTop="xs" marginBottom="xxs">
           <b>Collection</b>
         </Text>
         <Heading size="tertiary">{collection.metadata.title}</Heading>
