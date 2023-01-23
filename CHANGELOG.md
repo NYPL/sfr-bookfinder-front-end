@@ -1,6 +1,6 @@
 # CHANGE LOG
 
-## [Pre-release]
+## [0.16.1]
 
 - add features and tests for publication year filter
 - add features and tests for language filter
