@@ -1,11 +1,10 @@
 import { Given, Then } from "@cucumber/cucumber";
 import { expect } from "@playwright/test";
 import { CustomWorld } from "../support/setup";
+import { itemDetailURL } from "../support/constants";
 
 Given("I am on an item detail page", async function (this: CustomWorld) {
-  return await this.page.goto(
-    `${this.parameters.appUrl}/work/01a28167-8c8d-4141-a32f-718539d5c8a4?featured=949699`
-  );
+  return await this.page.goto(`${this.parameters.appUrl}/${itemDetailURL}`);
 });
 
 Then("I see the item title", async function (this: CustomWorld) {

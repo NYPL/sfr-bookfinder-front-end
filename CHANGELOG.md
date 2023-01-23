@@ -1,6 +1,14 @@
 # CHANGE LOG
 
+## [0.16.1]
+
+- add features and tests for publication year filter
+- add features and tests for language filter
+- Upgrade dgx-header-component to v2.8.0-r16-rc-3
+
 ## [0.16.0]
+
+- add features and tests for government docs filter
 - Add github actions to automate tag and release
 - Replace DS Header component with dgx-header-component v2.8.0-r16-rc-2
 

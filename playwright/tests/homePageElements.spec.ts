@@ -64,7 +64,7 @@ Then("I see input field", async function (this: CustomWorld) {
 });
 
 Then("I see search button", async function (this: CustomWorld) {
-  await expect(this.page.locator("//*[@data-testid='button']")).toBeVisible();
+  await expect(this.page.locator("#searchbar-button-search-bar")).toBeVisible();
 });
 
 Then("I see advanced search link", async function (this: CustomWorld) {
@@ -80,7 +80,7 @@ Then("I see 5 search examples", async function (this: CustomWorld) {
   await expect(searchexamples).toHaveCount(5);
 });
 Then("I see the footer", async function (this: CustomWorld) {
-  await expect(this.page.locator("footer")).toBeVisible();
+  await expect(this.page.locator("#footer")).toBeVisible();
 });
 Then("I see the feedback button", async function (this: CustomWorld) {
   await expect(
