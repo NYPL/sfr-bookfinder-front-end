@@ -1,6 +1,5 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import Subjects from "~/config/subjectListConfig";
 import LandingPage from "./Landing";
 import {
   searchFormRenderTests,
@@ -9,10 +8,14 @@ import {
 
 jest.mock("next/router", () => require("next-router-mock"));
 import mockRouter from "next-router-mock";
+import {
+  collectionListData,
+  collections,
+} from "~/src/__tests__/fixtures/CollectionFixture";
 
 describe("Renders Index Page", () => {
   beforeEach(async () => {
-    render(<LandingPage />);
+    render(<LandingPage collections={collectionListData} />);
 
     // Wait for page to be loaded
     await screen.findByRole("heading", {
@@ -34,12 +37,12 @@ describe("Renders Index Page", () => {
     searchFormRenderTests();
   });
 
-  test("Shows Search Examples", () => {
-    expect(screen.getByText("Search Examples")).toBeInTheDocument();
-    Subjects.forEach((sub) => {
-      expect(screen.getByText(sub.text)).toBeInTheDocument();
-      expect(screen.getByText(sub.text).closest("a").href).toContain(
-        "/search?query="
+  test("Shows Recently Added Collections", () => {
+    expect(screen.getByText("Recently Added Collections")).toBeInTheDocument();
+    collections.forEach((collection) => {
+      expect(screen.getByText(collection.title)).toBeInTheDocument();
+      expect(screen.getByText(collection.title).closest("a").href).toContain(
+        collection.href
       );
     });
   });

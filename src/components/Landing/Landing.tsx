@@ -1,11 +1,11 @@
 import React from "react";
 import {
+  Box,
   Breadcrumbs,
   Footer,
   Heading,
   Hero,
   Link,
-  List,
   Template,
   TemplateBreakout,
   TemplateContent,
@@ -14,10 +14,13 @@ import {
   TemplateFooter,
 } from "@nypl/design-system-react-components";
 import SearchForm from "~/src/components/SearchForm/SearchForm";
-import Subjects from "~/config/subjectListConfig";
 import { defaultBreadcrumbs } from "~/src/constants/labels";
+import CollectionList from "../CollectionList/CollectionList";
+import { Opds2Feed } from "~/src/types/OpdsModel";
 
-const LandingPage: React.FC<any> = () => {
+const LandingPage: React.FC<{ collections?: Opds2Feed }> = ({
+  collections,
+}) => {
   const subHeader = (
     <span>
       Find millions of digital books for research from multiple sources
@@ -55,15 +58,10 @@ const LandingPage: React.FC<any> = () => {
           <SearchForm />
         </TemplateContentTop>
         <TemplateContentPrimary>
-          <Heading level="two">Search Examples</Heading>
-
-          <List type="ul" id="subject-list">
-            {Subjects.map((sub: any) => (
-              <li key={`subject-link-${sub.url}`}>
-                <Link href={sub.url}>{sub.text}</Link>
-              </li>
-            ))}
-          </List>
+          <Box marginLeft="l" marginRight="l">
+            <Heading level="two">Recently Added Collections</Heading>
+            <CollectionList collections={collections} />
+          </Box>
         </TemplateContentPrimary>
       </TemplateContent>
       <TemplateFooter>
