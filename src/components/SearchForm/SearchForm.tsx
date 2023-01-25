@@ -9,8 +9,7 @@ import Link from "../Link/Link";
 
 const SearchForm: React.FC<{
   searchQuery?: SearchQuery;
-  isFullWidth?: boolean;
-}> = ({ searchQuery, isFullWidth }) => {
+}> = ({ searchQuery }) => {
   const initialDefaultQuery: Query = { query: "", field: SearchField.Keyword };
 
   // The display query is the query that's auto-populated in the searchbar.
@@ -69,7 +68,7 @@ const SearchForm: React.FC<{
   };
 
   return (
-    <Box width={isFullWidth ? "100%" : { md: "85%" }} overflow="auto">
+    <Box overflow="auto">
       <SearchBar
         id="search-bar"
         invalidText={errorMessagesText.emptySearch}

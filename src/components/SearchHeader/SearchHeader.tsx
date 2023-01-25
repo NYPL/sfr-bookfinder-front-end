@@ -23,8 +23,10 @@ const SearchHeader: React.FC<{
         }
       />
       <Box bg="ui.gray.x-light-cool">
-        <Box m="0 auto" maxW="1280px" width="100%" p="s">
-          <SearchForm searchQuery={searchQuery} />
+        <Box m="0 auto" maxW="1280px" p="s">
+          <Box width={{ md: "85%" }}>
+            <SearchForm searchQuery={searchQuery} />
+          </Box>
         </Box>
       </Box>
     </>
