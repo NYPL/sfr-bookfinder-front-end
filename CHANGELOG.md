@@ -6,6 +6,7 @@
 - add features and tests for language filter
 - Upgrade dgx-header-component to v2.8.0-r16-rc-3
 - Replace Search Examples with Recently Added Collections to landing page
+- Add primary hero to the landing page
 
 ## [0.16.0]
 

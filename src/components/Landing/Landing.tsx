@@ -7,11 +7,12 @@ import {
   Hero,
   Link,
   Template,
+  TemplateAboveHeader,
   TemplateBreakout,
   TemplateContent,
   TemplateContentPrimary,
-  TemplateContentTop,
   TemplateFooter,
+  TemplateHeader,
 } from "@nypl/design-system-react-components";
 import SearchForm from "~/src/components/SearchForm/SearchForm";
 import { defaultBreadcrumbs } from "~/src/constants/labels";
@@ -22,41 +23,65 @@ const LandingPage: React.FC<{ collections?: Opds2Feed }> = ({
   collections,
 }) => {
   const subHeader = (
-    <span>
-      Find millions of digital books for research from multiple sources
-      world-wide--all free to read, download, and keep. No library card
-      required. This is an early beta test, so we want your feedback!{" "}
-      <Link href="/about" _hover={{ color: "ui.white" }} color="ui.white">
-        Read more about the project
-      </Link>
-      .
-    </span>
+    <Box>
+      <span>
+        Find millions of digital books for research from multiple sources
+        world-wide--all free to read, download, and keep. No library card
+        required. This is an early beta test, so we want your feedback!{" "}
+        <Link href="/about" color="ui.link.primary">
+          Read more about the project
+        </Link>
+        .
+      </span>
+      <Box marginTop="s">
+        Search the World's Research Collections
+        <SearchForm />
+      </Box>
+    </Box>
   );
   return (
     <Template>
       <TemplateBreakout>
-        <Breadcrumbs
-          breadcrumbsType="research"
-          breadcrumbsData={defaultBreadcrumbs}
-        />
-        <Hero
-          backgroundColor="section.research.primary"
-          heroType="tertiary"
-          heading={
-            <Heading level="one" id="tertiary-hero">
-              <>
-                Digital Research Books <sup>Beta</sup>
-              </>
-            </Heading>
-          }
-          subHeaderText={subHeader}
-        />
+        <TemplateAboveHeader>
+          <Breadcrumbs
+            breadcrumbsType="research"
+            breadcrumbsData={defaultBreadcrumbs}
+          />
+        </TemplateAboveHeader>
+        <TemplateHeader>
+          <Hero
+            backgroundColor="section.research.primary"
+            heroType="tertiary"
+            heading={
+              <Heading level="one" id="tertiary-hero">
+                <>
+                  Digital Research Books <sup>Beta</sup>
+                </>
+              </Heading>
+            }
+          />
+          <Hero
+            backgroundColor="#E9E9E9"
+            backgroundImageSrc="https://placeimg.com/2400/800/nature" // TODO: replace with image from Product team
+            heroType="primary"
+            heading={
+              <Heading level="one" id="primary-hero">
+                Search the World's Research Collections
+              </Heading>
+            }
+            subHeaderText={subHeader}
+            sx={{
+              "> div": {
+                color: "ui.black",
+              },
+              "div a": {
+                color: "ui.link.primary",
+              },
+            }}
+          />
+        </TemplateHeader>
       </TemplateBreakout>
       <TemplateContent>
-        <TemplateContentTop>
-          Search the World's Research Collections
-          <SearchForm />
-        </TemplateContentTop>
         <TemplateContentPrimary>
           <Box marginLeft="l" marginRight="l">
             <Heading level="two">Recently Added Collections</Heading>
