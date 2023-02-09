@@ -18,7 +18,7 @@ export type ApiEdition = {
   edition_id?: number;
   edition_statement?: string;
   extent?: string;
-  inCollections: OpdsMetadata[];
+  inCollections?: OpdsMetadata[];
   instances: Instance[];
   languages?: Language[];
   publication_date?: string;

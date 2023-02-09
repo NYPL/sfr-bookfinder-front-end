@@ -2,8 +2,8 @@ import React from "react";
 import EditionDetailDefinitionList from "./EditionDetailDefinitionList";
 import "@testing-library/jest-dom/extend-expect";
 import { screen, render } from "@testing-library/react";
-import { ApiEdition, EditionResult } from "~/src/types/EditionQuery";
-const editionDetailFullData: EditionResult = require("../../__tests__/fixtures/edition-detail.json");
+import { ApiEdition } from "~/src/types/EditionQuery";
+import { editionDetail as editionDetailFullData } from "../../__tests__/fixtures/EditionDetailFixture";
 
 describe("Edition Detail table with all information", () => {
   beforeEach(() => {

@@ -21,7 +21,7 @@ export type ApiWork = {
   dates?: Date[];
   editions?: WorkEdition[];
   edition_count?: number;
-  inCollections: OpdsMetadata[];
+  inCollections?: OpdsMetadata[];
   languages?: Language[];
   measurements?: string[];
   medium?: string;

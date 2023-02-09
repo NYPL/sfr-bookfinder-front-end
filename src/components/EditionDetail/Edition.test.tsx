@@ -112,7 +112,6 @@ describe("Breadcrumb truncates on long title", () => {
       <Edition
         editionResult={{
           data: {
-            inCollections: [],
             instances: [],
             title:
               "super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super super long title",
