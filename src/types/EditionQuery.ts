@@ -1,4 +1,5 @@
 import { Agent, Instance, Language } from "./DataModel";
+import { OpdsMetadata } from "./OpdsModel";
 
 export type EditionQuery = {
   editionIdentifier: string;
@@ -13,22 +14,23 @@ export type EditionResult = {
 };
 
 export type ApiEdition = {
-  edition_id?: number;
-  publication_place?: string;
-  publication_date?: string;
   edition?: string;
+  edition_id?: number;
   edition_statement?: string;
-  volume?: string;
-  table_of_contents?: string;
   extent?: string;
-  summary?: string;
-  work_id?: number;
-  languages?: Language[];
-  publishers?: Agent[];
-  work_uuid?: string;
+  inCollections: OpdsMetadata[];
   instances: Instance[];
-  title?: string;
+  languages?: Language[];
+  publication_date?: string;
+  publication_place?: string;
+  publishers?: Agent[];
   sub_title?: string;
-  work_title?: string;
+  summary?: string;
+  table_of_contents?: string;
+  title?: string;
+  volume?: string;
   work_authors?: Agent[];
+  work_id?: number;
+  work_title?: string;
+  work_uuid?: string;
 };

@@ -36,6 +36,7 @@ export type OpdsMetadata = {
   sortAs?: string;
   subtitle?: string;
   title: string;
+  uuid?: string;
 };
 
 export type ReadingOrder = {
