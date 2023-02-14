@@ -139,7 +139,7 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
           {edition.inCollections && edition.inCollections.length > 0 && (
             <Card
               imageProps={{
-                alt: "Collection cover image",
+                alt: `${edition.inCollections[0].title} cover image`,
                 aspectRatio: "original",
                 isAtEnd: true,
                 size: "small",
