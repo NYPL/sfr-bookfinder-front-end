@@ -131,7 +131,7 @@ const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
           {work.inCollections && work.inCollections.length > 0 && (
             <Card
               imageProps={{
-                alt: `${work.inCollections[0].title} cover image`,
+                alt: "Placeholder Cover",
                 aspectRatio: "original",
                 isAtEnd: true,
                 size: "small",
