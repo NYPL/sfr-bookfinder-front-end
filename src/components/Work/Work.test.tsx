@@ -3,9 +3,11 @@ import Work from "./Work";
 import "@testing-library/jest-dom/extend-expect";
 import { screen, render, within, fireEvent } from "@testing-library/react";
 import { breadcrumbTitles, inputTerms } from "~/src/constants/labels";
-import { WorkResult } from "~/src/types/WorkQuery";
-const apiWork: WorkResult = require("../../__tests__/fixtures/work-detail.json");
-const apiWorkOnlyCatalog: WorkResult = require("../../__tests__/fixtures/work-only-catalog-link.json");
+import {
+  workDetail as apiWork,
+  workDetailWithCatalog as apiWorkOnlyCatalog,
+  workDetailInCollection,
+} from "../../__tests__/fixtures/WorkDetailFixture";
 import mockRouter from "next-router-mock";
 
 jest.mock("next/router", () => require("next-router-mock"));
@@ -84,6 +86,9 @@ describe("Renders Work component when given valid work", () => {
     expect(
       screen.getByRole("heading", { name: "Details" })
     ).toBeInTheDocument();
+  });
+  test("Does not show Part of Collection card when inCollections is empty", () => {
+    expect(screen.queryByText("Part of Collection")).not.toBeInTheDocument();
   });
 });
 
@@ -229,5 +234,26 @@ describe("Work - Back to search results link", () => {
         screen.queryByRole("link", { name: "Back to search results" })
       ).not.toBeInTheDocument();
     });
+  });
+});
+
+describe("Renders Part of Collection card when inCollections is not empty", () => {
+  beforeEach(() => {
+    render(<Work workResult={workDetailInCollection} />);
+  });
+
+  test("Shows Part of Collection", () => {
+    expect(screen.getByText("Part of Collection")).toBeInTheDocument();
+  });
+
+  test("Browse Collection link directs to collection page", () => {
+    expect(
+      screen.getByRole("link", {
+        name: "Browse Collection",
+      })
+    ).toHaveAttribute(
+      "href",
+      "/collection/37a7e91d-31cd-444c-8e97-7f17426de7ec"
+    );
   });
 });
