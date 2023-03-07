@@ -1,3 +1,5 @@
+import { Rights } from "./DataModel";
+
 export type Opds2Feed = {
   facets?: OpdsFacet[];
   groups?: Opds2Feed[];
@@ -17,6 +19,12 @@ export type OpdsLink = {
   href: string;
   rel: string | string[];
   type: string;
+  identifier?:
+    | "catalog"
+    | "downloadable"
+    | "embedable"
+    | "readable"
+    | "requestable";
 };
 
 export type OpdsMetadata = {
@@ -33,6 +41,7 @@ export type OpdsMetadata = {
   numberOfItems?: number;
   published?: number;
   publisher?: string;
+  rights?: Rights;
   sortAs?: string;
   subtitle?: string;
   title: string;

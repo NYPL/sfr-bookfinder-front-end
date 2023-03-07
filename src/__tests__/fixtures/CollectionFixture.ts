@@ -1,5 +1,5 @@
 import { CollectionResult } from "~/src/types/CollectionQuery";
-import { Opds2Feed } from "~/src/types/OpdsModel";
+import { Opds2Feed, OpdsPublication } from "~/src/types/OpdsModel";
 
 export const collections = [
   {
@@ -350,6 +350,11 @@ export const collectionData: Opds2Feed = {
         published: 1947,
         publisher: "Thomas Y. Crowell,, T. Y. Crowell Co., Crowell, New York",
         sortAs: "judge landis and twenty-five years of baseball",
+        rights: {
+          license: "public_domain",
+          rightsStatement: "Public Domain",
+          source: "hathitrust",
+        },
         subtitle: null,
         title: "Judge Landis and twenty-five years of baseball",
       },
@@ -1921,4 +1926,55 @@ export const collectionListData: CollectionResult = {
     numberOfItems: 10,
     title: "Digital Research Books Collections",
   },
+};
+
+export const collectionItem: OpdsPublication = {
+  editions: [],
+  images: [
+    {
+      href:
+        "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
+      type: "image/png",
+    },
+  ],
+  links: [
+    {
+      href:
+        "www.nypl.org/research/collections/shared-collection-catalog/bib/b14514889",
+      identifier: "catalog",
+      rel: "http://opds-spec.org/acquisition/open-access",
+      type: "application/html+catalog",
+    },
+    {
+      href:
+        "www.nypl.org/research/collections/shared-collection-catalog/hold/request/b14514889-i38116343",
+      identifier: "requestable",
+      rel: "http://opds-spec.org/acquisition/open-access",
+      type: "application/html+edd",
+    },
+    {
+      href: "https://drb-qa.nypl.org/edition/4267756",
+      identifier: "readable",
+      rel: "alternate",
+      type: "text/html",
+    },
+  ],
+  metadata: {
+    "@type": "http://schema.org/Book",
+    alternate: [],
+    created: "Tue, 18 May 2021 10:00:41 GMT",
+    creator: "Wray, J. E. (J. Edward)",
+    description: '{"Master microform held by: NN."}',
+    language: "eng",
+    locationCreated: "New York (State)",
+    modified: "Tue, 18 May 2021 10:00:41 GMT",
+    published: 1900,
+    publisher: "American Sports Publishing,",
+    sortAs:
+      "how to organize a league, manage a team, captain a team, coach a team, score a game, arrange signals [microform] including how to lay out a league diamond, and technical terms of base ball,",
+    subtitle: null,
+    title:
+      "How to organize a league, manage a team, captain a team, coach a team, score a game, arrange signals [microform] including how to lay out a league diamond, and technical terms of base ball,",
+  },
+  type: "application/opds-publication+json",
 };

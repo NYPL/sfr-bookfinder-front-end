@@ -8,6 +8,7 @@
 - Replace Search Examples with Recently Added Collections to landing page
 - Add primary hero to the landing page
 - Add Part of Collection to Edition/Work pages
+- Add Collection page
 
 ## [0.16.0]
 
