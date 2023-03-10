@@ -1,11 +1,14 @@
 import React from "react";
-import { act, fireEvent, screen } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
 import { render } from "../../__tests__/testUtils/render";
-import { resizeWindow } from "../../__tests__/testUtils/screen";
 import Collection from "./Collection";
 import { CollectionQuery, CollectionResult } from "~/src/types/CollectionQuery";
-import { collectionData } from "~/src/__tests__/fixtures/CollectionFixture";
+import {
+  collectionData,
+  collectionWithPagination,
+} from "~/src/__tests__/fixtures/CollectionFixture";
 import mockRouter from "next-router-mock";
+import userEvent from "@testing-library/user-event";
 
 jest.mock("next/router", () => require("next-router-mock"));
 
@@ -13,7 +16,7 @@ const collectionResults: CollectionResult = collectionData;
 const collectionQuery: CollectionQuery = {
   identifier: "id",
   page: 1,
-  perPage: 10,
+  perPage: 5,
   sort: "relevance",
 };
 
@@ -25,9 +28,6 @@ describe("Renders Collection Page", () => {
         collectionResult={collectionResults}
       />
     );
-    act(() => {
-      resizeWindow(300, 1000);
-    });
   });
   test("Shows the current collection with title", () => {
     expect(
@@ -37,19 +37,21 @@ describe("Renders Collection Page", () => {
   test("Shows Item Count correctly", () => {
     expect(screen.getByText("Viewing 1 - 3 of 3 items")).toBeInTheDocument();
   });
-  test("Pagination does not appear", () => {
-    const previousLink = screen.queryByRole("link", {
-      name: "Previous page",
-    });
-    const nextLink = screen.queryByRole("link", {
-      name: "Next page",
-    });
+  describe("Pagination does not appear in collections with <10 items", () => {
+    test("Pagination does not appear", () => {
+      const previousLink = screen.queryByRole("link", {
+        name: "Previous page",
+      });
+      const nextLink = screen.queryByRole("link", {
+        name: "Next page",
+      });
 
-    expect(previousLink).not.toBeInTheDocument();
-    expect(nextLink).not.toBeInTheDocument();
+      expect(previousLink).not.toBeInTheDocument();
+      expect(nextLink).not.toBeInTheDocument();
+    });
   });
   describe("Sorts filters", () => {
-    test("Changing items sends new request ", () => {
+    test("Changing sort by sends new request", () => {
       const sortBy = screen.getByLabelText("Sort By");
       expect(sortBy).toBeVisible();
       fireEvent.change(sortBy, { target: { value: "Title A-Z" } });
@@ -100,6 +102,74 @@ describe("Renders Collection Page", () => {
       expect(
         screen.getByText("License: Public Domain").closest("a").href
       ).toContain("/license");
+    });
+  });
+});
+
+describe("Render Collection Page with >10 items", () => {
+  beforeEach(() => {
+    render(
+      <Collection
+        collectionQuery={collectionQuery}
+        collectionResult={collectionWithPagination}
+      />
+    );
+  });
+
+  describe("Pagination appears", () => {
+    test("Previous page link does not appear", () => {
+      const previousLink = screen.queryByRole("link", {
+        name: "Previous page",
+      });
+      expect(previousLink).not.toBeInTheDocument();
+    });
+    test("Next page link appears and is clickable", () => {
+      const nextLink = screen.getByRole("link", { name: "Next page" });
+      expect(nextLink).toBeInTheDocument();
+      userEvent.click(nextLink);
+      expect(mockRouter).toMatchObject({
+        pathname: "/collection/id",
+        query: {
+          page: 2,
+        },
+      });
+    });
+    test("Middle numbers are clickable", () => {
+      const twoButton = screen.getByRole("link", { name: "Page 2" });
+      expect(twoButton).toBeInTheDocument();
+      userEvent.click(twoButton);
+      expect(mockRouter).toMatchObject({
+        pathname: "/collection/id",
+        query: {
+          page: 2,
+        },
+      });
+    });
+  });
+
+  describe("Sorts filters", () => {
+    test("Changing number of items sends new request", () => {
+      const itemsPerPage = screen.getByLabelText("Items Per Page");
+      expect(itemsPerPage).toBeVisible();
+      fireEvent.change(itemsPerPage, { target: { value: "50" } });
+      expect(itemsPerPage).toHaveValue("50");
+      expect(mockRouter).toMatchObject({
+        pathname: "/collection/id",
+        query: {
+          perPage: "50",
+        },
+      });
+
+      // pagination should not show since <50 items
+      const previousLink = screen.queryByRole("link", {
+        name: "Previous page",
+      });
+      const nextLink = screen.queryByRole("link", {
+        name: "Next page",
+      });
+
+      expect(previousLink).not.toBeInTheDocument();
+      expect(nextLink).not.toBeInTheDocument();
     });
   });
 });
