@@ -1,17 +1,15 @@
 import React from "react";
-import { formatUrl, truncateStringOnWhitespace } from "./Util";
-import {
-  MAX_PLACE_LENGTH,
-  MAX_PUBLISHER_NAME_LENGTH,
-  PLACEHOLDER_COVER_LINK,
-} from "../constants/editioncard";
+import { formatUrl } from "./Util";
+import { PLACEHOLDER_COVER_LINK } from "../constants/editioncard";
 import { MediaTypes } from "../constants/mediaTypes";
 import { Opds2Feed, OpdsLink } from "../types/OpdsModel";
-import { Rights } from "../types/DataModel";
 import { ApiSearchQuery } from "../types/SearchQuery";
 import Link from "../components/Link/Link";
 import { Box, Icon } from "@nypl/design-system-react-components";
 import * as gtag from "../lib/Analytics";
+import { LOGIN_LINK, SCAN_AND_DELIVER_LINK } from "../constants/links";
+
+type ReadOnlineTypes = "readable" | "embedable";
 
 export default class CollectionUtils {
   /** Get Cover Image
@@ -54,53 +52,7 @@ export default class CollectionUtils {
     );
   }
 
-  /**
-   * Get publisher and publish location
-   * @param pubPlace - The display name of the place of publication
-   * @param agents - an array of Agents
-   * @returns A display element for publisher and location
-   */
-  static getPublisherAndLocation(
-    pubPlace: string,
-    publisher: string
-  ): JSX.Element {
-    const publisherDisplayLocation = (pubPlace: string) => {
-      return pubPlace
-        ? ` in ${truncateStringOnWhitespace(pubPlace, MAX_PLACE_LENGTH)}`
-        : "";
-    };
-
-    const publisherDisplayText = (publisher: string) => {
-      if (!publisher) return "";
-      return ` by ${truncateStringOnWhitespace(
-        publisher,
-        MAX_PUBLISHER_NAME_LENGTH
-      )}`;
-    };
-
-    const displayLocation = publisherDisplayLocation(pubPlace);
-    const displayName = publisherDisplayText(publisher);
-    if (!displayLocation && !displayName)
-      return <>Publisher and Location Unknown</>;
-    const publisherText = `Published${displayLocation}${displayName}`;
-    return <>{publisherText}</>;
-  }
-
-  // Language Display
-  static getLanguageDisplayText(language: string) {
-    if (language) {
-      const languageText = `Languages: ${language}`;
-      return <>{languageText}</>;
-    }
-    return <>Languages: Undetermined</>;
-  }
-
-  // Rights
-  static getLicense(rights: Rights) {
-    return rights ? `License: ${rights.rightsStatement}` : "License: Unknown";
-  }
-
-  static getReadLink = (links: OpdsLink[], type: "readable" | "embedable") => {
+  static getReadLink = (links: OpdsLink[], type: ReadOnlineTypes) => {
     if (!links) return undefined;
     return links.find((link: OpdsLink) => {
       return link.identifier === type;
@@ -135,8 +87,9 @@ export default class CollectionUtils {
     }
     return <>Not yet available</>;
   }
+
   static selectDownloadLink = (links: OpdsLink[]) => {
-    if (links) return undefined;
+    if (!links) return undefined;
     return links.find((link: OpdsLink) => {
       return link.identifier === "downloadable";
     });
@@ -206,10 +159,7 @@ export default class CollectionUtils {
           <Box whiteSpace="initial">
             You can request a partial scan via NYPL
           </Box>
-          <Link
-            to="https://www.nypl.org/research/scan-and-deliver"
-            target="_blank"
-          >
+          <Link to={SCAN_AND_DELIVER_LINK} target="_blank">
             Scan and Deliver
           </Link>
           <Link
@@ -226,12 +176,7 @@ export default class CollectionUtils {
       return (
         <>
           May be available via NYPL<br></br>
-          <Link
-            to={`https://login.nypl.org/auth/login?redirect_uri=${encodeURIComponent(
-              window.location.href
-            )}`}
-            linkType="button"
-          >
+          <Link to={LOGIN_LINK} linkType="button">
             Log in for options
           </Link>
         </>

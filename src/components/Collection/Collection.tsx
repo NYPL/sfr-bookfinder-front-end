@@ -35,19 +35,19 @@ import ResultsSorts from "../ResultsSorts/ResultsSorts";
 import { useRouter } from "next/router";
 import { CollectionItemCard } from "../CollectionItemCard/CollectionItemCard";
 import Link from "../Link/Link";
+import Loading from "../Loading/Loading";
 
 const Collection: React.FC<{
   collectionQuery: CollectionQuery;
   collectionResult: CollectionResult;
-}> = (props) => {
-  const { collectionResult } = props;
+}> = ({ collectionQuery, collectionResult }) => {
   const router = useRouter();
-  const [collectionQuery, setCollectionQuery] = useState({
+  const [currentCollectionQuery, setCollectionQuery] = useState({
     ...CollectionQueryDefaults,
-    ...props.collectionQuery,
+    ...collectionQuery,
   });
 
-  if (!collectionResult) return <>Loading</>;
+  if (!collectionResult) return <Loading />;
 
   const collectionId = CollectionUtils.getId(collectionResult.links);
 
@@ -61,17 +61,17 @@ const Collection: React.FC<{
   );
   const firstElement = (collectionMetadata.currentPage - 1) * itemsPerPage + 1;
   const lastElement =
-    collectionQuery.page <= lastPage
+    currentCollectionQuery.page <= lastPage
       ? collectionMetadata.currentPage * itemsPerPage
       : totalItems;
 
   const pageCount = Math.ceil(
-    collectionMetadata.numberOfItems / collectionQuery.perPage
+    collectionMetadata.numberOfItems / currentCollectionQuery.perPage
   );
 
   const getSortValue = () => {
     const sortValue = Object.keys(collectionSortMap).find(
-      (key) => collectionSortMap[key].field === collectionQuery.sort
+      (key) => collectionSortMap[key].field === currentCollectionQuery.sort
     );
     return collectionSortMap[sortValue];
   };
@@ -87,10 +87,10 @@ const Collection: React.FC<{
     e.preventDefault();
     const newPage = 0;
     const newPerPage = e.target.value;
-    if (newPerPage !== collectionQuery.perPage) {
+    if (newPerPage !== currentCollectionQuery.perPage) {
       const newCollectionQuery: CollectionQuery = Object.assign(
         {},
-        collectionQuery,
+        currentCollectionQuery,
         {
           page: newPage,
           perPage: newPerPage,
@@ -106,12 +106,12 @@ const Collection: React.FC<{
     if (
       e.target.value !==
       Object.keys(collectionSortMap).find(
-        (key) => collectionSortMap[key].field === collectionQuery.sort
+        (key) => collectionSortMap[key].field === currentCollectionQuery.sort
       )
     ) {
       const newCollectionQuery: CollectionQuery = Object.assign(
         {},
-        collectionQuery,
+        currentCollectionQuery,
         {
           sort: collectionSortMap[e.target.value].field,
         }
@@ -124,7 +124,7 @@ const Collection: React.FC<{
   const onPageChange = (select: number) => {
     const newCollectionQuery: CollectionQuery = Object.assign(
       {},
-      collectionQuery,
+      currentCollectionQuery,
       {
         page: select,
       }
@@ -187,7 +187,7 @@ const Collection: React.FC<{
             </Heading>
             <Form id="results-sorts-form">
               <ResultsSorts
-                perPage={collectionQuery.perPage}
+                perPage={currentCollectionQuery.perPage}
                 sort={getSortValue()}
                 sortMap={collectionSortMap}
                 onChangePerPage={(e) => onChangePerPage(e)}
