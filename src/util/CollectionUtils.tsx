@@ -122,36 +122,6 @@ export default class CollectionUtils {
     }
   }
 
-  static getCtas(links: OpdsLink[], title: string, isLoggedIn: boolean) {
-    const readOnlineLink = CollectionUtils.getReadOnlineLink(links);
-    const downloadLink = CollectionUtils.getDownloadLink(links, title);
-
-    // If a digital version exists, link directly
-    if (readOnlineLink || downloadLink) {
-      return (
-        <>
-          <Box>{readOnlineLink}</Box>
-          <Box>{downloadLink}</Box>
-        </>
-      );
-    }
-
-    const eddLink = links
-      ? links.find(
-          (link) =>
-            link.identifier === "requestable" || link.identifier === "catalog"
-        )
-      : undefined;
-
-    // Offer EDD if available
-    if (eddLink !== undefined) {
-      const eddElement = CollectionUtils.getEddLinkElement(eddLink, isLoggedIn);
-      return <>{eddElement}</>;
-    }
-
-    return <>{CollectionUtils.getNoLinkElement(false)}</>;
-  }
-
   static getEddLinkElement(eddLink: OpdsLink, isLoggedIn: boolean) {
     if (isLoggedIn) {
       return (
