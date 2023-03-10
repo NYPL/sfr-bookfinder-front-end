@@ -7,7 +7,7 @@ import { ApiSearchQuery } from "../types/SearchQuery";
 import Link from "../components/Link/Link";
 import { Box, Icon } from "@nypl/design-system-react-components";
 import * as gtag from "../lib/Analytics";
-import { LOGIN_LINK, SCAN_AND_DELIVER_LINK } from "../constants/links";
+import { SCAN_AND_DELIVER_LINK } from "../constants/links";
 
 type ReadOnlineTypes = "readable" | "embedable";
 
@@ -146,7 +146,12 @@ export default class CollectionUtils {
       return (
         <>
           May be available via NYPL<br></br>
-          <Link to={LOGIN_LINK} linkType="button">
+          <Link
+            to={`https://login.nypl.org/auth/login?redirect_uri=${encodeURIComponent(
+              window.location.href
+            )}`}
+            linkType="button"
+          >
             Log in for options
           </Link>
         </>
