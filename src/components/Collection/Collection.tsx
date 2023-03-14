@@ -33,9 +33,10 @@ import {
 import CollectionUtils from "~/src/util/CollectionUtils";
 import ResultsSorts from "../ResultsSorts/ResultsSorts";
 import { useRouter } from "next/router";
-import { CollectionItemCard } from "../CollectionItemCard/CollectionItemCard";
-import Link from "../Link/Link";
-import Loading from "../Loading/Loading";
+import { CollectionItemCard } from "~/src/components/CollectionItemCard/CollectionItemCard";
+import Link from "~/src/components/Link/Link";
+import Loading from "~/src/components/Loading/Loading";
+import Author from "~/src/components/CollectionItemCard/Author";
 
 const Collection: React.FC<{
   collectionQuery: CollectionQuery;
@@ -49,25 +50,22 @@ const Collection: React.FC<{
 
   if (!collectionResult) return <Loading />;
 
-  const collectionId = CollectionUtils.getId(collectionResult.links);
-
-  const collectionMetadata = collectionResult.metadata;
-  const itemsPerPage = collectionMetadata.itemsPerPage;
-  const totalItems = collectionMetadata.numberOfItems;
-  const lastPageLink =
-    collectionResult.links[collectionResult.links.length - 1].href;
+  const { metadata, links, publications } = collectionResult;
+  const { itemsPerPage, numberOfItems, currentPage, title, description } =
+    metadata;
+  const totalItems = numberOfItems;
+  const collectionId = CollectionUtils.getId(links);
+  const lastPageLink = links[links.length - 1].href;
   const lastPage = parseInt(
     lastPageLink.substring(lastPageLink.indexOf("=") + 1)
   );
-  const firstElement = (collectionMetadata.currentPage - 1) * itemsPerPage + 1;
+  const firstElement = (currentPage - 1) * itemsPerPage + 1;
   const lastElement =
     currentCollectionQuery.page <= lastPage
-      ? collectionMetadata.currentPage * itemsPerPage
+      ? currentPage * itemsPerPage
       : totalItems;
 
-  const pageCount = Math.ceil(
-    collectionMetadata.numberOfItems / currentCollectionQuery.perPage
-  );
+  const pageCount = Math.ceil(totalItems / currentCollectionQuery.perPage);
 
   const getSortValue = () => {
     const sortValue = Object.keys(collectionSortMap).find(
@@ -142,10 +140,7 @@ const Collection: React.FC<{
             ...defaultBreadcrumbs,
             {
               url: `/collection/${collectionId}`,
-              text: truncateStringOnWhitespace(
-                collectionMetadata.title,
-                MAX_TITLE_LENGTH
-              ),
+              text: truncateStringOnWhitespace(title, MAX_TITLE_LENGTH),
             },
           ]}
         />
@@ -165,12 +160,12 @@ const Collection: React.FC<{
       <TemplateContent>
         <TemplateContentTop>
           <Heading size="primary" marginBottom="xl">
-            {`Collection - ${collectionMetadata.title}`}
+            {`Collection - ${title}`}
           </Heading>
           <Heading size="secondary" marginBottom="l">
             About this collection
           </Heading>
-          <Box>{collectionMetadata.description}</Box>
+          <Box>{description}</Box>
         </TemplateContentTop>
         <TemplateContentPrimary>
           <HorizontalRule bg="section.research.primary" marginBottom="xl" />
@@ -196,7 +191,7 @@ const Collection: React.FC<{
             </Form>
           </Flex>
           <SimpleGrid columns={1} gap="l">
-            {collectionResult.publications.map((pub, c) => {
+            {publications.map((pub, c) => {
               return (
                 <Box key={`collection-item-${c}`}>
                   <Heading level="two" marginBottom="xs">
@@ -217,9 +212,9 @@ const Collection: React.FC<{
                   {pub.metadata.subtitle && (
                     <Box marginBottom="xs">{pub.metadata.subtitle}</Box>
                   )}
-                  {CollectionUtils.getAuthor(pub.metadata.creator) && (
+                  {pub.metadata.creator && (
                     <Box marginBottom="xs">
-                      By {CollectionUtils.getAuthor(pub.metadata.creator)}{" "}
+                      By <Author author={pub.metadata.creator} />{" "}
                     </Box>
                   )}
                   <CollectionItemCard collectionItem={pub}></CollectionItemCard>
@@ -229,7 +224,7 @@ const Collection: React.FC<{
           </SimpleGrid>
           <Pagination
             pageCount={pageCount}
-            initialPage={collectionMetadata.currentPage}
+            initialPage={currentPage}
             onPageChange={(e) => onPageChange(e)}
             __css={{ paddingTop: "m" }}
           />
