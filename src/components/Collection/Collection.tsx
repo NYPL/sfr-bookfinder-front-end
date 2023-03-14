@@ -57,7 +57,7 @@ const Collection: React.FC<{
     currentPage,
     title,
     description,
-  } = metadata;  
+  } = metadata;
   const totalItems = numberOfItems;
   const collectionId = CollectionUtils.getId(links);
   const lastPageLink = links[links.length - 1].href;
