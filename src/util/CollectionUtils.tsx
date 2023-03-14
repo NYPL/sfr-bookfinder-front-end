@@ -1,13 +1,11 @@
-import React from "react";
-import { formatUrl } from "./Util";
-import { PLACEHOLDER_COVER_LINK } from "../constants/editioncard";
-import { MediaTypes } from "../constants/mediaTypes";
-import { Opds2Feed, OpdsLink } from "../types/OpdsModel";
-import { ApiSearchQuery } from "../types/SearchQuery";
-import Link from "../components/Link/Link";
-import { Box, Icon } from "@nypl/design-system-react-components";
-import * as gtag from "../lib/Analytics";
-import { SCAN_AND_DELIVER_LINK } from "../constants/links";
+import { formatUrl, truncateStringOnWhitespace } from "~/src/util/Util";
+import {
+  MAX_PLACE_LENGTH,
+  MAX_PUBLISHER_NAME_LENGTH,
+  PLACEHOLDER_COVER_LINK,
+} from "~/src/constants/editioncard";
+import { MediaTypes } from "~/src/constants/mediaTypes";
+import { Opds2Feed, OpdsLink } from "~/src/types/OpdsModel";
 
 type ReadOnlineTypes = "readable" | "embedable";
 
@@ -33,129 +31,45 @@ export default class CollectionUtils {
     return id[0] ?? "";
   }
 
-  static getAuthor(author: string): JSX.Element {
-    if (!author) return null;
-    const authorLinkText = author;
-    const query: ApiSearchQuery = {
-      query: `author:${author}`,
-    };
+  static getReadLink(
+    links: OpdsLink[],
+    type: ReadOnlineTypes
+  ): undefined | OpdsLink {
+    return links && links.find((link: OpdsLink) => link.identifier === type);
+  }
+
+  static getDownloadLink(links: OpdsLink[]): undefined | OpdsLink {
     return (
-      <Link
-        to={{
-          pathname: "/search",
-          query: query,
-        }}
-        className="link"
-      >
-        {authorLinkText}
-      </Link>
+      links &&
+      links.find((link: OpdsLink) => link.identifier === "downloadable")
     );
   }
 
-  static getReadLink = (links: OpdsLink[], type: ReadOnlineTypes) => {
-    if (!links) return undefined;
-    return links.find((link: OpdsLink) => {
-      return link.identifier === type;
-    });
-  };
-
-  // "Read Online" button should only show up if the link was flagged as "reader" or "embed"
-  static getReadOnlineLink = (links: OpdsLink[]) => {
-    const localLink = CollectionUtils.getReadLink(links, "readable");
-    const embeddedLink = CollectionUtils.getReadLink(links, "embedable");
-    // Prefer local link over embedded link
-    const readOnlineLink = localLink ?? embeddedLink;
-    if (readOnlineLink) {
-      return (
-        <Link
-          to={{
-            pathname: formatUrl(readOnlineLink.href),
-          }}
-          linkType="button"
-        >
-          Read Online
-        </Link>
-      );
-    }
-
-    return undefined;
-  };
-
-  static getNoLinkElement(showRequestButton: boolean) {
-    if (showRequestButton) {
-      return <span>Not Yet Available {showRequestButton}</span>;
-    }
-    return <>Not yet available</>;
+  static getPublisherDisplayLocation(pubPlace: string): undefined | string {
+    return (
+      pubPlace &&
+      ` in ${truncateStringOnWhitespace(pubPlace, MAX_PLACE_LENGTH)}`
+    );
   }
 
-  static selectDownloadLink = (links: OpdsLink[]) => {
-    if (!links) return undefined;
-    return links.find((link: OpdsLink) => {
-      return link.identifier === "downloadable";
-    });
-  };
-
-  static getDownloadLink(links: OpdsLink[], title: string) {
-    if (!links) return undefined;
-
-    const selectedLink = CollectionUtils.selectDownloadLink(links);
-
-    if (selectedLink && selectedLink.href) {
-      return (
-        <Link
-          to={`${formatUrl(selectedLink.href)}`}
-          linkType="action"
-          onClick={() => {
-            gtag.drbEvents("Download", `${title}`);
-          }}
-        >
-          <Icon
-            name="download"
-            align="left"
-            size="small"
-            decorative
-            iconRotation="rotate0"
-          />
-          Download PDF
-        </Link>
-      );
-    }
+  static getPublisherDisplayText(publisher: string): undefined | string {
+    return (
+      publisher &&
+      ` by ${truncateStringOnWhitespace(publisher, MAX_PUBLISHER_NAME_LENGTH)}`
+    );
   }
 
-  static getEddLinkElement(eddLink: OpdsLink, isLoggedIn: boolean) {
-    if (isLoggedIn) {
-      return (
-        <>
-          <Box whiteSpace="initial">
-            You can request a partial scan via NYPL
-          </Box>
-          <Link to={SCAN_AND_DELIVER_LINK} target="_blank">
-            Scan and Deliver
-          </Link>
-          <Link
-            // Url starts with www
-            to={`https://${eddLink.href}`}
-            linkType="button"
-            target="_blank"
-          >
-            Request
-          </Link>
-        </>
-      );
-    } else {
-      return (
-        <>
-          May be available via NYPL<br></br>
-          <Link
-            to={`https://login.nypl.org/auth/login?redirect_uri=${encodeURIComponent(
-              window.location.href
-            )}`}
-            linkType="button"
-          >
-            Log in for options
-          </Link>
-        </>
-      );
-    }
+  static getEddLink(links: OpdsLink[]): undefined | OpdsLink {
+    return (
+      links &&
+      links.find(
+        (link) =>
+          link.identifier === "requestable" || link.identifier === "catalog"
+      )
+    );
+  }
+
+  static getEditionLink(links: OpdsLink[]): undefined | OpdsLink {
+    return links && links.find((link) => link.rel === "alternate");
   }
 }
