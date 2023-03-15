@@ -1,5 +1,4 @@
 import React from "react";
-import { CardActions } from "@nypl/design-system-react-components";
 import { OpdsLink } from "~/src/types/OpdsModel";
 import ReadOnlineLink from "~/src/components/CollectionItemCard/ReadOnlineLink";
 import DownloadLink from "~/src/components/CollectionItemCard/DownloadLink";
@@ -13,20 +12,21 @@ const Ctas: React.FC<{
 }> = ({ links, title, isLoggedIn }) => {
   const eddLink = CollectionUtils.getEddLink(links);
 
-  return (
-    <CardActions display="flex" flexDir="column" whiteSpace="nowrap" gap={4}>
-      {links ? (
-        <>
-          {/* If a digital version exists, link directly */}
-          <ReadOnlineLink links={links} />
-          <DownloadLink links={links} title={title} />
-          {eddLink && <EddLink eddLink={eddLink} isLoggedIn={isLoggedIn} />}
-        </>
-      ) : (
-        "Not yet available"
-      )}
-    </CardActions>
-  );
+  if (links) {
+    return (
+      <>
+        {/* If a digital version exists, link directly */}
+        <ReadOnlineLink links={links} />
+        <DownloadLink links={links} title={title} />
+      </>
+    );
+  }
+
+  if (eddLink) {
+    return <EddLink eddLink={eddLink} isLoggedIn={isLoggedIn} />;
+  }
+
+  return <>Not yet available</>;
 };
 
 export default Ctas;

@@ -12,6 +12,8 @@ const DownloadLink: React.FC<{ links: OpdsLink[]; title: string }> = ({
 }) => {
   const selectedLink = CollectionUtils.getDownloadLink(links);
 
+  if (!selectedLink) return null;
+
   if (selectedLink && selectedLink.href) {
     return (
       <Link

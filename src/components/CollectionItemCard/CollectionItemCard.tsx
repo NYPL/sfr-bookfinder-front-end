@@ -1,5 +1,10 @@
 import React from "react";
-import { Card, CardContent } from "@nypl/design-system-react-components";
+import {
+  Card,
+  CardActions,
+  CardContent,
+  CardHeading,
+} from "@nypl/design-system-react-components";
 import { useCookies } from "react-cookie";
 import { NYPL_SESSION_ID } from "~/src/constants/auth";
 import { OpdsPublication } from "~/src/types/OpdsModel";
@@ -40,7 +45,9 @@ export const CollectionItemCard: React.FC<{
       id={`card-${CollectionUtils.getId(collectionItem.links)}`}
       p="s"
     >
-      <EditionYear links={links} published={published} />
+      <CardHeading level="three">
+        <EditionYear links={links} published={published} />
+      </CardHeading>
       <CardContent>
         <PublisherAndLocation
           pubPlace={locationCreated}
@@ -49,11 +56,13 @@ export const CollectionItemCard: React.FC<{
         <LanguageDisplayText language={language} />
         <LicenseLink rights={rights} />
       </CardContent>
-      <Ctas
-        links={links}
-        title={title}
-        isLoggedIn={!!cookies[NYPL_SESSION_ID]}
-      />
+      <CardActions display="flex" flexDir="column" whiteSpace="nowrap" gap={4}>
+        <Ctas
+          links={links}
+          title={title}
+          isLoggedIn={!!cookies[NYPL_SESSION_ID]}
+        />
+      </CardActions>
     </Card>
   );
 };
