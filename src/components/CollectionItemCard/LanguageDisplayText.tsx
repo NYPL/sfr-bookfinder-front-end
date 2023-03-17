@@ -5,7 +5,7 @@ const LanguageDisplayText: React.FC<{
   language: string;
 }> = ({ language }) => {
   return (
-    <Box as="p">
+    <Box as="p" margin="0">
       {language ? `Languages: ${language}` : "Languages: Undetermined"}
     </Box>
   );

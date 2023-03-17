@@ -6,6 +6,7 @@ import { CollectionQuery, CollectionResult } from "~/src/types/CollectionQuery";
 import {
   collectionData,
   collectionWithPagination,
+  emptyCollectionResult,
 } from "~/src/__tests__/fixtures/CollectionFixture";
 import mockRouter from "next-router-mock";
 import userEvent from "@testing-library/user-event";
@@ -171,5 +172,25 @@ describe("Render Collection Page with >10 items", () => {
       expect(previousLink).not.toBeInTheDocument();
       expect(nextLink).not.toBeInTheDocument();
     });
+  });
+});
+
+describe("Renders No Results when no results are shown", () => {
+  beforeEach(() => {
+    render(
+      <Collection
+        collectionQuery={collectionQuery}
+        collectionResult={emptyCollectionResult}
+      />
+    );
+  });
+
+  test("Shows the current collection with title", () => {
+    expect(
+      screen.getByText("Collection - Baseball: A Collection by Mike Benowitz")
+    ).toBeInTheDocument();
+  });
+  test("Item Count shows correctly", () => {
+    expect(screen.getByText("Viewing 0 items")).toBeInTheDocument();
   });
 });

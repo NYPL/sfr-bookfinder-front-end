@@ -10,7 +10,7 @@ const PublisherAndLocation: React.FC<{
   const displayName = CollectionUtils.getPublisherDisplayText(publisher);
 
   return (
-    <Box as="p">
+    <Box as="p" margin="0">
       {displayLocation && displayName
         ? `Published${displayLocation}${displayName}`
         : "Publisher and Location Unknown"}

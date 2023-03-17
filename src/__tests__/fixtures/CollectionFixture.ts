@@ -1997,3 +1997,4 @@ const createPaginationData = () => {
 export const collectionItem: OpdsPublication = createCollectionItem();
 export const collectionData: Opds2Feed = createCollectionData();
 export const collectionWithPagination: Opds2Feed = createPaginationData();
+export const emptyCollectionResult: Opds2Feed = createCollectionData([]);
