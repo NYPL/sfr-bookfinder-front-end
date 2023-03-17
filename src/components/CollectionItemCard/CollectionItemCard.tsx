@@ -19,7 +19,7 @@ import LanguageDisplayText from "~/src/components/CollectionItemCard/LanguageDis
 export const CollectionItemCard: React.FC<{
   collectionItem: OpdsPublication;
 }> = ({ collectionItem }) => {
-  // cookies defaults to be undefined if not fonud
+  // cookies defaults to be undefined if not found
   const [cookies] = useCookies([NYPL_SESSION_ID]);
   const { links, metadata } = collectionItem;
   const {

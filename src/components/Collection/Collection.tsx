@@ -6,7 +6,6 @@ import {
   Footer,
   Form,
   Heading,
-  Hero,
   HorizontalRule,
   Pagination,
   SimpleGrid,
@@ -33,10 +32,9 @@ import {
 import CollectionUtils from "~/src/util/CollectionUtils";
 import ResultsSorts from "../ResultsSorts/ResultsSorts";
 import { useRouter } from "next/router";
-import { CollectionItemCard } from "~/src/components/CollectionItemCard/CollectionItemCard";
-import Link from "~/src/components/Link/Link";
 import Loading from "~/src/components/Loading/Loading";
-import Author from "~/src/components/CollectionItemCard/Author";
+import DrbHero from "../DrbHero/DrbHero";
+import { CollectionItem } from "./CollectionItem";
 
 const Collection: React.FC<{
   collectionQuery: CollectionQuery;
@@ -149,17 +147,7 @@ const Collection: React.FC<{
             },
           ]}
         />
-        <Hero
-          backgroundColor="section.research.primary"
-          heroType="tertiary"
-          heading={
-            <Heading level="one" id="tertiary-hero">
-              <>
-                Digital Research Books <sup>Beta</sup>
-              </>
-            </Heading>
-          }
-        />
+        <DrbHero />
       </TemplateBreakout>
 
       <TemplateContent>
@@ -198,32 +186,10 @@ const Collection: React.FC<{
           <SimpleGrid columns={1} gap="l">
             {publications.map((pub, c) => {
               return (
-                <Box key={`collection-item-${c}`}>
-                  <Heading level="two" marginBottom="xs">
-                    <Link
-                      to={{
-                        pathname: pub.links.find(
-                          (link) => link.rel === "alternate"
-                        ).href,
-                      }}
-                      className="link link--no-underline"
-                    >
-                      {truncateStringOnWhitespace(
-                        pub.metadata.title,
-                        MAX_TITLE_LENGTH
-                      )}
-                    </Link>
-                  </Heading>
-                  {pub.metadata.subtitle && (
-                    <Box marginBottom="xs">{pub.metadata.subtitle}</Box>
-                  )}
-                  {pub.metadata.creator && (
-                    <Box marginBottom="xs">
-                      By <Author author={pub.metadata.creator} />{" "}
-                    </Box>
-                  )}
-                  <CollectionItemCard collectionItem={pub}></CollectionItemCard>
-                </Box>
+                <CollectionItem
+                  publication={pub}
+                  key={`collection-item-${c}`}
+                />
               );
             })}
           </SimpleGrid>
