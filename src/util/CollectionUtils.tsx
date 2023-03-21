@@ -1,7 +1,13 @@
-import { formatUrl } from "./Util";
-import { PLACEHOLDER_COVER_LINK } from "../constants/editioncard";
-import { MediaTypes } from "../constants/mediaTypes";
-import { Opds2Feed, OpdsLink } from "../types/OpdsModel";
+import { formatUrl, truncateStringOnWhitespace } from "~/src/util/Util";
+import {
+  MAX_PLACE_LENGTH,
+  MAX_PUBLISHER_NAME_LENGTH,
+  PLACEHOLDER_COVER_LINK,
+} from "~/src/constants/editioncard";
+import { MediaTypes } from "~/src/constants/mediaTypes";
+import { Opds2Feed, OpdsLink } from "~/src/types/OpdsModel";
+
+type ReadOnlineTypes = "readable" | "embedable";
 
 export default class CollectionUtils {
   /** Get Cover Image
@@ -23,5 +29,47 @@ export default class CollectionUtils {
     const link = links[0].href;
     const id = link.substring(link.lastIndexOf("/") + 1, link.indexOf("?"));
     return id[0] ?? "";
+  }
+
+  static getReadLink(
+    links: OpdsLink[],
+    type: ReadOnlineTypes
+  ): undefined | OpdsLink {
+    return links && links.find((link: OpdsLink) => link.identifier === type);
+  }
+
+  static getDownloadLink(links: OpdsLink[]): undefined | OpdsLink {
+    return (
+      links &&
+      links.find((link: OpdsLink) => link.identifier === "downloadable")
+    );
+  }
+
+  static getPublisherDisplayLocation(pubPlace: string): undefined | string {
+    return (
+      pubPlace &&
+      ` in ${truncateStringOnWhitespace(pubPlace, MAX_PLACE_LENGTH)}`
+    );
+  }
+
+  static getPublisherDisplayText(publisher: string): undefined | string {
+    return (
+      publisher &&
+      ` by ${truncateStringOnWhitespace(publisher, MAX_PUBLISHER_NAME_LENGTH)}`
+    );
+  }
+
+  static getEddLink(links: OpdsLink[]): undefined | OpdsLink {
+    return (
+      links &&
+      links.find(
+        (link) =>
+          link.identifier === "requestable" || link.identifier === "catalog"
+      )
+    );
+  }
+
+  static getEditionLink(links: OpdsLink[]): undefined | OpdsLink {
+    return links && links.find((link) => link.rel === "alternate");
   }
 }

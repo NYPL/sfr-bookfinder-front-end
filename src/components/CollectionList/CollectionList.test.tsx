@@ -2,21 +2,19 @@ import React from "react";
 import CollectionList from "./CollectionList";
 import "@testing-library/jest-dom/extend-expect";
 import { screen, render } from "@testing-library/react";
-import {
-  collectionListData,
-  oneCollectionListData,
-} from "~/src/__tests__/fixtures/CollectionFixture";
+import { oneCollectionListData } from "~/src/__tests__/fixtures/CollectionFixture";
 
-describe("Collection list", () => {
-  beforeEach(() => {
-    render(<CollectionList collections={collectionListData} />);
-  });
-  test("shows View All Collections link", () => {
-    expect(
-      screen.getByRole("link", { name: "View All Collections" })
-    ).toBeInTheDocument();
-  });
-});
+// describe("Collection list", () => {
+//   beforeEach(() => {
+//     render(<CollectionList collections={collectionListData} />);
+//   });
+// todo: Add in a future iteration of collections (SFR-1637)
+// test("shows View All Collections link", () => {
+//   expect(
+//     screen.getByRole("link", { name: "View All Collections" })
+//   ).toBeInTheDocument();
+// });
+// });
 
 describe("Collection list with one item", () => {
   beforeEach(() => {

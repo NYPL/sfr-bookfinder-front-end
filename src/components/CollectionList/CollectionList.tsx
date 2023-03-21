@@ -1,7 +1,9 @@
 import React from "react";
-import { Box, Link, SimpleGrid } from "@nypl/design-system-react-components";
+import { Box, SimpleGrid } from "@nypl/design-system-react-components";
 import CollectionCard from "../CollectionCard/CollectionCard";
 import { Opds2Feed } from "~/src/types/OpdsModel";
+
+const MAX_COLLECTION_LIST_LENGTH = 8;
 
 export const CollectionList: React.FC<{ collections: Opds2Feed }> = ({
   collections,
@@ -12,11 +14,17 @@ export const CollectionList: React.FC<{ collections: Opds2Feed }> = ({
         <>
           <SimpleGrid gap="l" columns={4}>
             {collections.groups.map((collection, index) => {
-              if (index < 8)
-                return <CollectionCard key={index} collection={collection} />;
+              if (index < MAX_COLLECTION_LIST_LENGTH)
+                return (
+                  <CollectionCard
+                    key={"collection-card-" + index}
+                    collection={collection}
+                  />
+                );
             })}
           </SimpleGrid>
-          {collections.groups.length > 8 && (
+          {/* todo: Add in a future iteration of collections (SFR-1637)
+          {collections.groups.length > MAX_COLLECTION_LIST_LENGTH && (
             <Link
               type="forwards"
               href="/collections"
@@ -25,7 +33,7 @@ export const CollectionList: React.FC<{ collections: Opds2Feed }> = ({
             >
               View All Collections
             </Link>
-          )}
+          )} */}
         </>
       ) : (
         "No collections available"

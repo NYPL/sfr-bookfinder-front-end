@@ -18,6 +18,7 @@ import SearchForm from "~/src/components/SearchForm/SearchForm";
 import { defaultBreadcrumbs } from "~/src/constants/labels";
 import CollectionList from "../CollectionList/CollectionList";
 import { Opds2Feed } from "~/src/types/OpdsModel";
+import DrbHero from "../DrbHero/DrbHero";
 
 const LandingPage: React.FC<{ collections?: Opds2Feed }> = ({
   collections,
@@ -49,17 +50,7 @@ const LandingPage: React.FC<{ collections?: Opds2Feed }> = ({
           />
         </TemplateAboveHeader>
         <TemplateHeader>
-          <Hero
-            backgroundColor="section.research.primary"
-            heroType="tertiary"
-            heading={
-              <Heading level="one" id="tertiary-hero">
-                <>
-                  Digital Research Books <sup>Beta</sup>
-                </>
-              </Heading>
-            }
-          />
+          <DrbHero />
           <Hero
             backgroundColor="#E9E9E9"
             backgroundImageSrc="https://placeimg.com/2400/800/nature" // TODO: replace with image from Product team
