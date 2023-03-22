@@ -1,4 +1,5 @@
 import { Agent, Date, Language, Subject, WorkEdition } from "./DataModel";
+import { OpdsMetadata } from "./OpdsModel";
 
 export type WorkQuery = {
   identifier: string;
@@ -20,6 +21,7 @@ export type ApiWork = {
   dates?: Date[];
   editions?: WorkEdition[];
   edition_count?: number;
+  inCollections?: OpdsMetadata[];
   languages?: Language[];
   measurements?: string[];
   medium?: string;

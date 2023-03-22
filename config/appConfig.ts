@@ -17,6 +17,7 @@ export default {
     editionPath: "/edition",
     readPath: "/link",
     languagesPath: "/utils/languages",
+    collectionPath: "/collection",
   },
   booksCount: {
     apiUrl: "/utils/counts",
