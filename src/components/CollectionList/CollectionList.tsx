@@ -1,18 +1,34 @@
 import React from "react";
-import { Box, SimpleGrid } from "@nypl/design-system-react-components";
+import {
+  Box,
+  SimpleGrid,
+  useNYPLBreakpoints,
+} from "@nypl/design-system-react-components";
 import CollectionCard from "../CollectionCard/CollectionCard";
 import { Opds2Feed } from "~/src/types/OpdsModel";
-
-const MAX_COLLECTION_LIST_LENGTH = 8;
+import { MAX_COLLECTION_LIST_LENGTH } from "~/src/constants/collection";
 
 export const CollectionList: React.FC<{ collections: Opds2Feed }> = ({
   collections,
 }) => {
+  const {
+    isLargerThanMedium,
+    isLargerThanLarge,
+    isLargerThanXLarge,
+  } = useNYPLBreakpoints();
+  const numberOfColumns = isLargerThanXLarge
+    ? 4
+    : isLargerThanLarge
+    ? 3
+    : isLargerThanMedium
+    ? 2
+    : 1;
+
   return (
     <Box>
       {collections ? (
         <>
-          <SimpleGrid gap="l" columns={4}>
+          <SimpleGrid gap="l" columns={numberOfColumns}>
             {collections.groups.map((collection, index) => {
               if (index < MAX_COLLECTION_LIST_LENGTH)
                 return (

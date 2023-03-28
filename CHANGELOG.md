@@ -1,5 +1,8 @@
 # CHANGE LOG
 
+## [Pre-release]
+- Fix minor UI issues for collections
+
 ## [0.16.1]
 
 - add features and tests for publication year filter

@@ -10,6 +10,11 @@ import {
 import { PLACEHOLDER_COVER_LINK } from "~/src/constants/editioncard";
 import { Opds2Feed } from "~/src/types/OpdsModel";
 import CollectionUtils from "~/src/util/CollectionUtils";
+import { truncateStringOnWhitespace } from "~/src/util/Util";
+import {
+  MAX_DESCRIPTION_LENGTH,
+  MAX_COLLECTION_TITLE_LENGTH,
+} from "~/src/constants/collection";
 
 export const CollectionCard: React.FC<{ collection: Opds2Feed }> = ({
   collection,
@@ -31,7 +36,7 @@ export const CollectionCard: React.FC<{ collection: Opds2Feed }> = ({
       }}
       mainActionLink={collection.links[0].href}
       isBordered
-      width="264px"
+      width={{ sm: "default", md: "264px" }}
       minHeight="405px"
       sx={{
         "a > h2": {
@@ -51,14 +56,24 @@ export const CollectionCard: React.FC<{ collection: Opds2Feed }> = ({
         <Text size="caption" isUppercase marginTop="xs" marginBottom="xxs">
           <b>Collection</b>
         </Text>
-        <Heading size="tertiary">{collection.metadata.title}</Heading>
+        <Heading size="tertiary" minHeight="55px">
+          {truncateStringOnWhitespace(
+            collection.metadata.title,
+            MAX_COLLECTION_TITLE_LENGTH
+          )}
+        </Heading>
       </CardHeading>
       <CardContent>
         <Box>
           <Heading level="one" size="callout">
             {collection.metadata.numberOfItems + " Items"}
           </Heading>
-          <Text>{collection.metadata.description}</Text>
+          <Text>
+            {truncateStringOnWhitespace(
+              collection.metadata.description,
+              MAX_DESCRIPTION_LENGTH
+            )}
+          </Text>
         </Box>
       </CardContent>
     </Card>
