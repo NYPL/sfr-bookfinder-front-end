@@ -22,7 +22,7 @@
     "@newrelic/next": "^0.3.0",
     "@nypl/design-system-react-components": "^1.1.2",
     "@nypl/dgx-header-component": "2.8.0-r16-rc-3",
-    "@nypl/web-reader": "^3.1.0",
+    "@nypl/web-reader": "^4.3.0",
     "@types/node": "^16.11.6",
     "css-loader": "^6.5.0",
     "dotenv": "^16.0.3",
