@@ -1,6 +1,6 @@
 {
   "name": "sfr-bookfinder-front-end",
-  "version": "0.16.0",
+  "version": "0.16.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -17,7 +17,7 @@
     "@chakra-ui/react": "2.5.4",
     "@newrelic/next": "^0.3.0",
     "@nypl/design-system-react-components": "^1.5.1",
-    "@nypl/dgx-header-component": "2.8.0-r16-rc-2",
+    "@nypl/dgx-header-component": "2.8.0-r16-rc-3",
     "@nypl/web-reader": "^3.1.0",
     "@types/node": "^16.11.6",
     "css-loader": "^6.5.0",

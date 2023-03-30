@@ -44,19 +44,17 @@ const Layout: React.FC<{
         {!isTestMode && (
           <Header
             urlType="absolute"
-            skipNav={{ target: "main-content" }}
+            skipNav={{ target: "mainContent" }}
             navData={navConfig.current}
           />
         )}
-        <main id="main-content">
-          {router.isFallback || loading ? (
-            <>
-              <SkeletonLoader />
-            </>
-          ) : (
-            <>{children}</>
-          )}
-        </main>
+        {router.isFallback || loading ? (
+          <>
+            <SkeletonLoader />
+          </>
+        ) : (
+          <>{children}</>
+        )}
         {!loading && <Feedback location={router.asPath} />}
       </DSProvider>
     </>

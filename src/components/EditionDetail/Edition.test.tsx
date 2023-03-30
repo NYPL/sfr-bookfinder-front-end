@@ -3,8 +3,11 @@ import Edition from "./Edition";
 import "@testing-library/jest-dom/extend-expect";
 import { screen, render, within, fireEvent } from "@testing-library/react";
 import { breadcrumbTitles, inputTerms } from "~/src/constants/labels";
-import { EditionResult } from "~/src/types/EditionQuery";
-const apiEdition: EditionResult = require("../../__tests__/fixtures/edition-detail.json");
+import {
+  editionDetail as apiEdition,
+  editionDetailInCollection,
+} from "../../__tests__/fixtures/EditionDetailFixture";
+
 import mockRouter from "next-router-mock";
 
 jest.mock("next/router", () => require("next-router-mock"));
@@ -91,7 +94,9 @@ describe("Renders edition component when given valid edition", () => {
       screen.getByRole("heading", { name: "Details" })
     ).toBeInTheDocument();
   });
-
+  test("Does not show Part of Collection card when inCollections is empty", () => {
+    expect(screen.queryByText("Part of Collection")).not.toBeInTheDocument();
+  });
   // getByRole "term" doesn't work
   // https://github.com/testing-library/dom-testing-library/issues/703
   // describe("Details Table Content", () => {
@@ -227,5 +232,26 @@ describe("Edition - Back to search results link", () => {
         screen.queryByRole("link", { name: "Back to search results" })
       ).not.toBeInTheDocument();
     });
+  });
+});
+
+describe("Renders Part of Collection card when inCollections is not empty", () => {
+  beforeEach(() => {
+    render(<Edition editionResult={editionDetailInCollection} />);
+  });
+
+  test("Shows Part of Collection", () => {
+    expect(screen.getByText("Part of Collection")).toBeInTheDocument();
+  });
+
+  test("Browse Collection link directs to collection page", () => {
+    expect(
+      screen.getByRole("link", {
+        name: "Browse Collection",
+      })
+    ).toHaveAttribute(
+      "href",
+      "/collection/37a7e91d-31cd-444c-8e97-7f17426de7ec"
+    );
   });
 });
