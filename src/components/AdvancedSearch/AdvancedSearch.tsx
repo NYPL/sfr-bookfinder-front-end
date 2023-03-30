@@ -74,7 +74,6 @@ const AdvancedSearch: React.FC<{
   const [govDocFilter, setGovDocFilter] = useState<Filter>(
     findFilterForField(searchQuery.filters, filterFields.govDoc)
   );
-  const [testTextInputValue, setTestTextInputValue] = useState<string>("");
 
   useEffect(() => {
     setLanguages(
@@ -125,14 +124,14 @@ const AdvancedSearch: React.FC<{
     });
   };
 
-  // const clearSearch = () => {
-  //   setQueries([]);
-  //   setLanguageFilters([]);
-  //   setStartFilter(undefined);
-  //   setEndFilter(undefined);
-  //   setFormatFilters([]);
-  //   setGovDocFilter(undefined);
-  // };
+  const clearSearch = () => {
+    setQueries([]);
+    setLanguageFilters([]);
+    setStartFilter(undefined);
+    setEndFilter(undefined);
+    setFormatFilters([]);
+    setGovDocFilter(undefined);
+  };
 
   const onQueryChange = (e, queryKey) => {
     const newQuery = {
@@ -196,21 +195,6 @@ const AdvancedSearch: React.FC<{
     }
   };
 
-  const handleTestTextInput = (
-    e:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    setTestTextInputValue(e.target.value);
-  };
-
-  console.log("testTextInputValue for regression: ", testTextInputValue);
-
-  const testClearInput = () => {
-    console.log("testClearInput() has been called");
-    setTestTextInputValue("");
-  };
-
   return (
     <Template>
       <TemplateBreakout>
@@ -235,13 +219,6 @@ const AdvancedSearch: React.FC<{
 
         <TemplateContentPrimary>
           <Form action="/search" method="get" id="search-form">
-            <TextInput
-              labelText="Test input for regression"
-              id="test-input"
-              type="text"
-              onChange={(e) => handleTestTextInput(e)}
-              value={testTextInputValue}
-            />
             {/* Search Terms */}
             {inputTermRows.map(
               (inputTerms: { key: string; label: string }[], i: number) => {
@@ -261,7 +238,6 @@ const AdvancedSearch: React.FC<{
                             onChange={(e) => onQueryChange(e, field.key)}
                             showLabel
                             type="text"
-                            isClearable={true}
                           />
                         </FormField>
                       );
@@ -329,7 +305,7 @@ const AdvancedSearch: React.FC<{
                 <Button
                   type="reset"
                   buttonType="secondary"
-                  onClick={() => testClearInput()}
+                  onClick={() => clearSearch()}
                   id="reset-button"
                 >
                   Clear
