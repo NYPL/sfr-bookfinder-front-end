@@ -1,103 +1,70 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders about unchanged 1`] = `
-.emotion-4 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.emotion-6 {
-  -webkit-margin-start: 0.5rem;
-  margin-inline-start: 0.5rem;
-  -webkit-margin-end: 0.5rem;
-  margin-inline-end: 0.5rem;
-}
-
-.emotion-12 {
-  width: 1em;
-  height: 1em;
-  display: inline-block;
-  line-height: 1em;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  color: currentColor;
-}
-
-.emotion-19 {
-  width: 100%;
-}
-
 <div
-  className="emotion-0"
+  class="css-1xdhyk6"
 >
   <div
-    className="emotion-1"
+    class="css-0"
   >
     <nav
       aria-label="Breadcrumb"
-      className="chakra-breadcrumb emotion-0"
+      class="chakra-breadcrumb css-1xdhyk6"
     >
       <ol
-        className="chakra-breadcrumb__list emotion-1"
+        class="chakra-breadcrumb__list css-0"
       >
         <li
-          className="chakra-breadcrumb__list-item emotion-4"
+          class="chakra-breadcrumb__list-item css-18biwo"
         >
           <a
-            className="chakra-breadcrumb__link emotion-1"
+            class="chakra-breadcrumb__link css-0"
             href="https://www.nypl.org"
           >
             <span
-              className="breadcrumb-label"
+              class="breadcrumb-label"
             >
               Home
             </span>
           </a>
           <span
-            className="emotion-6"
+            class="css-t4q1nq"
             role="presentation"
           >
             /
           </span>
         </li>
         <li
-          className="chakra-breadcrumb__list-item emotion-4"
+          class="chakra-breadcrumb__list-item css-18biwo"
         >
           <a
-            className="chakra-breadcrumb__link emotion-1"
+            class="chakra-breadcrumb__link css-0"
             href="https://www.nypl.org/research"
           >
             <span
-              className="breadcrumb-label"
+              class="breadcrumb-label"
             >
               Research
             </span>
           </a>
           <span
-            className="emotion-6"
+            class="css-t4q1nq"
             role="presentation"
           >
             /
           </span>
         </li>
         <li
-          className="chakra-breadcrumb__list-item emotion-4"
+          class="chakra-breadcrumb__list-item css-18biwo"
         >
           <a
-            className="chakra-breadcrumb__link emotion-1"
+            class="chakra-breadcrumb__link css-0"
             href="/"
           >
             <svg
-              aria-hidden={true}
-              className="chakra-icon breadcrumbs-icon emotion-12"
-              focusable={false}
+              aria-hidden="true"
+              class="chakra-icon breadcrumbs-icon css-1vgifmd"
+              focusable="false"
               id="undefined__backarrow"
               role="img"
               viewBox="0 0 24 14"
@@ -107,33 +74,33 @@ exports[`renders about unchanged 1`] = `
                 arrow icon
               </title>
               <path
-                clipRule="evenodd"
+                clip-rule="evenodd"
                 d="M10.526 12.871.263 1.676 1.737.324 12 11.52 22.263.324l1.474 1.352L13.474 12.87a2 2 0 0 1-2.948 0z"
-                fillRule="evenodd"
+                fill-rule="evenodd"
               />
             </svg>
             <span
-              className="breadcrumb-label"
+              class="breadcrumb-label"
             >
               Digital Research Books Beta
             </span>
           </a>
           <span
-            className="emotion-6"
+            class="css-t4q1nq"
             role="presentation"
           >
             /
           </span>
         </li>
         <li
-          className="chakra-breadcrumb__list-item emotion-4"
+          class="chakra-breadcrumb__list-item css-18biwo"
         >
           <span
             aria-current="page"
-            className="chakra-breadcrumb__link emotion-1"
+            class="chakra-breadcrumb__link css-0"
           >
             <span
-              className="breadcrumb-label"
+              class="breadcrumb-label"
             >
               About
             </span>
@@ -143,18 +110,18 @@ exports[`renders about unchanged 1`] = `
     </nav>
   </div>
   <main
-    className="emotion-1"
+    class="css-0"
     id="mainContent"
   >
     <div
-      className="emotion-1"
+      class="css-0"
     >
       <h1
-        className="chakra-heading emotion-0"
+        class="chakra-heading css-1xdhyk6"
       >
         <span>
           <span
-            className="rn-section-title__emphasis"
+            class="rn-section-title__emphasis"
           >
             Digital Research Books
           </span>
@@ -169,26 +136,16 @@ exports[`renders about unchanged 1`] = `
         All the materials in Digital Research Books Beta are completely free to read and most of them you can download and keep, with no library card required. The books are either in the
          
         <a
-          className="emotion-19"
+          class="css-qsaw8"
           href="/license"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onTouchStart={[Function]}
-          rel={null}
-          target={null}
         >
           public domain
         </a>
         , with no restrictions on your use of them, or under
          
         <a
-          className="emotion-19"
+          class="css-qsaw8"
           href="/license"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onTouchStart={[Function]}
-          rel={null}
-          target={null}
         >
           Creative Commons licences
         </a>
@@ -198,20 +155,15 @@ exports[`renders about unchanged 1`] = `
         In addition to collecting these digital editions, we group all the editions of the same title together as a single “work.” For instance there are many editions of
          
         <a
-          className="emotion-19"
+          class="css-qsaw8"
           href="/work/e34d73df-f32b-49e1-8fdf-151db2a7806a"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onTouchStart={[Function]}
-          rel={null}
-          target={null}
         >
           Mary Wollstonecraft’s A Vindication of the Rights of Woman
         </a>
         , many of them available digitally. We group them all together under a single search result and try to make the differences between them--years when and places where they were published, for instance--easy to understand.
       </p>
       <h2
-        className="chakra-heading emotion-0"
+        class="chakra-heading css-1xdhyk6"
         id="sources-and-data-heading"
       >
         Sources and Data
@@ -220,71 +172,46 @@ exports[`renders about unchanged 1`] = `
         The material in Digital Research Books Beta are drawn from several public sources, mainly
          
         <a
-          className="emotion-19"
+          class="css-qsaw8"
           href="https://www.hathitrust.org/"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onTouchStart={[Function]}
-          rel={null}
-          target={null}
         >
           HathiTrust
         </a>
         ,
          
         <a
-          className="emotion-19"
+          class="css-qsaw8"
           href="https://doabooks.org/"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onTouchStart={[Function]}
-          rel={null}
-          target={null}
         >
           The Directory of Open Access Books
         </a>
         , and 
         <a
-          className="emotion-19"
+          class="css-qsaw8"
           href="http://www.gutenberg.org/"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onTouchStart={[Function]}
-          rel={null}
-          target={null}
         >
           Project Gutenberg
         </a>
         . We are continuously adding more books from these and other sources. We then cross-reference them with library records from NYPL and
          
         <a
-          className="emotion-19"
+          class="css-qsaw8"
           href="https://www.worldcat.org/"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onTouchStart={[Function]}
-          rel={null}
-          target={null}
         >
           WorldCat
         </a>
         , using OCLC’s experimental
          
         <a
-          className="emotion-19"
+          class="css-qsaw8"
           href="http://classify.oclc.org/classify2/"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onTouchStart={[Function]}
-          rel={null}
-          target={null}
         >
           Classify
         </a>
          to make connections between different editions of the same work.
       </p>
       <h2
-        className="chakra-heading emotion-0"
+        class="chakra-heading css-1xdhyk6"
         id="beta-testing-heading"
       >
         What does Beta Testing mean?
@@ -301,60 +228,52 @@ exports[`renders about unchanged 1`] = `
     </div>
   </main>
   <footer
-    className="emotion-1"
+    class="css-0"
   >
     <footer
-      className="emotion-0"
+      class="css-1xdhyk6"
       id="footer"
       role="contentinfo"
     >
       <div
-        className="emotion-1"
+        class="css-0"
       >
         <ul
-          className="emotion-0"
+          class="css-1xdhyk6"
           data-testid="text-links"
         >
           <li>
             <ul
-              className="emotion-0"
+              class="css-1xdhyk6"
             >
               <li>
                 <a
-                  className="emotion-0"
+                  class="css-1xdhyk6"
                   href="http://www.nypl.org/accessibility"
-                  rel={null}
-                  target={null}
                 >
                   Accessibility
                 </a>
               </li>
               <li>
                 <a
-                  className="emotion-0"
+                  class="css-1xdhyk6"
                   href="http://www.nypl.org/help/about-nypl/media-center"
-                  rel={null}
-                  target={null}
                 >
                   Press
                 </a>
               </li>
               <li>
                 <a
-                  className="emotion-0"
+                  class="css-1xdhyk6"
                   href="http://www.nypl.org/careers"
-                  rel={null}
-                  target={null}
                 >
                   Careers
                 </a>
               </li>
               <li>
                 <a
-                  className="emotion-0"
+                  class="css-1xdhyk6"
                   href="http://www.nypl.org/spacerental"
-                  rel={null}
-                  target={null}
                 >
                   Space Rental
                 </a>
@@ -363,44 +282,36 @@ exports[`renders about unchanged 1`] = `
           </li>
           <li>
             <ul
-              className="emotion-0"
+              class="css-1xdhyk6"
             >
               <li>
                 <a
-                  className="emotion-0"
+                  class="css-1xdhyk6"
                   href="http://www.nypl.org/help/about-nypl/legal-notices/privacy-policy"
-                  rel={null}
-                  target={null}
                 >
                   Privacy Policy
                 </a>
               </li>
               <li>
                 <a
-                  className="emotion-0"
+                  class="css-1xdhyk6"
                   href="http://www.nypl.org/policies"
-                  rel={null}
-                  target={null}
                 >
                   Other Policies
                 </a>
               </li>
               <li>
                 <a
-                  className="emotion-0"
+                  class="css-1xdhyk6"
                   href="http://www.nypl.org/terms-conditions"
-                  rel={null}
-                  target={null}
                 >
                   Terms & Conditions
                 </a>
               </li>
               <li>
                 <a
-                  className="emotion-0"
+                  class="css-1xdhyk6"
                   href="http://www.nypl.org/help/about-nypl/leadership/board-trustees"
-                  rel={null}
-                  target={null}
                 >
                   Governance
                 </a>
@@ -409,34 +320,28 @@ exports[`renders about unchanged 1`] = `
           </li>
           <li>
             <ul
-              className="emotion-0"
+              class="css-1xdhyk6"
             >
               <li>
                 <a
-                  className="emotion-0"
+                  class="css-1xdhyk6"
                   href="http://www.nypl.org/help/about-nypl/legal-notices/rules-and-regulations"
-                  rel={null}
-                  target={null}
                 >
                   Rules & Regulations
                 </a>
               </li>
               <li>
                 <a
-                  className="emotion-0"
+                  class="css-1xdhyk6"
                   href="http://www.nypl.org/help/about-nypl"
-                  rel={null}
-                  target={null}
                 >
                   About NYPL
                 </a>
               </li>
               <li>
                 <a
-                  className="emotion-0"
+                  class="css-1xdhyk6"
                   href="http://www.nypl.org/language"
-                  rel={null}
-                  target={null}
                 >
                   Language
                 </a>
@@ -445,22 +350,20 @@ exports[`renders about unchanged 1`] = `
           </li>
         </ul>
         <ul
-          className="emotion-0"
+          class="css-1xdhyk6"
           data-testid="social-media-links"
         >
           <li>
             <a
               aria-label="NYPL on Facebook"
-              className="emotion-0"
+              class="css-1xdhyk6"
               href="https://www.facebook.com/nypl"
-              rel={null}
-              target={null}
             >
               <svg
-                aria-hidden={false}
+                aria-hidden="false"
                 aria-label="NYPL on Facebook"
-                className="chakra-icon emotion-12"
-                focusable={false}
+                class="chakra-icon css-1vgifmd"
+                focusable="false"
                 role="img"
                 viewBox="0 0 32 32"
                 xmlns="http://www.w3.org/2000/svg"
@@ -477,16 +380,14 @@ exports[`renders about unchanged 1`] = `
           <li>
             <a
               aria-label="NYPL on Twitter"
-              className="emotion-0"
+              class="css-1xdhyk6"
               href="https://twitter.com/nypl"
-              rel={null}
-              target={null}
             >
               <svg
-                aria-hidden={false}
+                aria-hidden="false"
                 aria-label="NYPL on Twitter"
-                className="chakra-icon emotion-12"
-                focusable={false}
+                class="chakra-icon css-1vgifmd"
+                focusable="false"
                 role="img"
                 viewBox="0 0 32 32"
                 xmlns="http://www.w3.org/2000/svg"
@@ -503,16 +404,14 @@ exports[`renders about unchanged 1`] = `
           <li>
             <a
               aria-label="NYPL on Instagram"
-              className="emotion-0"
+              class="css-1xdhyk6"
               href="https://instagram.com/nypl"
-              rel={null}
-              target={null}
             >
               <svg
-                aria-hidden={false}
+                aria-hidden="false"
                 aria-label="NYPL on Instagram"
-                className="chakra-icon emotion-12"
-                focusable={false}
+                class="chakra-icon css-1vgifmd"
+                focusable="false"
                 role="img"
                 viewBox="0 0 32 32"
                 xmlns="http://www.w3.org/2000/svg"
@@ -529,16 +428,14 @@ exports[`renders about unchanged 1`] = `
           <li>
             <a
               aria-label="NYPL on Youtube"
-              className="emotion-0"
+              class="css-1xdhyk6"
               href="https://www.youtube.com/user/NewYorkPublicLibrary"
-              rel={null}
-              target={null}
             >
               <svg
-                aria-hidden={false}
+                aria-hidden="false"
                 aria-label="NYPL on Youtube"
-                className="chakra-icon emotion-12"
-                focusable={false}
+                class="chakra-icon css-1vgifmd"
+                focusable="false"
                 role="img"
                 viewBox="0 0 32 32"
                 xmlns="http://www.w3.org/2000/svg"
@@ -555,23 +452,23 @@ exports[`renders about unchanged 1`] = `
         </ul>
       </div>
       <div
-        className="emotion-1"
+        class="css-0"
       >
         <div
-          className="emotion-1"
+          class="css-0"
         >
           <div
-            className="emotion-1"
+            class="css-0"
           >
             <img
               alt="NYPL Main Building Facade"
-              className="emotion-1"
+              class="css-0"
               src="https://cdn-d8.nypl.org/s3fs-public/2020-05/NYPL_MainFacadeRev2Cam2.png"
             />
           </div>
         </div>
         <div
-          className="emotion-1"
+          class="css-0"
         >
           <p>
             © The New York Public Library, 
@@ -583,14 +480,14 @@ exports[`renders about unchanged 1`] = `
         </div>
       </div>
       <div
-        className="emotion-1"
+        class="css-0"
       >
         <svg
-          aria-hidden={false}
+          aria-hidden="false"
           aria-label="The New York Public Library"
-          className="chakra-icon emotion-12"
+          class="chakra-icon css-1vgifmd"
           fill="none"
-          focusable={false}
+          focusable="false"
           role="img"
           viewBox="0 0 201 165"
           xmlns="http://www.w3.org/2000/svg"
@@ -603,70 +500,70 @@ exports[`renders about unchanged 1`] = `
             fill="#fff"
           />
           <path
-            clipRule="evenodd"
+            clip-rule="evenodd"
             d="M46.895 12.963c-7.052 0-11.405 6.124-11.405 13.626 0 7.613 3.747 14.122 11.901 14.122 3.22.07 6.381-.876 9.036-2.703l-1.212-2.262a13.06 13.06 0 0 1-7.659 2.483c-6.39 0-8.925-5.572-8.98-11.64v-.607h18.292c.55-7.557-3.196-13.018-9.973-13.018Zm-.11 2.538c5.069 0 7.107 4.082 7.163 8.11H38.74c.771-4.524 3.416-8.11 8.044-8.11Z"
             fill="#fff"
-            fillRule="evenodd"
+            fill-rule="evenodd"
           />
           <path
             d="M59.953 13.57h3.14l6.447 22.121 6.942-22.12h2.81l6.942 22.175 6.502-22.176h2.92l-7.99 26.59h-2.644l-7.163-22.397-7.162 22.396h-2.645L59.953 13.57ZM121.22 26.148 108.824 3.034h3.471l10.523 20.024h.11l10.524-20.024h3.14l-12.341 23.114v13.956h-3.031V26.148Z"
             fill="#fff"
           />
           <path
-            clipRule="evenodd"
+            clip-rule="evenodd"
             d="M145.959 12.963c-8.32 0-11.901 7.227-11.901 13.902 0 6.675 3.581 13.846 11.956 13.846 8.319 0 12.121-7.282 12.121-13.956 0-6.62-3.857-13.791-12.176-13.791Zm-.166 2.483c6.061 0 9.257 5.461 9.257 11.419 0 6.013-2.92 11.364-9.036 11.364-6.006 0-8.981-5.462-8.981-11.474 0-5.958 2.755-11.31 8.76-11.31Z"
             fill="#fff"
-            fillRule="evenodd"
+            fill-rule="evenodd"
           />
           <path
             d="M163.7 13.57h2.92v4.634c.992-1.93 3.416-5.24 7.107-5.24a7.192 7.192 0 0 1 2.535.44l-.717 2.704a5.47 5.47 0 0 0-2.148-.386c-3.692 0-6.061 4.358-6.777 5.902v18.48h-2.92V13.57Z"
             fill="#fff"
           />
           <path
-            clipRule="evenodd"
+            clip-rule="evenodd"
             d="M184.471 0h-2.865v40.104h2.865V0Zm11.901 13.57-11.626 11.64 12.232 14.95h3.636l-12.341-14.95 11.735-11.64h-3.636ZM9.76 58.86H1.661v37.125h3.086V80.208H9.43c8.374 0 13.003-4.192 13.003-10.867 0-6.62-4.904-10.481-12.673-10.481Zm9.587 10.591c0 4.855-2.92 8.11-9.972 8.11v.055H4.747V61.508h4.738c7.107 0 9.862 3.31 9.862 7.943Z"
             fill="#fff"
-            fillRule="evenodd"
+            fill-rule="evenodd"
           />
           <path
             d="M27.116 88.152V69.396h2.92v18.15c0 3.916 1.377 6.398 5.454 6.398 3.967 0 7.218-3.75 8.1-5.296V69.397h2.865v21.459a22.79 22.79 0 0 0 .495 5.13h-2.975a28.995 28.995 0 0 1-.385-4.358c-1.268 1.986-4.298 4.965-8.816 4.965-5.454-.055-7.658-3.696-7.658-8.44Z"
             fill="#fff"
           />
           <path
-            clipRule="evenodd"
+            clip-rule="evenodd"
             d="M53.727 55.826V94.55c1.819 1.214 4.794 1.986 7.934 1.93 8.1 0 13.113-6.509 13.113-13.956 0-7.723-3.691-13.79-11.24-13.79a9.506 9.506 0 0 0-6.942 3.088V55.826h-2.865Zm9.312 15.556c6.501 0 8.705 5.517 8.705 11.309 0 5.516-3.25 11.364-9.973 11.364a12.106 12.106 0 0 1-5.179-1.049v-18.59a9.372 9.372 0 0 1 6.447-3.034Z"
             fill="#fff"
-            fillRule="evenodd"
+            fill-rule="evenodd"
           />
           <path
             d="M80.725 55.826h2.92V95.93h-2.92V55.826Z"
             fill="#fff"
           />
           <path
-            clipRule="evenodd"
+            clip-rule="evenodd"
             d="M92.603 59.597a2.18 2.18 0 0 0-1.08 1.91 2.176 2.176 0 1 0 4.353 0 2.18 2.18 0 0 0-1.08-1.91 2.174 2.174 0 0 0-2.193 0Zm2.612 9.744H92.24v26.59h2.975V69.34Z"
             fill="#fff"
-            fillRule="evenodd"
+            fill-rule="evenodd"
           />
           <path
             d="M100.78 82.636c0-8.385 4.848-13.846 11.68-13.846 3.967 0 6.446 1.489 7.879 2.758l-1.488 2.096a9.56 9.56 0 0 0-6.446-2.372c-5.895 0-8.54 5.13-8.54 11.253 0 5.903 2.589 11.53 8.485 11.53 2.465.019 4.86-.82 6.777-2.373l1.267 2.152c-1.433 1.269-4.243 2.703-8.209 2.703-7.659 0-11.405-6.785-11.405-13.901ZM.89 151.756v-37.07h7.878v30.726h13.774v6.344H.89Z"
             fill="#fff"
           />
           <path
-            clipRule="evenodd"
+            clip-rule="evenodd"
             d="M28.936 119.798c.85.84 2 1.303 3.193 1.287a4.41 4.41 0 0 0 3.955-2.158 4.421 4.421 0 0 0 0-4.51 4.408 4.408 0 0 0-3.955-2.158 4.397 4.397 0 0 0-3.17 1.231 4.408 4.408 0 0 0-1.348 3.127 4.465 4.465 0 0 0 1.325 3.181Zm-.498 4.817v27.141h7.438v-27.141h-7.438ZM49.815 126.767v-15.115h-7.383v38.615c1.268.606 5.014 2.151 11.13 2.151 8.154 0 14.38-5.13 14.38-14.398 0-9.322-4.738-14.011-11.515-14.011a9.71 9.71 0 0 0-6.612 2.758Zm3.747 19.859a10.481 10.481 0 0 1-3.747-.607v-14.122a6.53 6.53 0 0 1 4.573-2.041c4.022 0 5.73 3.089 5.73 8.164 0 5.517-2.424 8.606-6.556 8.606Z"
             fill="#fff"
-            fillRule="evenodd"
+            fill-rule="evenodd"
           />
           <path
             d="M88.713 131.125a5.293 5.293 0 0 0-2.865-.607c-3.305 0-5.234 2.924-5.895 4.137v17.101H72.57v-27.141h7.383v3.696c1.157-1.986 3.416-4.358 6.832-4.358 1.983 0 3.085.387 3.691.718l-1.763 6.454Z"
             fill="#fff"
           />
           <path
-            clipRule="evenodd"
+            clip-rule="evenodd"
             d="M107.887 148.832c.049.987.197 1.967.441 2.924v-.055h7.272a36.427 36.427 0 0 1-.771-7.999v-9.764c0-7.226-3.526-10.04-10.909-10.04-5.785 0-9.366 2.483-10.964 3.917l3.25 4.523a11.357 11.357 0 0 1 6.888-2.537c3.471 0 4.407 1.489 4.407 3.806v1.545h-.936c-7.163 0-14.436 2.592-14.436 9.653 0 4.855 3.527 7.613 8.155 7.613a10.045 10.045 0 0 0 7.603-3.586Zm-1.377-9.102H107.501v4.91a6.712 6.712 0 0 1-5.013 2.372c-1.708 0-3.306-.828-3.306-2.813 0-3.2 2.975-4.469 7.328-4.469Z"
             fill="#fff"
-            fillRule="evenodd"
+            fill-rule="evenodd"
           />
           <path
             d="M136.868 131.125a5.203 5.203 0 0 0-2.81-.607c-3.306 0-5.234 2.924-5.896 4.137v17.101h-7.382v-27.141h7.382v3.696c1.157-1.986 3.416-4.358 6.832-4.358 1.984 0 3.086.387 3.692.718l-1.818 6.454ZM141.331 124.615h7.878l6.006 17.874h.275l5.51-17.874h7.603l-11.184 30.01c-2.369 6.399-5.234 10.15-12.617 10.15a14.864 14.864 0 0 1-4.188-.497l1.047-5.847a8.47 8.47 0 0 0 2.59.276c3.801 0 5.124-1.821 6.17-4.744l.992-2.759-10.082-26.589Z"

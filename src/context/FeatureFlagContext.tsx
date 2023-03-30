@@ -27,7 +27,9 @@ const extractFeatureFlagParams = (query: ParsedUrlQuery) => {
   return featureFlags;
 };
 
-export const FeatureFlagProvider: React.FC = ({ children }) => {
+export const FeatureFlagProvider: React.FC<{ children?: React.ReactNode }> = ({
+  children,
+}) => {
   const [featureFlags, setFeatureFlags] = useState<FeatureFlag>({});
   const isFlagActive = (flag: string) => {
     return featureFlags[flag];

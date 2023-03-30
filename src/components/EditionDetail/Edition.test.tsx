@@ -121,9 +121,7 @@ describe("Breadcrumb truncates on long title", () => {
       within(nav).getByRole("link", { name: breadcrumbTitles.drb })
     ).toHaveAttribute("href", "/");
     expect(
-      within(nav).getByText(
-        "super super super super super super super super super super super super..."
-      )
+      within(nav).getByText("super super super super super super...")
     ).toBeInTheDocument();
   });
 });
