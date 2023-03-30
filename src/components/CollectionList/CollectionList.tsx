@@ -16,13 +16,16 @@ export const CollectionList: React.FC<{ collections: Opds2Feed }> = ({
     isLargerThanLarge,
     isLargerThanXLarge,
   } = useNYPLBreakpoints();
-  const numberOfColumns = isLargerThanXLarge
-    ? 4
-    : isLargerThanLarge
-    ? 3
-    : isLargerThanMedium
-    ? 2
-    : 1;
+  let numberOfColumns = 4;
+  if (isLargerThanXLarge) {
+    numberOfColumns = 4;
+  } else if (isLargerThanLarge) {
+    numberOfColumns = 3;
+  } else if (isLargerThanMedium) {
+    numberOfColumns = 2;
+  } else {
+    numberOfColumns = 1;
+  }
 
   return (
     <Box>
