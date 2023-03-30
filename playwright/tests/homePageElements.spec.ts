@@ -26,7 +26,9 @@ Then(
   "I see the Digital Research Books Beta breadcrumb",
   async function (this: CustomWorld) {
     await expect(
-      this.page.locator("li", { hasText: "Digital Research Books Beta" })
+      this.page.locator(
+        '.breadcrumb-label:text-is("Digital Research Books Beta")'
+      )
     ).toBeVisible();
   }
 );
