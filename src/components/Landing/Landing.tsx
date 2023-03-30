@@ -35,7 +35,6 @@ const LandingPage: React.FC<{ collections?: Opds2Feed }> = ({
         .
       </span>
       <Box marginTop="s">
-        Search the World's Research Collections
         <SearchForm />
       </Box>
     </Box>
