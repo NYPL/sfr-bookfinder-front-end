@@ -11,6 +11,8 @@ import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
 import dynamic from "next/dynamic";
 import { MediaTypes } from "~/src/constants/mediaTypes";
 import ReaderLogoSvg from "../Svgs/ReaderLogoSvg";
+import useSWR from "swr";
+import { fetchAndModifyManifest } from "./singlePDFUtils";
 const WebReader = dynamic(() => import("@nypl/web-reader"), { ssr: false });
 // This is how we can import a css file as a url. It's complex, but necessary
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -24,6 +26,8 @@ import readiumDefault from "!file-loader!extract-loader!css-loader!@nypl/web-rea
 import readiumAfter from "!file-loader!extract-loader!css-loader!@nypl/web-reader/dist/injectable-html-styles/ReadiumCSS-after.css";
 
 import Link from "../Link/Link";
+// import { addTocToManifest } from "@nypl/web-reader";
+import Loading from "../Loading/Loading";
 
 const origin =
   typeof window !== "undefined" && window.location?.origin
@@ -55,23 +59,37 @@ const ReaderLayout: React.FC<{
   linkResult: LinkResult;
   proxyUrl: string;
   backUrl: string;
-}> = (props) => {
-  const link: ApiLink = props.linkResult.data;
-  const proxyUrl = props.proxyUrl;
+}> = ({ linkResult, proxyUrl, backUrl }) => {
+  const link: ApiLink = linkResult.data;
   const url = formatUrl(link.url);
   const edition = link.work.editions[0];
+  const pdfWorkerSrc = `${origin}/pdf-worker/pdf.worker.min.js`;
 
   const isEmbed = MediaTypes.embed.includes(link.media_type);
-  const isRead = MediaTypes.read.includes(link.media_type);
+  // const isRead = MediaTypes.read.includes(link.media_type);
+
+  // const { data: modifiedManifestUrl, isLoading } = useSWR<string>(
+  //   url,
+  //   fetchAndModifyManifest(proxyUrl),
+  //   {
+  //     revalidateOnFocus: false,
+  //   }
+  // );
+
+  useEffect(() => {
+    fetchAndModifyManifest(proxyUrl)(url).then((res) => console.log(res));
+  });
 
   useEffect(() => {
     gtag.drbEvents("Read", `${link.work.title}`);
   }, [link]);
 
+  // if (isLoading || !modifiedManifestUrl) return <Loading />;
+
   const BackButton = () => {
     return (
       //Apends design system classname to use Design System Link.
-      <Link to={props.backUrl} className="nypl-ds logo-link">
+      <Link to={backUrl} className="nypl-ds logo-link">
         <Icon decorative className="logo-link__icon">
           <ReaderLogoSvg />
         </Icon>
@@ -80,41 +98,39 @@ const ReaderLayout: React.FC<{
     );
   };
 
-  return (
-    <>
-      {isEmbed && (
-        <Layout>
-          <Breadcrumbs
-            breadcrumbsType="research"
-            breadcrumbsData={[
-              ...defaultBreadcrumbs,
-              {
-                url: `/work/${edition.work_uuid}`,
-                text: truncateStringOnWhitespace(
-                  edition.title,
-                  MAX_TITLE_LENGTH
-                ),
-              },
-              {
-                url: `/edition/${edition.edition_id}`,
-                text: EditionCardUtils.editionYearText(edition),
-              },
-            ]}
-          />
-          <IFrameReader url={link.url} />
-        </Layout>
-      )}
-      {isRead && (
-        <WebReader
-          webpubManifestUrl={url}
-          proxyUrl={proxyUrl}
-          pdfWorkerSrc={`${origin}/pdf-worker/pdf.worker.min.js`}
-          headerLeft={<BackButton />}
-          injectablesFixed={injectables}
+  if (isEmbed) {
+    return (
+      <Layout>
+        <Breadcrumbs
+          breadcrumbsType="research"
+          breadcrumbsData={[
+            ...defaultBreadcrumbs,
+            {
+              url: `/work/${edition.work_uuid}`,
+              text: truncateStringOnWhitespace(edition.title, MAX_TITLE_LENGTH),
+            },
+            {
+              url: `/edition/${edition.edition_id}`,
+              text: EditionCardUtils.editionYearText(edition),
+            },
+          ]}
         />
-      )}
-    </>
-  );
+        <IFrameReader url={link.url} />
+      </Layout>
+    );
+  }
+
+  return null;
+
+  // return (
+  //   <WebReader
+  //     webpubManifestUrl={url}
+  //     proxyUrl={proxyUrl}
+  //     pdfWorkerSrc={pdfWorkerSrc}
+  //     headerLeft={<BackButton />}
+  //     injectablesFixed={injectables}
+  //   />
+  // );
 };
 
 export default ReaderLayout;
