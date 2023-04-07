@@ -33,12 +33,10 @@ import {
   joinArrayOfElements,
   truncateStringOnWhitespace,
 } from "~/src/util/Util";
-import {
-  MAX_TITLE_LENGTH,
-  PLACEHOLDER_COVER_LINK,
-} from "~/src/constants/editioncard";
+import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
 import { Instance } from "~/src/types/DataModel";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
+import { PLACEHOLDER_LINK } from "~/src/constants/collection";
 
 const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
   props
@@ -140,10 +138,10 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
             <Card
               imageProps={{
                 alt: "Placeholder Cover",
-                aspectRatio: "original",
+                aspectRatio: "threeByTwo",
                 isAtEnd: true,
-                size: "small",
-                src: PLACEHOLDER_COVER_LINK,
+                size: "large",
+                src: PLACEHOLDER_LINK,
               }}
               isCentered
               backgroundColor="ui.gray.x-light-cool"

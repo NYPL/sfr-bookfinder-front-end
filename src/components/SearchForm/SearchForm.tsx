@@ -90,7 +90,7 @@ const SearchForm: React.FC<{
         }}
         labelText="Search"
       />
-      <Box float="right">
+      <Box float="right" marginTop={{ md: "xs" }}>
         <Link to="/advanced-search">Advanced Search</Link>
       </Box>
     </Box>

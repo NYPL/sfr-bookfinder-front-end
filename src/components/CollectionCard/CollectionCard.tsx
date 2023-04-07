@@ -7,19 +7,18 @@ import {
   Heading,
   Text,
 } from "@nypl/design-system-react-components";
-import { PLACEHOLDER_COVER_LINK } from "~/src/constants/editioncard";
 import { Opds2Feed } from "~/src/types/OpdsModel";
 import CollectionUtils from "~/src/util/CollectionUtils";
 import { truncateStringOnWhitespace } from "~/src/util/Util";
 import {
   MAX_DESCRIPTION_LENGTH,
   MAX_COLLECTION_TITLE_LENGTH,
+  PLACEHOLDER_LINK,
 } from "~/src/constants/collection";
 
 export const CollectionCard: React.FC<{ collection: Opds2Feed }> = ({
   collection,
 }) => {
-  const coverUrl = CollectionUtils.getCover(collection);
   const collectionId = CollectionUtils.getId(collection.links);
 
   return (
@@ -27,16 +26,12 @@ export const CollectionCard: React.FC<{ collection: Opds2Feed }> = ({
       id={`card-${collectionId}`}
       layout="column"
       imageProps={{
-        src: coverUrl,
-        alt:
-          coverUrl === PLACEHOLDER_COVER_LINK
-            ? "Placeholder Cover"
-            : `Cover for ${collection.metadata.title}`,
+        src: PLACEHOLDER_LINK,
+        alt: `Cover for ${collection.metadata.title}`,
         aspectRatio: "twoByOne",
       }}
       mainActionLink={collection.links[0].href}
       isBordered
-      width={{ sm: "default", md: "264px" }}
       minHeight="405px"
       sx={{
         "a > h2": {
