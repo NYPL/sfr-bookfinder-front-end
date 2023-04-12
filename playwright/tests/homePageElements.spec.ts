@@ -34,9 +34,9 @@ Then(
 );
 
 Then("I see the site name H1", async function (this: CustomWorld) {
-  await expect(this.page.locator("//h1")).toContainText(
-    "Digital Research Books"
-  );
+  await expect(
+    this.page.getByRole("heading", { name: "Digital Research Books" })
+  ).toBeVisible();
 });
 
 Then("I see the intro text", async function (this: CustomWorld) {
@@ -73,14 +73,6 @@ Then("I see advanced search link", async function (this: CustomWorld) {
   await expect(this.page.locator("text=Advanced Search")).toBeVisible();
 });
 
-Then("I see second H2 - Search Examples", async function (this: CustomWorld) {
-  await expect(this.page.locator("//h2")).toBeVisible();
-  await expect(this.page.locator("//h2")).toContainText("Search Examples");
-});
-Then("I see 5 search examples", async function (this: CustomWorld) {
-  const searchexamples = this.page.locator("//*[@id='subject-list']/li/a");
-  await expect(searchexamples).toHaveCount(5);
-});
 Then("I see the footer", async function (this: CustomWorld) {
   await expect(this.page.locator("#footer")).toBeVisible();
 });
