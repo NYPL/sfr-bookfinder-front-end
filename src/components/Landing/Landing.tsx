@@ -2,7 +2,7 @@ import React from "react";
 import {
   Box,
   Breadcrumbs,
-  Footer,
+  // Footer,
   Heading,
   Hero,
   Link,
@@ -79,9 +79,7 @@ const LandingPage: React.FC<{ collections?: Opds2Feed }> = ({
           </Box>
         </TemplateContentPrimary>
       </TemplateContent>
-      <TemplateFooter>
-        <Footer />
-      </TemplateFooter>
+      <TemplateFooter>{/* <Footer /> */}</TemplateFooter>
     </Template>
   );
 };
