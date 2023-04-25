@@ -17,14 +17,14 @@ class MyDocument extends Document {
           <div id="nypl-header"></div>
           <script
             type="module"
-            src="https://nypl-header-a8fn0wqv5-nypl.vercel.app/header.min.js?containerId=nypl-header"
+            src="https://nypl-header-app.vercel.app/header.min.js?containerId=nypl-header"
             async
           ></script>
           <Main />
           <div id="nypl-footer"></div>
           <script
             type="module"
-            src="https://nypl-header-a8fn0wqv5-nypl.vercel.app/footer.min.js?containerId=nypl-footer"
+            src="https://nypl-header-app.vercel.app/footer.min.js?containerId=nypl-footer"
             async
           ></script>
           <NextScript />
