@@ -24,7 +24,7 @@ import {
   Button,
   ButtonGroup,
   Checkbox,
-  Footer,
+  // Footer,
   Form,
   FormField,
   FormRow,
@@ -315,9 +315,7 @@ const AdvancedSearch: React.FC<{
           </Form>
         </TemplateContentPrimary>
       </TemplateContent>
-      <TemplateFooter>
-        <Footer />
-      </TemplateFooter>
+      <TemplateFooter>{/* <Footer /> */}</TemplateFooter>
     </Template>
   );
 };

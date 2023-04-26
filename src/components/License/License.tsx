@@ -2,7 +2,7 @@
 import React from "react";
 import {
   Breadcrumbs,
-  Footer,
+  // Footer,
   Heading,
   List,
   Template,
@@ -187,9 +187,7 @@ const License: React.FC = () => {
           modifications are also made available under the GPL.
         </p>
       </TemplateContent>
-      <TemplateFooter>
-        <Footer />
-      </TemplateFooter>
+      <TemplateFooter>{/* <Footer /> */}</TemplateFooter>
     </Template>
   );
 };

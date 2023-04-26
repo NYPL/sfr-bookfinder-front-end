@@ -8,7 +8,7 @@ import {
   CardContent,
   CardHeading,
   Flex,
-  Footer,
+  // Footer,
   Heading,
   HorizontalRule,
   SimpleGrid,
@@ -200,9 +200,7 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
           </SimpleGrid>
         </TemplateContentPrimary>
       </TemplateContent>
-      <TemplateFooter>
-        <Footer />
-      </TemplateFooter>
+      <TemplateFooter>{/* <Footer /> */}</TemplateFooter>
     </Template>
   );
 };
