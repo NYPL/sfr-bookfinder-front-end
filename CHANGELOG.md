@@ -6,6 +6,7 @@
 - Add Part of Collection to Edition/Work pages
 - Add Collection page
 - Add collection placeholder image
+- Replace dgx-header-component and DS Footer with Header/Footer components from nypl-header-app 
 
 ## [0.16.1]
 
