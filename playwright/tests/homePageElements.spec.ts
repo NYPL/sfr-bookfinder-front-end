@@ -81,6 +81,13 @@ Then("I see 5 search examples", async function (this: CustomWorld) {
   const searchexamples = this.page.locator("//*[@id='subject-list']/li/a");
   await expect(searchexamples).toHaveCount(5);
 });
+
+// 1. write assertion to find Recently Added Collections heading
+// 2. Confirm heading is visible
+
+// 1. Find a locator that is not dependent on user content
+// 2. Assert that locator is visible
+
 Then("I see the footer", async function (this: CustomWorld) {
   await expect(this.page.locator("#footer")).toBeVisible();
 });
