@@ -223,8 +223,8 @@ describe("Advanced Search clear", () => {
     expect(
       screen.getByLabelText("Show only US government documents")
     ).not.toBeChecked();
-    expect(screen.getByLabelText("From")).toHaveValue("");
-    expect(screen.getByLabelText("To")).toHaveValue("");
+    expect(screen.getByLabelText("From")).toHaveValue(null);
+    expect(screen.getByLabelText("To")).toHaveValue(null);
 
     inputTerms.forEach((val) => {
       expect(screen.getByLabelText(val.text)).toHaveValue("");
