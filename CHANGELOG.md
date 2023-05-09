@@ -2,7 +2,7 @@
 
 ## [Pre-release]
 - Fix minor UI issues for collections
-- Fixes home page element Playwright/Cucumber tests to support new collections feature
+- Add Playwright/Cucumber tests to support new Recently Added Collections feature on landing page
 
 ## [0.16.1]
 

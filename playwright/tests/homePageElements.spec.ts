@@ -75,7 +75,7 @@ Then("I see advanced search link", async function (this: CustomWorld) {
 
 Then("I see the collections heading", async function (this: CustomWorld) {
   await expect(this.page.getByRole('heading', { name: 'Recently Added Collections' })).toBeVisible();
-})
+});
 
 Then("I see the list of collection cards", async function (this: CustomWorld) {
   const collectionCountLocator = await this.page.locator("//b[contains(text(), 'Collection')]").count(); // count number of collection cards
@@ -84,7 +84,7 @@ Then("I see the list of collection cards", async function (this: CustomWorld) {
   await expect(this.page.getByRole("link", { name: "Collection"}).first()).toHaveAttribute("href", /collection/); // first card is a link
   await expect(this.page.getByRole("img", { name: "Collection" }).first()).toBeVisible(); // first card has an image
   await expect(this.page.getByRole("heading", { name: /Items/ }).first()).toBeVisible(); // first card has "Items" text
-})
+});
 
 Then("I see the footer", async function (this: CustomWorld) {
   await expect(this.page.locator("#footer")).toBeVisible();
