@@ -7,6 +7,7 @@
 - Add Collection page
 - Add collection placeholder image
 - Chore: fresh package-lock.json install and fix install errors on mac with M1 chip
+- Create branch for SFR-1682
 
 ## [0.16.1]
 
