@@ -33,10 +33,8 @@ import EditionCardUtils from "~/src/util/EditionCardUtils";
 import SearchHeader from "../SearchHeader/SearchHeader";
 import { WorkEdition } from "~/src/types/DataModel";
 import Link from "../Link/Link";
-import {
-  MAX_TITLE_LENGTH,
-  PLACEHOLDER_COVER_LINK,
-} from "~/src/constants/editioncard";
+import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
+import { PLACEHOLDER_LINK } from "~/src/constants/collection";
 
 const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
   props
@@ -132,10 +130,10 @@ const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
             <Card
               imageProps={{
                 alt: "Placeholder Cover",
-                aspectRatio: "original",
+                aspectRatio: "threeByTwo",
                 isAtEnd: true,
-                size: "small",
-                src: PLACEHOLDER_COVER_LINK,
+                size: "large",
+                src: PLACEHOLDER_LINK,
               }}
               isCentered
               backgroundColor="ui.gray.x-light-cool"

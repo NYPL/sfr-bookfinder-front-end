@@ -1,7 +1,12 @@
 # CHANGE LOG
 
 ## [Pre-release]
-- Fix minor UI issues for collections
+- Replace Search Examples with Recently Added Collections to landing page
+- Add primary hero to the landing page
+- Add Part of Collection to Edition/Work pages
+- Add Collection page
+- Add collection placeholder image
+- Chore: fresh package-lock.json install and fix install errors on mac with M1 chip
 - Add Playwright/Cucumber tests to support new Recently Added Collections feature on landing page
 
 ## [0.16.1]
@@ -9,11 +14,6 @@
 - add features and tests for publication year filter
 - add features and tests for language filter
 - Upgrade dgx-header-component to v2.8.0-r16-rc-3
-- Replace Search Examples with Recently Added Collections to landing page
-- Add primary hero to the landing page
-- Add Part of Collection to Edition/Work pages
-- Add Collection page
-- Chore: fresh package-lock.json install and fix install errors on mac with M1 chip
 
 ## [0.16.0]
 

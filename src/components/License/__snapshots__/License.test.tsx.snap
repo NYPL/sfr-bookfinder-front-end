@@ -75,16 +75,17 @@ exports[`renders License page unchanged 1`] = `
         <li
           class="chakra-breadcrumb__list-item css-18biwo"
         >
-          <span
+          <a
             aria-current="page"
             class="chakra-breadcrumb__link css-0"
+            href="/"
           >
             <span
               class="breadcrumb-label"
             >
               Digital Research Books Beta
             </span>
-          </span>
+          </a>
         </li>
       </ol>
     </nav>
