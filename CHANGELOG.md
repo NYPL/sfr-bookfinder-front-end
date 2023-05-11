@@ -8,6 +8,8 @@
 - Add collection placeholder image
 - Chore: fresh package-lock.json install and fix install errors on mac with M1 chip
 - Add Playwright/Cucumber tests to support new Recently Added Collections feature on landing page
+- Chore: fresh package-lock.json install and fix install errors on mac with M1 chip
+- Add Playwright/Cucumber tests to support new Recently Added Collections feature on landing page
 - Create branch for SFR-1682
 
 ## [0.16.1]
