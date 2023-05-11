@@ -26,15 +26,17 @@ Then(
   "I see the Digital Research Books Beta breadcrumb",
   async function (this: CustomWorld) {
     await expect(
-      this.page.locator("li", { hasText: "Digital Research Books Beta" })
+      this.page.locator(
+        '.breadcrumb-label:text-is("Digital Research Books Beta")'
+      )
     ).toBeVisible();
   }
 );
 
 Then("I see the site name H1", async function (this: CustomWorld) {
-  await expect(this.page.locator("//h1")).toContainText(
-    "Digital Research Books"
-  );
+  await expect(
+    this.page.getByRole("heading", { name: "Digital Research Books" })
+  ).toBeVisible();
 });
 
 Then("I see the intro text", async function (this: CustomWorld) {
@@ -71,14 +73,29 @@ Then("I see advanced search link", async function (this: CustomWorld) {
   await expect(this.page.locator("text=Advanced Search")).toBeVisible();
 });
 
-Then("I see second H2 - Search Examples", async function (this: CustomWorld) {
-  await expect(this.page.locator("//h2")).toBeVisible();
-  await expect(this.page.locator("//h2")).toContainText("Search Examples");
+Then("I see the collections heading", async function (this: CustomWorld) {
+  await expect(
+    this.page.getByRole("heading", { name: "Recently Added Collections" })
+  ).toBeVisible();
 });
-Then("I see 5 search examples", async function (this: CustomWorld) {
-  const searchexamples = this.page.locator("//*[@id='subject-list']/li/a");
-  await expect(searchexamples).toHaveCount(5);
+
+Then("I see the list of collection cards", async function (this: CustomWorld) {
+  const collectionCountLocator = await this.page
+    .locator("//b[contains(text(), 'Collection')]")
+    .count(); // count number of collection cards
+  await expect(collectionCountLocator).toBeGreaterThan(0); // at least one card exists with the text "Collection"
+
+  await expect(
+    this.page.getByRole("link", { name: "Collection" }).first()
+  ).toHaveAttribute("href", /collection/); // first card is a link
+  await expect(
+    this.page.getByRole("img", { name: "Collection" }).first()
+  ).toBeVisible(); // first card has an image
+  await expect(
+    this.page.getByRole("heading", { name: /Items/ }).first()
+  ).toBeVisible(); // first card has "Items" text
 });
+
 Then("I see the footer", async function (this: CustomWorld) {
   await expect(this.page.locator("#footer")).toBeVisible();
 });

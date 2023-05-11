@@ -265,8 +265,7 @@ export const workDetailWithCatalog: WorkResult = {
                 },
                 link_id: 6113936,
                 mediaType: "text/html",
-                url:
-                  "www.nypl.org/research/collections/shared-collection-catalog/bib/b15804181",
+                url: "www.nypl.org/research/collections/shared-collection-catalog/bib/b15804181",
               },
             ],
             location: null,

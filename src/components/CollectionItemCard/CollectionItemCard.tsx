@@ -22,14 +22,8 @@ export const CollectionItemCard: React.FC<{
   // cookies defaults to be undefined if not found
   const [cookies] = useCookies([NYPL_SESSION_ID]);
   const { links, metadata } = collectionItem;
-  const {
-    locationCreated,
-    published,
-    rights,
-    language,
-    title,
-    publisher,
-  } = metadata;
+  const { locationCreated, published, rights, language, title, publisher } =
+    metadata;
 
   return (
     <Card

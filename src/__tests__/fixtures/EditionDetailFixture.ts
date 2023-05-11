@@ -62,8 +62,7 @@ const createEditionResult = (
                 {
                   link_id: 3667191,
                   mediaType: "application/pdf",
-                  url:
-                    "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=mdp.39015002660481",
+                  url: "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=mdp.39015002660481",
                   flags: {
                     catalog: false,
                     download: true,
@@ -160,8 +159,7 @@ const createEditionResult = (
                 {
                   link_id: 3667191,
                   mediaType: "application/pdf",
-                  url:
-                    "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=mdp.39015002660481",
+                  url: "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=mdp.39015002660481",
                   flags: {
                     catalog: false,
                     download: true,
