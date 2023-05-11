@@ -21,3 +21,5 @@ vega.spec.ts
 
 # New Relic
 newrelic_agent.log
+
+.vscode

@@ -13,5 +13,7 @@ Feature: Expect all home page elements
         Then I see input field
         Then I see search button
         Then I see advanced search link
+        Then I see the collections heading
+        Then I see the list of collection cards
         Then I see the footer
         Then I see the feedback button
