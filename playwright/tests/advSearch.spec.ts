@@ -2,11 +2,7 @@ import { Given, Then, When } from "@cucumber/cucumber";
 import { expect } from "@playwright/test";
 import { CustomWorld } from "../support/setup";
 
-Given("I am testing advanced searches", async function (this: CustomWorld) {
-  return await this.page.goto(`${this.parameters.appUrl}`);
-});
-
-When("I click the adavanced search link", async function (this: CustomWorld) {
+When("I click the advanced search link", async function (this: CustomWorld) {
   await this.page.locator("//a[contains(text(), 'Advanced Search')]").click();
 });
 
@@ -101,13 +97,7 @@ Then(
     ).toBeVisible();
   }
 );
-Given(
-  "I have clicked the advanced search link",
-  async function (this: CustomWorld) {
-    await this.page.goto(`${this.parameters.appUrl}`);
-    await this.page.locator("//a[contains(text(), 'Advanced Search')]").click();
-  }
-);
+
 When("I add more terms to the search", async function (this: CustomWorld) {
   await this.page.locator("//input[@id='search-Keyword']").fill("revolution");
   await this.page.locator("#submit-button").click();
