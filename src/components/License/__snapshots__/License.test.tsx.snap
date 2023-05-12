@@ -291,7 +291,7 @@ exports[`renders License page unchanged 1`] = `
     </p>
   </main>
   <footer
-    className="emotion-1"
+    class="css-0"
   />
 </div>
 `;

@@ -3,7 +3,6 @@ import {
   Box,
   Breadcrumbs,
   Flex,
-  // Footer,
   Form,
   Heading,
   HorizontalRule,
@@ -196,7 +195,7 @@ const Collection: React.FC<{
           />
         </TemplateContentPrimary>
       </TemplateContent>
-      <TemplateFooter>{/* <Footer /> */}</TemplateFooter>
+      <TemplateFooter></TemplateFooter>
     </Template>
   );
 };

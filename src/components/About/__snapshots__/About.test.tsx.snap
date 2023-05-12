@@ -229,7 +229,7 @@ exports[`renders about unchanged 1`] = `
     </div>
   </main>
   <footer
-    className="emotion-1"
+    class="css-0"
   />
 </div>
 `;
