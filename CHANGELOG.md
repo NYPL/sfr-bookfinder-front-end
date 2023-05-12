@@ -6,6 +6,8 @@
 - Add Part of Collection to Edition/Work pages
 - Add Collection page
 - Add collection placeholder image
+- Chore: fresh package-lock.json install and fix install errors on mac with M1 chip
+- Add Playwright/Cucumber tests to support new Recently Added Collections feature on landing page
 - Replace dgx-header-component and DS Footer with Header/Footer components from nypl-header-app 
 
 ## [0.16.1]

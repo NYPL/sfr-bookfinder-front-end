@@ -49,13 +49,8 @@ const Collection: React.FC<{
   if (!collectionResult) return <Loading />;
 
   const { metadata, links, publications } = collectionResult;
-  const {
-    itemsPerPage,
-    numberOfItems,
-    currentPage,
-    title,
-    description,
-  } = metadata;
+  const { itemsPerPage, numberOfItems, currentPage, title, description } =
+    metadata;
   const totalItems = numberOfItems;
   const collectionId = CollectionUtils.getId(links);
   const lastPageLink = links[links.length - 1].href;

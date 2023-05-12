@@ -272,8 +272,8 @@ const AdvancedSearch: React.FC<{
             </FormField>
             <FormField>
               <FilterYears
-                startFilter={startFilter && startFilter[0]}
-                endFilter={endFilter && endFilter[0]}
+                startFilter={startFilter}
+                endFilter={endFilter}
                 onDateChange={(
                   e: React.ChangeEvent<HTMLInputElement>,
                   isStart: boolean

@@ -22,6 +22,5 @@ Then(
       .waitFor();
     const textIWant = this.page.locator("a", { hasText: "IBM 1401" });
     expect(await textIWant.count()).toBeGreaterThan(3);
-    console.log(textIWant);
   }
 );

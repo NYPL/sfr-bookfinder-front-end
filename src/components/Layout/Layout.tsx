@@ -12,7 +12,10 @@ import { useRouter } from "next/router";
  * and other set up information to all its children.
  */
 
-const Layout: React.FC<{ children; isTestMode?: boolean }> = ({ children }) => {
+const Layout: React.FC<{
+  children?: React.ReactNode;
+  isTestMode?: boolean;
+}> = ({ children, isTestMode = false }) => {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
 
