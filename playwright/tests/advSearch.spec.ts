@@ -111,7 +111,6 @@ Then(
     val = val.replace(",", "");
     const num = parseInt(val);
     await expect(num).toBeGreaterThan(0);
-    await this.page.goto(`${this.parameters.appUrl}`);
     await this.page.locator("//a[contains(text(), 'Advanced Search')]").click();
     await this.page.locator("//input[@id='search-Keyword']").fill("revolution");
     await this.page.locator("//input[@id='search-Subject']").fill("France");
