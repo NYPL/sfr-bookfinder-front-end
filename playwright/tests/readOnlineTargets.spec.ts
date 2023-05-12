@@ -2,15 +2,6 @@ import { Given, Then, When } from "@cucumber/cucumber";
 import { expect } from "@playwright/test";
 import { CustomWorld } from "../support/setup";
 
-Given(
-  "I am on the search page for Sub-saharan Africa",
-  async function (this: CustomWorld) {
-    return await this.page.goto(
-      `${this.parameters.appUrl}/search?query=subject%3ASub-saharan+Africa`
-    );
-  }
-);
-
 When(
   "I click Read Online for the first title",
   async function (this: CustomWorld) {
@@ -27,15 +18,7 @@ Then(
     );
   }
 );
-//
-When(
-  "I visit the details page for the title",
-  async function (this: CustomWorld) {
-    return await this.page.goto(
-      `${this.parameters.appUrl}work/01a28167-8c8d-4141-a32f-718539d5c8a4?featured=949699`
-    );
-  }
-);
+
 Then(
   "I click the Read Online button and expect to be on the Hathi Trust website",
   async function (this: CustomWorld) {
