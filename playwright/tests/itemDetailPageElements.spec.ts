@@ -1,11 +1,6 @@
 import { Given, Then } from "@cucumber/cucumber";
 import { expect } from "@playwright/test";
 import { CustomWorld } from "../support/setup";
-import { itemDetailURL } from "../support/constants";
-
-Given("I am on an item detail page", async function (this: CustomWorld) {
-  return await this.page.goto(`${this.parameters.appUrl}/${itemDetailURL}`);
-});
 
 Then("I see the item title", async function (this: CustomWorld) {
   await expect(
@@ -26,7 +21,7 @@ Then("I see the featured edition heading", async function (this: CustomWorld) {
 });
 
 Then("I see multiple cover images", async function (this: CustomWorld) {
-  const coverimage = this.page.locator('[data-testid="test"]');
+  const coverimage = this.page.getByAltText('Placeholder Cover');
   expect(await coverimage.count()).toBeGreaterThan(3);
 });
 
