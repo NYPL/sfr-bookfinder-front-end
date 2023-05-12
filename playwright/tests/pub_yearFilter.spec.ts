@@ -2,10 +2,6 @@ import { Given, Then, When } from "@cucumber/cucumber";
 import { expect } from "@playwright/test";
 import { CustomWorld } from "../support/setup";
 
-Given("Given I am on the home page", async function (this: CustomWorld) {
-  return await this.page.goto(`${this.parameters.appUrl}`);
-});
-
 When("When I search for New York", async function (this: CustomWorld) {
   await this.page.locator('[aria-label="Item Search"]').fill("New York");
   await this.page.locator("#searchbar-button-search-bar").click();
