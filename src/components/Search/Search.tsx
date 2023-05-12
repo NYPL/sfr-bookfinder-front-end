@@ -340,7 +340,7 @@ const SearchResults: React.FC<{
           />
         </TemplateContentPrimary>
       </TemplateContent>
-      <TemplateFooter></TemplateFooter>
+      <TemplateFooter />
     </Template>
   );
 };

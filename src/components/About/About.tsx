@@ -121,7 +121,7 @@ const About: React.FC = () => {
           </p>
         </TemplateContentPrimary>
       </TemplateContent>
-      <TemplateFooter></TemplateFooter>
+      <TemplateFooter />
     </Template>
   );
 };

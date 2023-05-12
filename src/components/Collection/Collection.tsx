@@ -195,7 +195,7 @@ const Collection: React.FC<{
           />
         </TemplateContentPrimary>
       </TemplateContent>
-      <TemplateFooter></TemplateFooter>
+      <TemplateFooter />
     </Template>
   );
 };

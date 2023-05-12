@@ -199,7 +199,7 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
           </SimpleGrid>
         </TemplateContentPrimary>
       </TemplateContent>
-      <TemplateFooter></TemplateFooter>
+      <TemplateFooter />
     </Template>
   );
 };

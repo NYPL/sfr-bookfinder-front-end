@@ -314,7 +314,7 @@ const AdvancedSearch: React.FC<{
           </Form>
         </TemplateContentPrimary>
       </TemplateContent>
-      <TemplateFooter></TemplateFooter>
+      <TemplateFooter />
     </Template>
   );
 };

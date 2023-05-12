@@ -78,7 +78,7 @@ const LandingPage: React.FC<{ collections?: Opds2Feed }> = ({
           </Box>
         </TemplateContentPrimary>
       </TemplateContent>
-      <TemplateFooter></TemplateFooter>
+      <TemplateFooter />
     </Template>
   );
 };

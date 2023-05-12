@@ -197,7 +197,7 @@ const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
           </Box>
         </TemplateContentPrimary>
       </TemplateContent>
-      <TemplateFooter></TemplateFooter>
+      <TemplateFooter />
     </Template>
   );
 };
