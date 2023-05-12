@@ -26,7 +26,7 @@ ENV NEW_RELIC_APP_NAME $NEW_RELIC_APP_NAME
 
 # Install dependencies.
 COPY package.json package-lock.json ./
-RUN npm run install:ci
+RUN npm ci --cache .npm
 
 # Copy the app files.
 COPY . ./

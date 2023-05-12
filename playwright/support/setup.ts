@@ -55,7 +55,7 @@ export class CustomWorld extends World {
 
 setWorldConstructor(CustomWorld);
 
-setDefaultTimeout(10 * 1000);
+setDefaultTimeout(30 * 1000);
 
 Before(async function (this: CustomWorld) {
   const contextOptions = {

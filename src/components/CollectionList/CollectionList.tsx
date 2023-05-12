@@ -11,11 +11,8 @@ import { MAX_COLLECTION_LIST_LENGTH } from "~/src/constants/collection";
 export const CollectionList: React.FC<{ collections: Opds2Feed }> = ({
   collections,
 }) => {
-  const {
-    isLargerThanMedium,
-    isLargerThanLarge,
-    isLargerThanXLarge,
-  } = useNYPLBreakpoints();
+  const { isLargerThanMedium, isLargerThanLarge, isLargerThanXLarge } =
+    useNYPLBreakpoints();
   let numberOfColumns = 4;
   if (isLargerThanXLarge) {
     numberOfColumns = 4;

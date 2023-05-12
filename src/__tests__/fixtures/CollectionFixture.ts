@@ -59,21 +59,18 @@ export const oneCollectionListData: CollectionResult = {
           editions: [],
           images: [
             {
-              href:
-                "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
+              href: "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
               type: "image/png",
             },
           ],
           links: [
             {
-              href:
-                "www.nypl.org/research/collections/shared-collection-catalog/bib/b14514889",
+              href: "www.nypl.org/research/collections/shared-collection-catalog/bib/b14514889",
               rel: "http://opds-spec.org/acquisition/open-access",
               type: "application/html+catalog",
             },
             {
-              href:
-                "www.nypl.org/research/collections/shared-collection-catalog/hold/request/b14514889-i38116343",
+              href: "www.nypl.org/research/collections/shared-collection-catalog/hold/request/b14514889-i38116343",
               rel: "http://opds-spec.org/acquisition/open-access",
               type: "application/html+edd",
             },
@@ -105,8 +102,7 @@ export const oneCollectionListData: CollectionResult = {
           editions: [],
           images: [
             {
-              href:
-                "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
+              href: "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
               type: "image/png",
             },
           ],
@@ -143,8 +139,7 @@ export const oneCollectionListData: CollectionResult = {
           editions: [],
           images: [
             {
-              href:
-                "drb-files-qa.s3.amazonaws.com/covers/hathi/mdp.39015047482628.jpeg",
+              href: "drb-files-qa.s3.amazonaws.com/covers/hathi/mdp.39015047482628.jpeg",
               type: "image/jpeg",
             },
           ],
@@ -229,21 +224,18 @@ export const collectionListData: CollectionResult = {
           editions: [],
           images: [
             {
-              href:
-                "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
+              href: "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
               type: "image/png",
             },
           ],
           links: [
             {
-              href:
-                "www.nypl.org/research/collections/shared-collection-catalog/bib/b14514889",
+              href: "www.nypl.org/research/collections/shared-collection-catalog/bib/b14514889",
               rel: "http://opds-spec.org/acquisition/open-access",
               type: "application/html+catalog",
             },
             {
-              href:
-                "www.nypl.org/research/collections/shared-collection-catalog/hold/request/b14514889-i38116343",
+              href: "www.nypl.org/research/collections/shared-collection-catalog/hold/request/b14514889-i38116343",
               rel: "http://opds-spec.org/acquisition/open-access",
               type: "application/html+edd",
             },
@@ -275,8 +267,7 @@ export const collectionListData: CollectionResult = {
           editions: [],
           images: [
             {
-              href:
-                "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
+              href: "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
               type: "image/png",
             },
           ],
@@ -313,8 +304,7 @@ export const collectionListData: CollectionResult = {
           editions: [],
           images: [
             {
-              href:
-                "drb-files-qa.s3.amazonaws.com/covers/hathi/mdp.39015047482628.jpeg",
+              href: "drb-files-qa.s3.amazonaws.com/covers/hathi/mdp.39015047482628.jpeg",
               type: "image/jpeg",
             },
           ],
@@ -425,15 +415,13 @@ export const collectionListData: CollectionResult = {
           editions: [],
           images: [
             {
-              href:
-                "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
+              href: "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
               type: "image/png",
             },
           ],
           links: [
             {
-              href:
-                "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=coo1.ark:/13960/t2t448c98",
+              href: "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=coo1.ark:/13960/t2t448c98",
               rel: "http://opds-spec.org/acquisition/open-access",
               type: "application/pdf",
             },
@@ -484,15 +472,13 @@ export const collectionListData: CollectionResult = {
           editions: [],
           images: [
             {
-              href:
-                "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
+              href: "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
               type: "image/png",
             },
           ],
           links: [
             {
-              href:
-                "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=loc.ark:/13960/t08w3k590",
+              href: "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=loc.ark:/13960/t08w3k590",
               rel: "http://opds-spec.org/acquisition/open-access",
               type: "application/pdf",
             },
@@ -507,8 +493,7 @@ export const collectionListData: CollectionResult = {
               type: "text/html",
             },
             {
-              href:
-                "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=loc.ark:/13960/t3417498d",
+              href: "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=loc.ark:/13960/t3417498d",
               rel: "http://opds-spec.org/acquisition/open-access",
               type: "application/pdf",
             },
@@ -556,8 +541,7 @@ export const collectionListData: CollectionResult = {
           editions: [],
           images: [
             {
-              href:
-                "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
+              href: "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
               type: "image/png",
             },
           ],
@@ -618,15 +602,13 @@ export const collectionListData: CollectionResult = {
           editions: [],
           images: [
             {
-              href:
-                "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
+              href: "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
               type: "image/png",
             },
           ],
           links: [
             {
-              href:
-                "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=coo1.ark:/13960/t2t448c98",
+              href: "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=coo1.ark:/13960/t2t448c98",
               rel: "http://opds-spec.org/acquisition/open-access",
               type: "application/pdf",
             },
@@ -677,15 +659,13 @@ export const collectionListData: CollectionResult = {
           editions: [],
           images: [
             {
-              href:
-                "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
+              href: "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
               type: "image/png",
             },
           ],
           links: [
             {
-              href:
-                "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=loc.ark:/13960/t08w3k590",
+              href: "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=loc.ark:/13960/t08w3k590",
               rel: "http://opds-spec.org/acquisition/open-access",
               type: "application/pdf",
             },
@@ -700,8 +680,7 @@ export const collectionListData: CollectionResult = {
               type: "text/html",
             },
             {
-              href:
-                "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=loc.ark:/13960/t3417498d",
+              href: "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=loc.ark:/13960/t3417498d",
               rel: "http://opds-spec.org/acquisition/open-access",
               type: "application/pdf",
             },
@@ -749,8 +728,7 @@ export const collectionListData: CollectionResult = {
           editions: [],
           images: [
             {
-              href:
-                "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
+              href: "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
               type: "image/png",
             },
           ],
@@ -811,15 +789,13 @@ export const collectionListData: CollectionResult = {
           editions: [],
           images: [
             {
-              href:
-                "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
+              href: "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
               type: "image/png",
             },
           ],
           links: [
             {
-              href:
-                "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=coo1.ark:/13960/t2t448c98",
+              href: "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=coo1.ark:/13960/t2t448c98",
               rel: "http://opds-spec.org/acquisition/open-access",
               type: "application/pdf",
             },
@@ -870,15 +846,13 @@ export const collectionListData: CollectionResult = {
           editions: [],
           images: [
             {
-              href:
-                "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
+              href: "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
               type: "image/png",
             },
           ],
           links: [
             {
-              href:
-                "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=loc.ark:/13960/t08w3k590",
+              href: "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=loc.ark:/13960/t08w3k590",
               rel: "http://opds-spec.org/acquisition/open-access",
               type: "application/pdf",
             },
@@ -893,8 +867,7 @@ export const collectionListData: CollectionResult = {
               type: "text/html",
             },
             {
-              href:
-                "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=loc.ark:/13960/t3417498d",
+              href: "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=loc.ark:/13960/t3417498d",
               rel: "http://opds-spec.org/acquisition/open-access",
               type: "application/pdf",
             },
@@ -942,8 +915,7 @@ export const collectionListData: CollectionResult = {
           editions: [],
           images: [
             {
-              href:
-                "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
+              href: "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
               type: "image/png",
             },
           ],
@@ -1004,15 +976,13 @@ export const collectionListData: CollectionResult = {
           editions: [],
           images: [
             {
-              href:
-                "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
+              href: "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
               type: "image/png",
             },
           ],
           links: [
             {
-              href:
-                "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=coo1.ark:/13960/t2t448c98",
+              href: "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=coo1.ark:/13960/t2t448c98",
               rel: "http://opds-spec.org/acquisition/open-access",
               type: "application/pdf",
             },
@@ -1063,15 +1033,13 @@ export const collectionListData: CollectionResult = {
           editions: [],
           images: [
             {
-              href:
-                "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
+              href: "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
               type: "image/png",
             },
           ],
           links: [
             {
-              href:
-                "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=loc.ark:/13960/t08w3k590",
+              href: "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=loc.ark:/13960/t08w3k590",
               rel: "http://opds-spec.org/acquisition/open-access",
               type: "application/pdf",
             },
@@ -1086,8 +1054,7 @@ export const collectionListData: CollectionResult = {
               type: "text/html",
             },
             {
-              href:
-                "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=loc.ark:/13960/t3417498d",
+              href: "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=loc.ark:/13960/t3417498d",
               rel: "http://opds-spec.org/acquisition/open-access",
               type: "application/pdf",
             },
@@ -1135,8 +1102,7 @@ export const collectionListData: CollectionResult = {
           editions: [],
           images: [
             {
-              href:
-                "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
+              href: "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
               type: "image/png",
             },
           ],
@@ -1197,15 +1163,13 @@ export const collectionListData: CollectionResult = {
           editions: [],
           images: [
             {
-              href:
-                "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
+              href: "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
               type: "image/png",
             },
           ],
           links: [
             {
-              href:
-                "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=coo1.ark:/13960/t2t448c98",
+              href: "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=coo1.ark:/13960/t2t448c98",
               rel: "http://opds-spec.org/acquisition/open-access",
               type: "application/pdf",
             },
@@ -1256,15 +1220,13 @@ export const collectionListData: CollectionResult = {
           editions: [],
           images: [
             {
-              href:
-                "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
+              href: "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
               type: "image/png",
             },
           ],
           links: [
             {
-              href:
-                "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=loc.ark:/13960/t08w3k590",
+              href: "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=loc.ark:/13960/t08w3k590",
               rel: "http://opds-spec.org/acquisition/open-access",
               type: "application/pdf",
             },
@@ -1279,8 +1241,7 @@ export const collectionListData: CollectionResult = {
               type: "text/html",
             },
             {
-              href:
-                "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=loc.ark:/13960/t3417498d",
+              href: "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=loc.ark:/13960/t3417498d",
               rel: "http://opds-spec.org/acquisition/open-access",
               type: "application/pdf",
             },
@@ -1328,8 +1289,7 @@ export const collectionListData: CollectionResult = {
           editions: [],
           images: [
             {
-              href:
-                "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
+              href: "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
               type: "image/png",
             },
           ],
@@ -1390,15 +1350,13 @@ export const collectionListData: CollectionResult = {
           editions: [],
           images: [
             {
-              href:
-                "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
+              href: "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
               type: "image/png",
             },
           ],
           links: [
             {
-              href:
-                "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=coo1.ark:/13960/t2t448c98",
+              href: "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=coo1.ark:/13960/t2t448c98",
               rel: "http://opds-spec.org/acquisition/open-access",
               type: "application/pdf",
             },
@@ -1449,15 +1407,13 @@ export const collectionListData: CollectionResult = {
           editions: [],
           images: [
             {
-              href:
-                "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
+              href: "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
               type: "image/png",
             },
           ],
           links: [
             {
-              href:
-                "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=loc.ark:/13960/t08w3k590",
+              href: "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=loc.ark:/13960/t08w3k590",
               rel: "http://opds-spec.org/acquisition/open-access",
               type: "application/pdf",
             },
@@ -1472,8 +1428,7 @@ export const collectionListData: CollectionResult = {
               type: "text/html",
             },
             {
-              href:
-                "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=loc.ark:/13960/t3417498d",
+              href: "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=loc.ark:/13960/t3417498d",
               rel: "http://opds-spec.org/acquisition/open-access",
               type: "application/pdf",
             },
@@ -1521,8 +1476,7 @@ export const collectionListData: CollectionResult = {
           editions: [],
           images: [
             {
-              href:
-                "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
+              href: "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
               type: "image/png",
             },
           ],
@@ -1583,15 +1537,13 @@ export const collectionListData: CollectionResult = {
           editions: [],
           images: [
             {
-              href:
-                "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
+              href: "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
               type: "image/png",
             },
           ],
           links: [
             {
-              href:
-                "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=coo1.ark:/13960/t2t448c98",
+              href: "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=coo1.ark:/13960/t2t448c98",
               rel: "http://opds-spec.org/acquisition/open-access",
               type: "application/pdf",
             },
@@ -1642,15 +1594,13 @@ export const collectionListData: CollectionResult = {
           editions: [],
           images: [
             {
-              href:
-                "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
+              href: "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
               type: "image/png",
             },
           ],
           links: [
             {
-              href:
-                "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=loc.ark:/13960/t08w3k590",
+              href: "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=loc.ark:/13960/t08w3k590",
               rel: "http://opds-spec.org/acquisition/open-access",
               type: "application/pdf",
             },
@@ -1665,8 +1615,7 @@ export const collectionListData: CollectionResult = {
               type: "text/html",
             },
             {
-              href:
-                "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=loc.ark:/13960/t3417498d",
+              href: "babel.hathitrust.org/cgi/imgsrv/download/pdf?id=loc.ark:/13960/t3417498d",
               rel: "http://opds-spec.org/acquisition/open-access",
               type: "application/pdf",
             },
@@ -1714,8 +1663,7 @@ export const collectionListData: CollectionResult = {
           editions: [],
           images: [
             {
-              href:
-                "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
+              href: "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
               type: "image/png",
             },
           ],
@@ -1776,21 +1724,18 @@ const defaultPublications: OpdsPublication[] = [
     editions: [],
     images: [
       {
-        href:
-          "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
+        href: "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
         type: "image/png",
       },
     ],
     links: [
       {
-        href:
-          "www.nypl.org/research/collections/shared-collection-catalog/bib/b14514889",
+        href: "www.nypl.org/research/collections/shared-collection-catalog/bib/b14514889",
         rel: "http://opds-spec.org/acquisition/open-access",
         type: "application/html+catalog",
       },
       {
-        href:
-          "www.nypl.org/research/collections/shared-collection-catalog/hold/request/b14514889-i38116343",
+        href: "www.nypl.org/research/collections/shared-collection-catalog/hold/request/b14514889-i38116343",
         rel: "http://opds-spec.org/acquisition/open-access",
         type: "application/html+edd",
       },
@@ -1822,8 +1767,7 @@ const defaultPublications: OpdsPublication[] = [
     editions: [],
     images: [
       {
-        href:
-          "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
+        href: "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
         type: "image/png",
       },
     ],
@@ -1860,8 +1804,7 @@ const defaultPublications: OpdsPublication[] = [
     editions: [],
     images: [
       {
-        href:
-          "drb-files-qa.s3.amazonaws.com/covers/hathi/mdp.39015047482628.jpeg",
+        href: "drb-files-qa.s3.amazonaws.com/covers/hathi/mdp.39015047482628.jpeg",
         type: "image/jpeg",
       },
     ],
@@ -1916,22 +1859,19 @@ const createCollectionItem = (title = "Default title"): OpdsPublication => {
     editions: [],
     images: [
       {
-        href:
-          "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
+        href: "https://drb-files-qa.s3.amazonaws.com/covers/default/defaultCover.png",
         type: "image/png",
       },
     ],
     links: [
       {
-        href:
-          "www.nypl.org/research/collections/shared-collection-catalog/bib/b14514889",
+        href: "www.nypl.org/research/collections/shared-collection-catalog/bib/b14514889",
         identifier: "catalog",
         rel: "http://opds-spec.org/acquisition/open-access",
         type: "application/html+catalog",
       },
       {
-        href:
-          "www.nypl.org/research/collections/shared-collection-catalog/hold/request/b14514889-i38116343",
+        href: "www.nypl.org/research/collections/shared-collection-catalog/hold/request/b14514889-i38116343",
         identifier: "requestable",
         rel: "http://opds-spec.org/acquisition/open-access",
         type: "application/html+edd",

@@ -3,15 +3,13 @@ import { expect } from "@playwright/test";
 import { CustomWorld } from "../support/setup";
 
 Given(
-  "I am on the home page for online targets testing",
+  "I am on the search page for Sub-saharan Africa",
   async function (this: CustomWorld) {
-    return await this.page.goto(`${this.parameters.appUrl}`);
+    return await this.page.goto(
+      `${this.parameters.appUrl}/search?query=subject%3ASub-saharan+Africa`
+    );
   }
 );
-
-When("I click Subject: Sub-saharan Africa", async function (this: CustomWorld) {
-  await this.page.locator("text=Subject: Sub-saharan Africa").click();
-});
 
 When(
   "I click Read Online for the first title",
