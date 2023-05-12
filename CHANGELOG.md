@@ -6,6 +6,7 @@
 - Add Part of Collection to Edition/Work pages
 - Add Collection page
 - Add collection placeholder image
+- Update hero image to update based on screen size
 
 ## [0.16.1]
 
