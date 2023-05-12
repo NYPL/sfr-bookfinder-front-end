@@ -1,4 +1,4 @@
-import { Given, Then } from "@cucumber/cucumber";
+import { Then } from "@cucumber/cucumber";
 import { expect } from "@playwright/test";
 import { CustomWorld } from "../support/setup";
 
@@ -21,7 +21,7 @@ Then("I see the featured edition heading", async function (this: CustomWorld) {
 });
 
 Then("I see multiple cover images", async function (this: CustomWorld) {
-  const coverimage = this.page.getByAltText('Placeholder Cover');
+  const coverimage = this.page.getByAltText("Placeholder Cover");
   expect(await coverimage.count()).toBeGreaterThan(3);
 });
 

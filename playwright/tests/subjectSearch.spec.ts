@@ -1,4 +1,4 @@
-import { Given, Then, When } from "@cucumber/cucumber";
+import { Then, When } from "@cucumber/cucumber";
 import { expect } from "@playwright/test";
 import { CustomWorld } from "../support/setup";
 
@@ -17,7 +17,7 @@ When(
 
 Then(
   "Then for each title on the page, I visit the details page and expect to see the subject listed",
-  {timeout: 60000}, // for loop takes longer than the default 30000ms
+  { timeout: 60000 }, // for loop takes longer than the default 30000ms
   async function (this: CustomWorld) {
     const titles = this.page.locator("h2 a");
 
@@ -27,7 +27,10 @@ Then(
       await this.page
         .locator("//h3[contains(text(), 'All Editions')]")
         .waitFor();
-      const targetlink = await this.page.getByRole("link", { name: "Petroleum", exact: true });
+      const targetlink = this.page.getByRole("link", {
+        name: "Petroleum",
+        exact: true,
+      });
       expect(await targetlink.isVisible());
       await this.page.goBack();
     }
