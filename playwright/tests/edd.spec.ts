@@ -26,10 +26,21 @@ Then("I log in to the catalog", async function (this: CustomWorld) {
   await this.page.locator('input[type="submit"] >> text="Submit"').click();
 });
 
-Then("I click the first request button", async function (this: CustomWorld) {
-  await this.page.locator("text=Request").first().click();
-});
+Then(
+  "I click the first request button",
+  { timeout: 60000 }, // takes longer than the default 30000ms
+  async function (this: CustomWorld) {
+    await this.page.getByRole("link", { name: "Request" }).first().click();
+  }
+);
 
-Then("I expect to see delivery options", async function (this: CustomWorld) {
-  await expect(this.page.locator("text=Have a small portion")).toBeVisible();
-});
+Then(
+  "I expect to see delivery options",
+  //{ timeout: 60000 }, // takes longer than the default 30000ms
+  async function (this: CustomWorld) {
+    const deliveryLocation = this.page.getByRole("heading", {
+      name: "Choose a delivery location",
+    });
+    await expect(deliveryLocation).toBeVisible();
+  }
+);
