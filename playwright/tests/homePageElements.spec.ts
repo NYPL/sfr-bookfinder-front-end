@@ -1,10 +1,6 @@
-import { Given, Then } from "@cucumber/cucumber";
+import { Then } from "@cucumber/cucumber";
 import { expect } from "@playwright/test";
 import { CustomWorld } from "../support/setup";
-
-Given("I am on the DRB home page", async function (this: CustomWorld) {
-  return await this.page.goto(`${this.parameters.appUrl}`);
-});
 
 Then("I see the site name", async function (this: CustomWorld) {
   await expect(

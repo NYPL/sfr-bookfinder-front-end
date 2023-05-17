@@ -1,7 +1,7 @@
 Feature: Expect all item detail page elements
 
     Scenario: As a user I should see all item detail page elements
-        Given I am on an item detail page
+        Given I go to the "item detail" page
         Then I see the item title
         Then I see the item author
         Then I see the featured edition heading
