@@ -2,10 +2,6 @@ import { Then, When } from "@cucumber/cucumber";
 import { expect } from "@playwright/test";
 import { CustomWorld } from "../support/setup";
 
-When("I click the advanced search link", async function (this: CustomWorld) {
-  await this.page.locator("//a[contains(text(), 'Advanced Search')]").click();
-});
-
 Then(
   "I should see the advanced search heading",
   async function (this: CustomWorld) {
@@ -61,14 +57,12 @@ Then(
   }
 );
 When(
-  "I supply a keyword and author and submit",
+  "I supply a keyword and author",
   async function (this: CustomWorld) {
     await this.page;
     this.page.locator("//input[@id='search-Keyword']").fill("IBM 1401");
     await this.page.waitForTimeout(500);
     this.page.locator("//input[@id='search-Author']").fill("Laurie, Edward J.");
-    await this.page.waitForTimeout(500);
-    await this.page.locator("#submit-button").click();
     await this.page.waitForTimeout(500);
   }
 );
@@ -102,6 +96,7 @@ When("I add more terms to the search", async function (this: CustomWorld) {
   await this.page.locator("//input[@id='search-Keyword']").fill("revolution");
   await this.page.locator("#submit-button").click();
 });
+
 Then(
   "Then I expect to see the number of results decrease with each new addition",
   async function (this: CustomWorld) {

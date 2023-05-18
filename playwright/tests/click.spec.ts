@@ -1,6 +1,6 @@
 import { When } from "@cucumber/cucumber";
 import { CustomWorld } from "../support/setup";
-import { elements } from "../support/mappings.js";
+import { elements, pages } from "../support/mappings";
 
 When(
   /^I click the "([^"]*)"$/,
@@ -9,3 +9,12 @@ When(
     return await this.page.locator(element).click();
   }
 );
+
+// trying to use built in locators
+// When(
+//   /^I click the "([^"]*)"$/,
+//   async function (this: CustomWorld, elementId: keyof typeof HTMLElement) {
+//     const path = elements[elementId];
+//     return await path.click();
+//   }
+// );
