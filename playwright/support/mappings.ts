@@ -24,7 +24,9 @@ export const pages: { [name: string]: Pages } = {
 export const elements = {
   "advanced search link": "[href='/advanced-search']",
   "advanced search button": "#submit-button",
-  "search button": "#searchbar-button-search-bar"
+  "search button": "#searchbar-button-search-bar",
+  "requestable checkbox": "text=Requestable",
+  "login button": "[value='Submit']"
 };
 
 // trying to use built in locators

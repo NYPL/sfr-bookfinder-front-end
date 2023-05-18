@@ -6,11 +6,6 @@ dotenv.config({ path: ".env.local" });
 
 When("I have done a keyword search", async function (this: CustomWorld) {
   await this.page.locator('[aria-label="Item Search"]').fill("Africa");
-  await this.page.locator("#searchbar-button-search-bar").click();
-});
-
-When("I click the requestable box", async function (this: CustomWorld) {
-  await this.page.locator("text=Requestable").click();
 });
 
 Then(
@@ -23,7 +18,7 @@ Then(
 Then("I log in to the catalog", async function (this: CustomWorld) {
   await this.page.locator("#code").fill(process.env.CATALOG_USERNAME);
   await this.page.locator("#pin").fill(process.env.CATALOG_USER_PIN);
-  await this.page.locator('input[type="submit"] >> text="Submit"').click();
+  //await this.page.locator('input[type="submit"] >> text="Submit"').click();
 });
 
 Then(
