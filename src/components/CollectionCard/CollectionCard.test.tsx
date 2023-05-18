@@ -26,7 +26,7 @@ describe("Collection list", () => {
         .getByAltText("Cover for Baseball: A Collection by Mike Benowitz")
         .closest("img").src
     ).toEqual(
-      "https://drb-files-qa.s3.amazonaws.com/misc/collectionPlaceholder.png"
+      "https://drb-files-qa.s3.amazonaws.com/misc/collectionPlaceholder.jpg"
     );
   });
   test("Shows number of items", () => {
