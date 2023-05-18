@@ -23,7 +23,8 @@ export const pages: { [name: string]: Pages } = {
 
 export const elements = {
   "advanced search link": "[href='/advanced-search']",
-  "search button": "#submit-button"
+  "advanced search button": "#submit-button",
+  "search button": "#searchbar-button-search-bar"
 };
 
 // trying to use built in locators
