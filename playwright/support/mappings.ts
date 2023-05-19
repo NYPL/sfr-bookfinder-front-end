@@ -29,7 +29,8 @@ export const elements = {
   "requestable checkbox": "text=Requestable",
   "login button": "[value='Submit']",
   "government documents checkbox": "//span[contains(text(), 'Show only US government documents')]",
-  "Latin language checkbox": "//label[contains(.,'Latin')]"
+  "Latin language checkbox": "//label[contains(.,'Latin')]",
+  "year filter button": "#year-filter-button"
 };
 
 // trying to use built in locators
