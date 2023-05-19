@@ -1,6 +1,7 @@
 import { itemDetailURL } from "./constants";
 import { CustomWorld } from "../support/setup";
 import { getByRole } from "@testing-library/react";
+import type { Page } from '@playwright/test'
 
 export type Pages = {
   route: string;
@@ -32,5 +33,6 @@ export const elements = {
 
 // trying to use built in locators
 // export const elements = {
-//   "advanced search link": page.getByRole("link").filter({hasText: 'Search'}) //, { name: "Advanced Search" })
+//   "advanced search link": "'a', { hasText: 'Advanced Search' }",
+//   "government documents checkbox": "getByRole('checkbox').hasText('Show only US government documents')"
 // };

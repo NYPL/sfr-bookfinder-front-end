@@ -13,7 +13,7 @@ When(
 // trying to use built in locators
 // When(
 //   /^I click the "([^"]*)"$/,
-//   async function (this: CustomWorld, elementId: keyof typeof HTMLElement) {
+//   async function (this: CustomWorld, elementId: keyof typeof elements) {
 //     const path = elements[elementId];
 //     return await path.click();
 //   }
