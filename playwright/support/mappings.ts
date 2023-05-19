@@ -28,7 +28,8 @@ export const elements = {
   "search button": "#searchbar-button-search-bar",
   "requestable checkbox": "text=Requestable",
   "login button": "[value='Submit']",
-  "government documents checkbox": "//span[contains(text(), 'Show only US government documents')]"
+  "government documents checkbox": "//span[contains(text(), 'Show only US government documents')]",
+  "Latin language checkbox": "//label[contains(.,'Latin')]"
 };
 
 // trying to use built in locators
