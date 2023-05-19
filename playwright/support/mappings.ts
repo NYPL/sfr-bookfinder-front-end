@@ -30,7 +30,8 @@ export const elements = {
   "login button": "[value='Submit']",
   "government documents checkbox": "//span[contains(text(), 'Show only US government documents')]",
   "Latin language checkbox": "//label[contains(.,'Latin')]",
-  "year filter button": "#year-filter-button"
+  "year filter button": "#year-filter-button",
+  "first read online button": "text=Read Online >> nth=0"
 };
 
 // trying to use built in locators
