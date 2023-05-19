@@ -8,10 +8,9 @@ When("I change the dropdown to subject", async function (this: CustomWorld) {
 });
 
 When(
-  "I input a subject search term and submit",
+  "I input a subject search term",
   async function (this: CustomWorld) {
     await this.page.locator("[aria-label='Item Search']").fill("Petroleum");
-    await this.page.locator("#searchbar-button-search-bar").click();
   }
 );
 
