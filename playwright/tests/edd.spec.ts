@@ -16,13 +16,10 @@ Then("I log in to the catalog", async function (this: CustomWorld) {
 
 Then(
   "I expect to see delivery options",
-  { timeout: 60000 }, // takes longer than the default 30000ms
   async function (this: CustomWorld) {
-    //console.log(await (this.page.locator('#place-hold-form').getAttribute("class")))
-    // const deliveryLocation = this.page.getByRole("form", {
-    //   name: "Choose a delivery location",
-    // });
-    //const deliveryLocation = this.page.locator('.nypl-request-form-title');
-    await expect(this.page.locator('[class="nypl-request-form-title"]')).toBeVisible();
+    const deliveryLocation = this.page.getByRole("heading", {
+      name: "Choose a delivery location",
+    });
+    await expect(deliveryLocation).toBeVisible();
   }
 );

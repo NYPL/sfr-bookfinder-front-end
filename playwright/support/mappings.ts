@@ -33,7 +33,7 @@ export const elements = {
   "Latin language checkbox": "//label[contains(.,'Latin')]",
   "year filter button": "#year-filter-button",
   "first read online button": "text=Read Online >> nth=0",
-  "first request button": "text=Request >> nth=0",
+  "first request button": "[href='https://www.nypl.org/research/collections/shared-collection-catalog/hold/request/b10715506-i13895605']",
   "English language checkbox": "//*[@id='languages-checkbox-group-0-wrapper']/label/span[1]"
 };
 
