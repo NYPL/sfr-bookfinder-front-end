@@ -55,16 +55,16 @@ const LandingPage: React.FC<{ collections?: Opds2Feed }> = ({
       "https://drb-files-qa.s3.amazonaws.com/hero/heroDesktop2x.jpg";
   } else if (isLargerThanLarge) {
     backgroundImageSrc =
-      "https://drb-files-qa.s3.amazonaws.com/hero/heroDesktop.png";
+      "https://drb-files-qa.s3.amazonaws.com/hero/heroDesktop.jpg";
   } else if (isLargerThanMedium) {
     backgroundImageSrc =
-      "https://drb-files-qa.s3.amazonaws.com/hero/heroTabletLarge.png";
+      "https://drb-files-qa.s3.amazonaws.com/hero/heroTabletLarge.jpg";
   } else if (isLargerThanMobile) {
     backgroundImageSrc =
       "https://drb-files-qa.s3.amazonaws.com/hero/heroTabletSmall.jpg";
   } else {
     backgroundImageSrc =
-      "https://drb-files-qa.s3.amazonaws.com/hero/heroMobile.png";
+      "https://drb-files-qa.s3.amazonaws.com/hero/heroMobile.jpg";
   }
 
   return (
