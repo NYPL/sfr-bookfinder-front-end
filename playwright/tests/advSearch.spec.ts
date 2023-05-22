@@ -92,36 +92,57 @@ Then(
   }
 );
 
-When("I add more terms to the search", async function (this: CustomWorld) {
+let numResults = []
+
+When("I search for revolution", async function (this: CustomWorld) {
   await this.page.locator("//input[@id='search-Keyword']").fill("revolution");
-  await this.page.locator("#submit-button").click();
 });
 
-Then(
-  "Then I expect to see the number of results decrease with each new addition",
+When(
+  "I collect the number of results for revolution",
   async function (this: CustomWorld) {
-    let val = (await this.page.locator("#page-counter").innerText()).valueOf();
-    val = val.replace("Viewing 1 - 10 of ", "");
-    val = val.replace(" items", "");
-    val = val.replace(",", "");
-    const num = parseInt(val);
-    await expect(num).toBeGreaterThan(0);
-    await this.page.locator("//a[contains(text(), 'Advanced Search')]").click();
-    await this.page.locator("//input[@id='search-Keyword']").fill("revolution");
-    await this.page.locator("//input[@id='search-Subject']").fill("France");
-    await this.page.locator("#submit-button").click();
-    let val2 = (await this.page.locator("#page-counter").innerText()).valueOf();
-    val2 = val2.replace("Viewing 1 - 10 of ", "");
-    val2 = val2.replace(" items", "");
-    val2 = val2.replace(",", "");
-    await expect(Number(val2)).toBeLessThan(num);
-    await this.page
-      .locator("//*[@id='languages-checkbox-group-0-wrapper']/label/span[1]")
-      .check();
-    let val3 = (await this.page.locator("#page-counter").innerText()).valueOf();
-    val3 = val3.replace("Viewing 1 - 10 of ", "");
-    val3 = val3.replace(" items", "");
-    val3 = val3.replace(",", "");
-    await expect(Number(val3)).toBeLessThan(Number(val2));
+      let val = (await this.page.locator("#page-counter").innerText()).valueOf();
+      val = val.replace("Viewing 1 - 10 of ", "");
+      val = val.replace(" items", "");
+      val = val.replace(",", "");
+      const num = parseInt(val);
+      expect(num).toBeGreaterThan(0);
+      numResults[0] = num;
   }
 );
+
+When("I search for revolution and France", async function (this: CustomWorld) {
+  await this.page.locator("//input[@id='search-Keyword']").fill("revolution");
+  await this.page.locator("//input[@id='search-Subject']").fill("France");
+});
+
+When(
+  "I collect the number of results for revolution and France",
+  async function (this: CustomWorld) {
+      let val = (await this.page.locator("#page-counter").innerText()).valueOf();
+      val = val.replace("Viewing 1 - 10 of ", "");
+      val = val.replace(" items", "");
+      val = val.replace(",", "");
+      const num = parseInt(val);
+      expect(num).toBeGreaterThan(0);
+      numResults[1] = num;
+  }
+);
+
+When(
+  "I collect the number of results for English language",
+  async function (this: CustomWorld) {
+      let val = (await this.page.locator("#page-counter").innerText()).valueOf();
+      val = val.replace("Viewing 1 - 10 of ", "");
+      val = val.replace(" items", "");
+      val = val.replace(",", "");
+      const num = parseInt(val);
+      expect(num).toBeGreaterThan(0);
+      numResults[2] = num;
+  }
+);
+
+Then("I expect to see the number of results decrease with each new addition", async function (this: CustomWorld) {
+  expect(numResults[1]).toBeLessThan(numResults[0]);
+  expect(numResults[2]).toBeLessThan(numResults[1]);
+});

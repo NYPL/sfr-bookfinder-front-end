@@ -12,6 +12,13 @@ Feature: Advanced Search
     Scenario: Advanced Search - Keyword, Subject, Language
         Given I go to the "home" page
         When I click the "advanced search link"
-        When I add more terms to the search
-        Then Then I expect to see the number of results decrease with each new addition
-
+        When I search for revolution
+        When I click the "advanced search button"
+        When I collect the number of results for revolution
+        When I click the "advanced search link"
+        When I search for revolution and France
+        When I click the "advanced search button"
+        When I collect the number of results for revolution and France
+        When I click the "English language checkbox"
+        When I collect the number of results for English language
+        Then I expect to see the number of results decrease with each new addition

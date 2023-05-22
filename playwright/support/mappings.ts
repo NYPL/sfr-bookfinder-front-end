@@ -33,7 +33,8 @@ export const elements = {
   "Latin language checkbox": "//label[contains(.,'Latin')]",
   "year filter button": "#year-filter-button",
   "first read online button": "text=Read Online >> nth=0",
-  "first request button": "text=Request >> nth=0"
+  "first request button": "text=Request >> nth=0",
+  "English language checkbox": "//*[@id='languages-checkbox-group-0-wrapper']/label/span[1]"
 };
 
 // trying to use built in locators
