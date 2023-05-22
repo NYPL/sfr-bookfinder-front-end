@@ -56,16 +56,13 @@ Then(
     ).toBeVisible();
   }
 );
-When(
-  "I supply a keyword and author",
-  async function (this: CustomWorld) {
-    await this.page;
-    this.page.locator("//input[@id='search-Keyword']").fill("IBM 1401");
-    await this.page.waitForTimeout(500);
-    this.page.locator("//input[@id='search-Author']").fill("Laurie, Edward J.");
-    await this.page.waitForTimeout(500);
-  }
-);
+When("I supply a keyword and author", async function (this: CustomWorld) {
+  await this.page;
+  this.page.locator("//input[@id='search-Keyword']").fill("IBM 1401");
+  await this.page.waitForTimeout(500);
+  this.page.locator("//input[@id='search-Author']").fill("Laurie, Edward J.");
+  await this.page.waitForTimeout(500);
+});
 Then(
   "I expect to see H1 with both keyword and author",
   async function (this: CustomWorld) {
@@ -92,7 +89,7 @@ Then(
   }
 );
 
-let numResults = []
+const numResults = [];
 
 When("I search for revolution", async function (this: CustomWorld) {
   await this.page.locator("//input[@id='search-Keyword']").fill("revolution");
@@ -101,13 +98,13 @@ When("I search for revolution", async function (this: CustomWorld) {
 When(
   "I collect the number of results for revolution",
   async function (this: CustomWorld) {
-      let val = (await this.page.locator("#page-counter").innerText()).valueOf();
-      val = val.replace("Viewing 1 - 10 of ", "");
-      val = val.replace(" items", "");
-      val = val.replace(",", "");
-      const num = parseInt(val);
-      expect(num).toBeGreaterThan(0);
-      numResults[0] = num;
+    let val = (await this.page.locator("#page-counter").innerText()).valueOf();
+    val = val.replace("Viewing 1 - 10 of ", "");
+    val = val.replace(" items", "");
+    val = val.replace(",", "");
+    const num = parseInt(val);
+    expect(num).toBeGreaterThan(0);
+    numResults[0] = num;
   }
 );
 
@@ -119,30 +116,33 @@ When("I search for revolution and France", async function (this: CustomWorld) {
 When(
   "I collect the number of results for revolution and France",
   async function (this: CustomWorld) {
-      let val = (await this.page.locator("#page-counter").innerText()).valueOf();
-      val = val.replace("Viewing 1 - 10 of ", "");
-      val = val.replace(" items", "");
-      val = val.replace(",", "");
-      const num = parseInt(val);
-      expect(num).toBeGreaterThan(0);
-      numResults[1] = num;
+    let val = (await this.page.locator("#page-counter").innerText()).valueOf();
+    val = val.replace("Viewing 1 - 10 of ", "");
+    val = val.replace(" items", "");
+    val = val.replace(",", "");
+    const num = parseInt(val);
+    expect(num).toBeGreaterThan(0);
+    numResults[1] = num;
   }
 );
 
 When(
   "I collect the number of results for English language",
   async function (this: CustomWorld) {
-      let val = (await this.page.locator("#page-counter").innerText()).valueOf();
-      val = val.replace("Viewing 1 - 10 of ", "");
-      val = val.replace(" items", "");
-      val = val.replace(",", "");
-      const num = parseInt(val);
-      expect(num).toBeGreaterThan(0);
-      numResults[2] = num;
+    let val = (await this.page.locator("#page-counter").innerText()).valueOf();
+    val = val.replace("Viewing 1 - 10 of ", "");
+    val = val.replace(" items", "");
+    val = val.replace(",", "");
+    const num = parseInt(val);
+    expect(num).toBeGreaterThan(0);
+    numResults[2] = num;
   }
 );
 
-Then("I expect to see the number of results decrease with each new addition", async function (this: CustomWorld) {
-  expect(numResults[1]).toBeLessThan(numResults[0]);
-  expect(numResults[2]).toBeLessThan(numResults[1]);
-});
+Then(
+  "I expect to see the number of results decrease with each new addition",
+  async function (this: CustomWorld) {
+    expect(numResults[1]).toBeLessThan(numResults[0]);
+    expect(numResults[2]).toBeLessThan(numResults[1]);
+  }
+);

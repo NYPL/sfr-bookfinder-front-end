@@ -7,12 +7,9 @@ When("I change the dropdown to subject", async function (this: CustomWorld) {
   await dropdown.selectOption({ value: "subject" });
 });
 
-When(
-  "I input a subject search term",
-  async function (this: CustomWorld) {
-    await this.page.locator("[aria-label='Item Search']").fill("Petroleum");
-  }
-);
+When("I input a subject search term", async function (this: CustomWorld) {
+  await this.page.locator("[aria-label='Item Search']").fill("Petroleum");
+});
 
 // Then(
 //   "Then for each title on the page, I visit the details page and expect to see the subject listed",
@@ -36,13 +33,10 @@ When(
 //   }
 // );
 
-Then(
-  "I expect to see the subject listed",
-  async function (this: CustomWorld) {
-      const targetlink = this.page.getByRole("link", {
-        name: "Petroleum",
-        exact: true,
-      });
-      expect(await targetlink.isVisible());
-    }
-);
+Then("I expect to see the subject listed", async function (this: CustomWorld) {
+  const targetlink = this.page.getByRole("link", {
+    name: "Petroleum",
+    exact: true,
+  });
+  expect(await targetlink.isVisible());
+});
