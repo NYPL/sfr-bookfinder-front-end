@@ -1,10 +1,7 @@
-import { Given, Then, When } from "@cucumber/cucumber";
+import { Then, When } from "@cucumber/cucumber";
 import { expect } from "@playwright/test";
 import { CustomWorld } from "../support/setup";
 
-Given("I want to do an author search", async function (this: CustomWorld) {
-  return await this.page.goto(`${this.parameters.appUrl}`);
-});
 When("I change the dropdown to author", async function (this: CustomWorld) {
   const dropdown = await this.page.$("[aria-label='Select a search category']");
   await dropdown.selectOption({ value: "author" });

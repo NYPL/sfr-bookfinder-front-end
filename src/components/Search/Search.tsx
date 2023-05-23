@@ -228,6 +228,7 @@ const SearchResults: React.FC<{
               <ResultsSorts
                 perPage={searchQuery.perPage}
                 sort={searchQuery.sort}
+                sortMap={sortMap}
                 onChangePerPage={(e) => onChangePerPage(e)}
                 onChangeSort={(e) => onChangeSort(e)}
               />
@@ -266,6 +267,7 @@ const SearchResults: React.FC<{
                     isModal={true}
                     perPage={searchQuery.perPage}
                     sort={searchQuery.sort}
+                    sortMap={sortMap}
                     onChangePerPage={(e) => onChangePerPage(e)}
                     onChangeSort={(e) => onChangeSort(e)}
                   />

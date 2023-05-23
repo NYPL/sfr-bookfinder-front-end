@@ -68,7 +68,7 @@ const SearchForm: React.FC<{
   };
 
   return (
-    <Box width={{ md: "85%" }} overflow="auto">
+    <Box overflow="auto">
       <SearchBar
         id="search-bar"
         invalidText={errorMessagesText.emptySearch}
@@ -90,7 +90,7 @@ const SearchForm: React.FC<{
         }}
         labelText="Search"
       />
-      <Box float="right">
+      <Box float="right" marginTop={{ md: "xs" }}>
         <Link to="/advanced-search">Advanced Search</Link>
       </Box>
     </Box>

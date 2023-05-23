@@ -36,13 +36,8 @@ const LanguageAccordion: React.FC<{
   isModal?: boolean;
   onLanguageChange: (e, language: string) => void;
 }> = (props) => {
-  const {
-    languages,
-    showCount,
-    selectedLanguages,
-    isModal,
-    onLanguageChange,
-  } = props;
+  const { languages, showCount, selectedLanguages, isModal, onLanguageChange } =
+    props;
 
   const selectedLanguageFilter = (language: string) => {
     return selectedLanguages.find((langFilter) => {

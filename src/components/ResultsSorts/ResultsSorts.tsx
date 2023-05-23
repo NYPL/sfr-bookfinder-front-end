@@ -1,16 +1,17 @@
 import React from "react";
 import { Fieldset, Select } from "@nypl/design-system-react-components";
-import { sortMap, numbersPerPage } from "~/src/constants/sorts";
+import { numbersPerPage } from "~/src/constants/sorts";
 import { deepEqual } from "~/src/util/Util";
 import { Sort } from "~/src/types/DataModel";
 
 const ResultsSorts: React.FC<{
   perPage: number;
   sort: Sort;
+  sortMap: { [key: string]: Sort };
   isModal?: boolean;
   onChangePerPage: (e) => void;
   onChangeSort: (e) => void;
-}> = ({ perPage, sort, isModal, onChangePerPage, onChangeSort }) => {
+}> = ({ perPage, sort, sortMap, isModal, onChangePerPage, onChangeSort }) => {
   return (
     <Fieldset
       id="sort-fieldset"

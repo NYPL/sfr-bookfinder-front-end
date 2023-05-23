@@ -62,7 +62,7 @@ const FilterYears: React.FC<{
           <TextInput
             labelText="From"
             type="number"
-            defaultValue={startFilter ? startFilter.value.toString() : ""}
+            value={startFilter ? startFilter.value.toString() : ""}
             helperText="EX. 1901"
             id={isModal ? "date-filter-from-modal" : "date-filter-from"}
             name="Date From"
@@ -75,7 +75,7 @@ const FilterYears: React.FC<{
           <TextInput
             labelText="To"
             type="number"
-            defaultValue={endFilter ? endFilter.value.toString() : ""}
+            value={endFilter ? endFilter.value.toString() : ""}
             helperText="EX. 2000"
             id={isModal ? "date-filter-to-modal" : "date-filter-to"}
             name="Date To"

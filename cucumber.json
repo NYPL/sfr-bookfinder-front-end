@@ -1,0 +1,9 @@
+{
+  "default": {
+    "import": ["playwright/tests/**/*.ts", "playwright/support/**/*.ts"],
+    "worldParameters": {
+      "appUrl": "https://drb-qa.nypl.org",
+      "headless": false
+    }
+  }
+}
