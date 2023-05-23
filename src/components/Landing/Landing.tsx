@@ -12,6 +12,7 @@ import {
   TemplateContentPrimary,
   TemplateFooter,
   TemplateHeader,
+  useNYPLBreakpoints,
 } from "@nypl/design-system-react-components";
 import SearchForm from "~/src/components/SearchForm/SearchForm";
 import { defaultBreadcrumbs } from "~/src/constants/labels";
@@ -38,6 +39,33 @@ const LandingPage: React.FC<{ collections?: Opds2Feed }> = ({
       </Box>
     </Box>
   );
+
+  const {
+    isLargerThanMedium,
+    isLargerThanMobile,
+    isLargerThanLarge,
+    isLargerThanXLarge,
+  } = useNYPLBreakpoints();
+
+  let backgroundImageSrc =
+    "https://drb-files-qa.s3.amazonaws.com/hero/heroDesktop2x.jpg";
+  if (isLargerThanXLarge) {
+    backgroundImageSrc =
+      "https://drb-files-qa.s3.amazonaws.com/hero/heroDesktop2x.jpg";
+  } else if (isLargerThanLarge) {
+    backgroundImageSrc =
+      "https://drb-files-qa.s3.amazonaws.com/hero/heroDesktop.jpg";
+  } else if (isLargerThanMedium) {
+    backgroundImageSrc =
+      "https://drb-files-qa.s3.amazonaws.com/hero/heroTabletLarge.jpg";
+  } else if (isLargerThanMobile) {
+    backgroundImageSrc =
+      "https://drb-files-qa.s3.amazonaws.com/hero/heroTabletSmall.jpg";
+  } else {
+    backgroundImageSrc =
+      "https://drb-files-qa.s3.amazonaws.com/hero/heroMobile.jpg";
+  }
+
   return (
     <Template>
       <TemplateBreakout>
@@ -51,7 +79,7 @@ const LandingPage: React.FC<{ collections?: Opds2Feed }> = ({
           <DrbHero />
           <Hero
             backgroundColor="#E9E9E9"
-            backgroundImageSrc="https://placeimg.com/2400/800/nature" // TODO: replace with image from Product team
+            backgroundImageSrc={backgroundImageSrc}
             heroType="primary"
             heading={
               <Heading level="one" id="primary-hero">

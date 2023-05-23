@@ -1,14 +1,17 @@
 # CHANGE LOG
 
 ## [Pre-release]
+- Replace dgx-header-component and DS Footer with Header/Footer components from nypl-header-app 
+
+## [0.17.0]
 - Replace Search Examples with Recently Added Collections to landing page
 - Add primary hero to the landing page
 - Add Part of Collection to Edition/Work pages
 - Add Collection page
 - Add collection placeholder image
+- Update hero image to update based on screen size
 - Chore: fresh package-lock.json install and fix install errors on mac with M1 chip
 - Add Playwright/Cucumber tests to support new Recently Added Collections feature on landing page
-- Replace dgx-header-component and DS Footer with Header/Footer components from nypl-header-app 
 
 ## [0.16.1]
 

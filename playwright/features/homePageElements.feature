@@ -1,7 +1,7 @@
 Feature: Expect all home page elements
 
     Scenario: As a user I should see all home page elements
-        Given I am on the DRB home page
+        Given I go to the "home" page
         Then I see the site name
         Then I see the Home breadcrumb
         Then I see the Research breadcrumb
