@@ -12,6 +12,7 @@
 - Update hero image to update based on screen size
 - Chore: fresh package-lock.json install and fix install errors on mac with M1 chip
 - Add Playwright/Cucumber tests to support new Recently Added Collections feature on landing page
+- Refactored Playwright/Cucumber tests to use new page visit actions function
 
 ## [0.16.1]
 
