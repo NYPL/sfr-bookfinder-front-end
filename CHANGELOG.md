@@ -1,6 +1,6 @@
 # CHANGE LOG
 
-## [Pre-release]
+## [0.17.0]
 - Replace Search Examples with Recently Added Collections to landing page
 - Add primary hero to the landing page
 - Add Part of Collection to Edition/Work pages
