@@ -2,6 +2,7 @@
 
 ## [Pre-release]
 - Refactored Playwright/Cucumber tests to use new click action function
+- Refactored Playwright/Cucumber tests to use new dropdown action function
 
 ## [0.17.0]
 - Replace Search Examples with Recently Added Collections to landing page
