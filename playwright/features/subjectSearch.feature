@@ -5,7 +5,6 @@ Feature: Subject Search
         When I change the dropdown to subject
         When I input a subject search term
         When I click the "search button"
-        # Then Then for each title on the page, I visit the details page and expect to see the subject listed
         When I click the "first search result link"
         Then I expect to see the subject listed
 

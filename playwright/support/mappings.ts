@@ -27,13 +27,12 @@ export const elements = {
   "login button": "[value='Submit']",
   "first login for options button": "text=Log in for options >> nth=0",
   "government documents checkbox":
-    "//span[contains(text(), 'Show only US government documents')]",
-  "Latin language checkbox": "//label[contains(.,'Latin')]",
+    "span:text('Show only US government documents')",
+  "Latin language checkbox": "span:text('Latin')",
   "year filter button": "#year-filter-button",
   "first read online button": "text=Read Online >> nth=0",
   "first request button":
     "[href='https://www.nypl.org/research/collections/shared-collection-catalog/hold/request/b10715506-i13895605']",
-  "English language checkbox":
-    "//*[@id='languages-checkbox-group-0-wrapper']/label/span[1]",
+  "English language checkbox": "span:text('English')",
   "first search result link": "h2 a >> nth=0",
 };

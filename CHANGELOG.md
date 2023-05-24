@@ -1,5 +1,8 @@
 # CHANGE LOG
 
+## [Pre-release]
+- Refactored Playwright/Cucumber tests to use new click action function
+
 ## [0.17.0]
 - Replace Search Examples with Recently Added Collections to landing page
 - Add primary hero to the landing page
@@ -12,7 +15,6 @@
 - Chore: fresh package-lock.json install and fix install errors on mac with M1 chip
 - Add Playwright/Cucumber tests to support new Recently Added Collections feature on landing page
 - Refactored Playwright/Cucumber tests to use new page visit actions function
-- Refactored Playwright/Cucumber tests to use new click action function
 
 ## [0.16.1]
 
