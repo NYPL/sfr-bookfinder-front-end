@@ -4,5 +4,6 @@ Feature: Author Search
         Given I go to the "home" page
         When I change the dropdown to author
         When I input an author search term
+        When I click the "search button"
         Then I expect at least 5 title by my author
 

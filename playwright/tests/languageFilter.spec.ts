@@ -4,11 +4,6 @@ import { CustomWorld } from "../support/setup";
 
 When("I search for New York", async function (this: CustomWorld) {
   await this.page.locator('[aria-label="Item Search"]').fill("New York");
-  await this.page.locator("#searchbar-button-search-bar").click();
-});
-
-Then("I click the Latin filter", async function (this: CustomWorld) {
-  await this.page.locator("//label[contains(.,'Latin')]").click();
 });
 
 Then(
