@@ -35,4 +35,9 @@ export const elements = {
     "[href='https://www.nypl.org/research/collections/shared-collection-catalog/hold/request/b10715506-i13895605']",
   "English language checkbox": "span:text('English')",
   "first search result link": "h2 a >> nth=0",
+  "search category dropdown": "[aria-label='Select a search category']",
+  "keyword": "[value='keyword']",
+  "author": "[value='author']",
+  "title": "[value='title']",
+  "subject": "[value='subject']",
 };
