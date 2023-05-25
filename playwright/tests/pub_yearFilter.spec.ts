@@ -4,8 +4,6 @@ import { CustomWorld } from "../support/setup";
 
 When("When I search for New York", async function (this: CustomWorld) {
   await this.page.locator('[aria-label="Item Search"]').fill("New York");
-  await this.page.locator("#searchbar-button-search-bar").click();
-  // await this.page.getByRole("button", { name: /submit/i }).click();
 });
 
 Then(
@@ -13,7 +11,6 @@ Then(
   async function (this: CustomWorld) {
     await this.page.locator('[name="Date From"]').fill("1900");
     await this.page.locator('[name="Date To"]').fill("1900");
-    await this.page.locator("#year-filter-button").click();
   }
 );
 

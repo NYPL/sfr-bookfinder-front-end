@@ -4,5 +4,6 @@ Feature: Title Search
         Given I go to the "home" page
         When I change the dropdown to title
         When I input a title search term
+        When I click the "search button"
         Then I expect at least 5 titles with my title
 

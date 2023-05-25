@@ -2,6 +2,7 @@
 
 ## [Pre-release]
 - Replace dgx-header-component and DS Footer with Header/Footer components from nypl-header-app 
+- Refactored Playwright/Cucumber tests to use new click action function
 
 ## [0.17.0]
 - Replace Search Examples with Recently Added Collections to landing page
