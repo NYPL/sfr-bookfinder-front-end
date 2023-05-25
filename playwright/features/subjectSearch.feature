@@ -1,6 +1,6 @@
 Feature: Subject Search
 
-    Scenario: As a user I should be able to do an subject search and see relevant results
+    Scenario: As a user I search for a subject and the details of the first search result contains the subject
         Given I go to the "home" page
         When I select "subject" from the category dropdown
         When I input a subject search term

@@ -7,7 +7,7 @@ When("I input an author search term", async function (this: CustomWorld) {
 });
 
 Then(
-  "I expect at least 5 title by my author",
+  "I expect at least 5 titles by my author",
   async function (this: CustomWorld) {
     await this.page
       .locator("//h1[contains(text(), 'Digital Research Books')]")
