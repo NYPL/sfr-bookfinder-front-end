@@ -36,8 +36,8 @@ export const elements = {
   "English language checkbox": "span:text('English')",
   "first search result link": "h2 a >> nth=0",
   "search category dropdown": "[aria-label='Select a search category']",
-  "keyword": "[value='keyword']",
-  "author": "[value='author']",
-  "title": "[value='title']",
-  "subject": "[value='subject']",
+  keyword: "[value='keyword']",
+  author: "[value='author']",
+  title: "[value='title']",
+  subject: "[value='subject']",
 };

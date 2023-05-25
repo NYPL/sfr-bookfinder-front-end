@@ -13,7 +13,9 @@ When(
 When(
   /^I select "([^"]*)" from the category dropdown$/,
   async function (this: CustomWorld, elementKey: keyof typeof elements) {
-    const searchCategory = this.page.locator(elements["search category dropdown"])
-    return await searchCategory.selectOption(elementKey);   
-   }
+    const searchCategory = this.page.locator(
+      elements["search category dropdown"]
+    );
+    return await searchCategory.selectOption(elementKey);
+  }
 );
