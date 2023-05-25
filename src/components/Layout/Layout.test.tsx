@@ -9,7 +9,7 @@ jest.mock("next/router", () => require("next-router-mock"));
 describe("Layout component", () => {
   beforeEach(() => {
     render(
-      <Layout isTestMode>
+      <Layout>
         <div>Text in layout body</div>
       </Layout>
     );
