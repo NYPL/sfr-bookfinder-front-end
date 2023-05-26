@@ -10,9 +10,9 @@ Then(
   "I expect at least 5 titles with my title",
   async function (this: CustomWorld) {
     await this.page
-      .locator("//h1[contains(text(), 'Digital Research Books')]")
+      .locator("h1:text('Digital Research Books')")
       .waitFor();
-    const textIWant = this.page.locator('//h2/a[contains(text(),"IBM 1401")]');
+    const textIWant = this.page.locator('a:text("IBM 1401")');
     expect(await textIWant.count()).toBeGreaterThan(5);
   }
 );
