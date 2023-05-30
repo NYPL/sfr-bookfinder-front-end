@@ -5,7 +5,6 @@ import {
 } from "@nypl/design-system-react-components";
 import Feedback from "~/src/components/Feedback/Feedback";
 import { useRouter } from "next/router";
-import { Header, navConfig } from "@nypl/dgx-header-component";
 
 /**
  * Container class providing header, footer,
@@ -14,8 +13,7 @@ import { Header, navConfig } from "@nypl/dgx-header-component";
 
 const Layout: React.FC<{
   children?: React.ReactNode;
-  isTestMode?: boolean;
-}> = ({ children, isTestMode = false }) => {
+}> = ({ children }) => {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
 
@@ -41,13 +39,6 @@ const Layout: React.FC<{
   return (
     <>
       <DSProvider>
-        {!isTestMode && (
-          <Header
-            urlType="absolute"
-            skipNav={{ target: "mainContent" }}
-            navData={navConfig.current}
-          />
-        )}
         {router.isFallback || loading ? (
           <>
             <SkeletonLoader />

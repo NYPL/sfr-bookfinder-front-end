@@ -4,17 +4,7 @@ import { CustomWorld } from "../support/setup";
 
 When("I search for swimming", async function (this: CustomWorld) {
   await this.page.locator('[aria-label="Item Search"]').fill("swimming");
-  await this.page.locator("#searchbar-button-search-bar").click();
 });
-
-Then(
-  "I click the Government Documents filter",
-  async function (this: CustomWorld) {
-    await this.page
-      .locator("//span[contains(text(), 'Show only US government documents')]")
-      .click();
-  }
-);
 
 Then(
   "for at least 4 titles on the page, I should see United States in the author field",

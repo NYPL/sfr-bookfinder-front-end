@@ -9,7 +9,6 @@ When("I change the dropdown to author", async function (this: CustomWorld) {
 
 When("I input an author search term", async function (this: CustomWorld) {
   await this.page.locator("[aria-label='Item Search']").fill("Corelli, Marie");
-  await this.page.locator("#searchbar-button-search-bar").click();
 });
 
 Then(
