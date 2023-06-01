@@ -1,74 +1,112 @@
 import React from "react";
 import {
+  Box,
   Breadcrumbs,
-  Footer,
   Heading,
   Hero,
   Link,
-  List,
   Template,
+  TemplateAboveHeader,
   TemplateBreakout,
   TemplateContent,
   TemplateContentPrimary,
-  TemplateContentTop,
   TemplateFooter,
+  TemplateHeader,
+  useNYPLBreakpoints,
 } from "@nypl/design-system-react-components";
 import SearchForm from "~/src/components/SearchForm/SearchForm";
-import Subjects from "~/config/subjectListConfig";
 import { defaultBreadcrumbs } from "~/src/constants/labels";
+import CollectionList from "../CollectionList/CollectionList";
+import { Opds2Feed } from "~/src/types/OpdsModel";
+import DrbHero from "../DrbHero/DrbHero";
 
-const LandingPage: React.FC<any> = () => {
+const LandingPage: React.FC<{ collections?: Opds2Feed }> = ({
+  collections,
+}) => {
   const subHeader = (
-    <span>
-      Find millions of digital books for research from multiple sources
-      world-wide--all free to read, download, and keep. No library card
-      required. This is an early beta test, so we want your feedback!{" "}
-      <Link href="/about" _hover={{ color: "ui.white" }} color="ui.white">
-        Read more about the project
-      </Link>
-      .
-    </span>
+    <Box>
+      <span>
+        Find millions of digital books for research from multiple sources
+        world-wide--all free to read, download, and keep. No library card
+        required. This is an early beta test, so we want your feedback!{" "}
+        <Link href="/about" color="ui.link.primary">
+          Read more about the project
+        </Link>
+        .
+      </span>
+      <Box marginTop="s">
+        <SearchForm />
+      </Box>
+    </Box>
   );
+
+  const {
+    isLargerThanMedium,
+    isLargerThanMobile,
+    isLargerThanLarge,
+    isLargerThanXLarge,
+  } = useNYPLBreakpoints();
+
+  let backgroundImageSrc =
+    "https://drb-files-qa.s3.amazonaws.com/hero/heroDesktop2x.jpg";
+  if (isLargerThanXLarge) {
+    backgroundImageSrc =
+      "https://drb-files-qa.s3.amazonaws.com/hero/heroDesktop2x.jpg";
+  } else if (isLargerThanLarge) {
+    backgroundImageSrc =
+      "https://drb-files-qa.s3.amazonaws.com/hero/heroDesktop.jpg";
+  } else if (isLargerThanMedium) {
+    backgroundImageSrc =
+      "https://drb-files-qa.s3.amazonaws.com/hero/heroTabletLarge.jpg";
+  } else if (isLargerThanMobile) {
+    backgroundImageSrc =
+      "https://drb-files-qa.s3.amazonaws.com/hero/heroTabletSmall.jpg";
+  } else {
+    backgroundImageSrc =
+      "https://drb-files-qa.s3.amazonaws.com/hero/heroMobile.jpg";
+  }
+
   return (
     <Template>
       <TemplateBreakout>
-        <Breadcrumbs
-          breadcrumbsType="research"
-          breadcrumbsData={defaultBreadcrumbs}
-        />
-        <Hero
-          backgroundColor="section.research.primary"
-          heroType="tertiary"
-          heading={
-            <Heading level="one" id="tertiary-hero">
-              <>
-                Digital Research Books <sup>Beta</sup>
-              </>
-            </Heading>
-          }
-          subHeaderText={subHeader}
-        />
+        <TemplateAboveHeader>
+          <Breadcrumbs
+            breadcrumbsType="research"
+            breadcrumbsData={defaultBreadcrumbs}
+          />
+        </TemplateAboveHeader>
+        <TemplateHeader>
+          <DrbHero />
+          <Hero
+            backgroundColor="#E9E9E9"
+            backgroundImageSrc={backgroundImageSrc}
+            heroType="primary"
+            heading={
+              <Heading level="one" id="primary-hero">
+                Search the World's Research Collections
+              </Heading>
+            }
+            subHeaderText={subHeader}
+            sx={{
+              "> div": {
+                color: "ui.black",
+              },
+              "div a": {
+                color: "ui.link.primary",
+              },
+            }}
+          />
+        </TemplateHeader>
       </TemplateBreakout>
       <TemplateContent>
-        <TemplateContentTop>
-          Search the World's Research Collections
-          <SearchForm />
-        </TemplateContentTop>
         <TemplateContentPrimary>
-          <Heading level="two">Search Examples</Heading>
-
-          <List type="ul" id="subject-list">
-            {Subjects.map((sub: any) => (
-              <li key={`subject-link-${sub.url}`}>
-                <Link href={sub.url}>{sub.text}</Link>
-              </li>
-            ))}
-          </List>
+          <Box marginLeft="l" marginRight="l">
+            <Heading level="two">Recently Added Collections</Heading>
+            <CollectionList collections={collections} />
+          </Box>
         </TemplateContentPrimary>
       </TemplateContent>
-      <TemplateFooter>
-        <Footer />
-      </TemplateFooter>
+      <TemplateFooter />
     </Template>
   );
 };

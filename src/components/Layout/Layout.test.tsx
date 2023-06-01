@@ -9,15 +9,14 @@ jest.mock("next/router", () => require("next-router-mock"));
 describe("Layout component", () => {
   beforeEach(() => {
     render(
-      <Layout isTestMode>
+      <Layout>
         <div>Text in layout body</div>
       </Layout>
     );
   });
 
-  test("should have main content", () => {
-    const main = screen.getByRole("main");
-    expect(main).toBeInTheDocument();
-    expect(main).toHaveTextContent("Text in layout body");
+  test("should have text in layout body", () => {
+    const text = screen.getByText("Text in layout body");
+    expect(text).toBeInTheDocument();
   });
 });

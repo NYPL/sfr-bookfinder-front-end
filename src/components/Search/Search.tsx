@@ -17,7 +17,6 @@ import {
   Form,
   useModal,
   TemplateFooter,
-  Footer,
   useNYPLBreakpoints,
 } from "@nypl/design-system-react-components";
 import { useRouter } from "next/router";
@@ -228,6 +227,7 @@ const SearchResults: React.FC<{
               <ResultsSorts
                 perPage={searchQuery.perPage}
                 sort={searchQuery.sort}
+                sortMap={sortMap}
                 onChangePerPage={(e) => onChangePerPage(e)}
                 onChangeSort={(e) => onChangeSort(e)}
               />
@@ -266,6 +266,7 @@ const SearchResults: React.FC<{
                     isModal={true}
                     perPage={searchQuery.perPage}
                     sort={searchQuery.sort}
+                    sortMap={sortMap}
                     onChangePerPage={(e) => onChangePerPage(e)}
                     onChangeSort={(e) => onChangeSort(e)}
                   />
@@ -339,9 +340,7 @@ const SearchResults: React.FC<{
           />
         </TemplateContentPrimary>
       </TemplateContent>
-      <TemplateFooter>
-        <Footer />
-      </TemplateFooter>
+      <TemplateFooter />
     </Template>
   );
 };

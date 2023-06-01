@@ -1,5 +1,10 @@
 /** Converts API responses to internal types */
 
+import {
+  ApiCollectionQuery,
+  CollectionQuery,
+  CollectionQueryDefaults,
+} from "../types/CollectionQuery";
 import { Query, SearchField, Sort } from "../types/DataModel";
 import {
   ApiSearchQuery,
@@ -93,6 +98,10 @@ export const toSearchQuery = (apiQuery: ApiSearchQuery): SearchQuery => {
   };
 };
 
+const toApiSorts = (sort: Sort): string => {
+  return `${sort.field}:${sort.dir}`;
+};
+
 /**
  * Converts a searchQuery to send to server.
  * First assigns the `queries` parameter, which must always exist.
@@ -106,9 +115,6 @@ export const toApiQuery = (searchQuery: SearchQuery): ApiSearchQuery => {
   if (!searchQuery.queries || searchQuery.queries.length < 1) {
     throw new Error("cannot convert searchQuery with no queries");
   }
-  const toApiSorts = (sort: Sort): string => {
-    return `${sort.field}:${sort.dir}`;
-  };
 
   const toApiFilters = (filters: Filter[]): string[] => {
     return filters
@@ -155,16 +161,46 @@ export const toApiQuery = (searchQuery: SearchQuery): ApiSearchQuery => {
 };
 
 /**
- * Converts an API search query object to a NextJS query object
+ * Converts an API query object to a NextJS query object
  * NextJS Router accepts query objects of type { [key: string]: string }
  *
- * @param searchQuery
+ * @param query
  */
-export const toLocationQuery = (searchQuery: ApiSearchQuery): string => {
+export const toLocationQuery = (
+  query: ApiSearchQuery | ApiCollectionQuery
+): string => {
   return Object.assign(
     {},
-    ...Object.keys(searchQuery).map((key) => ({
-      [key]: searchQuery[key],
+    ...Object.keys(query).map((key) => ({
+      [key]: query[key],
     }))
   );
+};
+
+/**
+ * Converts a collectionQuery to send to server.
+ * Checks all of the other paramaters to see if they have changed from the default
+ * and only sends it if there is no default.
+ *
+ * @param collectionQuery
+ */
+export const toApiCollectionQuery = (
+  collectionQuery: CollectionQuery
+): ApiCollectionQuery => {
+  if (!collectionQuery) return;
+
+  return {
+    ...(collectionQuery.page &&
+      collectionQuery.page !== CollectionQueryDefaults.page && {
+        page: collectionQuery.page,
+      }),
+    ...(collectionQuery.perPage &&
+      collectionQuery.perPage !== CollectionQueryDefaults.perPage && {
+        perPage: collectionQuery.perPage,
+      }),
+    ...(collectionQuery.sort &&
+      collectionQuery.sort !== CollectionQueryDefaults.sort && {
+        sort: collectionQuery.sort,
+      }),
+  };
 };
