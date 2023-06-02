@@ -1,5 +1,8 @@
 # CHANGE LOG
 
+## [Pre-release]
+- Refactored Playwright/Cucumber tests to use new dropdown action function
+
 ## [0.17.1]
 - Replace dgx-header-component and DS Footer with Header/Footer components from nypl-header-app 
 - Refactored Playwright/Cucumber tests to use new click action function
