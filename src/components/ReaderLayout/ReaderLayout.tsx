@@ -25,6 +25,7 @@ import readiumAfter from "!file-loader!extract-loader!css-loader!@nypl/web-reade
 
 import Link from "../Link/Link";
 import { addTocToManifest } from "@nypl/web-reader";
+import Loading from "../Loading/Loading";
 
 const origin =
   typeof window !== "undefined" && window.location?.origin
@@ -62,6 +63,7 @@ const ReaderLayout: React.FC<{
   const proxyUrl = props.proxyUrl;
   const edition = link.work.editions[0];
   const [manifestUrl, setManifestUrl] = useState(url);
+  const [isLoading, setIsLoading] = useState(true);
 
   const isEmbed = MediaTypes.embed.includes(link.media_type);
   const isRead = MediaTypes.read.includes(link.media_type);
@@ -97,29 +99,34 @@ const ReaderLayout: React.FC<{
    * web reader.
    * - Returns the synthetic url
    */
-  const fetchAndModifyManifest = async (url) => {
-    const response = await fetch(url);
-    const manifest = await response.json();
-    if (
-      manifest &&
-      manifest.readingOrder &&
-      manifest.readingOrder.length === 1
-    ) {
-      const modifiedManifest = await addTocToManifest(
-        manifest,
-        getProxiedResource(proxyUrl),
-        pdfWorkerSrc
-      );
-      const syntheticUrl = URL.createObjectURL(
-        new Blob([JSON.stringify(modifiedManifest)])
-      );
-      setManifestUrl(syntheticUrl);
-    }
-  };
 
   useEffect(() => {
-    fetchAndModifyManifest(url);
-  });
+    if (isRead) {
+      const fetchAndModifyManifest = async (url) => {
+        setIsLoading(true);
+        const response = await fetch(url);
+        const manifest = await response.json();
+        if (
+          manifest &&
+          manifest.readingOrder &&
+          manifest.readingOrder.length === 1
+        ) {
+          const modifiedManifest = await addTocToManifest(
+            manifest,
+            getProxiedResource(proxyUrl),
+            pdfWorkerSrc
+          );
+          const syntheticUrl = URL.createObjectURL(
+            new Blob([JSON.stringify(modifiedManifest)])
+          );
+          setManifestUrl(syntheticUrl);
+        }
+        setIsLoading(false);
+      };
+
+      fetchAndModifyManifest(url);
+    }
+  }, [isRead, pdfWorkerSrc, proxyUrl, url]);
 
   const BackButton = () => {
     return (
@@ -157,7 +164,8 @@ const ReaderLayout: React.FC<{
           <IFrameReader url={link.url} />
         </Layout>
       )}
-      {isRead && (
+      {isRead && isLoading && <Loading />}
+      {isRead && !isLoading && (
         <WebReader
           webpubManifestUrl={manifestUrl}
           proxyUrl={proxyUrl}
