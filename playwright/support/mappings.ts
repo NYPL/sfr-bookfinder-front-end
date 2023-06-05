@@ -40,4 +40,15 @@ export const elements = {
   author: "[value='author']",
   title: "[value='title']",
   subject: "[value='subject']",
+  "keyword search box": "#search-Keyword",
+  "author search box": "#search-Author",
+  "subject search box": "#search-Subject",
+  "title search box": "#search-Title",
+};
+
+export const inputs = {
+  "IBM 1401": "IBM 1401",
+  "Laurie, Edward J.": "Laurie, Edward J.",
+  "revolution": "revolution",
+  "France": "France",
 };

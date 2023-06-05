@@ -56,13 +56,7 @@ Then(
     ).toBeVisible();
   }
 );
-When("I supply a keyword and author", async function (this: CustomWorld) {
-  await this.page;
-  this.page.locator("//input[@id='search-Keyword']").fill("IBM 1401");
-  await this.page.waitForTimeout(500);
-  this.page.locator("//input[@id='search-Author']").fill("Laurie, Edward J.");
-  await this.page.waitForTimeout(500);
-});
+
 Then(
   "I expect to see H1 with both keyword and author",
   async function (this: CustomWorld) {
@@ -91,10 +85,6 @@ Then(
 
 const numResults = [];
 
-When("I search for revolution", async function (this: CustomWorld) {
-  await this.page.locator("//input[@id='search-Keyword']").fill("revolution");
-});
-
 When(
   "I collect the number of results for revolution",
   async function (this: CustomWorld) {
@@ -107,11 +97,6 @@ When(
     numResults[0] = num;
   }
 );
-
-When("I search for revolution and France", async function (this: CustomWorld) {
-  await this.page.locator("//input[@id='search-Keyword']").fill("revolution");
-  await this.page.locator("//input[@id='search-Subject']").fill("France");
-});
 
 When(
   "I collect the number of results for revolution and France",
