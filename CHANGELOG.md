@@ -2,6 +2,7 @@
 
 ## [Pre-release]
 - Refactored Playwright/Cucumber tests to use new dropdown action function
+- Beginning to refactor Playwright/Cucumber tests to use new text fill function
 
 ## [0.17.1]
 - Replace dgx-header-component and DS Footer with Header/Footer components from nypl-header-app 
