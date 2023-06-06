@@ -1,4 +1,6 @@
 import { itemDetailURL } from "./constants";
+import dotenv from "dotenv";
+dotenv.config({ path: ".env.local" });
 
 export type Pages = {
   route: string;
@@ -45,6 +47,8 @@ export const elements = {
   "subject search box": "#search-Subject",
   "title search box": "#search-Title",
   "homepage search box": "[aria-label='Item Search']",
+  "username field": "#code",
+  "password field": "#pin",
 };
 
 export const inputs = {
@@ -53,4 +57,7 @@ export const inputs = {
   "revolution": "revolution",
   "France": "France",
   "Corelli, Marie": "Corelli, Marie",
+  "Africa": "Africa",
+  "catalog username": process.env.CATALOG_USERNAME,
+  "catalog password": process.env.CATALOG_USER_PIN,
 };
