@@ -8,7 +8,7 @@ import "~/styles/main.scss";
 import Head from "next/head";
 import appConfig from "~/config/appConfig";
 import { documentTitles } from "../constants/labels";
-import "@nypl/web-reader/dist/esm/index.css";
+import "@nypl/web-reader/dist/index.css";
 import { FeatureFlagProvider } from "../context/FeatureFlagContext";
 
 /**
