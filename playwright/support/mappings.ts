@@ -61,4 +61,5 @@ export const inputs = {
   "catalog username": process.env.CATALOG_USERNAME,
   "catalog password": process.env.CATALOG_USER_PIN,
   "swimming": "swimming",
+  "New York": "New York",
 };
