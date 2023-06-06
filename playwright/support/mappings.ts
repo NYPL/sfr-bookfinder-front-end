@@ -44,6 +44,7 @@ export const elements = {
   "author search box": "#search-Author",
   "subject search box": "#search-Subject",
   "title search box": "#search-Title",
+  "homepage search box": "[aria-label='Item Search']",
 };
 
 export const inputs = {
@@ -51,4 +52,5 @@ export const inputs = {
   "Laurie, Edward J.": "Laurie, Edward J.",
   "revolution": "revolution",
   "France": "France",
+  "Corelli, Marie": "Corelli, Marie",
 };
