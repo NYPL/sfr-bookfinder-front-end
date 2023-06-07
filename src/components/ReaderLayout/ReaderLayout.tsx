@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Breadcrumbs, Icon } from "@nypl/design-system-react-components";
 import { defaultBreadcrumbs } from "~/src/constants/labels";
 import { ApiLink, LinkResult } from "~/src/types/LinkQuery";
@@ -24,6 +24,8 @@ import readiumDefault from "!file-loader!extract-loader!css-loader!@nypl/web-rea
 import readiumAfter from "!file-loader!extract-loader!css-loader!@nypl/web-reader/dist/injectable-html-styles/ReadiumCSS-after.css";
 
 import Link from "../Link/Link";
+import { addTocToManifest } from "@nypl/web-reader";
+import Loading from "../Loading/Loading";
 
 const origin =
   typeof window !== "undefined" && window.location?.origin
@@ -57,16 +59,74 @@ const ReaderLayout: React.FC<{
   backUrl: string;
 }> = (props) => {
   const link: ApiLink = props.linkResult.data;
-  const proxyUrl = props.proxyUrl;
   const url = formatUrl(link.url);
+  const proxyUrl = props.proxyUrl;
   const edition = link.work.editions[0];
+  const [manifestUrl, setManifestUrl] = useState(url);
+  const [isLoading, setIsLoading] = useState(true);
 
   const isEmbed = MediaTypes.embed.includes(link.media_type);
   const isRead = MediaTypes.read.includes(link.media_type);
 
+  const pdfWorkerSrc = `${origin}/pdf-worker/pdf.worker.min.js`;
+
+  /**
+   * This is a function we will use to get the resource through a given proxy url.
+   * It will eventually be passed to the web reader instead of passing a proxy url directly.
+   */
+  const getProxiedResource = (proxyUrl?: string) => async (href: string) => {
+    // Generate the resource URL using the proxy
+    const url: string = proxyUrl
+      ? `${proxyUrl}${encodeURIComponent(href)}`
+      : href;
+    const response = await fetch(url, { mode: "cors" });
+    const array = new Uint8Array(await response.arrayBuffer());
+
+    if (!response.ok) {
+      throw new Error("Response not Ok for URL: " + url);
+    }
+    return array;
+  };
+
   useEffect(() => {
     gtag.drbEvents("Read", `${link.work.title}`);
   }, [link]);
+
+  /**
+   * - Fetches manifest
+   * - Adds the TOC to the manifest
+   * - Generates a syncthetic url for the manifest to be passed to
+   * web reader.
+   * - Returns the synthetic url
+   */
+
+  useEffect(() => {
+    if (isRead) {
+      const fetchAndModifyManifest = async (url) => {
+        setIsLoading(true);
+        const response = await fetch(url);
+        const manifest = await response.json();
+        if (
+          manifest &&
+          manifest.readingOrder &&
+          manifest.readingOrder.length === 1
+        ) {
+          const modifiedManifest = await addTocToManifest(
+            manifest,
+            getProxiedResource(proxyUrl),
+            pdfWorkerSrc
+          );
+          const syntheticUrl = URL.createObjectURL(
+            new Blob([JSON.stringify(modifiedManifest)])
+          );
+          setManifestUrl(syntheticUrl);
+        }
+        setIsLoading(false);
+      };
+
+      fetchAndModifyManifest(url);
+    }
+  }, [isRead, pdfWorkerSrc, proxyUrl, url]);
 
   const BackButton = () => {
     return (
@@ -104,11 +164,12 @@ const ReaderLayout: React.FC<{
           <IFrameReader url={link.url} />
         </Layout>
       )}
-      {isRead && (
+      {isRead && isLoading && <Loading />}
+      {isRead && !isLoading && (
         <WebReader
-          webpubManifestUrl={url}
+          webpubManifestUrl={manifestUrl}
           proxyUrl={proxyUrl}
-          pdfWorkerSrc={`${origin}/pdf-worker/pdf.worker.min.js`}
+          pdfWorkerSrc={pdfWorkerSrc}
           headerLeft={<BackButton />}
           injectablesFixed={injectables}
         />
