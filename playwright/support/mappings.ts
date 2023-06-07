@@ -65,4 +65,5 @@ export const inputs = {
   "swimming": "swimming",
   "New York": "New York",
   "1900": "1900",
+  "petroleum": "petroleum",
 };
