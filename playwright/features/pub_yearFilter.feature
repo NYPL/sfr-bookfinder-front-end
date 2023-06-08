@@ -1,6 +1,6 @@
 Feature: Publication Year Filter
 
-    Scenario: As a user I search by publication year and the search results display editions with that publication year
+    Scenario: As a user I filter by publication year and the search results display editions with that publication year
         Given I go to the "home" page
         When I fill in the "homepage search box" with "New York"
         When I click the "search button"
