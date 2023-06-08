@@ -1,6 +1,6 @@
-Feature: Expect all item detail page elements
+Feature: Item Detail Page Elements
 
-    Scenario: As a user I should see all item detail page elements
+    Scenario: As a user I navigate to an item detail page and all item detail page elements are displayed
         Given I go to the "item detail" page
         Then I see the item title
         Then I see the item author
@@ -21,5 +21,3 @@ Feature: Expect all item detail page elements
         Then I see the currently available online toggle text
         Then I see the currently available online toggle switch
         Then I see at least one edition
-
-

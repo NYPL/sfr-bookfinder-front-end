@@ -1,6 +1,6 @@
 Feature: Advanced Search
 
-    Scenario: Advanced Search - Title and Author
+    Scenario: As a user I search for a keyword and author and the search results contain both the keyword and author
         Given I go to the "home" page
         When I click the "advanced search link"
         Then I should see the advanced search heading
@@ -10,7 +10,8 @@ Feature: Advanced Search
         When I click the "advanced search button"
         Then I expect to see H1 with both keyword and author
         Then I expect to see H2 with the title "Computers and how they work"
-    Scenario: Advanced Search - Keyword, Subject, Language
+    
+    Scenario: As a user I search for multiple terms and the number of search results decrease with each term addition
         Given I go to the "home" page
         When I click the "advanced search link"
         When I fill in the "keyword search box" with "revolution"

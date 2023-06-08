@@ -1,6 +1,6 @@
-Feature: Testing EDD button functionality
+Feature: EDD Request Process
 
-    Scenario: As a user I should see the EDD request process
+    Scenario: As a user I begin the EDD request process and the delivery locations are displayed
         Given I go to the "home" page
         When I fill in the "homepage search box" with "Africa"
         When I click the "search button"

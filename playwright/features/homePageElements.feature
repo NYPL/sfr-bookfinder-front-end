@@ -1,6 +1,6 @@
-Feature: Expect all home page elements
+Feature: Home Page Elements
 
-    Scenario: As a user I should see all home page elements
+    Scenario: As a user I navigate to the Digital Research Books home page and all home page elements are displayed
         Given I go to the "home" page
         Then I see the site name
         Then I see the Home breadcrumb
