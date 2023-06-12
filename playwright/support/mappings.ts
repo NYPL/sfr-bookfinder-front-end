@@ -51,6 +51,19 @@ export const elements = {
   "password field": "#pin",
   "publication year from filter": "#date-filter-from",
   "publication year to filter": "#date-filter-to",
+  "advanced search heading": "h1:text('Advanced Search')",
+  "keyword search label": "#search-Keyword-label",
+  "author search label": "#search-Author-label",
+  "subject search label": "#search-Subject-label",
+  "title search label": "#search-Title-label",
+  "date filter from label": "#date-filter-from-label",
+  "date filter from field": "#date-filter-from",
+  "date filter to label": "#date-filter-to-label",
+  "date filter to field": "#date-filter-to",
+  "advanced search clear button": "#reset-button",
+  "keyword heading": "h1:text('IBM 1401')",
+  "author heading": "h1:text('Laurie, Edward J.')",
+  "search result link": "a:text('Computers and how they work')",
 };
 
 export const inputs = {
