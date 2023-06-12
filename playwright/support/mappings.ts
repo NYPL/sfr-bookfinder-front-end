@@ -64,6 +64,7 @@ export const elements = {
   "keyword heading": "h1:text('IBM 1401')",
   "author heading": "h1:text('Laurie, Edward J.')",
   "search result link": "a:text('Computers and how they work')",
+  "delivery location heading": "h2:text('Choose a delivery location')",
 };
 
 export const inputs = {

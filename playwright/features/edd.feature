@@ -10,4 +10,4 @@ Feature: EDD Request Process
         When I fill in the "password field" with "catalog password"
         When I click the "login button"
         When I click the "first request button"
-        Then I expect to see delivery options
+        Then the "delivery location heading" should be displayed
