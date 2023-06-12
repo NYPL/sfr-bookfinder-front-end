@@ -1,4 +1,6 @@
 import { itemDetailURL } from "./constants";
+import dotenv from "dotenv";
+dotenv.config({ path: ".env.local" });
 
 export type Pages = {
   route: string;
@@ -29,7 +31,7 @@ export const elements = {
   "government documents checkbox":
     "span:text('Show only US government documents')",
   "Latin language checkbox": "span:text('Latin')",
-  "year filter button": "#year-filter-button",
+  "publication year filter button": "#year-filter-button",
   "first read online button": "text=Read Online >> nth=0",
   "first request button":
     "[href='https://www.nypl.org/research/collections/shared-collection-catalog/hold/request/b10715506-i13895605']",
@@ -40,4 +42,28 @@ export const elements = {
   author: "[value='author']",
   title: "[value='title']",
   subject: "[value='subject']",
+  "keyword search box": "#search-Keyword",
+  "author search box": "#search-Author",
+  "subject search box": "#search-Subject",
+  "title search box": "#search-Title",
+  "homepage search box": "[aria-label='Item Search']",
+  "username field": "#code",
+  "password field": "#pin",
+  "publication year from filter": "#date-filter-from",
+  "publication year to filter": "#date-filter-to",
+};
+
+export const inputs = {
+  "IBM 1401": "IBM 1401",
+  "Laurie, Edward J.": "Laurie, Edward J.",
+  revolution: "revolution",
+  France: "France",
+  "Corelli, Marie": "Corelli, Marie",
+  Africa: "Africa",
+  "catalog username": process.env.CATALOG_USERNAME,
+  "catalog password": process.env.CATALOG_USER_PIN,
+  swimming: "swimming",
+  "New York": "New York",
+  "1900": "1900",
+  petroleum: "petroleum",
 };
