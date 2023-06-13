@@ -5,4 +5,4 @@ Feature: Government Documents Filter
         When I fill in the "homepage search box" with "swimming"
         When I click the "search button"
         When I click the "government documents checkbox"
-        Then for at least 4 titles on the page, I should see United States in the author field
+        Then the "United States author" should be displayed
