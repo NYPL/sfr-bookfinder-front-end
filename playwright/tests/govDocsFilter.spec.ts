@@ -1,10 +1,6 @@
-import { Then, When } from "@cucumber/cucumber";
+import { Then } from "@cucumber/cucumber";
 import { expect } from "@playwright/test";
 import { CustomWorld } from "../support/setup";
-
-When("I search for swimming", async function (this: CustomWorld) {
-  await this.page.locator('[aria-label="Item Search"]').fill("swimming");
-});
 
 Then(
   "for at least 4 titles on the page, I should see United States in the author field",

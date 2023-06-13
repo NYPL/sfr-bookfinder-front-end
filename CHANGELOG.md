@@ -4,6 +4,7 @@
 - Update to Web Reader version 4.3.1
 - Add TOC for single resource PDFs
 - Refactored Playwright/Cucumber tests to use new dropdown action function
+- Refactored Playwright/Cucumber tests to use new text fill function
 - Migrate from Google Analytics to Adobe Analytics
 
 ## [0.17.1]
