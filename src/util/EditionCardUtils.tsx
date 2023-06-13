@@ -8,7 +8,7 @@ import {
   WorkEdition,
   Identifier,
 } from "../types/DataModel";
-import { Box, Icon } from "@nypl/design-system-react-components";
+import { Box, Button, Icon } from "@nypl/design-system-react-components";
 import Link from "~/src/components/Link/Link";
 import { formatUrl, truncateStringOnWhitespace } from "./Util";
 import {
@@ -17,9 +17,9 @@ import {
   MAX_SUBTITILE_LENGTH,
   PLACEHOLDER_COVER_LINK,
 } from "../constants/editioncard";
-import * as gtag from "../lib/Analytics";
 import { ApiSearchQuery } from "../types/SearchQuery";
 import { MediaTypes } from "../constants/mediaTypes";
+import { trackEvent } from "../lib/Analytics";
 
 // EditionCard holds all the methods needed to build an Edition Card
 export default class EditionCardUtils {
@@ -220,23 +220,36 @@ export default class EditionCardUtils {
 
     const selectedLink = EditionCardUtils.selectDownloadLink(editionItem);
 
+    const formattedUrl = formatUrl(selectedLink.url);
+
+    const trackDownloadCta = () => {
+      trackEvent({
+        section: `${title}`,
+        text: "Download",
+        destination: `${formattedUrl}`,
+      });
+    };
+
     if (selectedLink && selectedLink.url) {
       return (
-        <Link
-          to={`${formatUrl(selectedLink.url)}`}
-          linkType="action"
-          onClick={() => {
-            gtag.drbEvents("Download", `${title}`);
-          }}
-        >
-          <Icon
-            name="download"
-            align="left"
-            size="small"
-            decorative
-            iconRotation="rotate0"
-          />
-          Download PDF
+        <Link to={`${formattedUrl}`} linkType="action">
+          <Button
+            width="100%"
+            id="download-button"
+            buttonType="secondary"
+            onClick={() => {
+              trackDownloadCta();
+            }}
+          >
+            <Icon
+              name="download"
+              align="left"
+              size="small"
+              decorative
+              iconRotation="rotate0"
+            />
+            Download PDF
+          </Button>
         </Link>
       );
     }
