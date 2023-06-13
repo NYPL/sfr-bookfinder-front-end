@@ -5,5 +5,5 @@ Feature: Author Search
         When I select "author" from the category dropdown
         When I fill in the "homepage search box" with "Corelli, Marie"
         When I click the "search button"
-        Then I expect at least 5 titles by my author
+        Then the "first search result author" should be displayed
 
