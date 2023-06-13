@@ -94,6 +94,7 @@ export const elements = {
   "items currently available online toggle": "span:text('Show only items currently available online')",
   "second item edition": "a:text('Edition') >> nth=1",
   "Hathi Trust website": "iframe[src='https://babel.hathitrust.org/cgi/pt?id=mdp.39015034622749']",
+  "first search result subject": "a:text('Petroleum')",
 };
 
 export const inputs = {

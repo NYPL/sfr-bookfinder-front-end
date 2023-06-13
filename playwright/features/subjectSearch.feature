@@ -6,4 +6,4 @@ Feature: Subject Search
         When I fill in the "homepage search box" with "petroleum"
         When I click the "search button"
         When I click the "first search result link"
-        Then I expect to see the subject listed
+        Then the "first search result subject" should be displayed
