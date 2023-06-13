@@ -99,6 +99,7 @@ export const elements = {
   "first search result author": "span:text('By') > a:text('Corelli, Marie') >> nth=0",
   "first search result keyword": "a:text('IBM 1401') >> nth=0",
   "United States author": "a:text('United States') >> nth=0",
+  "Latin language": "div:text('Latin') >> nth=0",
 };
 
 export const inputs = {
