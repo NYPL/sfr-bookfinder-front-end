@@ -65,6 +65,15 @@ export const elements = {
   "author heading": "h1:text('Laurie, Edward J.')",
   "search result link": "a:text('Computers and how they work')",
   "delivery location heading": "h2:text('Choose a delivery location')",
+  "site name heading": "h1:text('Digital Research Books')",
+  "Home breadcrumb link": "a[href='https://www.nypl.org'] > .breadcrumb-label",
+  "Research breadcrumb link": "a[href='https://www.nypl.org/research'] > .breadcrumb-label",
+  "Digital Research Books Beta breadcrumb link": "span.breadcrumb-label:text('Digital Research Books Beta')",
+  "intro text": "span:text('Find millions of digital books for research from multiple sources')",
+  "search heading": "h1:text('Search the World')",
+  "collections heading": "h2:text('Recently Added Collections')",
+  "footer": "#nypl-footer",
+  "feedback button": "button:text('Feedback')",
 };
 
 export const inputs = {

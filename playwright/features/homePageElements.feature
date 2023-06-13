@@ -2,18 +2,17 @@ Feature: Home Page Elements
 
     Scenario: As a user I navigate to the Digital Research Books home page and all home page elements are displayed
         Given I go to the "home" page
-        Then I see the site name
-        Then I see the Home breadcrumb
-        Then I see the Research breadcrumb
-        Then I see the Digital Research Books Beta breadcrumb
-        Then I see the site name H1
-        Then I see the intro text
-        Then I see first H2 - Search the Worlds Research Collections
-        Then I see search type drop down
-        Then I see input field
-        Then I see search button
-        Then I see advanced search link
-        Then I see the collections heading
+        Then the "site name heading" should be displayed
+        Then the "Home breadcrumb link" should be displayed
+        Then the "Research breadcrumb link" should be displayed
+        Then the "Digital Research Books Beta breadcrumb link" should be displayed
+        Then the "intro text" should be displayed
+        Then the "search heading" should be displayed
+        Then the "search category dropdown" should be displayed
+        Then the "homepage search box" should be displayed
+        Then the "search button" should be displayed
+        Then the "advanced search link" should be displayed
+        Then the "collections heading" should be displayed
         Then I see the list of collection cards
-        Then I see the footer
-        Then I see the feedback button
+        Then the "footer" should be displayed
+        Then the "feedback button" should be displayed
