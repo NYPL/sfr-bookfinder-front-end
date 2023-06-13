@@ -4,5 +4,4 @@ Feature: Keyword Search
         Given I go to the "home" page
         When I fill in the "homepage search box" with "IBM 1401"
         When I click the "search button"
-        Then I count how many titles have my keyword
-# Then I expect expect at least half to contain my keyword
+        Then the "first search result keyword" should be displayed
