@@ -101,6 +101,7 @@ export const elements = {
   "United States author": "a:text('United States') >> nth=0",
   "Latin language": "div:text('Latin') >> nth=0",
   "1900 editions": "a:text('Edition') >> nth=0",
+  "first collection card link": "a[href^='/collection/'] >> nth=0",
 };
 
 export const inputs = {

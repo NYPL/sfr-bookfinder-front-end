@@ -13,6 +13,6 @@ Feature: Home Page Elements
         Then the "search button" should be displayed
         Then the "advanced search link" should be displayed
         Then the "collections heading" should be displayed
-        Then I see the list of collection cards
+        Then the "first collection card link" should be displayed
         Then the "footer" should be displayed
         Then the "feedback button" should be displayed
