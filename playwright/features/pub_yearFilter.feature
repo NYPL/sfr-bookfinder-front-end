@@ -7,4 +7,4 @@ Feature: Publication Year Filter
         When I fill in the "publication year from filter" with "1900"
         When I fill in the "publication year to filter" with "1900"
         When I click the "publication year filter button"
-        Then for at least 9 titles on the page, I should see a publication year of 1900
+        Then the "1900 editions" should be displayed
