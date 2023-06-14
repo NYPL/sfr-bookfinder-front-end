@@ -95,7 +95,7 @@ export const elements = {
   "second item edition": "a:text('Edition') >> nth=1",
   "Hathi Trust website": "iframe[src='https://babel.hathitrust.org/cgi/pt?id=mdp.39015034622749']",
   "first search result subject": "a:text('Petroleum')",
-  "first search result title": "a:text('IBM 1401') >> nth=0",
+  "title in first search result": "a:text('IBM 1401') >> nth=0",
   "author of first search result": "span:text('By') > a:text('Corelli, Marie') >> nth=0",
   "keyword in first search result": "a:text('IBM 1401') >> nth=0",
   "author of first government document": "a:text('United States') >> nth=0",
