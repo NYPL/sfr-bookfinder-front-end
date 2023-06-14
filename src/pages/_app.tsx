@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import type { AppProps } from "next/app";
-// import gaUtils, * as gtag from "../lib/Analytics";
 import { useRouter } from "next/router";
 
 import "@nypl/design-system-react-components/dist/styles.css";

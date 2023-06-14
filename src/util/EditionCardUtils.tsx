@@ -19,7 +19,7 @@ import {
 } from "../constants/editioncard";
 import { ApiSearchQuery } from "../types/SearchQuery";
 import { MediaTypes } from "../constants/mediaTypes";
-import { trackEvent } from "../lib/Analytics";
+import { trackCtaClick } from "../lib/Analytics";
 
 // EditionCard holds all the methods needed to build an Edition Card
 export default class EditionCardUtils {
@@ -220,17 +220,16 @@ export default class EditionCardUtils {
 
     const selectedLink = EditionCardUtils.selectDownloadLink(editionItem);
 
-    const formattedUrl = formatUrl(selectedLink.url);
-
-    const trackDownloadCta = () => {
-      trackEvent({
-        section: `${title}`,
-        text: "Download",
-        destination: `${formattedUrl}`,
-      });
-    };
-
     if (selectedLink && selectedLink.url) {
+      const formattedUrl = formatUrl(selectedLink.url);
+
+      const trackDownloadCta = () => {
+        trackCtaClick({
+          cta_section: `${title}`,
+          cta_text: "Download",
+          destination_url: `${formattedUrl}`,
+        });
+      };
       return (
         <Link to={`${formattedUrl}`} linkType="action">
           <Button

@@ -25,7 +25,7 @@ import readiumAfter from "!file-loader!extract-loader!css-loader!@nypl/web-reade
 import Link from "../Link/Link";
 import { addTocToManifest } from "@nypl/web-reader";
 import Loading from "../Loading/Loading";
-import { trackEvent } from "~/src/lib/Analytics";
+import { trackCtaClick } from "~/src/lib/Analytics";
 
 const origin =
   typeof window !== "undefined" && window.location?.origin
@@ -89,10 +89,10 @@ const ReaderLayout: React.FC<{
   };
 
   useEffect(() => {
-    trackEvent({
-      section: `${link.work.title}`,
-      text: "Read Online",
-      destination: `${link.url}`,
+    trackCtaClick({
+      cta_section: `${link.work.title}`,
+      cta_text: "Read Online",
+      destination_url: `${link.url}`,
     });
   }, [link]);
 
