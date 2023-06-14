@@ -31,7 +31,7 @@ export const elements = {
   "government documents checkbox":
     "span:text('Show only US government documents')",
   "Latin language checkbox": "span:text('Latin')",
-  "publication year filter button": "#year-filter-button",
+  "publication year apply button": "#year-filter-button",
   "first read online button": "text=Read Online >> nth=0",
   "first request button":
     "[href='https://www.nypl.org/research/collections/shared-collection-catalog/hold/request/b10715506-i13895605']",
@@ -100,7 +100,7 @@ export const elements = {
   "keyword in first search result": "a:text('IBM 1401') >> nth=0",
   "author of first government document": "a:text('United States') >> nth=0",
   "first search result language": "div:text('Latin') >> nth=0",
-  "1900 editions": "a:text('Edition') >> nth=0",
+  "first search result edition": "a:text('1900 Edition') >> nth=0",
   "first collection card link": "a[href^='/collection/'] >> nth=0",
   "number of results": "#page-counter",
 };
