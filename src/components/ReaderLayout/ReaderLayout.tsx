@@ -92,16 +92,15 @@ const ReaderLayout: React.FC<{
     gtag.drbEvents("Read", `${link.work.title}`);
   }, [link]);
 
-  /**
-   * - Fetches manifest
-   * - Adds the TOC to the manifest
-   * - Generates a syncthetic url for the manifest to be passed to
-   * web reader.
-   * - Returns the synthetic url
-   */
-
   useEffect(() => {
     if (isRead) {
+      /**
+       * - Fetches manifest
+       * - Adds the TOC to the manifest
+       * - Generates a syncthetic url for the manifest to be passed to
+       * web reader.
+       * - Returns the synthetic url
+       */
       const fetchAndModifyManifest = async (url) => {
         setIsLoading(true);
         const response = await fetch(url);
@@ -125,6 +124,10 @@ const ReaderLayout: React.FC<{
       };
 
       fetchAndModifyManifest(url);
+
+      // hides header and footer components when web reader is displayed
+      document.getElementById("nypl-header").style.display = "none";
+      document.getElementById("nypl-footer").style.display = "none";
     }
   }, [isRead, pdfWorkerSrc, proxyUrl, url]);
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import type { AppProps } from "next/app";
 import gaUtils, * as gtag from "../lib/Analytics";
 import { useRouter } from "next/router";
@@ -50,6 +50,15 @@ const setTitle = (query: any) => {
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
+
+  useEffect(() => {
+    if (!isServerRendered()) {
+      if (!router.query.linkId) {
+        document.getElementById("nypl-header").style.display = "block";
+        document.getElementById("nypl-footer").style.display = "block";
+      }
+    }
+  });
 
   return (
     <>
