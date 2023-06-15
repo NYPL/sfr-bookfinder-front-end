@@ -4,8 +4,8 @@ import { CustomWorld } from "../support/setup";
 
 const numResults = [];
 
-When(
-  "I collect the number of results for revolution",
+Then(
+  "the number of results for revolution should be displayed",
   async function (this: CustomWorld) {
     let val = (await this.page.locator("#page-counter").innerText()).valueOf();
     val = val.replace("Viewing 1 - 10 of ", "");
@@ -17,8 +17,8 @@ When(
   }
 );
 
-When(
-  "I collect the number of results for revolution and France",
+Then(
+  "the number of results for revolution and France should be displayed",
   async function (this: CustomWorld) {
     let val = (await this.page.locator("#page-counter").innerText()).valueOf();
     val = val.replace("Viewing 1 - 10 of ", "");
@@ -30,8 +30,8 @@ When(
   }
 );
 
-When(
-  "I collect the number of results for English language",
+Then(
+  "the number of results for revolution, France, and English language should be displayed",
   async function (this: CustomWorld) {
     let val = (await this.page.locator("#page-counter").innerText()).valueOf();
     val = val.replace("Viewing 1 - 10 of ", "");
@@ -44,7 +44,7 @@ When(
 );
 
 Then(
-  "I expect to see the number of results decrease with each new addition",
+  "the number of results decrease with each new addition",
   async function (this: CustomWorld) {
     expect(numResults[1]).toBeLessThan(numResults[0]);
     expect(numResults[2]).toBeLessThan(numResults[1]);

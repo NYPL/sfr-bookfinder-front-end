@@ -28,14 +28,14 @@ Feature: Advanced Search
     Scenario: As a user I search for multiple terms and the number of search results decrease with each term addition
         Given I go to the "home" page
         When I click the "advanced search link"
-        When I fill in the "keyword search box" with "revolution"
-        When I click the "advanced search button"
-        When I collect the number of results for revolution
+        And I fill in the "keyword search box" with "revolution"
+        And I click the "advanced search button"
+        Then the number of results for revolution should be displayed
         When I click the "advanced search link"
-        When I fill in the "keyword search box" with "revolution"
-        When I fill in the "subject search box" with "France"
-        When I click the "advanced search button"
-        When I collect the number of results for revolution and France
+        And I fill in the "keyword search box" with "revolution"
+        And I fill in the "subject search box" with "France"
+        And I click the "advanced search button"
+        Then the number of results for revolution and France should be displayed
         When I click the "English language checkbox"
-        When I collect the number of results for English language
-        Then I expect to see the number of results decrease with each new addition
+        Then the number of results for revolution, France, and English language should be displayed
+        Then the number of results decrease with each new addition
