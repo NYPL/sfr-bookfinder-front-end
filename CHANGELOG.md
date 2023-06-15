@@ -5,6 +5,7 @@
 - Add TOC for single resource PDFs
 - Refactored Playwright/Cucumber tests to use new dropdown action function
 - Refactored Playwright/Cucumber tests to use new text fill function
+- Migrate from Google Analytics to Adobe Analytics
 - Preparing to refactor Playwright/Cucumber tests to use new display function
 
 ## [0.17.1]

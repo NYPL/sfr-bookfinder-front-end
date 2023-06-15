@@ -72,7 +72,10 @@ jobs:
           AIRTABLE_KEY: ${{ secrets.AIRTABLE_API_KEY }}
           NEW_RELIC_LICENSE_KEY: ${{ secrets.NEW_RELIC_LICENSE_KEY }}
         run: |
-          docker build --build-arg airtable_api_key=$AIRTABLE_KEY -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG --build-arg NEW_RELIC_APP_NAME="Digital Research Books (PROD)" --build-arg NEW_RELIC_LICENSE_KEY=$NEW_RELIC_LICENSE_KEY .
+          docker build --build-arg airtable_api_key=$AIRTABLE_KEY -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG \
+          --build-arg NEW_RELIC_APP_NAME="Digital Research Books (PROD)" \
+          --build-arg NEW_RELIC_LICENSE_KEY=$NEW_RELIC_LICENSE_KEY \
+          --build-arg NEXT_PUBLIC_ADOBE_ANALYTICS="https://assets.adobedtm.com/1a9376472d37/8519dfce636d/launch-672b7e7f98ee.min.js" .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
