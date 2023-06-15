@@ -59,6 +59,7 @@ export const documentTitles = {
   workItem: "Item Details | Digital Research Books Beta | NYPL",
   editionItem: "Edition Details | Digital Research Books Beta | NYPL",
   readItem: "Read Online | Digital Research Books Beta | NYPL",
+  collection: "Collection | Digital Research Books Beta | NYPL",
 };
 
 export const yearsType = { start: "Start", end: "End" };
