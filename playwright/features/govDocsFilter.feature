@@ -5,4 +5,4 @@ Feature: Government Documents Filter
         When I fill in the "homepage search box" with "swimming"
         And I click the "search button"
         And I click the "government documents checkbox"
-        Then the "author of first government document" should be displayed
+        Then the "first government document author" should be displayed

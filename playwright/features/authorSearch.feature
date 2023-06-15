@@ -5,4 +5,4 @@ Feature: Author Search
         When I select "author" from the category dropdown
         And I fill in the "homepage search box" with "Corelli, Marie"
         And I click the "search button"
-        Then the "author of first search result" should be displayed
+        Then the "first search result author" should be displayed

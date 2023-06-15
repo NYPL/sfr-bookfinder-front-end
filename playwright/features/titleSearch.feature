@@ -5,4 +5,4 @@ Feature: Title Search
         When I select "title" from the category dropdown
         And I fill in the "homepage search box" with "IBM 1401"
         And I click the "search button"
-        Then the "title in first search result" should be displayed
+        Then the "first search result title" should be displayed
