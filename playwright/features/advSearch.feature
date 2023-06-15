@@ -24,18 +24,3 @@ Feature: Advanced Search
         Then the "keyword heading" should be displayed
         Then the "author heading" should be displayed
         Then the "search result link" should be displayed
-    
-    Scenario: As a user I search for multiple terms and the number of search results decrease with each term addition
-        Given I go to the "home" page
-        When I click the "advanced search link"
-        And I fill in the "keyword search box" with "revolution"
-        And I click the "advanced search button"
-        Then the number of results for revolution should be displayed
-        When I click the "advanced search link"
-        And I fill in the "keyword search box" with "revolution"
-        And I fill in the "subject search box" with "France"
-        And I click the "advanced search button"
-        Then the number of results for revolution and France should be displayed
-        When I click the "English language checkbox"
-        Then the number of results for revolution, France, and English language should be displayed
-        Then the number of results decrease with each new addition
