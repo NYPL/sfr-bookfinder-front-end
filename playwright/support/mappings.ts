@@ -67,12 +67,15 @@ export const elements = {
   "delivery location heading": "h2:text('Choose a delivery location')",
   "site name heading": "h1:text('Digital Research Books')",
   "Home breadcrumb link": "a[href='https://www.nypl.org'] > .breadcrumb-label",
-  "Research breadcrumb link": "a[href='https://www.nypl.org/research'] > .breadcrumb-label",
-  "Digital Research Books Beta breadcrumb link": "span.breadcrumb-label:text('Digital Research Books Beta')",
-  "intro text": "span:text('Find millions of digital books for research from multiple sources')",
+  "Research breadcrumb link":
+    "a[href='https://www.nypl.org/research'] > .breadcrumb-label",
+  "Digital Research Books Beta breadcrumb link":
+    "span.breadcrumb-label:text('Digital Research Books Beta')",
+  "intro text":
+    "span:text('Find millions of digital books for research from multiple sources')",
   "search heading": "h1:text('Search the World')",
   "collections heading": "h2:text('Recently Added Collections')",
-  "footer": "#nypl-footer",
+  footer: "#nypl-footer",
   "feedback button": "button:text('Feedback')",
   "item title": "#work-title",
   "item author": "div:text('By') > a:text('Library of Congress')",
@@ -90,13 +93,17 @@ export const elements = {
   "item details languages heading": "dt:text('Languages')",
   "item details languages": "li:text('English')",
   "item all editions heading": "#all-editions",
-  "items currently available online toggle text": "span + span:text('Show only items currently available online')",
-  "items currently available online toggle": "span:text('Show only items currently available online')",
+  "items currently available online toggle text":
+    "span + span:text('Show only items currently available online')",
+  "items currently available online toggle":
+    "span:text('Show only items currently available online')",
   "second item edition": "a:text('Edition') >> nth=1",
-  "Hathi Trust website": "iframe[src='https://babel.hathitrust.org/cgi/pt?id=mdp.39015034622749']",
+  "Hathi Trust website":
+    "iframe[src='https://babel.hathitrust.org/cgi/pt?id=mdp.39015034622749']",
   "first search result subject": "a:text('Petroleum')",
   "first search result title": "a:text('IBM 1401') >> nth=0",
-  "first search result author": "span:text('By') > a:text('Corelli, Marie') >> nth=0",
+  "first search result author":
+    "span:text('By') > a:text('Corelli, Marie') >> nth=0",
   "first search result keyword": "a:text('IBM 1401') >> nth=0",
   "first government document author": "a:text('United States') >> nth=0",
   "first search result language": "div:text('Latin') >> nth=0",

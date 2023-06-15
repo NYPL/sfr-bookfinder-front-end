@@ -4,11 +4,11 @@ import { elements } from "../support/mappings";
 import { expect } from "@playwright/test";
 
 Then(
-    /^the "([^"]*)" should be displayed$/,
-    async function (this: CustomWorld, elementKey: keyof typeof elements) {
-      const element = elements[elementKey];
-      return expect(this.page.locator(element)).toBeVisible({
-          timeout: 50000
-      });
-    }
-  );
+  /^the "([^"]*)" should be displayed$/,
+  async function (this: CustomWorld, elementKey: keyof typeof elements) {
+    const element = elements[elementKey];
+    return expect(this.page.locator(element)).toBeVisible({
+      timeout: 50000,
+    });
+  }
+);
