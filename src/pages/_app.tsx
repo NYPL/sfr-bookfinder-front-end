@@ -64,6 +64,10 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     if (!isServerRendered()) {
+      if (!router.query.linkId) {
+        document.getElementById("nypl-header").style.display = "block";
+        document.getElementById("nypl-footer").style.display = "block";
+      }
       sendAnalytics(router.query, router.pathname);
     }
   });

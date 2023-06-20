@@ -16,14 +16,12 @@ class MyDocument extends Document {
         <body>
           <div id="nypl-header"></div>
           <script
-            type="module"
             src="https://ds-header.nypl.org/header.min.js?containerId=nypl-header"
             async
           ></script>
           <Main />
           <div id="nypl-footer"></div>
           <script
-            type="module"
             src="https://ds-header.nypl.org/footer.min.js?containerId=nypl-footer"
             async
           ></script>
