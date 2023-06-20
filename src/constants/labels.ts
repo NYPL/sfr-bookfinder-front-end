@@ -55,6 +55,7 @@ export const defaultBreadcrumbs = [
 
 export const documentTitles = {
   home: "Digital Research Books Beta | NYPL",
+  advancedSearch: "Advanced Search | Digital Research Books Beta | NYPL",
   search: "Search Results | Digital Research Books Beta | NYPL",
   workItem: "Item Details | Digital Research Books Beta | NYPL",
   editionItem: "Edition Details | Digital Research Books Beta | NYPL",

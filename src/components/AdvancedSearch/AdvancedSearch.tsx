@@ -43,6 +43,7 @@ import { FacetItem, Query } from "~/src/types/DataModel";
 import { toLocationQuery, toApiQuery } from "~/src/util/apiConversion";
 import filterFields from "~/src/constants/filters";
 import { ApiLanguageResponse } from "~/src/types/LanguagesQuery";
+import { trackCtaClick } from "~/src/lib/Analytics";
 
 const AdvancedSearch: React.FC<{
   languages: ApiLanguageResponse;
@@ -116,7 +117,11 @@ const AdvancedSearch: React.FC<{
       filters: filters,
       queries: queries,
     };
-
+    trackCtaClick({
+      cta_section: "Advanced Search",
+      cta_text: "Search",
+      destination_url: `/search`,
+    });
     router.push({
       pathname: "/search",
       query: toLocationQuery(toApiQuery(newSearchQuery)),

@@ -41,7 +41,7 @@ const setTitle = (query: any) => {
   }
 };
 
-const sendAnalytics = (query: any) => {
+const sendAnalytics = (query: any, pathname: string) => {
   if (query.workId) {
     trackPageview(pageViewData.workItem);
   } else if (query.editionId) {
@@ -52,6 +52,8 @@ const sendAnalytics = (query: any) => {
     trackPageview(pageViewData.readItem);
   } else if (query.collectionId) {
     trackPageview(pageViewData.readItem);
+  } else if (pathname === "/advanced-search") {
+    trackPageview(pageViewData.advancedSearch);
   } else {
     trackPageview(pageViewData.home);
   }
@@ -62,7 +64,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     if (!isServerRendered()) {
-      sendAnalytics(router.query);
+      sendAnalytics(router.query, router.pathname);
     }
   });
 
