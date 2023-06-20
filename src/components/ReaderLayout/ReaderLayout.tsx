@@ -5,7 +5,6 @@ import { ApiLink, LinkResult } from "~/src/types/LinkQuery";
 import IFrameReader from "../IFrameReader/IFrameReader";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
 import Layout from "../Layout/Layout";
-import * as gtag from "../../lib/Analytics";
 import { formatUrl, truncateStringOnWhitespace } from "~/src/util/Util";
 import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
 import dynamic from "next/dynamic";
@@ -26,6 +25,7 @@ import readiumAfter from "!file-loader!extract-loader!css-loader!@nypl/web-reade
 import Link from "../Link/Link";
 import { addTocToManifest } from "@nypl/web-reader";
 import Loading from "../Loading/Loading";
+import { trackCtaClick } from "~/src/lib/Analytics";
 
 const origin =
   typeof window !== "undefined" && window.location?.origin
@@ -89,7 +89,11 @@ const ReaderLayout: React.FC<{
   };
 
   useEffect(() => {
-    gtag.drbEvents("Read", `${link.work.title}`);
+    trackCtaClick({
+      cta_section: `${link.work.title}`,
+      cta_text: "Read Online",
+      destination_url: `${link.url}`,
+    });
   }, [link]);
 
   useEffect(() => {
