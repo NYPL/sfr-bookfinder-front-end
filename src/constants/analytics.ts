@@ -2,6 +2,10 @@ import { documentTitles } from "./labels";
 
 export const pageViewData = {
   home: { name: documentTitles.home, section: "Home" },
+  advancedSearch: {
+    name: documentTitles.advancedSearch,
+    section: "Advanced Search",
+  },
   search: {
     name: documentTitles.search,
     section: "Search",
