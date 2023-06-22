@@ -1,9 +1,8 @@
 Feature: Title Search
 
-    Scenario: As a user I should be able to do an title search and see relevent results
+    Scenario: As a user I search for a title and the first search result contains the title
         Given I go to the "home" page
-        When I change the dropdown to title
-        When I input a title search term
-        When I click the "search button"
-        Then I expect at least 5 titles with my title
-
+        When I select "title" from the category dropdown
+        And I fill in the "homepage search box" with "IBM 1401"
+        And I click the "search button"
+        Then the "first search result title" should be displayed

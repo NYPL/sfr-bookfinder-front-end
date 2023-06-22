@@ -1,9 +1,8 @@
 Feature: Author Search
 
-    Scenario: As a user I should be able to do an author search and see relevant results
+    Scenario: As a user I search for an author and the first search result is by the author
         Given I go to the "home" page
-        When I change the dropdown to author
-        When I input an author search term
-        When I click the "search button"
-        Then I expect at least 5 title by my author
-
+        When I select "author" from the category dropdown
+        And I fill in the "homepage search box" with "Corelli, Marie"
+        And I click the "search button"
+        Then the "first search result author" should be displayed

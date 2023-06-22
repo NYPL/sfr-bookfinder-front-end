@@ -27,11 +27,7 @@ export default {
     formUrl: "https://api.airtable.com/v0/appFLZEc3LmVZCRxn/Requests",
     experimentName: "RequestDigital",
   },
-  analytics: {
-    local: "",
-    development: "UA-1420324-149",
-    production: "UA-1420324-149",
-  },
+  analytics: process.env["NEXT_PUBLIC_ADOBE_ANALYTICS"],
   feedback: {
     formURL: "https://api.airtable.com/v0/appFLZEc3LmVZCRxn/Feedback",
   },

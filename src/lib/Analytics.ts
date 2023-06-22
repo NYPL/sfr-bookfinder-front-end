@@ -1,95 +1,73 @@
+import { SITE_SECTION } from "../constants/analytics";
+
+type EventData = CtaData & {
+  name: string;
+};
+
+type CtaData = {
+  cta_section: string;
+  cta_text: string;
+  destination_url: string;
+};
+
+let hasInitialPageViewFired = false;
 /**
- * GA libraries copied over from library-card-app
+ * trackPageview
+ * Track an AA pageview.
+ * https://blastwiki.atlassian.net/wiki/spaces/NYPL/pages/7898713056053494306/Virtual+Page+View+NYPL
  */
-
-import ga from "react-ga";
-import appConfig from "~/config/appConfig";
-
-interface GaDimension {
-  index: string;
-  value: string;
-}
-
-/**
- * getGoogleGACode
- * Return the Google Analytics code for the production property if isProd is
- * true, or the dev property if isProd is false
- */
-export const getGoogleGACode = (isProd: boolean) => {
-  const codes = {
-    production: appConfig.analytics.production,
-    dev: appConfig.analytics.development,
-  };
-  return isProd ? codes.production : codes.dev;
+export const trackPageview = (pageName: string) => {
+  // First define the global variable for the entire data layer array
+  const adobeDataLayer = window.adobeDataLayer || [];
+  if (!hasInitialPageViewFired) {
+    // push in the variables required in the Initial Data Layer Definition
+    adobeDataLayer.push({
+      disable_page_view: true,
+    });
+    hasInitialPageViewFired = true;
+  }
+  // first clear the data layer of previous values
+  adobeDataLayer.push({
+    page_name: null,
+    site_section: null,
+  });
+  // then push the new values
+  adobeDataLayer.push({
+    event: "virtual_page_view",
+    page_name: pageName,
+    site_section: SITE_SECTION,
+  });
 };
 
 /**
- * GaUtils
- * Google Analytics utility class that wraps the `react-ga` package.
+ * trackEvent
+ * Track an AA event.
+ * https://blastwiki.atlassian.net/wiki/spaces/NYPL/pages/7898713056053494689/Standard+Events+NYPL
  */
-class GaUtils {
-  /**
-   * trackPageview
-   * Track a GA pageview.
-   */
-  trackPageview = (url: string) => ga.pageview(url);
+const trackEvent = (eventData: EventData) => {
+  // First define the global variable for the entire data layer array
+  const adobeDataLayer = window.adobeDataLayer || [];
+  //first clear the data layer of previous values
+  adobeDataLayer.push({
+    event_data: null,
+  });
+  //then push the new values
+  adobeDataLayer.push({
+    event: "send_event",
+    event_data: eventData,
+  });
+};
 
-  /**
-   * trackEvent
-   * Create a function to track a specific category of GA events. A convenience
-   * function so that `category`, which doens't change, doesn't have to be
-   * added every time. Returns a function with the category set. Then you
-   * pass in the action and the label to that returned function.
-   */
-  trackEvent = (category: string) => (action: string, label: string) => {
-    ga.event({
-      category,
-      action,
-      label,
-    });
-  };
-  /**
-   * setDimension
-   * Set the dimension for GA. Every dimension includes two properties:
-   * the index and the value.
-   * First set the dimension in the admin of GA's dashboard
-   * so the value could be passed to it.
-   */
-  setDimension = ({ index, value }: GaDimension) => ga.set({ [index]: value });
-
-  /**
-   * setDimensions
-   * Set multiple dimensions for GA at once. Each dimension includes two properties:
-   * the index and the value.
-   * This function takes an array as the argument, the structure will be as such
-   * [{ index: index1, value: value1 }, { index: index2, value: value2 }, ...]
-   *
-   * @param {dimensions} Array
-   */
-  setDimensions = (dimensions: GaDimension[]) => {
-    dimensions.forEach((d) => {
-      if (d.index && d.value) {
-        ga.set({ [d.index]: d.value });
-      }
-    });
-  };
-
-  /**
-   * setupAnalytics
-   * Sets up Google Analytics if it's not already set up. Also initializes
-   * page view tracking.
-   */
-  setupAnalytics = (isProd = false) => {
-    const gaOpts = { debug: !isProd, titleCase: false };
-    ga.initialize(getGoogleGACode(isProd), gaOpts);
-    this.trackPageview(window.location.pathname + window.location.search);
-  };
-}
-
-const gaUtils = new GaUtils();
-
-// Export the tracker with the specific category already set for every event.
-export const drbEvents = gaUtils.trackEvent("Digital Research Books");
-
-// Export the main instance.
-export default gaUtils;
+/**
+ * trackCtaClick
+ * Track an AA CTA Click event.
+ * https://blastwiki.atlassian.net/wiki/spaces/NYPL/pages/7898713056053494740/CTA+Click+NYPL
+ */
+export const trackCtaClick = (ctaData: CtaData) => {
+  trackEvent({
+    name: "cta_click",
+    cta_section: ctaData.cta_section,
+    cta_text: ctaData.cta_text,
+    destination_url: ctaData.destination_url,
+  });
+};

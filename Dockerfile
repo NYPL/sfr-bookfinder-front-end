@@ -13,6 +13,8 @@ ARG airtable_api_key
 ARG NEW_RELIC_LICENSE_KEY
 ARG NEW_RELIC_APP_NAME 
 
+ARG NEXT_PUBLIC_ADOBE_ANALYTICS 
+
 # Set environment variables. NODE_ENV is set early because we
 # want to use it when running `npm install` and `npm run build`.
 ENV PATH /app/node_modules/.bin:$PATH
@@ -23,6 +25,7 @@ ENV NEXT_PUBLIC_AIRTABLE_API_KEY $airtable_api_key
 ENV NEXT_PUBLIC_READER_VERSION=v2
 ENV NEW_RELIC_LICENSE_KEY $NEW_RELIC_LICENSE_KEY
 ENV NEW_RELIC_APP_NAME $NEW_RELIC_APP_NAME
+ENV NEXT_PUBLIC_ADOBE_ANALYTICS $NEXT_PUBLIC_ADOBE_ANALYTICS
 
 # Install dependencies.
 COPY package.json package-lock.json ./
