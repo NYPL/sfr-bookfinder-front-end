@@ -1,6 +1,6 @@
 # CHANGE LOG
 
-## [Pre-release]
+## [0.17.2]
 - Update to Web Reader version 4.3.1
 - Add TOC for single resource PDFs
 - Refactored Playwright/Cucumber tests to use new dropdown action function
