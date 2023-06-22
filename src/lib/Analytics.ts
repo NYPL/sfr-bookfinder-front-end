@@ -1,7 +1,4 @@
-type PageViewData = {
-  name: string;
-  section: string;
-};
+import { SITE_SECTION } from "../constants/analytics";
 
 type EventData = CtaData & {
   name: string;
@@ -19,7 +16,7 @@ let hasInitialPageViewFired = false;
  * Track an AA pageview.
  * https://blastwiki.atlassian.net/wiki/spaces/NYPL/pages/7898713056053494306/Virtual+Page+View+NYPL
  */
-export const trackPageview = (pageViewData: PageViewData) => {
+export const trackPageview = (pageName: string) => {
   // First define the global variable for the entire data layer array
   const adobeDataLayer = window.adobeDataLayer || [];
   if (!hasInitialPageViewFired) {
@@ -37,8 +34,8 @@ export const trackPageview = (pageViewData: PageViewData) => {
   // then push the new values
   adobeDataLayer.push({
     event: "virtual_page_view",
-    page_name: pageViewData.name,
-    site_section: pageViewData.section,
+    page_name: pageName,
+    site_section: SITE_SECTION,
   });
 };
 

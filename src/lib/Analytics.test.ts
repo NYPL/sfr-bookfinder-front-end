@@ -1,5 +1,6 @@
 import React from "react";
-import { pageViewData } from "../constants/analytics";
+import { SITE_SECTION } from "../constants/analytics";
+import { documentTitles } from "../constants/labels";
 import { trackCtaClick, trackPageview } from "./Analytics";
 
 describe("Adobe Analytics", () => {
@@ -11,7 +12,7 @@ describe("Adobe Analytics", () => {
     test("it should update window.adobeDataLayer with the approriate values", () => {
       const adobeDataLayer = window.adobeDataLayer;
 
-      trackPageview(pageViewData.workItem);
+      trackPageview(documentTitles.workItem);
 
       const eventData = adobeDataLayer[2];
       const eventValue = eventData.event;
@@ -20,8 +21,8 @@ describe("Adobe Analytics", () => {
 
       expect(adobeDataLayer).toHaveLength(3);
       expect(eventValue).toEqual("virtual_page_view");
-      expect(pageValue).toEqual(pageViewData.workItem.name);
-      expect(sectionValue).toEqual(pageViewData.workItem.section);
+      expect(pageValue).toEqual(documentTitles.workItem);
+      expect(sectionValue).toEqual(SITE_SECTION);
     });
   });
 
