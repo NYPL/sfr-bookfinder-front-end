@@ -9,7 +9,6 @@ import appConfig from "~/config/appConfig";
 import { documentTitles } from "../constants/labels";
 import "@nypl/web-reader/dist/index.css";
 import { FeatureFlagProvider } from "../context/FeatureFlagContext";
-import { pageViewData } from "../constants/analytics";
 import { trackPageview } from "../lib/Analytics";
 
 /**
@@ -43,19 +42,19 @@ const setTitle = (query: any) => {
 
 const sendAnalytics = (query: any, pathname: string) => {
   if (query.workId) {
-    trackPageview(pageViewData.workItem);
+    trackPageview(documentTitles.workItem);
   } else if (query.editionId) {
-    trackPageview(pageViewData.editionItem);
+    trackPageview(documentTitles.editionItem);
   } else if (query.query) {
-    trackPageview(pageViewData.search);
+    trackPageview(documentTitles.search);
   } else if (query.linkId) {
-    trackPageview(pageViewData.readItem);
+    trackPageview(documentTitles.readItem);
   } else if (query.collectionId) {
-    trackPageview(pageViewData.readItem);
+    trackPageview(documentTitles.readItem);
   } else if (pathname === "/advanced-search") {
-    trackPageview(pageViewData.advancedSearch);
+    trackPageview(documentTitles.advancedSearch);
   } else {
-    trackPageview(pageViewData.home);
+    trackPageview(documentTitles.home);
   }
 };
 
