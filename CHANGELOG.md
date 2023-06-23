@@ -1,13 +1,16 @@
 # CHANGE LOG
 
 ## [Pre-release]
+- Upgrade to Next 13.4.7
+
+## [0.17.2]
 - Update to Web Reader version 4.3.1
 - Add TOC for single resource PDFs
 - Refactored Playwright/Cucumber tests to use new dropdown action function
 - Refactored Playwright/Cucumber tests to use new text fill function
 - Hide Header and Footer components on /read pages using the Web Reader
 - Migrate from Google Analytics to Adobe Analytics
-- Upgrade to Next 13.4.7
+- Refactored Playwright/Cucumber tests to use new visibility function
 
 ## [0.17.1]
 - Replace dgx-header-component and DS Footer with Header/Footer components from nypl-header-app 
