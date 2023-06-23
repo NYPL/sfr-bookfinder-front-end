@@ -17,4 +17,6 @@ export const collectionSortMap = {
 
 export const numbersPerPage = ["10", "20", "50", "100"];
 
-export default { sortMap, collectionSortMap, numbersPerPage };
+const sorts = { sortMap, collectionSortMap, numbersPerPage };
+
+export default sorts;

@@ -7,6 +7,7 @@
 - Refactored Playwright/Cucumber tests to use new text fill function
 - Hide Header and Footer components on /read pages using the Web Reader
 - Migrate from Google Analytics to Adobe Analytics
+- Upgrade to Next 13.4.7
 
 ## [0.17.1]
 - Replace dgx-header-component and DS Footer with Header/Footer components from nypl-header-app 
