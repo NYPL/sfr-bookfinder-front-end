@@ -1,5 +1,8 @@
 # CHANGE LOG
 
+## [Pre-release]
+- Upgrade to Next 13.4.7
+
 ## [0.17.2]
 - Update to Web Reader version 4.3.1
 - Add TOC for single resource PDFs
