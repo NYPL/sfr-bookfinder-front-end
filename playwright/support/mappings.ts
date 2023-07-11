@@ -110,6 +110,12 @@ export const elements = {
   "first search result edition": "a:text('1900 Edition') >> nth=0",
   "first collection card link": "a[href^='/collection/'] >> nth=0",
   "number of results": "#page-counter",
+  "Robot Soccer title": "//a[text()='Robot soccer']",
+  "e-reader table of contents button": "[aria-label='Table of Contents']",
+  "e-reader settings button": "[aria-label='Settings']",
+  "e-reader full screen button": "[aria-label='Toggle full screen']",
+  "e-reader back to DRB button":
+    "//span[text()='Back to Digital Research Books']",
 };
 
 export const inputs = {
@@ -125,4 +131,5 @@ export const inputs = {
   "New York": "New York",
   "1900": "1900",
   petroleum: "petroleum",
+  "Robot Soccer": "Robot Soccer",
 };
