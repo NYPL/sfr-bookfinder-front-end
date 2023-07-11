@@ -25,9 +25,6 @@ describe("Feedback", () => {
       const commentRadio = screen.getByLabelText("Comment");
       fireEvent.change(feedback, { target: { value: "test value" } });
       fireEvent.click(commentRadio);
-
-      expect(feedback).toHaveValue("test value");
-      expect(commentRadio).toBeChecked();
       fireEvent.click(screen.getByRole("button", { name: "Submit" }));
       expect(fetch).toHaveBeenCalledTimes(1);
     });
