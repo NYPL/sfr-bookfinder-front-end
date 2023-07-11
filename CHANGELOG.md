@@ -2,6 +2,8 @@
 
 ## [Pre-release]
 - Upgrade to Next 13.4.7
+- Replace the Feedback component with DS FeedbackBox component
+- Replace Redux with React Context
 
 ## [0.17.2]
 - Update to Web Reader version 4.3.1
