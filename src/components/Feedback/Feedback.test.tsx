@@ -1,11 +1,10 @@
 import React from "react";
-import { fireEvent, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import Feedback from "./Feedback";
-import { feedbackRender } from "~/src/__tests__/testUtils/render";
 
 describe("Feedback", () => {
   beforeEach(() => {
-    feedbackRender(<Feedback location={"/testing?testQuery"} />);
+    render(<Feedback location={"/testing?testQuery"} />);
   });
 
   describe("Form Submission", () => {

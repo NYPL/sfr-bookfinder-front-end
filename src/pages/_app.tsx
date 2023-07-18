@@ -10,7 +10,6 @@ import { documentTitles } from "../constants/labels";
 import "@nypl/web-reader/dist/index.css";
 import { FeatureFlagProvider } from "../context/FeatureFlagContext";
 import { trackPageview } from "../lib/Analytics";
-import { FeedbackProvider } from "../context/FeedbackContext";
 
 /**
  * Determines if we are running on server or in the client.
@@ -82,9 +81,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <script src={appConfig.analytics} async />
       </Head>
       <FeatureFlagProvider>
-        <FeedbackProvider>
-          <Component {...pageProps} />
-        </FeedbackProvider>
+        <Component {...pageProps} />
       </FeatureFlagProvider>
     </>
   );

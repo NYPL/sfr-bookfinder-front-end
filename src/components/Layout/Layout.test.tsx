@@ -1,12 +1,11 @@
-import { screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import React from "react";
-import { feedbackRender } from "~/src/__tests__/testUtils/render";
 import Layout from "./Layout";
 jest.mock("next/router", () => require("next-router-mock"));
 
 describe("Layout component", () => {
   beforeEach(() => {
-    feedbackRender(
+    render(
       <Layout>
         <div>Text in layout body</div>
       </Layout>

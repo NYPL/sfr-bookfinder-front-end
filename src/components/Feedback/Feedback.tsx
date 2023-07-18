@@ -1,12 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { submitFeedback } from "~/src/lib/api/FeedbackApi";
-import { FeedbackContext } from "~/src/context/FeedbackContext";
+import { useFeedbackBox } from "@nypl/design-system-react-components";
 
 const Feedback: React.FC<any> = ({ location }) => {
   const [view, setView] = useState<"form" | "confirmation" | "error">("form");
-  const { FeedbackBox, isOpen, onClose, onOpen } = useContext(FeedbackContext);
+  const { FeedbackBox, isOpen, onOpen, onClose } = useFeedbackBox();
 
-  const handleFeedbackSubmit = (values: any) => {
+  const handleFeedbackSubmit = (
+    values: React.ComponentProps<typeof FeedbackBox>["onSubmit"]
+  ) => {
     submitFeedback({
       feedback: values.comment,
       category: values.category,
