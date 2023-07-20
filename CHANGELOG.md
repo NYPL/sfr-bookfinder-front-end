@@ -5,7 +5,7 @@
 - Upgrade to Next 13.4.7
 - Add: SFR-1729: Verify the e-reader settings features for DRB
 - Replace the Feedback component with DS FeedbackBox component
-- Replace Redux with React Context
+- Remove Redux for feedback component
 
 ## [0.17.2]
 
