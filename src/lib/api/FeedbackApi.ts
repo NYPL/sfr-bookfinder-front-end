@@ -4,7 +4,7 @@ import { Feedback } from "~/src/types/Feedback";
 // TODO: disable feedback in development
 
 export const submitFeedback = async (feedback: Feedback) => {
-  await fetch(appConfig.feedback.formURL, {
+  return await fetch(appConfig.feedback.formURL, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_API_KEY}`,
@@ -13,7 +13,7 @@ export const submitFeedback = async (feedback: Feedback) => {
     body: JSON.stringify({
       fields: {
         Feedback: feedback.feedback,
-        Success: feedback.success,
+        Category: feedback.category,
         URL: feedback.url,
       },
     }),

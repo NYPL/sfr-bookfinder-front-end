@@ -109,7 +109,7 @@ export const truncateStringOnWhitespace = (str: any, maxLength: any) => {
   return `${truncArray.join(" ")}...`;
 };
 
-export default {
+const util = {
   formatUrl,
   unique,
   flattenDeep,
@@ -118,3 +118,5 @@ export default {
   uniqueAndSortByFrequency,
   truncateStringOnWhitespace,
 };
+
+export default util;
