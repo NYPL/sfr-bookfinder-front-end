@@ -1,6 +1,6 @@
 # CHANGE LOG
 
-## [Pre-release]
+## [0.17.3]
 
 - Upgrade to Next 13.4.7
 - Add: SFR-1729: Verify the e-reader settings features for DRB
