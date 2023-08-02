@@ -15,12 +15,11 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
 
-      - id: nvmrc
-        run: echo ::set-output name=NODE_VERSION::$(cat .nvmrc)
-
-      - name: Set up node with version from nvm
+      - name: Setup Node
         uses: actions/setup-node@v2
-        with: { node-version: "${{ steps.nvmrc.outputs.NODE_VERSION }}" }
+        with:
+          node-version-file: ".nvmrc"
+          cache: npm
 
       - name: Configure AWS credentials from Test account
         uses: aws-actions/configure-aws-credentials@v1
@@ -41,7 +40,10 @@ jobs:
           AIRTABLE_KEY: ${{ secrets.AIRTABLE_API_KEY }}
           NEW_RELIC_LICENSE_KEY: ${{ secrets.NEW_RELIC_LICENSE_KEY }}
         run: |
-          docker build --build-arg airtable_api_key=$AIRTABLE_KEY -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG --build-arg NEW_RELIC_APP_NAME="Digital Research Books (QA)" --build-arg NEW_RELIC_LICENSE_KEY=$NEW_RELIC_LICENSE_KEY .
+          docker build --build-arg airtable_api_key=$AIRTABLE_KEY -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG \
+          --build-arg NEW_RELIC_APP_NAME="Digital Research Books (QA)" \
+          --build-arg NEW_RELIC_LICENSE_KEY=$NEW_RELIC_LICENSE_KEY \
+          --build-arg NEXT_PUBLIC_ADOBE_ANALYTICS="https://assets.adobedtm.com/1a9376472d37/8519dfce636d/launch-bf8436264b01-development.min.js" .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest

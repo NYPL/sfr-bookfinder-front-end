@@ -21,3 +21,6 @@ vega.spec.ts
 
 # New Relic
 newrelic_agent.log
+
+.vscode
+.vscode/launch.json

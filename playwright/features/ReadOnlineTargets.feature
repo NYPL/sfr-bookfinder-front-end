@@ -1,10 +1,10 @@
-Feature: Read Online Targets
+Feature: Read Online Link Targets
 
-    Scenario: As a user, when I submit a  search and I see a Read Online button on the search results page, I expect that its link target will be the same as from the button that appears on the item detail page.
-        Given I am on the home page for online targets testing
-        When I click Subject: Sub-saharan Africa
-        When I click Read Online for the first title
-        Then I expect to be on the Hathi Trust website
-        When I visit the details page for the title
-        Then I click the Read Online button and expect to be on the Hathi Trust website
+    Scenario: As a user I click the Read Online button on the search results page and in the item detail page and their link targets navigate to the same website
+        Given I go to the "search result" page
+        When I click the "first read online button"
+        Then the "Hathi Trust website" should be displayed
+        Given I go to the "work details" page
+        When I click the "first read online button"
+        Then the "Hathi Trust website" should be displayed
 

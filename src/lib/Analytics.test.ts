@@ -1,99 +1,54 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-import appConfig from "~/config/appConfig";
-import gaUtils from "./Analytics";
-const ga = require("react-ga");
+import React from "react";
+import { SITE_SECTION } from "../constants/analytics";
+import { documentTitles } from "../constants/labels";
+import { trackCtaClick, trackPageview } from "./Analytics";
 
-jest.mock("react-ga");
-
-describe("gaUtils", () => {
-  describe("setupAnalytics", () => {
-    beforeEach(() => {
-      ga.initialize.mockClear();
-    });
-
-    test("it should initialize Google Analytics", () => {
-      const isProd = false;
-      ga.initialize.mockImplementation(() => "");
-
-      gaUtils.setupAnalytics(isProd);
-
-      expect(ga.initialize).toHaveBeenCalled();
-      expect(ga.initialize).toHaveBeenCalledWith(
-        appConfig.analytics.development,
-        {
-          debug: true,
-          titleCase: false,
-        }
-      );
-    });
+describe("Adobe Analytics", () => {
+  beforeEach(() => {
+    window.adobeDataLayer = [];
   });
 
   describe("trackPageview", () => {
-    test("it should internally call ga's pageview function to track a url", () => {
-      ga.pageview.mockImplementation(() => "");
+    test("it should update window.adobeDataLayer with the approriate values", () => {
+      const adobeDataLayer = window.adobeDataLayer;
 
-      gaUtils.trackPageview("url");
+      trackPageview(documentTitles.workItem);
 
-      expect(ga.pageview).toHaveBeenCalled();
-      expect(ga.pageview).toHaveBeenCalledWith("url");
+      const eventData = adobeDataLayer[2];
+      const eventValue = eventData.event;
+      const pageValue = eventData.page_name;
+      const sectionValue = eventData.site_section;
 
-      ga.pageview.mockClear();
+      expect(adobeDataLayer).toHaveLength(3);
+      expect(eventValue).toEqual("virtual_page_view");
+      expect(pageValue).toEqual(documentTitles.workItem);
+      expect(sectionValue).toEqual(SITE_SECTION);
     });
   });
 
-  describe("trackEvent", () => {
-    test("it should internally call ga's event function to track events", () => {
-      ga.event.mockImplementation(() => "");
+  describe("trackCtaClick", () => {
+    test("it should update window.adobeDataLayer with the approriate values", () => {
+      const adobeDataLayer = window.adobeDataLayer;
 
-      const eventTracker = gaUtils.trackEvent("category");
-
-      eventTracker("action", "label");
-
-      expect(ga.event).toHaveBeenCalled();
-      expect(ga.event).toHaveBeenCalledWith({
-        category: "category",
-        action: "action",
-        label: "label",
+      trackCtaClick({
+        cta_section: "Item Title",
+        cta_text: "Read Online",
+        destination_url: "https://test-destination/",
       });
 
-      ga.event.mockClear();
-    });
-  });
+      const eventData = adobeDataLayer[1];
+      const eventValue = eventData.event;
+      const eventName = eventData.event_data.name;
+      const sectionValue = eventData.event_data.cta_section;
+      const textValue = eventData.event_data.cta_text;
+      const destinationValue = eventData.event_data.destination_url;
 
-  describe("setDimension", () => {
-    test("it should internally call ga's event function to track events", () => {
-      ga.set.mockImplementation(() => "");
-
-      const index = "index";
-      const value = "value";
-
-      gaUtils.setDimension({ index, value });
-
-      expect(ga.set).toHaveBeenCalled();
-      expect(ga.set).toHaveBeenCalledWith({ index: "value" });
-
-      ga.set.mockClear();
-    });
-  });
-
-  describe("setDimensions", () => {
-    test("it should internally call ga's event function to track events", () => {
-      ga.set.mockImplementation(() => "");
-
-      const dimensions = [
-        { index: "one", value: "1" },
-        { index: "two", value: "2" },
-        { index: "three", value: "3" },
-      ];
-
-      gaUtils.setDimensions(dimensions);
-
-      expect(ga.set).toHaveBeenCalledTimes(3);
-      expect(ga.set).toHaveBeenNthCalledWith(1, { one: "1" });
-      expect(ga.set).toHaveBeenNthCalledWith(2, { two: "2" });
-      expect(ga.set).toHaveBeenNthCalledWith(3, { three: "3" });
-
-      ga.set.mockClear();
+      expect(adobeDataLayer).toHaveLength(2);
+      expect(eventValue).toEqual("send_event");
+      expect(eventName).toEqual("cta_click");
+      expect(sectionValue).toEqual("Item Title");
+      expect(textValue).toEqual("Read Online");
+      expect(destinationValue).toEqual("https://test-destination/");
     });
   });
 });

@@ -24,7 +24,6 @@ import {
   Button,
   ButtonGroup,
   Checkbox,
-  Footer,
   Form,
   FormField,
   FormRow,
@@ -44,6 +43,7 @@ import { FacetItem, Query } from "~/src/types/DataModel";
 import { toLocationQuery, toApiQuery } from "~/src/util/apiConversion";
 import filterFields from "~/src/constants/filters";
 import { ApiLanguageResponse } from "~/src/types/LanguagesQuery";
+import { trackCtaClick } from "~/src/lib/Analytics";
 
 const AdvancedSearch: React.FC<{
   languages: ApiLanguageResponse;
@@ -117,7 +117,11 @@ const AdvancedSearch: React.FC<{
       filters: filters,
       queries: queries,
     };
-
+    trackCtaClick({
+      cta_section: "Advanced Search",
+      cta_text: "Search",
+      destination_url: `/search`,
+    });
     router.push({
       pathname: "/search",
       query: toLocationQuery(toApiQuery(newSearchQuery)),
@@ -272,8 +276,8 @@ const AdvancedSearch: React.FC<{
             </FormField>
             <FormField>
               <FilterYears
-                startFilter={startFilter && startFilter[0]}
-                endFilter={endFilter && endFilter[0]}
+                startFilter={startFilter}
+                endFilter={endFilter}
                 onDateChange={(
                   e: React.ChangeEvent<HTMLInputElement>,
                   isStart: boolean
@@ -315,9 +319,7 @@ const AdvancedSearch: React.FC<{
           </Form>
         </TemplateContentPrimary>
       </TemplateContent>
-      <TemplateFooter>
-        <Footer />
-      </TemplateFooter>
+      <TemplateFooter />
     </Template>
   );
 };

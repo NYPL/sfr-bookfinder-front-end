@@ -3,8 +3,11 @@ import { useRouter } from "next/router";
 import {
   Box,
   Breadcrumbs,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeading,
   Flex,
-  Footer,
   Heading,
   HorizontalRule,
   SimpleGrid,
@@ -14,6 +17,7 @@ import {
   TemplateContentPrimary,
   TemplateContentTop,
   TemplateFooter,
+  Text,
   Toggle,
 } from "@nypl/design-system-react-components";
 
@@ -31,6 +35,7 @@ import {
 import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
 import { Instance } from "~/src/types/DataModel";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
+import { PLACEHOLDER_LINK } from "~/src/constants/collection";
 
 const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
   props
@@ -128,6 +133,42 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
               </>
             )}
           </Box>
+          {edition.inCollections && edition.inCollections.length > 0 && (
+            <Card
+              imageProps={{
+                alt: "Placeholder Cover",
+                aspectRatio: "threeByTwo",
+                isAtEnd: true,
+                size: "large",
+                src: PLACEHOLDER_LINK,
+              }}
+              isCentered
+              backgroundColor="ui.gray.x-light-cool"
+              layout="row"
+              marginTop="l"
+              padding="s"
+            >
+              <CardHeading size="primary" id="row-heading">
+                <Text size="caption" isUppercase marginTop="xs">
+                  <b>Part of Collection</b>
+                </Text>
+                <Box marginTop="m" marginBottom="m">
+                  {edition.inCollections[0].title}
+                </Box>
+              </CardHeading>
+              <CardContent marginBottom="l">
+                <Box>{edition.inCollections[0].description}</Box>
+              </CardContent>
+              <CardActions width="165px">
+                <Link
+                  linkType="button"
+                  to={"/collection/" + edition.inCollections[0].uuid}
+                >
+                  Browse Collection
+                </Link>
+              </CardActions>
+            </Card>
+          )}
         </TemplateContentTop>
         <TemplateContentPrimary>
           <EditionDetailDefinitionList edition={edition} />
@@ -158,9 +199,7 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
           </SimpleGrid>
         </TemplateContentPrimary>
       </TemplateContent>
-      <TemplateFooter>
-        <Footer />
-      </TemplateFooter>
+      <TemplateFooter />
     </Template>
   );
 };

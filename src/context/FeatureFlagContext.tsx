@@ -13,9 +13,8 @@ type FeatureFlagContextType = {
   isFlagActive: (flag: string) => boolean;
 };
 
-export const FeatureFlagContext = createContext<FeatureFlagContextType>(
-  undefined
-);
+export const FeatureFlagContext =
+  createContext<FeatureFlagContextType>(undefined);
 
 const extractFeatureFlagParams = (query: ParsedUrlQuery) => {
   const featureFlags = {};
@@ -28,7 +27,9 @@ const extractFeatureFlagParams = (query: ParsedUrlQuery) => {
   return featureFlags;
 };
 
-export const FeatureFlagProvider: React.FC = ({ children }) => {
+export const FeatureFlagProvider: React.FC<{ children?: React.ReactNode }> = ({
+  children,
+}) => {
   const [featureFlags, setFeatureFlags] = useState<FeatureFlag>({});
   const isFlagActive = (flag: string) => {
     return featureFlags[flag];

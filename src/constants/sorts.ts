@@ -8,6 +8,15 @@ export const sortMap = {
   "Year Published (New-Old)": { field: "date", dir: "DESC" },
 };
 
+export const collectionSortMap = {
+  Relevance: { field: "relevance", dir: "DESC" },
+  "Title A-Z": { field: "title", dir: "ASC" },
+  "Creator A-Z": { field: "creator", dir: "ASC" },
+  "Creation Date (Old-New)": { field: "created", dir: "ASC" },
+};
+
 export const numbersPerPage = ["10", "20", "50", "100"];
 
-export default { sortMap, numbersPerPage };
+const sorts = { sortMap, collectionSortMap, numbersPerPage };
+
+export default sorts;

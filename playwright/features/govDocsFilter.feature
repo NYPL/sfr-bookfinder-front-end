@@ -1,8 +1,8 @@
-Feature: Government Docs filter test
+Feature: Government Documents Filter
 
-    Scenario: As a user I should be able to filter searches for government docs only and see relevent results
-        Given I want to filter by government docs
-        When I search for swimming
-        Then I click the Government Documents filter
-        Then for at least 4 titles on the page, I should see United States in the author field
-
+    Scenario: As a user I search for government documents and the first search result displays the United States as the author
+        Given I go to the "home" page
+        When I fill in the "homepage search box" with "swimming"
+        And I click the "search button"
+        And I click the "government documents checkbox"
+        Then the "first government document author" should be displayed

@@ -1,5 +1,5 @@
 export type Feedback = {
   feedback: string;
-  success: string;
+  category: string;
   url: string;
 };

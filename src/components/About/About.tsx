@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Breadcrumbs,
-  Footer,
   Heading,
   Template,
   TemplateBreakout,
@@ -122,9 +121,7 @@ const About: React.FC = () => {
           </p>
         </TemplateContentPrimary>
       </TemplateContent>
-      <TemplateFooter>
-        <Footer />
-      </TemplateFooter>
+      <TemplateFooter />
     </Template>
   );
 };

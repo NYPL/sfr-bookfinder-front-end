@@ -14,7 +14,17 @@ class MyDocument extends Document {
       <Html lang="en">
         <Head />
         <body>
+          <div id="nypl-header"></div>
+          <script
+            src="https://ds-header.nypl.org/header.min.js?containerId=nypl-header"
+            async
+          ></script>
           <Main />
+          <div id="nypl-footer"></div>
+          <script
+            src="https://ds-header.nypl.org/footer.min.js?containerId=nypl-footer"
+            async
+          ></script>
           <NextScript />
         </body>
       </Html>

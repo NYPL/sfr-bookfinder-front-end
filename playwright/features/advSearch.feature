@@ -1,15 +1,26 @@
 Feature: Advanced Search
 
-    Scenario: Advanced Search - Title and Author
-        Given I am testing advanced searches
-        When I click the adavanced search link
-        Then I should see the advanced search heading
-        Then I should see the labels and inputs for the form fields
-        When I supply a keyword and author and submit
-        Then I expect to see H1 with both keyword and author
-        Then I expect to see H2 with the title "Computers and how they work"
-    Scenario: Advanced Search - Keyword, Subject, Language
-        Given I have clicked the advanced search link
-        When I add more terms to the search
-        Then Then I expect to see the number of results decrease with each new addition
-
+    Scenario: As a user I search for a keyword and author and the search results contain both the keyword and author
+        Given I go to the "home" page
+        When I click the "advanced search link"
+        Then the "advanced search heading" should be displayed
+        And the "keyword search label" should be displayed
+        And the "keyword search box" should be displayed
+        And the "author search label" should be displayed
+        And the "author search box" should be displayed
+        And the "subject search label" should be displayed
+        And the "subject search box" should be displayed
+        And the "title search label" should be displayed
+        And the "title search box" should be displayed
+        And the "date filter from label" should be displayed
+        And the "date filter from field" should be displayed
+        And the "date filter to label" should be displayed
+        And the "date filter to field" should be displayed
+        And the "advanced search button" should be displayed
+        And the "advanced search clear button" should be displayed
+        When I fill in the "keyword search box" with "IBM 1401"
+        And I fill in the "author search box" with "Laurie, Edward J."
+        And I click the "advanced search button"
+        Then the "keyword heading" should be displayed
+        And the "author heading" should be displayed
+        And the "search result link" should be displayed

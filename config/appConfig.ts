@@ -1,4 +1,4 @@
-export default {
+const appConfig = {
   appTitle: "Digital Research Books Beta | NYPL",
   appName: "Digital Research Books Beta",
   favIconPath: "//d2znry4lg8s0tq.cloudfront.net/images/favicon.ico",
@@ -17,6 +17,7 @@ export default {
     editionPath: "/edition",
     readPath: "/link",
     languagesPath: "/utils/languages",
+    collectionPath: "/collection",
   },
   booksCount: {
     apiUrl: "/utils/counts",
@@ -26,11 +27,7 @@ export default {
     formUrl: "https://api.airtable.com/v0/appFLZEc3LmVZCRxn/Requests",
     experimentName: "RequestDigital",
   },
-  analytics: {
-    local: "",
-    development: "UA-1420324-149",
-    production: "UA-1420324-149",
-  },
+  analytics: process.env["NEXT_PUBLIC_ADOBE_ANALYTICS"],
   feedback: {
     formURL: "https://api.airtable.com/v0/appFLZEc3LmVZCRxn/Feedback",
   },
@@ -38,3 +35,5 @@ export default {
     experimentName: "DisplayCitations",
   },
 };
+
+export default appConfig;
