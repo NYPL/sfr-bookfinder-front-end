@@ -1,5 +1,8 @@
 # CHANGE LOG
 
+## [Pre-release]
+- Add id as subsection for "Read Online" CTA analytics tracking
+
 ## [0.17.3]
 
 - Upgrade to Next 13.4.7
