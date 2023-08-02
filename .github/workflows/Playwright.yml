@@ -28,5 +28,16 @@ jobs:
       - name: Set the world parameters as an env var
         run: |
           echo "WORLD_PARAMETERS={\"appUrl\": \"https://digital-research-books-beta.nypl.org\", \"headless\": true}" >> $GITHUB_ENV
+      
       - name: Run Cucumber tests
         run: npm run cucumber -- --world-parameters '${{ env.WORLD_PARAMETERS }}'
+    
+      - name: Slack Notification
+        if: ${{ always() }}
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_CHANNEL: test_reports
+          #SLACK_MESSAGE: https://reports.cucumber.io/report-collections/20595709-148a-4fb1-81e4-a2898a20c852
+          SLACK_TITLE: DRB Cucumber/Playwright Test Results
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_USERNAME: nyplorgBot
