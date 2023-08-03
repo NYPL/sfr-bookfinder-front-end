@@ -2,10 +2,22 @@ name: Playwright
 
 on:
   schedule:
-    - cron: "00 14 * * 0-6"
+    - cron: "00 12 * * 0-6"
   #[push]
-  # push:
-  #   branches: [playwright-GHA]
+  push:
+    branches: [playwright-GHA]
+  #pull_request:
+      # from build-qa.yml
+      #branches: [development]
+      #types: [closed]
+
+      # from build-production.yml
+      #branches: [production]
+      #types: [closed]
+
+      # from rspec.yml
+      #branches: [production]
+      #types: [opened, synchronize, reopened]
   
 
 jobs:
