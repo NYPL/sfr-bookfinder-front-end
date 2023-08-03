@@ -12,3 +12,11 @@ Then(
     });
   }
 );
+
+Then(
+  /^the "([^"]*)" should be checked$/,
+  async function (this: CustomWorld, elementKey: keyof typeof elements) {
+    const element = elements[elementKey];
+    return expect(this.page.locator(element).isChecked()).toBeTruthy();
+  }
+);

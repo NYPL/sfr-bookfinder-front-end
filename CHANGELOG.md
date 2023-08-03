@@ -1,5 +1,9 @@
 # CHANGE LOG
 
+## [Unreleased]
+
+- Add: SFR-1743: Verify advance search filters for DRB
+
 ## [0.17.3]
 
 - Upgrade to Next 13.4.7
