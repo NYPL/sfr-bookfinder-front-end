@@ -116,6 +116,7 @@ export const elements = {
   "e-reader full screen button": "[aria-label='Toggle full screen']",
   "e-reader back to DRB button":
     "//span[text()='Back to Digital Research Books']",
+  "not yet available text": "//div[text()='Not yet available']",
 };
 
 export const inputs = {
