@@ -2,6 +2,7 @@
 
 ## [Pre-release]
 - Add id as subsection for "Read Online" CTA analytics tracking
+- Add: SFR-1743: Verify advance search filters for DRB
 - Add: SFR-1746: Verify "read online only" toggle button on item details page
 
 ## [0.17.3]

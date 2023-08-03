@@ -30,7 +30,8 @@ export const elements = {
   "first login for options button": "text=Log in for options >> nth=0",
   "government documents checkbox":
     "span:text('Show only US government documents')",
-  "Latin language checkbox": "span:text('Latin')",
+  "Latin language checkbox": "`span:text('Latin')`",
+  "Russian language checkbox": "span:text('Russian')",
   "publication year apply button": "#year-filter-button",
   "first read online button": "text=Read Online >> nth=0",
   "first read online button for all edition": "text=Read Online >> nth=1",
@@ -64,6 +65,7 @@ export const elements = {
   "advanced search clear button": "#reset-button",
   "keyword heading": "h1:text('IBM 1401')",
   "author heading": "h1:text('Laurie, Edward J.')",
+  "russian language subheader": "//div[contains(text(),'Russian')]",
   "search result link": "a:text('Computers and how they work')",
   "delivery location heading": "h2:text('Choose a delivery location')",
   "site name heading": "h1:text('Digital Research Books')",
@@ -134,4 +136,5 @@ export const inputs = {
   "1900": "1900",
   petroleum: "petroleum",
   "Robot Soccer": "Robot Soccer",
+  "Jane Austen": "Jane Austen",
 };
