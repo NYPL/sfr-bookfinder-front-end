@@ -29,4 +29,4 @@ Feature: Item Detail Page Elements
     Scenario: As a user when I click on "show only intems currently available online" button, only online available books should be displayed
         Given I go to the "item detail" page
         Then I double click the "items currently available online toggle"
-        And the "first read online button" should be displayed
+        And the "first read online button for all edition" should be displayed
