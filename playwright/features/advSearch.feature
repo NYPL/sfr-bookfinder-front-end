@@ -30,7 +30,7 @@ Feature: Advanced Search
         When I click the "advanced search link"
         Then I fill in the "keyword search box" with "Jane Austen"
         And I click the "Russian language checkbox"
-        And I click the "advance page search button"
+        And I click the "advanced search button"
         Then the "russian language subheader" should be displayed
         And the "russian language checkbox" should be checked
         And the "first read online button" should be displayed

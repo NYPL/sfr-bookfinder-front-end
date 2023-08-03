@@ -25,7 +25,6 @@ export const elements = {
   "advanced search link": "[href='/advanced-search']",
   "advanced search button": "#submit-button",
   "search button": "#searchbar-button-search-bar",
-  "advance page search button": "//button[@id='submit-button']",
   "requestable checkbox": "text=Requestable",
   "login button": "[value='Submit']",
   "first login for options button": "text=Log in for options >> nth=0",
