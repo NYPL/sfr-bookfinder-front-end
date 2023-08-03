@@ -11,6 +11,14 @@ When(
 );
 
 When(
+  /^I double click the "([^"]*)"$/,
+  async function (this: CustomWorld, elementKey: keyof typeof elements) {
+    const element = elements[elementKey];
+    return await this.page.locator(element).dblclick();
+  }
+);
+
+When(
   /^I select "([^"]*)" from the category dropdown$/,
   async function (this: CustomWorld, elementKey: keyof typeof elements) {
     const searchCategory = this.page.locator(
