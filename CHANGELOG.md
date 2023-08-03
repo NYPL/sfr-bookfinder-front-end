@@ -1,5 +1,9 @@
 # CHANGE LOG
 
+## [Unreleased]
+
+-Add: SFR-1746: Verify "read online only" toggle button on item details page
+
 ## [0.17.3]
 
 - Upgrade to Next 13.4.7
