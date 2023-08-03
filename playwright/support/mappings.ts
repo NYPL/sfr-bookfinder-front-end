@@ -33,6 +33,7 @@ export const elements = {
   "Latin language checkbox": "span:text('Latin')",
   "publication year apply button": "#year-filter-button",
   "first read online button": "text=Read Online >> nth=0",
+  "first read online button for all edition": "text=Read Online >> nth=1",
   "first request button":
     "[href='https://www.nypl.org/research/collections/shared-collection-catalog/hold/request/b10715506-i13895605']",
   "English language checkbox": "span:text('English')",
@@ -116,6 +117,7 @@ export const elements = {
   "e-reader full screen button": "[aria-label='Toggle full screen']",
   "e-reader back to DRB button":
     "//span[text()='Back to Digital Research Books']",
+  "not yet available text": "//div[text()='Not yet available']",
 };
 
 export const inputs = {
