@@ -91,10 +91,11 @@ const ReaderLayout: React.FC<{
   useEffect(() => {
     trackCtaClick({
       cta_section: `${link.work.title}`,
+      cta_subsection: `${edition.edition_id}`,
       cta_text: "Read Online",
       destination_url: `${link.url}`,
     });
-  }, [link]);
+  }, [edition.edition_id, link]);
 
   useEffect(() => {
     if (isRead) {

@@ -6,6 +6,7 @@ type EventData = CtaData & {
 
 type CtaData = {
   cta_section: string;
+  cta_subsection?: string;
   cta_text: string;
   destination_url: string;
 };
@@ -67,6 +68,7 @@ export const trackCtaClick = (ctaData: CtaData) => {
   trackEvent({
     name: "cta_click",
     cta_section: ctaData.cta_section,
+    cta_subsection: ctaData.cta_subsection ?? "",
     cta_text: ctaData.cta_text,
     destination_url: ctaData.destination_url,
   });
