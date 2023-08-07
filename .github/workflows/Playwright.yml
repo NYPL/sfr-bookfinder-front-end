@@ -47,8 +47,8 @@ jobs:
         env:
           "catalog username": ${{ secrets.CATALOG_USERNAME }}
           "catalog password": ${{ secrets.CATALOG_USER_PIN }}
-          #CUCUMBER_PUBLISH_TOKEN: ${{ secrets.CUCUMBER_PUBLISH_TOKEN }}
-          #CUCUMBER_PUBLISH_ENABLED: true
+          CUCUMBER_PUBLISH_TOKEN: ${{ secrets.CUCUMBER_PUBLISH_TOKEN }}
+          CUCUMBER_PUBLISH_ENABLED: true
     
       - name: Slack Notification
         if: ${{ always() }}
