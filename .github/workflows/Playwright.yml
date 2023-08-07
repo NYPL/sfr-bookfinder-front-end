@@ -1,23 +1,13 @@
-name: Playwright
+name: Playwright Tests for Digital Research Books
 
 on:
   schedule:
-    - cron: "00 12 * * 0-6"
-  #[push]
-  push:
-    branches: [playwright-GHA]
-  #pull_request:
-      # from build-qa.yml
-      #branches: [development]
-      #types: [closed]
-
-      # from build-production.yml
-      #branches: [production]
-      #types: [closed]
-
-      # from rspec.yml
-      #branches: [production]
-      #types: [opened, synchronize, reopened]
+    - cron: "00 14 * * 1-5"
+  #push:
+    #branches: [playwright-GHA]
+  pull_request:
+      branches: [production]
+      types: [opened, synchronize, reopened]
   
 
 jobs:
@@ -55,7 +45,7 @@ jobs:
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_CHANNEL: test_reports
-          #SLACK_MESSAGE: https://reports.cucumber.io/report-collections/20595709-148a-4fb1-81e4-a2898a20c852
+          SLACK_MESSAGE: https://reports.cucumber.io/report-collections/01dbd6e8-653b-4597-b901-6caf2e653b07
           SLACK_TITLE: DRB Cucumber/Playwright Test Results
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_USERNAME: nyplorgBot
