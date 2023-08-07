@@ -137,6 +137,13 @@ export const elements = {
     "//a[@href='http://www.nypl.org/help/about-nypl/legal-notices/rules-and-regulations']",
   "about footer link": "//a[@href='http://www.nypl.org/help/about-nypl']",
   "language footer link": "//a[@href='http://www.nypl.org/language']",
+  "header logo": "a[aria-label='The New York Public Library']",
+  "spotlight heading": "a:text('Spotlight')",
+  "my account link": "[aria-label='My Account']",
+  "my account catalog link": "span:text('Go To The Catalog')",
+  "my account research catalog link": "span:text('Go To The Research Catalog')",
+  "close my account link": "[aria-label='Close']",
+  "my account login form": "#login",
 };
 
 export const inputs = {
