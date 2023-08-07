@@ -54,6 +54,7 @@ export const elements = {
   "publication year from filter": "#date-filter-from",
   "publication year to filter": "#date-filter-to",
   "advanced search heading": "h1:text('Advanced Search')",
+  "advanced search breadcrumb": "//a[@href='/advanced-search']",
   "keyword search label": "#search-Keyword-label",
   "author search label": "#search-Author-label",
   "subject search label": "#search-Subject-label",
@@ -120,6 +121,22 @@ export const elements = {
   "e-reader back to DRB button":
     "//span[text()='Back to Digital Research Books']",
   "not yet available text": "//div[text()='Not yet available']",
+  "accessibility footer link": "//a[@href='http://www.nypl.org/accessibility']",
+  "press footer link":
+    "//a[@href='http://www.nypl.org/help/about-nypl/media-center']",
+  "careers footer link": "//a[@href='http://www.nypl.org/careers']",
+  "space rental footer link": "//a[@href='http://www.nypl.org/spacerental']",
+  "privacy footer link":
+    "//a[@href='http://www.nypl.org/help/about-nypl/legal-notices/privacy-policy']",
+  "other policies footer link": "//a[@href='http://www.nypl.org/policies']",
+  "terms and conditions footer link":
+    "//a[@href='http://www.nypl.org/terms-conditions']",
+  "governance footer link":
+    "//a[@href='http://www.nypl.org/help/about-nypl/leadership/board-trustees']",
+  "rules and regulations footer link":
+    "//a[@href='http://www.nypl.org/help/about-nypl/legal-notices/rules-and-regulations']",
+  "about footer link": "//a[@href='http://www.nypl.org/help/about-nypl']",
+  "language footer link": "//a[@href='http://www.nypl.org/language']",
 };
 
 export const inputs = {
