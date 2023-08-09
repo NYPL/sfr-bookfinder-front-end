@@ -137,6 +137,20 @@ export const elements = {
     "//a[@href='http://www.nypl.org/help/about-nypl/legal-notices/rules-and-regulations']",
   "about footer link": "//a[@href='http://www.nypl.org/help/about-nypl']",
   "language footer link": "//a[@href='http://www.nypl.org/language']",
+  "accessibility page heading": "//h1[text()='Accessibility at NYPL']",
+  "press page heading": "//h1[text()='Press Releases']",
+  "careers page heading": "//h1[text()='Careers at NYPL']",
+  "space rental page heading": "//h1//span[text()='Space Rental']",
+  "privacy page heading":
+    "//h1[text()='The New York Public Library Privacy Policy']",
+  "other policies page heading": "//h1[text()='Policies']",
+  "terms and conditions page heading": "//h1[text()='Terms & Conditions']",
+  "governance page heading":
+    "//h1[text()='The New York Public Library Board of Trustees']",
+  "rules and regulations page heading":
+    "//h1[text()='General Policies and Rules']",
+  "about page heading": "//h1[text()='About The New York Public Library']",
+  "language page heading": "//h1[text()='Language']",
   "header logo": "a[aria-label='The New York Public Library']",
   "spotlight heading": "a:text('Spotlight')",
   "my account link": "[aria-label='My Account']",
