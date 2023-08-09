@@ -33,7 +33,7 @@ jobs:
           echo "WORLD_PARAMETERS={\"appUrl\": \"https://digital-research-books-beta.nypl.org\", \"headless\": true}" >> $GITHUB_ENV
       
       - name: Run Cucumber tests
-        run: npm run cucumber -- --world-parameters '${{ env.WORLD_PARAMETERS }}'
+        run: npm run cucumber -- playwright/features --world-parameters '${{ env.WORLD_PARAMETERS }}'
         env:
           "catalog username": ${{ secrets.CATALOG_USERNAME }}
           "catalog password": ${{ secrets.CATALOG_USER_PIN }}
