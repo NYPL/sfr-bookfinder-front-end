@@ -153,6 +153,11 @@ export const elements = {
   "language page heading": "//h1[text()='Language']",
   "header logo": "a[aria-label='The New York Public Library']",
   "spotlight heading": "a:text('Spotlight')",
+  "locations header link": "[href='https://www.nypl.org/locations']",
+  "locations breadcrumb": "span:text('Locations')",
+  "library card header link": "[href='https://www.nypl.org/library-card/new']",
+  "library card page heading": "h1:text('Apply for a Library Card Online')",
+  
   "my account link": "[aria-label='My Account']",
   "my account catalog link": "span:text('Go To The Catalog')",
   "my account research catalog link": "span:text('Go To The Research Catalog')",
