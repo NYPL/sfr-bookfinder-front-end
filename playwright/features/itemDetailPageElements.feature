@@ -30,3 +30,13 @@ Feature: Item Detail Page Elements
         Given I go to the "item detail" page
         Then I double click the "items currently available online toggle"
         And the "first read online button for all edition" should be displayed
+
+    Scenario: As a user when I am in item details page for a collection, I should see back to search results button
+        Given I go to the "home" page
+        Then I fill in the "homepage search box" with "Jane Austen"
+        And I click the "search button"
+        And I click the "The Novels of Jane Austen link"
+        And the "The Novels of Jane Austen heading" should be displayed
+        And the "back to search results link" should be displayed
+        And I click the "back to search results button"
+        And the "The Novels of Jane Austen link" should be displayed
