@@ -163,13 +163,18 @@ export const elements = {
   "find your library page heading": "#location-finder__title",
   "library card header link": "[href='https://www.nypl.org/library-card/new']",
   "library card page heading": "h1:text('Apply for a Library Card Online')",
-  "email updates header link": "[href='https://pub.email.nypl.org/subscriptioncenter']",
+  "email updates header link": 
+    "[href='https://pub.email.nypl.org/subscriptioncenter']",
   "email updates page heading": "h1:text('Get the Best of NYPL in Your Inbox')",
-  "donate header link": "[href='https://secure.nypl.org/site/Donation2?7825.donation=form1&df_id=7825&mfc_pref=T&s_src=FRQ18ZZ_TNN']",
-  "donate page heading": "h1:text('Make Your Tax-Deductible Gift Today') >> nth=0",
-  "shop header link": "[href='https://shop.nypl.org/?utm_campaign=NYPLHeaderButton&utm_source=nypl.org&utm_medium=referral']", 
+  "donate header link": 
+    "[href='https://secure.nypl.org/site/Donation2?7825.donation=form1&df_id=7825&mfc_pref=T&s_src=FRQ18ZZ_TNN']",
+  "donate page heading": 
+    "h1:text('Make Your Tax-Deductible Gift Today') >> nth=0",
+  "shop header link": 
+    "[href='https://shop.nypl.org/?utm_campaign=NYPLHeaderButton&utm_source=nypl.org&utm_medium=referral']", 
   "shop page heading": "[title='The New York Public Library Shop'] >> nth=0",
-  "books music movies header link": "[href='https://www.nypl.org/books-music-movies']",
+  "books music movies header link": 
+    "[href='https://www.nypl.org/books-music-movies']",
   "books music movies page heading": "h1:text('Books/Music/Movies')",
   "research header link": "[href='https://www.nypl.org/research'] >> nth=0",
   "research page heading": "h1:text('Research')",
@@ -181,9 +186,9 @@ export const elements = {
   "connect page heading": "h1:text('Connect')",
   "give header link": "[href='https://www.nypl.org/give']",
   "give page heading": "h1:text('Give')",
-  "get help header link": "[href='https://www.nypl.org/get-help']", 
+  "get help header link": "[href='https://www.nypl.org/get-help']",
   "get help page heading": "h1:text('Get Help')",
-  "search header link": "#searchButton", /** or span:text('Search') */
+  "search header link": "#searchButton",
   "search header label": "#searchInput-label",
   "close search header link": "[aria-label='Close Search']",
 };
