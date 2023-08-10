@@ -3,8 +3,6 @@ name: Playwright Tests for Digital Research Books
 on:
   schedule:
     - cron: "00 14 * * 1-5"
-  #push:
-    #branches: [playwright-GHA]
   pull_request:
       branches: [production]
       types: [opened, synchronize, reopened]
