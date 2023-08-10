@@ -6,21 +6,22 @@ Feature: Header Links
         Then the <page heading> should be displayed
 
         Examples:
-            | header link | page heading |
-            | "header logo" | "spotlight heading" |
-            | "locations header link" | "locations breadcrumb" |
-            | "library card header link" | "library card page heading" |
-            | "email updates header link" | "" |
-            | "donate header link" | "" |
-            | "shop header link" | "" |
-            | "books music movies header link | "" |
-            | "research header link" | "" |
-            | "education header link" | "" |
-            | "events header link" | "" |
-            | "connect header link" | "" |
-            | "give header link" | "" |
-            | "get help header link" | "" |
-            | "search header link" | "" |
+            | header link                       | page heading                      |
+            | "header logo"                     | "spotlight heading"               |
+            | "locations header link"           | "find your library page heading"  |
+            | "library card header link"        | "library card page heading"       |
+            | "email updates header link"       | "email updates page heading"      |
+            | "donate header link"              | "donate page heading"             |
+            | "shop header link"                | "shop page heading"               |
+            | "books music movies header link"  | "books music movies page heading" |
+            | "research header link"            | "research page heading"           |
+            | "education header link"           | "education page heading"          |
+            | "events header link"              | "events page heading"             |
+            | "connect header link"             | "connect page heading"            |
+            | "give header link"                | "give page heading"               |
+            | "get help header link"            | "get help page heading"           |
+            | "search header link"              | "search header label"             |
+            
 
     Scenario: As a user I navigate to the Digital Research Books home page and header links navigate to the correct pages (two clicks)
         Given I go to the "home" page
@@ -29,8 +30,8 @@ Feature: Header Links
         Then the <page heading> should be displayed
 
         Examples:
-            | first header link | second header link | page heading |
-            | "my account header link" | "my account catalog link" | "my account login form" |
-            | "my account header link" | "my account research catalog link" | "my account login form" |
-            | "my account header link" | "close my account link" | "my account header link" |
-
+            | first header link         | second header link                | page heading              |
+            | "my account header link"  | "catalog header link"             | "my account login form"   |
+            | "my account header link"  | "research catalog header link"    | "my account login form"   |
+            | "my account header link"  | "close my account header link"    | "my account header link"  |
+            | "search header link"      | "close search header link"        | "search header link"      |
