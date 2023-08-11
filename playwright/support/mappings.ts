@@ -30,7 +30,7 @@ export const elements = {
   "first login for options button": "text=Log in for options >> nth=0",
   "government documents checkbox":
     "span:text('Show only US government documents')",
-  "Latin language checkbox": "`span:text('Latin')`",
+  "Latin language checkbox": "span:text('Latin')",
   "Russian language checkbox": "span:text('Russian')",
   "publication year apply button": "#year-filter-button",
   "first read online button": "text=Read Online >> nth=0",
