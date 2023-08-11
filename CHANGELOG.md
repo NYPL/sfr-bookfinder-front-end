@@ -9,6 +9,7 @@
 - Add: SFR-1749: Verify the footers and the respecting landing pages (homepage)
 - Add: SFR-1750: Verify the Back to Search Results button is available on Item Details page
 - SFR-1750: Verify the header links of home page
+- SFR-1745: Add Playwright tests to GitHub Actions
 
 ## [0.17.3]
 
@@ -45,12 +46,6 @@
 - Refactored Playwright/Cucumber tests to use new page visit actions function
 
 ## [0.16.1]
-
-- add features and tests for publication year filter
-- add features and tests for language filter
-- Upgrade dgx-header-component to v2.8.0-r16-rc-3
-
-## [0.16.0]
 
 - add features and tests for government docs filter
 - Add github actions to automate tag and release

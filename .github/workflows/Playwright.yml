@@ -1,0 +1,49 @@
+name: Playwright Tests for Digital Research Books
+
+on:
+  schedule:
+    - cron: "00 14 * * 1-5"
+  pull_request:
+      branches: [production]
+      types: [opened, synchronize, reopened]
+  
+
+jobs:
+  tests:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version-file: ".nvmrc"
+
+      - name: Install Deps
+        run: npm i @cucumber/cucumber@8.5.0 @playwright/test@1.23.4
+
+      - name: Install Playwright Browser Utils
+        run: npx playwright install --with-deps
+
+      - name: Set the world parameters as an env var
+        run: |
+          echo "WORLD_PARAMETERS={\"appUrl\": \"https://digital-research-books-beta.nypl.org\", \"headless\": true}" >> $GITHUB_ENV
+      
+      - name: Run Cucumber tests
+        run: npm run cucumber -- playwright/features --world-parameters '${{ env.WORLD_PARAMETERS }}'
+        env:
+          "catalog username": ${{ secrets.CATALOG_USERNAME }}
+          "catalog password": ${{ secrets.CATALOG_USER_PIN }}
+          CUCUMBER_PUBLISH_TOKEN: ${{ secrets.CUCUMBER_PUBLISH_TOKEN }}
+          CUCUMBER_PUBLISH_ENABLED: true
+    
+      - name: Slack Notification
+        if: ${{ always() }}
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_CHANNEL: test_reports
+          SLACK_MESSAGE: https://reports.cucumber.io/report-collections/01dbd6e8-653b-4597-b901-6caf2e653b07
+          SLACK_TITLE: DRB Cucumber/Playwright Test Results
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_USERNAME: nyplorgBot
