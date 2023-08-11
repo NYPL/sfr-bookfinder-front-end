@@ -6,8 +6,9 @@
 - Add: SFR-1743: Verify advance search filters for DRB
 - Add: SFR-1746: Verify "read online only" toggle button on item details page
 - Add: SFR-1748: Verify the headers and footers of Advanced Search page
-- Add: SFR-1749: Verfiy the footers and the respecting landing pages (homepage)
+- Add: SFR-1749: Verify the footers and the respecting landing pages (homepage)
 - Add: SFR-1750: Verify the Back to Search Results button is available on Item Details page
+- SFR-1750: Verify the header links of home page
 - SFR-1745: Add Playwright tests to GitHub Actions
 
 ## [0.17.3]
