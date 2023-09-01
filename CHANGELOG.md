@@ -12,6 +12,7 @@
 - Add: SFR-1745: Add Playwright tests to GitHub Actions
 - Fix: SFR-1755: Fix Playwright test failures
 - Upgrade New Relic packages and update configuration
+- Update Adobe Analytics page names
 
 ## [0.17.3]
 
