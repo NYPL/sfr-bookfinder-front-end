@@ -10,6 +10,8 @@ import { documentTitles } from "../constants/labels";
 import "@nypl/web-reader/dist/index.css";
 import { FeatureFlagProvider } from "../context/FeatureFlagContext";
 import { trackPageview } from "../lib/Analytics";
+import { pageNames } from "../constants/analytics";
+import { getQueryDecodedString } from "../util/SearchQueryUtils";
 
 /**
  * Determines if we are running on server or in the client.
@@ -42,19 +44,24 @@ const setTitle = (query: any) => {
 
 const sendAnalytics = (query: any, pathname: string) => {
   if (query.workId) {
-    trackPageview(documentTitles.workItem);
+    trackPageview(pageNames.workItem + query.workId);
   } else if (query.editionId) {
-    trackPageview(documentTitles.editionItem);
+    trackPageview(pageNames.editionItem + query.editionId);
   } else if (query.query) {
-    trackPageview(documentTitles.search);
+    const searchPageName = pageNames.search + getQueryDecodedString(query);
+    trackPageview(searchPageName);
   } else if (query.linkId) {
-    trackPageview(documentTitles.readItem);
+    trackPageview(pageNames.readItem + query.linkId);
   } else if (query.collectionId) {
-    trackPageview(documentTitles.readItem);
+    trackPageview(pageNames.collection + query.collectionId);
   } else if (pathname === "/advanced-search") {
-    trackPageview(documentTitles.advancedSearch);
+    trackPageview(pageNames.advancedSearch);
+  } else if (pathname === "/about") {
+    trackPageview(pageNames.about);
+  } else if (pathname === "/license") {
+    trackPageview(pageNames.license);
   } else {
-    trackPageview(documentTitles.home);
+    trackPageview(pageNames.home);
   }
 };
 
@@ -77,8 +84,6 @@ function MyApp({ Component, pageProps }: AppProps) {
         <title>{setTitle(router.query)}</title>
 
         <link rel="icon" href={appConfig.favIconPath} />
-
-        <script src={appConfig.analytics} async />
       </Head>
       <FeatureFlagProvider>
         <Component {...pageProps} />
