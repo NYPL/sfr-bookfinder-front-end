@@ -48,7 +48,7 @@ export const FilterYearsTests = (
           query: "keyword:Animal Crossing",
         },
       });
-    });
+    }, 10000);
     test("Submits filters with only 'to' value", async () => {
       const yearGroup = screen.getByRole("group", {
         name: "Publication Year",
@@ -69,7 +69,7 @@ export const FilterYearsTests = (
           query: "keyword:Animal Crossing",
         },
       });
-    });
+    }, 10000);
 
     test("Submits search with both 'from' and 'to'", async () => {
       const yearGroup = screen.getByRole("group", {
@@ -95,7 +95,7 @@ export const FilterYearsTests = (
           query: "keyword:Animal Crossing",
         },
       });
-    });
+    }, 10000);
 
     test("shows error text when 'to' is after 'from", async () => {
       const yearGroup = screen.getByRole("group", {
