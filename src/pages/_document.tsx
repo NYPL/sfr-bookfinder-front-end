@@ -1,6 +1,7 @@
 import React from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import newrelic from "newrelic";
+import appConfig from "~/config/appConfig";
 
 type DocumentProps = {
   browserTimingHeader: string;
@@ -27,6 +28,7 @@ class MyDocument extends Document<DocumentProps> {
             type="text/javascript"
             dangerouslySetInnerHTML={{ __html: this.props.browserTimingHeader }}
           />
+          <script src={appConfig.analytics} async />
         </Head>
         <body>
           <div id="nypl-header"></div>
