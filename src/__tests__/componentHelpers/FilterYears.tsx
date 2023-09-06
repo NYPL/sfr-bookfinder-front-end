@@ -27,7 +27,7 @@ export const FilterYearsTests = (
   });
 
   if (hasApplyButton) {
-    test("Submits filters with only 'from' value", () => {
+    test("Submits filters with only 'from' value", async () => {
       const yearGroup = screen.getByRole("group", {
         name: "Publication Year",
       });
@@ -39,7 +39,7 @@ export const FilterYearsTests = (
       });
       fireEvent.change(fromInput, { target: { value: 1990 } });
       expect(fromInput).toHaveValue(1990);
-      userEvent.click(applyButton);
+      await userEvent.click(applyButton);
 
       expect(mockRouter).toMatchObject({
         pathname: "/search",
@@ -49,7 +49,7 @@ export const FilterYearsTests = (
         },
       });
     });
-    test("Submits filters with only 'to' value", () => {
+    test("Submits filters with only 'to' value", async () => {
       const yearGroup = screen.getByRole("group", {
         name: "Publication Year",
       });
@@ -60,7 +60,7 @@ export const FilterYearsTests = (
         name: "Apply",
       });
       fireEvent.change(toInput, { target: { value: 1990 } });
-      userEvent.click(applyButton);
+      await userEvent.click(applyButton);
 
       expect(mockRouter).toMatchObject({
         pathname: "/search",
@@ -71,7 +71,7 @@ export const FilterYearsTests = (
       });
     });
 
-    test("Submits search with both 'from' and 'to'", () => {
+    test("Submits search with both 'from' and 'to'", async () => {
       const yearGroup = screen.getByRole("group", {
         name: "Publication Year",
       });
@@ -86,7 +86,7 @@ export const FilterYearsTests = (
       });
       fireEvent.change(fromInput, { target: { value: 1990 } });
       fireEvent.change(toInput, { target: { value: 2000 } });
-      userEvent.click(applyButton);
+      await userEvent.click(applyButton);
 
       expect(mockRouter).toMatchObject({
         pathname: "/search",
@@ -97,7 +97,7 @@ export const FilterYearsTests = (
       });
     });
 
-    test("shows error text when 'to' is after 'from", () => {
+    test("shows error text when 'to' is after 'from", async () => {
       const yearGroup = screen.getByRole("group", {
         name: "Publication Year",
       });
@@ -112,7 +112,7 @@ export const FilterYearsTests = (
       });
       fireEvent.change(fromInput, { target: { value: 1990 } });
       fireEvent.change(toInput, { target: { value: 1890 } });
-      userEvent.click(applyButton);
+      await userEvent.click(applyButton);
 
       expect(
         screen.getByText("Start date must be before End date")

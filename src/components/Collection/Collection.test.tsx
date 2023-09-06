@@ -124,10 +124,10 @@ describe("Render Collection Page with >10 items", () => {
       });
       expect(previousLink).not.toBeInTheDocument();
     });
-    test("Next page link appears and is clickable", () => {
+    test("Next page link appears and is clickable", async () => {
       const nextLink = screen.getByRole("link", { name: "Next page" });
       expect(nextLink).toBeInTheDocument();
-      userEvent.click(nextLink);
+      await userEvent.click(nextLink);
       expect(mockRouter).toMatchObject({
         pathname: "/collection/id",
         query: {
@@ -135,10 +135,10 @@ describe("Render Collection Page with >10 items", () => {
         },
       });
     });
-    test("Middle numbers are clickable", () => {
+    test("Middle numbers are clickable", async () => {
       const twoButton = screen.getByRole("link", { name: "Page 2" });
       expect(twoButton).toBeInTheDocument();
-      userEvent.click(twoButton);
+      await userEvent.click(twoButton);
       expect(mockRouter).toMatchObject({
         pathname: "/collection/id",
         query: {

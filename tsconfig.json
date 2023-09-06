@@ -48,7 +48,7 @@
   ],
   "exclude": [
     "node_modules",
-    "jest.config.js",
+    "jest.config.ts",
     "setupTests.js"
   ]
 }

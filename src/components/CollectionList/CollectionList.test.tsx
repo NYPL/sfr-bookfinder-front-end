@@ -1,6 +1,5 @@
 import React from "react";
 import CollectionList from "./CollectionList";
-import "@testing-library/jest-dom/extend-expect";
 import { screen, render } from "@testing-library/react";
 import { oneCollectionListData } from "~/src/__tests__/fixtures/CollectionFixture";
 

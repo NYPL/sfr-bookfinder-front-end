@@ -1,6 +1,5 @@
 import React from "react";
 import Work from "./Work";
-import "@testing-library/jest-dom/extend-expect";
 import { screen, render, within, fireEvent } from "@testing-library/react";
 import { breadcrumbTitles, inputTerms } from "~/src/constants/labels";
 import {
@@ -113,7 +112,7 @@ describe("Edition Cards and toggles", () => {
       fireEvent.click(toggle);
 
       expect(mockRouter).toMatchObject({
-        pathname: "",
+        pathname: "/",
         query: { showAll: false },
       });
     });
@@ -140,7 +139,7 @@ describe("Edition Cards and toggles", () => {
       fireEvent.click(toggle);
 
       expect(mockRouter).toMatchObject({
-        pathname: "",
+        pathname: "/",
         query: { showAll: false },
       });
     });
@@ -167,7 +166,7 @@ describe("Edition Cards and toggles", () => {
       fireEvent.click(toggle);
 
       expect(mockRouter).toMatchObject({
-        pathname: "",
+        pathname: "/",
         query: { showAll: true },
       });
     });
