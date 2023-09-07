@@ -1,6 +1,6 @@
 # CHANGE LOG
 
-## [Pre-release]
+## [0.17.4]
 
 - Add id as subsection for "Read Online" CTA analytics tracking
 - Add: SFR-1743: Verify advance search filters for DRB
