@@ -10,6 +10,7 @@
 - Add: SFR-1750: Verify the Back to Search Results button is available on Item Details page
 - SFR-1750: Verify the header links of home page
 - SFR-1745: Add Playwright tests to GitHub Actions
+- SFR-1778: Fix failing Playwright tests
 
 ## [0.17.3]
 
