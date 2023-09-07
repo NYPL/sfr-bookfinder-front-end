@@ -115,7 +115,7 @@ export const elements = {
   "first search result edition": "a:text('1900 Edition') >> nth=0",
   "first collection card link": "a[href^='/collection/'] >> nth=0",
   "number of results": "#page-counter",
-  "Robot Soccer title": "//a[text()='Robot soccer']",
+  "Robot Soccer title": "//a[text()='Robot soccer'] >> nth=0",
   "e-reader table of contents button": "[aria-label='Table of Contents']",
   "e-reader settings button": "[aria-label='Settings']",
   "e-reader full screen button": "[aria-label='Toggle full screen']",
