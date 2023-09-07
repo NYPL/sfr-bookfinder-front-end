@@ -1,5 +1,6 @@
 import React from "react";
 import { fireEvent, screen, within } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { Filter } from "~/src/types/SearchQuery";
 import { MemoryRouter } from "next-router-mock";
 
@@ -9,6 +10,7 @@ export const FilterYearsTests = (
   endYear?: Filter,
   mockRouter?: MemoryRouter
 ) => {
+  const user = userEvent.setup({ delay: null });
   test("Renders Filter Years", () => {
     expect(
       screen.getByRole("spinbutton", {
@@ -38,7 +40,7 @@ export const FilterYearsTests = (
       });
       fireEvent.change(fromInput, { target: { value: 1990 } });
       expect(fromInput).toHaveValue(1990);
-      fireEvent.click(applyButton);
+      await user.click(applyButton);
 
       expect(mockRouter).toMatchObject({
         pathname: "/search",
@@ -85,7 +87,7 @@ export const FilterYearsTests = (
       });
       fireEvent.change(fromInput, { target: { value: 1990 } });
       fireEvent.change(toInput, { target: { value: 2000 } });
-      fireEvent.click(applyButton);
+      await user.click(applyButton);
 
       expect(mockRouter).toMatchObject({
         pathname: "/search",
@@ -111,7 +113,7 @@ export const FilterYearsTests = (
       });
       fireEvent.change(fromInput, { target: { value: 1990 } });
       fireEvent.change(toInput, { target: { value: 1890 } });
-      fireEvent.click(applyButton);
+      await user.click(applyButton);
 
       expect(
         screen.getByText("Start date must be before End date")
