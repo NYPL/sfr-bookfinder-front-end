@@ -37,6 +37,6 @@ Feature: Item Detail Page Elements
         And I click the "search button"
         And I click the "The Novels of Jane Austen link"
         And the "The Novels of Jane Austen heading" should be displayed
-        And the "back to search results link" should be displayed
+        And the "back to search results button" should be displayed
         And I click the "back to search results button"
         And the "The Novels of Jane Austen link" should be displayed

@@ -1,18 +1,35 @@
 import React from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
+import newrelic from "newrelic";
+import appConfig from "~/config/appConfig";
 
-class MyDocument extends Document {
+type DocumentProps = {
+  browserTimingHeader: string;
+};
+
+class MyDocument extends Document<DocumentProps> {
   static async getInitialProps(ctx) {
     const initialProps = await Document.getInitialProps(ctx);
+
     // Invoke the newrelic agent
-    require("newrelic");
-    return { ...initialProps };
+    const browserTimingHeader = newrelic.getBrowserTimingHeader({
+      hasToRemoveScriptWrapper: true,
+      allowTransactionlessInjection: true,
+    });
+
+    return { ...initialProps, browserTimingHeader };
   }
 
   render() {
     return (
       <Html lang="en">
-        <Head />
+        <Head>
+          <script
+            type="text/javascript"
+            dangerouslySetInnerHTML={{ __html: this.props.browserTimingHeader }}
+          />
+          <script src={appConfig.analytics} async />
+        </Head>
         <body>
           <div id="nypl-header"></div>
           <script
