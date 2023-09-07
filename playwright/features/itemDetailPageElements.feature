@@ -26,12 +26,12 @@ Feature: Item Detail Page Elements
         And the "items currently available online toggle" should be displayed
         And the "second item edition" should be displayed
 
-    Scenario: As a user when I click on "show only intems currently available online" button, only online available books should be displayed
+    Scenario: As a user when I click on "show only items currently available online" button, only online available books should be displayed
         Given I go to the "item detail" page
         Then I double click the "items currently available online toggle"
-        And the "first read online button for all edition" should be displayed
+        And the "first read online button for all editions" should be displayed
 
-    Scenario: As a user when I am in item details page for a collection, I should see back to search results button
+    Scenario: As a user when I am on item details page for a collection, I should see back to search results button
         Given I go to the "home" page
         Then I fill in the "homepage search box" with "Jane Austen"
         And I click the "search button"

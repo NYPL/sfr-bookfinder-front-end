@@ -35,7 +35,7 @@ export const elements = {
   //"Russian language checkbox checked": "span[data-checked]:text('Russian')",
   "publication year apply button": "#year-filter-button",
   "first read online button": "text=Read Online >> nth=0",
-  "first read online button for all edition": "text=Read Online >> nth=1",
+  "first read online button for all editions": "a:text('Read Online') >> nth=1",
   "first request button":
     "[href='https://www.nypl.org/research/collections/shared-collection-catalog/hold/request/b10715506-i13895605']",
   "English language checkbox": "span:text('English')",
@@ -155,7 +155,7 @@ export const elements = {
   "The Novels of Jane Austen link": "//a[text()='The novels of Jane Austen']",
   "The Novels of Jane Austen heading":
     "//h1[text()='The novels of Jane Austen']",
-  "back to search results button": "//a[text()='Back to search results']",
+  "back to search results button": "a:text('Back to search results')",
   /** header locators */
   "header logo": "a[aria-label='The New York Public Library']",
   "spotlight heading": "a:text('Spotlight')",
