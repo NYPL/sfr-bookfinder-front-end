@@ -39,7 +39,7 @@ export const FilterYearsTests = (
       });
       fireEvent.change(fromInput, { target: { value: 1990 } });
       expect(fromInput).toHaveValue(1990);
-      await userEvent.click(applyButton);
+      fireEvent.click(applyButton);
 
       expect(mockRouter).toMatchObject({
         pathname: "/search",
@@ -48,7 +48,7 @@ export const FilterYearsTests = (
           query: "keyword:Animal Crossing",
         },
       });
-    }, 10000);
+    });
     test("Submits filters with only 'to' value", async () => {
       const yearGroup = screen.getByRole("group", {
         name: "Publication Year",
@@ -60,7 +60,7 @@ export const FilterYearsTests = (
         name: "Apply",
       });
       fireEvent.change(toInput, { target: { value: 1990 } });
-      await userEvent.click(applyButton);
+      fireEvent.click(applyButton);
 
       expect(mockRouter).toMatchObject({
         pathname: "/search",
@@ -69,7 +69,7 @@ export const FilterYearsTests = (
           query: "keyword:Animal Crossing",
         },
       });
-    }, 10000);
+    });
 
     test("Submits search with both 'from' and 'to'", async () => {
       const yearGroup = screen.getByRole("group", {
@@ -86,7 +86,7 @@ export const FilterYearsTests = (
       });
       fireEvent.change(fromInput, { target: { value: 1990 } });
       fireEvent.change(toInput, { target: { value: 2000 } });
-      await userEvent.click(applyButton);
+      fireEvent.click(applyButton);
 
       expect(mockRouter).toMatchObject({
         pathname: "/search",
@@ -95,7 +95,7 @@ export const FilterYearsTests = (
           query: "keyword:Animal Crossing",
         },
       });
-    }, 10000);
+    });
 
     test("shows error text when 'to' is after 'from", async () => {
       const yearGroup = screen.getByRole("group", {
@@ -112,7 +112,7 @@ export const FilterYearsTests = (
       });
       fireEvent.change(fromInput, { target: { value: 1990 } });
       fireEvent.change(toInput, { target: { value: 1890 } });
-      await userEvent.click(applyButton);
+      fireEvent.click(applyButton);
 
       expect(
         screen.getByText("Start date must be before End date")
