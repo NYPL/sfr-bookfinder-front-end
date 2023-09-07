@@ -1,6 +1,5 @@
 import React from "react";
 import { fireEvent, screen, within } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import { Filter } from "~/src/types/SearchQuery";
 import { MemoryRouter } from "next-router-mock";
 
