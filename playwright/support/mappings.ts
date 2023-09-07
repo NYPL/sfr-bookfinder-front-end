@@ -32,7 +32,6 @@ export const elements = {
     "span:text('Show only US government documents')",
   "Latin language checkbox": "span:text('Latin')",
   "Russian language checkbox": "span:text('Russian')",
-  "Russian language checkbox checked": "#languages-checkbox-group-10-wrapper path",
   "publication year apply button": "#year-filter-button",
   "first read online button": "a:text('Read Online') >> nth=0",
   "first read online button for all editions": "a:text('Read Online') >> nth=1",

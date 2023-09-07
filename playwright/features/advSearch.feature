@@ -32,7 +32,7 @@ Feature: Advanced Search
         And I click the "Russian language checkbox"
         And I click the "advanced search button"
         Then the "Russian language subheader" should be displayed
-        And the "Russian language checkbox checked" should be checked
+        And the "Russian language checkbox" should be checked
         And the "first read online button" should be displayed
 
     Scenario: As as user I verify the headers and footers of Advanced Search Page
