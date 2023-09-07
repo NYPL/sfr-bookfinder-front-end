@@ -32,9 +32,9 @@ export const elements = {
     "span:text('Show only US government documents')",
   "Latin language checkbox": "span:text('Latin')",
   "Russian language checkbox": "span:text('Russian')",
-  //"Russian language checkbox checked": "span[data-checked]:text('Russian')",
+  "Russian language checkbox checked": "#languages-checkbox-group-10-wrapper path",
   "publication year apply button": "#year-filter-button",
-  "first read online button": "text=Read Online >> nth=0",
+  "first read online button": "a:text('Read Online') >> nth=0",
   "first read online button for all editions": "a:text('Read Online') >> nth=1",
   "first request button":
     "[href='https://www.nypl.org/research/collections/shared-collection-catalog/hold/request/b10715506-i13895605']",
@@ -67,7 +67,7 @@ export const elements = {
   "advanced search clear button": "#reset-button",
   "keyword heading": "h1:text('IBM 1401')",
   "author heading": "h1:text('Laurie, Edward J.')",
-  "russian language subheader": "span:text('Russian')",
+  "Russian language subheader": "span:text('Russian')",
   "search result link": "a:text('Computers and how they work')",
   "delivery location heading": "h2:text('Choose a delivery location')",
   "site name heading": "h1:text('Digital Research Books')",
@@ -152,7 +152,7 @@ export const elements = {
     "//h1[text()='General Policies and Rules']",
   "about page heading": "//h1[text()='About The New York Public Library']",
   "language page heading": "//h1[text()='Language']",
-  "The Novels of Jane Austen link": 
+  "The Novels of Jane Austen link":
     "//a[text()='The novels of Jane Austen'] >> nth=0",
   "The Novels of Jane Austen heading":
     "//h1[text()='The novels of Jane Austen']",
