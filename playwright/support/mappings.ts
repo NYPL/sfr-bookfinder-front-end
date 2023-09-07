@@ -152,7 +152,7 @@ export const elements = {
     "//h1[text()='General Policies and Rules']",
   "about page heading": "//h1[text()='About The New York Public Library']",
   "language page heading": "//h1[text()='Language']",
-  "The Novels of Jane Austen link": "//a[text()='The novels of Jane Austen']",
+  "The Novels of Jane Austen link": "//a[text()='The novels of Jane Austen'] >> nth=0",
   "The Novels of Jane Austen heading":
     "//h1[text()='The novels of Jane Austen']",
   "back to search results button": "a:text('Back to search results')",
