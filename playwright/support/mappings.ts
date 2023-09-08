@@ -33,8 +33,8 @@ export const elements = {
   "Latin language checkbox": "span:text('Latin')",
   "Russian language checkbox": "span:text('Russian')",
   "publication year apply button": "#year-filter-button",
-  "first read online button": "text=Read Online >> nth=0",
-  "first read online button for all edition": "text=Read Online >> nth=1",
+  "first read online button": "a:text('Read Online') >> nth=0",
+  "first read online button for all editions": "a:text('Read Online') >> nth=1",
   "first request button":
     "[href='https://www.nypl.org/research/collections/shared-collection-catalog/hold/request/b10715506-i13895605']",
   "English language checkbox": "span:text('English')",
@@ -66,7 +66,7 @@ export const elements = {
   "advanced search clear button": "#reset-button",
   "keyword heading": "h1:text('IBM 1401')",
   "author heading": "h1:text('Laurie, Edward J.')",
-  "russian language subheader": "//div[contains(text(),'Russian')]",
+  "Russian language subheader": "span:text('Russian')",
   "search result link": "a:text('Computers and how they work')",
   "delivery location heading": "h2:text('Choose a delivery location')",
   "site name heading": "h1:text('Digital Research Books')",
@@ -114,7 +114,7 @@ export const elements = {
   "first search result edition": "a:text('1900 Edition') >> nth=0",
   "first collection card link": "a[href^='/collection/'] >> nth=0",
   "number of results": "#page-counter",
-  "Robot Soccer title": "//a[text()='Robot soccer']",
+  "Robot Soccer title": "//a[text()='Robot soccer'] >> nth=0",
   "e-reader table of contents button": "[aria-label='Table of Contents']",
   "e-reader settings button": "[aria-label='Settings']",
   "e-reader full screen button": "[aria-label='Toggle full screen']",
@@ -151,10 +151,11 @@ export const elements = {
     "//h1[text()='General Policies and Rules']",
   "about page heading": "//h1[text()='About The New York Public Library']",
   "language page heading": "//h1[text()='Language']",
-  "The Novels of Jane Austen link": "//a[text()='The novels of Jane Austen']",
+  "The Novels of Jane Austen link":
+    "//a[text()='The novels of Jane Austen'] >> nth=0",
   "The Novels of Jane Austen heading":
     "//h1[text()='The novels of Jane Austen']",
-  "back to search results button": "//a[text()='Back to search results']",
+  "back to search results button": "a:text('Back to search results')",
   /** header locators */
   "header logo": "a[aria-label='The New York Public Library']",
   "spotlight heading": "a:text('Spotlight')",
