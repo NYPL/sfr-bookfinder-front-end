@@ -1,6 +1,6 @@
 # CHANGE LOG
 
-- Update production build to use unique ECR image tag
+- Update production and qa builds to use unique ECR image tag
 
 ## [0.17.4]
 
