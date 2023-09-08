@@ -1,14 +1,11 @@
 name: Playwright Tests for Digital Research Books
 
 on:
-  push:
-    branches:
-      - fix-flaky-playwright-tests
-  # schedule:
-  #   - cron: "00 14 * * 1-5"
-  # pull_request:
-  #   branches: [production]
-  #   types: [opened, synchronize, reopened]
+  schedule:
+    - cron: "00 14 * * 1-5"
+  pull_request:
+    branches: [production]
+    types: [opened, synchronize, reopened]
 
 jobs:
   tests:

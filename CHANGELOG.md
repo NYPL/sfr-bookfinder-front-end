@@ -1,5 +1,7 @@
 # CHANGE LOG
 
+- Fix: Small adjustments to Playwright tests
+
 ## [0.17.4]
 
 - Add id as subsection for "Read Online" CTA analytics tracking
