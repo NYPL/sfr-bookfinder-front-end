@@ -1,12 +1,14 @@
 name: Playwright Tests for Digital Research Books
 
 on:
-  schedule:
-    - cron: "00 14 * * 1-5"
-  pull_request:
-      branches: [production]
-      types: [opened, synchronize, reopened]
-  
+  push:
+    branches:
+      - fix-flaky-playwright-tests
+  # schedule:
+  #   - cron: "00 14 * * 1-5"
+  # pull_request:
+  #   branches: [production]
+  #   types: [opened, synchronize, reopened]
 
 jobs:
   tests:
@@ -28,16 +30,16 @@ jobs:
 
       - name: Set the world parameters as an env var
         run: |
-          echo "WORLD_PARAMETERS={\"appUrl\": \"https://digital-research-books-beta.nypl.org\", \"headless\": true}" >> $GITHUB_ENV
-      
+          echo "WORLD_PARAMETERS={\"appUrl\": \"https://drb-qa.nypl.org\", \"headless\": true}" >> $GITHUB_ENV
+
       - name: Run Cucumber tests
         run: npm run cucumber -- playwright/features --world-parameters '${{ env.WORLD_PARAMETERS }}'
         env:
-          "catalog username": ${{ secrets.CATALOG_USERNAME }}
-          "catalog password": ${{ secrets.CATALOG_USER_PIN }}
+          CATALOG_USERNAME: ${{ secrets.CATALOG_USERNAME }}
+          CATALOG_USER_PIN: ${{ secrets.CATALOG_USER_PIN }}
           CUCUMBER_PUBLISH_TOKEN: ${{ secrets.CUCUMBER_PUBLISH_TOKEN }}
           CUCUMBER_PUBLISH_ENABLED: true
-    
+
       - name: Slack Notification
         if: ${{ always() }}
         uses: rtCamp/action-slack-notify@v2

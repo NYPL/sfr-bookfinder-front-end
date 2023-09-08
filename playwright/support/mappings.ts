@@ -139,7 +139,7 @@ export const elements = {
   "language footer link": "//a[@href='http://www.nypl.org/language']",
   "accessibility page heading": "//h1[text()='Accessibility at NYPL']",
   "press page heading": "//h1[text()='Press Releases']",
-  "careers page heading": "//h1[text()='Careers at NYPL']",
+  "careers page heading": "//h2[text()='Careers at NYPL']",
   "space rental page heading": "//h1//span[text()='Space Rental']",
   "privacy page heading":
     "//h1[text()='The New York Public Library Privacy Policy']",
