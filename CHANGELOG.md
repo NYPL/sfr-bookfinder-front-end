@@ -1,5 +1,7 @@
 # CHANGE LOG
 
+- Update production and qa builds to use unique ECR image tag
+
 ## [0.17.4]
 
 - Add id as subsection for "Read Online" CTA analytics tracking
