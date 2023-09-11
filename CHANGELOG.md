@@ -1,5 +1,7 @@
 # CHANGE LOG
 
+## [Pre-release]
+
 - Fix: Small adjustments to Playwright tests
 
 ## [0.17.4]
@@ -16,6 +18,8 @@
 - Upgrade New Relic packages and update configuration
 - Update Adobe Analytics page names
 - SFR-1778: Fix failing Playwright tests
+- SFR-1752: Remove rspec workflow
+- Update production and qa builds to use unique ECR image tag
 
 ## [0.17.3]
 
