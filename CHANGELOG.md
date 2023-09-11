@@ -1,5 +1,23 @@
 # CHANGE LOG
 
+- Update production and qa builds to use unique ECR image tag
+
+## [0.17.4]
+
+- Add id as subsection for "Read Online" CTA analytics tracking
+- Add: SFR-1743: Verify advance search filters for DRB
+- Add: SFR-1746: Verify "read online only" toggle button on item details page
+- Add: SFR-1748: Verify the headers and footers of Advanced Search page
+- Add: SFR-1749: Verify the footers and the respecting landing pages (homepage)
+- Add: SFR-1751: Verify the Back to Search Results button is available on Item Details page
+- Add: SFR-1750: Verify the header links of home page
+- Add: SFR-1745: Add Playwright tests to GitHub Actions
+- Fix: SFR-1755: Fix Playwright test failures
+- Upgrade New Relic packages and update configuration
+- Update Adobe Analytics page names
+- SFR-1778: Fix failing Playwright tests
+- SFR-1752: Remove rspec workflow
+
 ## [0.17.3]
 
 - Upgrade to Next 13.4.7
@@ -35,12 +53,6 @@
 - Refactored Playwright/Cucumber tests to use new page visit actions function
 
 ## [0.16.1]
-
-- add features and tests for publication year filter
-- add features and tests for language filter
-- Upgrade dgx-header-component to v2.8.0-r16-rc-3
-
-## [0.16.0]
 
 - add features and tests for government docs filter
 - Add github actions to automate tag and release

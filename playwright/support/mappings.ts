@@ -31,8 +31,10 @@ export const elements = {
   "government documents checkbox":
     "span:text('Show only US government documents')",
   "Latin language checkbox": "span:text('Latin')",
+  "Russian language checkbox": "span:text('Russian')",
   "publication year apply button": "#year-filter-button",
-  "first read online button": "text=Read Online >> nth=0",
+  "first read online button": "a:text('Read Online') >> nth=0",
+  "first read online button for all editions": "a:text('Read Online') >> nth=1",
   "first request button":
     "[href='https://www.nypl.org/research/collections/shared-collection-catalog/hold/request/b10715506-i13895605']",
   "English language checkbox": "span:text('English')",
@@ -52,6 +54,7 @@ export const elements = {
   "publication year from filter": "#date-filter-from",
   "publication year to filter": "#date-filter-to",
   "advanced search heading": "h1:text('Advanced Search')",
+  "advanced search breadcrumb": "//a[@href='/advanced-search']",
   "keyword search label": "#search-Keyword-label",
   "author search label": "#search-Author-label",
   "subject search label": "#search-Subject-label",
@@ -63,6 +66,7 @@ export const elements = {
   "advanced search clear button": "#reset-button",
   "keyword heading": "h1:text('IBM 1401')",
   "author heading": "h1:text('Laurie, Edward J.')",
+  "Russian language subheader": "span:text('Russian')",
   "search result link": "a:text('Computers and how they work')",
   "delivery location heading": "h2:text('Choose a delivery location')",
   "site name heading": "h1:text('Digital Research Books')",
@@ -110,12 +114,88 @@ export const elements = {
   "first search result edition": "a:text('1900 Edition') >> nth=0",
   "first collection card link": "a[href^='/collection/'] >> nth=0",
   "number of results": "#page-counter",
-  "Robot Soccer title": "//a[text()='Robot soccer']",
+  "Robot Soccer title": "//a[text()='Robot soccer'] >> nth=0",
   "e-reader table of contents button": "[aria-label='Table of Contents']",
   "e-reader settings button": "[aria-label='Settings']",
   "e-reader full screen button": "[aria-label='Toggle full screen']",
   "e-reader back to DRB button":
     "//span[text()='Back to Digital Research Books']",
+  "not yet available text": "//div[text()='Not yet available']",
+  "accessibility footer link": "//a[@href='http://www.nypl.org/accessibility']",
+  "press footer link":
+    "//a[@href='http://www.nypl.org/help/about-nypl/media-center']",
+  "careers footer link": "//a[@href='http://www.nypl.org/careers']",
+  "space rental footer link": "//a[@href='http://www.nypl.org/spacerental']",
+  "privacy footer link":
+    "//a[@href='http://www.nypl.org/help/about-nypl/legal-notices/privacy-policy']",
+  "other policies footer link": "//a[@href='http://www.nypl.org/policies']",
+  "terms and conditions footer link":
+    "//a[@href='http://www.nypl.org/terms-conditions']",
+  "governance footer link":
+    "//a[@href='http://www.nypl.org/help/about-nypl/leadership/board-trustees']",
+  "rules and regulations footer link":
+    "//a[@href='http://www.nypl.org/help/about-nypl/legal-notices/rules-and-regulations']",
+  "about footer link": "//a[@href='http://www.nypl.org/help/about-nypl']",
+  "language footer link": "//a[@href='http://www.nypl.org/language']",
+  "accessibility page heading": "//h1[text()='Accessibility at NYPL']",
+  "press page heading": "//h1[text()='Press Releases']",
+  "careers page heading": "//h1[text()='Careers at NYPL']",
+  "space rental page heading": "//h1//span[text()='Space Rental']",
+  "privacy page heading":
+    "//h1[text()='The New York Public Library Privacy Policy']",
+  "other policies page heading": "//h1[text()='Policies']",
+  "terms and conditions page heading": "//h1[text()='Terms & Conditions']",
+  "governance page heading":
+    "//h1[text()='The New York Public Library Board of Trustees']",
+  "rules and regulations page heading":
+    "//h1[text()='General Policies and Rules']",
+  "about page heading": "//h1[text()='About The New York Public Library']",
+  "language page heading": "//h1[text()='Language']",
+  "The Novels of Jane Austen link":
+    "//a[text()='The novels of Jane Austen'] >> nth=0",
+  "The Novels of Jane Austen heading":
+    "//h1[text()='The novels of Jane Austen']",
+  "back to search results button": "a:text('Back to search results')",
+  /** header locators */
+  "header logo": "a[aria-label='The New York Public Library']",
+  "spotlight heading": "a:text('Spotlight')",
+  "my account header link": "[aria-label='My Account']",
+  "catalog header link": "span:text('Go To The Catalog')",
+  "research catalog header link": "span:text('Go To The Research Catalog')",
+  "close my account header link": "[aria-label='Close']",
+  "my account login form": "#login",
+  "locations header link": "[href='https://www.nypl.org/locations']",
+  "find your library page heading": "#location-finder__title",
+  "library card header link": "[href='https://www.nypl.org/library-card/new']",
+  "library card page heading": "h1:text('Apply for a Library Card Online')",
+  "email updates header link":
+    "[href='https://pub.email.nypl.org/subscriptioncenter']",
+  "email updates page heading": "h1:text('Get the Best of NYPL in Your Inbox')",
+  "donate header link":
+    "[href='https://secure.nypl.org/site/Donation2?7825.donation=form1&df_id=7825&mfc_pref=T&s_src=FRQ18ZZ_TNN']",
+  "donate page heading":
+    "h1:text('Make Your Tax-Deductible Gift Today') >> nth=0",
+  "shop header link":
+    "[href='https://shop.nypl.org/?utm_campaign=NYPLHeaderButton&utm_source=nypl.org&utm_medium=referral']",
+  "shop page heading": "[title='The New York Public Library Shop'] >> nth=0",
+  "books music movies header link":
+    "[href='https://www.nypl.org/books-music-movies']",
+  "books music movies page heading": "h1:text('Books/Music/Movies')",
+  "research header link": "[href='https://www.nypl.org/research'] >> nth=0",
+  "research page heading": "h1:text('Research')",
+  "education header link": "[href='https://www.nypl.org/education']",
+  "education page heading": "h1:text('Education')",
+  "events header link": "[href='https://www.nypl.org/events']",
+  "events page heading": "h1:text('Events')",
+  "connect header link": "[href='https://www.nypl.org/connect']",
+  "connect page heading": "h1:text('Connect')",
+  "give header link": "[href='https://www.nypl.org/give']",
+  "give page heading": "h1:text('Give')",
+  "get help header link": "[href='https://www.nypl.org/get-help']",
+  "get help page heading": "h1:text('Get Help')",
+  "search header link": "#searchButton",
+  "search header label": "#searchInput-label",
+  "close search header link": "[aria-label='Close Search']",
 };
 
 export const inputs = {
@@ -132,4 +212,5 @@ export const inputs = {
   "1900": "1900",
   petroleum: "petroleum",
   "Robot Soccer": "Robot Soccer",
+  "Jane Austen": "Jane Austen",
 };

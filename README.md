@@ -73,3 +73,7 @@ Term combinations
 ### Test
 
 To run unit tests, run `npm run test` in the terminal.
+
+### Deprecated
+
+As of September 2023, the [rspec-integration-tests.yml](https://github.com/NYPL/sfr-bookfinder-front-end/actions/workflows/rspec-integration-tests.yml) workflow is no longer in use and has been replaced by the [Playwright.yml](https://github.com/NYPL/sfr-bookfinder-front-end/blob/development/.github/workflows/Playwright.yml) workflow. Please contact the DRB team in Digital for more information.

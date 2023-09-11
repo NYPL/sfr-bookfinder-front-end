@@ -24,3 +24,29 @@ Feature: Advanced Search
         Then the "keyword heading" should be displayed
         And the "author heading" should be displayed
         And the "search result link" should be displayed
+
+    Scenario: As a user I select a language checkbox in advanced search and verify the search results
+        Given I go to the "home" page
+        When I click the "advanced search link"
+        Then I fill in the "keyword search box" with "Jane Austen"
+        And I click the "Russian language checkbox"
+        And I click the "advanced search button"
+        Then the "Russian language subheader" should be displayed
+        And the "Russian language checkbox" should be checked
+        And the "first read online button" should be displayed
+
+    Scenario: As as user I verify the headers and footers of Advanced Search Page
+        Given I go to the "home" page
+        When I click the "advanced search link"
+        And the "advanced search breadcrumb" should be displayed
+        And the "accessibility footer link" should be displayed
+        And the "press footer link" should be displayed
+        And the "careers footer link" should be displayed
+        And the "space rental footer link" should be displayed
+        And the "privacy footer link" should be displayed
+        And the "other policies footer link" should be displayed
+        And the "terms and conditions footer link" should be displayed
+        And the "governance footer link" should be displayed
+        And the "rules and regulations footer link" should be displayed
+        And the "about footer link" should be displayed
+        And the "language footer link" should be displayed
