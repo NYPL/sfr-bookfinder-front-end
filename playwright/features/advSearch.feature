@@ -25,14 +25,14 @@ Feature: Advanced Search
         And the "author heading" should be displayed
         And the "search result link" should be displayed
 
-    Scenario: As a user I select a language checkbox in advance search and verify the search results
+    Scenario: As a user I select a language checkbox in advanced search and verify the search results
         Given I go to the "home" page
         When I click the "advanced search link"
         Then I fill in the "keyword search box" with "Jane Austen"
         And I click the "Russian language checkbox"
         And I click the "advanced search button"
-        Then the "russian language subheader" should be displayed
-        And the "russian language checkbox" should be checked
+        Then the "Russian language subheader" should be displayed
+        And the "Russian language checkbox" should be checked
         And the "first read online button" should be displayed
 
     Scenario: As as user I verify the headers and footers of Advanced Search Page
