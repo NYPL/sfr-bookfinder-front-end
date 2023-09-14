@@ -1,6 +1,5 @@
 import React from "react";
 import CollectionCard from "./CollectionCard";
-import "@testing-library/jest-dom/extend-expect";
 import { screen, render } from "@testing-library/react";
 import { collectionData } from "~/src/__tests__/fixtures/CollectionFixture";
 

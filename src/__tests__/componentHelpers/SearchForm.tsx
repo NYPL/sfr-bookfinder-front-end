@@ -34,14 +34,14 @@ export const searchFormRenderTests = (query?: SearchQuery) => {
 
 export const searchFormTests = (mockRouter) => {
   describe("Search using Landing Page Searchbar", () => {
-    test("Searching with a field and value calls Search api", () => {
+    test("Searching with a field and value calls Search api", async () => {
       const categoryInput = screen.getByRole("combobox", {
         name: "Select a search category",
       });
       const textInput = screen.getByRole("textbox", { name: "Item Search" });
       fireEvent.change(categoryInput, { target: { value: "author" } });
-      userEvent.clear(textInput);
-      userEvent.type(textInput, "Tom Nook");
+      await userEvent.clear(textInput);
+      await userEvent.type(textInput, "Tom Nook");
 
       const searchButton = screen.getByRole("button", { name: "Search" });
       fireEvent.click(searchButton);
@@ -64,9 +64,9 @@ export const searchFormTests = (mockRouter) => {
       });
     });
 
-    test("Searching with no search term shows error", () => {
+    test("Searching with no search term shows error", async () => {
       const textInput = screen.getByRole("textbox", { name: "Item Search" });
-      userEvent.clear(textInput);
+      await userEvent.clear(textInput);
 
       expect(textInput).toHaveValue("");
       const searchButton = screen.getByRole("button", { name: "Search" });

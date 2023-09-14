@@ -1,6 +1,6 @@
-// jest.config.js
-const { defaults } = require("jest-config");
-module.exports = {
+import type { Config } from "jest";
+
+const config: Config = {
   moduleFileExtensions: ["js", "ts", "tsx"],
   moduleNameMapper: {
     "^~(.*)$": "<rootDir>$1",
@@ -11,9 +11,11 @@ module.exports = {
     "testUtils",
     "fixtures",
     "componentHelpers",
-    "/playwright/"
+    "/playwright/",
   ],
   setupFilesAfterEnv: ["./jest.setup.ts"],
   resetMocks: true,
   testEnvironment: "jsdom",
 };
+
+export default config;
