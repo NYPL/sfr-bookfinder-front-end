@@ -13,7 +13,6 @@ import {
   TemplateContentTop,
   TemplateContentPrimary,
   Flex,
-  TemplateFooter,
   Text,
   Card,
   CardActions,
@@ -197,7 +196,6 @@ const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
           </Box>
         </TemplateContentPrimary>
       </TemplateContent>
-      <TemplateFooter />
     </Template>
   );
 };

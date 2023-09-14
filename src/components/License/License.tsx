@@ -7,7 +7,6 @@ import {
   Template,
   TemplateBreakout,
   TemplateContent,
-  TemplateFooter,
 } from "@nypl/design-system-react-components";
 import { defaultBreadcrumbs } from "~/src/constants/labels";
 import Link from "../Link/Link";
@@ -186,7 +185,6 @@ const License: React.FC = () => {
           modifications are also made available under the GPL.
         </p>
       </TemplateContent>
-      <TemplateFooter />
     </Template>
   );
 };

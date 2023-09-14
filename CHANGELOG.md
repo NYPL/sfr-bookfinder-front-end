@@ -3,6 +3,8 @@
 ## [Pre-release]
 
 - Fix: Small adjustments to Playwright tests
+- Remove TemplateFooter components
+- Upgrade to NYPL Design System 1.7.3
 
 ## [0.17.4]
 

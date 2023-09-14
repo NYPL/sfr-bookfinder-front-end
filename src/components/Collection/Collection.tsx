@@ -13,7 +13,6 @@ import {
   TemplateContent,
   TemplateContentPrimary,
   TemplateContentTop,
-  TemplateFooter,
 } from "@nypl/design-system-react-components";
 import { collectionSortMap } from "~/src/constants/sorts";
 import {
@@ -195,7 +194,6 @@ const Collection: React.FC<{
           />
         </TemplateContentPrimary>
       </TemplateContent>
-      <TemplateFooter />
     </Template>
   );
 };

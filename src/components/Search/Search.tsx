@@ -16,7 +16,6 @@ import {
   Flex,
   Form,
   useModal,
-  TemplateFooter,
   useNYPLBreakpoints,
 } from "@nypl/design-system-react-components";
 import { useRouter } from "next/router";
@@ -340,7 +339,6 @@ const SearchResults: React.FC<{
           />
         </TemplateContentPrimary>
       </TemplateContent>
-      <TemplateFooter />
     </Template>
   );
 };

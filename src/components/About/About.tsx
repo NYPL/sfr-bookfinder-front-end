@@ -6,7 +6,6 @@ import {
   TemplateBreakout,
   TemplateContent,
   TemplateContentPrimary,
-  TemplateFooter,
 } from "@nypl/design-system-react-components";
 import { defaultBreadcrumbs } from "~/src/constants/labels";
 import Link from "../Link/Link";
@@ -121,7 +120,6 @@ const About: React.FC = () => {
           </p>
         </TemplateContentPrimary>
       </TemplateContent>
-      <TemplateFooter />
     </Template>
   );
 };

@@ -4,7 +4,6 @@ import React from "react";
 export const DrbHero: React.FC = () => {
   return (
     <Hero
-      backgroundColor="section.research.primary"
       heroType="tertiary"
       heading={
         <Heading level="one" id="tertiary-hero">
@@ -13,6 +12,9 @@ export const DrbHero: React.FC = () => {
           </>
         </Heading>
       }
+      sx={{
+        background: "#00838A",
+      }}
     />
   );
 };

@@ -34,7 +34,6 @@ import {
   TemplateContent,
   TemplateContentPrimary,
   TemplateContentTop,
-  TemplateFooter,
   TextInput,
 } from "@nypl/design-system-react-components";
 import LanguageAccordion from "../LanguageAccordion/LanguageAccordion";
@@ -319,7 +318,6 @@ const AdvancedSearch: React.FC<{
           </Form>
         </TemplateContentPrimary>
       </TemplateContent>
-      <TemplateFooter />
     </Template>
   );
 };
