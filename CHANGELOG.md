@@ -3,6 +3,7 @@
 ## [Pre-release]
 
 - Fix: Small adjustments to Playwright tests
+- Upgrade testing-library packages to v14 and jest to v29
 
 ## [0.17.4]
 

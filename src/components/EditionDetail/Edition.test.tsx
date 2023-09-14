@@ -1,6 +1,5 @@
 import React from "react";
 import Edition from "./Edition";
-import "@testing-library/jest-dom/extend-expect";
 import { screen, render, within, fireEvent } from "@testing-library/react";
 import { breadcrumbTitles, inputTerms } from "~/src/constants/labels";
 import {
@@ -152,7 +151,7 @@ describe("All Copies Toggle", () => {
       fireEvent.click(toggle);
 
       expect(mockRouter).toMatchObject({
-        pathname: "",
+        pathname: "/",
         query: { showAll: false },
       });
     });
@@ -179,7 +178,7 @@ describe("All Copies Toggle", () => {
       fireEvent.click(toggle);
 
       expect(mockRouter).toMatchObject({
-        pathname: "",
+        pathname: "/",
         query: { showAll: true },
       });
     });

@@ -1,6 +1,5 @@
 import React from "react";
 import EditionDetailDefinitionList from "./EditionDetailDefinitionList";
-import "@testing-library/jest-dom/extend-expect";
 import { screen, render } from "@testing-library/react";
 import { ApiEdition } from "~/src/types/EditionQuery";
 import { editionDetail as editionDetailFullData } from "../../__tests__/fixtures/EditionDetailFixture";

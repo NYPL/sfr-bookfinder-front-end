@@ -75,7 +75,9 @@ describe("Advanced Search submit", () => {
       Title: "Handbook",
     };
 
-    userEvent.click(await screen.findByRole("checkbox", { name: "english" }));
+    await userEvent.click(
+      await screen.findByRole("checkbox", { name: "english" })
+    );
     inputTerms.forEach((val) => {
       fireEvent.change(screen.getByLabelText(val.text), {
         target: { value: inputValues[val.text] },
@@ -87,9 +89,9 @@ describe("Advanced Search submit", () => {
     fireEvent.change(screen.getByRole("spinbutton", { name: "To" }), {
       target: { value: "1999" },
     });
-    userEvent.click(screen.getByRole("checkbox", { name: "Readable" }));
+    await userEvent.click(screen.getByRole("checkbox", { name: "Readable" }));
 
-    userEvent.click(screen.getByRole("button", { name: "Search" }));
+    await userEvent.click(screen.getByRole("button", { name: "Search" }));
 
     const expectedQuery = {
       filter: "language:english,startYear:1990,endYear:1999,format:readable",
@@ -101,7 +103,7 @@ describe("Advanced Search submit", () => {
     });
   });
 
-  test("Submits only year start and subject", () => {
+  test("Submits only year start and subject", async () => {
     render(<AdvancedSearch languages={defaultLanguages} />);
 
     fireEvent.change(screen.getByRole("spinbutton", { name: "From" }), {
@@ -111,7 +113,7 @@ describe("Advanced Search submit", () => {
       target: { value: "cat" },
     });
 
-    userEvent.click(screen.getByRole("button", { name: "Search" }));
+    await userEvent.click(screen.getByRole("button", { name: "Search" }));
 
     const expectedQuery = {
       filter: "startYear:1990",
@@ -123,7 +125,7 @@ describe("Advanced Search submit", () => {
     });
   });
 
-  test("Submits only year end and author", () => {
+  test("Submits only year end and author", async () => {
     render(<AdvancedSearch languages={defaultLanguages} />);
 
     fireEvent.change(screen.getByRole("spinbutton", { name: "To" }), {
@@ -133,7 +135,7 @@ describe("Advanced Search submit", () => {
       target: { value: "Shakespeare" },
     });
 
-    userEvent.click(screen.getByRole("button", { name: "Search" }));
+    await userEvent.click(screen.getByRole("button", { name: "Search" }));
 
     const expectedQuery = {
       filter: "endYear:1990",
@@ -145,14 +147,14 @@ describe("Advanced Search submit", () => {
     });
   });
 
-  test("shows error on empty query", () => {
+  test("shows error on empty query", async () => {
     render(<AdvancedSearch languages={defaultLanguages} />);
-    userEvent.click(screen.getByRole("button", { name: "Search" }));
+    await userEvent.click(screen.getByRole("button", { name: "Search" }));
     expect(mockRouter).toMatchObject({});
     expect(screen.getByText(errorMessagesText.emptySearch)).toBeInTheDocument();
   });
 
-  test("show error on invalid year", () => {
+  test("show error on invalid year", async () => {
     render(<AdvancedSearch languages={defaultLanguages} />);
 
     fireEvent.change(screen.getByRole("spinbutton", { name: "From" }), {
@@ -165,7 +167,7 @@ describe("Advanced Search submit", () => {
       target: { value: "cat" },
     });
 
-    userEvent.click(screen.getByRole("button", { name: "Search" }));
+    await userEvent.click(screen.getByRole("button", { name: "Search" }));
 
     expect(mockRouter).toMatchObject({});
     expect(screen.getByText(errorMessagesText.invalidDate)).toBeInTheDocument();
@@ -173,7 +175,7 @@ describe("Advanced Search submit", () => {
 });
 
 describe("Advanced Search clear", () => {
-  test("clears all searches", () => {
+  test("clears all searches", async () => {
     render(<AdvancedSearch languages={defaultLanguages} />);
 
     const inputValues = {
@@ -183,7 +185,7 @@ describe("Advanced Search clear", () => {
       Title: "Handbook",
     };
 
-    userEvent.click(screen.getByRole("checkbox", { name: "english" }));
+    await userEvent.click(screen.getByRole("checkbox", { name: "english" }));
     inputTerms.forEach((val) => {
       fireEvent.change(screen.getByLabelText(val.text), {
         target: { value: inputValues[val.text] },
@@ -195,8 +197,8 @@ describe("Advanced Search clear", () => {
     fireEvent.change(screen.getByRole("spinbutton", { name: "To" }), {
       target: { value: "1999" },
     });
-    userEvent.click(screen.getByRole("checkbox", { name: "Readable" }));
-    userEvent.click(
+    await userEvent.click(screen.getByRole("checkbox", { name: "Readable" }));
+    await userEvent.click(
       screen.getByRole("checkbox", {
         name: "Show only US government documents",
       })
@@ -230,12 +232,12 @@ describe("Advanced Search clear", () => {
       expect(screen.getByLabelText(val.text)).toHaveValue("");
     });
 
-    userEvent.click(screen.getByRole("button", { name: "Search" }));
+    await userEvent.click(screen.getByRole("button", { name: "Search" }));
     expect(mockRouter).toMatchObject({});
     expect(screen.getByText(errorMessagesText.emptySearch)).toBeInTheDocument();
   });
 
-  test("Deleting search clears it from state", () => {
+  test("Deleting search clears it from state", async () => {
     render(<AdvancedSearch languages={defaultLanguages} />);
 
     fireEvent.change(screen.getByLabelText("Keyword"), {
@@ -246,11 +248,10 @@ describe("Advanced Search clear", () => {
       "Keyword"
     ) as HTMLInputElement;
     expect(keywordInput).toHaveValue("cat");
-    keywordInput.setSelectionRange(0, 3);
-    userEvent.type(keywordInput, "{backspace}");
+    await userEvent.clear(keywordInput);
     expect(screen.getByLabelText("Keyword")).toHaveValue("");
 
-    userEvent.click(screen.getByRole("button", { name: "Search" }));
+    await userEvent.click(screen.getByRole("button", { name: "Search" }));
     expect(mockRouter).toMatchObject({});
     expect(screen.getByText(errorMessagesText.emptySearch)).toBeInTheDocument();
   });

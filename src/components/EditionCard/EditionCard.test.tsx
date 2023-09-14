@@ -1,6 +1,5 @@
 import React from "react";
 import { EditionCard } from "./EditionCard";
-import "@testing-library/jest-dom/extend-expect";
 import { screen, render } from "@testing-library/react";
 import { PLACEHOLDER_COVER_LINK } from "~/src/constants/editioncard";
 import {
