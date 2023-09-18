@@ -328,7 +328,7 @@ const SearchResults: React.FC<{
 
   return (
     <DrbTemplate
-      breadcrumbsDataProps={[
+      breadcrumbsData={[
         {
           url: `/search`,
           text: "Search Results",

@@ -184,7 +184,7 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
 
   return (
     <DrbTemplate
-      breadcrumbsDataProps={[
+      breadcrumbsData={[
         {
           url: `/work/${edition.work_uuid}`,
           text: truncateStringOnWhitespace(edition.title, MAX_TITLE_LENGTH),

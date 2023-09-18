@@ -100,7 +100,7 @@ const contentPrimaryElement = (
 const About: React.FC = () => {
   return (
     <DrbTemplate
-      breadcrumbsDataProps={[{ url: "/about", text: "About" }]}
+      breadcrumbsData={[{ url: "/about", text: "About" }]}
       contentPrimary={contentPrimaryElement}
     />
   );

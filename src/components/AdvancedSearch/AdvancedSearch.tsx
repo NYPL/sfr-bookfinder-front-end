@@ -299,9 +299,10 @@ const AdvancedSearch: React.FC<{
       </Form>
     </>
   );
+
   return (
     <DrbTemplate
-      breadcrumbsDataProps={[
+      breadcrumbsData={[
         { url: "/advanced-search", text: breadcrumbTitles.advancedSearch },
       ]}
       contentPrimary={contentPrimaryElement}

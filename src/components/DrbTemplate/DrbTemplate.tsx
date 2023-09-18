@@ -13,7 +13,7 @@ import React from "react";
 import { defaultBreadcrumbs } from "~/src/constants/labels";
 
 type DrbTemplateProps = {
-  breadcrumbsDataProps?: BreadcrumbsDataProps[];
+  breadcrumbsData?: BreadcrumbsDataProps[];
   contentPrimary?: React.ReactElement;
   contentSidebar?: React.ReactElement;
   contentTop?: React.ReactElement;
@@ -23,7 +23,7 @@ type DrbTemplateProps = {
 
 export const DrbTemplate: React.FC<DrbTemplateProps> = (props) => {
   const {
-    breadcrumbsDataProps,
+    breadcrumbsData,
     contentPrimary,
     contentSidebar,
     contentTop,
@@ -31,8 +31,8 @@ export const DrbTemplate: React.FC<DrbTemplateProps> = (props) => {
     sidebarSide,
   } = props;
 
-  const breadcrumbsData = breadcrumbsDataProps
-    ? [...defaultBreadcrumbs, ...breadcrumbsDataProps]
+  const breadcrumbsDataAll = breadcrumbsData
+    ? [...defaultBreadcrumbs, ...breadcrumbsData]
     : defaultBreadcrumbs;
 
   return (
@@ -40,7 +40,7 @@ export const DrbTemplate: React.FC<DrbTemplateProps> = (props) => {
       <TemplateBreakout>
         <Breadcrumbs
           breadcrumbsType="research"
-          breadcrumbsData={breadcrumbsData}
+          breadcrumbsData={breadcrumbsDataAll}
         />
         {header && <TemplateHeader>{header}</TemplateHeader>}
       </TemplateBreakout>

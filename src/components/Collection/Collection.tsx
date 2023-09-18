@@ -177,7 +177,7 @@ const Collection: React.FC<{
 
   return (
     <DrbTemplate
-      breadcrumbsDataProps={[
+      breadcrumbsData={[
         {
           url: `/collection/${collectionId}`,
           text: truncateStringOnWhitespace(title, MAX_TITLE_LENGTH),

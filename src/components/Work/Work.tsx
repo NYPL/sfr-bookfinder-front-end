@@ -182,7 +182,7 @@ const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
 
   return (
     <DrbTemplate
-      breadcrumbsDataProps={[
+      breadcrumbsData={[
         {
           url: `/work/${work.uuid}`,
           text: truncateStringOnWhitespace(work.title, MAX_TITLE_LENGTH),

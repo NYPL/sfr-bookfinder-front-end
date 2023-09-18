@@ -156,7 +156,7 @@ const contentPrimaryElement = (
 const License: React.FC = () => {
   return (
     <DrbTemplate
-      breadcrumbsDataProps={[{ url: "/license", text: "License" }]}
+      breadcrumbsData={[{ url: "/license", text: "License" }]}
       contentPrimary={contentPrimaryElement}
     />
   );
