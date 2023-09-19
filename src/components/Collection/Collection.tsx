@@ -26,7 +26,13 @@ import { useRouter } from "next/router";
 import Loading from "~/src/components/Loading/Loading";
 import DrbHero from "../DrbHero/DrbHero";
 import { CollectionItem } from "./CollectionItem";
-import DrbTemplate from "../DrbTemplate/DrbTemplate";
+import DrbTemplate, {
+  DrbBreakout,
+  DrbContent,
+  DrbContentPrimary,
+  DrbContentTop,
+  DrbHeader,
+} from "../DrbTemplate/DrbTemplate";
 
 const Collection: React.FC<{
   collectionQuery: CollectionQuery;
@@ -120,73 +126,72 @@ const Collection: React.FC<{
     setCollectionQuery(newCollectionQuery);
     sendCollectionQuery(newCollectionQuery);
   };
-
-  const headerElement = <DrbHero />;
-
-  const contentTopElement = (
-    <>
-      <Heading size="primary" marginBottom="xl">
-        {`Collection - ${title}`}
-      </Heading>
-      <Heading size="secondary" marginBottom="l">
-        About this collection
-      </Heading>
-      <Box>{description}</Box>
-    </>
-  );
-
-  const contentPrimaryElement = (
-    <>
-      <HorizontalRule bg="section.research.primary" marginBottom="xl" />
-      <Heading size="secondary">In this collection</Heading>
-      <Flex justify="space-between" marginBottom="xl" align="center">
-        <Heading level="two" size="tertiary" noSpace>
-          {totalItems > 0
-            ? `Viewing ${firstElement.toLocaleString()} - ${
-                totalItems < lastElement
-                  ? totalItems.toLocaleString()
-                  : lastElement.toLocaleString()
-              } of ${totalItems.toLocaleString()} items`
-            : "Viewing 0 items"}
-        </Heading>
-        <Form id="results-sorts-form">
-          <ResultsSorts
-            perPage={currentCollectionQuery.perPage}
-            sort={getSortValue()}
-            sortMap={collectionSortMap}
-            onChangePerPage={(e) => onChangePerPage(e)}
-            onChangeSort={(e) => onChangeSort(e)}
-          />
-        </Form>
-      </Flex>
-      <SimpleGrid columns={1} gap="l">
-        {publications.map((pub, c) => {
-          return (
-            <CollectionItem publication={pub} key={`collection-item-${c}`} />
-          );
-        })}
-      </SimpleGrid>
-      <Pagination
-        pageCount={pageCount}
-        initialPage={currentPage}
-        onPageChange={(e) => onPageChange(e)}
-        __css={{ paddingTop: "m" }}
-      />
-    </>
-  );
-
   return (
-    <DrbTemplate
-      breadcrumbsData={[
-        {
-          url: `/collection/${collectionId}`,
-          text: truncateStringOnWhitespace(title, MAX_TITLE_LENGTH),
-        },
-      ]}
-      contentPrimary={contentPrimaryElement}
-      contentTop={contentTopElement}
-      header={headerElement}
-    />
+    <DrbTemplate>
+      <DrbBreakout
+        breadcrumbsData={[
+          {
+            url: `/collection/${collectionId}`,
+            text: truncateStringOnWhitespace(title, MAX_TITLE_LENGTH),
+          },
+        ]}
+      >
+        <DrbHeader>
+          <DrbHero />
+        </DrbHeader>
+      </DrbBreakout>
+      <DrbContent>
+        <DrbContentTop>
+          <Heading size="primary" marginBottom="xl">
+            {`Collection - ${title}`}
+          </Heading>
+          <Heading size="secondary" marginBottom="l">
+            About this collection
+          </Heading>
+          <Box>{description}</Box>
+        </DrbContentTop>
+        <DrbContentPrimary>
+          <HorizontalRule bg="section.research.primary" marginBottom="xl" />
+          <Heading size="secondary">In this collection</Heading>
+          <Flex justify="space-between" marginBottom="xl" align="center">
+            <Heading level="two" size="tertiary" noSpace>
+              {totalItems > 0
+                ? `Viewing ${firstElement.toLocaleString()} - ${
+                    totalItems < lastElement
+                      ? totalItems.toLocaleString()
+                      : lastElement.toLocaleString()
+                  } of ${totalItems.toLocaleString()} items`
+                : "Viewing 0 items"}
+            </Heading>
+            <Form id="results-sorts-form">
+              <ResultsSorts
+                perPage={currentCollectionQuery.perPage}
+                sort={getSortValue()}
+                sortMap={collectionSortMap}
+                onChangePerPage={(e) => onChangePerPage(e)}
+                onChangeSort={(e) => onChangeSort(e)}
+              />
+            </Form>
+          </Flex>
+          <SimpleGrid columns={1} gap="l">
+            {publications.map((pub, c) => {
+              return (
+                <CollectionItem
+                  publication={pub}
+                  key={`collection-item-${c}`}
+                />
+              );
+            })}
+          </SimpleGrid>
+          <Pagination
+            pageCount={pageCount}
+            initialPage={currentPage}
+            onPageChange={(e) => onPageChange(e)}
+            __css={{ paddingTop: "m" }}
+          />
+        </DrbContentPrimary>
+      </DrbContent>
+    </DrbTemplate>
   );
 };
 

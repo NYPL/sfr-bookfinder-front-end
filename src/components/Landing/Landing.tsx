@@ -10,7 +10,12 @@ import SearchForm from "~/src/components/SearchForm/SearchForm";
 import CollectionList from "../CollectionList/CollectionList";
 import { Opds2Feed } from "~/src/types/OpdsModel";
 import DrbHero from "../DrbHero/DrbHero";
-import DrbTemplate from "../DrbTemplate/DrbTemplate";
+import DrbTemplate, {
+  DrbBreakout,
+  DrbContent,
+  DrbContentPrimary,
+  DrbHeader,
+} from "../DrbTemplate/DrbTemplate";
 
 const LandingPage: React.FC<{ collections?: Opds2Feed }> = ({
   collections,
@@ -61,36 +66,34 @@ const LandingPage: React.FC<{ collections?: Opds2Feed }> = ({
       "https://drb-files-qa.s3.amazonaws.com/hero/heroMobile.jpg";
   }
 
-  const headerElement = (
-    <>
-      <DrbHero />
-      <Hero
-        backgroundColor="#E9E9E9"
-        backgroundImageSrc={backgroundImageSrc}
-        foregroundColor="black"
-        heroType="primary"
-        heading={
-          <Heading level="one" id="primary-hero">
-            Search the World's Research Collections
-          </Heading>
-        }
-        subHeaderText={subHeader}
-      />
-    </>
-  );
-
-  const contentPrimaryElement = (
-    <Box marginLeft="l" marginRight="l">
-      <Heading level="two">Recently Added Collections</Heading>
-      <CollectionList collections={collections} />
-    </Box>
-  );
-
   return (
-    <DrbTemplate
-      contentPrimary={contentPrimaryElement}
-      header={headerElement}
-    />
+    <DrbTemplate>
+      <DrbBreakout>
+        <DrbHeader>
+          <DrbHero />
+          <Hero
+            backgroundColor="#E9E9E9"
+            backgroundImageSrc={backgroundImageSrc}
+            foregroundColor="black"
+            heroType="primary"
+            heading={
+              <Heading level="one" id="primary-hero">
+                Search the World's Research Collections
+              </Heading>
+            }
+            subHeaderText={subHeader}
+          />
+        </DrbHeader>
+      </DrbBreakout>
+      <DrbContent>
+        <DrbContentPrimary>
+          <Box marginLeft="l" marginRight="l">
+            <Heading level="two">Recently Added Collections</Heading>
+            <CollectionList collections={collections} />
+          </Box>
+        </DrbContentPrimary>
+      </DrbContent>
+    </DrbTemplate>
   );
 };
 

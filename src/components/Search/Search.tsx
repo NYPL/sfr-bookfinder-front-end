@@ -30,7 +30,14 @@ import useFeatureFlags from "~/src/context/FeatureFlagContext";
 import TotalWorks from "../TotalWorks/TotalWorks";
 import filterFields from "~/src/constants/filters";
 import { findFiltersForField } from "~/src/util/SearchQueryUtils";
-import DrbTemplate from "../DrbTemplate/DrbTemplate";
+import DrbTemplate, {
+  DrbBreakout,
+  DrbContent,
+  DrbContentPrimary,
+  DrbContentSidebar,
+  DrbContentTop,
+  DrbHeader,
+} from "../DrbTemplate/DrbTemplate";
 
 const SearchResults: React.FC<{
   searchQuery: SearchQuery;
@@ -170,176 +177,168 @@ const SearchResults: React.FC<{
     sendSearchQuery(newSearchQuery);
   };
 
-  const headerElement = <SearchHeader searchQuery={searchQuery}></SearchHeader>;
-
-  const contentTopElement = (
-    <>
-      {isFlagActive("totalCount") && (
-        <Box float="right">
-          <TotalWorks totalWorks={numberOfWorks} />
-        </Box>
-      )}
-      <Box className="search-heading">
-        <Box role="alert">
-          <Heading level="one" id="page-title-heading">
-            <>Search results for {getDisplayItemsHeading(searchQuery)}</>
-          </Heading>
-        </Box>
-      </Box>
-      <HorizontalRule bg="section.research.primary" />
-      <Flex justify="space-between" align="center">
-        <Heading
-          level="two"
-          id="page-counter"
-          className="page-counter"
-          __css={{ m: "0" }}
-        >
-          {numberOfWorks > 0
-            ? `Viewing ${firstElement.toLocaleString()} - ${
-                numberOfWorks < lastElement
-                  ? numberOfWorks.toLocaleString()
-                  : lastElement.toLocaleString()
-              } of ${numberOfWorks.toLocaleString()} items`
-            : "Viewing 0 items"}
-        </Heading>
-        <Form id="results-sorts-form" display={["none", "none", "block"]}>
-          <ResultsSorts
-            perPage={searchQuery.perPage}
-            sort={searchQuery.sort}
-            sortMap={sortMap}
-            onChangePerPage={(e) => onChangePerPage(e)}
-            onChangeSort={(e) => onChangeSort(e)}
-          />
-        </Form>
-      </Flex>
-    </>
-  );
-
-  const contentSidebarElement = (
-    <>
-      {!isLargerThanMedium && (
-        <Button
-          id="filter-button"
-          onClick={onOpen}
-          buttonType="primary"
-          sx={{
-            width: "100%",
-          }}
-        >
-          {`Filters (${filterCount})`}
-        </Button>
-      )}
-      <Modal
-        bodyContent={
-          <>
-            <Button buttonType="link" onClick={onClose} id="modal-button">
-              <Flex align="center">
-                <Icon
-                  decorative={true}
-                  name="arrow"
-                  size="medium"
-                  iconRotation="rotate90"
-                />
-                Go Back
-              </Flex>
-            </Button>
-            <Box>
+  return (
+    <DrbTemplate>
+      <DrbBreakout
+        breadcrumbsData={[
+          {
+            url: `/search`,
+            text: "Search Results",
+          },
+        ]}
+      >
+        <DrbHeader>
+          <SearchHeader searchQuery={searchQuery}></SearchHeader>
+        </DrbHeader>
+      </DrbBreakout>
+      <DrbContent sidebar="left">
+        <DrbContentTop>
+          {isFlagActive("totalCount") && (
+            <Box float="right">
+              <TotalWorks totalWorks={numberOfWorks} />
+            </Box>
+          )}
+          <Box className="search-heading">
+            <Box role="alert">
+              <Heading level="one" id="page-title-heading">
+                <>Search results for {getDisplayItemsHeading(searchQuery)}</>
+              </Heading>
+            </Box>
+          </Box>
+          <HorizontalRule bg="section.research.primary" />
+          <Flex justify="space-between" align="center">
+            <Heading
+              level="two"
+              id="page-counter"
+              className="page-counter"
+              __css={{ m: "0" }}
+            >
+              {numberOfWorks > 0
+                ? `Viewing ${firstElement.toLocaleString()} - ${
+                    numberOfWorks < lastElement
+                      ? numberOfWorks.toLocaleString()
+                      : lastElement.toLocaleString()
+                  } of ${numberOfWorks.toLocaleString()} items`
+                : "Viewing 0 items"}
+            </Heading>
+            <Form id="results-sorts-form" display={["none", "none", "block"]}>
               <ResultsSorts
-                isModal={true}
                 perPage={searchQuery.perPage}
                 sort={searchQuery.sort}
                 sortMap={sortMap}
                 onChangePerPage={(e) => onChangePerPage(e)}
                 onChangeSort={(e) => onChangeSort(e)}
               />
-            </Box>
-            <form name="filterForm">
-              <Heading level="two" id="filter-desktop-header">
-                Refine Results
-              </Heading>
-              <Filters
-                filters={searchQuery.filters}
-                showAll={searchQuery.showAll}
-                languages={getAvailableLanguages(searchResults)}
-                isModal={true}
-                changeFilters={(filters: Filter[]) => {
-                  changeFilters(filters);
-                }}
-                changeShowAll={(showAll: boolean) => {
-                  changeShowAll(showAll);
-                }}
-              />
-            </form>
-          </>
-        }
-      />
-      {searchQuery.filters.length > 0 && !isLargerThanMedium && (
-        <Button
-          id="clear-filters-button"
-          buttonType="secondary"
-          type="reset"
-          onClick={() => {
-            changeFilters([]);
-          }}
-          sx={{
-            marginTop: "var(--nypl-space-s)",
-            width: "100%",
-          }}
-        >
-          Clear Filters
-        </Button>
-      )}
-      <Form
-        id="search-filter-form"
-        bg="ui.gray.x-light-cool"
-        p="xs"
-        gap="grid.xs"
-        display={["none", "none", "block"]}
-      >
-        <Heading level="two" id="filter-desktop-header" __css={{ m: "0" }}>
-          Refine Results
-        </Heading>
-        <Filters
-          filters={searchQuery.filters}
-          showAll={searchQuery.showAll}
-          languages={getAvailableLanguages(searchResults)}
-          changeFilters={(filters: Filter[]) => {
-            changeFilters(filters);
-          }}
-          changeShowAll={(showAll: boolean) => {
-            changeShowAll(showAll);
-          }}
-        />
-      </Form>
-    </>
-  );
-
-  const contentPrimaryElement = (
-    <>
-      <ResultsList works={works} />
-      <Pagination
-        pageCount={searchPaging.lastPage ? searchPaging.lastPage : 1}
-        initialPage={searchPaging.currentPage}
-        onPageChange={(e) => onPageChange(e)}
-        __css={{ paddingTop: "m" }}
-      />
-    </>
-  );
-
-  return (
-    <DrbTemplate
-      breadcrumbsData={[
-        {
-          url: `/search`,
-          text: "Search Results",
-        },
-      ]}
-      contentPrimary={contentPrimaryElement}
-      contentSidebar={contentSidebarElement}
-      contentTop={contentTopElement}
-      header={headerElement}
-      sidebarSide="left"
-    />
+            </Form>
+          </Flex>
+        </DrbContentTop>
+        <DrbContentSidebar>
+          {!isLargerThanMedium && (
+            <Button
+              id="filter-button"
+              onClick={onOpen}
+              buttonType="primary"
+              sx={{
+                width: "100%",
+              }}
+            >
+              {`Filters (${filterCount})`}
+            </Button>
+          )}
+          <Modal
+            bodyContent={
+              <>
+                <Button buttonType="link" onClick={onClose} id="modal-button">
+                  <Flex align="center">
+                    <Icon
+                      decorative={true}
+                      name="arrow"
+                      size="medium"
+                      iconRotation="rotate90"
+                    />
+                    Go Back
+                  </Flex>
+                </Button>
+                <Box>
+                  <ResultsSorts
+                    isModal={true}
+                    perPage={searchQuery.perPage}
+                    sort={searchQuery.sort}
+                    sortMap={sortMap}
+                    onChangePerPage={(e) => onChangePerPage(e)}
+                    onChangeSort={(e) => onChangeSort(e)}
+                  />
+                </Box>
+                <form name="filterForm">
+                  <Heading level="two" id="filter-desktop-header">
+                    Refine Results
+                  </Heading>
+                  <Filters
+                    filters={searchQuery.filters}
+                    showAll={searchQuery.showAll}
+                    languages={getAvailableLanguages(searchResults)}
+                    isModal={true}
+                    changeFilters={(filters: Filter[]) => {
+                      changeFilters(filters);
+                    }}
+                    changeShowAll={(showAll: boolean) => {
+                      changeShowAll(showAll);
+                    }}
+                  />
+                </form>
+              </>
+            }
+          />
+          {searchQuery.filters.length > 0 && !isLargerThanMedium && (
+            <Button
+              id="clear-filters-button"
+              buttonType="secondary"
+              type="reset"
+              onClick={() => {
+                changeFilters([]);
+              }}
+              sx={{
+                marginTop: "var(--nypl-space-s)",
+                width: "100%",
+              }}
+            >
+              Clear Filters
+            </Button>
+          )}
+          <Form
+            id="search-filter-form"
+            bg="ui.gray.x-light-cool"
+            p="xs"
+            gap="grid.xs"
+            display={["none", "none", "block"]}
+          >
+            <Heading level="two" id="filter-desktop-header" __css={{ m: "0" }}>
+              Refine Results
+            </Heading>
+            <Filters
+              filters={searchQuery.filters}
+              showAll={searchQuery.showAll}
+              languages={getAvailableLanguages(searchResults)}
+              changeFilters={(filters: Filter[]) => {
+                changeFilters(filters);
+              }}
+              changeShowAll={(showAll: boolean) => {
+                changeShowAll(showAll);
+              }}
+            />
+          </Form>
+        </DrbContentSidebar>
+        <DrbContentPrimary>
+          <ResultsList works={works} />
+          <Pagination
+            pageCount={searchPaging.lastPage ? searchPaging.lastPage : 1}
+            initialPage={searchPaging.currentPage}
+            onPageChange={(e) => onPageChange(e)}
+            __css={{ paddingTop: "m" }}
+          />
+        </DrbContentPrimary>
+      </DrbContent>
+    </DrbTemplate>
   );
 };
 

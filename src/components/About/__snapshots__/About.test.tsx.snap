@@ -142,15 +142,15 @@ exports[`renders about unchanged 1`] = `
         >
           public domain
         </a>
-        , with no restrictions on your use of them, or under 
+        , with no restrictions on your use of them, or under
+         
         <a
           class="css-qsaw8"
           href="/license"
         >
           Creative Commons licences
         </a>
-         
-        that may have some conditions, but only on redistribution or adaptation.
+         that may have some conditions, but only on redistribution or adaptation.
       </p>
       <p>
         In addition to collecting these digital editions, we group all the editions of the same title together as a single “work.” For instance there are many editions of
@@ -170,7 +170,8 @@ exports[`renders about unchanged 1`] = `
         Sources and Data
       </h2>
       <p>
-        The material in Digital Research Books Beta are drawn from several public sources, mainly 
+        The material in Digital Research Books Beta are drawn from several public sources, mainly
+         
         <a
           class="css-qsaw8"
           href="https://www.hathitrust.org/"
