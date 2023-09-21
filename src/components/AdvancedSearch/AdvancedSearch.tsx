@@ -8,7 +8,6 @@ import {
 } from "~/src/util/SearchQueryUtils";
 import {
   errorMessagesText,
-  defaultBreadcrumbs,
   breadcrumbTitles,
   inputTermRows,
 } from "~/src/constants/labels";
@@ -20,7 +19,6 @@ import {
 } from "~/src/types/SearchQuery";
 
 import {
-  Breadcrumbs,
   Button,
   ButtonGroup,
   Checkbox,
@@ -29,12 +27,6 @@ import {
   FormRow,
   Heading,
   HelperErrorText,
-  Template,
-  TemplateBreakout,
-  TemplateContent,
-  TemplateContentPrimary,
-  TemplateContentTop,
-  TemplateFooter,
   TextInput,
 } from "@nypl/design-system-react-components";
 import LanguageAccordion from "../LanguageAccordion/LanguageAccordion";
@@ -44,6 +36,12 @@ import { toLocationQuery, toApiQuery } from "~/src/util/apiConversion";
 import filterFields from "~/src/constants/filters";
 import { ApiLanguageResponse } from "~/src/types/LanguagesQuery";
 import { trackCtaClick } from "~/src/lib/Analytics";
+import DrbTemplate, {
+  DrbBreakout,
+  DrbContent,
+  DrbContentPrimary,
+  DrbContentTop,
+} from "../DrbTemplate/DrbTemplate";
 
 const AdvancedSearch: React.FC<{
   languages: ApiLanguageResponse;
@@ -198,20 +196,15 @@ const AdvancedSearch: React.FC<{
       setGovDocFilter({ field: filterFields.govDoc, value: "all" });
     }
   };
-
   return (
-    <Template>
-      <TemplateBreakout>
-        <Breadcrumbs
-          breadcrumbsType="research"
-          breadcrumbsData={[
-            ...defaultBreadcrumbs,
-            { url: "/advanced-search", text: breadcrumbTitles.advancedSearch },
-          ]}
-        />
-      </TemplateBreakout>
-      <TemplateContent>
-        <TemplateContentTop>
+    <DrbTemplate>
+      <DrbBreakout
+        breadcrumbsData={[
+          { url: "/advanced-search", text: breadcrumbTitles.advancedSearch },
+        ]}
+      />
+      <DrbContent>
+        <DrbContentTop>
           <Heading level="one">Advanced Search</Heading>
           {emptySearchError && (
             <HelperErrorText text={errorMessagesText.emptySearch} isInvalid />
@@ -219,9 +212,8 @@ const AdvancedSearch: React.FC<{
           {dateRangeError && (
             <HelperErrorText text={errorMessagesText.invalidDate} isInvalid />
           )}
-        </TemplateContentTop>
-
-        <TemplateContentPrimary>
+        </DrbContentTop>
+        <DrbContentPrimary>
           <Form action="/search" method="get" id="search-form">
             {/* Search Terms */}
             {inputTermRows.map(
@@ -317,10 +309,9 @@ const AdvancedSearch: React.FC<{
               </ButtonGroup>
             </FormField>
           </Form>
-        </TemplateContentPrimary>
-      </TemplateContent>
-      <TemplateFooter />
-    </Template>
+        </DrbContentPrimary>
+      </DrbContent>
+    </DrbTemplate>
   );
 };
 

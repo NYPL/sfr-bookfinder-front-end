@@ -1,14 +1,7 @@
 import React, { useState } from "react";
 import {
-  Breadcrumbs,
   Heading,
   Pagination,
-  Template,
-  TemplateBreakout,
-  TemplateContent,
-  TemplateContentTop,
-  TemplateContentPrimary,
-  TemplateContentSidebar,
   Button,
   Icon,
   Box,
@@ -16,7 +9,6 @@ import {
   Flex,
   Form,
   useModal,
-  TemplateFooter,
   useNYPLBreakpoints,
 } from "@nypl/design-system-react-components";
 import { useRouter } from "next/router";
@@ -32,13 +24,20 @@ import ResultsList from "../ResultsList/ResultsList";
 import { toLocationQuery, toApiQuery } from "~/src/util/apiConversion";
 import Filters from "../ResultsFilters/ResultsFilters";
 import ResultsSorts from "../ResultsSorts/ResultsSorts";
-import { defaultBreadcrumbs } from "~/src/constants/labels";
 import SearchHeader from "../SearchHeader/SearchHeader";
 import { ApiWork } from "~/src/types/WorkQuery";
 import useFeatureFlags from "~/src/context/FeatureFlagContext";
 import TotalWorks from "../TotalWorks/TotalWorks";
 import filterFields from "~/src/constants/filters";
 import { findFiltersForField } from "~/src/util/SearchQueryUtils";
+import DrbTemplate, {
+  DrbBreakout,
+  DrbContent,
+  DrbContentPrimary,
+  DrbContentSidebar,
+  DrbContentTop,
+  DrbHeader,
+} from "../DrbTemplate/DrbTemplate";
 
 const SearchResults: React.FC<{
   searchQuery: SearchQuery;
@@ -179,22 +178,21 @@ const SearchResults: React.FC<{
   };
 
   return (
-    <Template>
-      <TemplateBreakout>
-        <Breadcrumbs
-          breadcrumbsType="research"
-          breadcrumbsData={[
-            ...defaultBreadcrumbs,
-            {
-              url: `/search`,
-              text: "Search Results",
-            },
-          ]}
-        />
-        <SearchHeader searchQuery={searchQuery}></SearchHeader>
-      </TemplateBreakout>
-      <TemplateContent sidebar="left">
-        <TemplateContentTop>
+    <DrbTemplate>
+      <DrbBreakout
+        breadcrumbsData={[
+          {
+            url: `/search`,
+            text: "Search Results",
+          },
+        ]}
+      >
+        <DrbHeader>
+          <SearchHeader searchQuery={searchQuery}></SearchHeader>
+        </DrbHeader>
+      </DrbBreakout>
+      <DrbContent sidebar="left">
+        <DrbContentTop>
           {isFlagActive("totalCount") && (
             <Box float="right">
               <TotalWorks totalWorks={numberOfWorks} />
@@ -233,8 +231,8 @@ const SearchResults: React.FC<{
               />
             </Form>
           </Flex>
-        </TemplateContentTop>
-        <TemplateContentSidebar>
+        </DrbContentTop>
+        <DrbContentSidebar>
           {!isLargerThanMedium && (
             <Button
               id="filter-button"
@@ -329,8 +327,8 @@ const SearchResults: React.FC<{
               }}
             />
           </Form>
-        </TemplateContentSidebar>
-        <TemplateContentPrimary>
+        </DrbContentSidebar>
+        <DrbContentPrimary>
           <ResultsList works={works} />
           <Pagination
             pageCount={searchPaging.lastPage ? searchPaging.lastPage : 1}
@@ -338,10 +336,9 @@ const SearchResults: React.FC<{
             onPageChange={(e) => onPageChange(e)}
             __css={{ paddingTop: "m" }}
           />
-        </TemplateContentPrimary>
-      </TemplateContent>
-      <TemplateFooter />
-    </Template>
+        </DrbContentPrimary>
+      </DrbContent>
+    </DrbTemplate>
   );
 };
 
