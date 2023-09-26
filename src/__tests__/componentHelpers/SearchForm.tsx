@@ -1,4 +1,4 @@
-import { fireEvent, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { inputTerms } from "~/src/constants/labels";
 import { SearchQuery } from "~/src/types/SearchQuery";
@@ -39,12 +39,12 @@ export const searchFormTests = (mockRouter) => {
         name: "Select a search category",
       });
       const textInput = screen.getByRole("textbox", { name: "Item Search" });
-      fireEvent.change(categoryInput, { target: { value: "author" } });
+      await userEvent.selectOptions(categoryInput, "author");
       await userEvent.clear(textInput);
       await userEvent.type(textInput, "Tom Nook");
 
       const searchButton = screen.getByRole("button", { name: "Search" });
-      fireEvent.click(searchButton);
+      await userEvent.click(searchButton);
 
       expect(
         screen.getByRole("combobox", { name: "Select a search category" })
@@ -70,7 +70,7 @@ export const searchFormTests = (mockRouter) => {
 
       expect(textInput).toHaveValue("");
       const searchButton = screen.getByRole("button", { name: "Search" });
-      fireEvent.click(searchButton);
+      await userEvent.click(searchButton);
 
       expect(mockRouter).toMatchObject({});
       expect(

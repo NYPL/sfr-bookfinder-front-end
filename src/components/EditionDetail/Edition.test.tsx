@@ -1,6 +1,6 @@
 import React from "react";
 import Edition from "./Edition";
-import { screen, render, within, fireEvent } from "@testing-library/react";
+import { screen, render, within } from "@testing-library/react";
 import { breadcrumbTitles, inputTerms } from "~/src/constants/labels";
 import {
   editionDetail as apiEdition,
@@ -8,6 +8,7 @@ import {
 } from "../../__tests__/fixtures/EditionDetailFixture";
 
 import mockRouter from "next-router-mock";
+import userEvent from "@testing-library/user-event";
 
 jest.mock("next/router", () => require("next-router-mock"));
 
@@ -144,11 +145,11 @@ describe("All Copies Toggle", () => {
       expect(toggle).not.toBeChecked();
     });
 
-    test("clicking the edition toggle sends a new query", () => {
+    test("clicking the edition toggle sends a new query", async () => {
       const toggle = screen.getByLabelText(
         "Show only items currently available online"
       ) as HTMLInputElement;
-      fireEvent.click(toggle);
+      await userEvent.click(toggle);
 
       expect(mockRouter).toMatchObject({
         pathname: "/",
@@ -171,11 +172,11 @@ describe("All Copies Toggle", () => {
       expect(toggle).toBeChecked();
     });
 
-    test("clicking the edition toggle sends a new query", () => {
+    test("clicking the edition toggle sends a new query", async () => {
       const toggle = screen.getByLabelText(
         "Show only items currently available online"
       ) as HTMLInputElement;
-      fireEvent.click(toggle);
+      await userEvent.click(toggle);
 
       expect(mockRouter).toMatchObject({
         pathname: "/",

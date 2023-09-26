@@ -1,5 +1,5 @@
 import React from "react";
-import { fireEvent, screen, within } from "@testing-library/react";
+import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Filter } from "~/src/types/SearchQuery";
 import { MemoryRouter } from "next-router-mock";
@@ -38,7 +38,7 @@ export const FilterYearsTests = (
       const applyButton = within(yearGroup).getByRole("button", {
         name: "Apply",
       });
-      fireEvent.change(fromInput, { target: { value: 1990 } });
+      await userEvent.type(fromInput, "1990");
       expect(fromInput).toHaveValue(1990);
       await user.click(applyButton);
 
@@ -60,8 +60,8 @@ export const FilterYearsTests = (
       const applyButton = within(yearGroup).getByRole("button", {
         name: "Apply",
       });
-      fireEvent.change(toInput, { target: { value: 1990 } });
-      fireEvent.click(applyButton);
+      await userEvent.type(toInput, "1990");
+      await userEvent.click(applyButton);
 
       expect(mockRouter).toMatchObject({
         pathname: "/search",
@@ -85,8 +85,8 @@ export const FilterYearsTests = (
       const applyButton = within(yearGroup).getByRole("button", {
         name: "Apply",
       });
-      fireEvent.change(fromInput, { target: { value: 1990 } });
-      fireEvent.change(toInput, { target: { value: 2000 } });
+      await userEvent.type(fromInput, "1990");
+      await userEvent.type(toInput, "2000");
       await user.click(applyButton);
 
       expect(mockRouter).toMatchObject({
@@ -111,8 +111,8 @@ export const FilterYearsTests = (
       const applyButton = within(yearGroup).getByRole("button", {
         name: "Apply",
       });
-      fireEvent.change(fromInput, { target: { value: 1990 } });
-      fireEvent.change(toInput, { target: { value: 1890 } });
+      await userEvent.type(fromInput, "1990");
+      await userEvent.type(toInput, "1890");
       await user.click(applyButton);
 
       expect(

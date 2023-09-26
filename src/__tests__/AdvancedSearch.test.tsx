@@ -1,6 +1,6 @@
 import React from "react";
 import AdvancedSearch from "../components/AdvancedSearch/AdvancedSearch";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { FilterLanguagesCommonTests } from "./componentHelpers/FilterLanguages";
 import { FilterYearsTests } from "./componentHelpers/FilterYears";
 import { FilterFormatTests } from "./componentHelpers/FilterFormats";
@@ -68,29 +68,28 @@ describe("Advanced Search submit", () => {
   test("Submits well formed query", async () => {
     render(<AdvancedSearch languages={defaultLanguages} />);
 
-    const inputValues = {
-      Keyword: "cat",
-      Author: "Nook",
-      Subject: "poetry",
-      Title: "Handbook",
-    };
-
     await userEvent.click(
-      await screen.findByRole("checkbox", { name: "english" })
+      screen.getByRole("checkbox", {
+        name: "english",
+      })
     );
-    inputTerms.forEach((val) => {
-      fireEvent.change(screen.getByLabelText(val.text), {
-        target: { value: inputValues[val.text] },
-      });
-    });
-    fireEvent.change(screen.getByRole("spinbutton", { name: "From" }), {
-      target: { value: "1990" },
-    });
-    fireEvent.change(screen.getByRole("spinbutton", { name: "To" }), {
-      target: { value: "1999" },
-    });
-    await userEvent.click(screen.getByRole("checkbox", { name: "Readable" }));
-
+    await userEvent.type(screen.getByLabelText("Keyword"), "cat");
+    await userEvent.type(screen.getByLabelText("Author"), "Nook");
+    await userEvent.type(screen.getByLabelText("Title"), "Handbook");
+    await userEvent.type(screen.getByLabelText("Subject"), "poetry");
+    await userEvent.type(
+      screen.getByRole("spinbutton", { name: "From" }),
+      "1990"
+    );
+    await userEvent.type(
+      screen.getByRole("spinbutton", { name: "To" }),
+      "1999"
+    );
+    await userEvent.click(
+      screen.getByRole("checkbox", {
+        name: "Readable",
+      })
+    );
     await userEvent.click(screen.getByRole("button", { name: "Search" }));
 
     const expectedQuery = {
@@ -106,12 +105,11 @@ describe("Advanced Search submit", () => {
   test("Submits only year start and subject", async () => {
     render(<AdvancedSearch languages={defaultLanguages} />);
 
-    fireEvent.change(screen.getByRole("spinbutton", { name: "From" }), {
-      target: { value: "1990" },
-    });
-    fireEvent.change(screen.getByLabelText("Keyword"), {
-      target: { value: "cat" },
-    });
+    await userEvent.type(
+      screen.getByRole("spinbutton", { name: "From" }),
+      "1990"
+    );
+    await userEvent.type(screen.getByLabelText("Keyword"), "cat");
 
     await userEvent.click(screen.getByRole("button", { name: "Search" }));
 
@@ -128,12 +126,11 @@ describe("Advanced Search submit", () => {
   test("Submits only year end and author", async () => {
     render(<AdvancedSearch languages={defaultLanguages} />);
 
-    fireEvent.change(screen.getByRole("spinbutton", { name: "To" }), {
-      target: { value: "1990" },
-    });
-    fireEvent.change(screen.getByLabelText("Author"), {
-      target: { value: "Shakespeare" },
-    });
+    await userEvent.type(
+      screen.getByRole("spinbutton", { name: "To" }),
+      "1990"
+    );
+    await userEvent.type(screen.getByLabelText("Author"), "Shakespeare");
 
     await userEvent.click(screen.getByRole("button", { name: "Search" }));
 
@@ -157,15 +154,15 @@ describe("Advanced Search submit", () => {
   test("show error on invalid year", async () => {
     render(<AdvancedSearch languages={defaultLanguages} />);
 
-    fireEvent.change(screen.getByRole("spinbutton", { name: "From" }), {
-      target: { value: "1990" },
-    });
-    fireEvent.change(screen.getByRole("spinbutton", { name: "To" }), {
-      target: { value: "1880" },
-    });
-    fireEvent.change(screen.getByLabelText("Keyword"), {
-      target: { value: "cat" },
-    });
+    await userEvent.type(
+      screen.getByRole("spinbutton", { name: "From" }),
+      "1990"
+    );
+    await userEvent.type(
+      screen.getByRole("spinbutton", { name: "To" }),
+      "1880"
+    );
+    await userEvent.type(screen.getByLabelText("Keyword"), "cat");
 
     await userEvent.click(screen.getByRole("button", { name: "Search" }));
 
@@ -186,17 +183,23 @@ describe("Advanced Search clear", () => {
     };
 
     await userEvent.click(screen.getByRole("checkbox", { name: "english" }));
-    inputTerms.forEach((val) => {
-      fireEvent.change(screen.getByLabelText(val.text), {
-        target: { value: inputValues[val.text] },
-      });
+    inputTerms.forEach(async (val) => {
+      await userEvent.type(
+        screen.getByLabelText(val.text),
+        inputValues[val.text]
+      );
     });
-    fireEvent.change(screen.getByRole("spinbutton", { name: "From" }), {
-      target: { value: "1990" },
-    });
-    fireEvent.change(screen.getByRole("spinbutton", { name: "To" }), {
-      target: { value: "1999" },
-    });
+    await userEvent.clear(
+      await screen.findByRole("spinbutton", { name: "From" })
+    );
+    await userEvent.type(
+      await screen.findByRole("spinbutton", { name: "From" }),
+      "1990"
+    );
+    await userEvent.type(
+      screen.getByRole("spinbutton", { name: "To" }),
+      "1999"
+    );
     await userEvent.click(screen.getByRole("checkbox", { name: "Readable" }));
     await userEvent.click(
       screen.getByRole("checkbox", {
@@ -212,13 +215,13 @@ describe("Advanced Search clear", () => {
       screen.getByLabelText("Show only US government documents")
     ).toBeChecked();
 
-    inputTerms.forEach((val) => {
-      expect(screen.getByLabelText(val.text)).toHaveValue(
+    inputTerms.forEach(async (val) => {
+      expect(await screen.findByRole(val.text)).toHaveValue(
         inputValues[val.text]
       );
     });
 
-    fireEvent.click(screen.getByRole("button", { name: "Clear" }));
+    await userEvent.click(screen.getByRole("button", { name: "Clear" }));
 
     expect(screen.getByLabelText("english")).not.toBeChecked();
     expect(screen.getByLabelText("Readable")).not.toBeChecked();
@@ -240,9 +243,7 @@ describe("Advanced Search clear", () => {
   test("Deleting search clears it from state", async () => {
     render(<AdvancedSearch languages={defaultLanguages} />);
 
-    fireEvent.change(screen.getByLabelText("Keyword"), {
-      target: { value: "cat" },
-    });
+    await userEvent.type(screen.getByLabelText("Keyword"), "cat");
 
     const keywordInput: HTMLInputElement = screen.getByLabelText(
       "Keyword"

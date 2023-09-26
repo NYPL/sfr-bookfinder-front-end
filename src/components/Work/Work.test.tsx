@@ -1,6 +1,6 @@
 import React from "react";
 import Work from "./Work";
-import { screen, render, within, fireEvent } from "@testing-library/react";
+import { screen, render, within } from "@testing-library/react";
 import { breadcrumbTitles, inputTerms } from "~/src/constants/labels";
 import {
   workDetail as apiWork,
@@ -8,6 +8,7 @@ import {
   workDetailInCollection,
 } from "../../__tests__/fixtures/WorkDetailFixture";
 import mockRouter from "next-router-mock";
+import userEvent from "@testing-library/user-event";
 
 jest.mock("next/router", () => require("next-router-mock"));
 
@@ -105,11 +106,11 @@ describe("Edition Cards and toggles", () => {
       expect(toggle).not.toBeChecked();
     });
 
-    test("clicking the edition toggle sends a new query", () => {
+    test("clicking the edition toggle sends a new query", async () => {
       const toggle = screen.getByLabelText(
         "Show only items currently available online"
       ) as HTMLInputElement;
-      fireEvent.click(toggle);
+      await userEvent.click(toggle);
 
       expect(mockRouter).toMatchObject({
         pathname: "/",
@@ -132,11 +133,11 @@ describe("Edition Cards and toggles", () => {
       expect(toggle).not.toBeChecked();
     });
 
-    test("clicking the edition toggle sends a new query", () => {
+    test("clicking the edition toggle sends a new query", async () => {
       const toggle = screen.getByLabelText(
         "Show only items currently available online"
       ) as HTMLInputElement;
-      fireEvent.click(toggle);
+      await userEvent.click(toggle);
 
       expect(mockRouter).toMatchObject({
         pathname: "/",
@@ -159,11 +160,11 @@ describe("Edition Cards and toggles", () => {
       expect(toggle).toBeChecked();
     });
 
-    test("clicking the edition toggle sends a new query", () => {
+    test("clicking the edition toggle sends a new query", async () => {
       const toggle = screen.getByLabelText(
         "Show only items currently available online"
       ) as HTMLInputElement;
-      fireEvent.click(toggle);
+      await userEvent.click(toggle);
 
       expect(mockRouter).toMatchObject({
         pathname: "/",
