@@ -1,26 +1,18 @@
 import React, { useState } from "react";
 import {
   Box,
-  Breadcrumbs,
   Flex,
   Form,
   Heading,
   HorizontalRule,
   Pagination,
   SimpleGrid,
-  Template,
-  TemplateBreakout,
-  TemplateContent,
-  TemplateContentPrimary,
-  TemplateContentTop,
-  TemplateFooter,
 } from "@nypl/design-system-react-components";
 import { collectionSortMap } from "~/src/constants/sorts";
 import {
   toApiCollectionQuery,
   toLocationQuery,
 } from "~/src/util/apiConversion";
-import { defaultBreadcrumbs } from "~/src/constants/labels";
 import { truncateStringOnWhitespace } from "~/src/util/Util";
 import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
 import {
@@ -34,6 +26,13 @@ import { useRouter } from "next/router";
 import Loading from "~/src/components/Loading/Loading";
 import DrbHero from "../DrbHero/DrbHero";
 import { CollectionItem } from "./CollectionItem";
+import DrbTemplate, {
+  DrbBreakout,
+  DrbContent,
+  DrbContentPrimary,
+  DrbContentTop,
+  DrbHeader,
+} from "../DrbTemplate/DrbTemplate";
 
 const Collection: React.FC<{
   collectionQuery: CollectionQuery;
@@ -127,25 +126,22 @@ const Collection: React.FC<{
     setCollectionQuery(newCollectionQuery);
     sendCollectionQuery(newCollectionQuery);
   };
-
   return (
-    <Template>
-      <TemplateBreakout>
-        <Breadcrumbs
-          breadcrumbsType="research"
-          breadcrumbsData={[
-            ...defaultBreadcrumbs,
-            {
-              url: `/collection/${collectionId}`,
-              text: truncateStringOnWhitespace(title, MAX_TITLE_LENGTH),
-            },
-          ]}
-        />
-        <DrbHero />
-      </TemplateBreakout>
-
-      <TemplateContent>
-        <TemplateContentTop>
+    <DrbTemplate>
+      <DrbBreakout
+        breadcrumbsData={[
+          {
+            url: `/collection/${collectionId}`,
+            text: truncateStringOnWhitespace(title, MAX_TITLE_LENGTH),
+          },
+        ]}
+      >
+        <DrbHeader>
+          <DrbHero />
+        </DrbHeader>
+      </DrbBreakout>
+      <DrbContent>
+        <DrbContentTop>
           <Heading size="primary" marginBottom="xl">
             {`Collection - ${title}`}
           </Heading>
@@ -153,8 +149,8 @@ const Collection: React.FC<{
             About this collection
           </Heading>
           <Box>{description}</Box>
-        </TemplateContentTop>
-        <TemplateContentPrimary>
+        </DrbContentTop>
+        <DrbContentPrimary>
           <HorizontalRule bg="section.research.primary" marginBottom="xl" />
           <Heading size="secondary">In this collection</Heading>
           <Flex justify="space-between" marginBottom="xl" align="center">
@@ -193,10 +189,9 @@ const Collection: React.FC<{
             onPageChange={(e) => onPageChange(e)}
             __css={{ paddingTop: "m" }}
           />
-        </TemplateContentPrimary>
-      </TemplateContent>
-      <TemplateFooter />
-    </Template>
+        </DrbContentPrimary>
+      </DrbContent>
+    </DrbTemplate>
   );
 };
 

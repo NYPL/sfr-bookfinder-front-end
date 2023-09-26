@@ -1,30 +1,18 @@
 import React from "react";
-import {
-  Breadcrumbs,
-  Heading,
-  Template,
-  TemplateBreakout,
-  TemplateContent,
-  TemplateContentPrimary,
-  TemplateFooter,
-} from "@nypl/design-system-react-components";
-import { defaultBreadcrumbs } from "~/src/constants/labels";
+import { Heading } from "@nypl/design-system-react-components";
 import Link from "../Link/Link";
+import DrbTemplate, {
+  DrbBreakout,
+  DrbContent,
+  DrbContentPrimary,
+} from "../DrbTemplate/DrbTemplate";
 
 const About: React.FC = () => {
   return (
-    <Template>
-      <TemplateBreakout>
-        <Breadcrumbs
-          breadcrumbsType="research"
-          breadcrumbsData={[
-            ...defaultBreadcrumbs,
-            { url: "/about", text: "About" },
-          ]}
-        />
-      </TemplateBreakout>
-      <TemplateContent>
-        <TemplateContentPrimary>
+    <DrbTemplate>
+      <DrbBreakout breadcrumbsData={[{ url: "/about", text: "About" }]} />
+      <DrbContent>
+        <DrbContentPrimary>
           <Heading level="one">
             <span>
               <span className="rn-section-title__emphasis">
@@ -119,10 +107,9 @@ const About: React.FC = () => {
             think. If there are things you like or dislike, if there’s a feature
             missing, if you find an error please tell us in the feedback!
           </p>
-        </TemplateContentPrimary>
-      </TemplateContent>
-      <TemplateFooter />
-    </Template>
+        </DrbContentPrimary>
+      </DrbContent>
+    </DrbTemplate>
   );
 };
 

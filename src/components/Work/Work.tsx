@@ -1,19 +1,12 @@
 import React from "react";
 import { useRouter } from "next/router";
 import {
-  Breadcrumbs,
   Heading,
   SimpleGrid,
-  Template,
-  TemplateBreakout,
-  TemplateContent,
   Toggle,
   HorizontalRule,
   Box,
-  TemplateContentTop,
-  TemplateContentPrimary,
   Flex,
-  TemplateFooter,
   Text,
   Card,
   CardActions,
@@ -27,13 +20,19 @@ import {
 import { EditionCard } from "~/src/components/EditionCard/EditionCard";
 import WorkDetailDefinitionList from "~/src/components/WorkDetailDefinitionList/WorkDetailDefinitionList";
 import { ApiWork, WorkResult } from "~/src/types/WorkQuery";
-import { defaultBreadcrumbs } from "~/src/constants/labels";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
 import SearchHeader from "../SearchHeader/SearchHeader";
 import { WorkEdition } from "~/src/types/DataModel";
 import Link from "../Link/Link";
 import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
 import { PLACEHOLDER_LINK } from "~/src/constants/collection";
+import DrbTemplate, {
+  DrbBreakout,
+  DrbContent,
+  DrbContentPrimary,
+  DrbContentTop,
+  DrbHeader,
+} from "../DrbTemplate/DrbTemplate";
 
 const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
   props
@@ -73,23 +72,21 @@ const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
   };
 
   return (
-    <Template>
-      <TemplateBreakout>
-        <Breadcrumbs
-          breadcrumbsType="research"
-          breadcrumbsData={[
-            ...defaultBreadcrumbs,
-            {
-              url: `/work/${work.uuid}`,
-              text: truncateStringOnWhitespace(work.title, MAX_TITLE_LENGTH),
-            },
-          ]}
-        />
-        <SearchHeader />
-      </TemplateBreakout>
-
-      <TemplateContent>
-        <TemplateContentTop>
+    <DrbTemplate>
+      <DrbBreakout
+        breadcrumbsData={[
+          {
+            url: `/work/${work.uuid}`,
+            text: truncateStringOnWhitespace(work.title, MAX_TITLE_LENGTH),
+          },
+        ]}
+      >
+        <DrbHeader>
+          <SearchHeader />
+        </DrbHeader>
+      </DrbBreakout>
+      <DrbContent>
+        <DrbContentTop>
           <Box>
             <Flex direction={{ base: "column", md: "row" }}>
               <Heading level="one" id="work-title">
@@ -161,8 +158,8 @@ const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
               </CardActions>
             </Card>
           )}
-        </TemplateContentTop>
-        <TemplateContentPrimary>
+        </DrbContentTop>
+        <DrbContentPrimary>
           <WorkDetailDefinitionList work={work} />
           <HorizontalRule bg="section.research.primary" />
           <Box id="nypl-item-details">
@@ -195,10 +192,9 @@ const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
               </>
             )}
           </Box>
-        </TemplateContentPrimary>
-      </TemplateContent>
-      <TemplateFooter />
-    </Template>
+        </DrbContentPrimary>
+      </DrbContent>
+    </DrbTemplate>
   );
 };
 
