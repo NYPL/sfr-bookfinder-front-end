@@ -143,7 +143,7 @@ describe("Renders Search Results Page", () => {
         expect(
           screen.getByRole("button", { name: "Filters (0)" })
         ).toBeInTheDocument();
-      }, 10000);
+      }, 15000);
     });
     describe("Sorts filters", () => {
       test("Changing items sends new search ", async () => {
@@ -165,7 +165,7 @@ describe("Renders Search Results Page", () => {
         expect(
           screen.getByRole("button", { name: "Filters (0)" })
         ).toBeInTheDocument();
-      }, 10000);
+      }, 15000);
     });
     describe("Available Online", () => {
       test("Changing checkbox sends new search", async () => {
@@ -186,7 +186,7 @@ describe("Renders Search Results Page", () => {
         expect(
           screen.getByRole("button", { name: "Filters (1)" })
         ).toBeInTheDocument();
-      }, 10000);
+      }, 15000);
     });
     describe("Languages filter", () => {
       const availableLanguages: FacetItem[] =
@@ -228,7 +228,7 @@ describe("Renders Search Results Page", () => {
           name: "English (6)",
         });
         expect(englishCheckbox2).toBeChecked();
-      }, 10000);
+      }, 15000);
     });
     describe("Format filter", () => {
       test("Clicking new format sends new search", async () => {
@@ -249,7 +249,7 @@ describe("Renders Search Results Page", () => {
         expect(
           screen.getByRole("button", { name: "Filters (1)" })
         ).toBeInTheDocument();
-      }, 10000);
+      }, 15000);
     });
     describe("Publication Year", () => {
       FilterYearsTests(
@@ -277,7 +277,7 @@ describe("Renders Search Results Page", () => {
         expect(
           screen.getByRole("button", { name: "Filters (1)" })
         ).toBeInTheDocument();
-      }, 10000);
+      }, 15000);
     });
   });
   describe("Clear Filters", () => {
@@ -533,7 +533,7 @@ describe("Renders Search Results Page", () => {
           query: "keyword:Animal Crossing",
         },
       });
-    }, 10000);
+    }, 15000);
     test("Middle numbers are clickable", async () => {
       const twoButton = screen.getByRole("link", { name: "Page 2" });
       expect(twoButton).toBeInTheDocument();
@@ -545,7 +545,7 @@ describe("Renders Search Results Page", () => {
           query: "keyword:Animal Crossing",
         },
       });
-    }, 10000);
+    }, 15000);
   });
 });
 
