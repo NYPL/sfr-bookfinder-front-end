@@ -12,6 +12,7 @@ import {
   CardActions,
   CardContent,
   CardHeading,
+  TemplateAppContainer,
 } from "@nypl/design-system-react-components";
 import {
   joinArrayOfElements,
@@ -26,13 +27,7 @@ import { WorkEdition } from "~/src/types/DataModel";
 import Link from "../Link/Link";
 import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
 import { PLACEHOLDER_LINK } from "~/src/constants/collection";
-import DrbTemplate, {
-  DrbBreakout,
-  DrbContent,
-  DrbContentPrimary,
-  DrbContentTop,
-  DrbHeader,
-} from "../DrbTemplate/DrbTemplate";
+import DrbBreakout from "../DrbBreakout/DrbBreakout";
 
 const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
   props
@@ -71,130 +66,137 @@ const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
     });
   };
 
-  return (
-    <DrbTemplate>
-      <DrbBreakout
-        breadcrumbsData={[
-          {
-            url: `/work/${work.uuid}`,
-            text: truncateStringOnWhitespace(work.title, MAX_TITLE_LENGTH),
-          },
-        ]}
-      >
-        <DrbHeader>
-          <SearchHeader />
-        </DrbHeader>
-      </DrbBreakout>
-      <DrbContent>
-        <DrbContentTop>
+  const breakoutElement = (
+    <DrbBreakout
+      breadcrumbsData={[
+        {
+          url: `/work/${work.uuid}`,
+          text: truncateStringOnWhitespace(work.title, MAX_TITLE_LENGTH),
+        },
+      ]}
+    >
+      <SearchHeader />
+    </DrbBreakout>
+  );
+
+  const contentTopElement = (
+    <>
+      <Box>
+        <Flex direction={{ base: "column", md: "row" }}>
+          <Heading level="one" id="work-title">
+            {work.title}
+          </Heading>
+          {props.backUrl && (
+            <Box
+              whiteSpace={{ md: "nowrap" }}
+              lineHeight="calc(1.1 * var(--nypl-fontSizes-heading-primary))"
+              pl={{ md: "s" }}
+            >
+              <Link to={props.backUrl}>Back to search results</Link>
+            </Box>
+          )}
+        </Flex>
+        {work.sub_title && <Box>{work.sub_title}</Box>}
+        {authorsList && authorsList.length && (
+          <Box>By {joinArrayOfElements(authorsList, "")}</Box>
+        )}
+      </Box>
+      {featuredEdition && (
+        <>
           <Box>
-            <Flex direction={{ base: "column", md: "row" }}>
-              <Heading level="one" id="work-title">
-                {work.title}
-              </Heading>
-              {props.backUrl && (
-                <Box
-                  whiteSpace={{ md: "nowrap" }}
-                  lineHeight="calc(1.1 * var(--nypl-fontSizes-heading-primary))"
-                  pl={{ md: "s" }}
-                >
-                  <Link to={props.backUrl}>Back to search results</Link>
-                </Box>
-              )}
-            </Flex>
-            {work.sub_title && <Box>{work.sub_title}</Box>}
-            {authorsList && authorsList.length && (
-              <Box>By {joinArrayOfElements(authorsList, "")}</Box>
-            )}
+            <Heading level="two" id="featured-edition">
+              Featured Edition
+            </Heading>
           </Box>
-          {featuredEdition && (
-            <>
-              <Box>
-                <Heading level="two" id="featured-edition">
-                  Featured Edition
-                </Heading>
-              </Box>
-              <Box>
+          <Box>
+            <EditionCard
+              edition={featuredEdition}
+              title={work.title}
+            ></EditionCard>
+          </Box>
+        </>
+      )}
+      {work.inCollections && work.inCollections.length > 0 && (
+        <Card
+          imageProps={{
+            alt: "Placeholder Cover",
+            aspectRatio: "threeByTwo",
+            isAtEnd: true,
+            size: "large",
+            src: PLACEHOLDER_LINK,
+          }}
+          isCentered
+          backgroundColor="ui.gray.x-light-cool"
+          layout="row"
+          marginTop="l"
+          padding="s"
+        >
+          <CardHeading size="primary" id="row-heading">
+            <Text size="caption" isUppercase marginTop="xs">
+              <b>Part of Collection</b>
+            </Text>
+            <Box marginTop="m" marginBottom="m">
+              {work.inCollections[0].title}
+            </Box>
+          </CardHeading>
+          <CardContent marginBottom="l">
+            <Box>{work.inCollections[0].description}</Box>
+          </CardContent>
+          <CardActions width="165px">
+            <Link
+              linkType="button"
+              to={"/collection/" + work.inCollections[0].uuid}
+            >
+              Browse Collection
+            </Link>
+          </CardActions>
+        </Card>
+      )}
+    </>
+  );
+
+  const contentPrimaryElement = (
+    <>
+      <WorkDetailDefinitionList work={work} />
+      <HorizontalRule bg="section.research.primary" />
+      <Box id="nypl-item-details">
+        {work.editions && (
+          <>
+            <Flex justify="space-between">
+              <Heading level="three" id="all-editions">
+                All Editions
+              </Heading>
+
+              <Toggle
+                labelText="Show only items currently available online"
+                size="small"
+                isChecked={router.query.showAll === "false"}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  toggleShowAll(e)
+                }
+                id="show-all-toggle"
+              />
+            </Flex>
+            <SimpleGrid columns={1}>
+              {work.editions.map((edition: WorkEdition) => (
                 <EditionCard
-                  edition={featuredEdition}
+                  key={edition.edition_id}
+                  edition={edition}
                   title={work.title}
                 ></EditionCard>
-              </Box>
-            </>
-          )}
-          {work.inCollections && work.inCollections.length > 0 && (
-            <Card
-              imageProps={{
-                alt: "Placeholder Cover",
-                aspectRatio: "threeByTwo",
-                isAtEnd: true,
-                size: "large",
-                src: PLACEHOLDER_LINK,
-              }}
-              isCentered
-              backgroundColor="ui.gray.x-light-cool"
-              layout="row"
-              marginTop="l"
-              padding="s"
-            >
-              <CardHeading size="primary" id="row-heading">
-                <Text size="caption" isUppercase marginTop="xs">
-                  <b>Part of Collection</b>
-                </Text>
-                <Box marginTop="m" marginBottom="m">
-                  {work.inCollections[0].title}
-                </Box>
-              </CardHeading>
-              <CardContent marginBottom="l">
-                <Box>{work.inCollections[0].description}</Box>
-              </CardContent>
-              <CardActions width="165px">
-                <Link
-                  linkType="button"
-                  to={"/collection/" + work.inCollections[0].uuid}
-                >
-                  Browse Collection
-                </Link>
-              </CardActions>
-            </Card>
-          )}
-        </DrbContentTop>
-        <DrbContentPrimary>
-          <WorkDetailDefinitionList work={work} />
-          <HorizontalRule bg="section.research.primary" />
-          <Box id="nypl-item-details">
-            {work.editions && (
-              <>
-                <Flex justify="space-between">
-                  <Heading level="three" id="all-editions">
-                    All Editions
-                  </Heading>
-
-                  <Toggle
-                    labelText="Show only items currently available online"
-                    size="small"
-                    isChecked={router.query.showAll === "false"}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                      toggleShowAll(e)
-                    }
-                    id="show-all-toggle"
-                  />
-                </Flex>
-                <SimpleGrid columns={1}>
-                  {work.editions.map((edition: WorkEdition) => (
-                    <EditionCard
-                      key={edition.edition_id}
-                      edition={edition}
-                      title={work.title}
-                    ></EditionCard>
-                  ))}
-                </SimpleGrid>
-              </>
-            )}
-          </Box>
-        </DrbContentPrimary>
-      </DrbContent>
-    </DrbTemplate>
+              ))}
+            </SimpleGrid>
+          </>
+        )}
+      </Box>
+    </>
+  );
+  return (
+    <TemplateAppContainer
+      breakout={breakoutElement}
+      contentTop={contentTopElement}
+      contentPrimary={contentPrimaryElement}
+    />
   );
 };
 
