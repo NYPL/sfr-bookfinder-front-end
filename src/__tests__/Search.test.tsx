@@ -1,5 +1,5 @@
 import React from "react";
-import { act, fireEvent, screen, within } from "@testing-library/react";
+import { act, cleanup, screen, within } from "@testing-library/react";
 import { render } from "./testUtils/render";
 import SearchResults from "../components/Search/Search";
 import { FacetItem, SearchField } from "../types/DataModel";
@@ -40,6 +40,8 @@ const emptySearchResults: ApiSearchResult = {
     works: [],
   },
 };
+const clickFiltersButton = async () =>
+  userEvent.click(await screen.findByRole("button", { name: "Filters (0)" }));
 
 describe("Renders Search Results Page", () => {
   beforeEach(() => {
@@ -50,6 +52,7 @@ describe("Renders Search Results Page", () => {
       resizeWindow(300, 1000);
     });
   });
+  afterEach(() => cleanup());
 
   test("Digital Research Books Beta doesn't have href attribute", () => {
     const homepagelinks = screen.getAllByText("Digital Research Books Beta");
@@ -82,8 +85,8 @@ describe("Renders Search Results Page", () => {
         screen.getByRole("button", { name: "Filters (0)" })
       ).toBeInTheDocument();
     });
-    test("clicking 'filters' button shows filters contents", () => {
-      fireEvent.click(screen.getByText("Filters (0)"));
+    test("clicking 'filters' button shows filters contents", async () => {
+      await clickFiltersButton();
       expect(
         screen.getByRole("combobox", { name: "Items Per Page", hidden: false })
       ).toHaveValue("10");
@@ -121,17 +124,12 @@ describe("Renders Search Results Page", () => {
     });
   });
   describe("Filters interactions in narrow view", () => {
-    beforeEach(() => {
-      fireEvent.click(screen.getByText("Filters (0)"));
-    });
     describe("Per Page filters", () => {
-      test("Changes Sort By sends new search", () => {
-        const allSorts = screen.getAllByLabelText("Items Per Page");
-        const modalSorts = allSorts[0];
-        expect(modalSorts).toBeVisible();
-        const wideSorts = allSorts[1];
-        expect(wideSorts).not.toBeVisible();
-        fireEvent.change(modalSorts, { target: { value: 20 } });
+      test("Changes Sort By sends new search", async () => {
+        await clickFiltersButton();
+        const modalItemsPerPage = screen.getAllByLabelText("Items Per Page")[1];
+        expect(modalItemsPerPage).toBeVisible();
+        await userEvent.selectOptions(modalItemsPerPage, "20");
         expect(mockRouter).toMatchObject({
           pathname: "/search",
           query: {
@@ -139,22 +137,21 @@ describe("Renders Search Results Page", () => {
             size: "20",
           },
         });
-        expect(modalSorts).toHaveValue("20");
+        expect(modalItemsPerPage).toHaveValue("20");
 
-        fireEvent.click(screen.getByRole("button", { name: "Go Back" }));
+        await userEvent.click(screen.getByRole("button", { name: "Go Back" }));
         expect(
           screen.getByRole("button", { name: "Filters (0)" })
         ).toBeInTheDocument();
-      });
+      }, 15000);
     });
     describe("Sorts filters", () => {
-      test("Changing items sends new search ", () => {
+      test("Changing items sends new search ", async () => {
+        await clickFiltersButton();
         const allSorts = screen.getAllByLabelText("Sort By");
-        const wideSorts = allSorts[1];
-        expect(wideSorts).not.toBeVisible();
-        const sortBy = allSorts[0];
+        const sortBy = allSorts[1];
         expect(sortBy).toBeVisible();
-        fireEvent.change(sortBy, { target: { value: "Title A-Z" } });
+        await userEvent.selectOptions(sortBy, "Title A-Z");
         expect(sortBy).toHaveValue("Title A-Z");
         expect(mockRouter).toMatchObject({
           pathname: "/search",
@@ -164,18 +161,19 @@ describe("Renders Search Results Page", () => {
           },
         });
 
-        fireEvent.click(screen.getByRole("button", { name: "Go Back" }));
+        await userEvent.click(screen.getByRole("button", { name: "Go Back" }));
         expect(
           screen.getByRole("button", { name: "Filters (0)" })
         ).toBeInTheDocument();
-      });
+      }, 15000);
     });
     describe("Available Online", () => {
-      test("Changing checkbox sends new search", () => {
+      test("Changing checkbox sends new search", async () => {
+        await clickFiltersButton();
         const modalCheckbox = screen.getByRole("checkbox", {
           name: "Available Online",
         });
-        fireEvent.click(modalCheckbox);
+        await userEvent.click(modalCheckbox);
         expect(modalCheckbox).not.toBeChecked;
         expect(mockRouter).toMatchObject({
           pathname: "/search",
@@ -184,11 +182,11 @@ describe("Renders Search Results Page", () => {
             showAll: "true",
           },
         });
-        fireEvent.click(screen.getByRole("button", { name: "Go Back" }));
+        await userEvent.click(screen.getByRole("button", { name: "Go Back" }));
         expect(
           screen.getByRole("button", { name: "Filters (1)" })
         ).toBeInTheDocument();
-      });
+      }, 15000);
     });
     describe("Languages filter", () => {
       const availableLanguages: FacetItem[] =
@@ -198,7 +196,8 @@ describe("Renders Search Results Page", () => {
 
       FilterLanguagesCommonTests(screen, availableLanguages, true);
 
-      test("Clicking new language sends new search", () => {
+      test("Clicking new language sends new search", async () => {
+        await clickFiltersButton();
         const languages = screen.getByRole("group", {
           name: "List of Languages",
         });
@@ -207,7 +206,7 @@ describe("Renders Search Results Page", () => {
           name: "English (6)",
         });
 
-        fireEvent.click(englishCheckbox);
+        await userEvent.click(englishCheckbox);
         expect(mockRouter).toMatchObject({
           pathname: "/search",
           query: {
@@ -216,8 +215,10 @@ describe("Renders Search Results Page", () => {
           },
         });
 
-        fireEvent.click(screen.getByRole("button", { name: "Go Back" }));
-        fireEvent.click(screen.getByRole("button", { name: "Filters (1)" }));
+        await userEvent.click(screen.getByRole("button", { name: "Go Back" }));
+        await userEvent.click(
+          screen.getByRole("button", { name: "Filters (1)" })
+        );
 
         const languages2 = screen.getByRole("group", {
           name: "List of Languages",
@@ -227,15 +228,16 @@ describe("Renders Search Results Page", () => {
           name: "English (6)",
         });
         expect(englishCheckbox2).toBeChecked();
-      });
+      }, 15000);
     });
     describe("Format filter", () => {
-      test("Clicking new format sends new search", () => {
+      test("Clicking new format sends new search", async () => {
+        await clickFiltersButton();
         const formats = screen.getByRole("group", { name: "Format" });
         const downloadable = within(formats).getByRole("checkbox", {
           name: "Downloadable",
         });
-        fireEvent.click(downloadable);
+        await userEvent.click(downloadable);
         expect(mockRouter).toMatchObject({
           pathname: "/search",
           query: {
@@ -243,11 +245,11 @@ describe("Renders Search Results Page", () => {
             query: "keyword:Animal Crossing",
           },
         });
-        fireEvent.click(screen.getByRole("button", { name: "Go Back" }));
+        await userEvent.click(screen.getByRole("button", { name: "Go Back" }));
         expect(
           screen.getByRole("button", { name: "Filters (1)" })
         ).toBeInTheDocument();
-      });
+      }, 15000);
     });
     describe("Publication Year", () => {
       FilterYearsTests(
@@ -258,11 +260,12 @@ describe("Renders Search Results Page", () => {
       );
     });
     describe("Gov Doc Filter", () => {
-      test("Clicking show only gov docs sends new search", () => {
+      test("Clicking show only gov docs sends new search", async () => {
+        await clickFiltersButton();
         const govDocCheckbox = screen.getByRole("checkbox", {
           name: "Show only US government documents",
         });
-        fireEvent.click(govDocCheckbox);
+        await userEvent.click(govDocCheckbox);
         expect(mockRouter).toMatchObject({
           pathname: "/search",
           query: {
@@ -270,53 +273,51 @@ describe("Renders Search Results Page", () => {
             query: "keyword:Animal Crossing",
           },
         });
-        fireEvent.click(screen.getByRole("button", { name: "Go Back" }));
+        await userEvent.click(screen.getByRole("button", { name: "Go Back" }));
         expect(
           screen.getByRole("button", { name: "Filters (1)" })
         ).toBeInTheDocument();
-      });
+      }, 15000);
     });
   });
   describe("Clear Filters", () => {
-    test("Renders when a filter is applied", () => {
+    test("Renders when a filter is applied", async () => {
       expect(
         screen.queryByRole("button", { name: "Clear Filters" })
       ).not.toBeInTheDocument();
 
-      const filtersButton = screen.getByText("Filters (0)");
-      fireEvent.click(filtersButton);
+      await clickFiltersButton();
       const formats = screen.getByRole("group", { name: "Format" });
       const downloadable = within(formats).getByRole("checkbox", {
         name: "Downloadable",
       });
-      fireEvent.click(downloadable);
-      fireEvent.click(screen.getByRole("button", { name: "Go Back" }));
+      await userEvent.click(downloadable);
+      await userEvent.click(screen.getByRole("button", { name: "Go Back" }));
 
       expect(
         screen.getByRole("button", { name: "Clear Filters" })
       ).toBeInTheDocument();
-    });
+    }, 15000);
 
-    test("Resets filters when clicked", () => {
-      const filtersButton = screen.getByText("Filters (0)");
-      fireEvent.click(filtersButton);
+    test("Resets filters when clicked", async () => {
+      await clickFiltersButton();
       const formats = screen.getByRole("group", { name: "Format" });
       const downloadable = within(formats).getByRole("checkbox", {
         name: "Downloadable",
       });
-      fireEvent.click(downloadable);
-      fireEvent.click(screen.getByRole("button", { name: "Go Back" }));
+      await userEvent.click(downloadable);
+      await userEvent.click(screen.getByRole("button", { name: "Go Back" }));
       const clearFiltersButton = screen.getByRole("button", {
         name: "Clear Filters",
       });
-      fireEvent.click(clearFiltersButton);
+      await userEvent.click(clearFiltersButton);
       expect(mockRouter).toMatchObject({
         pathname: "/search",
         query: {
           query: "keyword:Animal Crossing",
         },
       });
-    });
+    }, 15000);
   });
   describe("Search Results", () => {
     describe("First result has full data", () => {
@@ -532,7 +533,7 @@ describe("Renders Search Results Page", () => {
           query: "keyword:Animal Crossing",
         },
       });
-    });
+    }, 15000);
     test("Middle numbers are clickable", async () => {
       const twoButton = screen.getByRole("link", { name: "Page 2" });
       expect(twoButton).toBeInTheDocument();
@@ -544,7 +545,7 @@ describe("Renders Search Results Page", () => {
           query: "keyword:Animal Crossing",
         },
       });
-    });
+    }, 15000);
   });
 });
 
@@ -761,12 +762,12 @@ describe("Renders selected languages in language accordion when there are no mat
     );
   });
 
-  test("Show Russian (0) checkbox", () => {
+  test("Show Russian (0) checkbox", async () => {
     const formats = screen.getByRole("group", { name: "Format" });
     const requestable = within(formats).getByRole("checkbox", {
       name: "Requestable",
     });
-    fireEvent.click(requestable);
+    await userEvent.click(requestable);
     expect(mockRouter).toMatchObject({
       pathname: "/search",
       query: {

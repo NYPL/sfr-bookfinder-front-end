@@ -1,5 +1,5 @@
 import React from "react";
-import { fireEvent, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { render } from "../../__tests__/testUtils/render";
 import Collection from "./Collection";
 import { CollectionQuery, CollectionResult } from "~/src/types/CollectionQuery";
@@ -52,10 +52,10 @@ describe("Renders Collection Page", () => {
     });
   });
   describe("Sorts filters", () => {
-    test("Changing sort by sends new request", () => {
+    test("Changing sort by sends new request", async () => {
       const sortBy = screen.getByLabelText("Sort By");
       expect(sortBy).toBeVisible();
-      fireEvent.change(sortBy, { target: { value: "Title A-Z" } });
+      await userEvent.selectOptions(sortBy, "Title A-Z");
       expect(sortBy).toHaveValue("Title A-Z");
       expect(mockRouter).toMatchObject({
         pathname: "/collection/id",
@@ -149,10 +149,10 @@ describe("Render Collection Page with >10 items", () => {
   });
 
   describe("Sorts filters", () => {
-    test("Changing number of items sends new request", () => {
+    test("Changing number of items sends new request", async () => {
       const itemsPerPage = screen.getByLabelText("Items Per Page");
       expect(itemsPerPage).toBeVisible();
-      fireEvent.change(itemsPerPage, { target: { value: "50" } });
+      await userEvent.selectOptions(itemsPerPage, "50");
       expect(itemsPerPage).toHaveValue("50");
       expect(mockRouter).toMatchObject({
         pathname: "/collection/id",

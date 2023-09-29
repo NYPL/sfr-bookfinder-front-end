@@ -7,6 +7,7 @@
 - Remove TemplateFooter components
 - Replace Template components with custom DrbTemplate component to reduce repeat components
 - Upgrade to NYPL Design System 1.7.3
+- Replace fireEvent with userEvent
 
 ## [0.17.4]
 
