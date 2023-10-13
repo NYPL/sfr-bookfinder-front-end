@@ -16,6 +16,7 @@
 - Upgrade New Relic packages and update configuration
 - Update Adobe Analytics page names
 - SFR-1778: Fix failing Playwright tests
+- SFR-1757: Feedback button verification PW test
 
 ## [0.17.3]
 
