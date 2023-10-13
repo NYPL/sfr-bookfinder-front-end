@@ -16,3 +16,7 @@ Feature: Home Page Elements
         And the "first collection card link" should be displayed
         And the "footer" should be displayed
         And the "feedback button" should be displayed
+
+    Scenario: As a user I verify feedback button is displayed on homepage
+        Given I go to the "home" page
+        Then the "feedback and help button" should be displayed
