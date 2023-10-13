@@ -1,6 +1,7 @@
 import React from "react";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import Feedback from "./Feedback";
+import userEvent from "@testing-library/user-event";
 
 describe("Feedback", () => {
   beforeEach(() => {
@@ -8,23 +9,23 @@ describe("Feedback", () => {
   });
 
   describe("Form Submission", () => {
-    beforeEach(() => {
+    beforeEach(async () => {
       const feedbackButton = screen.getByRole("button", {
         name: "Help and Feedback",
       });
-      fireEvent.click(feedbackButton);
+      await userEvent.click(feedbackButton);
     });
 
     const fakeFetch = jest.fn();
     window.fetch = fakeFetch;
-    test("should invoke method when success and feedback set", () => {
+    test("should invoke method when success and feedback set", async () => {
       const feedback = screen.getByRole("textbox", {
         name: "Comment (Required)",
       });
       const commentRadio = screen.getByLabelText("Comment");
-      fireEvent.change(feedback, { target: { value: "test value" } });
-      fireEvent.click(commentRadio);
-      fireEvent.click(screen.getByRole("button", { name: "Submit" }));
+      await userEvent.type(feedback, "test value");
+      await userEvent.click(commentRadio);
+      await userEvent.click(screen.getByRole("button", { name: "Submit" }));
       expect(fetch).toHaveBeenCalledTimes(1);
     });
   });

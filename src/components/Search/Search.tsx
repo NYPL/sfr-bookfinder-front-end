@@ -1,14 +1,7 @@
 import React, { useState } from "react";
 import {
-  Breadcrumbs,
   Heading,
   Pagination,
-  Template,
-  TemplateBreakout,
-  TemplateContent,
-  TemplateContentTop,
-  TemplateContentPrimary,
-  TemplateContentSidebar,
   Button,
   Icon,
   Box,
@@ -16,8 +9,8 @@ import {
   Flex,
   Form,
   useModal,
-  TemplateFooter,
   useNYPLBreakpoints,
+  TemplateAppContainer,
 } from "@nypl/design-system-react-components";
 import { useRouter } from "next/router";
 import { FacetItem, Query } from "~/src/types/DataModel";
@@ -32,13 +25,13 @@ import ResultsList from "../ResultsList/ResultsList";
 import { toLocationQuery, toApiQuery } from "~/src/util/apiConversion";
 import Filters from "../ResultsFilters/ResultsFilters";
 import ResultsSorts from "../ResultsSorts/ResultsSorts";
-import { defaultBreadcrumbs } from "~/src/constants/labels";
 import SearchHeader from "../SearchHeader/SearchHeader";
 import { ApiWork } from "~/src/types/WorkQuery";
 import useFeatureFlags from "~/src/context/FeatureFlagContext";
 import TotalWorks from "../TotalWorks/TotalWorks";
 import filterFields from "~/src/constants/filters";
 import { findFiltersForField } from "~/src/util/SearchQueryUtils";
+import DrbBreakout from "../DrbBreakout/DrbBreakout";
 
 const SearchResults: React.FC<{
   searchQuery: SearchQuery;
@@ -178,170 +171,180 @@ const SearchResults: React.FC<{
     sendSearchQuery(newSearchQuery);
   };
 
-  return (
-    <Template>
-      <TemplateBreakout>
-        <Breadcrumbs
-          breadcrumbsType="research"
-          breadcrumbsData={[
-            ...defaultBreadcrumbs,
-            {
-              url: `/search`,
-              text: "Search Results",
-            },
-          ]}
-        />
-        <SearchHeader searchQuery={searchQuery}></SearchHeader>
-      </TemplateBreakout>
-      <TemplateContent sidebar="left">
-        <TemplateContentTop>
-          {isFlagActive("totalCount") && (
-            <Box float="right">
-              <TotalWorks totalWorks={numberOfWorks} />
-            </Box>
-          )}
-          <Box className="search-heading">
-            <Box role="alert">
-              <Heading level="one" id="page-title-heading">
-                <>Search results for {getDisplayItemsHeading(searchQuery)}</>
-              </Heading>
-            </Box>
-          </Box>
-          <HorizontalRule bg="section.research.primary" />
-          <Flex justify="space-between" align="center">
-            <Heading
-              level="two"
-              id="page-counter"
-              className="page-counter"
-              __css={{ m: "0" }}
-            >
-              {numberOfWorks > 0
-                ? `Viewing ${firstElement.toLocaleString()} - ${
-                    numberOfWorks < lastElement
-                      ? numberOfWorks.toLocaleString()
-                      : lastElement.toLocaleString()
-                  } of ${numberOfWorks.toLocaleString()} items`
-                : "Viewing 0 items"}
-            </Heading>
-            <Form id="results-sorts-form" display={["none", "none", "block"]}>
+  const breakoutElement = (
+    <DrbBreakout
+      breadcrumbsData={[
+        {
+          url: `/search`,
+          text: "Search Results",
+        },
+      ]}
+    >
+      <SearchHeader searchQuery={searchQuery}></SearchHeader>
+    </DrbBreakout>
+  );
+
+  const contentTopElement = (
+    <>
+      {isFlagActive("totalCount") && (
+        <Box float="right">
+          <TotalWorks totalWorks={numberOfWorks} />
+        </Box>
+      )}
+      <Box className="search-heading">
+        <Box role="alert">
+          <Heading level="one" id="page-title-heading">
+            <>Search results for {getDisplayItemsHeading(searchQuery)}</>
+          </Heading>
+        </Box>
+      </Box>
+      <HorizontalRule bg="section.research.primary" />
+      <Flex justify="space-between" align="center">
+        <Heading
+          level="two"
+          id="page-counter"
+          className="page-counter"
+          __css={{ m: "0" }}
+        >
+          {numberOfWorks > 0
+            ? `Viewing ${firstElement.toLocaleString()} - ${
+                numberOfWorks < lastElement
+                  ? numberOfWorks.toLocaleString()
+                  : lastElement.toLocaleString()
+              } of ${numberOfWorks.toLocaleString()} items`
+            : "Viewing 0 items"}
+        </Heading>
+        <Form id="results-sorts-form" display={["none", "none", "block"]}>
+          <ResultsSorts
+            perPage={searchQuery.perPage}
+            sort={searchQuery.sort}
+            sortMap={sortMap}
+            onChangePerPage={(e) => onChangePerPage(e)}
+            onChangeSort={(e) => onChangeSort(e)}
+          />
+        </Form>
+      </Flex>
+    </>
+  );
+
+  const contentSidebarElement = (
+    <>
+      {!isLargerThanMedium && (
+        <Button
+          id="filter-button"
+          onClick={onOpen}
+          buttonType="primary"
+          sx={{
+            width: "100%",
+          }}
+        >
+          {`Filters (${filterCount})`}
+        </Button>
+      )}
+      <Modal
+        bodyContent={
+          <>
+            <Button buttonType="link" onClick={onClose} id="modal-button">
+              <Flex align="center">
+                <Icon
+                  decorative={true}
+                  name="arrow"
+                  size="medium"
+                  iconRotation="rotate90"
+                />
+                Go Back
+              </Flex>
+            </Button>
+            <Box>
               <ResultsSorts
+                isModal={true}
                 perPage={searchQuery.perPage}
                 sort={searchQuery.sort}
                 sortMap={sortMap}
                 onChangePerPage={(e) => onChangePerPage(e)}
                 onChangeSort={(e) => onChangeSort(e)}
               />
-            </Form>
-          </Flex>
-        </TemplateContentTop>
-        <TemplateContentSidebar>
-          {!isLargerThanMedium && (
-            <Button
-              id="filter-button"
-              onClick={onOpen}
-              buttonType="primary"
-              sx={{
-                width: "100%",
-              }}
-            >
-              {`Filters (${filterCount})`}
-            </Button>
-          )}
-          <Modal
-            bodyContent={
-              <>
-                <Button buttonType="link" onClick={onClose} id="modal-button">
-                  <Flex align="center">
-                    <Icon
-                      decorative={true}
-                      name="arrow"
-                      size="medium"
-                      iconRotation="rotate90"
-                    />
-                    Go Back
-                  </Flex>
-                </Button>
-                <Box>
-                  <ResultsSorts
-                    isModal={true}
-                    perPage={searchQuery.perPage}
-                    sort={searchQuery.sort}
-                    sortMap={sortMap}
-                    onChangePerPage={(e) => onChangePerPage(e)}
-                    onChangeSort={(e) => onChangeSort(e)}
-                  />
-                </Box>
-                <form name="filterForm">
-                  <Heading level="two" id="filter-desktop-header">
-                    Refine Results
-                  </Heading>
-                  <Filters
-                    filters={searchQuery.filters}
-                    showAll={searchQuery.showAll}
-                    languages={getAvailableLanguages(searchResults)}
-                    isModal={true}
-                    changeFilters={(filters: Filter[]) => {
-                      changeFilters(filters);
-                    }}
-                    changeShowAll={(showAll: boolean) => {
-                      changeShowAll(showAll);
-                    }}
-                  />
-                </form>
-              </>
-            }
-          />
-          {searchQuery.filters.length > 0 && !isLargerThanMedium && (
-            <Button
-              id="clear-filters-button"
-              buttonType="secondary"
-              type="reset"
-              onClick={() => {
-                changeFilters([]);
-              }}
-              sx={{
-                marginTop: "var(--nypl-space-s)",
-                width: "100%",
-              }}
-            >
-              Clear Filters
-            </Button>
-          )}
-          <Form
-            id="search-filter-form"
-            bg="ui.gray.x-light-cool"
-            p="xs"
-            gap="grid.xs"
-            display={["none", "none", "block"]}
-          >
-            <Heading level="two" id="filter-desktop-header" __css={{ m: "0" }}>
-              Refine Results
-            </Heading>
-            <Filters
-              filters={searchQuery.filters}
-              showAll={searchQuery.showAll}
-              languages={getAvailableLanguages(searchResults)}
-              changeFilters={(filters: Filter[]) => {
-                changeFilters(filters);
-              }}
-              changeShowAll={(showAll: boolean) => {
-                changeShowAll(showAll);
-              }}
-            />
-          </Form>
-        </TemplateContentSidebar>
-        <TemplateContentPrimary>
-          <ResultsList works={works} />
-          <Pagination
-            pageCount={searchPaging.lastPage ? searchPaging.lastPage : 1}
-            initialPage={searchPaging.currentPage}
-            onPageChange={(e) => onPageChange(e)}
-            __css={{ paddingTop: "m" }}
-          />
-        </TemplateContentPrimary>
-      </TemplateContent>
-      <TemplateFooter />
-    </Template>
+            </Box>
+            <form name="filterForm">
+              <Heading level="two" id="filter-desktop-header">
+                Refine Results
+              </Heading>
+              <Filters
+                filters={searchQuery.filters}
+                showAll={searchQuery.showAll}
+                languages={getAvailableLanguages(searchResults)}
+                isModal={true}
+                changeFilters={(filters: Filter[]) => {
+                  changeFilters(filters);
+                }}
+                changeShowAll={(showAll: boolean) => {
+                  changeShowAll(showAll);
+                }}
+              />
+            </form>
+          </>
+        }
+      />
+      {searchQuery.filters.length > 0 && !isLargerThanMedium && (
+        <Button
+          id="clear-filters-button"
+          buttonType="secondary"
+          type="reset"
+          onClick={() => {
+            changeFilters([]);
+          }}
+          sx={{
+            marginTop: "var(--nypl-space-s)",
+            width: "100%",
+          }}
+        >
+          Clear Filters
+        </Button>
+      )}
+      <Form
+        id="search-filter-form"
+        bg="ui.gray.x-light-cool"
+        p="xs"
+        gap="grid.xs"
+        display={["none", "none", "block"]}
+      >
+        <Heading level="two" id="filter-desktop-header" __css={{ m: "0" }}>
+          Refine Results
+        </Heading>
+        <Filters
+          filters={searchQuery.filters}
+          showAll={searchQuery.showAll}
+          languages={getAvailableLanguages(searchResults)}
+          changeFilters={(filters: Filter[]) => {
+            changeFilters(filters);
+          }}
+          changeShowAll={(showAll: boolean) => {
+            changeShowAll(showAll);
+          }}
+        />
+      </Form>
+    </>
+  );
+
+  const contentPrimaryElement = (
+    <>
+      <ResultsList works={works} />
+      <Pagination
+        pageCount={searchPaging.lastPage ? searchPaging.lastPage : 1}
+        initialPage={searchPaging.currentPage}
+        onPageChange={(e) => onPageChange(e)}
+        __css={{ paddingTop: "m" }}
+      />
+    </>
+  );
+  return (
+    <TemplateAppContainer
+      breakout={breakoutElement}
+      contentTop={contentTopElement}
+      contentSidebar={contentSidebarElement}
+      contentPrimary={contentPrimaryElement}
+      sidebar="left"
+    />
   );
 };
 

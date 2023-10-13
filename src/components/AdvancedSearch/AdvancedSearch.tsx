@@ -8,7 +8,6 @@ import {
 } from "~/src/util/SearchQueryUtils";
 import {
   errorMessagesText,
-  defaultBreadcrumbs,
   breadcrumbTitles,
   inputTermRows,
 } from "~/src/constants/labels";
@@ -20,7 +19,6 @@ import {
 } from "~/src/types/SearchQuery";
 
 import {
-  Breadcrumbs,
   Button,
   ButtonGroup,
   Checkbox,
@@ -29,12 +27,7 @@ import {
   FormRow,
   Heading,
   HelperErrorText,
-  Template,
-  TemplateBreakout,
-  TemplateContent,
-  TemplateContentPrimary,
-  TemplateContentTop,
-  TemplateFooter,
+  TemplateAppContainer,
   TextInput,
 } from "@nypl/design-system-react-components";
 import LanguageAccordion from "../LanguageAccordion/LanguageAccordion";
@@ -44,6 +37,7 @@ import { toLocationQuery, toApiQuery } from "~/src/util/apiConversion";
 import filterFields from "~/src/constants/filters";
 import { ApiLanguageResponse } from "~/src/types/LanguagesQuery";
 import { trackCtaClick } from "~/src/lib/Analytics";
+import DrbBreakout from "../DrbBreakout/DrbBreakout";
 
 const AdvancedSearch: React.FC<{
   languages: ApiLanguageResponse;
@@ -199,128 +193,125 @@ const AdvancedSearch: React.FC<{
     }
   };
 
-  return (
-    <Template>
-      <TemplateBreakout>
-        <Breadcrumbs
-          breadcrumbsType="research"
-          breadcrumbsData={[
-            ...defaultBreadcrumbs,
-            { url: "/advanced-search", text: breadcrumbTitles.advancedSearch },
-          ]}
-        />
-      </TemplateBreakout>
-      <TemplateContent>
-        <TemplateContentTop>
-          <Heading level="one">Advanced Search</Heading>
-          {emptySearchError && (
-            <HelperErrorText text={errorMessagesText.emptySearch} isInvalid />
-          )}
-          {dateRangeError && (
-            <HelperErrorText text={errorMessagesText.invalidDate} isInvalid />
-          )}
-        </TemplateContentTop>
+  const breakoutElement = (
+    <DrbBreakout
+      breadcrumbsData={[
+        { url: "/advanced-search", text: breadcrumbTitles.advancedSearch },
+      ]}
+    />
+  );
 
-        <TemplateContentPrimary>
-          <Form action="/search" method="get" id="search-form">
-            {/* Search Terms */}
-            {inputTermRows.map(
-              (inputTerms: { key: string; label: string }[], i: number) => {
+  const contentTopElement = (
+    <>
+      <Heading level="one">Advanced Search</Heading>
+      {emptySearchError && (
+        <HelperErrorText text={errorMessagesText.emptySearch} isInvalid />
+      )}
+      {dateRangeError && (
+        <HelperErrorText text={errorMessagesText.invalidDate} isInvalid />
+      )}
+    </>
+  );
+
+  const contentPrimaryElement = (
+    <Form action="/search" method="get" id="search-form">
+      {/* Search Terms */}
+      {inputTermRows.map(
+        (inputTerms: { key: string; label: string }[], i: number) => {
+          return (
+            <FormRow key={`input-row-${inputTerms[i].key}`}>
+              {inputTerms.map((field: { key: string; label: string }) => {
                 return (
-                  <FormRow key={`input-row-${inputTerms[i].key}`}>
-                    {inputTerms.map((field: { key: string; label: string }) => {
-                      return (
-                        <FormField key={`input-field-${field.key}`}>
-                          <TextInput
-                            id={`search-${field.label}`}
-                            labelText={field.label}
-                            value={
-                              findQueryForField(queries, field.key)
-                                ? findQueryForField(queries, field.key).query
-                                : ""
-                            }
-                            onChange={(e) => onQueryChange(e, field.key)}
-                            showLabel
-                            type="text"
-                          />
-                        </FormField>
-                      );
-                    })}
-                  </FormRow>
+                  <FormField key={`input-field-${field.key}`}>
+                    <TextInput
+                      id={`search-${field.label}`}
+                      labelText={field.label}
+                      value={
+                        findQueryForField(queries, field.key)
+                          ? findQueryForField(queries, field.key).query
+                          : ""
+                      }
+                      onChange={(e) => onQueryChange(e, field.key)}
+                      showLabel
+                      type="text"
+                    />
+                  </FormField>
                 );
-              }
-            )}
-            <FormField>
-              <Checkbox
-                id="gov-doc-checkbox"
-                labelText="Show only US government documents"
-                onChange={(e) => {
-                  onGovDocChange(e);
-                }}
-                isChecked={
-                  !!govDocFilter && govDocFilter.value === "onlyGovDoc"
-                }
-              />
-            </FormField>
-            <FormField>
-              {languages && languages.length > 0 && (
-                <LanguageAccordion
-                  languages={languages}
-                  showCount={false}
-                  selectedLanguages={languageFilters}
-                  onLanguageChange={(e, language) =>
-                    onLanguageChange(e, language)
-                  }
-                />
-              )}
-            </FormField>
-            <FormField>
-              <FilterYears
-                startFilter={startFilter}
-                endFilter={endFilter}
-                onDateChange={(
-                  e: React.ChangeEvent<HTMLInputElement>,
-                  isStart: boolean
-                ) => {
-                  onDateChange(e, isStart);
-                }}
-              />
-            </FormField>
-            <FormField>
-              <FilterBookFormat
-                selectedFormats={formatFilters}
-                onFormatChange={(e, format) => {
-                  onBookFormatChange(e, format);
-                }}
-              />
-            </FormField>
-            <FormField>
-              <ButtonGroup>
-                <Button
-                  type="submit"
-                  buttonType="primary"
-                  onClick={(e) => {
-                    submit(e);
-                  }}
-                  id="submit-button"
-                >
-                  Search
-                </Button>
-                <Button
-                  type="reset"
-                  buttonType="secondary"
-                  onClick={() => clearSearch()}
-                  id="reset-button"
-                >
-                  Clear
-                </Button>
-              </ButtonGroup>
-            </FormField>
-          </Form>
-        </TemplateContentPrimary>
-      </TemplateContent>
-      <TemplateFooter />
-    </Template>
+              })}
+            </FormRow>
+          );
+        }
+      )}
+      <FormField>
+        <Checkbox
+          id="gov-doc-checkbox"
+          labelText="Show only US government documents"
+          onChange={(e) => {
+            onGovDocChange(e);
+          }}
+          isChecked={!!govDocFilter && govDocFilter.value === "onlyGovDoc"}
+        />
+      </FormField>
+      <FormField>
+        {languages && languages.length > 0 && (
+          <LanguageAccordion
+            languages={languages}
+            showCount={false}
+            selectedLanguages={languageFilters}
+            onLanguageChange={(e, language) => onLanguageChange(e, language)}
+          />
+        )}
+      </FormField>
+      <FormField>
+        <FilterYears
+          startFilter={startFilter}
+          endFilter={endFilter}
+          onDateChange={(
+            e: React.ChangeEvent<HTMLInputElement>,
+            isStart: boolean
+          ) => {
+            onDateChange(e, isStart);
+          }}
+        />
+      </FormField>
+      <FormField>
+        <FilterBookFormat
+          selectedFormats={formatFilters}
+          onFormatChange={(e, format) => {
+            onBookFormatChange(e, format);
+          }}
+        />
+      </FormField>
+      <FormField>
+        <ButtonGroup>
+          <Button
+            type="submit"
+            buttonType="primary"
+            onClick={(e) => {
+              submit(e);
+            }}
+            id="submit-button"
+          >
+            Search
+          </Button>
+          <Button
+            type="reset"
+            buttonType="secondary"
+            onClick={() => clearSearch()}
+            id="reset-button"
+          >
+            Clear
+          </Button>
+        </ButtonGroup>
+      </FormField>
+    </Form>
+  );
+  return (
+    <TemplateAppContainer
+      breakout={breakoutElement}
+      contentTop={contentTopElement}
+      contentPrimary={contentPrimaryElement}
+    />
   );
 };
 

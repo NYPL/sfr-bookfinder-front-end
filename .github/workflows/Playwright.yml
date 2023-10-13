@@ -4,9 +4,8 @@ on:
   schedule:
     - cron: "00 14 * * 1-5"
   pull_request:
-      branches: [production]
-      types: [opened, synchronize, reopened]
-  
+    branches: [production]
+    types: [opened, synchronize, reopened]
 
 jobs:
   tests:
@@ -27,17 +26,18 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Set the world parameters as an env var
+        # WORLD_PARAMETERS set here will override anything set in cucumber.json
         run: |
-          echo "WORLD_PARAMETERS={\"appUrl\": \"https://digital-research-books-beta.nypl.org\", \"headless\": true}" >> $GITHUB_ENV
-      
+          echo "WORLD_PARAMETERS={\"headless\": true}" >> $GITHUB_ENV
+
       - name: Run Cucumber tests
         run: npm run cucumber -- playwright/features --world-parameters '${{ env.WORLD_PARAMETERS }}'
         env:
-          "catalog username": ${{ secrets.CATALOG_USERNAME }}
-          "catalog password": ${{ secrets.CATALOG_USER_PIN }}
+          CATALOG_USERNAME: ${{ secrets.CATALOG_USERNAME }}
+          CATALOG_USER_PIN: ${{ secrets.CATALOG_USER_PIN }}
           CUCUMBER_PUBLISH_TOKEN: ${{ secrets.CUCUMBER_PUBLISH_TOKEN }}
           CUCUMBER_PUBLISH_ENABLED: true
-    
+
       - name: Slack Notification
         if: ${{ always() }}
         uses: rtCamp/action-slack-notify@v2

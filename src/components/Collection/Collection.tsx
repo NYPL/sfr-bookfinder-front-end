@@ -1,26 +1,19 @@
 import React, { useState } from "react";
 import {
   Box,
-  Breadcrumbs,
   Flex,
   Form,
   Heading,
   HorizontalRule,
   Pagination,
   SimpleGrid,
-  Template,
-  TemplateBreakout,
-  TemplateContent,
-  TemplateContentPrimary,
-  TemplateContentTop,
-  TemplateFooter,
+  TemplateAppContainer,
 } from "@nypl/design-system-react-components";
 import { collectionSortMap } from "~/src/constants/sorts";
 import {
   toApiCollectionQuery,
   toLocationQuery,
 } from "~/src/util/apiConversion";
-import { defaultBreadcrumbs } from "~/src/constants/labels";
 import { truncateStringOnWhitespace } from "~/src/util/Util";
 import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
 import {
@@ -34,6 +27,7 @@ import { useRouter } from "next/router";
 import Loading from "~/src/components/Loading/Loading";
 import DrbHero from "../DrbHero/DrbHero";
 import { CollectionItem } from "./CollectionItem";
+import DrbBreakout from "../DrbBreakout/DrbBreakout";
 
 const Collection: React.FC<{
   collectionQuery: CollectionQuery;
@@ -128,75 +122,76 @@ const Collection: React.FC<{
     sendCollectionQuery(newCollectionQuery);
   };
 
-  return (
-    <Template>
-      <TemplateBreakout>
-        <Breadcrumbs
-          breadcrumbsType="research"
-          breadcrumbsData={[
-            ...defaultBreadcrumbs,
-            {
-              url: `/collection/${collectionId}`,
-              text: truncateStringOnWhitespace(title, MAX_TITLE_LENGTH),
-            },
-          ]}
-        />
-        <DrbHero />
-      </TemplateBreakout>
+  const breakoutElement = (
+    <DrbBreakout
+      breadcrumbsData={[
+        {
+          url: `/collection/${collectionId}`,
+          text: truncateStringOnWhitespace(title, MAX_TITLE_LENGTH),
+        },
+      ]}
+    >
+      <DrbHero />
+    </DrbBreakout>
+  );
 
-      <TemplateContent>
-        <TemplateContentTop>
-          <Heading size="primary" marginBottom="xl">
-            {`Collection - ${title}`}
-          </Heading>
-          <Heading size="secondary" marginBottom="l">
-            About this collection
-          </Heading>
-          <Box>{description}</Box>
-        </TemplateContentTop>
-        <TemplateContentPrimary>
-          <HorizontalRule bg="section.research.primary" marginBottom="xl" />
-          <Heading size="secondary">In this collection</Heading>
-          <Flex justify="space-between" marginBottom="xl" align="center">
-            <Heading level="two" size="tertiary" noSpace>
-              {totalItems > 0
-                ? `Viewing ${firstElement.toLocaleString()} - ${
-                    totalItems < lastElement
-                      ? totalItems.toLocaleString()
-                      : lastElement.toLocaleString()
-                  } of ${totalItems.toLocaleString()} items`
-                : "Viewing 0 items"}
-            </Heading>
-            <Form id="results-sorts-form">
-              <ResultsSorts
-                perPage={currentCollectionQuery.perPage}
-                sort={getSortValue()}
-                sortMap={collectionSortMap}
-                onChangePerPage={(e) => onChangePerPage(e)}
-                onChangeSort={(e) => onChangeSort(e)}
-              />
-            </Form>
-          </Flex>
-          <SimpleGrid columns={1} gap="l">
-            {publications.map((pub, c) => {
-              return (
-                <CollectionItem
-                  publication={pub}
-                  key={`collection-item-${c}`}
-                />
-              );
-            })}
-          </SimpleGrid>
-          <Pagination
-            pageCount={pageCount}
-            initialPage={currentPage}
-            onPageChange={(e) => onPageChange(e)}
-            __css={{ paddingTop: "m" }}
+  const contentTopElement = (
+    <>
+      <Heading size="primary" marginBottom="xl">
+        {`Collection - ${title}`}
+      </Heading>
+      <Heading size="secondary" marginBottom="l">
+        About this collection
+      </Heading>
+      <Box>{description}</Box>
+    </>
+  );
+
+  const contentPrimaryElement = (
+    <>
+      <HorizontalRule bg="section.research.primary" marginBottom="xl" />
+      <Heading size="secondary">In this collection</Heading>
+      <Flex justify="space-between" marginBottom="xl" align="center">
+        <Heading level="two" size="tertiary" noSpace>
+          {totalItems > 0
+            ? `Viewing ${firstElement.toLocaleString()} - ${
+                totalItems < lastElement
+                  ? totalItems.toLocaleString()
+                  : lastElement.toLocaleString()
+              } of ${totalItems.toLocaleString()} items`
+            : "Viewing 0 items"}
+        </Heading>
+        <Form id="results-sorts-form">
+          <ResultsSorts
+            perPage={currentCollectionQuery.perPage}
+            sort={getSortValue()}
+            sortMap={collectionSortMap}
+            onChangePerPage={(e) => onChangePerPage(e)}
+            onChangeSort={(e) => onChangeSort(e)}
           />
-        </TemplateContentPrimary>
-      </TemplateContent>
-      <TemplateFooter />
-    </Template>
+        </Form>
+      </Flex>
+      <SimpleGrid columns={1} gap="l">
+        {publications.map((pub, c) => {
+          return (
+            <CollectionItem publication={pub} key={`collection-item-${c}`} />
+          );
+        })}
+      </SimpleGrid>
+      <Pagination
+        pageCount={pageCount}
+        initialPage={currentPage}
+        onPageChange={(e) => onPageChange(e)}
+        __css={{ paddingTop: "m" }}
+      />
+    </>
+  );
+  return (
+    <TemplateAppContainer
+      breakout={breakoutElement}
+      contentTop={contentTopElement}
+      contentPrimary={contentPrimaryElement}
+    />
   );
 };
 

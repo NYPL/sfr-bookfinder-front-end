@@ -1,6 +1,14 @@
 # CHANGE LOG
 
-- Update production and qa builds to use unique ECR image tag
+## [Pre-release]
+
+- Fix: Small adjustments to Playwright tests
+- Upgrade testing-library packages to v14 and jest to v29
+- Remove TemplateFooter components
+- Replace Template components with TemplateAppContainer and DrbBreakout to reduce repeat components
+- Upgrade to NYPL Design System 1.7.3
+- Replace fireEvent with userEvent
+- Feedback button test PW
 
 ## [0.17.4]
 
@@ -16,7 +24,8 @@
 - Upgrade New Relic packages and update configuration
 - Update Adobe Analytics page names
 - SFR-1778: Fix failing Playwright tests
-- SFR-1757: Feedback button verification PW test
+- SFR-1752: Remove rspec workflow
+- Update production and qa builds to use unique ECR image tag
 
 ## [0.17.3]
 
