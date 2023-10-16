@@ -8,6 +8,7 @@
 - Replace Template components with TemplateAppContainer and DrbBreakout to reduce repeat components
 - Upgrade to NYPL Design System 1.7.3
 - Replace fireEvent with userEvent
+- Feedback button test PW
 
 ## [0.17.4]
 
