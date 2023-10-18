@@ -1,7 +1,7 @@
-Feature: Item Detail Page Elements
+Feature: Item Details Page Elements
 
-    Scenario: As a user I navigate to an item detail page and all item detail page elements are displayed
-        Given I go to the "item detail" page
+    Scenario: As a user I navigate to an item details page and all item details page elements are displayed
+        Given I go to the "item details" page
         And the "search category dropdown" should be displayed
         And the "homepage search box" should be displayed
         And the "search button" should be displayed
@@ -27,7 +27,7 @@ Feature: Item Detail Page Elements
         And the "second item edition" should be displayed
 
     Scenario: As a user when I click on "show only items currently available online" button, only online available books should be displayed
-        Given I go to the "item detail" page
+        Given I go to the "item details" page
         Then I double click the "items currently available online toggle"
         And the "first read online button for all editions" should be displayed
 

@@ -10,10 +10,10 @@ export const pages: { [name: string]: Pages } = {
   home: {
     route: "/",
   },
-  "item detail": {
+  "item details": {
     route: itemDetailURL,
   },
-  "search result": {
+  "search results": {
     route: "/search?query=subject%3ASub-saharan+Africa",
   },
   "work details": {
