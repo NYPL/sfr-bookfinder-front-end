@@ -1,6 +1,6 @@
 Feature: Header Links
 
-    Scenario: As as user I navigate to the Digital Research Books home page and verify the header links are displayed
+    Scenario: As a user I navigate to the Digital Research Books home page and verify the header links are displayed
         Given I go to the "home" page
         Then the "header logo" should be displayed
         And the "my account header link" should be displayed

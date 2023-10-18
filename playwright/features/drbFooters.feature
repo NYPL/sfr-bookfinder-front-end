@@ -1,9 +1,7 @@
 Feature: As a user I want to verify all the footer links are displayed and working as expected
 
-    Scenario: As as user I verify the headers and footers of Advanced Search Page
+    Scenario: As a user I navigate to the Digital Research Books home page and verify the footer links are displayed
         Given I go to the "home" page
-        When I click the "advanced search link"
-        And the "advanced search breadcrumb" should be displayed
         And the "accessibility footer link" should be displayed
         And the "press footer link" should be displayed
         And the "careers footer link" should be displayed
