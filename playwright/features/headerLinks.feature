@@ -3,6 +3,7 @@ Feature: Header Links
     Scenario: As as user I navigate to the Digital Research Books home page and verify the header links are displayed
         Given I go to the "home" page
         Then the "header logo" should be displayed
+        And the "my account header link" should be displayed
         And the "locations header link" should be displayed
         And the "library card header link" should be displayed
         And the "email updates header link" should be displayed
@@ -17,10 +18,10 @@ Feature: Header Links
         And the "get help header link" should be displayed
         And the "search header link" should be displayed          
 
-    Scenario: As a user I navigate to the Digital Research Books home page and verify the account and search header links are displayed
+    Scenario: As a user I navigate to the Digital Research Books home page and verify the account and search header sub-links are displayed
         Given I go to the "home" page
         When I click the <first header link>
-        Then the the <second header link> should be displayed
+        Then the <second header link> should be displayed
 
         Examples:
             | first header link         | second header link                |
