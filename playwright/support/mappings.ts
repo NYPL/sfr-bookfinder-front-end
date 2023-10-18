@@ -19,6 +19,24 @@ export const pages: { [name: string]: Pages } = {
   "work details": {
     route: "/work/01a28167-8c8d-4141-a32f-718539d5c8a4?featured=949699",
   },
+  "collection": {
+    route: "/collection/297da3a0-bcdb-4eb3-a520-a330fd8fa370",
+  },
+  "advanced search": {
+    route: "/advanced-search",
+  },
+  "edition details": {
+    route: "https://drb-qa.nypl.org/edition/949698",
+  },
+  "about": {
+    route: "/about",
+  },
+  "license": {
+    route: "/license",
+  },
+  "read online": {
+    route: "/read/4440666",
+  },
 };
 
 export const elements = {
@@ -197,6 +215,7 @@ export const elements = {
   "search header link": "#searchButton",
   "search header label": "#searchInput-label",
   "close search header link": "[aria-label='Close Search']",
+  /** end header locators */
 };
 
 export const inputs = {
