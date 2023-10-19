@@ -1,4 +1,3 @@
-import { itemDetailURL } from "./constants";
 import dotenv from "dotenv";
 dotenv.config({ path: ".env.local" });
 
@@ -10,13 +9,10 @@ export const pages: { [name: string]: Pages } = {
   home: {
     route: "/",
   },
-  "item details": {
-    route: itemDetailURL,
-  },
   "search results": {
     route: "/search?query=subject%3ASub-saharan+Africa",
   },
-  "work details": {
+  "item details": {
     route: "/work/01a28167-8c8d-4141-a32f-718539d5c8a4?featured=949699",
   },
   "collection": {
@@ -26,7 +22,7 @@ export const pages: { [name: string]: Pages } = {
     route: "/advanced-search",
   },
   "edition details": {
-    route: "https://drb-qa.nypl.org/edition/949698",
+    route: "/edition/949698",
   },
   "about": {
     route: "/about",
