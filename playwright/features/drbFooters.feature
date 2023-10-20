@@ -17,6 +17,7 @@ Feature: Footer Links
         Examples:
         | DRB                 |
         | "home"              |
+        | "advanced search"   |
         | "search results"    |
         | "item details"      |
         | "edition details"   |
