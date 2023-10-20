@@ -7,4 +7,3 @@ Feature: Read Online Link Targets
         Given I go to the "item details" page
         When I click the "first read online button"
         Then the "Hathi Trust website" should be displayed
-

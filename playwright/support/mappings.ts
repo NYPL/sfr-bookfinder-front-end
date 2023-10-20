@@ -36,71 +36,6 @@ export const pages: { [name: string]: Pages } = {
 };
 
 export const elements = {
-  /** advSearch locators */
-  "advanced search link": "[href='/advanced-search']",
-  "advanced search button": "#submit-button",
-  /** end advSearch locators */
-
-  "search button": "#searchbar-button-search-bar",
-  
-  "requestable checkbox": "text=Requestable",
-
-  /** gov docs locators */
-  "government documents checkbox":
-    "span:text('Show only US government documents')",
-
-  /** language locators */
-  "Latin language checkbox": "span:text('Latin')",
-  "Russian language checkbox": "span:text('Russian')",
-  
-  /** pub year filter locators */
-  "publication year apply button": "#year-filter-button",
-
-  /** ReadOnlineTargets locators */
-  "first read online button": "a:text('Read Online') >> nth=0",
-  "Hathi Trust website":
-    "iframe[src='https://babel.hathitrust.org/cgi/pt?id=mdp.39015034622749']",
-  /** end ReadOnlineTargets locators */
-
-  "first request button":
-    "[href='https://www.nypl.org/research/collections/shared-collection-catalog/hold/request/b10715506-i13895605']",
-  "English language checkbox": "span:text('English')",
-  "first search result link": "h2 a >> nth=0",
-
-  /** home page search locators */
-  "search category dropdown": "[aria-label='Select a search category']",
-  keyword: "[value='keyword']",
-  author: "[value='author']",
-  title: "[value='title']",
-  subject: "[value='subject']",
-  "keyword search box": "#search-Keyword",
-  "author search box": "#search-Author",
-  "subject search box": "#search-Subject",
-  "title search box": "#search-Title",
-  "homepage search box": "[aria-label='Item Search']",
-
-  /** advanced search locators */
-  "publication year from filter": "#date-filter-from",
-  "publication year to filter": "#date-filter-to",
-  "advanced search heading": "h1:text('Advanced Search')",
-  "advanced search breadcrumb": "//a[@href='/advanced-search']",
-  "keyword search label": "#search-Keyword-label",
-  "author search label": "#search-Author-label",
-  "subject search label": "#search-Subject-label",
-  "title search label": "#search-Title-label",
-  "date filter from label": "#date-filter-from-label",
-  "date filter from field": "#date-filter-from",
-  "date filter to label": "#date-filter-to-label",
-  "date filter to field": "#date-filter-to",
-  "advanced search clear button": "#reset-button",
-
-  /** item or search result specific */
-  "keyword heading": "h1:text('IBM 1401')",
-  "author heading": "h1:text('Laurie, Edward J.')",
-  "Russian language subheader": "span:text('Russian')",
-  "search result link": "a:text('Computers and how they work')",
-  "delivery location heading": "h2:text('Choose a delivery location')",
-
   /** home page locators */
   "site name heading": "h1:text('Digital Research Books')",
   "Home breadcrumb link": "a[href='https://www.nypl.org'] > .breadcrumb-label",
@@ -110,21 +45,64 @@ export const elements = {
     "span.breadcrumb-label:text('Digital Research Books Beta')",
   "intro text":
     "span:text('Find millions of digital books for research from multiple sources')",
-  "search heading": "h1:text('Search the World')",
   "collections heading": "h2:text('Recently Added Collections')",
   footer: "#nypl-footer",
-  "feedback button": "button:text('Feedback')",
+  "help and feedback button": "button:text('Help and Feedback')",
   "first collection card link": "a[href^='/collection/'] >> nth=0",
-  "number of results": "#page-counter", // need?
-  /** end home page locators */
 
-  /** log in */
-  "login button": "[value='Submit']",
-  "first login for options button": "text=Log in for options >> nth=0",
-  "username field": "#code",
-  "password field": "#pin",
+  /** home page search locators */
+  "search heading": "h1:text('Search the World')",
+  "homepage search box": "[aria-label='Item Search']",
+  "search category dropdown": "[aria-label='Select a search category']",
+  keyword: "[value='keyword']",
+  author: "[value='author']",
+  title: "[value='title']",
+  subject: "[value='subject']",
+  "search button": "#searchbar-button-search-bar", // rename to home page search button
+  "advanced search link": "[href='/advanced-search']",
 
-  /** itemDetailPageElements locators */
+  /** advanced search page locators */
+  "advanced search heading": "h1:text('Advanced Search')",
+  "advanced search breadcrumb": "//a[@href='/advanced-search']",
+  "keyword search label": "#search-Keyword-label",
+  "author search label": "#search-Author-label",
+  "subject search label": "#search-Subject-label",
+  "title search label": "#search-Title-label",
+  "keyword search box": "#search-Keyword",
+  "author search box": "#search-Author",
+  "subject search box": "#search-Subject",
+  "title search box": "#search-Title",
+  "date filter from label": "#date-filter-from-label",
+  "date filter from field": "#date-filter-from",
+  "date filter to label": "#date-filter-to-label",
+  "date filter to field": "#date-filter-to",
+  "Russian language checkbox": "span:text('Russian')",
+  "advanced search button": "#submit-button",
+  "advanced search clear button": "#reset-button",
+
+  /** search results page locators */
+  "keyword heading": "h1:text('IBM 1401')",
+  "author heading": "h1:text('Laurie, Edward J.')",
+  "search result link": "a:text('Computers and how they work')",
+  "first search result link": "h2 a >> nth=0",
+  "requestable checkbox": "text=Requestable",
+  "Russian language subheader": "span:text('Russian')",
+  "first search result subject": "a:text('Petroleum')",
+  "first search result title": "a:text('IBM 1401') >> nth=0",
+  "first search result author":
+    "span:text('By') > a:text('Corelli, Marie') >> nth=0",
+  "first search result keyword": "a:text('IBM 1401') >> nth=0",
+  "government documents checkbox":
+    "span:text('Show only US government documents')",
+  "first government document author": "a:text('United States') >> nth=0",
+  "Latin language checkbox": "span:text('Latin')",
+  "first search result language": "div:text('Latin') >> nth=0",
+  "publication year from filter": "#date-filter-from",
+  "publication year to filter": "#date-filter-to",
+  "publication year apply button": "#year-filter-button",
+  "first search result edition": "a:text('1900 Edition') >> nth=0",
+
+  /** item details page locators */
   "item title": "#work-title",
   "item author": "div:text('By') > a:text('Library of Congress')",
   "item featured edition heading": "#featured-edition",
@@ -148,25 +126,27 @@ export const elements = {
   "first read online button for all editions": "a:text('Read Online') >> nth=1",
   "second item edition": "a:text('Edition') >> nth=1",
   "The Novels of Jane Austen link":
-  "//a[text()='The novels of Jane Austen'] >> nth=0",
+    "//a[text()='The novels of Jane Austen'] >> nth=0",
   "The Novels of Jane Austen heading":
     "//h1[text()='The novels of Jane Austen']",
   "back to search results button": "a:text('Back to search results')",
-  /** end itemDetailPageElements locators */
 
-  /** author/keyword/subject/title searches */
-  "first search result subject": "a:text('Petroleum')",
-  "first search result title": "a:text('IBM 1401') >> nth=0",
-  "first search result author":
-    "span:text('By') > a:text('Corelli, Marie') >> nth=0",
-  "first search result keyword": "a:text('IBM 1401') >> nth=0",
-  "first government document author": "a:text('United States') >> nth=0",
-  "first search result language": "div:text('Latin') >> nth=0",
-  "first search result edition": "a:text('1900 Edition') >> nth=0",
-  /** end searches */
-
-
-
+  /** log in page locators */
+  "first login for options button": "text=Log in for options >> nth=0",
+  "username field": "#code",
+  "password field": "#pin",
+  "login button": "[value='Submit']",
+ 
+  /** read online page locators */
+  "first read online button": "a:text('Read Online') >> nth=0",
+  "Hathi Trust website":
+    "iframe[src='https://babel.hathitrust.org/cgi/pt?id=mdp.39015034622749']",
+ 
+  /** request page locators */
+  "first request button":
+    "[href='https://www.nypl.org/research/collections/shared-collection-catalog/hold/request/b10715506-i13895605']",
+  "delivery location heading": "h2:text('Choose a delivery location')",
+  
   /** ereader locators */
   "Robot Soccer title": "//a[text()='Robot soccer'] >> nth=0",
   "e-reader table of contents button": "[aria-label='Table of Contents']",
@@ -174,11 +154,7 @@ export const elements = {
   "e-reader full screen button": "[aria-label='Toggle full screen']",
   "e-reader back to DRB button":
     "//span[text()='Back to Digital Research Books']",
-  /** end ereader locators */
   
-  "not yet available text": "//div[text()='Not yet available']",
-  
-
   /** header locators */
   "header logo": "a[aria-label='The New York Public Library']",
   "my account header link": "[aria-label='My Account']",
@@ -208,7 +184,7 @@ export const elements = {
   "search library website radio button": "span:text('Search the library website')",
   "search header button": "#search-btn",
   "close search header link": "[aria-label='Close Search']",
-  /** end header locators */
+
   /** footer locators */
   "accessibility footer link": "//a[@href='http://www.nypl.org/accessibility']",
   "press footer link":
@@ -226,8 +202,6 @@ export const elements = {
     "//a[@href='http://www.nypl.org/help/about-nypl/legal-notices/rules-and-regulations']",
   "about NYPL footer link": "//a[@href='http://www.nypl.org/help/about-nypl']",
   "language footer link": "//a[@href='http://www.nypl.org/language']",
-  /** end footer locators */
-  "feedback and help button": "//button[@id='open']",
 };
 
 export const inputs = {
