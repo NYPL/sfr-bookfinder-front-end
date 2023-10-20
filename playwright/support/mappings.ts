@@ -58,7 +58,7 @@ export const elements = {
   author: "[value='author']",
   title: "[value='title']",
   subject: "[value='subject']",
-  "search button": "#searchbar-button-search-bar", // rename to home page search button
+  "search button": "#searchbar-button-search-bar",
   "advanced search link": "[href='/advanced-search']",
 
   /** advanced search page locators */

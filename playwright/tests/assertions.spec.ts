@@ -22,7 +22,7 @@ Then(
 );
 
 Then(
-  /^only editions published between year "([^"]*)" and ""([^"]*)" should be displayed$/,
+  /^only editions published between year "([^"]*)" and "([^"]*)" should be displayed$/,
   async function (this: CustomWorld, elementKey: keyof typeof elements) {
     const element = elements[elementKey];
     return expect(this.page.locator(element)).toBeVisible({
