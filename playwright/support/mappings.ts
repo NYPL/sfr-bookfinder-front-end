@@ -36,24 +36,38 @@ export const pages: { [name: string]: Pages } = {
 };
 
 export const elements = {
+  /** advSearch locators */
   "advanced search link": "[href='/advanced-search']",
   "advanced search button": "#submit-button",
+  /** end advSearch locators */
+
   "search button": "#searchbar-button-search-bar",
-  "feedback and help button": "//button[@id='open']",
+  
   "requestable checkbox": "text=Requestable",
-  "login button": "[value='Submit']",
-  "first login for options button": "text=Log in for options >> nth=0",
+
+  /** gov docs locators */
   "government documents checkbox":
     "span:text('Show only US government documents')",
+
+  /** language locators */
   "Latin language checkbox": "span:text('Latin')",
   "Russian language checkbox": "span:text('Russian')",
+  
+  /** pub year filter locators */
   "publication year apply button": "#year-filter-button",
+
+  /** ReadOnlineTargets locators */
   "first read online button": "a:text('Read Online') >> nth=0",
-  "first read online button for all editions": "a:text('Read Online') >> nth=1",
+  "Hathi Trust website":
+    "iframe[src='https://babel.hathitrust.org/cgi/pt?id=mdp.39015034622749']",
+  /** end ReadOnlineTargets locators */
+
   "first request button":
     "[href='https://www.nypl.org/research/collections/shared-collection-catalog/hold/request/b10715506-i13895605']",
   "English language checkbox": "span:text('English')",
   "first search result link": "h2 a >> nth=0",
+
+  /** home page search locators */
   "search category dropdown": "[aria-label='Select a search category']",
   keyword: "[value='keyword']",
   author: "[value='author']",
@@ -64,8 +78,8 @@ export const elements = {
   "subject search box": "#search-Subject",
   "title search box": "#search-Title",
   "homepage search box": "[aria-label='Item Search']",
-  "username field": "#code",
-  "password field": "#pin",
+
+  /** advanced search locators */
   "publication year from filter": "#date-filter-from",
   "publication year to filter": "#date-filter-to",
   "advanced search heading": "h1:text('Advanced Search')",
@@ -79,11 +93,15 @@ export const elements = {
   "date filter to label": "#date-filter-to-label",
   "date filter to field": "#date-filter-to",
   "advanced search clear button": "#reset-button",
+
+  /** item or search result specific */
   "keyword heading": "h1:text('IBM 1401')",
   "author heading": "h1:text('Laurie, Edward J.')",
   "Russian language subheader": "span:text('Russian')",
   "search result link": "a:text('Computers and how they work')",
   "delivery location heading": "h2:text('Choose a delivery location')",
+
+  /** home page locators */
   "site name heading": "h1:text('Digital Research Books')",
   "Home breadcrumb link": "a[href='https://www.nypl.org'] > .breadcrumb-label",
   "Research breadcrumb link":
@@ -96,6 +114,17 @@ export const elements = {
   "collections heading": "h2:text('Recently Added Collections')",
   footer: "#nypl-footer",
   "feedback button": "button:text('Feedback')",
+  "first collection card link": "a[href^='/collection/'] >> nth=0",
+  "number of results": "#page-counter", // need?
+  /** end home page locators */
+
+  /** log in */
+  "login button": "[value='Submit']",
+  "first login for options button": "text=Log in for options >> nth=0",
+  "username field": "#code",
+  "password field": "#pin",
+
+  /** itemDetailPageElements locators */
   "item title": "#work-title",
   "item author": "div:text('By') > a:text('Library of Congress')",
   "item featured edition heading": "#featured-edition",
@@ -116,9 +145,16 @@ export const elements = {
     "span + span:text('Show only items currently available online')",
   "items currently available online toggle":
     "span:text('Show only items currently available online')",
+  "first read online button for all editions": "a:text('Read Online') >> nth=1",
   "second item edition": "a:text('Edition') >> nth=1",
-  "Hathi Trust website":
-    "iframe[src='https://babel.hathitrust.org/cgi/pt?id=mdp.39015034622749']",
+  "The Novels of Jane Austen link":
+  "//a[text()='The novels of Jane Austen'] >> nth=0",
+  "The Novels of Jane Austen heading":
+    "//h1[text()='The novels of Jane Austen']",
+  "back to search results button": "a:text('Back to search results')",
+  /** end itemDetailPageElements locators */
+
+  /** author/keyword/subject/title searches */
   "first search result subject": "a:text('Petroleum')",
   "first search result title": "a:text('IBM 1401') >> nth=0",
   "first search result author":
@@ -127,21 +163,22 @@ export const elements = {
   "first government document author": "a:text('United States') >> nth=0",
   "first search result language": "div:text('Latin') >> nth=0",
   "first search result edition": "a:text('1900 Edition') >> nth=0",
-  "first collection card link": "a[href^='/collection/'] >> nth=0",
-  "number of results": "#page-counter",
+  /** end searches */
+
+
+
+  /** ereader locators */
   "Robot Soccer title": "//a[text()='Robot soccer'] >> nth=0",
   "e-reader table of contents button": "[aria-label='Table of Contents']",
   "e-reader settings button": "[aria-label='Settings']",
   "e-reader full screen button": "[aria-label='Toggle full screen']",
   "e-reader back to DRB button":
     "//span[text()='Back to Digital Research Books']",
+  /** end ereader locators */
+  
   "not yet available text": "//div[text()='Not yet available']",
   
-    "The Novels of Jane Austen link":
-    "//a[text()='The novels of Jane Austen'] >> nth=0",
-  "The Novels of Jane Austen heading":
-    "//h1[text()='The novels of Jane Austen']",
-  "back to search results button": "a:text('Back to search results')",
+
   /** header locators */
   "header logo": "a[aria-label='The New York Public Library']",
   "my account header link": "[aria-label='My Account']",
@@ -190,6 +227,7 @@ export const elements = {
   "about NYPL footer link": "//a[@href='http://www.nypl.org/help/about-nypl']",
   "language footer link": "//a[@href='http://www.nypl.org/language']",
   /** end footer locators */
+  "feedback and help button": "//button[@id='open']",
 };
 
 export const inputs = {
