@@ -1,7 +1,7 @@
 Feature: Header Links
 
-    Scenario: As a user I navigate to the Digital Research Books home page and verify the header links are displayed
-        Given I go to the "home" page
+    Scenario: As a user I navigate to each Digital Research Books page and verify the header links are displayed
+        Given I go to the <DRB> page
         Then the "header logo" should be displayed
         And the "my account header link" should be displayed
         And the "locations header link" should be displayed
@@ -16,7 +16,18 @@ Feature: Header Links
         And the "connect header link" should be displayed
         And the "give header link" should be displayed
         And the "get help header link" should be displayed
-        And the "search header link" should be displayed          
+        And the "search header link" should be displayed
+
+           Examples:
+            | DRB                 |
+            | "home"              |
+            | "search results"    |
+            | "item details"      |
+            | "edition details"   |
+            | "collection"        |
+            | "read online"       |
+            | "license"           |
+            | "about"             |  
 
     Scenario: As a user I navigate to the Digital Research Books home page and verify the account and search header sub-links and elements are displayed
         Given I go to the "home" page
