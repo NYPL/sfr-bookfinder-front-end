@@ -1,6 +1,6 @@
 Feature: Advanced Search
 
-    Scenario: As a user I search for a keyword and author and the search results contain both the keyword and author
+    Scenario: As a user I navigate to the advanced search page and all page elements are displayed
         Given I go to the "home" page
         When I click the "advanced search link"
         Then the "advanced search heading" should be displayed
@@ -18,7 +18,11 @@ Feature: Advanced Search
         And the "date filter to field" should be displayed
         And the "advanced search button" should be displayed
         And the "advanced search clear button" should be displayed
-        When I fill in the "keyword search box" with "IBM 1401"
+
+    Scenario: As a user I search for a keyword and author and the search results contain both the keyword and author
+        Given I go to the "home" page
+        When I click the "advanced search link"
+        And I fill in the "keyword search box" with "IBM 1401"
         And I fill in the "author search box" with "Laurie, Edward J."
         And I click the "advanced search button"
         Then the "keyword heading" should be displayed
