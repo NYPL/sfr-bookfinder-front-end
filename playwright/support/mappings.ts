@@ -136,37 +136,8 @@ export const elements = {
   "e-reader back to DRB button":
     "//span[text()='Back to Digital Research Books']",
   "not yet available text": "//div[text()='Not yet available']",
-  "accessibility footer link": "//a[@href='http://www.nypl.org/accessibility']",
-  "press footer link":
-    "//a[@href='http://www.nypl.org/help/about-nypl/media-center']",
-  "careers footer link": "//a[@href='http://www.nypl.org/careers']",
-  "space rental footer link": "//a[@href='http://www.nypl.org/spacerental']",
-  "privacy footer link":
-    "//a[@href='http://www.nypl.org/help/about-nypl/legal-notices/privacy-policy']",
-  "other policies footer link": "//a[@href='http://www.nypl.org/policies']",
-  "terms and conditions footer link":
-    "//a[@href='http://www.nypl.org/terms-conditions']",
-  "governance footer link":
-    "//a[@href='http://www.nypl.org/help/about-nypl/leadership/board-trustees']",
-  "rules and regulations footer link":
-    "//a[@href='http://www.nypl.org/help/about-nypl/legal-notices/rules-and-regulations']",
-  "about footer link": "//a[@href='http://www.nypl.org/help/about-nypl']",
-  "language footer link": "//a[@href='http://www.nypl.org/language']",
-  "accessibility page heading": "//h1[text()='Accessibility at NYPL']",
-  "press page heading": "//h1[text()='Press Releases']",
-  "careers page heading": "//h2[text()='Careers at NYPL']",
-  "space rental page heading": "//h1//span[text()='Space Rental']",
-  "privacy page heading":
-    "//h1[text()='The New York Public Library Privacy Policy']",
-  "other policies page heading": "//h1[text()='Policies']",
-  "terms and conditions page heading": "//h1[text()='Terms & Conditions']",
-  "governance page heading":
-    "//h1[text()='The New York Public Library Board of Trustees']",
-  "rules and regulations page heading":
-    "//h1[text()='General Policies and Rules']",
-  "about page heading": "//h1[text()='About The New York Public Library']",
-  "language page heading": "//h1[text()='Language']",
-  "The Novels of Jane Austen link":
+  
+    "The Novels of Jane Austen link":
     "//a[text()='The novels of Jane Austen'] >> nth=0",
   "The Novels of Jane Austen heading":
     "//h1[text()='The novels of Jane Austen']",
@@ -201,6 +172,24 @@ export const elements = {
   "search header button": "#search-btn",
   "close search header link": "[aria-label='Close Search']",
   /** end header locators */
+  /** footer locators */
+  "accessibility footer link": "//a[@href='http://www.nypl.org/accessibility']",
+  "press footer link":
+    "//a[@href='http://www.nypl.org/help/about-nypl/media-center']",
+  "careers footer link": "//a[@href='http://www.nypl.org/careers']",
+  "space rental footer link": "//a[@href='http://www.nypl.org/spacerental']",
+  "privacy policy footer link":
+    "//a[@href='http://www.nypl.org/help/about-nypl/legal-notices/privacy-policy']",
+  "other policies footer link": "//a[@href='http://www.nypl.org/policies']",
+  "terms and conditions footer link":
+    "//a[@href='http://www.nypl.org/terms-conditions']",
+  "governance footer link":
+    "//a[@href='http://www.nypl.org/help/about-nypl/leadership/board-trustees']",
+  "rules and regulations footer link":
+    "//a[@href='http://www.nypl.org/help/about-nypl/legal-notices/rules-and-regulations']",
+  "about NYPL footer link": "//a[@href='http://www.nypl.org/help/about-nypl']",
+  "language footer link": "//a[@href='http://www.nypl.org/language']",
+  /** end footer locators */
 };
 
 export const inputs = {
