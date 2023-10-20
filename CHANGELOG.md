@@ -6,9 +6,10 @@
 - Upgrade testing-library packages to v14 and jest to v29
 - Remove TemplateFooter components
 - Replace Template components with TemplateAppContainer and DrbBreakout to reduce repeat components
-- Upgrade to NYPL Design System 1.7.3
+- Upgrade to NYPL Design System 2.1.0
 - Replace fireEvent with userEvent
 - Feedback button test PW
+- Implement Typography changes from Reservoir 2.0 
 
 ## [0.17.4]
 

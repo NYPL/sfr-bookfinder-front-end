@@ -11,7 +11,6 @@ import {
   HorizontalRule,
   SimpleGrid,
   TemplateAppContainer,
-  Text,
   Toggle,
 } from "@nypl/design-system-react-components";
 
@@ -88,7 +87,7 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
     <>
       <Flex direction={{ base: "column", md: "row" }}>
         {edition && (
-          <Heading level="one">
+          <Heading level="h2">
             <Link
               to={{
                 pathname: `/work/${edition.work_uuid}`,
@@ -116,7 +115,9 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
       <Box>
         {featuredInstance && (
           <>
-            <Heading level="two">Featured Copy</Heading>
+            <Heading level="h3" size="heading4">
+              Featured Copy
+            </Heading>
 
             <Box>
               <InstanceCard edition={edition} instance={featuredInstance} />
@@ -139,10 +140,11 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
           marginTop="l"
           padding="s"
         >
-          <CardHeading size="primary" id="row-heading">
-            <Text size="caption" isUppercase marginTop="xs">
-              <b>Part of Collection</b>
-            </Text>
+          <CardHeading
+            size="heading2"
+            id="row-heading"
+            overline="Part of Collection"
+          >
             <Box marginTop="m" marginBottom="m">
               {edition.inCollections[0].title}
             </Box>
@@ -169,7 +171,9 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
       <HorizontalRule bg="section.research.primary" />
       {edition.instances && (
         <Flex justify="space-between">
-          <Heading level="three">All Copies</Heading>
+          <Heading level="h4" size="heading5">
+            All Copies
+          </Heading>
 
           <Toggle
             labelText="Show only items currently available online"

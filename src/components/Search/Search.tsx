@@ -193,7 +193,7 @@ const SearchResults: React.FC<{
       )}
       <Box className="search-heading">
         <Box role="alert">
-          <Heading level="one" id="page-title-heading">
+          <Heading level="h2" id="page-title-heading">
             <>Search results for {getDisplayItemsHeading(searchQuery)}</>
           </Heading>
         </Box>
@@ -201,7 +201,8 @@ const SearchResults: React.FC<{
       <HorizontalRule bg="section.research.primary" />
       <Flex justify="space-between" align="center">
         <Heading
-          level="two"
+          level="h3"
+          size="heading6"
           id="page-counter"
           className="page-counter"
           __css={{ m: "0" }}
@@ -266,7 +267,7 @@ const SearchResults: React.FC<{
               />
             </Box>
             <form name="filterForm">
-              <Heading level="two" id="filter-desktop-header">
+              <Heading level="h3" id="filter-desktop-header">
                 Refine Results
               </Heading>
               <Filters
@@ -308,7 +309,7 @@ const SearchResults: React.FC<{
         gap="grid.xs"
         display={["none", "none", "block"]}
       >
-        <Heading level="two" id="filter-desktop-header" __css={{ m: "0" }}>
+        <Heading level="h3" id="filter-desktop-header" __css={{ m: "0" }}>
           Refine Results
         </Heading>
         <Filters

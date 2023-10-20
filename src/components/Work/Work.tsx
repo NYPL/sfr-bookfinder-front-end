@@ -7,7 +7,6 @@ import {
   HorizontalRule,
   Box,
   Flex,
-  Text,
   Card,
   CardActions,
   CardContent,
@@ -83,7 +82,7 @@ const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
     <>
       <Box>
         <Flex direction={{ base: "column", md: "row" }}>
-          <Heading level="one" id="work-title">
+          <Heading level="h2" id="work-title">
             {work.title}
           </Heading>
           {props.backUrl && (
@@ -104,7 +103,7 @@ const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
       {featuredEdition && (
         <>
           <Box>
-            <Heading level="two" id="featured-edition">
+            <Heading level="h3" size="heading4" id="featured-edition">
               Featured Edition
             </Heading>
           </Box>
@@ -131,10 +130,11 @@ const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
           marginTop="l"
           padding="s"
         >
-          <CardHeading size="primary" id="row-heading">
-            <Text size="caption" isUppercase marginTop="xs">
-              <b>Part of Collection</b>
-            </Text>
+          <CardHeading
+            size="heading2"
+            id="row-heading"
+            overline="Part of Collection"
+          >
             <Box marginTop="m" marginBottom="m">
               {work.inCollections[0].title}
             </Box>
@@ -163,7 +163,7 @@ const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
         {work.editions && (
           <>
             <Flex justify="space-between">
-              <Heading level="three" id="all-editions">
+              <Heading level="h4" size="heading5" id="all-editions">
                 All Editions
               </Heading>
 

@@ -203,7 +203,7 @@ const AdvancedSearch: React.FC<{
 
   const contentTopElement = (
     <>
-      <Heading level="one">Advanced Search</Heading>
+      <Heading level="h1">Advanced Search</Heading>
       {emptySearchError && (
         <HelperErrorText text={errorMessagesText.emptySearch} isInvalid />
       )}

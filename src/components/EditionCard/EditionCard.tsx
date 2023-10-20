@@ -63,7 +63,7 @@ export const EditionCard: React.FC<{ edition: WorkEdition; title: string }> = ({
       flexFlow={{ md: "column nowrap", lg: "row" }}
       alignItems={{ md: "flex-start", lg: "center" }}
     >
-      <CardHeading level="four" id="stack1-heading1">
+      <CardHeading level="h4" size="heading6" id="stack1-heading1">
         {editionYearElem(edition)}
       </CardHeading>
       <CardContent>

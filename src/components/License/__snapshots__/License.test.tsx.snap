@@ -122,12 +122,12 @@ exports[`renders License page unchanged 1`] = `
       class="css-0"
     >
       <h1
-        class="chakra-heading css-1xdhyk6"
+        class="chakra-heading css-eyyo6e"
       >
         License Explanations
       </h1>
       <h2
-        class="chakra-heading css-1xdhyk6"
+        class="chakra-heading css-878tmy"
       >
         Public Domain
       </h2>
@@ -135,7 +135,7 @@ exports[`renders License page unchanged 1`] = `
         Works in the public domain have no copyright (in most cases because the copyright term has expired) and you are free to use, adapt, share, and distribute the work in any way you wish.
       </p>
       <h2
-        class="chakra-heading css-1xdhyk6"
+        class="chakra-heading css-878tmy"
       >
         Public Domain (US Only)
       </h2>
@@ -143,7 +143,7 @@ exports[`renders License page unchanged 1`] = `
         Works may be in the public domain in the Unites States (where you can use and distribute them without restriction), but still subject to copyright laws and restrictions outside the United States.
       </p>
       <h2
-        class="chakra-heading css-1xdhyk6"
+        class="chakra-heading css-878tmy"
       >
         Creative Commons Licenses
       </h2>
@@ -284,7 +284,7 @@ exports[`renders License page unchanged 1`] = `
         </li>
       </ul>
       <h2
-        class="chakra-heading css-1xdhyk6"
+        class="chakra-heading css-878tmy"
       >
         CC0 Public Domain Dedication
       </h2>
@@ -301,7 +301,7 @@ exports[`renders License page unchanged 1`] = `
         waives all rights under worldwide copyright law. It allows you to use, adapt, share, and distribute the work as if it were in the Public domain.
       </p>
       <h2
-        class="chakra-heading css-1xdhyk6"
+        class="chakra-heading css-878tmy"
       >
         GNU General Public License
       </h2>

@@ -42,7 +42,7 @@ export const InstanceCard: React.FC<{
       id={`card-${instance.instance_id}`}
       p="s"
     >
-      <CardHeading level="three">
+      <CardHeading level="h4" size="heading6">
         {edition.publication_date
           ? edition.publication_date
           : "Edition Year Unknown"}

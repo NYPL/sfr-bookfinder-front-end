@@ -15,7 +15,7 @@ export const CollectionItem: React.FC<{
 
   return (
     <Box>
-      <Heading level="two" marginBottom="xs">
+      <Heading level="h2" size="heading4" marginBottom="xs">
         <Link
           to={{
             pathname: links.find((link) => link.rel === "alternate").href,

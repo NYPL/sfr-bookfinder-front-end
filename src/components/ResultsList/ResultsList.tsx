@@ -45,7 +45,7 @@ const ResultsList: React.FC<{ works: ApiWork[] }> = ({ works }) => {
 
         return (
           <Box key={`search-result-${work.uuid}`} className="search-result">
-            <Heading level="two">
+            <Heading level="h4">
               <Link
                 to={{
                   pathname: `/work/${work.uuid}`,
