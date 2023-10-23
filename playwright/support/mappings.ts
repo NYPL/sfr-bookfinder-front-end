@@ -146,7 +146,7 @@ export const elements = {
   "first request button":
     "[href='https://www.nypl.org/research/collections/shared-collection-catalog/hold/request/b10715506-i13895605']",
   "delivery location heading": "h2:text('Choose a delivery location')",
-  
+
   /** ereader locators */
   "Robot Soccer title": "//a[text()='Robot soccer'] >> nth=0",
   "e-reader table of contents button": "[aria-label='Table of Contents']",
@@ -179,11 +179,11 @@ export const elements = {
   "search header link": "#searchButton",
   "search header label": "#searchInput-label",
   "search header text field": "#searchInput",
-  "search books music movies radio button": 
+  "search books music movies radio button":
     "span:text('Search books, music, and movies')",
-  "search research catalog radio button": 
+  "search research catalog radio button":
     "span:text('Search the Research Catalog')",
-  "search library website radio button": 
+  "search library website radio button":
     "span:text('Search the library website')",
   "search header button": "#search-btn",
   "close search header link": "[aria-label='Close Search']",
