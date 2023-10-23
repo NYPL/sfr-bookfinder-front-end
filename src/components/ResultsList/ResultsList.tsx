@@ -20,6 +20,7 @@ export const getEditionsLinkElement = (work: ApiWork) => {
         query: { showAll: true, featured: previewEdition.edition_id },
         hash: "#all-editions",
       }}
+      linkType="standalone"
     >
       {`View All ${editionCount} Editions`}
     </Link>
@@ -45,13 +46,19 @@ const ResultsList: React.FC<{ works: ApiWork[] }> = ({ works }) => {
 
         return (
           <Box key={`search-result-${work.uuid}`} className="search-result">
-            <Heading level="h4">
+            <Heading
+              level="h4"
+              sx={{
+                a: {
+                  textDecoration: "none",
+                },
+              }}
+            >
               <Link
                 to={{
                   pathname: `/work/${work.uuid}`,
                   query: { featured: previewEdition.edition_id },
                 }}
-                className="link link--no-underline"
               >
                 {truncateStringOnWhitespace(work.title, MAX_TITLE_LENGTH)}
               </Link>

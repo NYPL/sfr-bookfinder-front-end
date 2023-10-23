@@ -202,7 +202,7 @@ const SearchResults: React.FC<{
       <Flex justify="space-between" align="center">
         <Heading
           level="h3"
-          size="heading6"
+          size="heading4"
           id="page-counter"
           className="page-counter"
           __css={{ m: "0" }}

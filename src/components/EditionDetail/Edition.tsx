@@ -87,7 +87,14 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
     <>
       <Flex direction={{ base: "column", md: "row" }}>
         {edition && (
-          <Heading level="h2">
+          <Heading
+            level="h2"
+            sx={{
+              a: {
+                textDecoration: "none",
+              },
+            }}
+          >
             <Link
               to={{
                 pathname: `/work/${edition.work_uuid}`,
@@ -104,7 +111,9 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
             lineHeight="calc(1.1 * var(--nypl-fontSizes-heading-primary))"
             pl={{ md: "s" }}
           >
-            <Link to={props.backUrl}>Back to search results</Link>
+            <Link to={props.backUrl} linkType="backwards">
+              Back to search results
+            </Link>
           </Box>
         )}
       </Flex>

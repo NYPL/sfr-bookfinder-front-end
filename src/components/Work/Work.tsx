@@ -91,7 +91,9 @@ const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
               lineHeight="calc(1.1 * var(--nypl-fontSizes-heading-primary))"
               pl={{ md: "s" }}
             >
-              <Link to={props.backUrl}>Back to search results</Link>
+              <Link to={props.backUrl} linkType="backwards">
+                Back to search results
+              </Link>
             </Box>
           )}
         </Flex>
