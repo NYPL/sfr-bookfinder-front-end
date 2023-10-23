@@ -15,7 +15,7 @@ export const pages: { [name: string]: Pages } = {
   "item details": {
     route: "/work/01a28167-8c8d-4141-a32f-718539d5c8a4?featured=949699",
   },
-  "collection": {
+  collection: {
     route: "/collection/297da3a0-bcdb-4eb3-a520-a330fd8fa370",
   },
   "advanced search": {
@@ -24,10 +24,10 @@ export const pages: { [name: string]: Pages } = {
   "edition details": {
     route: "/edition/949698",
   },
-  "about": {
+  about: {
     route: "/about",
   },
-  "license": {
+  license: {
     route: "/license",
   },
   "read online": {
@@ -136,12 +136,12 @@ export const elements = {
   "username field": "#code",
   "password field": "#pin",
   "login button": "[value='Submit']",
- 
+
   /** read online page locators */
   "first read online button": "a:text('Read Online') >> nth=0",
   "Hathi Trust website":
     "iframe[src='https://babel.hathitrust.org/cgi/pt?id=mdp.39015034622749']",
- 
+
   /** request page locators */
   "first request button":
     "[href='https://www.nypl.org/research/collections/shared-collection-catalog/hold/request/b10715506-i13895605']",
@@ -154,7 +154,7 @@ export const elements = {
   "e-reader full screen button": "[aria-label='Toggle full screen']",
   "e-reader back to DRB button":
     "//span[text()='Back to Digital Research Books']",
-  
+
   /** header locators */
   "header logo": "a[aria-label='The New York Public Library']",
   "my account header link": "[aria-label='My Account']",
@@ -179,9 +179,12 @@ export const elements = {
   "search header link": "#searchButton",
   "search header label": "#searchInput-label",
   "search header text field": "#searchInput",
-  "search books music movies radio button": "span:text('Search books, music, and movies')",
-  "search research catalog radio button": "span:text('Search the Research Catalog')",
-  "search library website radio button": "span:text('Search the library website')",
+  "search books music movies radio button": 
+    "span:text('Search books, music, and movies')",
+  "search research catalog radio button": 
+    "span:text('Search the Research Catalog')",
+  "search library website radio button": 
+    "span:text('Search the library website')",
   "search header button": "#search-btn",
   "close search header link": "[aria-label='Close Search']",
 
