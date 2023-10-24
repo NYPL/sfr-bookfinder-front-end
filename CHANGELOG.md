@@ -9,6 +9,7 @@
 - Upgrade to NYPL Design System 1.7.3
 - Replace fireEvent with userEvent
 - Feedback button test PW
+- Update README with C4 diagrams and epub-to-webpub info
 
 ## [0.17.4]
 
