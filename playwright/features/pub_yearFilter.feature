@@ -16,4 +16,4 @@ Feature: Publication Year Filter
         And I fill in the "publication year from filter" with "1800"
         And I fill in the "publication year to filter" with "1835"
         And I click the "publication year apply button"
-        Then only published between year "1800" and "1835" should be displayed
+        Then only editions published between year "1800" and "1835" should be displayed
