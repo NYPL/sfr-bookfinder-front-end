@@ -10,6 +10,7 @@
 - Replace fireEvent with userEvent
 - Feedback button test PW
 - SFR-1797: Remove Playwright tests with clicks on header and footer links
+- Update README with C4 diagrams and epub-to-webpub info
 
 ## [0.17.4]
 
