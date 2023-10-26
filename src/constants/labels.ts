@@ -57,7 +57,7 @@ export const documentTitles = {
   home: "Digital Research Books Beta | NYPL",
   advancedSearch: "Advanced Search | Digital Research Books Beta | NYPL",
   search: "Search Results | Digital Research Books Beta | NYPL",
-  workItem: "Item Details | Digital Research Books Beta | NYPL",
+  workItem: "Work Details | Digital Research Books Beta | NYPL",
   editionItem: "Edition Details | Digital Research Books Beta | NYPL",
   readItem: "Read Online | Digital Research Books Beta | NYPL",
   collection: "Collection | Digital Research Books Beta | NYPL",
