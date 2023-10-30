@@ -16,8 +16,7 @@ export const CollectionItem: React.FC<{
   return (
     <Box>
       <Heading
-        level="h2"
-        size="heading4"
+        level="h4"
         marginBottom="xs"
         sx={{
           a: {

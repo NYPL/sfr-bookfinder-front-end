@@ -40,7 +40,7 @@ export const CollectionItemCard: React.FC<{
       p="s"
     >
       <CardHeading
-        level="h4"
+        level="h5"
         size="heading6"
         sx={{
           a: {

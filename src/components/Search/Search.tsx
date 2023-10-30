@@ -11,6 +11,7 @@ import {
   useModal,
   useNYPLBreakpoints,
   TemplateAppContainer,
+  Text,
 } from "@nypl/design-system-react-components";
 import { useRouter } from "next/router";
 import { FacetItem, Query } from "~/src/types/DataModel";
@@ -193,20 +194,14 @@ const SearchResults: React.FC<{
       )}
       <Box className="search-heading">
         <Box role="alert">
-          <Heading level="h2" id="page-title-heading">
+          <Heading level="h1" size="heading2" id="page-title-heading">
             <>Search results for {getDisplayItemsHeading(searchQuery)}</>
           </Heading>
         </Box>
       </Box>
       <HorizontalRule bg="section.research.primary" />
       <Flex justify="space-between" align="center">
-        <Heading
-          level="h3"
-          size="heading4"
-          id="page-counter"
-          className="page-counter"
-          __css={{ m: "0" }}
-        >
+        <Text fontSize="1.75rem" className="page-counter" __css={{ m: "0" }}>
           {numberOfWorks > 0
             ? `Viewing ${firstElement.toLocaleString()} - ${
                 numberOfWorks < lastElement
@@ -214,7 +209,7 @@ const SearchResults: React.FC<{
                   : lastElement.toLocaleString()
               } of ${numberOfWorks.toLocaleString()} items`
             : "Viewing 0 items"}
-        </Heading>
+        </Text>
         <Form id="results-sorts-form" display={["none", "none", "block"]}>
           <ResultsSorts
             perPage={searchQuery.perPage}
@@ -267,7 +262,7 @@ const SearchResults: React.FC<{
               />
             </Box>
             <form name="filterForm">
-              <Heading level="h3" id="filter-desktop-header">
+              <Heading level="h2" size="heading3" id="filter-desktop-header">
                 Refine Results
               </Heading>
               <Filters
@@ -309,7 +304,12 @@ const SearchResults: React.FC<{
         gap="grid.xs"
         display={["none", "none", "block"]}
       >
-        <Heading level="h3" id="filter-desktop-header" __css={{ m: "0" }}>
+        <Heading
+          level="h2"
+          size="heading3"
+          id="filter-desktop-header"
+          __css={{ m: "0" }}
+        >
           Refine Results
         </Heading>
         <Filters

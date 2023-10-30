@@ -4,7 +4,6 @@ import {
   CardContent,
   CardHeading,
   Box,
-  Heading,
   Text,
 } from "@nypl/design-system-react-components";
 import { Opds2Feed } from "~/src/types/OpdsModel";
@@ -35,7 +34,7 @@ export const CollectionCard: React.FC<{ collection: Opds2Feed }> = ({
       minHeight="405px"
     >
       <CardHeading
-        level="h4"
+        level="h3"
         size="heading5"
         id="stack1-heading1"
         overline="Collection"
@@ -47,9 +46,9 @@ export const CollectionCard: React.FC<{ collection: Opds2Feed }> = ({
       </CardHeading>
       <CardContent>
         <Box>
-          <Heading level="h5" size="heading6">
+          <Text size="subtitle1">
             {collection.metadata.numberOfItems + " Items"}
-          </Heading>
+          </Text>
           <Text>
             {truncateStringOnWhitespace(
               collection.metadata.description,

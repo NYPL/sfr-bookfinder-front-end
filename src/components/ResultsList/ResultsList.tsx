@@ -47,7 +47,8 @@ const ResultsList: React.FC<{ works: ApiWork[] }> = ({ works }) => {
         return (
           <Box key={`search-result-${work.uuid}`} className="search-result">
             <Heading
-              level="h4"
+              level="h2"
+              size="heading3"
               sx={{
                 a: {
                   textDecoration: "none",

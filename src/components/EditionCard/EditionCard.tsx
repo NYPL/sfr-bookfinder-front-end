@@ -64,7 +64,7 @@ export const EditionCard: React.FC<{ edition: WorkEdition; title: string }> = ({
       alignItems={{ md: "flex-start", lg: "center" }}
     >
       <CardHeading
-        level="h4"
+        level="h3"
         size="heading6"
         id="stack1-heading1"
         sx={{

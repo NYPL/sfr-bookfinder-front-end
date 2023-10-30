@@ -88,7 +88,8 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
       <Flex direction={{ base: "column", md: "row" }}>
         {edition && (
           <Heading
-            level="h2"
+            level="h1"
+            size="heading2"
             sx={{
               a: {
                 textDecoration: "none",
@@ -124,7 +125,7 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
       <Box>
         {featuredInstance && (
           <>
-            <Heading level="h3" size="heading4">
+            <Heading level="h2" size="heading4">
               Featured Copy
             </Heading>
 
@@ -180,7 +181,7 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
       <HorizontalRule bg="section.research.primary" />
       {edition.instances && (
         <Flex justify="space-between">
-          <Heading level="h3" size="heading5">
+          <Heading level="h2" size="heading5">
             All Copies
           </Heading>
 

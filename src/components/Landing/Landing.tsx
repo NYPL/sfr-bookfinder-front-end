@@ -71,7 +71,12 @@ const LandingPage: React.FC<{ collections?: Opds2Feed }> = ({
         foregroundColor="ui.black"
         heroType="primary"
         heading={
-          <Heading level="h2" id="primary-hero" color="ui.black">
+          <Heading
+            level="h1"
+            size="heading2"
+            id="primary-hero"
+            color="ui.black"
+          >
             Search the World's Research Collections
           </Heading>
         }
@@ -82,7 +87,7 @@ const LandingPage: React.FC<{ collections?: Opds2Feed }> = ({
 
   const contentPrimaryElement = (
     <Box marginLeft="l" marginRight="l">
-      <Heading level="h3">Recently Added Collections</Heading>
+      <Heading level="h2">Recently Added Collections</Heading>
       <CollectionList collections={collections} />
     </Box>
   );
