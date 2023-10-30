@@ -180,7 +180,7 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
       <HorizontalRule bg="section.research.primary" />
       {edition.instances && (
         <Flex justify="space-between">
-          <Heading level="h4" size="heading5">
+          <Heading level="h3" size="heading5">
             All Copies
           </Heading>
 

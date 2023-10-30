@@ -35,7 +35,7 @@ export const CollectionCard: React.FC<{ collection: Opds2Feed }> = ({
       minHeight="405px"
     >
       <CardHeading
-        level="h3"
+        level="h4"
         size="heading5"
         id="stack1-heading1"
         overline="Collection"
@@ -47,7 +47,7 @@ export const CollectionCard: React.FC<{ collection: Opds2Feed }> = ({
       </CardHeading>
       <CardContent>
         <Box>
-          <Heading level="h1" size="heading6">
+          <Heading level="h5" size="heading6">
             {collection.metadata.numberOfItems + " Items"}
           </Heading>
           <Text>

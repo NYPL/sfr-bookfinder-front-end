@@ -165,7 +165,7 @@ const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
         {work.editions && (
           <>
             <Flex justify="space-between">
-              <Heading level="h4" size="heading5" id="all-editions">
+              <Heading level="h3" size="heading5" id="all-editions">
                 All Editions
               </Heading>
 
