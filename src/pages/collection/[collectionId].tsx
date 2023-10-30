@@ -37,12 +37,10 @@ const CollectionResults: React.FC<{
     <Layout>
       <Head>
         <title>
-          {truncateStringOnWhitespace(
+          {`${truncateStringOnWhitespace(
             collectionResult.metadata.title,
             MAX_TITLE_LENGTH
-          ) +
-            " | " +
-            documentTitles.collection}
+          )} | ${documentTitles.collection}`}
         </title>
       </Head>
       <Collection

@@ -31,12 +31,10 @@ const WorkResults: React.FC<any> = (props) => {
     <Layout>
       <Head>
         <title>
-          {truncateStringOnWhitespace(
+          {`${truncateStringOnWhitespace(
             props.editionResult.data.title,
             MAX_TITLE_LENGTH
-          ) +
-            " | " +
-            documentTitles.editionItem}
+          )} | ${documentTitles.editionItem}`}
         </title>
       </Head>
       <Edition editionResult={props.editionResult} backUrl={props.backUrl} />

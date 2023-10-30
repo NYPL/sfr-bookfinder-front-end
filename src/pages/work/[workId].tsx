@@ -32,12 +32,10 @@ const WorkResults: React.FC<any> = (props) => {
     <Layout>
       <Head>
         <title>
-          {truncateStringOnWhitespace(
+          {`${truncateStringOnWhitespace(
             props.workResult.data.title,
             MAX_TITLE_LENGTH
-          ) +
-            " | " +
-            documentTitles.workItem}
+          )} | ${documentTitles.workItem}`}
         </title>
       </Head>
       <WorkDetail workResult={props.workResult} backUrl={props.backUrl} />
