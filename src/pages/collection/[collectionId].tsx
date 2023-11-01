@@ -1,10 +1,14 @@
 import { GetServerSideProps } from "next";
+import Head from "next/head";
 import React from "react";
 import Collection from "~/src/components/Collection/Collection";
 
 import Layout from "~/src/components/Layout/Layout";
+import { MAX_PAGE_TITLE_LENGTH } from "~/src/constants/editioncard";
+import { documentTitles } from "~/src/constants/labels";
 import { collectionFetcher } from "~/src/lib/api/CollectionApi";
 import { CollectionQuery, CollectionResult } from "~/src/types/CollectionQuery";
+import { truncateStringOnWhitespace } from "~/src/util/Util";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const collectionQuery: CollectionQuery = {
@@ -31,6 +35,14 @@ const CollectionResults: React.FC<{
 }> = ({ collectionResult, collectionQuery }) => {
   return (
     <Layout>
+      <Head>
+        <title>
+          {`${truncateStringOnWhitespace(
+            collectionResult.metadata.title,
+            MAX_PAGE_TITLE_LENGTH
+          )} | ${documentTitles.collection}`}
+        </title>
+      </Head>
       <Collection
         collectionResult={collectionResult}
         collectionQuery={collectionQuery}
