@@ -4,7 +4,7 @@ import React from "react";
 import Collection from "~/src/components/Collection/Collection";
 
 import Layout from "~/src/components/Layout/Layout";
-import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
+import { MAX_PAGE_TITLE_LENGTH } from "~/src/constants/editioncard";
 import { documentTitles } from "~/src/constants/labels";
 import { collectionFetcher } from "~/src/lib/api/CollectionApi";
 import { CollectionQuery, CollectionResult } from "~/src/types/CollectionQuery";
@@ -39,7 +39,7 @@ const CollectionResults: React.FC<{
         <title>
           {`${truncateStringOnWhitespace(
             collectionResult.metadata.title,
-            MAX_TITLE_LENGTH
+            MAX_PAGE_TITLE_LENGTH
           )} | ${documentTitles.collection}`}
         </title>
       </Head>

@@ -2,7 +2,7 @@ import Head from "next/head";
 import React from "react";
 import Layout from "~/src/components/Layout/Layout";
 import WorkDetail from "~/src/components/Work/Work";
-import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
+import { MAX_PAGE_TITLE_LENGTH } from "~/src/constants/editioncard";
 import { documentTitles } from "~/src/constants/labels";
 import { workFetcher } from "~/src/lib/api/SearchApi";
 import { WorkQuery, WorkResult } from "~/src/types/WorkQuery";
@@ -34,7 +34,7 @@ const WorkResults: React.FC<any> = (props) => {
         <title>
           {`${truncateStringOnWhitespace(
             props.workResult.data.title,
-            MAX_TITLE_LENGTH
+            MAX_PAGE_TITLE_LENGTH
           )} | ${documentTitles.workItem}`}
         </title>
       </Head>

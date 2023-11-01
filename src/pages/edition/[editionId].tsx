@@ -6,7 +6,7 @@ import { EditionQuery, EditionResult } from "~/src/types/EditionQuery";
 import { getBackToSearchUrl } from "~/src/util/LinkUtils";
 import { documentTitles } from "~/src/constants/labels";
 import Head from "next/head";
-import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
+import { MAX_PAGE_TITLE_LENGTH } from "~/src/constants/editioncard";
 import { truncateStringOnWhitespace } from "~/src/util/Util";
 
 export async function getServerSideProps(context: any) {
@@ -33,7 +33,7 @@ const WorkResults: React.FC<any> = (props) => {
         <title>
           {`${truncateStringOnWhitespace(
             props.editionResult.data.title,
-            MAX_TITLE_LENGTH
+            MAX_PAGE_TITLE_LENGTH
           )} | ${documentTitles.editionItem}`}
         </title>
       </Head>
