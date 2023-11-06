@@ -43,6 +43,7 @@ export const CollectionItemCard: React.FC<{
         level="h5"
         size="heading6"
         sx={{
+          fontSize: "18px",
           a: {
             textDecoration: "none",
           },

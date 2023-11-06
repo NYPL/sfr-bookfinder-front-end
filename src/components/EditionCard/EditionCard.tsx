@@ -68,6 +68,7 @@ export const EditionCard: React.FC<{ edition: WorkEdition; title: string }> = ({
         size="heading6"
         id="stack1-heading1"
         sx={{
+          fontSize: "18px",
           a: {
             textDecoration: "none",
           },
