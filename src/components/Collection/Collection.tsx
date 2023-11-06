@@ -153,7 +153,7 @@ const Collection: React.FC<{
       <HorizontalRule bg="section.research.primary" marginBottom="xl" />
       <Heading level="h3">In this collection</Heading>
       <Flex justify="space-between" marginBottom="xl" align="center">
-        <Text fontSize="1.375rem" noSpace>
+        <Heading level="h3" size="heading5" noSpace>
           {totalItems > 0
             ? `Viewing ${firstElement.toLocaleString()} - ${
                 totalItems < lastElement
@@ -161,7 +161,7 @@ const Collection: React.FC<{
                   : lastElement.toLocaleString()
               } of ${totalItems.toLocaleString()} items`
             : "Viewing 0 items"}
-        </Text>
+        </Heading>
         <Form id="results-sorts-form">
           <ResultsSorts
             perPage={currentCollectionQuery.perPage}

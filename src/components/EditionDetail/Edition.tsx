@@ -160,7 +160,7 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
             </Box>
           </CardHeading>
           <CardContent marginBottom="l">
-            <Box>{edition.inCollections[0].description}</Box>
+            {edition.inCollections[0].description}
           </CardContent>
           <CardActions width="165px">
             <Link

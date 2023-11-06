@@ -194,7 +194,7 @@ const SearchResults: React.FC<{
       )}
       <Box className="search-heading">
         <Box role="alert">
-          <Heading level="h1" size="heading2" id="page-title-heading">
+          <Heading level="h1" size="heading3" id="page-title-heading">
             <>Search results for {getDisplayItemsHeading(searchQuery)}</>
           </Heading>
         </Box>

@@ -3,8 +3,6 @@ import {
   Card,
   CardContent,
   CardHeading,
-  Box,
-  Text,
 } from "@nypl/design-system-react-components";
 import { Opds2Feed } from "~/src/types/OpdsModel";
 import CollectionUtils from "~/src/util/CollectionUtils";
@@ -38,6 +36,7 @@ export const CollectionCard: React.FC<{ collection: Opds2Feed }> = ({
         size="heading5"
         id="stack1-heading1"
         overline="Collection"
+        subtitle={collection.metadata.numberOfItems + " Items"}
       >
         {truncateStringOnWhitespace(
           collection.metadata.title,
@@ -45,17 +44,10 @@ export const CollectionCard: React.FC<{ collection: Opds2Feed }> = ({
         )}
       </CardHeading>
       <CardContent>
-        <Box>
-          <Text size="subtitle1">
-            {collection.metadata.numberOfItems + " Items"}
-          </Text>
-          <Text>
-            {truncateStringOnWhitespace(
-              collection.metadata.description,
-              MAX_DESCRIPTION_LENGTH
-            )}
-          </Text>
-        </Box>
+        {truncateStringOnWhitespace(
+          collection.metadata.description,
+          MAX_DESCRIPTION_LENGTH
+        )}
       </CardContent>
     </Card>
   );
