@@ -8,7 +8,6 @@ import {
   Pagination,
   SimpleGrid,
   TemplateAppContainer,
-  Text,
 } from "@nypl/design-system-react-components";
 import { collectionSortMap } from "~/src/constants/sorts";
 import {
