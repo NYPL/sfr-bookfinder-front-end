@@ -183,12 +183,19 @@ describe("Advanced Search clear", () => {
     };
 
     await userEvent.click(screen.getByRole("checkbox", { name: "english" }));
-    inputTerms.forEach(async (val) => {
-      await userEvent.type(
-        screen.getByLabelText(val.text),
-        inputValues[val.text]
-      );
-    });
+    await userEvent.type(
+      screen.getByLabelText("Keyword"),
+      inputValues["Keyword"]
+    );
+    await userEvent.type(
+      screen.getByLabelText("Author"),
+      inputValues["Author"]
+    );
+    await userEvent.type(
+      screen.getByLabelText("Subject"),
+      inputValues["Subject"]
+    );
+    await userEvent.type(screen.getByLabelText("Title"), inputValues["Title"]);
     await userEvent.clear(
       await screen.findByRole("spinbutton", { name: "From" })
     );
@@ -215,11 +222,18 @@ describe("Advanced Search clear", () => {
       screen.getByLabelText("Show only US government documents")
     ).toBeChecked();
 
-    inputTerms.forEach(async (val) => {
-      expect(await screen.findByRole(val.text)).toHaveValue(
-        inputValues[val.text]
-      );
-    });
+    expect(await screen.findByRole("textbox", { name: "Keyword" })).toHaveValue(
+      inputValues["Keyword"]
+    );
+    expect(await screen.findByRole("textbox", { name: "Author" })).toHaveValue(
+      inputValues["Author"]
+    );
+    expect(await screen.findByRole("textbox", { name: "Subject" })).toHaveValue(
+      inputValues["Subject"]
+    );
+    expect(await screen.findByRole("textbox", { name: "Title" })).toHaveValue(
+      inputValues["Title"]
+    );
 
     await userEvent.click(screen.getByRole("button", { name: "Clear" }));
 
