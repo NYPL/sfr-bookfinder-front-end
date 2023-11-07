@@ -91,7 +91,9 @@ const SearchForm: React.FC<{
         labelText="Search"
       />
       <Box float="right" marginTop={{ md: "xs" }}>
-        <Link to="/advanced-search">Advanced Search</Link>
+        <Link to="/advanced-search" isUnderlined={false}>
+          Advanced Search
+        </Link>
       </Box>
     </Box>
   );

@@ -15,12 +15,19 @@ export const CollectionItem: React.FC<{
 
   return (
     <Box>
-      <Heading level="two" marginBottom="xs">
+      <Heading
+        level="h4"
+        marginBottom="xs"
+        sx={{
+          a: {
+            textDecoration: "none",
+          },
+        }}
+      >
         <Link
           to={{
             pathname: links.find((link) => link.rel === "alternate").href,
           }}
-          className="link link--no-underline"
         >
           {truncateStringOnWhitespace(title, MAX_TITLE_LENGTH)}
         </Link>

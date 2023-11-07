@@ -39,7 +39,16 @@ export const CollectionItemCard: React.FC<{
       id={`card-${CollectionUtils.getId(collectionItem.links)}`}
       p="s"
     >
-      <CardHeading level="three">
+      <CardHeading
+        level="h5"
+        size="heading6"
+        sx={{
+          fontSize: "18px",
+          a: {
+            textDecoration: "none",
+          },
+        }}
+      >
         <EditionYear links={links} published={published} />
       </CardHeading>
       <CardContent>

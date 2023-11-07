@@ -14,20 +14,20 @@ const License: React.FC = () => {
   );
   const contentPrimaryElement = (
     <>
-      <Heading level="one">License Explanations</Heading>
-      <Heading level="two">Public Domain</Heading>
+      <Heading level="h1">License Explanations</Heading>
+      <Heading level="h2">Public Domain</Heading>
       <p>
         Works in the public domain have no copyright (in most cases because the
         copyright term has expired) and you are free to use, adapt, share, and
         distribute the work in any way you wish.
       </p>
-      <Heading level="two">Public Domain (US Only)</Heading>
+      <Heading level="h2">Public Domain (US Only)</Heading>
       <p>
         Works may be in the public domain in the Unites States (where you can
         use and distribute them without restriction), but still subject to
         copyright laws and restrictions outside the United States.
       </p>
-      <Heading level="two">Creative Commons Licenses</Heading>
+      <Heading level="h2">Creative Commons Licenses</Heading>
       <p>
         <Link to="https://creativecommons.org/">Creative Commons licenses</Link>{" "}
         allow rights-holders to grant people the right to freely use their
@@ -140,7 +140,7 @@ const License: React.FC = () => {
           </Link>
         </li>
       </List>
-      <Heading level="two">CC0 Public Domain Dedication</Heading>
+      <Heading level="h2">CC0 Public Domain Dedication</Heading>
       <p>
         The{" "}
         <Link to="https://creativecommons.org/publicdomain/zero/1.0/">
@@ -150,7 +150,7 @@ const License: React.FC = () => {
         adapt, share, and distribute the work as if it were in the Public
         domain.
       </p>
-      <Heading level="two">GNU General Public License</Heading>
+      <Heading level="h2">GNU General Public License</Heading>
       <p>
         For a work licensed under the{" "}
         <Link to="http://www.gnu.org/licenses/gpl.html">

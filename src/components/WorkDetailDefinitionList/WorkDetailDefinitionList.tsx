@@ -26,7 +26,23 @@ const getLanguagesForWork = (work: ApiWork) =>
 const WorkDetailDefinitionList: React.FC<{ work: ApiWork }> = ({ work }) => {
   const languages = getLanguagesForWork(work);
   return (
-    <List title="Details" type="dl" id="details-list">
+    <List
+      title="Details"
+      type="dl"
+      id="details-list"
+      sx={{
+        h2: {
+          fontSize: "desktop.heading.heading5",
+          fontWeight: "heading.heading5",
+        },
+        "dd, dt": {
+          fontSize: "desktop.body.body2",
+        },
+        a: {
+          textDecoration: "none",
+        },
+      }}
+    >
       <>
         {work.alt_titles && work.alt_titles.length > 0 && (
           <>
@@ -40,6 +56,7 @@ const WorkDetailDefinitionList: React.FC<{ work: ApiWork }> = ({ work }) => {
                         pathname: "/search",
                         query: { query: `title:${title}` },
                       }}
+                      isUnderlined={false}
                     >
                       {title}
                     </Link>

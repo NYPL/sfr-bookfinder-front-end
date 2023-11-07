@@ -122,7 +122,7 @@ exports[`renders about unchanged 1`] = `
       class="css-0"
     >
       <h1
-        class="chakra-heading css-1xdhyk6"
+        class="chakra-heading css-eyyo6e"
       >
         <span>
           <span
@@ -168,7 +168,7 @@ exports[`renders about unchanged 1`] = `
         , many of them available digitally. We group them all together under a single search result and try to make the differences between them--years when and places where they were published, for instance--easy to understand.
       </p>
       <h2
-        class="chakra-heading css-1xdhyk6"
+        class="chakra-heading css-878tmy"
         id="sources-and-data-heading"
       >
         Sources and Data
@@ -216,7 +216,7 @@ exports[`renders about unchanged 1`] = `
          to make connections between different editions of the same work.
       </p>
       <h2
-        class="chakra-heading css-1xdhyk6"
+        class="chakra-heading css-878tmy"
         id="beta-testing-heading"
       >
         What does Beta Testing mean?

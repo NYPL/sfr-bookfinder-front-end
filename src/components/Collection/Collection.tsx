@@ -137,10 +137,10 @@ const Collection: React.FC<{
 
   const contentTopElement = (
     <>
-      <Heading size="primary" marginBottom="xl">
+      <Heading level="h2" marginBottom="xl">
         {`Collection - ${title}`}
       </Heading>
-      <Heading size="secondary" marginBottom="l">
+      <Heading level="h3" marginBottom="l">
         About this collection
       </Heading>
       <Box>{description}</Box>
@@ -150,9 +150,9 @@ const Collection: React.FC<{
   const contentPrimaryElement = (
     <>
       <HorizontalRule bg="section.research.primary" marginBottom="xl" />
-      <Heading size="secondary">In this collection</Heading>
+      <Heading level="h3">In this collection</Heading>
       <Flex justify="space-between" marginBottom="xl" align="center">
-        <Heading level="two" size="tertiary" noSpace>
+        <Heading level="h3" size="heading5" noSpace>
           {totalItems > 0
             ? `Viewing ${firstElement.toLocaleString()} - ${
                 totalItems < lastElement

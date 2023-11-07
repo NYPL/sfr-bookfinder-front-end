@@ -13,7 +13,7 @@ const About: React.FC = () => {
 
   const contentPrimaryElement = (
     <>
-      <Heading level="one">
+      <Heading level="h1">
         <span>
           <span className="rn-section-title__emphasis">
             Digital Research Books
@@ -53,7 +53,7 @@ const About: React.FC = () => {
       </p>
 
       <Heading
-        level="two"
+        level="h2"
         id="sources-and-data-heading"
         text="Sources and Data"
       />
@@ -75,7 +75,7 @@ const About: React.FC = () => {
       </p>
 
       <Heading
-        level="two"
+        level="h2"
         id="beta-testing-heading"
         text="What does Beta Testing mean?"
       />

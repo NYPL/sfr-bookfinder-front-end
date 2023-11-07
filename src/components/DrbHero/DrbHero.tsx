@@ -4,10 +4,10 @@ import React from "react";
 export const DrbHero: React.FC = () => {
   return (
     <Hero
-      backgroundColor="#00838A !important"
+      backgroundColor="section.research.primary"
       heroType="tertiary"
       heading={
-        <Heading level="one" id="tertiary-hero">
+        <Heading level="h1" id="tertiary-hero">
           <>
             Digital Research Books <sup>Beta</sup>
           </>
