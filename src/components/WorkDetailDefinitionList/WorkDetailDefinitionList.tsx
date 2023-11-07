@@ -38,6 +38,9 @@ const WorkDetailDefinitionList: React.FC<{ work: ApiWork }> = ({ work }) => {
         "dd, dt": {
           fontSize: "desktop.body.body2",
         },
+        a: {
+          textDecoration: "none",
+        },
       }}
     >
       <>
