@@ -49,6 +49,7 @@ const ResultsList: React.FC<{ works: ApiWork[] }> = ({ works }) => {
             <Heading
               level="h2"
               size="heading4"
+              marginBottom="xs"
               sx={{
                 a: {
                   textDecoration: "none",
@@ -66,7 +67,9 @@ const ResultsList: React.FC<{ works: ApiWork[] }> = ({ works }) => {
             </Heading>
             <span>{EditionCardUtils.getSubtitle(work.sub_title)}</span>
             {EditionCardUtils.getAuthorsList(work.authors) && (
-              <span>By {EditionCardUtils.getAuthorsList(work.authors)} </span>
+              <Box marginBottom="xs">
+                By {EditionCardUtils.getAuthorsList(work.authors)}
+              </Box>
             )}
             <EditionCard edition={previewEdition} title={work.title} />
             <div className="editions-link">{getEditionsLinkElement(work)}</div>
