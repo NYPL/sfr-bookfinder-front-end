@@ -20,11 +20,7 @@ describe("Collection list", () => {
     ).toBeInTheDocument();
   });
   test("Shows cover", () => {
-    expect(
-      screen
-        .getByAltText("Cover for Baseball: A Collection by Mike Benowitz")
-        .closest("img").src
-    ).toEqual(
+    expect(screen.getByAltText("").closest("img").src).toEqual(
       "https://drb-files-qa.s3.amazonaws.com/misc/collectionPlaceholder.jpg"
     );
   });
