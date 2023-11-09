@@ -24,7 +24,7 @@ export const CollectionCard: React.FC<{ collection: Opds2Feed }> = ({
       layout="column"
       imageProps={{
         src: PLACEHOLDER_LINK,
-        alt: `Cover for ${collection.metadata.title}`,
+        alt: ``,
         aspectRatio: "twoByOne",
       }}
       mainActionLink={collection.links[0].href}

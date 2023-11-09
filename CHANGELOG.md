@@ -12,7 +12,8 @@
 - SFR-1797: Remove Playwright tests with clicks on header and footer links
 - Update README with C4 diagrams and epub-to-webpub info
 - Update Collection, Edition, and Work page titles for accessibility
-- Implement Typography changes from Reservoir 2.0 
+- Implement Typography changes from Reservoir 2.0
+- Remove collection image alt text
 
 ## [0.17.4]
 
