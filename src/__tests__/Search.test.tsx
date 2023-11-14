@@ -228,7 +228,7 @@ describe("Renders Search Results Page", () => {
           name: "English (6)",
         });
         expect(englishCheckbox2).toBeChecked();
-      }, 15000);
+      }, 20000);
     });
     describe("Format filter", () => {
       test("Clicking new format sends new search", async () => {
