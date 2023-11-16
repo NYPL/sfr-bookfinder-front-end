@@ -1,6 +1,6 @@
 # CHANGE LOG
 
-## [Pre-release]
+## [0.17.5]
 
 - Fix: Small adjustments to Playwright tests
 - Upgrade testing-library packages to v14 and jest to v29
