@@ -37,7 +37,7 @@ class MyDocument extends Document<DocumentProps> {
             async
           ></script>
           <Main />
-          <div id="nypl-footer"></div>
+          <div id="nypl-footer" style={{ marginTop: "2rem" }}></div>
           <script
             src="https://ds-header.nypl.org/footer.min.js?containerId=nypl-footer"
             async

@@ -23,7 +23,20 @@ export const EditionDetailDefinitionList: React.FC<{ edition: ApiEdition }> = ({
   edition,
 }) => {
   return (
-    <List title="Details" type="dl" id="details-list">
+    <List
+      title="Details"
+      type="dl"
+      id="details-list"
+      sx={{
+        h2: {
+          fontSize: "desktop.heading.heading5",
+          fontWeight: "heading.heading5",
+        },
+        "dd, dt": {
+          fontSize: "desktop.body.body2",
+        },
+      }}
+    >
       <>
         <dt>Publication Date</dt>
         <dd>

@@ -1,6 +1,5 @@
 import React from "react";
 import WorkDetailDefinitionList from "./WorkDetailDefinitionList";
-import "@testing-library/jest-dom/extend-expect";
 import { screen, render } from "@testing-library/react";
 import { ApiWork } from "~/src/types/WorkQuery";
 import { workDetail as apiWork } from "../../__tests__/fixtures/WorkDetailFixture";

@@ -1,6 +1,5 @@
 import React from "react";
 import CollectionCard from "./CollectionCard";
-import "@testing-library/jest-dom/extend-expect";
 import { screen, render } from "@testing-library/react";
 import { collectionData } from "~/src/__tests__/fixtures/CollectionFixture";
 
@@ -21,11 +20,7 @@ describe("Collection list", () => {
     ).toBeInTheDocument();
   });
   test("Shows cover", () => {
-    expect(
-      screen
-        .getByAltText("Cover for Baseball: A Collection by Mike Benowitz")
-        .closest("img").src
-    ).toEqual(
+    expect(screen.getByAltText("").closest("img").src).toEqual(
       "https://drb-files-qa.s3.amazonaws.com/misc/collectionPlaceholder.jpg"
     );
   });

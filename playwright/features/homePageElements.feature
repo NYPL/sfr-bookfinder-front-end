@@ -15,4 +15,7 @@ Feature: Home Page Elements
         And the "collections heading" should be displayed
         And the "first collection card link" should be displayed
         And the "footer" should be displayed
-        And the "feedback button" should be displayed
+
+    Scenario: As a user I verify the help and feedback button is displayed on the Digital Research Books home page
+        Given I go to the "home" page
+        Then the "help and feedback button" should be displayed

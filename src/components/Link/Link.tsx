@@ -7,12 +7,17 @@ interface IProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   to: any;
   modifiers?: string[];
   linkType?: DS.LinkTypes;
+  isUnderlined?: boolean;
 }
 
-const Link = ({ children, to, linkType }: IProps) => {
+const Link = ({ children, to, linkType, isUnderlined }: IProps) => {
   return (
     <BaseLink href={to} passHref legacyBehavior>
-      <DS.Link type={linkType} __css={{ width: "100%" }}>
+      <DS.Link
+        isUnderlined={isUnderlined}
+        type={linkType}
+        __css={{ width: "100%" }}
+      >
         {children}
       </DS.Link>
     </BaseLink>

@@ -1,6 +1,19 @@
 # CHANGE LOG
 
-- Update production and qa builds to use unique ECR image tag
+## [0.17.5]
+
+- Fix: Small adjustments to Playwright tests
+- Upgrade testing-library packages to v14 and jest to v29
+- Remove TemplateFooter components
+- Replace Template components with TemplateAppContainer and DrbBreakout to reduce repeat components
+- Upgrade to NYPL Design System 2.1.0
+- Replace fireEvent with userEvent
+- Feedback button test PW
+- SFR-1797: Remove Playwright tests with clicks on header and footer links
+- Update README with C4 diagrams and epub-to-webpub info
+- Update Collection, Edition, and Work page titles for accessibility
+- Implement Typography changes from Reservoir 2.0
+- Remove collection image alt text
 
 ## [0.17.4]
 
@@ -17,6 +30,7 @@
 - Update Adobe Analytics page names
 - SFR-1778: Fix failing Playwright tests
 - SFR-1752: Remove rspec workflow
+- Update production and qa builds to use unique ECR image tag
 
 ## [0.17.3]
 

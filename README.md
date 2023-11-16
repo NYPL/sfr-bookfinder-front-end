@@ -70,9 +70,17 @@ Term combinations
   - Webpub reader: DRB serves an epub through the [webpub-viewer](https://github.com/NYPL-Simplified/webpub-viewer/tree/SFR-develop). DRB commonly does this for Gutenberg Project books.
   - Download: DRB offers a link to download the book online. This is often done for PDFs.
 
+### EPUB to Webpub
+
+The EPUB to Webpub Next.js app is deployed at `https://epub-to-webpub.vercel.app`. The **`/api/[containerXmlUrl]`** endpoint is used by the DRB backend to convert `container.xml` files of exploded EPUBs to webpub manifests.
+
 ### Test
 
 To run unit tests, run `npm run test` in the terminal.
+
+### C4 Architecture Diagrams
+
+Diagrams for DRB can found via our public [Structurizr link](https://structurizr.com/share/72104) and can be updated in the (c4-diagrams repo)[https://github.com/NYPL-Simplified/c4-diagrams].
 
 ### Deprecated
 
