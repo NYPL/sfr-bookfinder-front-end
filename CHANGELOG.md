@@ -1,5 +1,10 @@
 # CHANGE LOG
 
+## [Pre-release]
+
+- Upgrade newrelic to v11.5.0
+- Upgrade Next.js to v13.5.4
+
 ## [0.17.5]
 
 - Fix: Small adjustments to Playwright tests
