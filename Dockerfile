@@ -36,4 +36,4 @@ EXPOSE $PORT
 RUN npm run build
 
 # CMD is the default command when running the docker container.
-CMD ["r", "@newrelic/next"]
+CMD npm run start:newrelic
