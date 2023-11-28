@@ -10,12 +10,15 @@ type DocumentProps = {
 class MyDocument extends Document<DocumentProps> {
   static async getInitialProps(ctx) {
     const initialProps = await Document.getInitialProps(ctx);
+    let browserTimingHeader: string;
 
     // Invoke the newrelic agent
-    const browserTimingHeader = newrelic.getBrowserTimingHeader({
-      hasToRemoveScriptWrapper: true,
-      allowTransactionlessInjection: true,
-    });
+    if (process.env.NODE_ENV === "production") {
+      browserTimingHeader = newrelic.getBrowserTimingHeader({
+        hasToRemoveScriptWrapper: true,
+        allowTransactionlessInjection: true,
+      });
+    }
 
     return { ...initialProps, browserTimingHeader };
   }
