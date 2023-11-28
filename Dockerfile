@@ -25,7 +25,7 @@ ENV NEXT_PUBLIC_ADOBE_ANALYTICS $NEXT_PUBLIC_ADOBE_ANALYTICS
 
 # Install dependencies.
 COPY package.json package-lock.json ./
-RUN npm ci --cache .npm
+RUN npm ci --cache .npm --legacy-peer-deps
 
 # Copy the app files.
 COPY . ./
