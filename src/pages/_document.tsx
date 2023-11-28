@@ -1,6 +1,5 @@
 import React from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
-import newrelic from "newrelic";
 import appConfig from "~/config/appConfig";
 
 type DocumentProps = {
@@ -10,27 +9,14 @@ type DocumentProps = {
 class MyDocument extends Document<DocumentProps> {
   static async getInitialProps(ctx) {
     const initialProps = await Document.getInitialProps(ctx);
-    let browserTimingHeader: string;
 
-    // Invoke the newrelic agent
-    if (process.env.NODE_ENV === "production") {
-      browserTimingHeader = newrelic.getBrowserTimingHeader({
-        hasToRemoveScriptWrapper: true,
-        allowTransactionlessInjection: true,
-      });
-    }
-
-    return { ...initialProps, browserTimingHeader };
+    return { ...initialProps };
   }
 
   render() {
     return (
       <Html lang="en">
         <Head>
-          <script
-            type="text/javascript"
-            dangerouslySetInnerHTML={{ __html: this.props.browserTimingHeader }}
-          />
           <script src={appConfig.analytics} async />
         </Head>
         <body>
