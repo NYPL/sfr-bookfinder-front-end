@@ -1,5 +1,5 @@
 # Build the environment.
-FROM node:16.13.0-alpine
+FROM node:18
 
 # Install git to resolve issues installing the
 # nypl/dgx-header-component package.
