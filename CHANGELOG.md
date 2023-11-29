@@ -2,6 +2,7 @@
 
 ## [Pre-release]
 
+- Upgrade newrelic to v11.5.0
 - Upgrade Next.js to v13.5.6
 - Upgrade to Node 18
 
