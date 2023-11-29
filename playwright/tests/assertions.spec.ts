@@ -20,13 +20,3 @@ Then(
     return expect(this.page.locator(element).isChecked()).toBeTruthy();
   }
 );
-
-Then(
-  /^only editions published between year "([^"]*)" and "([^"]*)" should be displayed$/,
-  async function (this: CustomWorld, elementKey: keyof typeof elements) {
-    const element = elements[elementKey];
-    return expect(this.page.locator(element)).toBeVisible({
-      timeout: 50000,
-    });
-  }
-);
