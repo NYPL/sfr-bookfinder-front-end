@@ -25,7 +25,7 @@ import readiumAfter from "!file-loader!extract-loader!css-loader!@nypl/web-reade
 import Link from "../Link/Link";
 import { addTocToManifest } from "@nypl/web-reader";
 import Loading from "../Loading/Loading";
-import { trackCtaClick } from "~/src/lib/Analytics";
+import { trackCtaClick } from "~/src/lib/adobe/Analytics";
 
 const origin =
   typeof window !== "undefined" && window.location?.origin

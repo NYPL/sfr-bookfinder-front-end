@@ -36,7 +36,7 @@ import { FacetItem, Query } from "~/src/types/DataModel";
 import { toLocationQuery, toApiQuery } from "~/src/util/apiConversion";
 import filterFields from "~/src/constants/filters";
 import { ApiLanguageResponse } from "~/src/types/LanguagesQuery";
-import { trackCtaClick } from "~/src/lib/Analytics";
+import { trackCtaClick } from "~/src/lib/adobe/Analytics";
 import DrbBreakout from "../DrbBreakout/DrbBreakout";
 
 const AdvancedSearch: React.FC<{
