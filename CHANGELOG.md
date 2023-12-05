@@ -7,6 +7,7 @@
 - Upgrade to Node 18
 - Chore: Add Jackie and Sam as codeowners
 - Fix: SFR-1839- pw automated test fix / update the login credentials
+- Refactor New Relic browser monitoring instrumentation
 
 ## [0.17.5]
 
