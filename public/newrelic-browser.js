@@ -1,5 +1,4 @@
 window.NREUM||(NREUM={});
-console.log("NREUM");
 
 NREUM.init={distributed_tracing:{enabled:true},privacy:{cookies_enabled:true}};
 
