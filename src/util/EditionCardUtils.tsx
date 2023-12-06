@@ -19,7 +19,7 @@ import {
 } from "../constants/editioncard";
 import { ApiSearchQuery } from "../types/SearchQuery";
 import { MediaTypes } from "../constants/mediaTypes";
-import { trackCtaClick } from "../lib/Analytics";
+import { trackCtaClick } from "../lib/adobe/Analytics";
 
 // EditionCard holds all the methods needed to build an Edition Card
 export default class EditionCardUtils {

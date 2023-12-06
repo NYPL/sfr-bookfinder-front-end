@@ -4,7 +4,7 @@ import CollectionUtils from "~/src/util/CollectionUtils";
 import Link from "~/src/components/Link/Link";
 import { OpdsLink } from "~/src/types/OpdsModel";
 import { formatUrl } from "~/src/util/Util";
-import { trackCtaClick } from "~/src/lib/Analytics";
+import { trackCtaClick } from "~/src/lib/adobe/Analytics";
 
 const DownloadLink: React.FC<{ links: OpdsLink[]; title: string }> = ({
   links,

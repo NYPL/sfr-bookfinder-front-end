@@ -1,4 +1,4 @@
-import { SITE_SECTION } from "../constants/analytics";
+import { SITE_SECTION } from "../../constants/analytics";
 
 type EventData = CtaData & {
   name: string;
