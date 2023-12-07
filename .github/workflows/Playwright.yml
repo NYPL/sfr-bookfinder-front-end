@@ -4,7 +4,7 @@ on:
   schedule:
     - cron: "00 14 * * 1-5"
   pull_request:
-    branches: [production]
+    branches: [NO-REF_update_playwright_yml, production]
     types: [opened, synchronize, reopened]
 
 jobs:
@@ -20,7 +20,7 @@ jobs:
           node-version-file: ".nvmrc"
 
       - name: Install Deps
-        run: npm i @cucumber/cucumber@8.5.0 @playwright/test@1.23.4
+        run: npm i @cucumber/cucumber@8.11.1 @playwright/test@1.29.1
 
       - name: Install Playwright Browser Utils
         run: npx playwright install --with-deps

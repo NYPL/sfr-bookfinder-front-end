@@ -8,6 +8,7 @@
 - Chore: Add Jackie and Sam as codeowners
 - Fix: SFR-1839- pw automated test fix / update the login credentials
 - Refactor New Relic browser monitoring instrumentation
+- Update Playwright.yml to use same package versions as package.json
 
 ## [0.17.5]
 
