@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@chakra-ui/react": "2.5.4",
-    "@newrelic/next": "^0.6.0",
+    "@newrelic/next": "^0.7.0",
     "@nypl/design-system-react-components": "2.1.0",
     "@nypl/web-reader": "^4.3.1",
     "@types/node": "^16.11.6",
