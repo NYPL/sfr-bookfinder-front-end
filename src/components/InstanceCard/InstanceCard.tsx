@@ -6,6 +6,7 @@ import {
   CardActions,
   CardContent,
   CardHeading,
+  Flex,
 } from "@nypl/design-system-react-components";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
 import Link from "../Link/Link";
@@ -27,6 +28,7 @@ export const InstanceCard: React.FC<{
   const edition = props.edition;
   const instance: Instance = props.instance;
   const previewItem = EditionCardUtils.getPreviewItem(instance.items);
+  const isPhysicalEdition = EditionCardUtils.isPhysicalEdition(previewItem);
 
   return (
     <Card
@@ -42,10 +44,19 @@ export const InstanceCard: React.FC<{
       id={`card-${instance.instance_id}`}
       p="s"
     >
-      <CardHeading level="h3" size="heading6" sx={{ fontSize: "18px" }}>
-        {edition.publication_date
-          ? edition.publication_date
-          : "Edition Year Unknown"}
+      <CardHeading
+        level="h3"
+        size="heading6"
+        sx={{ span: { fontSize: "18px" } }}
+      >
+        <Flex alignItems="center">
+          <span>
+            {edition.publication_date
+              ? edition.publication_date
+              : "Edition Year Unknown"}
+          </span>
+          {isPhysicalEdition && EditionCardUtils.getPhysicalEditionBadge()}
+        </Flex>
       </CardHeading>
       <CardContent>
         <div>
@@ -56,6 +67,7 @@ export const InstanceCard: React.FC<{
         </div>
         <div>{EditionCardUtils.getWorldCatElem(instance)}</div>
         <Link to="/license">{EditionCardUtils.getLicense(previewItem)}</Link>
+        {isPhysicalEdition && EditionCardUtils.getScanAndDeliverBlurb()}
       </CardContent>
       <CardActions display="flex" flexDir="column" whiteSpace="nowrap" gap={4}>
         {EditionCardUtils.getCtas(

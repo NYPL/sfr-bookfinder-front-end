@@ -9,6 +9,7 @@
 - Fix: SFR-1839- pw automated test fix / update the login credentials
 - Refactor New Relic browser monitoring instrumentation
 - Update Playwright.yml to use same package versions as package.json
+- Add Physical Edition badge to EDD editions
 
 ## [0.17.5]
 

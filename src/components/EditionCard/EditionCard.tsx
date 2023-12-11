@@ -5,6 +5,7 @@ import {
   CardHeading,
   Box,
   CardActions,
+  Flex,
 } from "@nypl/design-system-react-components";
 import Link from "../Link/Link";
 import { WorkEdition } from "~/src/types/DataModel";
@@ -42,6 +43,7 @@ export const EditionCard: React.FC<{ edition: WorkEdition; title: string }> = ({
   };
 
   const coverUrl = EditionCardUtils.getCover(edition.links);
+  const isPhysicalEdition = EditionCardUtils.isPhysicalEdition(previewItem);
 
   return (
     <Card
@@ -62,19 +64,25 @@ export const EditionCard: React.FC<{ edition: WorkEdition; title: string }> = ({
       p="s"
       flexFlow={{ md: "column nowrap", lg: "row" }}
       alignItems={{ md: "flex-start", lg: "center" }}
+      sx={{ ".card-right": { maxWidth: { base: "100%", md: "200px" } } }}
     >
       <CardHeading
         level="h3"
         size="heading6"
         id="stack1-heading1"
         sx={{
-          fontSize: "18px",
-          a: {
-            textDecoration: "none",
+          span: {
+            fontSize: "18px",
+            a: {
+              textDecoration: "none",
+            },
           },
         }}
       >
-        {editionYearElem(edition)}
+        <Flex alignItems="center">
+          <span>{editionYearElem(edition)}</span>
+          {isPhysicalEdition && EditionCardUtils.getPhysicalEditionBadge()}
+        </Flex>
       </CardHeading>
       <CardContent>
         <Box>
@@ -85,6 +93,7 @@ export const EditionCard: React.FC<{ edition: WorkEdition; title: string }> = ({
           <Box>{EditionCardUtils.getLanguageDisplayText(edition)}</Box>
           <Link to="/license">{EditionCardUtils.getLicense(previewItem)}</Link>
         </Box>
+        {isPhysicalEdition && EditionCardUtils.getScanAndDeliverBlurb()}
       </CardContent>
       <CardActions display="flex" flexDir="column" whiteSpace="nowrap" gap={4}>
         {EditionCardUtils.getCtas(

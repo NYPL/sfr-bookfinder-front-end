@@ -8,7 +8,14 @@ import {
   WorkEdition,
   Identifier,
 } from "../types/DataModel";
-import { Box, Button, Icon } from "@nypl/design-system-react-components";
+import {
+  Box,
+  Button,
+  Flex,
+  Icon,
+  Text,
+  StatusBadge,
+} from "@nypl/design-system-react-components";
 import Link from "~/src/components/Link/Link";
 import { formatUrl, truncateStringOnWhitespace } from "./Util";
 import {
@@ -344,9 +351,9 @@ export default class EditionCardUtils {
             to={`https://login.nypl.org/auth/login?redirect_uri=${encodeURIComponent(
               window.location.href
             )}`}
-            linkType="button"
+            linkType="buttonSecondary"
           >
-            Log in for options
+            Log in to request scan
           </Link>
         </>
       );
@@ -371,5 +378,45 @@ export default class EditionCardUtils {
         return items.links && items.links.find((link) => !link.flags.catalog);
       })
     );
+  }
+
+  static getPhysicalEditionBadge() {
+    return <StatusBadge marginLeft="xs">Physical Edition</StatusBadge>;
+  }
+
+  static getScanAndDeliverBlurb() {
+    return (
+      <Flex alignItems="center" marginTop="s">
+        <Icon name="errorOutline" size="small" />
+        <Text size="caption" noSpace marginLeft="xxs">
+          A partial scan of this edition can be requested via NYPL's{" "}
+          <Link to="https://www.nypl.org/research/scan-and-deliver">
+            Scan and Deliver
+          </Link>{" "}
+          service
+        </Text>
+      </Flex>
+    );
+  }
+
+  static isAvailableOnline(item: ApiItem) {
+    return (
+      item &&
+      item.links.find((link: ItemLink) => {
+        return (
+          link.flags["reader"] || link.flags["embed"] || link.flags["download"]
+        );
+      })
+    );
+  }
+
+  static isPhysicalEdition(item: ApiItem): boolean {
+    const availableOnline = this.isAvailableOnline(item);
+    const eddLink =
+      item && item.links
+        ? item.links.find((link) => link.flags.edd)
+        : undefined;
+
+    return !availableOnline && eddLink !== undefined;
   }
 }
