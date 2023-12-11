@@ -10,7 +10,7 @@
 - Refactor New Relic browser monitoring instrumentation
 - Update Playwright.yml to use same package versions as package.json
 - Fix: reverse node to v18.18.2
-- Add Physical Edition badge to EDD editions
+- Add Physical Edition badge and Scan and Deliver blurb to EDD editions
 
 ## [0.17.5]
 

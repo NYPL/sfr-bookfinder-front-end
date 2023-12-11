@@ -27,6 +27,7 @@ import {
 import { ApiSearchQuery } from "../types/SearchQuery";
 import { MediaTypes } from "../constants/mediaTypes";
 import { trackCtaClick } from "../lib/adobe/Analytics";
+import { SCAN_AND_DELIVER_LINK } from "../constants/links";
 
 // EditionCard holds all the methods needed to build an Edition Card
 export default class EditionCardUtils {
@@ -324,22 +325,13 @@ export default class EditionCardUtils {
     if (isLoggedIn) {
       return (
         <>
-          <Box whiteSpace="initial">
-            You can request a partial scan via NYPL
-          </Box>
-          <Link
-            to="https://www.nypl.org/research/scan-and-deliver"
-            target="_blank"
-          >
-            Scan and Deliver
-          </Link>
           <Link
             // Url starts with www
             to={`https://${eddLink.url}`}
             linkType="button"
             target="_blank"
           >
-            Request
+            Request Scan
           </Link>
         </>
       );
@@ -390,10 +382,7 @@ export default class EditionCardUtils {
         <Icon name="errorOutline" size="small" />
         <Text size="caption" noSpace marginLeft="xxs">
           A partial scan of this edition can be requested via NYPL's{" "}
-          <Link to="https://www.nypl.org/research/scan-and-deliver">
-            Scan and Deliver
-          </Link>{" "}
-          service
+          <Link to={SCAN_AND_DELIVER_LINK}>Scan and Deliver</Link> service
         </Text>
       </Flex>
     );

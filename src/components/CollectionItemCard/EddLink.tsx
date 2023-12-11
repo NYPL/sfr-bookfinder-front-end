@@ -1,6 +1,4 @@
 import React from "react";
-import { Box } from "@nypl/design-system-react-components";
-import { SCAN_AND_DELIVER_LINK } from "~/src/constants/links";
 import { OpdsLink } from "~/src/types/OpdsModel";
 import Link from "~/src/components/Link/Link";
 
@@ -11,17 +9,13 @@ export const EddLink: React.FC<{
   if (isLoggedIn) {
     return (
       <>
-        <Box whiteSpace="initial">You can request a partial scan via NYPL</Box>
-        <Link to={SCAN_AND_DELIVER_LINK} target="_blank">
-          Scan and Deliver
-        </Link>
         <Link
           // Url starts with www
           to={`https://${eddLink.href}`}
           linkType="button"
           target="_blank"
         >
-          Request
+          Request Scan
         </Link>
       </>
     );
@@ -35,7 +29,7 @@ export const EddLink: React.FC<{
           )}`}
           linkType="button"
         >
-          Log in for options
+          Log in to request scan
         </Link>
       </>
     );
