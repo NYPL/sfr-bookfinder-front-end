@@ -12,6 +12,8 @@ import EditionCardUtils from "~/src/util/EditionCardUtils";
 import Link from "../Link/Link";
 import { useCookies } from "react-cookie";
 import { NYPL_SESSION_ID } from "~/src/constants/auth";
+import { PhysicalEditionBadge } from "../EditionCard/PhysicalEditionBadge";
+import { ScanAndDeliverBlurb } from "../EditionCard/ScanAndDeliverBlurb";
 
 // Creates an Instance card out of the Edition Year and Instance object
 // Note: Edition Year only needs to be passed because `instance.publication_date`
@@ -55,7 +57,7 @@ export const InstanceCard: React.FC<{
               ? edition.publication_date
               : "Edition Year Unknown"}
           </span>
-          {isPhysicalEdition && EditionCardUtils.getPhysicalEditionBadge()}
+          {isPhysicalEdition && <PhysicalEditionBadge />}
         </Flex>
       </CardHeading>
       <CardContent>
@@ -67,7 +69,7 @@ export const InstanceCard: React.FC<{
         </div>
         <div>{EditionCardUtils.getWorldCatElem(instance)}</div>
         <Link to="/license">{EditionCardUtils.getLicense(previewItem)}</Link>
-        {isPhysicalEdition && EditionCardUtils.getScanAndDeliverBlurb()}
+        {isPhysicalEdition && <ScanAndDeliverBlurb />}
       </CardContent>
       <CardActions display="flex" flexDir="column" whiteSpace="nowrap" gap={4}>
         {EditionCardUtils.getCtas(

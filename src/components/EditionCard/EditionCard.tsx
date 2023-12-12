@@ -13,6 +13,8 @@ import EditionCardUtils from "~/src/util/EditionCardUtils";
 import { PLACEHOLDER_COVER_LINK } from "~/src/constants/editioncard";
 import { useCookies } from "react-cookie";
 import { NYPL_SESSION_ID } from "~/src/constants/auth";
+import { PhysicalEditionBadge } from "./PhysicalEditionBadge";
+import { ScanAndDeliverBlurb } from "./ScanAndDeliverBlurb";
 
 export const EditionCard: React.FC<{ edition: WorkEdition; title: string }> = ({
   edition,
@@ -81,7 +83,7 @@ export const EditionCard: React.FC<{ edition: WorkEdition; title: string }> = ({
       >
         <Flex alignItems="center">
           <span>{editionYearElem(edition)}</span>
-          {isPhysicalEdition && EditionCardUtils.getPhysicalEditionBadge()}
+          {isPhysicalEdition && <PhysicalEditionBadge />}
         </Flex>
       </CardHeading>
       <CardContent>
@@ -93,7 +95,7 @@ export const EditionCard: React.FC<{ edition: WorkEdition; title: string }> = ({
           <Box>{EditionCardUtils.getLanguageDisplayText(edition)}</Box>
           <Link to="/license">{EditionCardUtils.getLicense(previewItem)}</Link>
         </Box>
-        {isPhysicalEdition && EditionCardUtils.getScanAndDeliverBlurb()}
+        {isPhysicalEdition && <ScanAndDeliverBlurb />}
       </CardContent>
       <CardActions display="flex" flexDir="column" whiteSpace="nowrap" gap={4}>
         {EditionCardUtils.getCtas(

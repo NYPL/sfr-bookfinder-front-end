@@ -8,14 +8,7 @@ import {
   WorkEdition,
   Identifier,
 } from "../types/DataModel";
-import {
-  Box,
-  Button,
-  Flex,
-  Icon,
-  Text,
-  StatusBadge,
-} from "@nypl/design-system-react-components";
+import { Box, Button, Icon } from "@nypl/design-system-react-components";
 import Link from "~/src/components/Link/Link";
 import { formatUrl, truncateStringOnWhitespace } from "./Util";
 import {
@@ -27,7 +20,6 @@ import {
 import { ApiSearchQuery } from "../types/SearchQuery";
 import { MediaTypes } from "../constants/mediaTypes";
 import { trackCtaClick } from "../lib/adobe/Analytics";
-import { SCAN_AND_DELIVER_LINK } from "../constants/links";
 
 // EditionCard holds all the methods needed to build an Edition Card
 export default class EditionCardUtils {
@@ -369,22 +361,6 @@ export default class EditionCardUtils {
       items.find((items) => {
         return items.links && items.links.find((link) => !link.flags.catalog);
       })
-    );
-  }
-
-  static getPhysicalEditionBadge() {
-    return <StatusBadge marginLeft="xs">Physical Edition</StatusBadge>;
-  }
-
-  static getScanAndDeliverBlurb() {
-    return (
-      <Flex alignItems="center" marginTop="s">
-        <Icon name="errorOutline" size="small" />
-        <Text size="caption" noSpace marginLeft="xxs">
-          A partial scan of this edition can be requested via NYPL's{" "}
-          <Link to={SCAN_AND_DELIVER_LINK}>Scan and Deliver</Link> service
-        </Text>
-      </Flex>
     );
   }
 
