@@ -317,22 +317,13 @@ export default class EditionCardUtils {
     if (isLoggedIn) {
       return (
         <>
-          <Box whiteSpace="initial">
-            You can request a partial scan via NYPL
-          </Box>
-          <Link
-            to="https://www.nypl.org/research/scan-and-deliver"
-            target="_blank"
-          >
-            Scan and Deliver
-          </Link>
           <Link
             // Url starts with www
             to={`https://${eddLink.url}`}
             linkType="button"
             target="_blank"
           >
-            Request
+            Request Scan
           </Link>
         </>
       );
@@ -344,9 +335,9 @@ export default class EditionCardUtils {
             to={`https://login.nypl.org/auth/login?redirect_uri=${encodeURIComponent(
               window.location.href
             )}`}
-            linkType="button"
+            linkType="buttonSecondary"
           >
-            Log in for options
+            Log in to request scan
           </Link>
         </>
       );
@@ -371,5 +362,26 @@ export default class EditionCardUtils {
         return items.links && items.links.find((link) => !link.flags.catalog);
       })
     );
+  }
+
+  static isAvailableOnline(item: ApiItem) {
+    return (
+      item &&
+      item.links.find((link: ItemLink) => {
+        return (
+          link.flags["reader"] || link.flags["embed"] || link.flags["download"]
+        );
+      })
+    );
+  }
+
+  static isPhysicalEdition(item: ApiItem): boolean {
+    const availableOnline = this.isAvailableOnline(item);
+    const eddLink =
+      item && item.links
+        ? item.links.find((link) => link.flags.edd)
+        : undefined;
+
+    return !availableOnline && eddLink !== undefined;
   }
 }

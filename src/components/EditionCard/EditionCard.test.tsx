@@ -98,17 +98,19 @@ describe("Edition with EDD", () => {
 
     expect(screen.queryByText("Download PDF")).toBeInTheDocument();
     expect(screen.queryByText("Read Online")).toBeInTheDocument();
-    expect(screen.queryByText("Log in for options")).not.toBeInTheDocument();
-    expect(screen.queryByText("Request")).not.toBeInTheDocument();
+    expect(
+      screen.queryByText("Log in to request scan")
+    ).not.toBeInTheDocument();
+    expect(screen.queryByText("Request Scan")).not.toBeInTheDocument();
   });
 
   test("Shows Login button when EDD is available but user is not logged in", () => {
     render(<EditionCard edition={eddEdition} title={"title"}></EditionCard>);
     expect(
-      screen.getByRole("link", { name: "Log in for options" })
+      screen.getByRole("link", { name: "Log in to request scan" })
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: "Log in for options" })
+      screen.getByRole("link", { name: "Log in to request scan" })
     ).toHaveAttribute(
       "href",
       expect.stringContaining("https://login.nypl.org/auth/login")
@@ -117,23 +119,30 @@ describe("Edition with EDD", () => {
     expect(screen.queryByText("Read Online")).not.toBeInTheDocument();
   });
 
-  test("Shows EDD Request button and 'Scan and Deliver' link when user is logged in", () => {
+  test("Shows EDD Request button when user is logged in", () => {
     // Set cookie before rendering the component
     document.cookie = `${NYPL_SESSION_ID}="randomvalue"`;
     render(<EditionCard edition={eddEdition} title={"title"}></EditionCard>);
 
-    expect(screen.getByRole("link", { name: "Request" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Request" })).toHaveAttribute(
+    expect(
+      screen.getByRole("link", { name: "Request Scan" })
+    ).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Request Scan" })).toHaveAttribute(
       "href",
       expect.stringContaining("test-link-url")
     );
+    expect(screen.queryByText("Download PDF")).not.toBeInTheDocument();
+    expect(screen.queryByText("Read Online")).not.toBeInTheDocument();
+  });
+
+  test("Shows 'Physical Edition' badge and 'Scan and Deliver' link ", () => {
+    render(<EditionCard edition={eddEdition} title={"title"} />);
+    expect(screen.getByText("Physical Edition")).toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: "Scan and Deliver" })
     ).toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: "Scan and Deliver" })
     ).toHaveAttribute("href", "https://www.nypl.org/research/scan-and-deliver");
-    expect(screen.queryByText("Download PDF")).not.toBeInTheDocument();
-    expect(screen.queryByText("Read Online")).not.toBeInTheDocument();
   });
 });
