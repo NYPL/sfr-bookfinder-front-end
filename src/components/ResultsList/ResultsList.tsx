@@ -71,7 +71,11 @@ const ResultsList: React.FC<{ works: ApiWork[] }> = ({ works }) => {
                 By {EditionCardUtils.getAuthorsList(work.authors)}
               </Box>
             )}
-            <EditionCard edition={previewEdition} title={work.title} />
+            <EditionCard
+              edition={previewEdition}
+              title={work.title}
+              isFeaturedEdition={work.edition_count > 1}
+            />
             <div className="editions-link">{getEditionsLinkElement(work)}</div>
           </Box>
         );

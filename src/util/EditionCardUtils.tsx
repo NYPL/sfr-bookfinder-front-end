@@ -330,7 +330,6 @@ export default class EditionCardUtils {
     } else {
       return (
         <>
-          May be available via NYPL<br></br>
           <Link
             to={`https://login.nypl.org/auth/login?redirect_uri=${encodeURIComponent(
               window.location.href

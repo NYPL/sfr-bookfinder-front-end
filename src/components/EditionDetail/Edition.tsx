@@ -124,15 +124,13 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
       )}
       <Box>
         {featuredInstance && (
-          <>
-            <Heading level="h2" size="heading4">
-              Featured Copy
-            </Heading>
-
-            <Box>
-              <InstanceCard edition={edition} instance={featuredInstance} />
-            </Box>
-          </>
+          <Box paddingTop="l">
+            <InstanceCard
+              edition={edition}
+              instance={featuredInstance}
+              isFeaturedEdition={true}
+            />
+          </Box>
         )}
       </Box>
       {edition.inCollections && edition.inCollections.length > 0 && (
@@ -178,11 +176,17 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
   const contentPrimaryElement = (
     <>
       <EditionDetailDefinitionList edition={edition} />
-      <HorizontalRule bg="section.research.primary" />
-      {edition.instances && (
+      {edition.instances && edition.instances.length > 1 && (
+        <HorizontalRule
+          bg="section.research.primary"
+          marginTop="l"
+          marginBottom="l"
+        />
+      )}
+      {edition.instances && edition.instances.length > 1 && (
         <Flex justify="space-between">
           <Heading level="h2" size="heading5">
-            All Copies
+            Other Copies
           </Heading>
 
           <Toggle
@@ -197,7 +201,7 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
         </Flex>
       )}
       <SimpleGrid columns={1} gap="s">
-        {edition.instances.map((instance) => (
+        {edition.instances.slice(1).map((instance) => (
           <InstanceCard
             key={instance.instance_id}
             edition={edition}

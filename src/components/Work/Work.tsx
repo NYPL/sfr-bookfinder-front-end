@@ -81,41 +81,29 @@ const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
   const contentTopElement = (
     <>
       <Box>
-        <Flex direction={{ base: "column", md: "row" }}>
-          <Heading level="h1" size="heading2" id="work-title">
-            {work.title}
-          </Heading>
-          {props.backUrl && (
-            <Box
-              whiteSpace={{ md: "nowrap" }}
-              lineHeight="calc(1.1 * var(--nypl-fontSizes-heading-primary))"
-              pl={{ md: "s" }}
-            >
-              <Link to={props.backUrl} linkType="backwards">
-                Back to search results
-              </Link>
-            </Box>
-          )}
-        </Flex>
+        <Heading level="h1" size="heading2" id="work-title">
+          {work.title}
+        </Heading>
         {work.sub_title && <Box>{work.sub_title}</Box>}
         {authorsList && authorsList.length && (
           <Box>By {joinArrayOfElements(authorsList, "")}</Box>
         )}
+        {props.backUrl && (
+          <Box paddingTop="s">
+            <Link to={props.backUrl} linkType="backwards">
+              Back to search results
+            </Link>
+          </Box>
+        )}
       </Box>
       {featuredEdition && (
-        <>
-          <Box>
-            <Heading level="h2" size="heading4" id="featured-edition">
-              Featured Edition
-            </Heading>
-          </Box>
-          <Box>
-            <EditionCard
-              edition={featuredEdition}
-              title={work.title}
-            ></EditionCard>
-          </Box>
-        </>
+        <Box paddingTop="l">
+          <EditionCard
+            edition={featuredEdition}
+            title={work.title}
+            isFeaturedEdition={true}
+          />
+        </Box>
       )}
       {work.inCollections && work.inCollections.length > 0 && (
         <Card
@@ -160,13 +148,19 @@ const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
   const contentPrimaryElement = (
     <>
       <WorkDetailDefinitionList work={work} />
-      <HorizontalRule bg="section.research.primary" />
+      {work.editions && work.editions.length > 1 && (
+        <HorizontalRule
+          bg="section.research.primary"
+          marginTop="l"
+          marginBottom="l"
+        />
+      )}
       <Box id="nypl-item-details">
-        {work.editions && (
+        {work.editions && work.editions.length > 1 && (
           <>
-            <Flex justify="space-between">
-              <Heading level="h2" size="heading5" id="all-editions">
-                All Editions
+            <Flex justify="space-between" marginBottom="xl">
+              <Heading level="h2" size="heading5" id="all-editions" noSpace>
+                Other Editions
               </Heading>
 
               <Toggle
@@ -180,7 +174,7 @@ const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
               />
             </Flex>
             <SimpleGrid columns={1}>
-              {work.editions.map((edition: WorkEdition) => (
+              {work.editions.slice(1).map((edition: WorkEdition) => (
                 <EditionCard
                   key={edition.edition_id}
                   edition={edition}
