@@ -201,13 +201,17 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
         </Flex>
       )}
       <SimpleGrid columns={1} gap="s">
-        {edition.instances.slice(1).map((instance) => (
-          <InstanceCard
-            key={instance.instance_id}
-            edition={edition}
-            instance={instance}
-          />
-        ))}
+        {edition.instances
+          .filter(
+            (instance) => instance.instance_id !== featuredInstance.instance_id
+          )
+          .map((instance) => (
+            <InstanceCard
+              key={instance.instance_id}
+              edition={edition}
+              instance={instance}
+            />
+          ))}
       </SimpleGrid>
     </>
   );

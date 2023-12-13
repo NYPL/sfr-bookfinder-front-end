@@ -174,13 +174,17 @@ const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
               />
             </Flex>
             <SimpleGrid columns={1}>
-              {work.editions.slice(1).map((edition: WorkEdition) => (
-                <EditionCard
-                  key={edition.edition_id}
-                  edition={edition}
-                  title={work.title}
-                ></EditionCard>
-              ))}
+              {work.editions
+                .filter(
+                  (edition) => edition.edition_id !== featuredEdition.edition_id
+                )
+                .map((edition: WorkEdition) => (
+                  <EditionCard
+                    key={edition.edition_id}
+                    edition={edition}
+                    title={work.title}
+                  ></EditionCard>
+                ))}
             </SimpleGrid>
           </>
         )}
