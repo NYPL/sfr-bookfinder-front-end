@@ -76,12 +76,12 @@ export const EditionCard: React.FC<{
         }}
         isAlignedRightActions
         paddingTop="m"
-        flexFlow={{ md: "column nowrap", lg: "row" }}
+        flexFlow={{ base: "column nowrap", md: "row" }}
         sx={{
           ".card-right": {
-            maxWidth: { base: "100%", lg: "200px" },
-            marginStart: { base: "0", lg: "m" },
-            marginTop: { base: "xs", lg: 0 },
+            maxWidth: { base: "100%", md: "200px" },
+            marginStart: { base: "0", md: "m" },
+            marginTop: { base: "xs", md: 0 },
           },
         }}
       >
@@ -120,6 +120,9 @@ export const EditionCard: React.FC<{
           display="flex"
           flexDir="column"
           whiteSpace="nowrap"
+          sx={{
+            width: { base: "100%", md: "200px" },
+          }}
           gap={4}
         >
           {EditionCardUtils.getCtas(
