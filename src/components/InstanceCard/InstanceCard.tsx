@@ -90,7 +90,7 @@ export const InstanceCard: React.FC<{
           display="flex"
           flexDir="column"
           whiteSpace="nowrap"
-          gap={4}
+          gap="xs"
         >
           {EditionCardUtils.getCtas(
             previewItem,

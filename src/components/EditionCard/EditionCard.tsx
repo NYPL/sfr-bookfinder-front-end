@@ -123,7 +123,7 @@ export const EditionCard: React.FC<{
           sx={{
             width: { base: "100%", md: "200px" },
           }}
-          gap={4}
+          gap="xs"
         >
           {EditionCardUtils.getCtas(
             previewItem,
