@@ -58,7 +58,7 @@ export const EditionCard: React.FC<{
       paddingBottom="l"
       paddingRight="l"
     >
-      <Flex gap="xs" flexDirection={{ base: "column", md: "row" }}>
+      <Flex gap="xs" flexDirection={{ base: "column", lg: "row" }}>
         {isPhysicalEdition && <CardRequiredBadge />}
         {isFeaturedEdition && <FeaturedEditionBadge />}
       </Flex>
@@ -76,12 +76,13 @@ export const EditionCard: React.FC<{
         }}
         isAlignedRightActions
         paddingTop="m"
-        flexFlow={{ base: "column nowrap", md: "row" }}
+        flexFlow={{ md: "column nowrap", lg: "row" }}
+        justifyContent={{ md: "center", lg: "left" }}
         sx={{
           ".card-right": {
-            maxWidth: { base: "100%", md: "200px" },
-            marginStart: { base: "0", md: "m" },
-            marginTop: { base: "xs", md: 0 },
+            maxWidth: { base: "100%", lg: "200px" },
+            marginStart: { base: "0", lg: "m" },
+            marginTop: { base: "xs", lg: 0 },
           },
         }}
       >
@@ -121,7 +122,7 @@ export const EditionCard: React.FC<{
           flexDir="column"
           whiteSpace="nowrap"
           sx={{
-            width: { base: "100%", md: "200px" },
+            width: { base: "100%", lg: "200px" },
           }}
           gap="xs"
         >
