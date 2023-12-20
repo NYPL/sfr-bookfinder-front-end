@@ -3,7 +3,7 @@ import React from "react";
 import Link from "../Link/Link";
 import { SCAN_AND_DELIVER_LINK } from "~/src/constants/links";
 
-export const ScanAndDeliverBlurb: React.FC = () => {
+const ScanAndDeliverBlurb: React.FC = () => {
   return (
     <Flex alignItems={{ base: "start", md: "center" }} marginTop="m">
       <Icon name="errorOutline" size="small" />
@@ -14,3 +14,5 @@ export const ScanAndDeliverBlurb: React.FC = () => {
     </Flex>
   );
 };
+
+export default ScanAndDeliverBlurb;

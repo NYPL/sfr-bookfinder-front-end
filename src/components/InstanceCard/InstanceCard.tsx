@@ -13,10 +13,13 @@ import EditionCardUtils from "~/src/util/EditionCardUtils";
 import Link from "../Link/Link";
 import { useCookies } from "react-cookie";
 import { NYPL_SESSION_ID } from "~/src/constants/auth";
-import { PhysicalEditionBadge } from "../EditionCard/PhysicalEditionBadge";
-import { ScanAndDeliverBlurb } from "../EditionCard/ScanAndDeliverBlurb";
-import { CardRequiredBadge } from "../EditionCard/CardRequiredBadge";
-import { FeaturedEditionBadge } from "../EditionCard/FeaturedEditionBadge";
+import Ctas from "../EditionCard/Ctas";
+import PublisherAndLocation from "../EditionCard/PublisherAndLocation";
+import WorldCat from "./WorldCat";
+import CardRequiredBadge from "../EditionCard/CardRequiredBadge";
+import FeaturedEditionBadge from "../EditionCard/FeaturedEditionBadge";
+import PhysicalEditionBadge from "../EditionCard/PhysicalEditionBadge";
+import ScanAndDeliverBlurb from "../EditionCard/ScanAndDeliverBlurb";
 
 // Creates an Instance card out of the Edition Year and Instance object
 // Note: Edition Year only needs to be passed because `instance.publication_date`
@@ -77,12 +80,12 @@ export const InstanceCard: React.FC<{
         </CardHeading>
         <CardContent>
           <div>
-            {EditionCardUtils.getPublisherAndLocation(
-              instance.publication_place,
-              instance.publishers
-            )}
+            <PublisherAndLocation
+              pubPlace={instance.publication_place}
+              publishers={instance.publishers}
+            />
           </div>
-          <div>{EditionCardUtils.getWorldCatElem(instance)}</div>
+          <WorldCat instance={instance} />
           <Link to="/license">{EditionCardUtils.getLicense(previewItem)}</Link>
           {isPhysicalEdition && <ScanAndDeliverBlurb />}
         </CardContent>
@@ -92,11 +95,11 @@ export const InstanceCard: React.FC<{
           whiteSpace="nowrap"
           gap="xs"
         >
-          {EditionCardUtils.getCtas(
-            previewItem,
-            instance.title,
-            !!cookies[NYPL_SESSION_ID]
-          )}
+          <Ctas
+            item={previewItem}
+            title={instance.title}
+            isLoggedIn={!!cookies[NYPL_SESSION_ID]}
+          />
         </CardActions>
       </Card>
     </Box>

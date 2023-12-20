@@ -13,10 +13,13 @@ import EditionCardUtils from "~/src/util/EditionCardUtils";
 import { PLACEHOLDER_COVER_LINK } from "~/src/constants/editioncard";
 import { useCookies } from "react-cookie";
 import { NYPL_SESSION_ID } from "~/src/constants/auth";
-import { PhysicalEditionBadge } from "./PhysicalEditionBadge";
-import { ScanAndDeliverBlurb } from "./ScanAndDeliverBlurb";
-import { CardRequiredBadge } from "./CardRequiredBadge";
-import { FeaturedEditionBadge } from "./FeaturedEditionBadge";
+import Ctas from "./Ctas";
+import LanguageDisplayText from "./LanguageDisplayText";
+import PublisherAndLocation from "./PublisherAndLocation";
+import CardRequiredBadge from "./CardRequiredBadge";
+import FeaturedEditionBadge from "./FeaturedEditionBadge";
+import PhysicalEditionBadge from "./PhysicalEditionBadge";
+import ScanAndDeliverBlurb from "./ScanAndDeliverBlurb";
 
 export const EditionCard: React.FC<{
   edition: WorkEdition;
@@ -106,11 +109,11 @@ export const EditionCard: React.FC<{
         </CardHeading>
         <CardContent>
           <Box>
-            {EditionCardUtils.getPublisherAndLocation(
-              edition.publication_place,
-              edition.publishers
-            )}
-            <Box>{EditionCardUtils.getLanguageDisplayText(edition)}</Box>
+            <PublisherAndLocation
+              pubPlace={edition.publication_place}
+              publishers={edition.publishers}
+            />
+            <LanguageDisplayText previewEdition={previewItem} />
             <Link to="/license">
               {EditionCardUtils.getLicense(previewItem)}
             </Link>
@@ -126,11 +129,11 @@ export const EditionCard: React.FC<{
           }}
           gap="xs"
         >
-          {EditionCardUtils.getCtas(
-            previewItem,
-            title,
-            !!cookies[NYPL_SESSION_ID]
-          )}
+          <Ctas
+            item={previewItem}
+            title={title}
+            isLoggedIn={!!cookies[NYPL_SESSION_ID]}
+          />
         </CardActions>
       </Card>
     </Box>
