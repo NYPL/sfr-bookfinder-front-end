@@ -113,7 +113,7 @@ export const EditionCard: React.FC<{
               pubPlace={edition.publication_place}
               publishers={edition.publishers}
             />
-            <LanguageDisplayText previewEdition={previewItem} />
+            <LanguageDisplayText edition={edition} />
             <Link to="/license">
               {EditionCardUtils.getLicense(previewItem)}
             </Link>

@@ -7,9 +7,10 @@ const PublisherAndLocation: React.FC<{
   publishers: Agent[];
 }> = ({ pubPlace, publishers }) => {
   const displayLocation =
-    EditionCardUtils.getPublisherDisplayLocation(pubPlace);
+    EditionCardUtils.getPublisherDisplayLocation(pubPlace) || "";
 
-  const displayName = EditionCardUtils.getPublishersDisplayText(publishers);
+  const displayName =
+    EditionCardUtils.getPublishersDisplayText(publishers) || "";
 
   return (
     <>

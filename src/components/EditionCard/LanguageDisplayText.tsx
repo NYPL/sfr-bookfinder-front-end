@@ -3,10 +3,10 @@ import React from "react";
 import { WorkEdition } from "~/src/types/DataModel";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
 
-const LanguageDisplayText: React.FC<{ previewEdition: WorkEdition }> = ({
-  previewEdition,
+const LanguageDisplayText: React.FC<{ edition: WorkEdition }> = ({
+  edition,
 }) => {
-  const languageText = EditionCardUtils.getLanguageDisplayText(previewEdition);
+  const languageText = EditionCardUtils.getLanguageDisplayText(edition);
   return <Box>{languageText}</Box>;
 };
 

@@ -10,8 +10,11 @@ const WorldCat: React.FC<{
   const oclcLink = EditionCardUtils.getOclcLink(instance);
   return (
     <Box>
-      oclcLink ? (<Link to={oclcLink}>Find in a library</Link>) : (
-      <>Find in Library Unavailable</>)
+      {oclcLink ? (
+        <Link to={oclcLink}>Find in a library</Link>
+      ) : (
+        <>Find in Library Unavailable</>
+      )}
     </Box>
   );
 };
