@@ -5,7 +5,11 @@ import { SCAN_AND_DELIVER_LINK } from "~/src/constants/links";
 
 const ScanAndDeliverBlurb: React.FC = () => {
   return (
-    <Flex alignItems={{ base: "start", md: "center" }} marginTop="m">
+    <Flex
+      alignItems={{ base: "start", md: "center" }}
+      marginTop={{ base: "s", md: "m" }}
+      marginBottom={{ base: "s", md: null }}
+    >
       <Icon name="errorOutline" size="small" />
       <Text size="caption" noSpace marginLeft="xxs">
         A partial scan of this edition can be requested via NYPL's{" "}

@@ -58,6 +58,7 @@ export const EditionCard: React.FC<{
       border="1px"
       borderColor="ui.border.default"
       padding="s"
+      paddingLeft={{ base: "l", md: null }}
       paddingBottom="l"
       paddingRight="l"
     >

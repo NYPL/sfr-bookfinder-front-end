@@ -3,8 +3,8 @@ import { List } from "@nypl/design-system-react-components";
 import Link from "~/src/components/Link/Link";
 import { unique, flattenDeep, uniqueAndSortByFrequency } from "~/src/util/Util";
 import { Language, Subject } from "~/src/types/DataModel";
-import EditionCardUtils from "~/src/util/EditionCardUtils";
 import { ApiWork } from "~/src/types/WorkQuery";
+import AuthorsList from "../AuthorsList/AuthorsList";
 
 // extract unique language array from instances of a work item
 const getLanguagesForWork = (work: ApiWork) =>
@@ -76,7 +76,9 @@ const WorkDetailDefinitionList: React.FC<{ work: ApiWork }> = ({ work }) => {
           </>
         )}
         <dt>Authors</dt>
-        <dd>{EditionCardUtils.getAuthorsList(work.authors)}</dd>
+        <dd>
+          <AuthorsList authors={work.authors} />
+        </dd>
         {work.subjects && work.subjects.length > 0 && (
           <>
             <dt>Subjects</dt>

@@ -8,7 +8,6 @@ import {
   WorkEdition,
   Identifier,
 } from "../types/DataModel";
-import Link from "~/src/components/Link/Link";
 import { formatUrl, truncateStringOnWhitespace } from "./Util";
 import {
   MAX_PLACE_LENGTH,
@@ -16,7 +15,6 @@ import {
   MAX_SUBTITILE_LENGTH,
   PLACEHOLDER_COVER_LINK,
 } from "../constants/editioncard";
-import { ApiSearchQuery } from "../types/SearchQuery";
 import { MediaTypes } from "../constants/mediaTypes";
 
 // EditionCard holds all the methods needed to build an Edition Card
@@ -74,35 +72,6 @@ export default class EditionCardUtils {
       (author.viaf && ["viaf", "viaf"]) ||
       (author.lcnaf && ["lcnaf", "lcnaf"]) || ["name", "author"]
     );
-  }
-
-  static getAuthorsList(authors: Agent[]): JSX.Element[] {
-    if (!authors || authors.length === 0) return null;
-    return authors.map((author: Agent, i: number) => {
-      const authorLinkText = author.name;
-      const query: ApiSearchQuery = {
-        query: author.viaf ? `viaf:${author.viaf}` : `author:${author.name}`,
-      };
-      if (author.viaf) {
-        query.display = `author:${author.name}`;
-      }
-      return (
-        <React.Fragment
-          key={author.viaf ? `author-${author.viaf}` : `author-${author.name}`}
-        >
-          <Link
-            to={{
-              pathname: "/search",
-              query: query,
-            }}
-            className="link"
-          >
-            {authorLinkText}
-          </Link>
-          {i < authors.length - 1 && ", "}
-        </React.Fragment>
-      );
-    });
   }
 
   /** Get Cover Image

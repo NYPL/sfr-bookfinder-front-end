@@ -13,10 +13,7 @@ import {
   CardHeading,
   TemplateAppContainer,
 } from "@nypl/design-system-react-components";
-import {
-  joinArrayOfElements,
-  truncateStringOnWhitespace,
-} from "~/src/util/Util";
+import { truncateStringOnWhitespace } from "~/src/util/Util";
 import { EditionCard } from "~/src/components/EditionCard/EditionCard";
 import WorkDetailDefinitionList from "~/src/components/WorkDetailDefinitionList/WorkDetailDefinitionList";
 import { ApiWork, WorkResult } from "~/src/types/WorkQuery";
@@ -27,6 +24,7 @@ import Link from "../Link/Link";
 import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
 import { PLACEHOLDER_LINK } from "~/src/constants/collection";
 import DrbBreakout from "../DrbBreakout/DrbBreakout";
+import AuthorsList from "../AuthorsList/AuthorsList";
 
 const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
   props
@@ -37,9 +35,8 @@ const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
   const featuredEditionId = query.featured;
 
   const work: ApiWork = props.workResult.data;
-  //Edition Card Preprocessing
-  const authorsList = EditionCardUtils.getAuthorsList(work.authors);
 
+  //Edition Card Preprocessing
   const passedInFeaturedEdition = featuredEditionId
     ? work.editions.find(
         (edition) => edition.edition_id === Number(featuredEditionId)
@@ -85,8 +82,10 @@ const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
           {work.title}
         </Heading>
         {work.sub_title && <Box>{work.sub_title}</Box>}
-        {authorsList && authorsList.length && (
-          <Box>By {joinArrayOfElements(authorsList, "")}</Box>
+        {work.authors && work.authors.length && (
+          <Box>
+            By <AuthorsList authors={work.authors} />
+          </Box>
         )}
         {props.backUrl && (
           <Box paddingTop="s">
