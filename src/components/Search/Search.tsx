@@ -9,9 +9,9 @@ import {
   Flex,
   Form,
   useModal,
-  useNYPLBreakpoints,
   TemplateAppContainer,
   Text,
+  useNYPLBreakpoints,
 } from "@nypl/design-system-react-components";
 import { useRouter } from "next/router";
 import { FacetItem, Query } from "~/src/types/DataModel";
@@ -47,7 +47,7 @@ const SearchResults: React.FC<{
 
   const { onClose, onOpen, Modal } = useModal();
 
-  const { isLargerThanMedium } = useNYPLBreakpoints();
+  const { isLargerThanLarge } = useNYPLBreakpoints();
 
   const router = useRouter();
 
@@ -96,13 +96,6 @@ const SearchResults: React.FC<{
     return facets;
   };
 
-  const getFilterCount = (searchQuery: SearchQuery) => {
-    return searchQuery.showAll !== SearchQueryDefaults.showAll
-      ? searchQuery.filters.length + 1
-      : searchQuery.filters.length;
-  };
-
-  const filterCount = getFilterCount(searchQuery);
   const numberOfWorks = searchResults.data.totalWorks;
   const works: ApiWork[] = searchResults.data.works;
 
@@ -182,6 +175,84 @@ const SearchResults: React.FC<{
       ]}
     >
       <SearchHeader searchQuery={searchQuery}></SearchHeader>
+      <Flex
+        flexDir={{ base: "column", md: "row" }}
+        padding="s"
+        paddingTop="0"
+        bg="ui.gray.x-light-cool"
+        gap="s"
+        display={{ base: "flex", lg: "none" }}
+      >
+        <Button
+          id="filter-button"
+          onClick={onOpen}
+          buttonType="secondary"
+          sx={{
+            width: { base: "100%", md: "fit-content" },
+          }}
+        >
+          Refine results
+        </Button>
+        <Modal
+          bodyContent={
+            <>
+              <Button buttonType="link" onClick={onClose} id="modal-button">
+                <Flex align="center">
+                  <Icon
+                    decorative={true}
+                    name="arrow"
+                    size="medium"
+                    iconRotation="rotate90"
+                  />
+                  Go Back
+                </Flex>
+              </Button>
+              <Box>
+                <ResultsSorts
+                  isModal={true}
+                  perPage={searchQuery.perPage}
+                  sort={searchQuery.sort}
+                  sortMap={sortMap}
+                  onChangePerPage={(e) => onChangePerPage(e)}
+                  onChangeSort={(e) => onChangeSort(e)}
+                />
+              </Box>
+              <form name="filterForm">
+                <Heading level="h2" size="heading3" id="filter-desktop-header">
+                  Refine Results
+                </Heading>
+                <Filters
+                  filters={searchQuery.filters}
+                  showAll={searchQuery.showAll}
+                  languages={getAvailableLanguages(searchResults)}
+                  isModal={true}
+                  changeFilters={(filters: Filter[]) => {
+                    changeFilters(filters);
+                  }}
+                  changeShowAll={(showAll: boolean) => {
+                    changeShowAll(showAll);
+                  }}
+                />
+              </form>
+            </>
+          }
+        />
+        {searchQuery.filters.length > 0 && !isLargerThanLarge && (
+          <Button
+            id="clear-filters-button"
+            buttonType="secondary"
+            type="reset"
+            onClick={() => {
+              changeFilters([]);
+            }}
+            sx={{
+              width: { base: "100%", md: "fit-content" },
+            }}
+          >
+            Clear Filters
+          </Button>
+        )}
+      </Flex>
     </DrbBreakout>
   );
 
@@ -224,107 +295,33 @@ const SearchResults: React.FC<{
   );
 
   const contentSidebarElement = (
-    <>
-      {!isLargerThanMedium && (
-        <Button
-          id="filter-button"
-          onClick={onOpen}
-          buttonType="primary"
-          sx={{
-            width: "100%",
-          }}
-        >
-          {`Filters (${filterCount})`}
-        </Button>
-      )}
-      <Modal
-        bodyContent={
-          <>
-            <Button buttonType="link" onClick={onClose} id="modal-button">
-              <Flex align="center">
-                <Icon
-                  decorative={true}
-                  name="arrow"
-                  size="medium"
-                  iconRotation="rotate90"
-                />
-                Go Back
-              </Flex>
-            </Button>
-            <Box>
-              <ResultsSorts
-                isModal={true}
-                perPage={searchQuery.perPage}
-                sort={searchQuery.sort}
-                sortMap={sortMap}
-                onChangePerPage={(e) => onChangePerPage(e)}
-                onChangeSort={(e) => onChangeSort(e)}
-              />
-            </Box>
-            <form name="filterForm">
-              <Heading level="h2" size="heading3" id="filter-desktop-header">
-                Refine Results
-              </Heading>
-              <Filters
-                filters={searchQuery.filters}
-                showAll={searchQuery.showAll}
-                languages={getAvailableLanguages(searchResults)}
-                isModal={true}
-                changeFilters={(filters: Filter[]) => {
-                  changeFilters(filters);
-                }}
-                changeShowAll={(showAll: boolean) => {
-                  changeShowAll(showAll);
-                }}
-              />
-            </form>
-          </>
-        }
-      />
-      {searchQuery.filters.length > 0 && !isLargerThanMedium && (
-        <Button
-          id="clear-filters-button"
-          buttonType="secondary"
-          type="reset"
-          onClick={() => {
-            changeFilters([]);
-          }}
-          sx={{
-            marginTop: "var(--nypl-space-s)",
-            width: "100%",
-          }}
-        >
-          Clear Filters
-        </Button>
-      )}
-      <Form
-        id="search-filter-form"
-        bg="ui.gray.x-light-cool"
-        p="xs"
-        gap="grid.xs"
-        display={["none", "none", "block"]}
+    <Form
+      id="search-filter-form"
+      bg="ui.gray.x-light-cool"
+      p="xs"
+      gap="grid.xs"
+      display={{ base: "none", md: "block" }}
+    >
+      <Heading
+        level="h2"
+        size="heading3"
+        id="filter-desktop-header"
+        __css={{ m: "0" }}
       >
-        <Heading
-          level="h2"
-          size="heading3"
-          id="filter-desktop-header"
-          __css={{ m: "0" }}
-        >
-          Refine Results
-        </Heading>
-        <Filters
-          filters={searchQuery.filters}
-          showAll={searchQuery.showAll}
-          languages={getAvailableLanguages(searchResults)}
-          changeFilters={(filters: Filter[]) => {
-            changeFilters(filters);
-          }}
-          changeShowAll={(showAll: boolean) => {
-            changeShowAll(showAll);
-          }}
-        />
-      </Form>
-    </>
+        Refine Results
+      </Heading>
+      <Filters
+        filters={searchQuery.filters}
+        showAll={searchQuery.showAll}
+        languages={getAvailableLanguages(searchResults)}
+        changeFilters={(filters: Filter[]) => {
+          changeFilters(filters);
+        }}
+        changeShowAll={(showAll: boolean) => {
+          changeShowAll(showAll);
+        }}
+      />
+    </Form>
   );
 
   const contentPrimaryElement = (
@@ -344,7 +341,7 @@ const SearchResults: React.FC<{
       contentTop={contentTopElement}
       contentSidebar={contentSidebarElement}
       contentPrimary={contentPrimaryElement}
-      sidebar="left"
+      sidebar={"left"}
     />
   );
 };

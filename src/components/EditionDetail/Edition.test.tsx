@@ -66,15 +66,13 @@ describe("Renders edition component when given valid edition", () => {
       );
     });
   });
-  test("Three cards show up in page", () => {
-    expect(
-      screen.getByRole("heading", { name: "Featured Copy" })
-    ).toBeInTheDocument();
+  test("Two cards show up in page", () => {
+    expect(screen.getByText("Featured Edition")).toBeInTheDocument();
     const featuredEditionHeadings = screen.getAllByRole("heading", {
       name: "1923",
     });
-    expect(featuredEditionHeadings.length).toEqual(3);
-    expect(screen.getAllByAltText("Cover").length).toBe(3);
+    expect(featuredEditionHeadings.length).toEqual(2);
+    expect(screen.getAllByAltText("Cover").length).toBe(2);
     expect(
       screen
         .getAllByText("License: Public Domain when viewed in the US")[0]
@@ -82,12 +80,12 @@ describe("Renders edition component when given valid edition", () => {
     ).toContain("/license");
   });
 
-  test("Featured Card, which has publisher 'Miller', shows up twice", () => {
+  test("Featured Card, which has publisher 'Miller', shows up once", () => {
     expect(
       screen.getAllByText("Published in Paris, France by Miller,", {
         selector: "div",
       }).length
-    ).toBe(2);
+    ).toBe(1);
   });
   test("Shows Details Table", () => {
     expect(
@@ -191,12 +189,12 @@ describe("All Copies Toggle", () => {
       render(<Edition editionResult={apiEdition} />);
     });
 
-    test("Featured Card, which has publisher 'Publisher 1', shows up twice", () => {
+    test("Featured Card, which has publisher 'Publisher 1', shows up once", () => {
       expect(
         screen.getAllByText("Published in Paris, France by Publisher 1", {
           selector: "div",
         }).length
-      ).toBe(2);
+      ).toBe(1);
     });
   });
 });

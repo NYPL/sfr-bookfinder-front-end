@@ -3,9 +3,13 @@ import React from "react";
 import Link from "../Link/Link";
 import { SCAN_AND_DELIVER_LINK } from "~/src/constants/links";
 
-export const ScanAndDeliverBlurb: React.FC = () => {
+const ScanAndDeliverBlurb: React.FC = () => {
   return (
-    <Flex alignItems="center" marginTop="s">
+    <Flex
+      alignItems={{ base: "start", md: "center" }}
+      marginTop={{ base: "s", md: "m" }}
+      marginBottom={{ base: "s", md: null }}
+    >
       <Icon name="errorOutline" size="small" />
       <Text size="caption" noSpace marginLeft="xxs">
         A partial scan of this edition can be requested via NYPL's{" "}
@@ -14,3 +18,5 @@ export const ScanAndDeliverBlurb: React.FC = () => {
     </Flex>
   );
 };
+
+export default ScanAndDeliverBlurb;

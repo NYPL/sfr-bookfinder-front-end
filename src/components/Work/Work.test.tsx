@@ -54,14 +54,12 @@ describe("Renders Work component when given valid work", () => {
     });
   });
 
-  test("Featured Edition Card shows up twice in page", () => {
-    expect(
-      screen.getByRole("heading", { name: "Featured Edition" })
-    ).toBeInTheDocument();
+  test("Featured Edition Card shows up once in page", () => {
+    expect(screen.getByText("Featured Edition")).toBeInTheDocument();
     const featuredEditionHeadings = screen.getAllByRole("heading", {
       name: "1967 Edition",
     });
-    expect(featuredEditionHeadings.length).toEqual(2);
+    expect(featuredEditionHeadings.length).toEqual(1);
     featuredEditionHeadings.forEach((heading) => {
       expect(
         (within(heading).getByRole("link") as HTMLLinkElement).href
@@ -71,13 +69,13 @@ describe("Renders Work component when given valid work", () => {
       ).toContain("?featured=1280883");
     });
 
-    expect(screen.getAllByAltText("Cover for 1967 Edition").length).toBe(2);
+    expect(screen.getAllByAltText("Cover for 1967 Edition").length).toBe(1);
     expect(
       screen.getAllByText(
         "Published by Foreign Service Institute, Dept. of State;"
       ).length
-    ).toBe(2);
-    expect(screen.getAllByText("Languages: English, German").length).toBe(2);
+    ).toBe(1);
+    expect(screen.getAllByText("Languages: English, German").length).toBe(1);
     expect(
       screen.getAllByText("License: Unknown")[0].closest("a").href
     ).toContain("/license");
@@ -180,13 +178,11 @@ describe("Edition Cards and toggles", () => {
     });
 
     test("1980 edition shows up twice", () => {
-      expect(
-        screen.getByRole("heading", { name: "Featured Edition" })
-      ).toBeInTheDocument();
+      expect(screen.getByText("Featured Edition")).toBeInTheDocument();
       const featuredEditionHeadings = screen.getAllByRole("heading", {
         name: "1980 Edition",
       });
-      expect(featuredEditionHeadings.length).toEqual(2);
+      expect(featuredEditionHeadings.length).toEqual(1);
     });
   });
 });

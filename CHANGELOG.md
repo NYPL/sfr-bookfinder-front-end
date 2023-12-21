@@ -11,6 +11,8 @@
 - Update Playwright.yml to use same package versions as package.json
 - Fix: reverse node to v18.18.2
 - Add Physical Edition badge and Scan and Deliver blurb to EDD editions
+- Add Library Card Required and Featured Editon badges
+- Update styles for work and edition pages
 
 ## [0.17.5]
 

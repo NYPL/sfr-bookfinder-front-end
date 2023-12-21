@@ -7,25 +7,8 @@ import EmptySearchSvg from "../Svgs/EmptySearchSvg";
 import { truncateStringOnWhitespace } from "~/src/util/Util";
 import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
 import { ApiWork } from "~/src/types/WorkQuery";
-
-export const getEditionsLinkElement = (work: ApiWork) => {
-  const editionCount = work.edition_count;
-  const previewEdition = work.editions && work.editions[0];
-
-  return editionCount > 1 ? (
-    <Link
-      className="link"
-      to={{
-        pathname: `work/${work.uuid}`,
-        query: { showAll: true, featured: previewEdition.edition_id },
-        hash: "#all-editions",
-      }}
-      linkType="standalone"
-    >
-      {`View All ${editionCount} Editions`}
-    </Link>
-  ) : undefined;
-};
+import ViewEditionsLink from "../EditionCard/ViewEditionsLink";
+import AuthorsList from "../AuthorsList/AuthorsList";
 
 const ResultsList: React.FC<{ works: ApiWork[] }> = ({ works }) => {
   if (works.length === 0) {
@@ -66,13 +49,17 @@ const ResultsList: React.FC<{ works: ApiWork[] }> = ({ works }) => {
               </Link>
             </Heading>
             <span>{EditionCardUtils.getSubtitle(work.sub_title)}</span>
-            {EditionCardUtils.getAuthorsList(work.authors) && (
+            {work.authors && work.authors.length && (
               <Box marginBottom="xs">
-                By {EditionCardUtils.getAuthorsList(work.authors)}
+                By <AuthorsList authors={work.authors} />
               </Box>
             )}
-            <EditionCard edition={previewEdition} title={work.title} />
-            <div className="editions-link">{getEditionsLinkElement(work)}</div>
+            <EditionCard
+              edition={previewEdition}
+              title={work.title}
+              isFeaturedEdition={work.edition_count > 1}
+            />
+            <ViewEditionsLink work={work} />
           </Box>
         );
       })}

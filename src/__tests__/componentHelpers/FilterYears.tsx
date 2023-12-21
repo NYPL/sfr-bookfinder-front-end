@@ -23,7 +23,9 @@ export const FilterYearsTests = (
       })
     ).toHaveValue((endYear && endYear.value) || null);
     if (hasApplyButton) {
-      expect(screen.getByRole("button", { name: "Apply" })).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: "Apply year" })
+      ).toBeInTheDocument();
     }
   });
 
@@ -36,7 +38,7 @@ export const FilterYearsTests = (
         name: "From",
       });
       const applyButton = within(yearGroup).getByRole("button", {
-        name: "Apply",
+        name: "Apply year",
       });
       await userEvent.type(fromInput, "1990");
       expect(fromInput).toHaveValue(1990);
@@ -58,7 +60,7 @@ export const FilterYearsTests = (
         name: "To",
       });
       const applyButton = within(yearGroup).getByRole("button", {
-        name: "Apply",
+        name: "Apply year",
       });
       await userEvent.type(toInput, "1990");
       await userEvent.click(applyButton);
@@ -83,7 +85,7 @@ export const FilterYearsTests = (
         name: "From",
       });
       const applyButton = within(yearGroup).getByRole("button", {
-        name: "Apply",
+        name: "Apply year",
       });
       await userEvent.type(fromInput, "1990");
       await userEvent.type(toInput, "2000");
@@ -109,7 +111,7 @@ export const FilterYearsTests = (
         name: "From",
       });
       const applyButton = within(yearGroup).getByRole("button", {
-        name: "Apply",
+        name: "Apply year",
       });
       await userEvent.type(fromInput, "1990");
       await userEvent.type(toInput, "1890");

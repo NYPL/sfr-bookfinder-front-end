@@ -41,7 +41,9 @@ const emptySearchResults: ApiSearchResult = {
   },
 };
 const clickFiltersButton = async () =>
-  userEvent.click(await screen.findByRole("button", { name: "Filters (0)" }));
+  userEvent.click(
+    await screen.findByRole("button", { name: "Refine results" })
+  );
 
 describe("Renders Search Results Page", () => {
   beforeEach(() => {
@@ -82,7 +84,7 @@ describe("Renders Search Results Page", () => {
   describe("Filters modal show and hide", () => {
     test("Filters button appears", () => {
       expect(
-        screen.getByRole("button", { name: "Filters (0)" })
+        screen.getByRole("button", { name: "Refine results" })
       ).toBeInTheDocument();
     });
     test("clicking 'filters' button shows filters contents", async () => {
@@ -141,7 +143,7 @@ describe("Renders Search Results Page", () => {
 
         await userEvent.click(screen.getByRole("button", { name: "Go Back" }));
         expect(
-          screen.getByRole("button", { name: "Filters (0)" })
+          screen.getByRole("button", { name: "Refine results" })
         ).toBeInTheDocument();
       }, 15000);
     });
@@ -163,7 +165,7 @@ describe("Renders Search Results Page", () => {
 
         await userEvent.click(screen.getByRole("button", { name: "Go Back" }));
         expect(
-          screen.getByRole("button", { name: "Filters (0)" })
+          screen.getByRole("button", { name: "Refine results" })
         ).toBeInTheDocument();
       }, 15000);
     });
@@ -184,7 +186,7 @@ describe("Renders Search Results Page", () => {
         });
         await userEvent.click(screen.getByRole("button", { name: "Go Back" }));
         expect(
-          screen.getByRole("button", { name: "Filters (1)" })
+          screen.getByRole("button", { name: "Refine results" })
         ).toBeInTheDocument();
       }, 15000);
     });
@@ -217,7 +219,7 @@ describe("Renders Search Results Page", () => {
 
         await userEvent.click(screen.getByRole("button", { name: "Go Back" }));
         await userEvent.click(
-          screen.getByRole("button", { name: "Filters (1)" })
+          screen.getByRole("button", { name: "Refine results" })
         );
 
         const languages2 = screen.getByRole("group", {
@@ -247,7 +249,7 @@ describe("Renders Search Results Page", () => {
         });
         await userEvent.click(screen.getByRole("button", { name: "Go Back" }));
         expect(
-          screen.getByRole("button", { name: "Filters (1)" })
+          screen.getByRole("button", { name: "Refine results" })
         ).toBeInTheDocument();
       }, 15000);
     });
@@ -275,7 +277,7 @@ describe("Renders Search Results Page", () => {
         });
         await userEvent.click(screen.getByRole("button", { name: "Go Back" }));
         expect(
-          screen.getByRole("button", { name: "Filters (1)" })
+          screen.getByRole("button", { name: "Refine results" })
         ).toBeInTheDocument();
       }, 15000);
     });

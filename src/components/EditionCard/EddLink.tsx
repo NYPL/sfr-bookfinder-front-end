@@ -1,9 +1,9 @@
 import React from "react";
-import { OpdsLink } from "~/src/types/OpdsModel";
 import Link from "~/src/components/Link/Link";
+import { ItemLink } from "~/src/types/DataModel";
 
-export const EddLink: React.FC<{
-  eddLink: OpdsLink;
+const EddLink: React.FC<{
+  eddLink: ItemLink;
   isLoggedIn: boolean;
 }> = ({ eddLink, isLoggedIn }) => {
   if (isLoggedIn) {
@@ -11,7 +11,7 @@ export const EddLink: React.FC<{
       <>
         <Link
           // Url starts with www
-          to={`https://${eddLink.href}`}
+          to={`https://${eddLink.url}`}
           linkType="button"
           target="_blank"
         >
@@ -26,7 +26,7 @@ export const EddLink: React.FC<{
           to={`https://login.nypl.org/auth/login?redirect_uri=${encodeURIComponent(
             window.location.href
           )}`}
-          linkType="button"
+          linkType="buttonSecondary"
         >
           Log in to request scan
         </Link>
