@@ -20,6 +20,7 @@ import CardRequiredBadge from "./CardRequiredBadge";
 import FeaturedEditionBadge from "./FeaturedEditionBadge";
 import PhysicalEditionBadge from "./PhysicalEditionBadge";
 import ScanAndDeliverBlurb from "./ScanAndDeliverBlurb";
+import UpBlurb from "./UpBlurb";
 
 export const EditionCard: React.FC<{
   edition: WorkEdition;
@@ -52,6 +53,7 @@ export const EditionCard: React.FC<{
 
   const coverUrl = EditionCardUtils.getCover(edition.links);
   const isPhysicalEdition = EditionCardUtils.isPhysicalEdition(previewItem);
+  const isUniversityPress = EditionCardUtils.isUniversityPress(previewItem);
 
   return (
     <Box
@@ -120,6 +122,7 @@ export const EditionCard: React.FC<{
             </Link>
           </Box>
           {isPhysicalEdition && <ScanAndDeliverBlurb />}
+          {isUniversityPress && <UpBlurb publishers={edition.publishers} />}
         </CardContent>
         <CardActions
           display="flex"

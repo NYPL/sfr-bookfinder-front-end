@@ -5,6 +5,7 @@ import { PLACEHOLDER_COVER_LINK } from "~/src/constants/editioncard";
 import {
   eddEdition,
   fullEdition,
+  upEdition,
 } from "~/src/__tests__/fixtures/EditionCardFixture";
 import { NYPL_SESSION_ID } from "~/src/constants/auth";
 
@@ -144,5 +145,49 @@ describe("Edition with EDD", () => {
     expect(
       screen.getByRole("link", { name: "Scan and Deliver" })
     ).toHaveAttribute("href", "https://www.nypl.org/research/scan-and-deliver");
+  });
+});
+
+describe("Edition with UP", () => {
+  test("Shows Login button when user is not logged in", () => {
+    document.cookie = `${NYPL_SESSION_ID}=""`;
+    render(<EditionCard edition={upEdition} title={"title"}></EditionCard>);
+    expect(
+      screen.getByRole("link", { name: "Log in to read online" })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: "Log in to read online" })
+    ).toHaveAttribute(
+      "href",
+      expect.stringContaining("https://login.nypl.org/auth/login")
+    );
+    expect(screen.queryByText("Download PDF")).not.toBeInTheDocument();
+    expect(screen.queryByText("Read Online")).not.toBeInTheDocument();
+  });
+  test("Shows Read Online and Download buttons when user is logged in", () => {
+    // Set cookie before rendering the component
+    document.cookie = `${NYPL_SESSION_ID}="randomvalue"`;
+    render(<EditionCard edition={upEdition} title={"title"}></EditionCard>);
+
+    expect(
+      screen.getByRole("link", { name: "Read Online" })
+    ).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Read Online" })).toHaveAttribute(
+      "href",
+      expect.stringContaining("/read/12")
+    );
+    expect(
+      screen.getByRole("link", { name: "Download PDF" })
+    ).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Download PDF" })).toHaveAttribute(
+      "href",
+      expect.stringContaining("test-link-url")
+    );
+  });
+  test("Shows blurb with publisher", () => {
+    render(<EditionCard edition={upEdition} title={"title"}></EditionCard>);
+    expect(
+      screen.getByText("Digitalized by NYPL with permission of publisher_1")
+    ).toBeInTheDocument();
   });
 });

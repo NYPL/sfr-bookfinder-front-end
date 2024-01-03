@@ -16,9 +16,18 @@ const Ctas: React.FC<{
   if (readOnlineLink || downloadLink) {
     return (
       <>
-        {readOnlineLink && <ReadOnlineLink readOnlineLink={readOnlineLink} />}
+        {readOnlineLink && (
+          <ReadOnlineLink
+            readOnlineLink={readOnlineLink}
+            isLoggedIn={isLoggedIn}
+          />
+        )}
         {downloadLink && (
-          <DownloadLink downloadLink={downloadLink} title={title} />
+          <DownloadLink
+            downloadLink={downloadLink}
+            title={title}
+            isLoggedIn={isLoggedIn}
+          />
         )}
       </>
     );

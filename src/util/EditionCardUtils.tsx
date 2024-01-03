@@ -102,6 +102,14 @@ export default class EditionCardUtils {
     return ` by ${EditionCardUtils.getFirstAndCountMore(publisherNames)}`;
   }
 
+  static getUpPublisher(publishers: Agent[]): undefined | string {
+    if (!publishers || publishers.length === 0) return "";
+    const publisherNames = publishers.map(
+      (pubAgent: Agent) => pubAgent && pubAgent.name
+    );
+    return EditionCardUtils.getFirstAndCountMore(publisherNames);
+  }
+
   // Language Display
   static getLanguageDisplayText(previewEdition: WorkEdition): string {
     if (
@@ -206,5 +214,13 @@ export default class EditionCardUtils {
         : undefined;
 
     return !availableOnline && eddLink !== undefined;
+  }
+
+  static isUniversityPress(item: ApiItem): boolean {
+    const universityPress =
+      item && item.links
+        ? item.links.find((link) => !link.flags.edd && link.flags.nypl_login)
+        : undefined;
+    return universityPress !== undefined;
   }
 }

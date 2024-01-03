@@ -8,19 +8,29 @@ import { formatUrl } from "~/src/util/Util";
 const DownloadLink: React.FC<{
   downloadLink: ItemLink;
   title: string;
-}> = ({ downloadLink, title }) => {
+  isLoggedIn: boolean;
+}> = ({ downloadLink, title, isLoggedIn }) => {
   if (downloadLink && downloadLink.url) {
-    const formattedUrl = formatUrl(downloadLink.url);
+    let linkText = "Download PDF";
+    let linkUrl = formatUrl(downloadLink.url);
+
     const trackDownloadCta = () => {
       trackCtaClick({
         cta_section: `${title}`,
         cta_text: "Download",
-        destination_url: `${formattedUrl}`,
+        destination_url: `${linkUrl}`,
       });
     };
+
+    if (downloadLink.flags.nypl_login && !isLoggedIn) {
+      linkText = "Log in to download PDF";
+      linkUrl = `https://login.nypl.org/auth/login?redirect_uri=${encodeURIComponent(
+        window.location.href
+      )}`;
+    }
     return (
       <Box>
-        <Link to={`${formattedUrl}`} linkType="action">
+        <Link to={`${linkUrl}`} linkType="action">
           <Button
             width="100%"
             id="download-button"
@@ -36,7 +46,7 @@ const DownloadLink: React.FC<{
               decorative
               iconRotation="rotate0"
             />
-            Download PDF
+            {linkText}
           </Button>
         </Link>
       </Box>
