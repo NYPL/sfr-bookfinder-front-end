@@ -10,6 +10,7 @@
 - Refactor New Relic browser monitoring instrumentation
 - Update Playwright.yml to use same package versions as package.json
 - Fix: reverse node to v18.18.2
+- SFR-1869: Add assertion step to minimize timeout errors
 
 ## [0.17.5]
 
