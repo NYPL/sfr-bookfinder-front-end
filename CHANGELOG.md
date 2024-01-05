@@ -14,6 +14,7 @@
 - Add Library Card Required and Featured Editon badges
 - Update styles for work and edition pages
 - Add login buttons and info blurb UP items
+- SFR-1869: Add assertion step to minimize timeout errors
 
 ## [0.17.5]
 
