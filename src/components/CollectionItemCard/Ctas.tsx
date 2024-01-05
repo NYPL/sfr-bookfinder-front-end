@@ -23,7 +23,7 @@ const Ctas: React.FC<{
   }
 
   if (eddLink) {
-    return <EddLink eddLink={eddLink} isLoggedIn={isLoggedIn} />;
+    return <EddLink eddLink={eddLink} isLoggedIn={isLoggedIn} title={title} />;
   }
 
   return <>Not yet available</>;

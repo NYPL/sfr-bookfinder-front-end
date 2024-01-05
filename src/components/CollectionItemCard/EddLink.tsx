@@ -5,7 +5,8 @@ import Link from "~/src/components/Link/Link";
 export const EddLink: React.FC<{
   eddLink: OpdsLink;
   isLoggedIn: boolean;
-}> = ({ eddLink, isLoggedIn }) => {
+  title: string;
+}> = ({ eddLink, isLoggedIn, title }) => {
   if (isLoggedIn) {
     return (
       <>
@@ -14,6 +15,7 @@ export const EddLink: React.FC<{
           to={`https://${eddLink.href}`}
           linkType="button"
           target="_blank"
+          aria-label={`Request scan for ${title}`}
         >
           Request Scan
         </Link>
@@ -27,6 +29,7 @@ export const EddLink: React.FC<{
             window.location.href
           )}`}
           linkType="button"
+          aria-label={`Log in to request scan for ${title}`}
         >
           Log in to request scan
         </Link>

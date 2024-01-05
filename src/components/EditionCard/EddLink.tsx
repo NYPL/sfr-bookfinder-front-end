@@ -5,7 +5,8 @@ import { ItemLink } from "~/src/types/DataModel";
 const EddLink: React.FC<{
   eddLink: ItemLink;
   isLoggedIn: boolean;
-}> = ({ eddLink, isLoggedIn }) => {
+  title: string;
+}> = ({ eddLink, isLoggedIn, title }) => {
   if (isLoggedIn) {
     return (
       <>
@@ -14,6 +15,7 @@ const EddLink: React.FC<{
           to={`https://${eddLink.url}`}
           linkType="button"
           target="_blank"
+          aria-label={`Request scan for ${title}`}
         >
           Request Scan
         </Link>
@@ -27,6 +29,7 @@ const EddLink: React.FC<{
             window.location.href
           )}`}
           linkType="buttonSecondary"
+          aria-label={`Log in to request scan for ${title}`}
         >
           Log in to request scan
         </Link>
