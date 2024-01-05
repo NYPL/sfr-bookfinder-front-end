@@ -16,7 +16,7 @@ const Ctas: React.FC<{
     return (
       <>
         {/* If a digital version exists, link directly */}
-        <ReadOnlineLink links={links} />
+        <ReadOnlineLink links={links} title={title} />
         <DownloadLink links={links} title={title} />
       </>
     );

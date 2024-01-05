@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Icon } from "@nypl/design-system-react-components";
+import { Icon } from "@nypl/design-system-react-components";
 import CollectionUtils from "~/src/util/CollectionUtils";
 import Link from "~/src/components/Link/Link";
 import { OpdsLink } from "~/src/types/OpdsModel";
@@ -26,23 +26,20 @@ const DownloadLink: React.FC<{ links: OpdsLink[]; title: string }> = ({
 
   if (selectedLink && selectedLink.href) {
     return (
-      <Link to={`${formattedUrl}`} linkType="action">
-        <Button
-          id="download-button"
-          buttonType="secondary"
-          onClick={() => {
-            trackDownloadCta();
-          }}
-        >
-          <Icon
-            name="download"
-            align="left"
-            size="small"
-            decorative
-            iconRotation="rotate0"
-          />
-          Download PDF
-        </Button>
+      <Link
+        to={`${formattedUrl}`}
+        linkType="buttonSecondary"
+        onClick={trackDownloadCta}
+        aria-label={`${title} Download PDF`}
+      >
+        <Icon
+          name="download"
+          align="left"
+          size="small"
+          decorative
+          iconRotation="rotate0"
+        />
+        Download PDF
       </Link>
     );
   }

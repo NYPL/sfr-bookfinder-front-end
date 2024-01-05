@@ -5,7 +5,10 @@ import { formatUrl } from "~/src/util/Util";
 import Link from "~/src/components/Link/Link";
 
 // "Read Online" button should only show up if the link was flagged as "reader" or "embed"
-const ReadOnlineLink: React.FC<{ links: OpdsLink[] }> = ({ links }) => {
+const ReadOnlineLink: React.FC<{ links: OpdsLink[]; title: string }> = ({
+  links,
+  title,
+}) => {
   const localLink = CollectionUtils.getReadLink(links, "readable");
   const embeddedLink = CollectionUtils.getReadLink(links, "embedable");
 
@@ -20,6 +23,7 @@ const ReadOnlineLink: React.FC<{ links: OpdsLink[] }> = ({ links }) => {
         pathname: formatUrl(readOnlineLink.href),
       }}
       linkType="button"
+      aria-label={`${title} Read Online`}
     >
       Read Online
     </Link>

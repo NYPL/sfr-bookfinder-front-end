@@ -7,7 +7,8 @@ import { ItemLink } from "~/src/types/DataModel";
 const ReadOnlineLink: React.FC<{
   readOnlineLink: ItemLink;
   isLoggedIn: boolean;
-}> = ({ readOnlineLink, isLoggedIn }) => {
+  title: string;
+}> = ({ readOnlineLink, isLoggedIn, title }) => {
   let linkText = "Read Online";
   let linkUrl: any = {
     pathname: `/read/${readOnlineLink.link_id}`,
@@ -23,7 +24,11 @@ const ReadOnlineLink: React.FC<{
   return (
     readOnlineLink && (
       <Box>
-        <Link to={linkUrl} linkType="button">
+        <Link
+          to={linkUrl}
+          linkType="button"
+          aria-label={`${title} Read Online`}
+        >
           {linkText}
         </Link>
       </Box>

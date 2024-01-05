@@ -1,4 +1,4 @@
-import { Box, Button, Icon } from "@nypl/design-system-react-components";
+import { Box, Icon } from "@nypl/design-system-react-components";
 import React from "react";
 import Link from "~/src/components/Link/Link";
 import { trackCtaClick } from "~/src/lib/adobe/Analytics";
@@ -28,26 +28,23 @@ const DownloadLink: React.FC<{
         window.location.href
       )}`;
     }
+
     return (
       <Box>
-        <Link to={`${linkUrl}`} linkType="action">
-          <Button
-            width="100%"
-            id="download-button"
-            buttonType="secondary"
-            onClick={() => {
-              trackDownloadCta();
-            }}
-          >
-            <Icon
-              name="download"
-              align="left"
-              size="small"
-              decorative
-              iconRotation="rotate0"
-            />
-            {linkText}
-          </Button>
+        <Link
+          to={`${linkUrl}`}
+          linkType="buttonSecondary"
+          onClick={trackDownloadCta}
+          aria-label={`${title} Download PDF`}
+        >
+          <Icon
+            name="download"
+            align="left"
+            size="small"
+            decorative
+            iconRotation="rotate0"
+          />
+          {linkText}
         </Link>
       </Box>
     );

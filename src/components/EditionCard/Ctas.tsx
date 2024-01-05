@@ -20,6 +20,7 @@ const Ctas: React.FC<{
           <ReadOnlineLink
             readOnlineLink={readOnlineLink}
             isLoggedIn={isLoggedIn}
+            title={title}
           />
         )}
         {downloadLink && (
