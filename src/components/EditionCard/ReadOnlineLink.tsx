@@ -27,7 +27,7 @@ const ReadOnlineLink: React.FC<{
         <Link
           to={linkUrl}
           linkType="button"
-          aria-label={`${title} Read Online`}
+          aria-label={`${title} ${linkText}`}
         >
           {linkText}
         </Link>
