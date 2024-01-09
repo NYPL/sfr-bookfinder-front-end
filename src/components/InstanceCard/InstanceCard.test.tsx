@@ -109,7 +109,7 @@ describe("Instance Card with Valid Data", () => {
     );
   });
   test("Shows cover", () => {
-    expect(screen.getByAltText("Cover").closest("img").src).toEqual(
+    expect(screen.getByAltText("").closest("img").src).toEqual(
       "https://test-cover/"
     );
   });
@@ -144,7 +144,7 @@ describe("Instance Card with Minmal Data", () => {
     expect(screen.getByText("Find in Library Unavailable")).toBeInTheDocument();
   });
   test("Shows cover", () => {
-    expect(screen.getByAltText("Cover").closest("img").src).toEqual(
+    expect(screen.getByAltText("").closest("img").src).toEqual(
       PLACEHOLDER_COVER_LINK
     );
   });
