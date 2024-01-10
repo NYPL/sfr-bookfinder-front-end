@@ -16,14 +16,14 @@ const Ctas: React.FC<{
     return (
       <>
         {/* If a digital version exists, link directly */}
-        <ReadOnlineLink links={links} />
+        <ReadOnlineLink links={links} title={title} />
         <DownloadLink links={links} title={title} />
       </>
     );
   }
 
   if (eddLink) {
-    return <EddLink eddLink={eddLink} isLoggedIn={isLoggedIn} />;
+    return <EddLink eddLink={eddLink} isLoggedIn={isLoggedIn} title={title} />;
   }
 
   return <>Not yet available</>;

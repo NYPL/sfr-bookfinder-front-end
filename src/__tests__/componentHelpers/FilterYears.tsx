@@ -118,7 +118,7 @@ export const FilterYearsTests = (
       await user.click(applyButton);
 
       expect(
-        screen.getByText("Start date must be before End date")
+        screen.getByText("Error: Start date must be before End date")
       ).toBeInTheDocument();
       expect(mockRouter).toMatchObject({});
     });

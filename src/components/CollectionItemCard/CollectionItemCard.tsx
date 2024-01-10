@@ -31,12 +31,11 @@ export const CollectionItemCard: React.FC<{
         src: CollectionUtils.getCover(collectionItem),
         size: "xsmall",
         aspectRatio: "original",
-        alt: "Cover",
+        alt: ``,
       }}
       layout="row"
       isBordered
       isAlignedRightActions
-      id={`card-${CollectionUtils.getId(collectionItem.links)}`}
       p="s"
     >
       <CardHeading

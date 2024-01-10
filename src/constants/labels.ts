@@ -96,6 +96,6 @@ export const FormatTypes = [
 ];
 
 export const errorMessagesText = {
-  emptySearch: "Please enter a search term",
-  invalidDate: "Start date must be before End date",
+  emptySearch: "Error: Please enter a search term",
+  invalidDate: "Error: Start date must be before End date",
 };

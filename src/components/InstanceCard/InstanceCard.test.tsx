@@ -10,6 +10,7 @@ const fullInstance: Instance = {
   instance_id: 12345,
   publishers: [{ name: "publisher_1", roles: ["publisher"] }],
   publication_place: "Paris",
+  title: "title",
   items: [
     {
       links: [
@@ -108,7 +109,7 @@ describe("Instance Card with Valid Data", () => {
     );
   });
   test("Shows cover", () => {
-    expect(screen.getByAltText("Cover").closest("img").src).toEqual(
+    expect(screen.getByAltText("").closest("img").src).toEqual(
       "https://test-cover/"
     );
   });
@@ -143,7 +144,7 @@ describe("Instance Card with Minmal Data", () => {
     expect(screen.getByText("Find in Library Unavailable")).toBeInTheDocument();
   });
   test("Shows cover", () => {
-    expect(screen.getByAltText("Cover").closest("img").src).toEqual(
+    expect(screen.getByAltText("").closest("img").src).toEqual(
       PLACEHOLDER_COVER_LINK
     );
   });
@@ -174,10 +175,10 @@ describe("Instance with EDD", () => {
       <InstanceCard edition={fullEdition} instance={eddInstance}></InstanceCard>
     );
     expect(
-      screen.getByRole("link", { name: "Log in to request scan" })
+      screen.getByRole("link", { name: "Log in to request scan for title" })
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: "Log in to request scan" })
+      screen.getByRole("link", { name: "Log in to request scan for title" })
     ).toHaveAttribute(
       "href",
       expect.stringContaining("https://login.nypl.org/auth/login")
@@ -194,12 +195,11 @@ describe("Instance with EDD", () => {
     );
 
     expect(
-      screen.getByRole("link", { name: "Request Scan" })
+      screen.getByRole("link", { name: "Request scan for title" })
     ).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Request Scan" })).toHaveAttribute(
-      "href",
-      expect.stringContaining("test-link-url")
-    );
+    expect(
+      screen.getByRole("link", { name: "Request scan for title" })
+    ).toHaveAttribute("href", expect.stringContaining("test-link-url"));
     expect(screen.queryByText("Download PDF")).not.toBeInTheDocument();
     expect(screen.queryByText("Read Online")).not.toBeInTheDocument();
   });

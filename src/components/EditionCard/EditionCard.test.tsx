@@ -108,10 +108,10 @@ describe("Edition with EDD", () => {
   test("Shows Login button when EDD is available but user is not logged in", () => {
     render(<EditionCard edition={eddEdition} title={"title"}></EditionCard>);
     expect(
-      screen.getByRole("link", { name: "Log in to request scan" })
+      screen.getByRole("link", { name: "Log in to request scan for title" })
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: "Log in to request scan" })
+      screen.getByRole("link", { name: "Log in to request scan for title" })
     ).toHaveAttribute(
       "href",
       expect.stringContaining("https://login.nypl.org/auth/login")
@@ -126,12 +126,11 @@ describe("Edition with EDD", () => {
     render(<EditionCard edition={eddEdition} title={"title"}></EditionCard>);
 
     expect(
-      screen.getByRole("link", { name: "Request Scan" })
+      screen.getByRole("link", { name: "Request scan for title" })
     ).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Request Scan" })).toHaveAttribute(
-      "href",
-      expect.stringContaining("test-link-url")
-    );
+    expect(
+      screen.getByRole("link", { name: "Request scan for title" })
+    ).toHaveAttribute("href", expect.stringContaining("test-link-url"));
     expect(screen.queryByText("Download PDF")).not.toBeInTheDocument();
     expect(screen.queryByText("Read Online")).not.toBeInTheDocument();
   });
@@ -153,10 +152,10 @@ describe("Edition with UP", () => {
     document.cookie = `${NYPL_SESSION_ID}=""`;
     render(<EditionCard edition={upEdition} title={"title"}></EditionCard>);
     expect(
-      screen.getByRole("link", { name: "Log in to read online" })
+      screen.getByRole("link", { name: "title Log in to read online" })
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: "Log in to read online" })
+      screen.getByRole("link", { name: "title Log in to read online" })
     ).toHaveAttribute(
       "href",
       expect.stringContaining("https://login.nypl.org/auth/login")
@@ -170,19 +169,17 @@ describe("Edition with UP", () => {
     render(<EditionCard edition={upEdition} title={"title"}></EditionCard>);
 
     expect(
-      screen.getByRole("link", { name: "Read Online" })
+      screen.getByRole("link", { name: "title Read Online" })
     ).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Read Online" })).toHaveAttribute(
-      "href",
-      expect.stringContaining("/read/12")
-    );
     expect(
-      screen.getByRole("link", { name: "Download PDF" })
+      screen.getByRole("link", { name: "title Read Online" })
+    ).toHaveAttribute("href", expect.stringContaining("/read/12"));
+    expect(
+      screen.getByRole("link", { name: "title Download PDF" })
     ).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Download PDF" })).toHaveAttribute(
-      "href",
-      expect.stringContaining("test-link-url")
-    );
+    expect(
+      screen.getByRole("link", { name: "title Download PDF" })
+    ).toHaveAttribute("href", expect.stringContaining("test-link-url"));
   });
   test("Shows blurb with publisher", () => {
     render(<EditionCard edition={upEdition} title={"title"}></EditionCard>);

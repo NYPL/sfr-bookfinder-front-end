@@ -57,7 +57,7 @@ export const InstanceCard: React.FC<{
           src: EditionCardUtils.getCover(edition.links),
           size: "xsmall",
           aspectRatio: "original",
-          alt: "Cover",
+          alt: ``,
         }}
         layout="row"
         isAlignedRightActions

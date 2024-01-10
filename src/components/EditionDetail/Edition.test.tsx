@@ -72,7 +72,7 @@ describe("Renders edition component when given valid edition", () => {
       name: "1923",
     });
     expect(featuredEditionHeadings.length).toEqual(2);
-    expect(screen.getAllByAltText("Cover").length).toBe(2);
+    expect(screen.getAllByAltText("").length).toBe(2);
     expect(
       screen
         .getAllByText("License: Public Domain when viewed in the US")[0]

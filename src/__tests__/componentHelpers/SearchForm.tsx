@@ -53,7 +53,7 @@ export const searchFormTests = (mockRouter) => {
         "Tom Nook"
       );
       expect(
-        screen.queryByText("Please enter a search term")
+        screen.queryByText("Error: Please enter a search term")
       ).not.toBeInTheDocument();
 
       expect(mockRouter).toMatchObject({
@@ -74,7 +74,7 @@ export const searchFormTests = (mockRouter) => {
 
       expect(mockRouter).toMatchObject({});
       expect(
-        screen.getByText("Please enter a search term")
+        screen.getByText("Error: Please enter a search term")
       ).toBeInTheDocument();
     });
   });

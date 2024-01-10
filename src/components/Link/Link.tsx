@@ -10,12 +10,21 @@ interface IProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   isUnderlined?: boolean;
 }
 
-const Link = ({ children, to, linkType, isUnderlined }: IProps) => {
+const Link = ({
+  children,
+  to,
+  linkType,
+  isUnderlined,
+  "aria-label": ariaLabel,
+  onClick,
+}: IProps) => {
   return (
     <BaseLink href={to} passHref legacyBehavior>
       <DS.Link
         isUnderlined={isUnderlined}
         type={linkType}
+        onClick={onClick}
+        aria-label={ariaLabel}
         __css={{ width: "100%" }}
       >
         {children}

@@ -20,6 +20,7 @@ const Ctas: React.FC<{
           <ReadOnlineLink
             readOnlineLink={readOnlineLink}
             isLoggedIn={isLoggedIn}
+            title={title}
           />
         )}
         {downloadLink && (
@@ -38,7 +39,7 @@ const Ctas: React.FC<{
 
   // Offer EDD if available
   if (eddLink !== undefined) {
-    return <EddLink eddLink={eddLink} isLoggedIn={isLoggedIn} />;
+    return <EddLink eddLink={eddLink} isLoggedIn={isLoggedIn} title={title} />;
   }
 
   return <>Not yet available</>;
