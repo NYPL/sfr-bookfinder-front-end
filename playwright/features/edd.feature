@@ -9,5 +9,6 @@ Feature: EDD Request Process
         And I fill in the "username field" with "catalog username"
         And I fill in the "password field" with "catalog password"
         And I click the "login button"
+        And the "first request button" should be displayed
         And I click the "first request button"
         Then the "delivery location heading" should be displayed

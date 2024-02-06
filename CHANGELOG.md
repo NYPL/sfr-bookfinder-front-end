@@ -1,5 +1,17 @@
 # CHANGE LOG
 
+## [0.17.6]
+
+- Upgrade newrelic to v11.5.0
+- Upgrade Next.js to v13.5.6
+- Upgrade to Node 18
+- Chore: Add Jackie and Sam as codeowners
+- Fix: SFR-1839- pw automated test fix / update the login credentials
+- Refactor New Relic browser monitoring instrumentation
+- Update Playwright.yml to use same package versions as package.json
+- Fix: reverse node to v18.18.2
+- SFR-1869: Add assertion step to minimize timeout errors
+
 ## [0.17.5]
 
 - Fix: Small adjustments to Playwright tests

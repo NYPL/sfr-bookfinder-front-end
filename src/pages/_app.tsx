@@ -9,9 +9,10 @@ import appConfig from "~/config/appConfig";
 import { documentTitles } from "../constants/labels";
 import "@nypl/web-reader/dist/index.css";
 import { FeatureFlagProvider } from "../context/FeatureFlagContext";
-import { trackPageview } from "../lib/Analytics";
+import { trackPageview } from "../lib/adobe/Analytics";
 import { pageNames } from "../constants/analytics";
 import { getQueryDecodedString } from "../util/SearchQueryUtils";
+import NewRelicSnippet from "../lib/newrelic/NewRelic";
 
 /**
  * Determines if we are running on server or in the client.
@@ -65,7 +66,7 @@ const sendAnalytics = (query: any, pathname: string) => {
   }
 };
 
-function MyApp({ Component, pageProps }: AppProps) {
+const MyApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
 
   useEffect(() => {
@@ -85,11 +86,12 @@ function MyApp({ Component, pageProps }: AppProps) {
 
         <link rel="icon" href={appConfig.favIconPath} />
       </Head>
+      <NewRelicSnippet />
       <FeatureFlagProvider>
         <Component {...pageProps} />
       </FeatureFlagProvider>
     </>
   );
-}
+};
 
 export default MyApp;
