@@ -1,6 +1,6 @@
 # CHANGE LOG
 
-## [Pre-release]
+## [0.17.6]
 
 - Upgrade newrelic to v11.5.0
 - Upgrade Next.js to v13.5.6
