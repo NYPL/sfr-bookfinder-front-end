@@ -9,6 +9,8 @@ import {
 } from "~/src/__tests__/fixtures/EditionCardFixture";
 import { NYPL_SESSION_ID } from "~/src/constants/auth";
 
+jest.mock("next/router", () => require("next-router-mock"));
+
 describe("Edition Card with Valid Data", () => {
   beforeEach(() => {
     render(<EditionCard edition={fullEdition} title={"title"}></EditionCard>);
