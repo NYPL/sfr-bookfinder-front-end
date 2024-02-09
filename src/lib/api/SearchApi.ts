@@ -120,3 +120,19 @@ export const readFetcher = async (linkId: number) => {
     throw new Error(`cannot find work with linkId ${linkId}`);
   }
 };
+
+export const fulfillFetcher = async (fulfillUrl, nyplIdentityCookie) => {
+  const url = new URL(fulfillUrl);
+  const res = await fetch(url.toString(), {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${nyplIdentityCookie.access_token}`,
+      "Content-Type": "application/json",
+    },
+  });
+  if (res.ok) {
+    return res.json();
+  } else {
+    throw new Error(`Unable to download PDF`);
+  }
+};

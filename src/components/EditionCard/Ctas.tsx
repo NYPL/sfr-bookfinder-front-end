@@ -1,4 +1,6 @@
 import React from "react";
+import { useCookies } from "react-cookie";
+import { NYPL_SESSION_ID } from "~/src/constants/auth";
 import { ApiItem } from "~/src/types/DataModel";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
 import DownloadLink from "./DownloadLink";
@@ -8,8 +10,12 @@ import ReadOnlineLink from "./ReadOnlineLink";
 const Ctas: React.FC<{
   item: ApiItem | undefined;
   title: string;
-  isLoggedIn: boolean;
-}> = ({ item, title, isLoggedIn }) => {
+}> = ({ item, title }) => {
+  // cookies defaults to be undefined if not fonud
+  const [cookies] = useCookies([NYPL_SESSION_ID]);
+  const loginCookie = cookies[NYPL_SESSION_ID];
+  const isLoggedIn = !!loginCookie;
+
   const readOnlineLink = EditionCardUtils.getReadOnlineLink(item);
   const downloadLink = EditionCardUtils.selectDownloadLink(item);
 
@@ -28,6 +34,7 @@ const Ctas: React.FC<{
             downloadLink={downloadLink}
             title={title}
             isLoggedIn={isLoggedIn}
+            loginCookie={loginCookie}
           />
         )}
       </>

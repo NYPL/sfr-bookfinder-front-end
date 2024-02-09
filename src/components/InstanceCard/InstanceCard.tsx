@@ -11,8 +11,6 @@ import {
 } from "@nypl/design-system-react-components";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
 import Link from "../Link/Link";
-import { useCookies } from "react-cookie";
-import { NYPL_SESSION_ID } from "~/src/constants/auth";
 import Ctas from "../EditionCard/Ctas";
 import PublisherAndLocation from "../EditionCard/PublisherAndLocation";
 import WorldCat from "./WorldCat";
@@ -31,9 +29,6 @@ export const InstanceCard: React.FC<{
   instance: Instance;
   isFeaturedEdition?: boolean;
 }> = (props) => {
-  // cookies defaults to be undefined if not fonud
-  const [cookies] = useCookies([NYPL_SESSION_ID]);
-
   const edition = props.edition;
   const instance: Instance = props.instance;
   const isFeaturedEdition = props.isFeaturedEdition;
@@ -95,11 +90,7 @@ export const InstanceCard: React.FC<{
           whiteSpace="nowrap"
           gap="xs"
         >
-          <Ctas
-            item={previewItem}
-            title={instance.title}
-            isLoggedIn={!!cookies[NYPL_SESSION_ID]}
-          />
+          <Ctas item={previewItem} title={instance.title} />
         </CardActions>
       </Card>
     </Box>

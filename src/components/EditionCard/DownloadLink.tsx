@@ -2,6 +2,7 @@ import { Box, Icon } from "@nypl/design-system-react-components";
 import React from "react";
 import Link from "~/src/components/Link/Link";
 import { trackCtaClick } from "~/src/lib/adobe/Analytics";
+import { fulfillFetcher } from "~/src/lib/api/SearchApi";
 import { ItemLink } from "~/src/types/DataModel";
 import { formatUrl } from "~/src/util/Util";
 
@@ -9,12 +10,17 @@ const DownloadLink: React.FC<{
   downloadLink: ItemLink;
   title: string;
   isLoggedIn: boolean;
-}> = ({ downloadLink, title, isLoggedIn }) => {
+  loginCookie?: string;
+}> = ({ downloadLink, title, isLoggedIn, loginCookie }) => {
   if (downloadLink && downloadLink.url) {
     let linkText = "Download PDF";
     let linkUrl = formatUrl(downloadLink.url);
 
-    const trackDownloadCta = () => {
+    const handleOnClick = (e) => {
+      if (linkUrl.includes("/fulfill/")) {
+        e.preventDefault();
+        fulfillFetcher(linkUrl, loginCookie);
+      }
       trackCtaClick({
         cta_section: `${title}`,
         cta_text: "Download",
@@ -34,7 +40,7 @@ const DownloadLink: React.FC<{
         <Link
           to={`${linkUrl}`}
           linkType="buttonSecondary"
-          onClick={trackDownloadCta}
+          onClick={(e) => handleOnClick(e)}
           aria-label={`${title} Download PDF`}
         >
           <Icon
