@@ -1,4 +1,5 @@
 import { Box, Icon } from "@nypl/design-system-react-components";
+import { useRouter } from "next/router";
 import React from "react";
 import Link from "~/src/components/Link/Link";
 import { trackCtaClick } from "~/src/lib/adobe/Analytics";
@@ -12,14 +13,16 @@ const DownloadLink: React.FC<{
   isLoggedIn: boolean;
   loginCookie?: string;
 }> = ({ downloadLink, title, isLoggedIn, loginCookie }) => {
+  const router = useRouter();
   if (downloadLink && downloadLink.url) {
     let linkText = "Download PDF";
     let linkUrl = formatUrl(downloadLink.url);
 
-    const handleOnClick = (e) => {
+    const handleOnClick = async (e) => {
       if (linkUrl.includes("/fulfill/")) {
         e.preventDefault();
-        fulfillFetcher(linkUrl, loginCookie);
+        const redirectUrl = await fulfillFetcher(linkUrl, loginCookie);
+        router.push(redirectUrl);
       }
       trackCtaClick({
         cta_section: `${title}`,

@@ -127,12 +127,11 @@ export const fulfillFetcher = async (fulfillUrl, nyplIdentityCookie) => {
     method: "GET",
     headers: {
       Authorization: `Bearer ${nyplIdentityCookie.access_token}`,
-      "Content-Type": "application/json",
     },
   });
   if (res.ok) {
-    return res.json();
+    return res.url;
   } else {
-    throw new Error(`Unable to download PDF`);
+    throw new Error(`Unable to download UP PDF`);
   }
 };
