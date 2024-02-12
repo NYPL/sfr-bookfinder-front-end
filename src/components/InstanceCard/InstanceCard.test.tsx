@@ -3,11 +3,15 @@ import { InstanceCard } from "./InstanceCard";
 import { screen, render } from "@testing-library/react";
 import { Instance, WorkEdition } from "~/src/types/DataModel";
 import { PLACEHOLDER_COVER_LINK } from "~/src/constants/editioncard";
-import { fullEdition } from "~/src/__tests__/fixtures/EditionCardFixture";
+import {
+  fullEdition,
+  upEdition,
+} from "~/src/__tests__/fixtures/EditionCardFixture";
 import { NYPL_SESSION_ID } from "~/src/constants/auth";
 import {
   fullInstance,
   eddInstance,
+  upInstance,
 } from "~/src/__tests__/fixtures/InstanceCardFixture";
 
 jest.mock("next/router", () => require("next-router-mock"));
@@ -134,5 +138,51 @@ describe("Instance with EDD", () => {
     expect(
       screen.getByRole("link", { name: "Scan and Deliver" })
     ).toHaveAttribute("href", "https://www.nypl.org/research/scan-and-deliver");
+  });
+});
+
+describe("Instance with UP", () => {
+  test("Shows Login button when user is not logged in", () => {
+    document.cookie = `${NYPL_SESSION_ID}=""`;
+    render(<InstanceCard edition={upEdition} instance={upInstance} />);
+    expect(
+      screen.getByRole("link", { name: "title Log in to read online" })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: "title Log in to read online" })
+    ).toHaveAttribute(
+      "href",
+      expect.stringContaining("https://login.nypl.org/auth/login")
+    );
+    expect(screen.queryByText("Download PDF")).not.toBeInTheDocument();
+    expect(screen.queryByText("Read Online")).not.toBeInTheDocument();
+  });
+  test("Shows 'Library Card Required' badge", () => {
+    render(<InstanceCard edition={upEdition} instance={upInstance} />);
+    expect(screen.getByText("Library Card Required")).toBeInTheDocument();
+  });
+  test("Shows Read Online and Download buttons when user is logged in", () => {
+    // Set cookie before rendering the component
+    document.cookie = `${NYPL_SESSION_ID}="randomvalue"`;
+    render(<InstanceCard edition={upEdition} instance={upInstance} />);
+
+    expect(
+      screen.getByRole("link", { name: "title Read Online" })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: "title Read Online" })
+    ).toHaveAttribute("href", expect.stringContaining("/read/12"));
+    expect(
+      screen.getByRole("link", { name: "title Download PDF" })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: "title Download PDF" })
+    ).toHaveAttribute("href", expect.stringContaining("test-link-url"));
+  });
+  test("Shows blurb with publisher", () => {
+    render(<InstanceCard edition={upEdition} instance={upInstance} />);
+    expect(
+      screen.getByText("Digitalized by NYPL with permission of publisher_1")
+    ).toBeInTheDocument();
   });
 });

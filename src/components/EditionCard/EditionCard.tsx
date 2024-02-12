@@ -50,6 +50,7 @@ export const EditionCard: React.FC<{
   const coverUrl = EditionCardUtils.getCover(edition.links);
   const isPhysicalEdition = EditionCardUtils.isPhysicalEdition(previewItem);
   const isUniversityPress = EditionCardUtils.isUniversityPress(previewItem);
+  const isLoginRequired = isPhysicalEdition || isUniversityPress;
 
   return (
     <Box
@@ -61,7 +62,7 @@ export const EditionCard: React.FC<{
       paddingRight="l"
     >
       <Flex gap="xs" flexDirection={{ base: "column", lg: "row" }}>
-        {isPhysicalEdition && <CardRequiredBadge />}
+        {isLoginRequired && <CardRequiredBadge />}
         {isFeaturedEdition && <FeaturedEditionBadge />}
       </Flex>
       <Card

@@ -18,6 +18,7 @@ import CardRequiredBadge from "../EditionCard/CardRequiredBadge";
 import FeaturedEditionBadge from "../EditionCard/FeaturedEditionBadge";
 import PhysicalEditionBadge from "../EditionCard/PhysicalEditionBadge";
 import ScanAndDeliverBlurb from "../EditionCard/ScanAndDeliverBlurb";
+import UpBlurb from "../EditionCard/UpBlurb";
 
 // Creates an Instance card out of the Edition Year and Instance object
 // Note: Edition Year only needs to be passed because `instance.publication_date`
@@ -34,6 +35,8 @@ export const InstanceCard: React.FC<{
   const isFeaturedEdition = props.isFeaturedEdition;
   const previewItem = EditionCardUtils.getPreviewItem(instance.items);
   const isPhysicalEdition = EditionCardUtils.isPhysicalEdition(previewItem);
+  const isUniversityPress = EditionCardUtils.isUniversityPress(previewItem);
+  const isLoginRequired = isPhysicalEdition || isUniversityPress;
 
   return (
     <Box
@@ -44,7 +47,7 @@ export const InstanceCard: React.FC<{
       paddingRight="l"
     >
       <Flex gap="xs" flexDirection={{ base: "column", md: "row" }}>
-        {isPhysicalEdition && <CardRequiredBadge />}
+        {isLoginRequired && <CardRequiredBadge />}
         {isFeaturedEdition && <FeaturedEditionBadge />}
       </Flex>
       <Card
@@ -83,6 +86,7 @@ export const InstanceCard: React.FC<{
           <WorldCat instance={instance} />
           <Link to="/license">{EditionCardUtils.getLicense(previewItem)}</Link>
           {isPhysicalEdition && <ScanAndDeliverBlurb />}
+          {isUniversityPress && <UpBlurb publishers={edition.publishers} />}
         </CardContent>
         <CardActions
           display="flex"

@@ -84,3 +84,35 @@ export const eddInstance: Instance = {
     },
   ],
 };
+
+export const upInstance: Instance = {
+  ...fullInstance,
+  items: [
+    {
+      links: [
+        {
+          url: "test-link-url",
+          link_id: 12,
+          mediaType: "application/epub+xml",
+          flags: {
+            catalog: false,
+            download: false,
+            reader: true,
+            nypl_login: true,
+          },
+        },
+        {
+          url: "test-link-url-2",
+          link_id: 23,
+          mediaType: "application/epub+zip",
+          flags: {
+            catalog: false,
+            download: true,
+            reader: false,
+            nypl_login: true,
+          },
+        },
+      ],
+    },
+  ],
+};
