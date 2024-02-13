@@ -1,6 +1,7 @@
 import React from "react";
 import { OpdsLink } from "~/src/types/OpdsModel";
 import Link from "~/src/components/Link/Link";
+import { LOGIN_LINK_BASE } from "~/src/constants/links";
 
 export const EddLink: React.FC<{
   eddLink: OpdsLink;
@@ -25,9 +26,7 @@ export const EddLink: React.FC<{
     return (
       <>
         <Link
-          to={`https://login.nypl.org/auth/login?redirect_uri=${encodeURIComponent(
-            window.location.href
-          )}`}
+          to={`${LOGIN_LINK_BASE}${encodeURIComponent(window.location.href)}`}
           linkType="button"
           aria-label={`Log in to request scan for ${title}`}
         >

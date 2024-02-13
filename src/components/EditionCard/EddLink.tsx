@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "~/src/components/Link/Link";
+import { LOGIN_LINK_BASE } from "~/src/constants/links";
 import { ItemLink } from "~/src/types/DataModel";
 
 const EddLink: React.FC<{
@@ -25,9 +26,7 @@ const EddLink: React.FC<{
     return (
       <>
         <Link
-          to={`https://login.nypl.org/auth/login?redirect_uri=${encodeURIComponent(
-            window.location.href
-          )}`}
+          to={`${LOGIN_LINK_BASE}${encodeURIComponent(window.location.href)}`}
           linkType="buttonSecondary"
           aria-label={`Log in to request scan for ${title}`}
         >
