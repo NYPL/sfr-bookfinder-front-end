@@ -23,7 +23,7 @@ describe("Collection Item Card", () => {
     expect(screen.queryByText("Read Online")).toBeInTheDocument();
   });
   test("Shows cover", () => {
-    expect(screen.getByAltText("Cover").closest("img").src).toEqual(
+    expect(screen.getByAltText("").closest("img").src).toEqual(
       "https://test-sfr-covers.s3.amazonaws.com/default/defaultCover.png"
     );
   });

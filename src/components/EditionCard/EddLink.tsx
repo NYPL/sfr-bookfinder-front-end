@@ -1,10 +1,10 @@
 import React from "react";
-import { OpdsLink } from "~/src/types/OpdsModel";
 import Link from "~/src/components/Link/Link";
 import { LOGIN_LINK_BASE } from "~/src/constants/links";
+import { ItemLink } from "~/src/types/DataModel";
 
-export const EddLink: React.FC<{
-  eddLink: OpdsLink;
+const EddLink: React.FC<{
+  eddLink: ItemLink;
   isLoggedIn: boolean;
   title: string;
 }> = ({ eddLink, isLoggedIn, title }) => {
@@ -13,7 +13,7 @@ export const EddLink: React.FC<{
       <>
         <Link
           // Url starts with www
-          to={`https://${eddLink.href}`}
+          to={`https://${eddLink.url}`}
           linkType="button"
           target="_blank"
           aria-label={`Request scan for ${title}`}
@@ -27,7 +27,7 @@ export const EddLink: React.FC<{
       <>
         <Link
           to={`${LOGIN_LINK_BASE}${encodeURIComponent(window.location.href)}`}
-          linkType="button"
+          linkType="buttonSecondary"
           aria-label={`Log in to request scan for ${title}`}
         >
           Log in to request scan

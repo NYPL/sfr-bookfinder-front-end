@@ -1,46 +1,10 @@
-import { WorkEdition } from "~/src/types/DataModel";
+import { Instance } from "~/src/types/DataModel";
 
-export const fullEdition: WorkEdition = {
-  edition_id: 12345,
-  publication_place: "Chargoggagoggmanchauggagoggchaubunagungamaugg",
-  publication_date: "1990",
-  links: [
-    {
-      link_id: 32,
-      url: "test-cover",
-      mediaType: "image/jpeg",
-      flags: {
-        catalog: false,
-        download: false,
-        reader: false,
-      },
-    },
-    {
-      link_id: 33,
-      url: "test-cover-2",
-      mediaType: "image/jpeg",
-      flags: {
-        catalog: false,
-        download: false,
-        reader: false,
-      },
-    },
-  ],
+export const fullInstance: Instance = {
+  instance_id: 12345,
   publishers: [{ name: "publisher_1", roles: ["publisher"] }],
-  languages: [
-    { language: "english" },
-    { language: "french" },
-    { language: "russian" },
-    { language: "unknown" },
-    { language: "spanish" },
-    { language: "german" },
-    { language: "arabic" },
-    { language: "hindi" },
-    { language: "japanese" },
-    { language: "vietnamese" },
-    { language: "latin" },
-    { language: "romanian" },
-  ],
+  publication_place: "Paris",
+  title: "title",
   items: [
     {
       links: [
@@ -84,10 +48,24 @@ export const fullEdition: WorkEdition = {
       ],
     },
   ],
+  identifiers: [
+    {
+      authority: "ddc",
+      identifier: "300",
+    },
+    {
+      authority: "oclc",
+      identifier: "1014189544",
+    },
+    {
+      authority: "oclc",
+      identifier: "1030816762",
+    },
+  ],
 };
 
-export const eddEdition: WorkEdition = {
-  ...fullEdition,
+export const eddInstance: Instance = {
+  ...fullInstance,
   items: [
     {
       links: [
@@ -107,8 +85,8 @@ export const eddEdition: WorkEdition = {
   ],
 };
 
-export const upEdition: WorkEdition = {
-  ...fullEdition,
+export const upInstance: Instance = {
+  ...fullInstance,
   items: [
     {
       links: [

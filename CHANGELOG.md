@@ -1,5 +1,14 @@
 # CHANGE LOG
 
+## [Pre-release]
+
+- Add Physical Edition badge and Scan and Deliver blurb to EDD editions
+- Add Library Card Required and Featured Editon badges
+- Update styles for work and edition pages
+- Add login buttons and info blurb UP items
+- Fix: Improve accessibility of CTAs and search bar
+- Update README to include info about testing login locally
+
 ## [0.17.6]
 
 - Upgrade newrelic to v11.5.0
@@ -10,7 +19,12 @@
 - Refactor New Relic browser monitoring instrumentation
 - Update Playwright.yml to use same package versions as package.json
 - Fix: reverse node to v18.18.2
+- Add Physical Edition badge and Scan and Deliver blurb to EDD editions
+- Add Library Card Required and Featured Editon badges
+- Update styles for work and edition pages
+- Add login buttons and info blurb UP items
 - SFR-1869: Add assertion step to minimize timeout errors
+- Fix: Improve accessibility of CTAs and search bar
 
 ## [0.17.5]
 

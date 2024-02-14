@@ -5,7 +5,6 @@ import {
   CardHeading,
 } from "@nypl/design-system-react-components";
 import { Opds2Feed } from "~/src/types/OpdsModel";
-import CollectionUtils from "~/src/util/CollectionUtils";
 import { truncateStringOnWhitespace } from "~/src/util/Util";
 import {
   MAX_DESCRIPTION_LENGTH,
@@ -16,11 +15,8 @@ import {
 export const CollectionCard: React.FC<{ collection: Opds2Feed }> = ({
   collection,
 }) => {
-  const collectionId = CollectionUtils.getId(collection.links);
-
   return (
     <Card
-      id={`card-${collectionId}`}
       layout="column"
       imageProps={{
         src: PLACEHOLDER_LINK,

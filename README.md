@@ -23,6 +23,14 @@ Run `npm run dev` to start the local server at `localhost:3000`
 
 To view pdfs locally through the webreader, you will need to set up a local proxy.  If you used environment variables from `.env.sample` you should be able to pull the [web-reader](https://github.com/NYPL-Simplified/web-reader) repo, install it, and run `npm run cors-proxy`.  See the web-reader repo for more [instructions](https://github.com/NYPL-Simplified/web-reader#cors-proxy)
 
+In order to successfully login under a local deployment, you will need to update your machine's `etc/hosts` file. This hosts file maps local host names to ip addresses.
+
+Add this to your `etc/hosts` file:
+
+```
+	127.0.0.1       local.nypl.org
+```
+
 ### Dependencies
 
 - NextJS

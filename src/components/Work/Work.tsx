@@ -13,10 +13,7 @@ import {
   CardHeading,
   TemplateAppContainer,
 } from "@nypl/design-system-react-components";
-import {
-  joinArrayOfElements,
-  truncateStringOnWhitespace,
-} from "~/src/util/Util";
+import { truncateStringOnWhitespace } from "~/src/util/Util";
 import { EditionCard } from "~/src/components/EditionCard/EditionCard";
 import WorkDetailDefinitionList from "~/src/components/WorkDetailDefinitionList/WorkDetailDefinitionList";
 import { ApiWork, WorkResult } from "~/src/types/WorkQuery";
@@ -27,6 +24,7 @@ import Link from "../Link/Link";
 import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
 import { PLACEHOLDER_LINK } from "~/src/constants/collection";
 import DrbBreakout from "../DrbBreakout/DrbBreakout";
+import AuthorsList from "../AuthorsList/AuthorsList";
 
 const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
   props
@@ -37,9 +35,8 @@ const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
   const featuredEditionId = query.featured;
 
   const work: ApiWork = props.workResult.data;
-  //Edition Card Preprocessing
-  const authorsList = EditionCardUtils.getAuthorsList(work.authors);
 
+  //Edition Card Preprocessing
   const passedInFeaturedEdition = featuredEditionId
     ? work.editions.find(
         (edition) => edition.edition_id === Number(featuredEditionId)
@@ -81,41 +78,31 @@ const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
   const contentTopElement = (
     <>
       <Box>
-        <Flex direction={{ base: "column", md: "row" }}>
-          <Heading level="h1" size="heading2" id="work-title">
-            {work.title}
-          </Heading>
-          {props.backUrl && (
-            <Box
-              whiteSpace={{ md: "nowrap" }}
-              lineHeight="calc(1.1 * var(--nypl-fontSizes-heading-primary))"
-              pl={{ md: "s" }}
-            >
-              <Link to={props.backUrl} linkType="backwards">
-                Back to search results
-              </Link>
-            </Box>
-          )}
-        </Flex>
+        <Heading level="h1" size="heading2" id="work-title">
+          {work.title}
+        </Heading>
         {work.sub_title && <Box>{work.sub_title}</Box>}
-        {authorsList && authorsList.length && (
-          <Box>By {joinArrayOfElements(authorsList, "")}</Box>
+        {work.authors && work.authors.length && (
+          <Box>
+            By <AuthorsList authors={work.authors} />
+          </Box>
+        )}
+        {props.backUrl && (
+          <Box paddingTop="s">
+            <Link to={props.backUrl} linkType="backwards">
+              Back to search results
+            </Link>
+          </Box>
         )}
       </Box>
       {featuredEdition && (
-        <>
-          <Box>
-            <Heading level="h2" size="heading4" id="featured-edition">
-              Featured Edition
-            </Heading>
-          </Box>
-          <Box>
-            <EditionCard
-              edition={featuredEdition}
-              title={work.title}
-            ></EditionCard>
-          </Box>
-        </>
+        <Box paddingTop="l">
+          <EditionCard
+            edition={featuredEdition}
+            title={work.title}
+            isFeaturedEdition={true}
+          />
+        </Box>
       )}
       {work.inCollections && work.inCollections.length > 0 && (
         <Card
@@ -160,13 +147,19 @@ const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
   const contentPrimaryElement = (
     <>
       <WorkDetailDefinitionList work={work} />
-      <HorizontalRule bg="section.research.primary" />
+      {work.editions && work.editions.length > 1 && (
+        <HorizontalRule
+          bg="section.research.primary"
+          marginTop="l"
+          marginBottom="l"
+        />
+      )}
       <Box id="nypl-item-details">
-        {work.editions && (
+        {work.editions && work.editions.length > 1 && (
           <>
-            <Flex justify="space-between">
-              <Heading level="h2" size="heading5" id="all-editions">
-                All Editions
+            <Flex justify="space-between" marginBottom="xl">
+              <Heading level="h2" size="heading5" id="all-editions" noSpace>
+                Other Editions
               </Heading>
 
               <Toggle
@@ -180,13 +173,17 @@ const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
               />
             </Flex>
             <SimpleGrid columns={1}>
-              {work.editions.map((edition: WorkEdition) => (
-                <EditionCard
-                  key={edition.edition_id}
-                  edition={edition}
-                  title={work.title}
-                ></EditionCard>
-              ))}
+              {work.editions
+                .filter(
+                  (edition) => edition.edition_id !== featuredEdition.edition_id
+                )
+                .map((edition: WorkEdition) => (
+                  <EditionCard
+                    key={edition.edition_id}
+                    edition={edition}
+                    title={work.title}
+                  ></EditionCard>
+                ))}
             </SimpleGrid>
           </>
         )}

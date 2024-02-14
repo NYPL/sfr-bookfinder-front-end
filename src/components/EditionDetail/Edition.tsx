@@ -20,15 +20,12 @@ import EditionDetailDefinitionList from "~/src/components/EditionDetailDefinitio
 import Link from "~/src/components/Link/Link";
 import { InstanceCard } from "../InstanceCard/InstanceCard";
 import SearchHeader from "../SearchHeader/SearchHeader";
-import {
-  joinArrayOfElements,
-  truncateStringOnWhitespace,
-} from "~/src/util/Util";
+import { truncateStringOnWhitespace } from "~/src/util/Util";
 import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
 import { Instance } from "~/src/types/DataModel";
-import EditionCardUtils from "~/src/util/EditionCardUtils";
 import { PLACEHOLDER_LINK } from "~/src/constants/collection";
 import DrbBreakout from "../DrbBreakout/DrbBreakout";
+import AuthorsList from "../AuthorsList/AuthorsList";
 
 const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
   props
@@ -39,7 +36,6 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
   const { pathname, query } = router;
   const featuredItemId = query.featured as string;
   const edition: ApiEdition = props.editionResult.data;
-  const authorsList = EditionCardUtils.getAuthorsList(edition.work_authors);
 
   const passedInFeaturedItem = featuredItemId
     ? edition.instances.find((instance) => {
@@ -119,20 +115,20 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
         )}
       </Flex>
       {edition.sub_title && <Box>{edition.sub_title}</Box>}
-      {authorsList && authorsList.length && (
-        <Box>By {joinArrayOfElements(authorsList, "")}</Box>
+      {edition.work_authors && edition.work_authors.length && (
+        <Box>
+          By <AuthorsList authors={edition.work_authors} />
+        </Box>
       )}
       <Box>
         {featuredInstance && (
-          <>
-            <Heading level="h2" size="heading4">
-              Featured Copy
-            </Heading>
-
-            <Box>
-              <InstanceCard edition={edition} instance={featuredInstance} />
-            </Box>
-          </>
+          <Box paddingTop="l">
+            <InstanceCard
+              edition={edition}
+              instance={featuredInstance}
+              isFeaturedEdition={true}
+            />
+          </Box>
         )}
       </Box>
       {edition.inCollections && edition.inCollections.length > 0 && (
@@ -178,11 +174,17 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
   const contentPrimaryElement = (
     <>
       <EditionDetailDefinitionList edition={edition} />
-      <HorizontalRule bg="section.research.primary" />
-      {edition.instances && (
+      {edition.instances && edition.instances.length > 1 && (
+        <HorizontalRule
+          bg="section.research.primary"
+          marginTop="l"
+          marginBottom="l"
+        />
+      )}
+      {edition.instances && edition.instances.length > 1 && (
         <Flex justify="space-between">
           <Heading level="h2" size="heading5">
-            All Copies
+            Other Copies
           </Heading>
 
           <Toggle
@@ -197,13 +199,17 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
         </Flex>
       )}
       <SimpleGrid columns={1} gap="s">
-        {edition.instances.map((instance) => (
-          <InstanceCard
-            key={instance.instance_id}
-            edition={edition}
-            instance={instance}
-          />
-        ))}
+        {edition.instances
+          .filter(
+            (instance) => instance.instance_id !== featuredInstance.instance_id
+          )
+          .map((instance) => (
+            <InstanceCard
+              key={instance.instance_id}
+              edition={edition}
+              instance={instance}
+            />
+          ))}
       </SimpleGrid>
     </>
   );
