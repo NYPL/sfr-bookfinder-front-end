@@ -9,6 +9,8 @@ import {
 } from "~/src/__tests__/fixtures/EditionCardFixture";
 import { NYPL_SESSION_ID } from "~/src/constants/auth";
 
+jest.mock("next/router", () => require("next-router-mock"));
+
 describe("Edition Card with Valid Data", () => {
   beforeEach(() => {
     render(<EditionCard edition={fullEdition} title={"title"}></EditionCard>);
@@ -135,7 +137,7 @@ describe("Edition with EDD", () => {
     expect(screen.queryByText("Read Online")).not.toBeInTheDocument();
   });
 
-  test("Shows 'Physical Edition' badge and 'Scan and Deliver' link ", () => {
+  test("Shows 'Physical Edition' badge and 'Scan and Deliver' link", () => {
     render(<EditionCard edition={eddEdition} title={"title"} />);
     expect(screen.getByText("Physical Edition")).toBeInTheDocument();
     expect(
@@ -162,6 +164,10 @@ describe("Edition with UP", () => {
     );
     expect(screen.queryByText("Download PDF")).not.toBeInTheDocument();
     expect(screen.queryByText("Read Online")).not.toBeInTheDocument();
+  });
+  test("Shows 'Library Card Required' badge", () => {
+    render(<EditionCard edition={upEdition} title={"title"} />);
+    expect(screen.getByText("Library Card Required")).toBeInTheDocument();
   });
   test("Shows Read Online and Download buttons when user is logged in", () => {
     // Set cookie before rendering the component

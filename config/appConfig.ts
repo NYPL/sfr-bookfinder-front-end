@@ -8,8 +8,8 @@ const appConfig = {
   api: {
     url: {
       local: "localhost:5000",
-      development: "http://drb-api-qa.nypl.org",
-      qa: "http://drb-api-qa.nypl.org",
+      development: "https://drb-api-qa.nypl.org",
+      qa: "https://drb-api-qa.nypl.org",
       production: "http://drb-api-qa.nypl.org",
     },
     searchPath: "/search",

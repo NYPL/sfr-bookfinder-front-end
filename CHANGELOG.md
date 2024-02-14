@@ -1,5 +1,14 @@
 # CHANGE LOG
 
+## [Pre-release]
+
+- Add Physical Edition badge and Scan and Deliver blurb to EDD editions
+- Add Library Card Required and Featured Editon badges
+- Update styles for work and edition pages
+- Add login buttons and info blurb UP items
+- Fix: Improve accessibility of CTAs and search bar
+- Update README to include info about testing login locally
+
 ## [0.17.6]
 
 - Upgrade newrelic to v11.5.0

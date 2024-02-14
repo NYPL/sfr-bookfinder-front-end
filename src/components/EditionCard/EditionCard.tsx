@@ -11,8 +11,6 @@ import Link from "../Link/Link";
 import { WorkEdition } from "~/src/types/DataModel";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
 import { PLACEHOLDER_COVER_LINK } from "~/src/constants/editioncard";
-import { useCookies } from "react-cookie";
-import { NYPL_SESSION_ID } from "~/src/constants/auth";
 import Ctas from "./Ctas";
 import LanguageDisplayText from "./LanguageDisplayText";
 import PublisherAndLocation from "./PublisherAndLocation";
@@ -27,8 +25,6 @@ export const EditionCard: React.FC<{
   title: string;
   isFeaturedEdition?: boolean;
 }> = ({ edition, title, isFeaturedEdition }) => {
-  const [cookies] = useCookies([NYPL_SESSION_ID]);
-
   const previewItem = EditionCardUtils.getPreviewItem(edition.items);
 
   const editionYearElem = (edition: WorkEdition) => {
@@ -54,6 +50,7 @@ export const EditionCard: React.FC<{
   const coverUrl = EditionCardUtils.getCover(edition.links);
   const isPhysicalEdition = EditionCardUtils.isPhysicalEdition(previewItem);
   const isUniversityPress = EditionCardUtils.isUniversityPress(previewItem);
+  const isLoginRequired = isPhysicalEdition || isUniversityPress;
 
   return (
     <Box
@@ -65,7 +62,7 @@ export const EditionCard: React.FC<{
       paddingRight="l"
     >
       <Flex gap="xs" flexDirection={{ base: "column", lg: "row" }}>
-        {isPhysicalEdition && <CardRequiredBadge />}
+        {isLoginRequired && <CardRequiredBadge />}
         {isFeaturedEdition && <FeaturedEditionBadge />}
       </Flex>
       <Card
@@ -133,11 +130,7 @@ export const EditionCard: React.FC<{
           }}
           gap="xs"
         >
-          <Ctas
-            item={previewItem}
-            title={title}
-            isLoggedIn={!!cookies[NYPL_SESSION_ID]}
-          />
+          <Ctas item={previewItem} title={title} />
         </CardActions>
       </Card>
     </Box>

@@ -11,8 +11,6 @@ import {
 } from "@nypl/design-system-react-components";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
 import Link from "../Link/Link";
-import { useCookies } from "react-cookie";
-import { NYPL_SESSION_ID } from "~/src/constants/auth";
 import Ctas from "../EditionCard/Ctas";
 import PublisherAndLocation from "../EditionCard/PublisherAndLocation";
 import WorldCat from "./WorldCat";
@@ -20,6 +18,7 @@ import CardRequiredBadge from "../EditionCard/CardRequiredBadge";
 import FeaturedEditionBadge from "../EditionCard/FeaturedEditionBadge";
 import PhysicalEditionBadge from "../EditionCard/PhysicalEditionBadge";
 import ScanAndDeliverBlurb from "../EditionCard/ScanAndDeliverBlurb";
+import UpBlurb from "../EditionCard/UpBlurb";
 
 // Creates an Instance card out of the Edition Year and Instance object
 // Note: Edition Year only needs to be passed because `instance.publication_date`
@@ -31,14 +30,13 @@ export const InstanceCard: React.FC<{
   instance: Instance;
   isFeaturedEdition?: boolean;
 }> = (props) => {
-  // cookies defaults to be undefined if not fonud
-  const [cookies] = useCookies([NYPL_SESSION_ID]);
-
   const edition = props.edition;
   const instance: Instance = props.instance;
   const isFeaturedEdition = props.isFeaturedEdition;
   const previewItem = EditionCardUtils.getPreviewItem(instance.items);
   const isPhysicalEdition = EditionCardUtils.isPhysicalEdition(previewItem);
+  const isUniversityPress = EditionCardUtils.isUniversityPress(previewItem);
+  const isLoginRequired = isPhysicalEdition || isUniversityPress;
 
   return (
     <Box
@@ -49,7 +47,7 @@ export const InstanceCard: React.FC<{
       paddingRight="l"
     >
       <Flex gap="xs" flexDirection={{ base: "column", md: "row" }}>
-        {isPhysicalEdition && <CardRequiredBadge />}
+        {isLoginRequired && <CardRequiredBadge />}
         {isFeaturedEdition && <FeaturedEditionBadge />}
       </Flex>
       <Card
@@ -88,6 +86,7 @@ export const InstanceCard: React.FC<{
           <WorldCat instance={instance} />
           <Link to="/license">{EditionCardUtils.getLicense(previewItem)}</Link>
           {isPhysicalEdition && <ScanAndDeliverBlurb />}
+          {isUniversityPress && <UpBlurb publishers={edition.publishers} />}
         </CardContent>
         <CardActions
           display="flex"
@@ -95,11 +94,7 @@ export const InstanceCard: React.FC<{
           whiteSpace="nowrap"
           gap="xs"
         >
-          <Ctas
-            item={previewItem}
-            title={instance.title}
-            isLoggedIn={!!cookies[NYPL_SESSION_ID]}
-          />
+          <Ctas item={previewItem} title={instance.title} />
         </CardActions>
       </Card>
     </Box>
