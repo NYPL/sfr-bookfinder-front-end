@@ -151,6 +151,13 @@ export default class EditionCardUtils {
     });
   };
 
+  static getUpLink = (item: ApiItem): ItemLink => {
+    if (!item || !item.links) return undefined;
+    return item.links.find((link: ItemLink) => {
+      return !link.flags.edd && link.flags.nypl_login;
+    });
+  };
+
   // "Read Online" button should only show up if the link was flagged as "reader" or "embed"
   static getReadOnlineLink = (item: ApiItem) => {
     const localLink = EditionCardUtils.getReadLink(item, "reader");
@@ -179,6 +186,10 @@ export default class EditionCardUtils {
   static getPreviewItem(items: ApiItem[] | undefined) {
     if (!items) return undefined;
 
+    const firstUpItem = items.find((item) => {
+      return EditionCardUtils.getUpLink(item);
+    });
+
     const firstReadableItem = items.find((item) => {
       return (
         EditionCardUtils.getReadLink(item, "reader") ||
@@ -188,6 +199,7 @@ export default class EditionCardUtils {
 
     // If no readable link found, we just return any link that's not a catalog (edd)
     return (
+      firstUpItem ??
       firstReadableItem ??
       items.find((items) => {
         return items.links && items.links.find((link) => !link.flags.catalog);
