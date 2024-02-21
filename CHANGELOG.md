@@ -8,6 +8,8 @@
 - Add login buttons and info blurb UP items
 - Fix: Improve accessibility of CTAs and search bar
 - Update README to include info about testing login locally
+- Add error Modal for failed download requests
+- Update preview item to prioritize UP item
 - Hotfix: Update package-lock pdfjs-dist version
 
 ## [0.17.6]

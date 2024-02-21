@@ -1,6 +1,11 @@
-import { Box, Icon } from "@nypl/design-system-react-components";
+import {
+  Box,
+  Flex,
+  Icon,
+  useModal,
+} from "@nypl/design-system-react-components";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import Link from "~/src/components/Link/Link";
 import { LOGIN_LINK_BASE } from "~/src/constants/links";
 import { trackCtaClick } from "~/src/lib/adobe/Analytics";
@@ -12,9 +17,16 @@ const DownloadLink: React.FC<{
   downloadLink: ItemLink;
   title: string;
   isLoggedIn: boolean;
-  loginCookie?: string;
+  loginCookie?: any;
 }> = ({ downloadLink, title, isLoggedIn, loginCookie }) => {
   const router = useRouter();
+  let errorModalMessage;
+  const { onOpen, Modal } = useModal();
+  const [modalProps, setModalProps] = useState({
+    bodyContent: null,
+    closeButtonLabel: "",
+    headingText: null,
+  });
   if (downloadLink && downloadLink.url) {
     let linkText = "Download PDF";
     let linkUrl = formatUrl(downloadLink.url);
@@ -22,8 +34,31 @@ const DownloadLink: React.FC<{
     const handleDownload = async (e) => {
       if (linkUrl.includes("/fulfill/")) {
         e.preventDefault();
-        const redirectUrl = await fulfillFetcher(linkUrl, loginCookie);
-        router.push(redirectUrl);
+        const errorMessage = await fulfillFetcher(linkUrl, loginCookie, router);
+        if (errorMessage !== undefined) {
+          errorModalMessage = (
+            <span>
+              We were unable to download your item. The system reports ‘
+              {errorMessage}’. <br /> Please try again or{" "}
+              <Link to="https://www.nypl.org/get-help/contact-us">
+                contact us
+              </Link>{" "}
+              for assistance.
+            </span>
+          );
+          const errorHeading = (
+            <Flex alignItems="center">
+              <Icon color="ui.error.primary" name="errorFilled" size="large" />
+              <Box paddingLeft="xs">Download failed</Box>
+            </Flex>
+          );
+          setModalProps({
+            bodyContent: errorModalMessage,
+            closeButtonLabel: "OK",
+            headingText: errorHeading,
+          });
+          onOpen();
+        }
       }
       trackCtaClick({
         cta_section: `${title}`,
@@ -54,6 +89,7 @@ const DownloadLink: React.FC<{
           />
           {linkText}
         </Link>
+        <Modal {...modalProps}></Modal>
       </Box>
     );
   }
