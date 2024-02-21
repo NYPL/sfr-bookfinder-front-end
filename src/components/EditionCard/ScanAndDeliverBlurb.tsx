@@ -8,7 +8,7 @@ const ScanAndDeliverBlurb: React.FC = () => {
     <Flex
       alignItems={{ base: "start", md: "center" }}
       marginTop={{ base: "s", md: "m" }}
-      marginBottom={{ base: "s", md: null }}
+      marginBottom={{ base: "s", lg: "0" }}
     >
       <Icon name="errorOutline" size="small" />
       <Text size="caption" noSpace marginLeft="xxs">
