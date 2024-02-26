@@ -11,6 +11,7 @@
 - Add error Modal for failed download requests
 - Update preview item to prioritize UP item
 - Hotfix: Update package-lock pdfjs-dist version
+- Remove featured edition logic from frontend
 
 ## [0.17.6]
 
