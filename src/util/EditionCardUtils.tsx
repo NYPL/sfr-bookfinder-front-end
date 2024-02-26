@@ -182,34 +182,19 @@ export default class EditionCardUtils {
     return oclcLink;
   }
 
-  // Get readable item or non-catalog item
+  // return first item if links are available
   static getPreviewItem(items: ApiItem[] | undefined) {
     if (!items) return undefined;
 
-    const firstUpItem = items.find((item) => {
-      return EditionCardUtils.getUpLink(item);
-    });
+    const firstItem = items[0];
 
-    const firstReadableItem = items.find((item) => {
-      return (
-        EditionCardUtils.getReadLink(item, "reader") ||
-        EditionCardUtils.getReadLink(item, "embed")
-      );
-    });
-
-    // If no readable link found, we just return any link that's not a catalog (edd)
-    return (
-      firstUpItem ??
-      firstReadableItem ??
-      items.find((items) => {
-        return items.links && items.links.find((link) => !link.flags.catalog);
-      })
-    );
+    return firstItem.links ? firstItem : undefined;
   }
 
   static isAvailableOnline(item: ApiItem) {
     return (
       item &&
+      item.links &&
       item.links.find((link: ItemLink) => {
         return (
           link.flags["reader"] || link.flags["embed"] || link.flags["download"]
