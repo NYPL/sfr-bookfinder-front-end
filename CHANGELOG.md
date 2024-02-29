@@ -12,6 +12,7 @@
 - Update preview item to prioritize UP item
 - Hotfix: Update package-lock pdfjs-dist version
 - Remove featured edition logic from frontend
+- Chore: Add Krist, Jiayong, and Olivia as codeowners
 
 ## [0.17.6]
 
