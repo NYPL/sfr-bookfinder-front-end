@@ -188,7 +188,7 @@ export default class EditionCardUtils {
 
     const firstItem = items[0];
 
-    return firstItem.links ? firstItem : undefined;
+    return firstItem && firstItem.links ? firstItem : undefined;
   }
 
   static isAvailableOnline(item: ApiItem) {

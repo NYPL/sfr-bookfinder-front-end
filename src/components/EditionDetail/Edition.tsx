@@ -200,9 +200,10 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
       )}
       <SimpleGrid columns={1} gap="s">
         {edition.instances
-          .filter(
-            (instance) => instance.instance_id !== featuredInstance.instance_id
-          )
+          .filter((instance) => {
+            if (!featuredInstance) return true;
+            return instance.instance_id !== featuredInstance.instance_id;
+          })
           .map((instance) => (
             <InstanceCard
               key={instance.instance_id}
