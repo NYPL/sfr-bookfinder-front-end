@@ -66,6 +66,7 @@ jobs:
 
       - name: Build, tag, and push image to Amazon ECR
         env:
+          APP_ENV: production
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: sfr-front-end
           IMAGE_TAG: ${{ github.sha }}
