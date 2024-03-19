@@ -1,6 +1,6 @@
 # CHANGE LOG
 
-## [Pre-release]
+## [0.18.0]
 
 - Add Physical Edition badge and Scan and Deliver blurb to EDD editions
 - Add Library Card Required and Featured Editon badges
