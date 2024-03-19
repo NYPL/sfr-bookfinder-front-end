@@ -1,4 +1,15 @@
 import dotenv from "dotenv";
+import {
+  ABOUT_PATH,
+  ADVANCED_SEARCH_PATH,
+  COLLECTION_PATH,
+  EDITION_PATH,
+  HOME_PATH,
+  LICENSE_PATH,
+  READ_PATH,
+  SEARCH_PATH,
+  WORK_PATH,
+} from "./routes";
 dotenv.config({ path: ".env.local" });
 
 export type Pages = {
@@ -7,31 +18,31 @@ export type Pages = {
 
 export const pages: { [name: string]: Pages } = {
   home: {
-    route: "/",
+    route: HOME_PATH,
   },
   "search results": {
-    route: "/search?query=subject%3ASub-saharan+Africa",
+    route: SEARCH_PATH,
   },
   "item details": {
-    route: "/work/01a28167-8c8d-4141-a32f-718539d5c8a4?featured=949699",
+    route: WORK_PATH,
   },
   collection: {
-    route: "/collection/297da3a0-bcdb-4eb3-a520-a330fd8fa370",
+    route: COLLECTION_PATH,
   },
   "advanced search": {
-    route: "/advanced-search",
+    route: ADVANCED_SEARCH_PATH,
   },
   "edition details": {
-    route: "/edition/949698",
+    route: EDITION_PATH,
   },
   about: {
-    route: "/about",
+    route: ABOUT_PATH,
   },
   license: {
-    route: "/license",
+    route: LICENSE_PATH,
   },
   "read online": {
-    route: "/read/4440666",
+    route: READ_PATH,
   },
 };
 
