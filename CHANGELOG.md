@@ -14,6 +14,7 @@
 - Remove featured edition logic from frontend
 - Chore: Add Krist, Jiayong, and Olivia as codeowners
 - Add APP_ENV to yml files and update newrelic to v11.12.0
+- Fix: Improve accessibility of Edition Details publishers list
 
 ## [0.17.6]
 

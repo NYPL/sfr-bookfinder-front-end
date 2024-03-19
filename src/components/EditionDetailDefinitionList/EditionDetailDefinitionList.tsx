@@ -4,19 +4,19 @@ import { ApiEdition } from "~/src/types/EditionQuery";
 import { Agent } from "~/src/types/DataModel";
 
 // Publisher
-const getPublishersList = (publishers: Agent[]): JSX.Element[] => {
+const getPublishersList = (publishers: Agent[]): JSX.Element => {
   if (!publishers || publishers.length === 0) {
-    return [
-      <React.Fragment key="unavailable">Publisher Unavailable</React.Fragment>,
-    ];
-  }
-  return publishers.map((publisher: Agent) => {
     return (
-      <List type="ul" key={publisher.name} noStyling>
-        <li>{publisher.name}</li>
-      </List>
+      <React.Fragment key="unavailable">Publisher Unavailable</React.Fragment>
     );
-  });
+  }
+  return (
+    <List type="ul" noStyling>
+      {publishers.map((publisher: Agent) => {
+        return <li key={publisher.name}>{publisher.name}</li>;
+      })}
+    </List>
+  );
 };
 
 export const EditionDetailDefinitionList: React.FC<{ edition: ApiEdition }> = ({
