@@ -64,6 +64,7 @@ export type LinkFlags = {
   reader: boolean;
   edd?: boolean;
   embed?: boolean;
+  nypl_login?: boolean;
 };
 
 export type ItemLink = {

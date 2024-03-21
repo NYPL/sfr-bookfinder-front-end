@@ -93,7 +93,7 @@ const FilterYears: React.FC<{
           id={isModal ? "year-filter-button-modal" : "year-filter-button"}
           onClick={() => onSubmit()}
         >
-          Apply
+          Apply year
         </Button>
       )}
     </Fieldset>

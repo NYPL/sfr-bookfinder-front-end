@@ -5,6 +5,9 @@ import { EditionQuery, EditionResult } from "~/src/types/EditionQuery";
 import { toLocationQuery } from "~/src/util/apiConversion";
 import { LinkResult } from "~/src/types/LinkQuery";
 import { ApiLanguageResponse } from "~/src/types/LanguagesQuery";
+import { LOGIN_LINK_BASE } from "~/src/constants/links";
+import { NextRouter } from "next/router";
+import { FulfillResult } from "~/src/types/FulfillQuery";
 
 const apiEnv = process.env["APP_ENV"];
 const apiUrl = process.env["API_URL"] || appConfig.api.url[apiEnv];
@@ -119,4 +122,31 @@ export const readFetcher = async (linkId: number) => {
   } else {
     throw new Error(`cannot find work with linkId ${linkId}`);
   }
+};
+
+export const fulfillFetcher = async (
+  fulfillUrl: string,
+  nyplIdentityCookie: any,
+  router: NextRouter
+) => {
+  const url = new URL(fulfillUrl);
+  const res = await fetch(url.toString(), {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${nyplIdentityCookie.access_token}`,
+    },
+  });
+  if (res.ok) {
+    router.push(res.url);
+  } else {
+    // redirect to the NYPL login page if access token is invalid
+    if (res.status === 401) {
+      router.push(LOGIN_LINK_BASE + encodeURIComponent(window.location.href));
+    }
+    if (res.status === 404) {
+      const fulfillResult: FulfillResult = await res.json();
+      return fulfillResult.data;
+    }
+  }
+  return undefined;
 };

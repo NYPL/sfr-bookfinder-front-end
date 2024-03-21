@@ -5,20 +5,26 @@ import {
   CardHeading,
   Box,
   CardActions,
+  Flex,
 } from "@nypl/design-system-react-components";
 import Link from "../Link/Link";
 import { WorkEdition } from "~/src/types/DataModel";
 import EditionCardUtils from "~/src/util/EditionCardUtils";
 import { PLACEHOLDER_COVER_LINK } from "~/src/constants/editioncard";
-import { useCookies } from "react-cookie";
-import { NYPL_SESSION_ID } from "~/src/constants/auth";
+import Ctas from "./Ctas";
+import LanguageDisplayText from "./LanguageDisplayText";
+import PublisherAndLocation from "./PublisherAndLocation";
+import CardRequiredBadge from "./CardRequiredBadge";
+import FeaturedEditionBadge from "./FeaturedEditionBadge";
+import PhysicalEditionBadge from "./PhysicalEditionBadge";
+import ScanAndDeliverBlurb from "./ScanAndDeliverBlurb";
+import UpBlurb from "./UpBlurb";
 
-export const EditionCard: React.FC<{ edition: WorkEdition; title: string }> = ({
-  edition,
-  title,
-}) => {
-  const [cookies] = useCookies([NYPL_SESSION_ID]);
-
+export const EditionCard: React.FC<{
+  edition: WorkEdition;
+  title: string;
+  isFeaturedEdition?: boolean;
+}> = ({ edition, title, isFeaturedEdition }) => {
   const previewItem = EditionCardUtils.getPreviewItem(edition.items);
 
   const editionYearElem = (edition: WorkEdition) => {
@@ -42,58 +48,92 @@ export const EditionCard: React.FC<{ edition: WorkEdition; title: string }> = ({
   };
 
   const coverUrl = EditionCardUtils.getCover(edition.links);
+  const isPhysicalEdition = EditionCardUtils.isPhysicalEdition(previewItem);
+  const isUniversityPress = EditionCardUtils.isUniversityPress(previewItem);
+  const isLoginRequired = isPhysicalEdition || isUniversityPress;
 
   return (
-    <Card
-      id={`card-${edition.edition_id}`}
-      layout="row"
-      imageProps={{
-        src: coverUrl,
-        alt:
-          coverUrl === PLACEHOLDER_COVER_LINK
-            ? "Placeholder Cover"
-            : `Cover for ${EditionCardUtils.editionYearText(edition)}`,
-        size: "xsmall",
-        aspectRatio: "original",
-      }}
-      isCentered
-      isBordered
-      isAlignedRightActions
-      p="s"
-      flexFlow={{ md: "column nowrap", lg: "row" }}
-      alignItems={{ md: "flex-start", lg: "center" }}
+    <Box
+      border="1px"
+      borderColor="ui.border.default"
+      padding="s"
+      paddingLeft={{ base: "l", md: null }}
+      paddingBottom="l"
+      paddingRight="l"
     >
-      <CardHeading
-        level="h3"
-        size="heading6"
-        id="stack1-heading1"
+      <Flex gap="xs" flexDirection={{ base: "column", lg: "row" }}>
+        {isLoginRequired && <CardRequiredBadge />}
+        {isFeaturedEdition && <FeaturedEditionBadge />}
+      </Flex>
+      <Card
+        id={`card-${edition.edition_id}`}
+        layout="row"
+        imageProps={{
+          src: coverUrl,
+          alt:
+            coverUrl === PLACEHOLDER_COVER_LINK
+              ? "Placeholder Cover"
+              : `Cover for ${EditionCardUtils.editionYearText(edition)}`,
+          size: "xsmall",
+          aspectRatio: "original",
+        }}
+        isAlignedRightActions
+        paddingTop="m"
+        flexFlow={{ md: "column nowrap", lg: "row" }}
+        justifyContent={{ md: "center", lg: "left" }}
         sx={{
-          fontSize: "18px",
-          a: {
-            textDecoration: "none",
+          ".card-right": {
+            maxWidth: { base: "100%", lg: "200px" },
+            marginStart: { base: "0", lg: "m" },
+            marginTop: { base: "xs", lg: 0 },
           },
         }}
       >
-        {editionYearElem(edition)}
-      </CardHeading>
-      <CardContent>
-        <Box>
-          {EditionCardUtils.getPublisherAndLocation(
-            edition.publication_place,
-            edition.publishers
-          )}
-          <Box>{EditionCardUtils.getLanguageDisplayText(edition)}</Box>
-          <Link to="/license">{EditionCardUtils.getLicense(previewItem)}</Link>
-        </Box>
-      </CardContent>
-      <CardActions display="flex" flexDir="column" whiteSpace="nowrap" gap={4}>
-        {EditionCardUtils.getCtas(
-          previewItem,
-          title,
-          !!cookies[NYPL_SESSION_ID]
-        )}
-      </CardActions>
-    </Card>
+        <CardHeading
+          level="h3"
+          size="heading6"
+          id="stack1-heading1"
+          sx={{
+            span: {
+              fontSize: "18px",
+              a: {
+                textDecoration: "none",
+              },
+            },
+          }}
+        >
+          <Flex alignItems="center" gap="xs">
+            <span>{editionYearElem(edition)}</span>
+            {isPhysicalEdition && <PhysicalEditionBadge />}
+          </Flex>
+        </CardHeading>
+        <CardContent>
+          <Box>
+            <PublisherAndLocation
+              pubPlace={edition.publication_place}
+              publishers={edition.publishers}
+            />
+            <LanguageDisplayText edition={edition} />
+            <Link to="/license">
+              {EditionCardUtils.getLicense(previewItem)}
+            </Link>
+          </Box>
+          {isPhysicalEdition && <ScanAndDeliverBlurb />}
+          {isUniversityPress && <UpBlurb publishers={edition.publishers} />}
+        </CardContent>
+        <CardActions
+          display="flex"
+          flexDir="column"
+          whiteSpace="nowrap"
+          sx={{
+            width: { base: "100%", lg: "200px" },
+          }}
+          gap="xs"
+        >
+          <Ctas item={previewItem} title={title} />
+        </CardActions>
+      </Card>
+    </Box>
   );
 };
 
