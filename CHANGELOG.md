@@ -1,5 +1,9 @@
 # CHANGE LOG
 
+## [Pre-release]
+
+- SFR-1917: Fixed failing Playwright tests
+
 ## [0.18.0]
 
 - Add Physical Edition badge and Scan and Deliver blurb to EDD editions
