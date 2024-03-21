@@ -13,7 +13,7 @@ export const pages: { [name: string]: Pages } = {
     route: "/search?query=subject%3ASub-saharan+Africa",
   },
   "item details": {
-    route: "/work/01a28167-8c8d-4141-a32f-718539d5c8a4?featured=949699",
+    route: "work/fbf76364-7a27-437d-a6d1-c165b109a035?featured=2202903",
   },
   collection: {
     route: "/collection/297da3a0-bcdb-4eb3-a520-a330fd8fa370",
