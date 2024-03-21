@@ -103,7 +103,7 @@ export const elements = {
 
   /** item details page locators */
   "item title": "#work-title",
-  "item author": "div:text('By') > a:text('Library of Congress')",
+  "item author": "div:text('By') > a[href*='/search?query=author'] >> nth=0",
   "item featured edition heading": "div:text('Featured Edition')",
   "item featured edition cover": "[alt='Placeholder Cover'] >> nth=0",
   "item featured edition year": "a:text('Edition') >> nth=0",
@@ -112,9 +112,9 @@ export const elements = {
   "item featured edition license": "[href='/license'] >> nth=0",
   "item details heading": "#details-list-heading",
   "item details authors heading": "dt:text('Authors')",
-  "item details authors": "dd > a:text('Library of Congress')",
+  "item details authors": "dd > a[href*='/search?query=author'] >> nth=0",
   "item details subjects heading": "dt:text('Subjects')",
-  "item details subjects": "a:text('Africa, Sub-Saharan')",
+  "item details subjects": "li > a[href*='/search?query=subject'] >> nth=0",
   "item details languages heading": "dt:text('Languages')",
   "item details languages": "li:text('English')",
   "item all editions heading": "#all-editions",
