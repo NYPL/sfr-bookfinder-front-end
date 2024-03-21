@@ -142,8 +142,7 @@ export const elements = {
 
   /** request page locators */
   "first login for options button": "a:text('Log in to request scan') >> nth=0",
-  "first request button":
-    "a:text('Request scan') >> nth=0",
+  "first request button": "a:text('Request scan') >> nth=0",
   "delivery location heading": "h2:text('Choose a delivery location')",
 
   /** ereader locators */
