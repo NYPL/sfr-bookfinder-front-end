@@ -3,6 +3,7 @@
 ## [Pre-release]
 
 - SFR-1917: Fixed failing Playwright tests
+- Add APP_ENV build arg in yml file
 
 ## [0.18.0]
 
