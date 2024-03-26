@@ -3,6 +3,7 @@
 ## [Pre-release]
 
 - SFR-1917: Fixed failing Playwright tests
+- Update Github Action for release from create-release to action-gh-release
 
 ## [0.18.0]
 
