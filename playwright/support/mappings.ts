@@ -1,15 +1,4 @@
 import dotenv from "dotenv";
-import {
-  ABOUT_PATH,
-  ADVANCED_SEARCH_PATH,
-  COLLECTION_PATH,
-  EDITION_PATH,
-  HOME_PATH,
-  LICENSE_PATH,
-  READ_PATH,
-  SEARCH_PATH,
-  WORK_PATH,
-} from "./routes";
 dotenv.config({ path: ".env.local" });
 
 export type Pages = {
@@ -18,31 +7,31 @@ export type Pages = {
 
 export const pages: { [name: string]: Pages } = {
   home: {
-    route: HOME_PATH,
+    route: "/",
   },
   "search results": {
-    route: SEARCH_PATH,
+    route: "search?query=subject%3Awashington+dc",
   },
   "item details": {
-    route: WORK_PATH,
+    route: "work/01ca64fb-31cc-4451-b8b2-7fc0d9c4f1a8?featured=6428716",
   },
   collection: {
-    route: COLLECTION_PATH,
+    route: "/collection/297da3a0-bcdb-4eb3-a520-a330fd8fa370",
   },
   "advanced search": {
-    route: ADVANCED_SEARCH_PATH,
+    route: "/advanced-search",
   },
   "edition details": {
-    route: EDITION_PATH,
+    route: "/edition/949698",
   },
   about: {
-    route: ABOUT_PATH,
+    route: "/about",
   },
   license: {
-    route: LICENSE_PATH,
+    route: "/license",
   },
   "read online": {
-    route: READ_PATH,
+    route: "/read/4440666",
   },
 };
 
@@ -114,18 +103,18 @@ export const elements = {
 
   /** item details page locators */
   "item title": "#work-title",
-  "item author": "div:text('By') > a:text('Library of Congress')",
-  "item featured edition heading": "#featured-edition",
+  "item author": "div:text('By') > a[href*='display=author'] >> nth=0",
+  "item featured edition heading": "div:text('Featured Edition')",
   "item featured edition cover": "[alt='Placeholder Cover'] >> nth=0",
-  "item featured edition year": "a:text('Edition') >> nth=0",
+  "item featured edition year": "a:has-text('Edition') >> nth=0",
   "item featured edition publisher": "div:text('Published by') >> nth=0",
   "item featured edition language": "div:text('Languages') >> nth=0",
   "item featured edition license": "[href='/license'] >> nth=0",
   "item details heading": "#details-list-heading",
   "item details authors heading": "dt:text('Authors')",
-  "item details authors": "dd > a:text('Library of Congress')",
+  "item details authors": "dd > a[href*='display=author'] >> nth=0",
   "item details subjects heading": "dt:text('Subjects')",
-  "item details subjects": "a:text('Africa, Sub-Saharan')",
+  "item details subjects": "li > a[href*='/search?query=subject'] >> nth=0",
   "item details languages heading": "dt:text('Languages')",
   "item details languages": "li:text('English')",
   "item all editions heading": "#all-editions",
@@ -142,7 +131,6 @@ export const elements = {
   "back to search results button": "a:text('Back to search results')",
 
   /** log in page locators */
-  "first login for options button": "text=Log in for options >> nth=0",
   "username field": "#code",
   "password field": "#pin",
   "login button": "[value='Submit']",
@@ -150,11 +138,11 @@ export const elements = {
   /** read online page locators */
   "first read online button": "a:text('Read Online') >> nth=0",
   "Hathi Trust website":
-    "iframe[src='https://babel.hathitrust.org/cgi/pt?id=mdp.39015034622749']",
+    "iframe[src='https://babel.hathitrust.org/cgi/pt?id=hvd.32044079201976']",
 
   /** request page locators */
-  "first request button":
-    "[href='https://www.nypl.org/research/collections/shared-collection-catalog/hold/request/b10715506-i13895605']",
+  "first login for options button": "a:text('Log in to request scan') >> nth=0",
+  "first request button": "a:text('Request scan') >> nth=0",
   "delivery location heading": "h2:text('Choose a delivery location')",
 
   /** ereader locators */
