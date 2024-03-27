@@ -3,7 +3,8 @@
 ## [Pre-release]
 
 - SFR-1917: Fixed failing Playwright tests
-- Add APP_ENV build arg in yml file
+- Add APP_ENV build arg in yml file and Dockerfile
+- Update Github Action for release from create-release to action-gh-release
 
 ## [0.18.0]
 
