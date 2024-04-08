@@ -159,7 +159,7 @@ export const elements = {
   "catalog header link": "span:text('Go To The Catalog')",
   "research catalog header link": "span:text('Go To The Research Catalog')",
   "close my account header link": "[aria-label='Close']",
-  "locations header link": "[href='https://www.nypl.org/locations']",
+  "locations header link": "[href='https://www.nypl.org/locations']:text('Locations')",
   "library card header link": "[href='https://www.nypl.org/library-card/new']",
   "email updates header link":
     "[href='https://pub.email.nypl.org/subscriptioncenter']",
