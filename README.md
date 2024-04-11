@@ -13,7 +13,7 @@ Simple searches can be entered in the form and an index response is displayed ba
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-### Conbributing: Local Development
+### Contributing: Local Development
 
 Clone the repo and run `npm install`.
 
@@ -31,6 +31,14 @@ Add this to your `etc/hosts` file:
 	127.0.0.1       local.nypl.org
 ```
 
+### Deploying to Production
+
+1. Create a new branch off `development` with the name `NO-REF_prepare-<VERSION>`, i.e. `NO-REF_prepare-1.2.3`. Replace any reference to "Pre-release" and the previous production version in the package.json and package-lock.json files with the current version number. Push the branch and create a Pull Request with the name `NOREF prepare <VERSION> release`, i.e. `NOREF prepare 1.2.3 release`. Merge these changes once the PR is approved. 
+2. Create a Pull Request to `production` from `development` with the name `Release <VERSION> to production`, i.e. `Release 1.2.3 to production`. The description of the PR should be the new version's changelog to be used in the tag and release step of the .yaml file.
+3. Merge the PR after approval to trigger the [`build-production.yaml`](./.github/workflows/build-production.yaml) GitHub Action, which pushes a Docker image to ECR, updates the `production` ECS deployment, and creates a new release version on GitHub.
+4. Add the link to the PR to the release ticket in Jira and tag the appropriate member of QA, the project manager, and the product manager. Move the ticket to "In QA" and assign it to the appropriate member of QA. QA should be done on https://drb-qa.nypl.org/.
+
+
 ### Dependencies
 
 - NextJS
@@ -40,7 +48,7 @@ Add this to your `etc/hosts` file:
 
 ### Usage
 
-### Searcbar
+### Searchbar
 
 Currently takes in a query string to pass along to the ResearchNow Search API which submits a keyword search to the Elasticsearch instance, and renders the returned output. Sends the `query` parameter specified in the rendered search form on the main page.
 

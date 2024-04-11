@@ -6,6 +6,7 @@
 - Add APP_ENV build arg in yml file and Dockerfile
 - Update Github Action for release from create-release to action-gh-release
 - SFR-1945: Fixed more failing Playwright tests
+- Update README to include production release information
 
 ## [0.18.0]
 
