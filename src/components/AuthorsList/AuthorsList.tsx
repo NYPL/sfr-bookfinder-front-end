@@ -27,7 +27,6 @@ const AuthorsList: React.FC<{ authors: Agent[] }> = ({ authors }) => {
                 pathname: "/search",
                 query: query,
               }}
-              className="link"
             >
               {authorLinkText}
             </Link>

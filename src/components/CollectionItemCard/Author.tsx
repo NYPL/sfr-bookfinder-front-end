@@ -13,7 +13,6 @@ const Author: React.FC<{ author: string }> = ({ author }) => {
         pathname: "/search",
         query: query,
       }}
-      className="link"
     >
       {author}
     </Link>

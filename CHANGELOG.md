@@ -7,6 +7,8 @@
 - Update Github Action for release from create-release to action-gh-release
 - SFR-1945: Fixed more failing Playwright tests
 - Update README to include production release information
+- Upgrade NYPL Design System to 3.1.1
+- Upgrade Web Reader to 4.3.3
 
 ## [0.18.0]
 
