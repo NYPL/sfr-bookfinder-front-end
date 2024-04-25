@@ -167,7 +167,7 @@ describe("Edition with UP", () => {
   });
   test("Shows 'Library Card Required' badge", () => {
     render(<EditionCard edition={upEdition} title={"title"} />);
-    expect(screen.getByText("Library Card Required")).toBeInTheDocument();
+    expect(screen.getByText("LIBRARY CARD REQUIRED")).toBeInTheDocument();
   });
   test("Shows Read Online and Download buttons when user is logged in", () => {
     // Set cookie before rendering the component
