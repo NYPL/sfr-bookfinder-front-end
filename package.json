@@ -17,7 +17,7 @@
     "@chakra-ui/react": "2.5.4",
     "@newrelic/next": "^0.7.0",
     "@nypl/design-system-react-components": "3.1.1",
-    "@nypl/web-reader": "4.3.3",
+    "@nypl/web-reader": "4.3.4",
     "@types/node": "^16.11.6",
     "css-loader": "^6.5.0",
     "dotenv": "^16.0.3",
