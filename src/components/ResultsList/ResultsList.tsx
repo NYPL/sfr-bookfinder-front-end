@@ -49,7 +49,7 @@ const ResultsList: React.FC<{ works: ApiWork[] }> = ({ works }) => {
               </Link>
             </Heading>
             <span>{EditionCardUtils.getSubtitle(work.sub_title)}</span>
-            {work.authors && work.authors.length && (
+            {work.authors && work.authors.length > 0 && (
               <Box marginBottom="xs">
                 By <AuthorsList authors={work.authors} />
               </Box>

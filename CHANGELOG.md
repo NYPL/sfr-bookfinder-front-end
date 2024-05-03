@@ -7,6 +7,7 @@
 - Update Github Action for release from create-release to action-gh-release
 - SFR-1945: Fixed more failing Playwright tests
 - Update README to include production release information
+- Fix issue where 0 character is shown when there are no authors 
 
 ## [0.18.0]
 
