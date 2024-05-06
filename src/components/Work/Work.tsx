@@ -82,7 +82,7 @@ const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
           {work.title}
         </Heading>
         {work.sub_title && <Box>{work.sub_title}</Box>}
-        {work.authors && work.authors.length && (
+        {work.authors && work.authors.length > 0 && (
           <Box>
             By <AuthorsList authors={work.authors} />
           </Box>
