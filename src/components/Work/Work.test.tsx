@@ -55,7 +55,7 @@ describe("Renders Work component when given valid work", () => {
   });
 
   test("Featured Edition Card shows up once in page", () => {
-    expect(screen.getByText("Featured Edition")).toBeInTheDocument();
+    expect(screen.getByText("FEATURED EDITION")).toBeInTheDocument();
     const featuredEditionHeadings = screen.getAllByRole("heading", {
       name: "1967 Edition",
     });
@@ -178,7 +178,7 @@ describe("Edition Cards and toggles", () => {
     });
 
     test("1980 edition shows up twice", () => {
-      expect(screen.getByText("Featured Edition")).toBeInTheDocument();
+      expect(screen.getByText("FEATURED EDITION")).toBeInTheDocument();
       const featuredEditionHeadings = screen.getAllByRole("heading", {
         name: "1980 Edition",
       });

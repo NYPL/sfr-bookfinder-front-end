@@ -6,7 +6,6 @@ import {
   editionDetail as apiEdition,
   editionDetailInCollection,
 } from "../../__tests__/fixtures/EditionDetailFixture";
-
 import mockRouter from "next-router-mock";
 import userEvent from "@testing-library/user-event";
 
@@ -67,7 +66,7 @@ describe("Renders edition component when given valid edition", () => {
     });
   });
   test("Two cards show up in page", () => {
-    expect(screen.getByText("Featured Edition")).toBeInTheDocument();
+    expect(screen.getByText("FEATURED EDITION")).toBeInTheDocument();
     const featuredEditionHeadings = screen.getAllByRole("heading", {
       name: "1923",
     });

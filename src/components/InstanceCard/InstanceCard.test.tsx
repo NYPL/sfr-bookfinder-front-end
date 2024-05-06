@@ -159,7 +159,7 @@ describe("Instance with UP", () => {
   });
   test("Shows 'Library Card Required' badge", () => {
     render(<InstanceCard edition={upEdition} instance={upInstance} />);
-    expect(screen.getByText("Library Card Required")).toBeInTheDocument();
+    expect(screen.getByText("LIBRARY CARD REQUIRED")).toBeInTheDocument();
   });
   test("Shows Read Online and Download buttons when user is logged in", () => {
     // Set cookie before rendering the component
