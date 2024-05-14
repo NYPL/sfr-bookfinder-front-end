@@ -3,8 +3,11 @@ import { StatusBadge } from "@nypl/design-system-react-components";
 
 const FeaturedEditionBadge: React.FC = () => {
   return (
-    <StatusBadge level="medium" width={{ base: "100%", md: "fit-content" }}>
-      Featured Edition
+    <StatusBadge
+      type="recommendation"
+      width={{ base: "100%", md: "fit-content" }}
+    >
+      FEATURED EDITION
     </StatusBadge>
   );
 };

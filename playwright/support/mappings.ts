@@ -10,10 +10,10 @@ export const pages: { [name: string]: Pages } = {
     route: "/",
   },
   "search results": {
-    route: "/search?query=subject%3ASub-saharan+Africa",
+    route: "search?query=subject%3Awashington+dc",
   },
   "item details": {
-    route: "/work/01a28167-8c8d-4141-a32f-718539d5c8a4?featured=949699",
+    route: "work/01ca64fb-31cc-4451-b8b2-7fc0d9c4f1a8?featured=6428716",
   },
   collection: {
     route: "/collection/297da3a0-bcdb-4eb3-a520-a330fd8fa370",
@@ -103,18 +103,18 @@ export const elements = {
 
   /** item details page locators */
   "item title": "#work-title",
-  "item author": "div:text('By') > a:text('Library of Congress')",
-  "item featured edition heading": "#featured-edition",
+  "item author": "div:text('By') > a[href*='display=author'] >> nth=0",
+  "item featured edition heading": "div:text('Featured Edition')",
   "item featured edition cover": "[alt='Placeholder Cover'] >> nth=0",
-  "item featured edition year": "a:text('Edition') >> nth=0",
+  "item featured edition year": "a:has-text('Edition') >> nth=0",
   "item featured edition publisher": "div:text('Published by') >> nth=0",
   "item featured edition language": "div:text('Languages') >> nth=0",
   "item featured edition license": "[href='/license'] >> nth=0",
   "item details heading": "#details-list-heading",
   "item details authors heading": "dt:text('Authors')",
-  "item details authors": "dd > a:text('Library of Congress')",
+  "item details authors": "dd > a[href*='display=author'] >> nth=0",
   "item details subjects heading": "dt:text('Subjects')",
-  "item details subjects": "a:text('Africa, Sub-Saharan')",
+  "item details subjects": "li > a[href*='/search?query=subject'] >> nth=0",
   "item details languages heading": "dt:text('Languages')",
   "item details languages": "li:text('English')",
   "item all editions heading": "#all-editions",
@@ -131,7 +131,6 @@ export const elements = {
   "back to search results button": "a:text('Back to search results')",
 
   /** log in page locators */
-  "first login for options button": "text=Log in for options >> nth=0",
   "username field": "#code",
   "password field": "#pin",
   "login button": "[value='Submit']",
@@ -139,11 +138,11 @@ export const elements = {
   /** read online page locators */
   "first read online button": "a:text('Read Online') >> nth=0",
   "Hathi Trust website":
-    "iframe[src='https://babel.hathitrust.org/cgi/pt?id=mdp.39015034622749']",
+    "iframe[src='https://babel.hathitrust.org/cgi/pt?id=hvd.32044079201976']",
 
   /** request page locators */
-  "first request button":
-    "[href='https://www.nypl.org/research/collections/shared-collection-catalog/hold/request/b10715506-i13895605']",
+  "first login for options button": "a:text('Log in to request scan') >> nth=0",
+  "first request button": "a:text('Request scan') >> nth=0",
   "delivery location heading": "h2:text('Choose a delivery location')",
 
   /** ereader locators */
@@ -160,7 +159,8 @@ export const elements = {
   "catalog header link": "span:text('Go To The Catalog')",
   "research catalog header link": "span:text('Go To The Research Catalog')",
   "close my account header link": "[aria-label='Close']",
-  "locations header link": "[href='https://www.nypl.org/locations']",
+  "locations header link":
+    "[href='https://www.nypl.org/locations']:text('Locations')",
   "library card header link": "[href='https://www.nypl.org/library-card/new']",
   "email updates header link":
     "[href='https://pub.email.nypl.org/subscriptioncenter']",

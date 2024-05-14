@@ -1,5 +1,16 @@
 # CHANGE LOG
 
+## [0.18.1]
+
+- SFR-1917: Fixed failing Playwright tests
+- Add APP_ENV build arg in yml file and Dockerfile
+- Update Github Action for release from create-release to action-gh-release
+- SFR-1945: Fixed more failing Playwright tests
+- Update README to include production release information
+- Upgrade NYPL Design System to 3.1.1
+- Upgrade Web Reader to 4.3.4
+- Fix issue where 0 character is shown when there are no authors 
+
 ## [0.18.0]
 
 - Add Physical Edition badge and Scan and Deliver blurb to EDD editions

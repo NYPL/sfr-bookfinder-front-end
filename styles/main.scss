@@ -68,3 +68,13 @@ body {
   --color-place-holder: var(--nypl-colors-ui-gray-dark);
   color: var(--color-place-holder);
 }
+
+// min height on header container to prevent content shift on page load
+#nypl-header {
+  min-height: 62px;
+}
+@media screen and (min-width: 832px) {
+  #nypl-header {
+     min-height: 130px;
+  }
+}

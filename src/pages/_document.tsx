@@ -1,6 +1,7 @@
 import React from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import appConfig from "~/config/appConfig";
+import Script from "next/script";
 
 type DocumentProps = {
   browserTimingHeader: string;
@@ -21,16 +22,18 @@ class MyDocument extends Document<DocumentProps> {
         </Head>
         <body>
           <div id="nypl-header"></div>
-          <script
+          <Script
             src="https://ds-header.nypl.org/header.min.js?containerId=nypl-header"
+            strategy="beforeInteractive"
             async
-          ></script>
+          ></Script>
           <Main />
           <div id="nypl-footer" style={{ marginTop: "2rem" }}></div>
-          <script
+          <Script
             src="https://ds-header.nypl.org/footer.min.js?containerId=nypl-footer"
+            strategy="lazyOnload"
             async
-          ></script>
+          ></Script>
           <NextScript />
         </body>
       </Html>
