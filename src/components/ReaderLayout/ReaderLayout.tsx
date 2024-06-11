@@ -10,6 +10,13 @@ import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
 import dynamic from "next/dynamic";
 import { MediaTypes } from "~/src/constants/mediaTypes";
 import ReaderLogoSvg from "../Svgs/ReaderLogoSvg";
+import Link from "../Link/Link";
+import { addTocToManifest } from "@nypl/web-reader";
+import Loading from "../Loading/Loading";
+import { trackCtaClick } from "~/src/lib/adobe/Analytics";
+import { useCookies } from "react-cookie";
+import { NYPL_SESSION_ID } from "~/src/constants/auth";
+
 const WebReader = dynamic(() => import("@nypl/web-reader"), { ssr: false });
 // This is how we can import a css file as a url. It's complex, but necessary
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -21,11 +28,6 @@ import readiumDefault from "!file-loader!extract-loader!css-loader!@nypl/web-rea
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import readiumAfter from "!file-loader!extract-loader!css-loader!@nypl/web-reader/dist/injectable-html-styles/ReadiumCSS-after.css";
-
-import Link from "../Link/Link";
-import { addTocToManifest } from "@nypl/web-reader";
-import Loading from "../Loading/Loading";
-import { trackCtaClick } from "~/src/lib/adobe/Analytics";
 
 const origin =
   typeof window !== "undefined" && window.location?.origin
@@ -64,9 +66,14 @@ const ReaderLayout: React.FC<{
   const edition = link.work.editions[0];
   const [manifestUrl, setManifestUrl] = useState(url);
   const [isLoading, setIsLoading] = useState(true);
+  const [cookies] = useCookies([NYPL_SESSION_ID]);
+  const getContent = EditionCardUtils.createGetContent(
+    cookies[NYPL_SESSION_ID]
+  );
 
   const isEmbed = MediaTypes.embed.includes(link.media_type);
   const isRead = MediaTypes.read.includes(link.media_type);
+  const isLimitedAccess = link.flags.nypl_login;
 
   const pdfWorkerSrc = `${origin}/pdf-worker/pdf.worker.min.js`;
 
@@ -180,6 +187,7 @@ const ReaderLayout: React.FC<{
           pdfWorkerSrc={pdfWorkerSrc}
           headerLeft={<BackButton />}
           injectablesFixed={injectables}
+          getContent={isLimitedAccess ? getContent : null}
         />
       )}
     </>
