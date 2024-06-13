@@ -16,10 +16,7 @@ const ReadOnlineLink: React.FC<{
     pathname: `/read/${readOnlineLink.link_id}`,
   };
 
-  if (
-    (readOnlineLink.flags.nypl_login || readOnlineLink.flags.limit_access) &&
-    !isLoggedIn
-  ) {
+  if (readOnlineLink.flags.nypl_login && !isLoggedIn) {
     linkText = "Log in to read online";
     linkUrl = LOGIN_LINK_BASE + encodeURIComponent(window.location.href);
   }

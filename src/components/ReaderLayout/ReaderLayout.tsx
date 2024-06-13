@@ -73,7 +73,7 @@ const ReaderLayout: React.FC<{
 
   const isEmbed = MediaTypes.embed.includes(link.media_type);
   const isRead = MediaTypes.read.includes(link.media_type);
-  const isLimitedAccess = link.flags.nypl_login;
+  const isLimitedAccess = link.flags.fulfill_limited_access;
 
   const pdfWorkerSrc = `${origin}/pdf-worker/pdf.worker.min.js`;
 

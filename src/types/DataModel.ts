@@ -65,7 +65,7 @@ export type LinkFlags = {
   edd?: boolean;
   embed?: boolean;
   nypl_login?: boolean;
-  limit_access?: boolean;
+  fulfill_limited_access?: boolean;
 };
 
 export type ItemLink = {
