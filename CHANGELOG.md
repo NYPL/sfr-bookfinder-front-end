@@ -1,5 +1,9 @@
 # CHANGE LOG
 
+## [Pre-release]
+- Fix cut off text on search bar dropdown
+
+
 ## [0.18.1]
 
 - SFR-1917: Fixed failing Playwright tests
