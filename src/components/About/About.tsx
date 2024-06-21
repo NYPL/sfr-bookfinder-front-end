@@ -43,7 +43,7 @@ const About: React.FC = () => {
         In addition to collecting these digital editions, we group all the
         editions of the same title together as a single “work.” For instance
         there are many editions of{" "}
-        <Link to="/work/e34d73df-f32b-49e1-8fdf-151db2a7806a">
+        <Link to="/work/8771d353-b75f-4f30-a424-e3b9516601f0">
           Mary Wollstonecraft’s A Vindication of the Rights of Woman
         </Link>
         , many of them available digitally. We group them all together under a
