@@ -2,7 +2,7 @@
 
 ## [Pre-release]
 - Fix cut off text on search bar dropdown
-
+- Fix broken link on the About page
 
 ## [0.18.1]
 
