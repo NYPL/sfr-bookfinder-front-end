@@ -14,8 +14,6 @@ import Link from "../Link/Link";
 import { addTocToManifest } from "@nypl/web-reader";
 import Loading from "../Loading/Loading";
 import { trackCtaClick } from "~/src/lib/adobe/Analytics";
-import { useCookies } from "react-cookie";
-import { NYPL_SESSION_ID } from "~/src/constants/auth";
 
 const WebReader = dynamic(() => import("@nypl/web-reader"), { ssr: false });
 // This is how we can import a css file as a url. It's complex, but necessary
@@ -66,10 +64,6 @@ const ReaderLayout: React.FC<{
   const edition = link.work.editions[0];
   const [manifestUrl, setManifestUrl] = useState(url);
   const [isLoading, setIsLoading] = useState(true);
-  const [cookies] = useCookies([NYPL_SESSION_ID]);
-  const getContent = EditionCardUtils.createGetContent(
-    cookies[NYPL_SESSION_ID]
-  );
 
   const isEmbed = MediaTypes.embed.includes(link.media_type);
   const isRead = MediaTypes.read.includes(link.media_type);
@@ -187,7 +181,7 @@ const ReaderLayout: React.FC<{
           pdfWorkerSrc={pdfWorkerSrc}
           headerLeft={<BackButton />}
           injectablesFixed={injectables}
-          getContent={isLimitedAccess ? getContent : null}
+          getContent={isLimitedAccess ? EditionCardUtils.fetchWithAuth : undefined}
         />
       )}
     </>

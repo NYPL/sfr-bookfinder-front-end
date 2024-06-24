@@ -16,8 +16,9 @@ import {
   PLACEHOLDER_COVER_LINK,
 } from "../constants/editioncard";
 import { MediaTypes } from "../constants/mediaTypes";
-import { LOGIN_LINK_BASE } from "../constants/links";
 import { FulfillResult } from "../types/FulfillQuery";
+import { useCookies } from "react-cookie";
+import { NYPL_SESSION_ID } from "../constants/auth";
 
 // EditionCard holds all the methods needed to build an Edition Card
 export default class EditionCardUtils {
@@ -223,30 +224,16 @@ export default class EditionCardUtils {
     return universityPress !== undefined;
   }
 
-  static createGetContent(nyplIdentityCookie) {
-    return async (linkUrl: string) => {
-      const url = new URL(linkUrl);
-      const res = await fetch(url.toString(), {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${nyplIdentityCookie.access_token}`,
-        },
-      });
-      if (res.ok) {
-        return res.url;
-      } else {
-        // redirect to the NYPL login page if access token is invalid
-        if (res.status === 401) {
-          return `${LOGIN_LINK_BASE}${encodeURIComponent(
-            window.location.href
-          )}`;
-        }
-        if (res.status === 404) {
-          const fulfillResult: FulfillResult = await res.json();
-          throw new Error(fulfillResult.data);
-        }
-      }
-      return undefined;
-    };
-  }
+  static fetchWithAuth = async (linkUrl: string) => {
+    const [cookies] = useCookies([NYPL_SESSION_ID]);
+    const nyplIdentityCookie = cookies[NYPL_SESSION_ID];
+    const url = new URL(linkUrl);
+    const res = await fetch(url.toString(), {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${nyplIdentityCookie.access_token}`,
+      },
+    });
+    return res.url;
+  };
 }
