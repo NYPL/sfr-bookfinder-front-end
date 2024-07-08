@@ -204,6 +204,17 @@ export const elements = {
     "//a[@href='http://www.nypl.org/help/about-nypl/legal-notices/rules-and-regulations']",
   "about NYPL footer link": "//a[@href='http://www.nypl.org/help/about-nypl']",
   "language footer link": "//a[@href='http://www.nypl.org/language']",
+
+  /** license page locators */
+  "license explanations header": "//h1[text()='License Explanations']",
+  "public domain header": "//h2[text()='Public Domain']",
+  "creative commons licenses header":
+    "//h2[text()='Creative Commons Licenses']",
+  "public domain us only header": "//h2[text()='Public Domain (US Only)']",
+  "public domain subheader":
+    "//p[contains(text(),'Works may be in the public domain in the Unites St')]",
+  "public domain us only subheader":
+    "//p[contains(text(),'Works may be in the public domain in the Unites States')]",
 };
 
 export const inputs = {
