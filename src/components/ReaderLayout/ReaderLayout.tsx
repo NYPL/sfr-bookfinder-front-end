@@ -26,6 +26,9 @@ import readiumDefault from "!file-loader!extract-loader!css-loader!@nypl/web-rea
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import readiumAfter from "!file-loader!extract-loader!css-loader!@nypl/web-reader/dist/injectable-html-styles/ReadiumCSS-after.css";
+import { NYPL_SESSION_ID } from "~/src/constants/auth";
+import { useCookies } from "react-cookie";
+import { useRouter } from "next/router";
 
 const origin =
   typeof window !== "undefined" && window.location?.origin
@@ -68,6 +71,10 @@ const ReaderLayout: React.FC<{
   const isEmbed = MediaTypes.embed.includes(link.media_type);
   const isRead = MediaTypes.read.includes(link.media_type);
   const isLimitedAccess = link.flags.fulfill_limited_access;
+
+  const [cookies] = useCookies([NYPL_SESSION_ID]);
+  const nyplIdentityCookie = cookies[NYPL_SESSION_ID];
+  const router = useRouter();
 
   const pdfWorkerSrc = `${origin}/pdf-worker/pdf.worker.min.js`;
 
@@ -114,7 +121,8 @@ const ReaderLayout: React.FC<{
         if (
           manifest &&
           manifest.readingOrder &&
-          manifest.readingOrder.length === 1
+          manifest.readingOrder.length === 1 &&
+          !isLimitedAccess
         ) {
           const modifiedManifest = await addTocToManifest(
             manifest,
@@ -181,7 +189,11 @@ const ReaderLayout: React.FC<{
           pdfWorkerSrc={pdfWorkerSrc}
           headerLeft={<BackButton />}
           injectablesFixed={injectables}
-          getContent={isLimitedAccess ? EditionCardUtils.fetchWithAuth : undefined}
+          getContent={
+            isLimitedAccess
+              ? EditionCardUtils.createGetContent(nyplIdentityCookie, router)
+              : undefined
+          }
         />
       )}
     </>

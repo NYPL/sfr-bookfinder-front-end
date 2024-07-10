@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Agent,
   Instance,
@@ -16,9 +15,8 @@ import {
   PLACEHOLDER_COVER_LINK,
 } from "../constants/editioncard";
 import { MediaTypes } from "../constants/mediaTypes";
-import { FulfillResult } from "../types/FulfillQuery";
-import { useCookies } from "react-cookie";
-import { NYPL_SESSION_ID } from "../constants/auth";
+import { NextRouter } from "next/router";
+import { LOGIN_LINK_BASE } from "../constants/links";
 
 // EditionCard holds all the methods needed to build an Edition Card
 export default class EditionCardUtils {
@@ -224,16 +222,38 @@ export default class EditionCardUtils {
     return universityPress !== undefined;
   }
 
-  static fetchWithAuth = async (linkUrl: string) => {
-    const [cookies] = useCookies([NYPL_SESSION_ID]);
-    const nyplIdentityCookie = cookies[NYPL_SESSION_ID];
-    const url = new URL(linkUrl);
-    const res = await fetch(url.toString(), {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${nyplIdentityCookie.access_token}`,
-      },
-    });
-    return res.url;
+  static createGetContent = (nyplIdentityCookie: any, router: NextRouter) => {
+    const fetchWithAuth = async (fulfillUrl: string, proxyUrl?: string) => {
+      const url = new URL(fulfillUrl);
+      const res = await fetch(url.toString(), {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${nyplIdentityCookie.access_token}`,
+        },
+      });
+
+      if (res.ok) {
+        // Generate the resource URL using the proxy
+        const resourceUrl = res.url;
+        const proxiedUrl: string = proxyUrl
+          ? `${proxyUrl}${encodeURIComponent(resourceUrl)}`
+          : resourceUrl;
+        const response = await fetch(proxiedUrl, { mode: "cors" });
+        const array = new Uint8Array(await response.arrayBuffer());
+
+        if (!response.ok) {
+          throw new Error("Response not Ok for URL: " + url);
+        }
+        return array;
+      } else {
+        // redirect to the NYPL login page if access token is invalid
+        if (res.status === 401) {
+          router.push(
+            LOGIN_LINK_BASE + encodeURIComponent(window.location.href)
+          );
+        }
+      }
+    };
+    return fetchWithAuth;
   };
 }
