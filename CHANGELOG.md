@@ -5,6 +5,7 @@
 - Fix cut off text on search bar dropdown
 - Fix broken link on the About page
 - SFR-2008: Automate License Page Headers and Sub-Headers
+- Update PR template with new Jira link
 
 ## [0.18.1]
 
