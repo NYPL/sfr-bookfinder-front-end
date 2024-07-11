@@ -5,6 +5,7 @@
 - Fix cut off text on search bar dropdown
 - Fix broken link on the About page
 - SFR-2008: Automate License Page Headers and Sub-Headers
+- Add error page for /read links with invalid source
 
 ## [0.18.1]
 
