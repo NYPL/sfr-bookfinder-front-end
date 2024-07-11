@@ -23,7 +23,10 @@ const NotFound404 = () => {
 
   return (
     <Layout>
-      <TemplateAppContainer breakout={<DrbBreakout />} contentPrimary={contentPrimaryElement} />
+      <TemplateAppContainer
+        breakout={<DrbBreakout />}
+        contentPrimary={contentPrimaryElement}
+      />
     </Layout>
   );
 };

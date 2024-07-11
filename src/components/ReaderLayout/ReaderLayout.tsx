@@ -69,10 +69,6 @@ const ReaderLayout: React.FC<{
   const isEmbed = MediaTypes.embed.includes(link.media_type);
   const isRead = MediaTypes.read.includes(link.media_type);
 
-  if (!isEmbed && !isRead) {
-    return NotFound404();
-  }
-
   const pdfWorkerSrc = `${origin}/pdf-worker/pdf.worker.min.js`;
 
   /**
@@ -152,6 +148,10 @@ const ReaderLayout: React.FC<{
       </Link>
     );
   };
+
+  if (!isEmbed && !isRead) {
+    return NotFound404();
+  }
 
   return (
     <>
