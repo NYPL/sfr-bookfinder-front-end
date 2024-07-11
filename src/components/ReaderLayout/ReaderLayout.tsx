@@ -143,7 +143,7 @@ const ReaderLayout: React.FC<{
       document.getElementById("nypl-header").style.display = "none";
       document.getElementById("nypl-footer").style.display = "none";
     }
-  }, [isRead, pdfWorkerSrc, proxyUrl, url]);
+  }, [isLimitedAccess, isRead, pdfWorkerSrc, proxyUrl, url]);
 
   const BackButton = () => {
     return (
