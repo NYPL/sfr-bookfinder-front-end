@@ -215,6 +215,14 @@ export const elements = {
     "//p[contains(text(),'Works may be in the public domain in the Unites St')]",
   "public domain us only subheader":
     "//p[contains(text(),'Works may be in the public domain in the Unites States')]",
+
+  /** external page locators */
+  "locations page header":
+    "//div[contains(text(),'Welcome to The New York Public Library. Discover o')]",
+  "get a library card page header": "//h1[@id='hero-banner']",
+  "get email updates page header": "//h1[@id='page-title']",
+  "donation page button": "//button[text()='Donate']",
+  "shop page footer": "//h2[text()='All Proceeds Support the Library']",
 };
 
 export const inputs = {
