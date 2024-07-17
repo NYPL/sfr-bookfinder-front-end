@@ -6,6 +6,7 @@
 - Fix broken link on the About page
 - SFR-2008: Automate License Page Headers and Sub-Headers
 - SFR-2033: Verify the external NYPL header links of DRB App
+- Update PR template with new Jira link
 
 ## [0.18.1]
 
