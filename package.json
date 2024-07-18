@@ -17,7 +17,7 @@
     "@chakra-ui/react": "2.5.4",
     "@newrelic/next": "^0.7.0",
     "@nypl/design-system-react-components": "3.1.1",
-    "@nypl/web-reader": "4.3.4",
+    "@nypl/web-reader": "4.3.5",
     "@types/node": "^16.11.6",
     "css-loader": "^7.1.1",
     "dotenv": "^16.0.3",
@@ -28,7 +28,7 @@
     "next": "^13.5.6",
     "next-transpile-modules": "^7.0.0",
     "react": "^18.2.0",
-    "react-cookie": "^4.1.1",
+    "react-cookie": "7.1.4",
     "redux": "4.0.1",
     "sass": "^1.62.1",
     "typescript": "^4.1.3"
