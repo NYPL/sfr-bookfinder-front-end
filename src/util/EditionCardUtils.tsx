@@ -239,12 +239,12 @@ export default class EditionCardUtils {
           ? `${proxyUrl}${encodeURIComponent(resourceUrl)}`
           : resourceUrl;
         const response = await fetch(proxiedUrl, { mode: "cors" });
-        const array = new Uint8Array(await response.arrayBuffer());
+        const resourceAsByteArray = new Uint8Array(await response.arrayBuffer());
 
         if (!response.ok) {
           throw new Error("Response not Ok for URL: " + url);
         }
-        return array;
+        return resourceAsByteArray;
       } else {
         // redirect to the NYPL login page if access token is invalid
         if (res.status === 401) {
