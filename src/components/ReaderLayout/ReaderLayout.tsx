@@ -14,6 +14,10 @@ import Link from "../Link/Link";
 import { addTocToManifest } from "@nypl/web-reader";
 import Loading from "../Loading/Loading";
 import { trackCtaClick } from "~/src/lib/adobe/Analytics";
+import { NYPL_SESSION_ID } from "~/src/constants/auth";
+import { useCookies } from "react-cookie";
+import { useRouter } from "next/router";
+import NotFound404 from "~/src/pages/404";
 
 const WebReader = dynamic(() => import("@nypl/web-reader"), { ssr: false });
 // This is how we can import a css file as a url. It's complex, but necessary
@@ -26,9 +30,6 @@ import readiumDefault from "!file-loader!extract-loader!css-loader!@nypl/web-rea
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import readiumAfter from "!file-loader!extract-loader!css-loader!@nypl/web-reader/dist/injectable-html-styles/ReadiumCSS-after.css";
-import { NYPL_SESSION_ID } from "~/src/constants/auth";
-import { useCookies } from "react-cookie";
-import { useRouter } from "next/router";
 
 const origin =
   typeof window !== "undefined" && window.location?.origin
@@ -156,6 +157,10 @@ const ReaderLayout: React.FC<{
       </Link>
     );
   };
+
+  if (!isEmbed && !isRead) {
+    return NotFound404();
+  }
 
   return (
     <>
