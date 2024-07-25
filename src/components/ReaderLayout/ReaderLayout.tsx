@@ -190,7 +190,7 @@ const ReaderLayout: React.FC<{
       {isRead && !isLoading && (
         <WebReader
           webpubManifestUrl={manifestUrl}
-          proxyUrl={proxyUrl}
+          proxyUrl={!isLimitedAccess ? proxyUrl : undefined}
           pdfWorkerSrc={pdfWorkerSrc}
           headerLeft={<BackButton />}
           injectablesFixed={injectables}
