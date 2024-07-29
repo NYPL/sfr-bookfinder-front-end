@@ -9,7 +9,7 @@ import appConfig from "~/config/appConfig";
 
 const About: React.FC = () => {
   const apiEnv = process.env["APP_ENV"];
-  const workUrl = appConfig.aboutPageWork[apiEnv];
+  const workUrl = appConfig.aboutPageWork[apiEnv] || "/work/5950e6df-9d99-42fe-8924-1116166a2acb";
 
   const breakoutElement = (
     <DrbBreakout breadcrumbsData={[{ url: "/about", text: "About" }]} />
