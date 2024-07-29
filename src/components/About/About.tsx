@@ -5,8 +5,12 @@ import {
 } from "@nypl/design-system-react-components";
 import Link from "../Link/Link";
 import DrbBreakout from "../DrbBreakout/DrbBreakout";
+import appConfig from "~/config/appConfig";
 
 const About: React.FC = () => {
+  const apiEnv = process.env["APP_ENV"];
+  const workUrl = appConfig.aboutPageWork[apiEnv];
+
   const breakoutElement = (
     <DrbBreakout breadcrumbsData={[{ url: "/about", text: "About" }]} />
   );
@@ -43,7 +47,7 @@ const About: React.FC = () => {
         In addition to collecting these digital editions, we group all the
         editions of the same title together as a single “work.” For instance
         there are many editions of{" "}
-        <Link to="/work/8771d353-b75f-4f30-a424-e3b9516601f0">
+        <Link to={workUrl}>
           Mary Wollstonecraft’s A Vindication of the Rights of Woman
         </Link>
         , many of them available digitally. We group them all together under a
