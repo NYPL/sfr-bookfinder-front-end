@@ -37,7 +37,7 @@ const appConfig = {
   aboutPageWork: {
     development: "/work/5950e6df-9d99-42fe-8924-1116166a2acb",
     qa: "/work/5950e6df-9d99-42fe-8924-1116166a2acb",
-    production: "/work/8771d353-b75f-4f30-a424-e3b9516601f0"
+    production: "/work/8771d353-b75f-4f30-a424-e3b9516601f0",
   }
 };
 
