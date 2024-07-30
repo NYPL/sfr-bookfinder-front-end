@@ -9,6 +9,8 @@
 - Update PR template with new Jira link
 - Add error page for /read links with invalid source
 - Implement "Read Online" for UP items
+- SFR-2032: Update local API url
+
 
 ## [0.18.1]
 

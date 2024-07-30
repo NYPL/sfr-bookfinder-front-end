@@ -7,7 +7,7 @@ const appConfig = {
   baseUrl: "",
   api: {
     url: {
-      local: "localhost:5000",
+      local: "http://localhost:5050",
       development: "https://drb-api-qa.nypl.org",
       qa: "https://drb-api-qa.nypl.org",
       production: "http://drb-api-qa.nypl.org",
