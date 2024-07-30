@@ -6,6 +6,7 @@
 - Fix broken link on the About page
 - SFR-2008: Automate License Page Headers and Sub-Headers
 - SFR-2033: Verify the external NYPL header links of DRB App
+- SFR-2032: Update local API url
 
 ## [0.18.1]
 
