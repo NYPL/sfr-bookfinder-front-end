@@ -1,50 +1,75 @@
-## NYPL ResearchNow
-
-### ResearchNow Search & Retrieval Application
+# Digital Research Books Frontend
 
 [![GitHub version](https://badge.fury.io/gh/NYPL%2Fsfr-bookfinder-front-end.svg)](https://badge.fury.io/gh/NYPL%2Fsfr-bookfinder-front-end)
 
-Digital Research Books' front end application based on NYPL's React Design System.
+Digital Research Books' front end application based on NYPL's Reservoir Design System.
 
 Provides a "Welcome page" entry point with heading, search box, and tagline. Connects to an ElasticSearch index via an API endpoint (https://digital-research-books-api.nypl.org).
 Simple searches can be entered in the form and an index response is displayed back to the user.
 
-### Requirements
+## Requirements
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-### Contributing: Local Development
+## Contributing: Local Development
 
-Clone the repo and run `npm install`.
+### Getting Started
 
-Create a `.env` file and add the `APP_ENV` and `API_URL`. See `.env.sample` for an example.
+#### Prerequisites
 
-Run `npm run dev` to start the local server at `localhost:3000`
+- Node.js (v18 or later)
+- To view pdfs locally through the webreader, you will need to set up a local proxy. If you used environment variables from `.env.sample` you should be able to pull the [web-reader](https://github.com/NYPL-Simplified/web-reader) repo, install it, and run `npm run cors-proxy`. See the web-reader repo for more [instructions](https://github.com/NYPL-Simplified/web-reader#cors-proxy)
 
-To view pdfs locally through the webreader, you will need to set up a local proxy.  If you used environment variables from `.env.sample` you should be able to pull the [web-reader](https://github.com/NYPL-Simplified/web-reader) repo, install it, and run `npm run cors-proxy`.  See the web-reader repo for more [instructions](https://github.com/NYPL-Simplified/web-reader#cors-proxy)
+1. Install the required packages
+
+```
+npm install
+```
+
+2. Create a `.env` file and add required environment variables. See `.env.sample` for an example.
+
+### Running the app locally with npm at `localhost:3000`
+
+```
+npm run dev
+```
+
+### Local Hosting
 
 In order to successfully login under a local deployment, you will need to update your machine's `etc/hosts` file. This hosts file maps local host names to ip addresses.
 
-Add this to your `etc/hosts` file:
+This is necessary because NYPL's authentication system works by reading cookies and parsing the patron's encrypted credentials. These cookies only work on .nypl.org domains, so we need to map our local deployment to a .nypl.org domain.
+
+Add this line to your `etc/hosts` file:
 
 ```
 	127.0.0.1       local.nypl.org
 ```
 
+### Running the app locally with Docker
+
+1. Download and install Docker.
+2. `cd` into `sfr-bookfinder-front-end` repo
+3. To build and run the application, run:
+
+```
+docker-compose up
+```
+
+4. Check that app is being served at http://localhost:3000
+
 ### Deploying to Production
 
-1. Create a new branch off `development` with the name `NO-REF_prepare-<VERSION>`, i.e. `NO-REF_prepare-1.2.3`. Replace any reference to "Pre-release" and the previous production version in the package.json and package-lock.json files with the current version number. Push the branch and create a Pull Request with the name `NOREF prepare <VERSION> release`, i.e. `NOREF prepare 1.2.3 release`. Merge these changes once the PR is approved. 
+1. Create a new branch off `development` with the name `NO-REF_prepare-<VERSION>`, i.e. `NO-REF_prepare-1.2.3`. Replace any reference to "Pre-release" and the previous production version in the package.json and package-lock.json files with the current version number. Push the branch and create a Pull Request with the name `NOREF prepare <VERSION> release`, i.e. `NOREF prepare 1.2.3 release`. Merge these changes once the PR is approved.
 2. Create a Pull Request to `production` from `development` with the name `Release <VERSION> to production`, i.e. `Release 1.2.3 to production`. The description of the PR should be the new version's changelog to be used in the tag and release step of the .yaml file.
 3. Merge the PR after approval to trigger the [`build-production.yaml`](./.github/workflows/build-production.yaml) GitHub Action, which pushes a Docker image to ECR, updates the `production` ECS deployment, and creates a new release version on GitHub.
 4. Add the link to the PR to the release ticket in Jira and tag the appropriate member of QA, the project manager, and the product manager. Move the ticket to "In QA" and assign it to the appropriate member of QA. QA should be done on https://drb-qa.nypl.org/.
 
-
 ### Dependencies
 
 - NextJS
-- Redux
-- NYPL Header and Footer npm modules
 - NYPL Design System
+- NYPL Web Reader
 
 ### Usage
 

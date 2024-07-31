@@ -10,7 +10,7 @@
 - Add error page for /read links with invalid source
 - Implement "Read Online" for UP items
 - SFR-2032: Update local API url
-
+- Update README with instructions to run app locally
 
 ## [0.18.1]
 
