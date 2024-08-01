@@ -10,6 +10,7 @@
 - Add error page for /read links with invalid source
 - Implement "Read Online" for UP items
 - SFR-2032: Update local API url
+- SFR-2076: Fix DRB PW Regression Tests
 - Update README with instructions to run app locally
 
 ## [0.18.1]
