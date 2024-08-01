@@ -7,17 +7,17 @@ Digital Research Books' front end application based on NYPL's Reservoir Design S
 Provides a "Welcome page" entry point with heading, search box, and tagline. Connects to an ElasticSearch index via an API endpoint (https://digital-research-books-api.nypl.org).
 Simple searches can be entered in the form and an index response is displayed back to the user.
 
-## Requirements
+### Requirements
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Contributing: Local Development
+### Contributing: Local Development
 
-### Getting Started
+#### Getting Started
 
-#### Prerequisites
+##### Prerequisites
 
-- Node.js (v18 or later)
+- Install Node.js v18 or later
 - To view pdfs locally through the webreader, you will need to set up a local proxy. If you used environment variables from `.env.sample` you should be able to pull the [web-reader](https://github.com/NYPL-Simplified/web-reader) repo, install it, and run `npm run cors-proxy`. See the web-reader repo for more [instructions](https://github.com/NYPL-Simplified/web-reader#cors-proxy)
 
 1. Install the required packages
@@ -28,13 +28,13 @@ npm install
 
 2. Create a `.env` file and add required environment variables. See `.env.sample` for an example.
 
-### Running the app locally with npm at `localhost:3000`
+#### Running the app locally with npm at `localhost:3000`
 
 ```
 npm run dev
 ```
 
-### Local Hosting
+#### Local Hosting
 
 In order to successfully login under a local deployment, you will need to update your machine's `etc/hosts` file. This hosts file maps local host names to ip addresses.
 
@@ -46,7 +46,7 @@ Add this line to your `etc/hosts` file:
 	127.0.0.1       local.nypl.org
 ```
 
-### Running the app locally with Docker
+#### Running the app locally with Docker
 
 1. Download and install Docker.
 2. `cd` into `sfr-bookfinder-front-end` repo
@@ -73,7 +73,7 @@ docker-compose up
 
 ### Usage
 
-### Searchbar
+#### Searchbar
 
 Currently takes in a query string to pass along to the ResearchNow Search API which submits a keyword search to the Elasticsearch instance, and renders the returned output. Sends the `query` parameter specified in the rendered search form on the main page.
 
@@ -88,23 +88,23 @@ Term combinations
 
 These types of combinations can be used with any available field selection.
 
-### Filtering
+#### Filtering
 
 Search Results can be filtered by year range, language and available format.
 
-### Advanced Search
+#### Advanced Search
 
 Advanced Search works like the Simple Search, but allows searching for multiple fields and for pre-filtering. Terms use the AND boolean operator
 Term combinations
 
 - Example: Subject:"English Literature" AND Keyword:"Witches"
 
-### Works and Editions
+#### Works and Editions
 
 - Each source record is represented as an Item (something that can actually be read online), which are grouped into Editions (e.g. the 1917 edition of X), which are in turn grouped into Works, (e.g. Moby Dick, or, The Whale). Through this a user can search for and find a single Work record and see all editions of that Work and all of its options for reading online.
 - The information and code for this normalization is found in the [drb-etl-pipeline repo](https://github.com/NYPL/drb-etl-pipeline)
 
-### Accessing books
+#### Accessing books
 
 - Books can be read three ways:
   - Embedded page: DRB embeds a read-online page from a different source. DRB commonly does this for Hathitrust books
