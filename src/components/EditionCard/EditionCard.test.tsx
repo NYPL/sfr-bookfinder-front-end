@@ -8,6 +8,7 @@ import {
   upEdition,
 } from "~/src/__tests__/fixtures/EditionCardFixture";
 import { NYPL_SESSION_ID } from "~/src/constants/auth";
+import { Cookies, CookiesProvider } from "react-cookie";
 
 jest.mock("next/router", () => require("next-router-mock"));
 
@@ -124,8 +125,13 @@ describe("Edition with EDD", () => {
 
   test("Shows EDD Request button when user is logged in", () => {
     // Set cookie before rendering the component
-    document.cookie = `${NYPL_SESSION_ID}="randomvalue"`;
-    render(<EditionCard edition={eddEdition} title={"title"}></EditionCard>);
+    const cookies = new Cookies();
+    cookies.set(NYPL_SESSION_ID, "randomvalue");
+    render(
+      <CookiesProvider cookies={cookies}>
+        <EditionCard edition={eddEdition} title={"title"} />
+      </CookiesProvider>
+    );
 
     expect(
       screen.getByRole("link", { name: "Request scan for title" })
@@ -151,7 +157,6 @@ describe("Edition with EDD", () => {
 
 describe("Edition with UP", () => {
   test("Shows Login button when user is not logged in", () => {
-    document.cookie = `${NYPL_SESSION_ID}=""`;
     render(<EditionCard edition={upEdition} title={"title"}></EditionCard>);
     expect(
       screen.getByRole("link", { name: "title Log in to read online" })
@@ -167,12 +172,17 @@ describe("Edition with UP", () => {
   });
   test("Shows 'Library Card Required' badge", () => {
     render(<EditionCard edition={upEdition} title={"title"} />);
-    expect(screen.getByText("Library Card Required")).toBeInTheDocument();
+    expect(screen.getByText("LIBRARY CARD REQUIRED")).toBeInTheDocument();
   });
   test("Shows Read Online and Download buttons when user is logged in", () => {
     // Set cookie before rendering the component
-    document.cookie = `${NYPL_SESSION_ID}="randomvalue"`;
-    render(<EditionCard edition={upEdition} title={"title"}></EditionCard>);
+    const cookies = new Cookies();
+    cookies.set(NYPL_SESSION_ID, "randomvalue");
+    render(
+      <CookiesProvider cookies={cookies}>
+        <EditionCard edition={upEdition} title={"title"} />
+      </CookiesProvider>
+    );
 
     expect(
       screen.getByRole("link", { name: "title Read Online" })

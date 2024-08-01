@@ -13,6 +13,7 @@ import {
   eddInstance,
   upInstance,
 } from "~/src/__tests__/fixtures/InstanceCardFixture";
+import { Cookies, CookiesProvider } from "react-cookie";
 
 jest.mock("next/router", () => require("next-router-mock"));
 
@@ -114,9 +115,15 @@ describe("Instance with EDD", () => {
 
   test("Shows EDD Request button when user is logged in", () => {
     // Set cookie before rendering the component
-    document.cookie = `${NYPL_SESSION_ID}="randomvalue"`;
+    const cookies = new Cookies();
+    cookies.set(NYPL_SESSION_ID, "randomvalue");
     render(
-      <InstanceCard edition={fullEdition} instance={eddInstance}></InstanceCard>
+      <CookiesProvider cookies={cookies}>
+        <InstanceCard
+          edition={fullEdition}
+          instance={eddInstance}
+        ></InstanceCard>
+      </CookiesProvider>
     );
 
     expect(
@@ -143,7 +150,6 @@ describe("Instance with EDD", () => {
 
 describe("Instance with UP", () => {
   test("Shows Login button when user is not logged in", () => {
-    document.cookie = `${NYPL_SESSION_ID}=""`;
     render(<InstanceCard edition={upEdition} instance={upInstance} />);
     expect(
       screen.getByRole("link", { name: "title Log in to read online" })
@@ -159,12 +165,17 @@ describe("Instance with UP", () => {
   });
   test("Shows 'Library Card Required' badge", () => {
     render(<InstanceCard edition={upEdition} instance={upInstance} />);
-    expect(screen.getByText("Library Card Required")).toBeInTheDocument();
+    expect(screen.getByText("LIBRARY CARD REQUIRED")).toBeInTheDocument();
   });
   test("Shows Read Online and Download buttons when user is logged in", () => {
     // Set cookie before rendering the component
-    document.cookie = `${NYPL_SESSION_ID}="randomvalue"`;
-    render(<InstanceCard edition={upEdition} instance={upInstance} />);
+    const cookies = new Cookies();
+    cookies.set(NYPL_SESSION_ID, "randomvalue");
+    render(
+      <CookiesProvider cookies={cookies}>
+        <InstanceCard edition={upEdition} instance={upInstance} />
+      </CookiesProvider>
+    );
 
     expect(
       screen.getByRole("link", { name: "title Read Online" })

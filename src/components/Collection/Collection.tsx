@@ -8,6 +8,7 @@ import {
   Pagination,
   SimpleGrid,
   TemplateAppContainer,
+  Text,
 } from "@nypl/design-system-react-components";
 import { collectionSortMap } from "~/src/constants/sorts";
 import {
@@ -152,7 +153,11 @@ const Collection: React.FC<{
       <HorizontalRule bg="section.research.primary" marginBottom="xl" />
       <Heading level="h3">In this collection</Heading>
       <Flex justify="space-between" marginBottom="xl" align="center">
-        <Heading level="h3" size="heading5" noSpace>
+        <Text
+          fontSize="desktop.heading.heading5"
+          fontWeight="heading.heading5"
+          noSpace
+        >
           {totalItems > 0
             ? `Viewing ${firstElement.toLocaleString()} - ${
                 totalItems < lastElement
@@ -160,7 +165,7 @@ const Collection: React.FC<{
                   : lastElement.toLocaleString()
               } of ${totalItems.toLocaleString()} items`
             : "Viewing 0 items"}
-        </Heading>
+        </Text>
         <Form id="results-sorts-form">
           <ResultsSorts
             perPage={currentCollectionQuery.perPage}
@@ -171,7 +176,7 @@ const Collection: React.FC<{
           />
         </Form>
       </Flex>
-      <SimpleGrid columns={1} gap="l">
+      <SimpleGrid columns={1} gap="grid.l">
         {publications.map((pub, c) => {
           return (
             <CollectionItem publication={pub} key={`collection-item-${c}`} />

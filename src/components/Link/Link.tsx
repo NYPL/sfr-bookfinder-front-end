@@ -1,12 +1,15 @@
-import * as React from "react";
+import React from "react";
 import BaseLink from "next/link";
-import * as DS from "@nypl/design-system-react-components";
+import {
+  Link as DSLink,
+  LinkTypes,
+} from "@nypl/design-system-react-components";
 
 // allow this component to accept all properties of "a" tag
 interface IProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   to: any;
   modifiers?: string[];
-  linkType?: DS.LinkTypes;
+  linkType?: LinkTypes;
   isUnderlined?: boolean;
 }
 
@@ -19,17 +22,17 @@ const Link = ({
   onClick,
 }: IProps) => {
   return (
-    <BaseLink href={to} passHref legacyBehavior>
-      <DS.Link
-        isUnderlined={isUnderlined}
-        type={linkType}
-        onClick={onClick}
-        aria-label={ariaLabel}
-        __css={{ width: "100%" }}
-      >
-        {children}
-      </DS.Link>
-    </BaseLink>
+    <DSLink
+      href={to}
+      as={BaseLink}
+      isUnderlined={isUnderlined}
+      type={linkType}
+      onClick={onClick}
+      aria-label={ariaLabel}
+      __css={{ width: "100%" }}
+    >
+      {children}
+    </DSLink>
   );
 };
 

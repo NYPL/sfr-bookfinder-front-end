@@ -2,7 +2,26 @@
 
 ## [Pre-release]
 
+- Fix cut off text on search bar dropdown
+- Fix broken link on the About page
+- SFR-2008: Automate License Page Headers and Sub-Headers
+- SFR-2033: Verify the external NYPL header links of DRB App
+- Update PR template with new Jira link
+- Add error page for /read links with invalid source
+- Implement "Read Online" for UP items
+- SFR-2032: Update local API url
+
+
+## [0.18.1]
+
 - SFR-1917: Fixed failing Playwright tests
+- Add APP_ENV build arg in yml file and Dockerfile
+- Update Github Action for release from create-release to action-gh-release
+- SFR-1945: Fixed more failing Playwright tests
+- Update README to include production release information
+- Upgrade NYPL Design System to 3.1.1
+- Upgrade Web Reader to 4.3.4
+- Fix issue where 0 character is shown when there are no authors
 
 ## [0.18.0]
 

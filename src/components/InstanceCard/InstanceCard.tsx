@@ -43,6 +43,7 @@ export const InstanceCard: React.FC<{
       border="1px"
       borderColor="ui.border.default"
       padding="s"
+      paddingLeft={{ base: "l", md: null }}
       paddingBottom="l"
       paddingRight="l"
     >
@@ -61,13 +62,22 @@ export const InstanceCard: React.FC<{
         isAlignedRightActions
         id={`card-${instance.instance_id}`}
         paddingTop="m"
+        flexFlow={{ md: "column nowrap", lg: "row" }}
+        justifyContent={{ md: "center", lg: "left" }}
+        sx={{
+          ".card-right": {
+            maxWidth: { base: "100%", lg: "200px" },
+            marginStart: { base: "0", lg: "m" },
+            marginTop: { base: "xs", lg: 0 },
+          },
+        }}
       >
         <CardHeading
           level="h3"
           size="heading6"
           sx={{ span: { fontSize: "18px" } }}
         >
-          <Flex alignItems="center">
+          <Flex alignItems="center" gap="xs">
             <span>
               {edition.publication_date
                 ? edition.publication_date
@@ -92,6 +102,9 @@ export const InstanceCard: React.FC<{
           display="flex"
           flexDir="column"
           whiteSpace="nowrap"
+          sx={{
+            width: { base: "100%", lg: "200px" },
+          }}
           gap="xs"
         >
           <Ctas item={previewItem} title={instance.title} />
