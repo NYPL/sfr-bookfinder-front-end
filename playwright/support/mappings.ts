@@ -189,8 +189,7 @@ export const elements = {
 
   /** footer locators */
   "accessibility footer link": "//a[@href='http://www.nypl.org/accessibility']",
-  "press footer link":
-    "//a[@href='http://www.nypl.org/help/about-nypl/media-center']",
+  "press footer link": "//a[@href='http://www.nypl.org/press']",
   "careers footer link": "//a[@href='http://www.nypl.org/careers']",
   "space rental footer link": "//a[@href='http://www.nypl.org/spacerental']",
   "privacy policy footer link":
