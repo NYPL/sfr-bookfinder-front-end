@@ -12,6 +12,7 @@
 - SFR-2032: Update local API url
 - SFR-2076: Fix DRB PW Regression Tests
 - Update README with instructions to run app locally
+- Update `butlerlogic/action-autotag` version to be pinned since the stable version is using an unsupported Node version
 
 ## [0.18.1]
 
