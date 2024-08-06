@@ -1,6 +1,6 @@
 # CHANGE LOG
 
-## [Pre-release]
+## [0.18.2]
 
 - Fix cut off text on search bar dropdown
 - Fix broken link on the About page
