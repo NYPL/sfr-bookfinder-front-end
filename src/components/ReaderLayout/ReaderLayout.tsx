@@ -10,6 +10,15 @@ import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
 import dynamic from "next/dynamic";
 import { MediaTypes } from "~/src/constants/mediaTypes";
 import ReaderLogoSvg from "../Svgs/ReaderLogoSvg";
+import Link from "../Link/Link";
+import { addTocToManifest } from "@nypl/web-reader";
+import Loading from "../Loading/Loading";
+import { trackCtaClick } from "~/src/lib/adobe/Analytics";
+import { NYPL_SESSION_ID } from "~/src/constants/auth";
+import { useCookies } from "react-cookie";
+import { useRouter } from "next/router";
+import NotFound404 from "~/src/pages/404";
+
 const WebReader = dynamic(() => import("@nypl/web-reader"), { ssr: false });
 // This is how we can import a css file as a url. It's complex, but necessary
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -21,11 +30,6 @@ import readiumDefault from "!file-loader!extract-loader!css-loader!@nypl/web-rea
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import readiumAfter from "!file-loader!extract-loader!css-loader!@nypl/web-reader/dist/injectable-html-styles/ReadiumCSS-after.css";
-
-import Link from "../Link/Link";
-import { addTocToManifest } from "@nypl/web-reader";
-import Loading from "../Loading/Loading";
-import { trackCtaClick } from "~/src/lib/adobe/Analytics";
 
 const origin =
   typeof window !== "undefined" && window.location?.origin
@@ -67,6 +71,11 @@ const ReaderLayout: React.FC<{
 
   const isEmbed = MediaTypes.embed.includes(link.media_type);
   const isRead = MediaTypes.read.includes(link.media_type);
+  const isLimitedAccess = link.flags.fulfill_limited_access;
+
+  const [cookies] = useCookies([NYPL_SESSION_ID]);
+  const nyplIdentityCookie = cookies[NYPL_SESSION_ID];
+  const router = useRouter();
 
   const pdfWorkerSrc = `${origin}/pdf-worker/pdf.worker.min.js`;
 
@@ -113,7 +122,8 @@ const ReaderLayout: React.FC<{
         if (
           manifest &&
           manifest.readingOrder &&
-          manifest.readingOrder.length === 1
+          manifest.readingOrder.length === 1 &&
+          !isLimitedAccess
         ) {
           const modifiedManifest = await addTocToManifest(
             manifest,
@@ -134,7 +144,7 @@ const ReaderLayout: React.FC<{
       document.getElementById("nypl-header").style.display = "none";
       document.getElementById("nypl-footer").style.display = "none";
     }
-  }, [isRead, pdfWorkerSrc, proxyUrl, url]);
+  }, [isLimitedAccess, isRead, pdfWorkerSrc, proxyUrl, url]);
 
   const BackButton = () => {
     return (
@@ -147,6 +157,10 @@ const ReaderLayout: React.FC<{
       </Link>
     );
   };
+
+  if (!isEmbed && !isRead) {
+    return NotFound404();
+  }
 
   return (
     <>
@@ -176,10 +190,15 @@ const ReaderLayout: React.FC<{
       {isRead && !isLoading && (
         <WebReader
           webpubManifestUrl={manifestUrl}
-          proxyUrl={proxyUrl}
+          proxyUrl={!isLimitedAccess ? proxyUrl : undefined}
           pdfWorkerSrc={pdfWorkerSrc}
           headerLeft={<BackButton />}
           injectablesFixed={injectables}
+          getContent={
+            isLimitedAccess
+              ? EditionCardUtils.createGetContent(nyplIdentityCookie, router)
+              : undefined
+          }
         />
       )}
     </>
