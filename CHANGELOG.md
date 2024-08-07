@@ -1,5 +1,9 @@
 # CHANGE LOG
 
+## Unreleased
+
+- Fix error when collections are empty
+
 ## [0.18.2]
 
 - Fix cut off text on search bar dropdown

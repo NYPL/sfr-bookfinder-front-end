@@ -26,7 +26,7 @@ export const CollectionList: React.FC<{ collections: Opds2Feed }> = ({
 
   return (
     <Box>
-      {collections ? (
+      {collections && collections.groups ? (
         <>
           <SimpleGrid gap="grid.l" columns={numberOfColumns}>
             {collections.groups.map((collection, index) => {
