@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Fix error when collections are empty
+- Fix error when a collection is empty
 
 ## [0.18.2]
 

@@ -177,11 +177,16 @@ const Collection: React.FC<{
         </Form>
       </Flex>
       <SimpleGrid columns={1} gap="grid.l">
-        {publications.map((pub, c) => {
-          return (
-            <CollectionItem publication={pub} key={`collection-item-${c}`} />
-          );
-        })}
+        {publications
+          ? publications.map((pub, c) => {
+              return (
+                <CollectionItem
+                  publication={pub}
+                  key={`collection-item-${c}`}
+                />
+              );
+            })
+          : null}
       </SimpleGrid>
       <Pagination
         pageCount={pageCount}
