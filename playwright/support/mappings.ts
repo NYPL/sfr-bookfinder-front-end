@@ -244,7 +244,7 @@ export const inputs = {
   swimming: "swimming",
   "New York": "New York",
   Poland: "Poland",
-  lisbon: "Lisbon",
+  Lisbon: "Lisbon",
   "1900": "1900",
   "1800": "1800",
   "1835": "1835",
