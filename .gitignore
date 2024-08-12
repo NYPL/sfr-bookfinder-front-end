@@ -24,3 +24,6 @@ newrelic_agent.log
 
 .vscode
 .vscode/launch.json
+
+# playwright
+playwright-report

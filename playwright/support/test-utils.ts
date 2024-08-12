@@ -1,21 +1,18 @@
 /* eslint-disable no-empty-pattern */
 import { test as base, expect } from "@playwright/test";
-import type { SetupServerApi } from "msw/node";
 import { createServer, Server } from "http";
 import { parse } from "url";
 import { AddressInfo } from "net";
 import next from "next";
 import path from "path";
-import { http } from "msw";
-import handlers from "./handlers";
+// import handlers from "~/mocks/handlers";
 
 const test = base.extend<{
-  addCookie(expires?: number): Promise<void>;
+  setCookie(expires?: number): Promise<void>;
   port: string;
-  requestInterceptor: SetupServerApi;
-  http: typeof http;
+  // requestInterceptor: SetupServerApi;
 }>({
-  addCookie: [
+  setCookie: [
     async ({ context }, use, _expires) => {
       async function addCookie(
         expires: number = (Date.now() + 60 * 60 * 24 * 1000) / 1000
@@ -24,7 +21,6 @@ const test = base.extend<{
           name: "nyplIdentityPatron",
           value: JSON.stringify({
             token_type: "Bearer",
-            scope: "openid+offline_access+patron:read",
             access_token: "access-token",
             refresh_token: "refresh-token",
             expires: expires,
@@ -63,24 +59,6 @@ const test = base.extend<{
     },
     { auto: true },
   ],
-  requestInterceptor: [
-    async ({}, use) => {
-      await use(
-        (() => {
-          const { setupServer } = require("msw/node");
-          const requestInterceptor = setupServer(...handlers);
-
-          requestInterceptor.listen({
-            onUnhandledRequest: "bypass",
-          });
-
-          return requestInterceptor;
-        })()
-      );
-    },
-    { auto: true },
-  ],
-  http,
 });
 
 export { test, expect };

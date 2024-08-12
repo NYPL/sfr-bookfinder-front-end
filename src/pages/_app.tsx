@@ -14,6 +14,10 @@ import { pageNames } from "../constants/analytics";
 import { getQueryDecodedString } from "../util/SearchQueryUtils";
 import NewRelicSnippet from "../lib/newrelic/NewRelic";
 
+if (process.env.ENABLE_MSW === "true") {
+  require("mocks");
+}
+
 /**
  * Determines if we are running on server or in the client.
  * @return {boolean} true if running on server
