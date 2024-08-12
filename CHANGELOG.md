@@ -4,6 +4,7 @@
 
 - Fix error when collections are empty
 - Fix error when a collection is empty
+- SFR-2077: Validate top 5 language filters for Frontend DRB search results
 
 ## [0.18.2]
 
