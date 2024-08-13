@@ -32,7 +32,7 @@ const handlers = [
   http.get("https://test-sfr-covers.s3.amazonaws.com/*", passthrough),
   http.get("https://ds-header.nypl.org/*", passthrough),
 
-  http.get(workUrl, ({}) => {
+  http.get(workUrl, () => {
     return HttpResponse.json(workDetailWithUp);
   }),
 
