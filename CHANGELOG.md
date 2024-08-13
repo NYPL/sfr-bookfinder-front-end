@@ -5,6 +5,7 @@
 - Fix error when collections are empty
 - Fix error when a collection is empty
 - SFR-2077: Validate top 5 language filters for Frontend DRB search results
+- Add Playwright integration test for cookie validation
 
 ## [0.18.2]
 
@@ -19,7 +20,6 @@
 - SFR-2076: Fix DRB PW Regression Tests
 - Update README with instructions to run app locally
 - Update `butlerlogic/action-autotag` version to be pinned since the stable version is using an unsupported Node version
-- Add Playwright integration test for cookie validation
 
 ## [0.18.1]
 
