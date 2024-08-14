@@ -4,7 +4,7 @@ async function initMocks() {
     server.listen({
       onUnhandledRequest: "bypass",
     });
-  } else {
+  } else if (typeof window !== "undefined") {
     const { worker } = await import("./browser");
     worker.start();
   }
