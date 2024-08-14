@@ -127,7 +127,7 @@ jobs:
     name: Playwright Integration Tests
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.42.1-jammy
+      image: mcr.microsoft.com/playwright:v1.46.0-jammy
     env:
       CI: true
     steps:
