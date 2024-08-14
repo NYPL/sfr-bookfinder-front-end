@@ -5,10 +5,16 @@ import {
   LIMITED_ACCESS_WORK_PATH,
   NYPL_LOGIN_URL,
 } from "~/mocks/mockEnv";
+import { server } from "~/mocks/server";
 
 test.beforeEach(async ({ context }) => {
   await context.clearCookies();
+  server.listen({
+    onUnhandledRequest: "bypass",
+  });
 });
+test.afterEach(() => server.resetHandlers());
+test.afterAll(() => server.close());
 
 test.describe("Cookie authentication", () => {
   test("redirects to NYPL log in page with no cookie", async ({
@@ -45,7 +51,7 @@ test.describe("Cookie authentication", () => {
     setCookie,
     context,
   }) => {
-    setCookie();
+    await setCookie();
     const cookies = await context.cookies();
     const authCookie = cookies.find(
       (cookie) => cookie.name === "nyplIdentityPatron"

@@ -5,12 +5,10 @@ import { parse } from "url";
 import { AddressInfo } from "net";
 import next from "next";
 import path from "path";
-// import handlers from "~/mocks/handlers";
 
 const test = base.extend<{
   setCookie(expires?: number): Promise<void>;
   port: string;
-  // requestInterceptor: SetupServerApi;
 }>({
   setCookie: [
     async ({ context }, use, _expires) => {

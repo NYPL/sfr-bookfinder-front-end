@@ -14,7 +14,7 @@ import { pageNames } from "../constants/analytics";
 import { getQueryDecodedString } from "../util/SearchQueryUtils";
 import NewRelicSnippet from "../lib/newrelic/NewRelic";
 
-if (process.env.ENABLE_MSW === "true") {
+if (process.env.APP_ENV === "testing") {
   require("mocks");
 }
 

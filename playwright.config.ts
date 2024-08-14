@@ -1,8 +1,4 @@
 import { devices, PlaywrightTestConfig } from "@playwright/test";
-import dotenv from "dotenv";
-
-// uses the .env.test env file
-dotenv.config({ path: "./.env.testing" });
 
 const config: PlaywrightTestConfig = {
   testDir: "playwright/integration",
@@ -24,7 +20,7 @@ const config: PlaywrightTestConfig = {
   reporter: "html",
 
   use: {
-    // headless: true,
+    headless: true,
     // Base URL to use in actions like `await page.goto('/')`.
     baseURL: "http://localhost:3000",
 
@@ -32,6 +28,7 @@ const config: PlaywrightTestConfig = {
      * On CI, turn this feature off. See https://playwright.dev/docs/trace-viewer */
     trace: process.env.CI ? "off" : "retain-on-failure",
   },
+
   // Configure projects for major browsers.
   projects: [
     {
