@@ -180,6 +180,8 @@ jobs:
 
       - name: Build image
         env:
+          APP_ENV: development
           AIRTABLE_KEY: ${{ secrets.AIRTABLE_API_KEY }}
         run: |
-          docker build --build-arg airtable_api_key=$AIRTABLE_KEY .
+          docker build --build-arg airtable_api_key=$AIRTABLE_KEY \
+          --build-arg APP_ENV=$APP_ENV .
