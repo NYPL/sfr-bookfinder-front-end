@@ -7,7 +7,6 @@ const nextConfig = {
   webpack: (config, { isServer }) => {
     config.resolve.alias["~"] = path.resolve(__dirname);
 
-    // should only include these for testing env
     if (process.env.APP_ENV === "testing") {
       if (isServer) {
         config.resolve.alias = {
