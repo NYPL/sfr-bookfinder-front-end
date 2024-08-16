@@ -26,6 +26,7 @@ test.describe("Cookie authentication", () => {
     await page.waitForURL(`**${NYPL_LOGIN_URL}**`);
     const url = new URL(page.url());
     const redirectUri = url.searchParams.get("redirect_uri");
+
     expect(redirectUri).toContain(LIMITED_ACCESS_WORK_PATH);
   });
 
@@ -42,6 +43,7 @@ test.describe("Cookie authentication", () => {
     await page.waitForURL(`**${NYPL_LOGIN_URL}**`);
     const url = new URL(page.url());
     const redirectUri = url.searchParams.get("redirect_uri");
+
     expect(redirectUri).toContain(LIMITED_ACCESS_WORK_PATH);
   });
 
@@ -56,6 +58,7 @@ test.describe("Cookie authentication", () => {
     const authCookie = cookies.find(
       (cookie) => cookie.name === "nyplIdentityPatron"
     );
+
     expect(authCookie.path).toBe("/");
 
     await page.goto(`http://localhost:${port}${LIMITED_ACCESS_WORK_PATH}`);
@@ -63,6 +66,7 @@ test.describe("Cookie authentication", () => {
     const responsePromise = page.waitForResponse(`${API_URL}${FULFILL_PATH}`);
     await page.getByRole("link", { name: "title Download PDF" }).click();
     const response = await responsePromise;
+
     expect(response.status()).toBe(302);
   });
 });
