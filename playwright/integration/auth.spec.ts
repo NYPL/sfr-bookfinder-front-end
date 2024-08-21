@@ -9,9 +9,6 @@ import { server } from "~/mocks/server";
 
 test.beforeEach(async ({ context }) => {
   await context.clearCookies();
-  server.listen({
-    onUnhandledRequest: "bypass",
-  });
 });
 test.afterEach(() => server.resetHandlers());
 test.afterAll(() => server.close());
