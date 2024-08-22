@@ -34,6 +34,7 @@ const nextConfig = {
     NEW_RELIC_LICENSE_KEY: process.env.NEW_RELIC_LICENSE_KEY,
     API_URL: process.env.API_URL,
   },
+  output: "standalone",
 };
 
 module.exports = nextConfig;
