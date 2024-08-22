@@ -76,7 +76,8 @@ export function NewRelicBrowserSetup(environment) {
 
 // This code only embeds the new relic library to the browser, to enable the monitoring, invoke the NewRelicBrowserSetup() function to start.
 export const NewRelicSnippet = () => {
-  if (!process.env.NEW_RELIC_LICENSE_KEY) return null;
+  if (!process.env.NEW_RELIC_LICENSE_KEY || process.env.APP_ENV === "testing")
+    return null;
   return (
     <Script
       type="text/javascript"
