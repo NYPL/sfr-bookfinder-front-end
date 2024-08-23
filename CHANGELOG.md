@@ -6,6 +6,7 @@
 - Fix error when a collection is empty
 - SFR-2077: Validate top 5 language filters for Frontend DRB search results
 - Add Playwright integration test for cookie validation
+- Add Error Boundary for uncaught exceptions
 
 ## [0.18.2]
 

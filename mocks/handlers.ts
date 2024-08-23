@@ -1,7 +1,13 @@
 import { http, HttpResponse, passthrough } from "msw";
+import {
+  collectionItem,
+  oneCollectionListData,
+} from "~/src/__tests__/fixtures/CollectionFixture";
 import { workDetailWithUp } from "~/src/__tests__/fixtures/WorkDetailFixture";
 import {
   API_URL,
+  COLLECTION_LIST_PATH,
+  COLLECTION_PATH,
   DOWNLOAD_PATH,
   FULFILL_PATH,
   LIMITED_ACCESS_WORK_PATH,
@@ -15,6 +21,8 @@ const isAuthenticated = (request) => {
 const workUrl = new URL(LIMITED_ACCESS_WORK_PATH, API_URL).toString();
 const fulfillUrl = new URL(FULFILL_PATH, API_URL).toString();
 const downloadUrl = new URL(DOWNLOAD_PATH, API_URL).toString();
+const collectionListUrl = new URL(COLLECTION_LIST_PATH, API_URL).toString();
+const collectionUrl = new URL(COLLECTION_PATH, API_URL).toString();
 
 /** A collection of handlers to be used by default for all tests. */
 const handlers = [
@@ -54,6 +62,14 @@ const handlers = [
     return new HttpResponse(null, {
       status: 200,
     });
+  }),
+
+  http.get(collectionListUrl, () => {
+    return HttpResponse.json(oneCollectionListData);
+  }),
+
+  http.get(collectionUrl, () => {
+    return HttpResponse.json(collectionItem);
   }),
 ];
 
