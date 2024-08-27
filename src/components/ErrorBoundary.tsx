@@ -14,7 +14,11 @@ class ErrorBoundary extends React.Component<
   ErrorBoundaryProps,
   ErrorBoundaryState
 > {
-  state = { error: undefined, info: undefined };
+  constructor(props) {
+    super(props);
+
+    this.state = { error: undefined, info: undefined };
+  }
 
   static getDerivedStateFromError(error: Error) {
     return { error };
@@ -32,7 +36,7 @@ class ErrorBoundary extends React.Component<
     const { error } = this.state;
 
     if (error) {
-      return <Error statusCode={error.statusCode} />;
+      return <Error statusCode={error} />;
     }
 
     return this.props.children;

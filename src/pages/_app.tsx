@@ -16,7 +16,8 @@ import NewRelicSnippet from "../lib/newrelic/NewRelic";
 import ErrorBoundary from "../components/ErrorBoundary";
 
 if (process.env.APP_ENV === "testing") {
-  require("mocks");
+  const { initMocks } = await import("mocks");
+  await initMocks();
 }
 
 /**
@@ -91,8 +92,8 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 
         <link rel="icon" href={appConfig.favIconPath} />
       </Head>
-      <NewRelicSnippet />
       <ErrorBoundary>
+        <NewRelicSnippet />
         <FeatureFlagProvider>
           <Component {...pageProps} />
         </FeatureFlagProvider>
