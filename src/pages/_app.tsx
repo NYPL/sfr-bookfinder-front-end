@@ -13,9 +13,11 @@ import { trackPageview } from "../lib/adobe/Analytics";
 import { pageNames } from "../constants/analytics";
 import { getQueryDecodedString } from "../util/SearchQueryUtils";
 import NewRelicSnippet from "../lib/newrelic/NewRelic";
+import ErrorBoundary from "../components/ErrorBoundary";
 
 if (process.env.APP_ENV === "testing") {
-  require("mocks");
+  const { initMocks } = await import("mocks");
+  await initMocks();
 }
 
 /**
@@ -90,10 +92,12 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 
         <link rel="icon" href={appConfig.favIconPath} />
       </Head>
-      <NewRelicSnippet />
-      <FeatureFlagProvider>
-        <Component {...pageProps} />
-      </FeatureFlagProvider>
+      <ErrorBoundary>
+        <NewRelicSnippet />
+        <FeatureFlagProvider>
+          <Component {...pageProps} />
+        </FeatureFlagProvider>
+      </ErrorBoundary>
     </>
   );
 };

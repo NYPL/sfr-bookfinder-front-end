@@ -5,10 +5,12 @@ import { parse } from "url";
 import { AddressInfo } from "net";
 import next from "next";
 import path from "path";
+import { http } from "msw";
 
 const test = base.extend<{
   setCookie(expires?: number): Promise<void>;
   port: string;
+  http: typeof http;
 }>({
   setCookie: [
     async ({ context }, use, _expires) => {
@@ -57,6 +59,7 @@ const test = base.extend<{
     },
     { auto: true },
   ],
+  http,
 });
 
 export { test, expect };
