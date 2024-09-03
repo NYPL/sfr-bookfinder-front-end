@@ -7,6 +7,9 @@
 - SFR-2077: Validate top 5 language filters for Frontend DRB search results
 - Add Playwright integration test for cookie validation
 - Add Error Boundary for uncaught exceptions
+- Implement designs for general error page
+- Update Feedback component to use FeedbackContext
+- Update test renderer to include FeedbackProvider wrapper
 
 ## [0.18.2]
 

@@ -14,6 +14,7 @@ import { pageNames } from "../constants/analytics";
 import { getQueryDecodedString } from "../util/SearchQueryUtils";
 import NewRelicSnippet from "../lib/newrelic/NewRelic";
 import ErrorBoundary from "../components/ErrorBoundary";
+import { FeedbackProvider } from "../context/FeedbackContext";
 
 if (process.env.APP_ENV === "testing") {
   const { initMocks } = await import("mocks");
@@ -92,12 +93,14 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 
         <link rel="icon" href={appConfig.favIconPath} />
       </Head>
-      <ErrorBoundary>
-        <NewRelicSnippet />
-        <FeatureFlagProvider>
-          <Component {...pageProps} />
-        </FeatureFlagProvider>
-      </ErrorBoundary>
+      <FeedbackProvider>
+        <ErrorBoundary>
+          <NewRelicSnippet />
+          <FeatureFlagProvider>
+            <Component {...pageProps} />
+          </FeatureFlagProvider>
+        </ErrorBoundary>
+      </FeedbackProvider>
     </>
   );
 };
