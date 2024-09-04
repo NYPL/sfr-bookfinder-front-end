@@ -5,7 +5,23 @@ import { FeedbackContext } from "~/src/context/FeedbackContext";
 
 const Feedback: React.FC<any> = ({ location }) => {
   const [view, setView] = useState<FeedbackBoxViewType>("form");
-  const { FeedbackBox, isOpen, onOpen, onClose } = useContext(FeedbackContext);
+  const {
+    FeedbackBox,
+    isOpen,
+    onOpen,
+    onClose,
+    isError,
+    notificationText,
+    setIsError,
+    setNotificationText,
+  } = useContext(FeedbackContext);
+
+  const onCloseAndReset = () => {
+    if (isError) setIsError(false);
+    if (notificationText) setNotificationText(null);
+    onClose();
+    setView("form");
+  };
 
   const handleFeedbackSubmit = (
     values: React.ComponentProps<typeof FeedbackBox>["onSubmit"]
@@ -25,15 +41,22 @@ const Feedback: React.FC<any> = ({ location }) => {
     setView("confirmation");
   };
 
+  const DEFAULT_DESCRIPTION_TEXT = "Please share your question or feedback.";
+  const ERROR_DESCRIPTION_TEXT = "We are here to help!";
+
   return (
     <FeedbackBox
-      showCategoryField
+      showCategoryField={!isError}
+      showEmailField={isError}
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={onCloseAndReset}
       onOpen={onOpen}
       onSubmit={handleFeedbackSubmit}
       confirmationText="Thank you, your feedback has been submitted."
-      descriptionText="Please share your question or feedback."
+      descriptionText={
+        isError ? ERROR_DESCRIPTION_TEXT : DEFAULT_DESCRIPTION_TEXT
+      }
+      notificationText={notificationText}
       id="feedbackBox-id"
       title="Help and Feedback"
       view={view}

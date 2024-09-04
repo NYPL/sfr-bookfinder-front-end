@@ -7,35 +7,46 @@ import {
   Button,
   Flex,
   Heading,
+  Image,
+  Text,
 } from "@nypl/design-system-react-components";
 import { FeedbackContext } from "../context/FeedbackContext";
 
-const getHeading = (statusCode) => {
-  if (statusCode === 500) {
-    return "500 - Server Error";
-  } else if (statusCode === 404) {
-    return "404 - Page Not Found";
-  } else if (statusCode === 400) {
-    return "400 - Bad Request";
-  } else {
-    return "";
-  }
+const ERROR_PERSISTS = " if the error persists.";
+
+const getNotificationText = (statusCode) => {
+  return `You are asking for help or information about a page error (error code ${statusCode})`;
 };
 
-const getDescription = (statusCode) => {
-  if (statusCode === 500) {
-    return "Oops! Something went wrong while loading this page.";
-  } else if (statusCode === 404) {
-    return "Oops! We couldn't find the page you were looking for.";
-  } else if (statusCode === 400) {
-    return "We weren't able to process your request.";
-  } else {
-    return "";
-  }
+const errorMap = {
+  500: {
+    overline: "error 500",
+    heading: "Something went wrong on our end.",
+    subText: "We encountered an error while trying to load the page. ",
+    tryText: "Try refreshing the page or ",
+  },
+  404: {
+    overline: "error 404",
+    heading: "We couldn't find that page.",
+    subText:
+      "The page you were looking for doesn't exist or may have moved elsewhere. ",
+    tryText: "Try a different URL or ",
+  },
+  400: {
+    overline: "error 500",
+    heading: "There was an unexpected error.",
+    subText: "We couldn't process your request at this time. ",
+    tryText: "Try refreshing the page or ",
+  },
 };
 
 const Error = ({ statusCode }) => {
-  const { onOpen } = useContext(FeedbackContext);
+  const { onOpen, setNotificationText, setIsError } =
+    useContext(FeedbackContext);
+
+  setIsError(true);
+  setNotificationText(getNotificationText(statusCode));
+
   return (
     <Layout>
       <Flex
@@ -44,12 +55,24 @@ const Error = ({ statusCode }) => {
         textAlign="center"
         role="alert"
       >
-        <Heading marginTop="l" marginBottom="s">
-          {getHeading(statusCode)}
+        <Image
+          src="/images/error-img.png"
+          alt=""
+          marginBottom="xl"
+          marginTop="xxxl"
+          width={100}
+        />
+        <Text size="overline1">{errorMap[statusCode].overline}</Text>
+        <Heading marginTop="s" marginBottom="s">
+          {errorMap[statusCode].heading}
         </Heading>
-        <Box>{getDescription(statusCode)}</Box>
         <Box>
-          Please try again or{" "}
+          <Text noSpace display={{ base: "inline-block", md: "block" }}>
+            {errorMap[statusCode].subText}
+          </Text>
+          <Text noSpace display="inline">
+            {errorMap[statusCode].tryText}
+          </Text>
           <Button
             buttonType="text"
             display="inline-block"
@@ -59,12 +82,12 @@ const Error = ({ statusCode }) => {
             padding="0"
           >
             contact us
-          </Button>{" "}
-          if the error persists.
+          </Button>
+          {ERROR_PERSISTS}
         </Box>
-        <Box width="fit-content" marginTop="xl" marginBottom="xxl">
+        <Box width="fit-content" marginTop="xxl" marginBottom="xxxl">
           <Link to="/" linkType="buttonPrimary">
-            Back to DRB homepage
+            Back to Digital Research Books
           </Link>
         </Box>
       </Flex>
