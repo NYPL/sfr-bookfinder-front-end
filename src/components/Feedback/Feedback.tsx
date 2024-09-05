@@ -1,10 +1,16 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { submitFeedback } from "~/src/lib/api/FeedbackApi";
 import { FeedbackBoxViewType } from "@nypl/design-system-react-components";
 import { FeedbackContext } from "~/src/context/FeedbackContext";
 
+const DEFAULT_DESCRIPTION_TEXT = "Please share your question or feedback.";
+const ERROR_DESCRIPTION_TEXT = "We are here to help!";
+
 const Feedback: React.FC<any> = ({ location }) => {
   const [view, setView] = useState<FeedbackBoxViewType>("form");
+  const [descriptionText, setDescriptionText] = useState(
+    DEFAULT_DESCRIPTION_TEXT
+  );
   const {
     FeedbackBox,
     isOpen,
@@ -15,6 +21,11 @@ const Feedback: React.FC<any> = ({ location }) => {
     setIsError,
     setNotificationText,
   } = useContext(FeedbackContext);
+
+  useEffect(() => {
+    if (isError) setDescriptionText(ERROR_DESCRIPTION_TEXT);
+    else setDescriptionText(DEFAULT_DESCRIPTION_TEXT);
+  }, [isError]);
 
   const onCloseAndReset = () => {
     if (isError) setIsError(false);
@@ -28,8 +39,9 @@ const Feedback: React.FC<any> = ({ location }) => {
   ) => {
     submitFeedback({
       feedback: values.comment,
-      category: values.category,
+      category: isError ? "Bug" : values.category,
       url: location,
+      email: values.email,
     })
       .then((res) => {
         if (res.ok) setView("confirmation");
@@ -41,9 +53,6 @@ const Feedback: React.FC<any> = ({ location }) => {
     setView("confirmation");
   };
 
-  const DEFAULT_DESCRIPTION_TEXT = "Please share your question or feedback.";
-  const ERROR_DESCRIPTION_TEXT = "We are here to help!";
-
   return (
     <FeedbackBox
       showCategoryField={!isError}
@@ -53,9 +62,7 @@ const Feedback: React.FC<any> = ({ location }) => {
       onOpen={onOpen}
       onSubmit={handleFeedbackSubmit}
       confirmationText="Thank you, your feedback has been submitted."
-      descriptionText={
-        isError ? ERROR_DESCRIPTION_TEXT : DEFAULT_DESCRIPTION_TEXT
-      }
+      descriptionText={descriptionText}
       notificationText={notificationText}
       id="feedbackBox-id"
       title="Help and Feedback"

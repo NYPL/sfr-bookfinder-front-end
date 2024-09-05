@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { NextPageContext } from "next";
 import Layout from "../components/Layout/Layout";
 import Link from "../components/Link/Link";
@@ -44,8 +44,10 @@ const Error = ({ statusCode }) => {
   const { onOpen, setNotificationText, setIsError } =
     useContext(FeedbackContext);
 
-  setIsError(true);
-  setNotificationText(getNotificationText(statusCode));
+  useEffect(() => {
+    setIsError(true);
+    setNotificationText(getNotificationText(statusCode));
+  }, [setIsError, setNotificationText, statusCode]);
 
   return (
     <Layout>
@@ -67,7 +69,7 @@ const Error = ({ statusCode }) => {
           {errorMap[statusCode].heading}
         </Heading>
         <Box>
-          <Text noSpace display={{ base: "inline-block", md: "block" }}>
+          <Text noSpace display={{ base: "inline", md: "block" }}>
             {errorMap[statusCode].subText}
           </Text>
           <Text noSpace display="inline">

@@ -8,19 +8,21 @@ type FeedbackContextType = {
   FeedbackBox: ChakraComponent<any>;
   onClose: () => void;
   isOpen?: boolean;
-  isError?: boolean;
-  setIsError: (value: boolean) => void;
-  notificationText: string;
-  setNotificationText: (value: string) => void;
+  isError: boolean | null;
+  setIsError: React.Dispatch<React.SetStateAction<boolean | null>>;
+  notificationText: string | null;
+  setNotificationText: React.Dispatch<React.SetStateAction<string | null>>;
 };
 
-export const FeedbackContext = createContext<FeedbackContextType | null>(null);
+export const FeedbackContext = createContext<FeedbackContextType | undefined>(
+  undefined
+);
 
 export const FeedbackProvider: React.FC<{
   children?: React.ReactNode;
 }> = ({ children }) => {
   const { FeedbackBox, isOpen, onOpen, onClose } = useFeedbackBox();
-  const [isError, setIsError] = useState(false);
+  const [isError, setIsError] = useState(null);
   const [notificationText, setNotificationText] = useState(null);
 
   return (
