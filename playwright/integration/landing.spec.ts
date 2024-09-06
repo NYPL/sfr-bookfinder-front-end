@@ -28,6 +28,6 @@ test("Shows error boundary for invalid collection", async ({ page, port }) => {
   await page.goto(`http://localhost:${port}${INVALID_COLLECTION_PATH}`);
 
   const alert = page.getByRole("alert");
-  const errorText = alert.getByText("An error 500 occurred on server");
+  const errorText = alert.getByText("Something went wrong on our end");
   await expect(errorText).toBeVisible();
 });
