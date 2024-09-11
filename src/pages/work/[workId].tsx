@@ -8,6 +8,7 @@ import { workFetcher } from "~/src/lib/api/SearchApi";
 import { WorkQuery, WorkResult } from "~/src/types/WorkQuery";
 import { getBackToSearchUrl } from "~/src/util/LinkUtils";
 import { truncateStringOnWhitespace } from "~/src/util/Util";
+import Error from "../_error";
 
 export async function getServerSideProps(context: any) {
   //TODO: Default query
@@ -28,6 +29,10 @@ export async function getServerSideProps(context: any) {
 }
 
 const WorkResults: React.FC<any> = (props) => {
+  if (props.workResult.status !== 200) {
+    return <Error statusCode={props.workResult.status} />;
+  }
+
   return (
     <Layout>
       <Head>

@@ -19,4 +19,7 @@ export const CollectionQueryDefaults: CollectionQuery = {
   sort: "relevance",
 };
 
-export type CollectionResult = Opds2Feed;
+export type CollectionResult = {
+  collections: Opds2Feed;
+  statusCode?: number;
+};

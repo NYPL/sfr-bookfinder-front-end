@@ -8,6 +8,7 @@ import { documentTitles } from "~/src/constants/labels";
 import Head from "next/head";
 import { MAX_PAGE_TITLE_LENGTH } from "~/src/constants/editioncard";
 import { truncateStringOnWhitespace } from "~/src/util/Util";
+import Error from "../_error";
 
 export async function getServerSideProps(context: any) {
   const editionQuery: EditionQuery = {
@@ -26,7 +27,11 @@ export async function getServerSideProps(context: any) {
   };
 }
 
-const WorkResults: React.FC<any> = (props) => {
+const EditionResults: React.FC<any> = (props) => {
+  if (props.editionResult.status !== 200) {
+    return <Error statusCode={props.editionResult.status} />;
+  }
+
   return (
     <Layout>
       <Head>
@@ -42,4 +47,4 @@ const WorkResults: React.FC<any> = (props) => {
   );
 };
 
-export default WorkResults;
+export default EditionResults;

@@ -4,6 +4,7 @@ import Layout from "~/src/components/Layout/Layout";
 import Landing from "../components/Landing/Landing";
 import { collectionFetcher } from "../lib/api/CollectionApi";
 import { CollectionResult } from "../types/CollectionQuery";
+import Error from "./_error";
 
 export async function getServerSideProps() {
   // Fetch all collections
@@ -14,12 +15,17 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      collections: collectionResult,
+      collections: collectionResult.collections,
+      statusCode: collectionResult.statusCode,
     },
   };
 }
 
 const LandingPage: React.FC<any> = (props) => {
+  if (props.statusCode) {
+    return <Error statusCode={props.statusCode} />;
+  }
+
   return (
     <Layout>
       <Landing collections={props.collections} />
