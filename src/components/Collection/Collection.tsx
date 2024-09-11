@@ -39,10 +39,11 @@ const Collection: React.FC<{
     ...CollectionQueryDefaults,
     ...collectionQuery,
   });
+  const collections = collectionResult.collections;
 
-  if (!collectionResult) return <Loading />;
+  if (!collections) return <Loading />;
 
-  const { metadata, links, publications } = collectionResult;
+  const { metadata, links, publications } = collections;
   const { itemsPerPage, numberOfItems, currentPage, title, description } =
     metadata;
   const totalItems = numberOfItems;
