@@ -41,13 +41,15 @@ const errorMap = {
 };
 
 const Error = ({ statusCode }) => {
-  const { onOpen, setNotificationText, setIsError } =
+  const { onOpen, isError, setNotificationText, setIsError } =
     useContext(FeedbackContext);
 
   useEffect(() => {
-    setIsError(true);
-    setNotificationText(getNotificationText(statusCode));
-  }, [setIsError, setNotificationText, statusCode]);
+    if (!isError) {
+      setIsError(true);
+      setNotificationText(getNotificationText(statusCode));
+    }
+  }, [isError, setIsError, setNotificationText, statusCode]);
 
   return (
     <Layout>
