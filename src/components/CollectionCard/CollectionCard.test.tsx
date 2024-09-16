@@ -5,7 +5,7 @@ import { collectionData } from "~/src/__tests__/fixtures/CollectionFixture";
 
 describe("Collection list", () => {
   beforeEach(() => {
-    render(<CollectionCard collection={collectionData} />);
+    render(<CollectionCard collection={collectionData.collections} />);
   });
   test("shows Title as heading", () => {
     expect(

@@ -11,7 +11,7 @@ import mockRouter from "next-router-mock";
 jest.mock("next/router", () => require("next-router-mock"));
 
 const defaultLanguages: ApiLanguageResponse = {
-  status: "200",
+  status: 200,
   data: [
     { language: "english", count: 25 },
     { language: "french", count: 30 },
@@ -57,7 +57,7 @@ describe("renders advanced search correctly", () => {
   });
 
   test("Hides languages when no languages are passed", () => {
-    render(<AdvancedSearch languages={{ status: "200", data: [] }} />);
+    render(<AdvancedSearch languages={{ status: 200, data: [] }} />);
     expect(
       screen.queryByRole("group", { name: "Languages" })
     ).not.toBeInTheDocument();
