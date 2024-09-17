@@ -1,5 +1,5 @@
 export type ApiLanguageResponse = {
-  status?: string;
+  status?: number;
   data?: ApiLanguage[];
 };
 

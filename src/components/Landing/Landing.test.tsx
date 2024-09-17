@@ -15,7 +15,7 @@ import {
 
 describe("Renders Index Page", () => {
   beforeEach(async () => {
-    render(<LandingPage collections={collectionListData} />);
+    render(<LandingPage collections={collectionListData.collections} />);
 
     // Wait for page to be loaded
     await screen.findByRole("heading", {

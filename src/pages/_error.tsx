@@ -33,7 +33,7 @@ const errorMap = {
     tryText: "Try a different URL or ",
   },
   400: {
-    overline: "error 500",
+    overline: "error 400",
     heading: "There was an unexpected error.",
     subText: "We couldn't process your request at this time. ",
     tryText: "Try refreshing the page or ",

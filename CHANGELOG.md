@@ -10,6 +10,7 @@
 - Implement designs for general error page
 - Update Feedback component to use FeedbackContext
 - Update test renderer to include FeedbackProvider wrapper
+- Update pages to render Error page when there is a server-side error
 
 ## [0.18.2]
 

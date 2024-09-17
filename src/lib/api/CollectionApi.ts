@@ -1,5 +1,6 @@
 import appConfig from "~/config/appConfig";
-import { CollectionQuery, CollectionResult } from "~/src/types/CollectionQuery";
+import { CollectionQuery } from "~/src/types/CollectionQuery";
+import { Opds2Feed } from "~/src/types/OpdsModel";
 import {
   toApiCollectionQuery,
   toLocationQuery,
@@ -18,17 +19,11 @@ export const collectionFetcher = async (query: CollectionQuery) => {
     toLocationQuery(collectionApiQuery)
   ).toString();
   const res = await fetch(url.toString());
+  const collectionResult: Opds2Feed = await res.json();
 
   if (res.ok) {
-    try {
-      const collectionResult: CollectionResult = await res.json();
-      return collectionResult;
-    } catch (e) {
-      throw new Error(e.error);
-    }
+    return { collections: collectionResult, statusCode: null };
   } else {
-    throw new Error(
-      `cannot find collection with identifier ${query.identifier}`
-    );
+    return { collections: collectionResult, statusCode: res.status };
   }
 };
