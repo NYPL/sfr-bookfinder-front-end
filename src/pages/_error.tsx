@@ -36,7 +36,7 @@ const errorMap = {
     overline: "error 400",
     heading: "There was an unexpected error.",
     subText: "We couldn't process your request at this time. ",
-    tryText: "Try refreshing the page or ",
+    tryText: "Try again later or ",
   },
 };
 
