@@ -11,6 +11,8 @@
 - Update Feedback component to use FeedbackContext
 - Update test renderer to include FeedbackProvider wrapper
 - Update pages to render Error page when there is a server-side error
+- Update newrelic to 12.5.0 and @newrelic/next to 0.10.0
+- Add error logging to New Relic for API route errors and client side errors
 
 ## [0.18.2]
 

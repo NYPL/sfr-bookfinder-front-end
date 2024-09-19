@@ -21,6 +21,7 @@ export type ApiEdition = {
   inCollections?: OpdsMetadata[];
   instances: Instance[];
   languages?: Language[];
+  message?: string;
   publication_date?: string;
   publication_place?: string;
   publishers?: Agent[];

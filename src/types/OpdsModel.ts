@@ -5,6 +5,7 @@ export type Opds2Feed = {
   groups?: Opds2Feed[];
   images?: OpdsImage[];
   links: OpdsLink[];
+  message?: string;
   metadata: OpdsMetadata;
   navigation?: OpdsNavigation[];
   publications?: OpdsPublication[];
