@@ -1,6 +1,6 @@
 import React from "react";
 import { EditionCard } from "./EditionCard";
-import { screen, render } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { PLACEHOLDER_COVER_LINK } from "~/src/constants/editioncard";
 import {
   eddEdition,
@@ -9,8 +9,7 @@ import {
 } from "~/src/__tests__/fixtures/EditionCardFixture";
 import { NYPL_SESSION_ID } from "~/src/constants/auth";
 import { Cookies, CookiesProvider } from "react-cookie";
-
-jest.mock("next/router", () => require("next-router-mock"));
+import { render } from "~/src/__tests__/testUtils/render";
 
 describe("Edition Card with Valid Data", () => {
   beforeEach(() => {

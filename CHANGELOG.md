@@ -12,6 +12,7 @@
 - Update test renderer to include FeedbackProvider wrapper
 - Update pages to render Error page when there is a server-side error
 - Update `actions/checkout`, `actions/setup-node`, `aws-actions/configure-aws-credentials`, and `aws-actions/amazon-ecr-login` Github action versions
+- Update unit tests to use custom render function
 
 ## [0.18.2]
 

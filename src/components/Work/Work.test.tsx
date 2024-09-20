@@ -1,6 +1,6 @@
 import React from "react";
 import Work from "./Work";
-import { screen, render, within } from "@testing-library/react";
+import { screen, within } from "@testing-library/react";
 import { breadcrumbTitles, inputTerms } from "~/src/constants/labels";
 import {
   workDetail as apiWork,
@@ -9,8 +9,7 @@ import {
 } from "../../__tests__/fixtures/WorkDetailFixture";
 import mockRouter from "next-router-mock";
 import userEvent from "@testing-library/user-event";
-
-jest.mock("next/router", () => require("next-router-mock"));
+import { render } from "~/src/__tests__/testUtils/render";
 
 const backUrl = "/search?query=keyword%3AYoruba&sort=title%3ADESC";
 

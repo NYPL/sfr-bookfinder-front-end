@@ -11,8 +11,6 @@ import {
 import mockRouter from "next-router-mock";
 import userEvent from "@testing-library/user-event";
 
-jest.mock("next/router", () => require("next-router-mock"));
-
 const collectionResults: CollectionResult = collectionData;
 const collectionQuery: CollectionQuery = {
   identifier: "id",

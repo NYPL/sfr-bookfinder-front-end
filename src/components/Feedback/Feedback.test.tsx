@@ -3,7 +3,6 @@ import { render } from "../../__tests__/testUtils/render";
 import { screen } from "@testing-library/react";
 import Feedback from "./Feedback";
 import userEvent from "@testing-library/user-event";
-jest.mock("next/router", () => require("next-router-mock"));
 
 describe("Feedback", () => {
   beforeEach(() => {
