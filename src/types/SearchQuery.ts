@@ -49,8 +49,8 @@ export type ApiSearchResult = {
   timestamp?: string;
   responseType?: string;
   data?: {
-    totalWorks?: number;
     facets: { formats: FacetItem[]; languages: FacetItem[] };
+    message?: string;
     paging: {
       currentPage: number;
       firstPage: number;
@@ -59,6 +59,7 @@ export type ApiSearchResult = {
       previousPage: number;
       recordsPerPage: number;
     };
+    totalWorks?: number;
     works: ApiWork[];
   };
 };

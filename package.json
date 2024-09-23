@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@chakra-ui/react": "2.5.4",
-    "@newrelic/next": "^0.7.0",
+    "@newrelic/next": "0.10.0",
     "@nypl/design-system-react-components": "3.1.1",
     "@nypl/web-reader": "4.3.5",
     "@types/node": "^16.11.6",
@@ -25,7 +25,7 @@
     "extract-loader": "^5.1.0",
     "file-loader": "^6.2.0",
     "focus-trap-react": "^10.0.0",
-    "newrelic": "^11.12.0",
+    "newrelic": "12.5.0",
     "next": "^13.5.6",
     "next-transpile-modules": "^7.0.0",
     "react": "^18.2.0",

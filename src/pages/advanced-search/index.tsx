@@ -16,10 +16,10 @@ export async function getServerSideProps() {
 }
 
 const AdvancedSearchPage: React.FC<any> = (props) => {
-  const { languages, status } = props;
+  const { languages } = props;
 
-  if (status !== 200) {
-    return <Error statusCode={status} />;
+  if (languages.status !== 200) {
+    return <Error statusCode={languages.status} />;
   }
 
   return (

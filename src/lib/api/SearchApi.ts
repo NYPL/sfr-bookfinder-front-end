@@ -8,6 +8,7 @@ import { ApiLanguageResponse } from "~/src/types/LanguagesQuery";
 import { LOGIN_LINK_BASE } from "~/src/constants/links";
 import { NextRouter } from "next/router";
 import { FulfillResult } from "~/src/types/FulfillQuery";
+import { log } from "../newrelic/NewRelic";
 
 const apiEnv = process.env["APP_ENV"];
 const apiUrl = process.env["API_URL"] || appConfig.api.url[apiEnv];
@@ -51,7 +52,8 @@ export const searchResultsFetcher = async (apiQuery: ApiSearchQuery) => {
   const searchResult: ApiSearchResult = await res.json();
 
   if (!res.ok) {
-    // TODO: Add NR tracking
+    const err = new Error(searchResult.data.message);
+    log(err, JSON.stringify(searchResult));
   }
   return searchResult;
 };
@@ -70,7 +72,8 @@ export const workFetcher = async (query: WorkQuery) => {
   const workResult: WorkResult = await res.json();
 
   if (!res.ok) {
-    // TODO: Add NR tracking
+    const err = new Error(workResult.data.message);
+    log(err, JSON.stringify(workResult));
   }
 
   return workResult;
@@ -90,7 +93,8 @@ export const editionFetcher = async (query: EditionQuery) => {
   const editionResult: EditionResult = await res.json();
 
   if (!res.ok) {
-    // TODO: Add NR tracking
+    const err = new Error(editionResult.data.message);
+    log(err, JSON.stringify(editionResult));
   }
 
   return editionResult;
@@ -103,7 +107,8 @@ export const languagesFetcher = async () => {
   const languagesResult: ApiLanguageResponse = await res.json();
 
   if (!res.ok) {
-    // TODO: Add NR tracking
+    const err = new Error(`Cannot find list of languages`);
+    log(err, JSON.stringify(languagesResult));
   }
 
   return languagesResult;
@@ -115,7 +120,8 @@ export const readFetcher = async (linkId: number) => {
   const linkResult: LinkResult = await res.json();
 
   if (!res.ok) {
-    // TODO: Add NR tracking
+    const err = new Error(linkResult.data.message);
+    log(err, JSON.stringify(linkResult));
   }
 
   return linkResult;

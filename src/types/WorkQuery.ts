@@ -25,6 +25,7 @@ export type ApiWork = {
   languages?: Language[];
   measurements?: string[];
   medium?: string;
+  message?: string;
   series?: string;
   series_position?: string;
   sub_title?: string;

@@ -1,4 +1,5 @@
 import React, { ErrorInfo } from "react";
+import { log } from "../lib/newrelic/NewRelic";
 import Error from "../pages/_error";
 
 interface ErrorBoundaryProps {
@@ -25,7 +26,8 @@ class ErrorBoundary extends React.Component<
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    // TODO: add logging to New Relic
+    log(error, JSON.stringify(errorInfo));
+
     this.setState({
       error,
       info: errorInfo,
