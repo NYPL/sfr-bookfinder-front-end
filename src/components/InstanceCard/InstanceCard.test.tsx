@@ -1,6 +1,6 @@
 import React from "react";
 import { InstanceCard } from "./InstanceCard";
-import { screen, render } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { Instance, WorkEdition } from "~/src/types/DataModel";
 import { PLACEHOLDER_COVER_LINK } from "~/src/constants/editioncard";
 import {
@@ -14,8 +14,7 @@ import {
   upInstance,
 } from "~/src/__tests__/fixtures/InstanceCardFixture";
 import { Cookies, CookiesProvider } from "react-cookie";
-
-jest.mock("next/router", () => require("next-router-mock"));
+import { render } from "~/src/__tests__/testUtils/render";
 
 describe("Instance Card with Valid Data", () => {
   beforeEach(() => {

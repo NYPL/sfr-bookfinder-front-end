@@ -14,6 +14,7 @@
 - Update newrelic to 12.5.0 and @newrelic/next to 0.10.0
 - Add error logging to New Relic for API route errors and client side errors
 - Update `actions/checkout`, `actions/setup-node`, `aws-actions/configure-aws-credentials`, and `aws-actions/amazon-ecr-login` Github action versions
+- Update unit tests to use custom render function
 
 ## [0.18.2]
 

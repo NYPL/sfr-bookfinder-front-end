@@ -1,17 +1,17 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import LandingPage from "./Landing";
 import {
   searchFormRenderTests,
   searchFormTests,
 } from "../../__tests__/componentHelpers/SearchForm";
 
-jest.mock("next/router", () => require("next-router-mock"));
 import mockRouter from "next-router-mock";
 import {
   collectionListData,
   collections,
 } from "~/src/__tests__/fixtures/CollectionFixture";
+import { render } from "~/src/__tests__/testUtils/render";
 
 describe("Renders Index Page", () => {
   beforeEach(async () => {

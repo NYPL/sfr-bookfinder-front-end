@@ -18,8 +18,6 @@ import { findFiltersForField } from "../util/SearchQueryUtils";
 import filterFields from "../constants/filters";
 import mockRouter from "next-router-mock";
 
-jest.mock("next/router", () => require("next-router-mock"));
-
 const searchResults: ApiSearchResult = require("./fixtures/results-list.json");
 const searchQuery: SearchQuery = {
   queries: [{ field: SearchField.Keyword, query: "Animal Crossing" }],

@@ -1,6 +1,6 @@
 import React from "react";
 import AdvancedSearch from "../components/AdvancedSearch/AdvancedSearch";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { FilterLanguagesCommonTests } from "./componentHelpers/FilterLanguages";
 import { FilterYearsTests } from "./componentHelpers/FilterYears";
 import { FilterFormatTests } from "./componentHelpers/FilterFormats";
@@ -8,7 +8,7 @@ import userEvent from "@testing-library/user-event";
 import { errorMessagesText, inputTerms } from "../constants/labels";
 import { ApiLanguageResponse } from "../types/LanguagesQuery";
 import mockRouter from "next-router-mock";
-jest.mock("next/router", () => require("next-router-mock"));
+import { render } from "./testUtils/render";
 
 const defaultLanguages: ApiLanguageResponse = {
   status: 200,

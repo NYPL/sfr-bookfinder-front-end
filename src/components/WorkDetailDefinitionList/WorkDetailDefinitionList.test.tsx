@@ -1,8 +1,9 @@
 import React from "react";
 import WorkDetailDefinitionList from "./WorkDetailDefinitionList";
-import { screen, render } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { ApiWork } from "~/src/types/WorkQuery";
 import { workDetail as apiWork } from "../../__tests__/fixtures/WorkDetailFixture";
+import { render } from "~/src/__tests__/testUtils/render";
 
 describe("Work Detail table with all information", () => {
   beforeEach(() => {

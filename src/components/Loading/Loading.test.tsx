@@ -1,5 +1,6 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import React from "react";
+import { render } from "~/src/__tests__/testUtils/render";
 import Loading from "./Loading";
 
 describe("Loading page", () => {
