@@ -36,6 +36,12 @@ ENV APP_ENV $APP_ENV
 FROM base AS runner
 WORKDIR /app
 
+# We need to expose these ARG again, they are needed for browser monitor
+ARG NEW_RELIC_APP_NAME
+ARG NEW_RELIC_LICENSE_KEY
+ENV NEW_RELIC_APP_NAME $NEW_RELIC_APP_NAME
+ENV NEW_RELIC_LICENSE_KEY $NEW_RELIC_LICENSE_KEY
+
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 

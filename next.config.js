@@ -1,5 +1,7 @@
 const path = require("path");
 
+const nrExternals = require("newrelic/load-externals");
+
 /**
  * @type {import('next').NextConfig}
  */
@@ -23,6 +25,11 @@ const nextConfig = {
         };
       }
     }
+
+    // In order for newrelic to effectively instrument a Next.js application,
+    // the modules that newrelic supports should not be mangled by webpack. Thus,
+    // we need to "externalize" all of the modules that newrelic supports.
+    config = nrExternals(config);
 
     return config;
   },
