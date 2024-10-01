@@ -1,6 +1,6 @@
 # CHANGE LOG
 
-## Unreleased
+## [0.18.3]
 
 - Fix error when collections are empty
 - Fix error when a collection is empty
