@@ -13,6 +13,13 @@ import { trackPageview } from "../lib/adobe/Analytics";
 import { pageNames } from "../constants/analytics";
 import { getQueryDecodedString } from "../util/SearchQueryUtils";
 import NewRelicSnippet from "../lib/newrelic/NewRelic";
+import ErrorBoundary from "../components/ErrorBoundary";
+import { FeedbackProvider } from "../context/FeedbackContext";
+
+if (process.env.APP_ENV === "testing") {
+  const { initMocks } = await import("mocks");
+  await initMocks();
+}
 
 /**
  * Determines if we are running on server or in the client.
@@ -86,10 +93,14 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 
         <link rel="icon" href={appConfig.favIconPath} />
       </Head>
-      <NewRelicSnippet />
-      <FeatureFlagProvider>
-        <Component {...pageProps} />
-      </FeatureFlagProvider>
+      <FeedbackProvider>
+        <ErrorBoundary>
+          <NewRelicSnippet />
+          <FeatureFlagProvider>
+            <Component {...pageProps} />
+          </FeatureFlagProvider>
+        </ErrorBoundary>
+      </FeedbackProvider>
     </>
   );
 };

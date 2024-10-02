@@ -1,42 +1,67 @@
-# Build the environment.
-FROM node:18-alpine
+FROM node:18-alpine AS base
 
-WORKDIR /
-
-ARG airtable_api_key
-
-# Newrelic settings
-ARG NEW_RELIC_LICENSE_KEY
-ARG NEW_RELIC_APP_NAME 
-
-ARG NEXT_PUBLIC_ADOBE_ANALYTICS 
-
-ARG APP_ENV
-
-# Set environment variables. NODE_ENV is set early because we
-# want to use it when running `npm install` and `npm run build`.
-ENV PATH /app/node_modules/.bin:$PATH
-ENV PORT=3000 \
-    NODE_ENV=production
-ENV NEXT_PUBLIC_AIRTABLE_API_KEY $airtable_api_key
-# Sets READER_VERSION at build time.  To revert, remove this variable entirely.
-ENV NEXT_PUBLIC_READER_VERSION=v2
-ENV NEW_RELIC_LICENSE_KEY $NEW_RELIC_LICENSE_KEY
-ENV NEW_RELIC_APP_NAME $NEW_RELIC_APP_NAME
-ENV NEXT_PUBLIC_ADOBE_ANALYTICS $NEXT_PUBLIC_ADOBE_ANALYTICS
-ENV APP_ENV $APP_ENV
+# Install dependencies only when needed
+FROM base AS deps
+WORKDIR /app
 
 # Install dependencies.
 COPY package.json package-lock.json ./
 RUN npm ci --cache .npm
 
-# Copy the app files.
-COPY . ./
+# Rebuild the source code only when needed
+FROM base AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
 
-EXPOSE $PORT
+ARG airtable_api_key
+ARG NEW_RELIC_LICENSE_KEY
+ARG NEW_RELIC_APP_NAME 
+ARG NEXT_PUBLIC_ADOBE_ANALYTICS 
+ARG APP_ENV
 
 # Build the app!
 RUN npm run build
 
-# CMD is the default command when running the docker container.
-CMD npm run start:newrelic
+ENV PATH /app/node_modules/.bin:$PATH
+ENV PORT=3000 \
+    NODE_ENV=production
+ENV NEXT_PUBLIC_AIRTABLE_API_KEY $airtable_api_key
+ENV NEW_RELIC_LICENSE_KEY $NEW_RELIC_LICENSE_KEY
+ENV NEW_RELIC_APP_NAME $NEW_RELIC_APP_NAME
+ENV NEXT_PUBLIC_ADOBE_ANALYTICS $NEXT_PUBLIC_ADOBE_ANALYTICS
+ENV APP_ENV $APP_ENV
+
+# RUNNER, copy all the files and run next
+FROM base AS runner
+WORKDIR /app
+
+# We need to expose these ARG again, they are needed for browser monitor
+ARG NEW_RELIC_APP_NAME
+ARG NEW_RELIC_LICENSE_KEY
+ENV NEW_RELIC_APP_NAME $NEW_RELIC_APP_NAME
+ENV NEW_RELIC_LICENSE_KEY $NEW_RELIC_LICENSE_KEY
+
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+# Set the correct permission for prerender cache
+RUN mkdir .next
+RUN chown nextjs:nodejs .next
+
+COPY --from=builder /app/next.config.js ./
+COPY --from=builder /app/public ./public
+
+# Automatically leverage output traces to reduce image size 
+# https://nextjs.org/docs/advanced-features/output-file-tracing
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/newrelic.js ./newrelic.js
+
+USER nextjs
+
+EXPOSE $PORT
+
+ENTRYPOINT ["node", "server.js"]
+
+CMD ["r", "@newrelic/next"]

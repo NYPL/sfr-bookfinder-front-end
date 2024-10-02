@@ -1,6 +1,6 @@
 import React from "react";
 import AdvancedSearch from "../components/AdvancedSearch/AdvancedSearch";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { FilterLanguagesCommonTests } from "./componentHelpers/FilterLanguages";
 import { FilterYearsTests } from "./componentHelpers/FilterYears";
 import { FilterFormatTests } from "./componentHelpers/FilterFormats";
@@ -8,10 +8,10 @@ import userEvent from "@testing-library/user-event";
 import { errorMessagesText, inputTerms } from "../constants/labels";
 import { ApiLanguageResponse } from "../types/LanguagesQuery";
 import mockRouter from "next-router-mock";
-jest.mock("next/router", () => require("next-router-mock"));
+import { render } from "./testUtils/render";
 
 const defaultLanguages: ApiLanguageResponse = {
-  status: "200",
+  status: 200,
   data: [
     { language: "english", count: 25 },
     { language: "french", count: 30 },
@@ -57,7 +57,7 @@ describe("renders advanced search correctly", () => {
   });
 
   test("Hides languages when no languages are passed", () => {
-    render(<AdvancedSearch languages={{ status: "200", data: [] }} />);
+    render(<AdvancedSearch languages={{ status: 200, data: [] }} />);
     expect(
       screen.queryByRole("group", { name: "Languages" })
     ).not.toBeInTheDocument();

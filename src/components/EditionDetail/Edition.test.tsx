@@ -1,6 +1,6 @@
 import React from "react";
 import Edition from "./Edition";
-import { screen, render, within } from "@testing-library/react";
+import { screen, within } from "@testing-library/react";
 import { breadcrumbTitles, inputTerms } from "~/src/constants/labels";
 import {
   editionDetail as apiEdition,
@@ -8,8 +8,7 @@ import {
 } from "../../__tests__/fixtures/EditionDetailFixture";
 import mockRouter from "next-router-mock";
 import userEvent from "@testing-library/user-event";
-
-jest.mock("next/router", () => require("next-router-mock"));
+import { render } from "~/src/__tests__/testUtils/render";
 
 const backUrl = "/search?query=author%3AEdgar%2C+John%2C+1876-";
 

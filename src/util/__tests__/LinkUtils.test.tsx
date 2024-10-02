@@ -4,7 +4,6 @@ import {
   getBackUrl,
 } from "../LinkUtils";
 import mockRouter from "next-router-mock";
-jest.mock("next/router", () => require("next-router-mock"));
 
 describe("Generates back url", () => {
   const host = "drb-qa.nypl.org";

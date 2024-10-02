@@ -237,85 +237,129 @@ const inCollections = [
 ];
 export const workDetailInCollection = createWorkResult(inCollections);
 
+const defaultWorkDetailData = {
+  alt_titles: [],
+  authors: [],
+  contributors: [],
+  dates: null,
+  edition_count: 1,
+  editions: [
+    {
+      edition: null,
+      edition_id: 4292508,
+      edition_statement: null,
+      extent: "1 v. (53 p.)",
+      items: [
+        {
+          content_type: "ebook",
+          contributors: [],
+          drm: null,
+          item_id: 4943167,
+          links: [
+            {
+              flags: {
+                catalog: true,
+                download: false,
+                reader: false,
+              },
+              link_id: 6113936,
+              mediaType: "text/html",
+              url: "www.nypl.org/research/collections/shared-collection-catalog/bib/b15804181",
+            },
+          ],
+          location: null,
+          measurements: null,
+          modified: null,
+          rights: [],
+          source: "nypl",
+        },
+      ],
+      languages: [
+        {
+          iso_2: "en",
+          iso_3: "eng",
+          language: "English",
+        },
+      ],
+      links: [],
+      publication_date: "1650",
+      publication_place: "New York (State)",
+      publishers: [],
+      summary:
+        '{"Testimony against Hugh Parsons, taken before Judge William Pynchon at Springfield, Massachusetts. "}',
+      table_of_contents: null,
+      title: "Testimony against Hugh Parsons charged with witchcraft,",
+      volume: null,
+      work_uuid: "38fd9f4c-23f3-4642-b449-d3478b12f1e2",
+    },
+  ],
+  inCollections: [],
+  languages: [
+    {
+      iso_2: "en",
+      iso_3: "eng",
+      language: "English",
+    },
+  ],
+  measurements: [],
+  medium: null,
+  series: null,
+  series_position: null,
+  sub_title: null,
+  subjects: [
+    {
+      authority: "lcsh",
+      controlNo: "",
+      heading: "Trials (Witchcraft) -- Springfield",
+    },
+  ],
+  title: "Testimony against Hugh Parsons charged with witchcraft,",
+  uuid: "38fd9f4c-23f3-4642-b449-d3478b12f1e2",
+};
 export const workDetailWithCatalog: WorkResult = {
+  data: defaultWorkDetailData,
+  responseType: "singleWork",
+  status: 200,
+  timestamp: "Wed, 09 Mar 2022 22:09:52 GMT",
+};
+
+export const workDetailWithUp: WorkResult = {
   data: {
-    alt_titles: [],
-    authors: [],
-    contributors: [],
-    dates: null,
-    edition_count: 1,
+    ...defaultWorkDetailData,
     editions: [
       {
-        edition: null,
-        edition_id: 4292508,
-        edition_statement: null,
-        extent: "1 v. (53 p.)",
         items: [
           {
-            content_type: "ebook",
-            contributors: [],
-            drm: null,
-            item_id: 4943167,
             links: [
               {
+                url: "test-link-url",
+                link_id: 12,
+                mediaType: "application/epub+xml",
                 flags: {
-                  catalog: true,
+                  catalog: false,
                   download: false,
-                  reader: false,
+                  fulfill_limited_access: true,
+                  reader: true,
                 },
-                link_id: 6113936,
-                mediaType: "text/html",
-                url: "www.nypl.org/research/collections/shared-collection-catalog/bib/b15804181",
+              },
+              {
+                url: "https://backend.msw/fulfill/12345",
+                link_id: 12345,
+                mediaType: "application/epub+zip",
+                flags: {
+                  catalog: false,
+                  download: true,
+                  reader: false,
+                  nypl_login: true,
+                },
               },
             ],
-            location: null,
-            measurements: null,
-            modified: null,
-            rights: [],
-            source: "nypl",
           },
         ],
-        languages: [
-          {
-            iso_2: "en",
-            iso_3: "eng",
-            language: "English",
-          },
-        ],
-        links: [],
-        publication_date: "1650",
-        publication_place: "New York (State)",
-        publishers: [],
-        summary:
-          '{"Testimony against Hugh Parsons, taken before Judge William Pynchon at Springfield, Massachusetts. "}',
-        table_of_contents: null,
-        title: "Testimony against Hugh Parsons charged with witchcraft,",
-        volume: null,
-        work_uuid: "38fd9f4c-23f3-4642-b449-d3478b12f1e2",
+        title: "title",
       },
     ],
-    inCollections: [],
-    languages: [
-      {
-        iso_2: "en",
-        iso_3: "eng",
-        language: "English",
-      },
-    ],
-    measurements: [],
-    medium: null,
-    series: null,
-    series_position: null,
-    sub_title: null,
-    subjects: [
-      {
-        authority: "lcsh",
-        controlNo: "",
-        heading: "Trials (Witchcraft) -- Springfield",
-      },
-    ],
-    title: "Testimony against Hugh Parsons charged with witchcraft,",
-    uuid: "38fd9f4c-23f3-4642-b449-d3478b12f1e2",
+    title: "title",
   },
   responseType: "singleWork",
   status: 200,

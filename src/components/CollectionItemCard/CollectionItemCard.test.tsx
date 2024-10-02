@@ -1,7 +1,8 @@
 import React from "react";
-import { screen, render } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { CollectionItemCard } from "./CollectionItemCard";
 import { collectionItem } from "~/src/__tests__/fixtures/CollectionFixture";
+import { render } from "~/src/__tests__/testUtils/render";
 
 describe("Collection Item Card", () => {
   beforeEach(() => {

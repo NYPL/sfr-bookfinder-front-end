@@ -13,6 +13,7 @@ export type ApiLink = {
   flags: LinkFlags;
   link_id: number;
   media_type: string;
+  message?: string;
   url: string;
   work: ApiWork;
 };

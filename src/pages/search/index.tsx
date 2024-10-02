@@ -1,10 +1,10 @@
 import React from "react";
-
 import Layout from "~/src/components/Layout/Layout";
 import Search from "../../components/Search/Search";
 import { ApiSearchQuery } from "../../types/SearchQuery";
 import { searchResultsFetcher } from "../../lib/api/SearchApi";
 import { toSearchQuery } from "~/src/util/apiConversion";
+import Error from "../_error";
 
 export async function getServerSideProps(context: any) {
   // Get Query from location
@@ -20,6 +20,10 @@ export async function getServerSideProps(context: any) {
 }
 
 const SearchResults: React.FC<any> = (props) => {
+  if (props.searchResults.status !== 200) {
+    return <Error statusCode={props.searchResults.status} />;
+  }
+
   return (
     <Layout>
       <Search

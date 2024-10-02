@@ -9,6 +9,7 @@ import { documentTitles } from "~/src/constants/labels";
 import { collectionFetcher } from "~/src/lib/api/CollectionApi";
 import { CollectionQuery, CollectionResult } from "~/src/types/CollectionQuery";
 import { truncateStringOnWhitespace } from "~/src/util/Util";
+import Error from "../_error";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const collectionQuery: CollectionQuery = {
@@ -33,12 +34,16 @@ const CollectionResults: React.FC<{
   collectionResult: CollectionResult;
   collectionQuery: CollectionQuery;
 }> = ({ collectionResult, collectionQuery }) => {
+  if (collectionResult.statusCode) {
+    return <Error statusCode={collectionResult.statusCode} />;
+  }
+
   return (
     <Layout>
       <Head>
         <title>
           {`${truncateStringOnWhitespace(
-            collectionResult.metadata.title,
+            collectionResult.collections.metadata.title,
             MAX_PAGE_TITLE_LENGTH
           )} | ${documentTitles.collection}`}
         </title>

@@ -1,17 +1,11 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "target": "es2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "~/*": [
-        "*"
-      ]
+      "~/*": ["*"]
     },
     "allowJs": true,
     "skipLibCheck": true,
@@ -46,9 +40,5 @@
     "src/components/RequestDigital/RequestDigital.jsx",
     "src/__tests__/index.test.tsx"
   ],
-  "exclude": [
-    "node_modules",
-    "jest.config.ts",
-    "setupTests.js"
-  ]
+  "exclude": ["node_modules", "jest.config.ts", "setupTests.js"]
 }

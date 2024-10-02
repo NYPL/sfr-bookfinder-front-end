@@ -8,6 +8,7 @@ import { ApiLanguageResponse } from "~/src/types/LanguagesQuery";
 import { LOGIN_LINK_BASE } from "~/src/constants/links";
 import { NextRouter } from "next/router";
 import { FulfillResult } from "~/src/types/FulfillQuery";
+import { log } from "../newrelic/NewRelic";
 
 const apiEnv = process.env["APP_ENV"];
 const apiUrl = process.env["API_URL"] || appConfig.api.url[apiEnv];
@@ -48,11 +49,13 @@ export const searchResultsFetcher = async (apiQuery: ApiSearchQuery) => {
   url.search = new URLSearchParams(toLocationQuery(searchApiQuery)).toString();
 
   const res = await fetch(url.toString());
+  const searchResult: ApiSearchResult = await res.json();
 
-  if (res.ok) {
-    const searchResult: ApiSearchResult = await res.json();
-    return searchResult;
+  if (!res.ok) {
+    const err = new Error(searchResult.data.message);
+    log(err, JSON.stringify(searchResult));
   }
+  return searchResult;
 };
 
 export const workFetcher = async (query: WorkQuery) => {
@@ -66,13 +69,14 @@ export const workFetcher = async (query: WorkQuery) => {
   const url = new URL(recordUrl + "/" + query.identifier);
   url.search = new URLSearchParams(workApiQuery).toString();
   const res = await fetch(url.toString());
+  const workResult: WorkResult = await res.json();
 
-  if (res.ok) {
-    const workResult: WorkResult = await res.json();
-    return workResult;
-  } else {
-    throw new Error(`cannot find work with identifier ${query.identifier}`);
+  if (!res.ok) {
+    const err = new Error(workResult.data.message);
+    log(err, JSON.stringify(workResult));
   }
+
+  return workResult;
 };
 
 export const editionFetcher = async (query: EditionQuery) => {
@@ -86,42 +90,41 @@ export const editionFetcher = async (query: EditionQuery) => {
   const url = new URL(editionUrl + "/" + query.editionIdentifier);
   url.search = new URLSearchParams(editionApiQuery).toString();
   const res = await fetch(url.toString());
+  const editionResult: EditionResult = await res.json();
 
-  if (res.ok) {
-    const editionResult: EditionResult = await res.json();
-    return editionResult;
-  } else {
-    throw new Error(
-      `cannot find work with identifier ${query.editionIdentifier}`
-    );
+  if (!res.ok) {
+    const err = new Error(editionResult.data.message);
+    log(err, JSON.stringify(editionResult));
   }
+
+  return editionResult;
 };
 
 export const languagesFetcher = async () => {
   const url = new URL(languagesUrl);
 
   const res = await fetch(url.toString());
-  if (res.ok) {
-    const languagesResult: ApiLanguageResponse = await res.json();
-    return languagesResult;
-  } else {
-    return {
-      status: "Cannot find list of languages",
-      data: [],
-    };
+  const languagesResult: ApiLanguageResponse = await res.json();
+
+  if (!res.ok) {
+    const err = new Error(`Cannot find list of languages`);
+    log(err, JSON.stringify(languagesResult));
   }
+
+  return languagesResult;
 };
 
 export const readFetcher = async (linkId: number) => {
   const url = new URL(readUrl + "/" + linkId);
   const res = await fetch(url.toString());
+  const linkResult: LinkResult = await res.json();
 
-  if (res.ok) {
-    const linkResult: LinkResult = await res.json();
-    return linkResult;
-  } else {
-    throw new Error(`cannot find work with linkId ${linkId}`);
+  if (!res.ok) {
+    const err = new Error(linkResult.data.message);
+    log(err, JSON.stringify(linkResult));
   }
+
+  return linkResult;
 };
 
 export const fulfillFetcher = async (

@@ -1,9 +1,11 @@
 import appConfig from "~/config/appConfig";
-import { CollectionQuery, CollectionResult } from "~/src/types/CollectionQuery";
+import { CollectionQuery } from "~/src/types/CollectionQuery";
+import { Opds2Feed } from "~/src/types/OpdsModel";
 import {
   toApiCollectionQuery,
   toLocationQuery,
 } from "~/src/util/apiConversion";
+import { log } from "../newrelic/NewRelic";
 
 const apiEnv = process.env["APP_ENV"];
 const apiUrl = process.env["API_URL"] || appConfig.api.url[apiEnv];
@@ -18,17 +20,13 @@ export const collectionFetcher = async (query: CollectionQuery) => {
     toLocationQuery(collectionApiQuery)
   ).toString();
   const res = await fetch(url.toString());
+  const collectionResult: Opds2Feed = await res.json();
 
   if (res.ok) {
-    try {
-      const collectionResult: CollectionResult = await res.json();
-      return collectionResult;
-    } catch (e) {
-      throw new Error(e.error);
-    }
+    return { collections: collectionResult, statusCode: null };
   } else {
-    throw new Error(
-      `cannot find collection with identifier ${query.identifier}`
-    );
+    const err = new Error(collectionResult.message);
+    log(err, JSON.stringify(collectionResult));
+    return { collections: collectionResult, statusCode: res.status };
   }
 };

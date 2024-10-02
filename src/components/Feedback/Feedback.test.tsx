@@ -1,5 +1,6 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render } from "../../__tests__/testUtils/render";
+import { screen } from "@testing-library/react";
 import Feedback from "./Feedback";
 import userEvent from "@testing-library/user-event";
 

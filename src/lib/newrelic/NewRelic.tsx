@@ -1,7 +1,7 @@
 import React from "react";
 import Script from "next/script";
 
-export type NRConfig = {
+type NRConfig = {
   agentID: string;
   applicationID: string;
   accountID?: string;
@@ -9,7 +9,7 @@ export type NRConfig = {
   licenseKey?: string;
 };
 
-export type NRInfo = {
+type NRInfo = {
   applicationID: string;
   beacon?: string;
   errorBeacon?: string;
@@ -32,39 +32,48 @@ const defaultInfo: NRInfo = {
   applicationID: "1447020806",
   sa: 1,
 };
-export const devConfig: NRConfig = {
+const devConfig: NRConfig = {
   agentID: "1588857514",
   applicationID: "1443695682",
 };
-export const devInfo: NRInfo = {
+const devInfo: NRInfo = {
   applicationID: "1443695682",
 };
-export const qaConfig: NRConfig = {
+const qaConfig: NRConfig = {
   agentID: "1588858125",
   applicationID: "1447020806",
 };
-export const qaInfo: NRInfo = {
+const qaInfo: NRInfo = {
   applicationID: "1447020806",
 };
 
-export const prodConfig: NRConfig = {
+const prodConfig: NRConfig = {
   agentID: "1588862533",
   applicationID: "1473036261",
 };
-export const prodInfo: NRInfo = {
+const prodInfo: NRInfo = {
   applicationID: "1473036261",
 };
 
-export function setup(config: NRConfig, info: NRInfo) {
+function setup(config: NRConfig, info: NRInfo) {
   if (typeof window.NREUM !== "undefined") {
     window.NREUM.loader_config = { ...defaultConfig, ...config };
     window.NREUM.info = { ...defaultInfo, ...info };
   }
 }
 
+export function log(error: Error, errorInfo: string) {
+  if (typeof window !== "undefined") {
+    window.newrelic.noticeError(error, { errorInfo: errorInfo });
+  } else {
+    const newrelic = require("newrelic");
+    newrelic.noticeError(error, { errorInfo: errorInfo });
+  }
+}
+
 // Setup the Newrelic browser agent config for different deploy environment,
 // Monitor only the staging and production site
-export function NewRelicBrowserSetup(environment) {
+function NewRelicBrowserSetup(environment) {
   if (environment === "development") {
     setup(devConfig, devInfo);
   } else if (environment === "qa") {
@@ -76,7 +85,8 @@ export function NewRelicBrowserSetup(environment) {
 
 // This code only embeds the new relic library to the browser, to enable the monitoring, invoke the NewRelicBrowserSetup() function to start.
 export const NewRelicSnippet = () => {
-  if (!process.env.NEW_RELIC_LICENSE_KEY) return null;
+  if (!process.env.NEW_RELIC_LICENSE_KEY || process.env.APP_ENV === "testing")
+    return null;
   return (
     <Script
       type="text/javascript"

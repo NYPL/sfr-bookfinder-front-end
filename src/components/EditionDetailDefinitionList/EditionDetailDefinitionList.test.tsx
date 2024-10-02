@@ -1,8 +1,9 @@
 import React from "react";
 import EditionDetailDefinitionList from "./EditionDetailDefinitionList";
-import { screen, render } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { ApiEdition } from "~/src/types/EditionQuery";
 import { editionDetail as editionDetailFullData } from "../../__tests__/fixtures/EditionDetailFixture";
+import { render } from "~/src/__tests__/testUtils/render";
 
 describe("Edition Detail table with all information", () => {
   beforeEach(() => {

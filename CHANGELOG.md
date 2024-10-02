@@ -1,5 +1,21 @@
 # CHANGE LOG
 
+## [0.18.3]
+
+- Fix error when collections are empty
+- Fix error when a collection is empty
+- SFR-2077: Validate top 5 language filters for Frontend DRB search results
+- Add Playwright integration test for cookie validation
+- Add Error Boundary for uncaught exceptions
+- Implement designs for general error page
+- Update Feedback component to use FeedbackContext
+- Update test renderer to include FeedbackProvider wrapper
+- Update pages to render Error page when there is a server-side error
+- Update newrelic to 12.5.0 and @newrelic/next to 0.10.0
+- Add error logging to New Relic for API route errors and client side errors
+- Update `actions/checkout`, `actions/setup-node`, `aws-actions/configure-aws-credentials`, and `aws-actions/amazon-ecr-login` Github action versions
+- Update unit tests to use custom render function
+
 ## [0.18.2]
 
 - Fix cut off text on search bar dropdown
