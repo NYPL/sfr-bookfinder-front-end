@@ -1,8 +1,8 @@
 import React from "react";
 import { render } from "~/src/__tests__/testUtils/render";
-import License from "./License";
+import Copyright from "./Copyright";
 
-it("renders License page unchanged", async () => {
-  const tree = render(<License />);
+it("renders Copyright page unchanged", async () => {
+  const tree = render(<Copyright />);
   expect(tree.container.firstChild).toMatchSnapshot();
 });

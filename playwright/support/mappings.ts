@@ -27,8 +27,8 @@ export const pages: { [name: string]: Pages } = {
   about: {
     route: "/about",
   },
-  license: {
-    route: "/license",
+  copyright: {
+    route: "/copyright",
   },
   "read online": {
     route: "/read/4440666",
@@ -117,7 +117,7 @@ export const elements = {
   "item featured edition year": "a:has-text('Edition') >> nth=0",
   "item featured edition publisher": "div:text('Published by') >> nth=0",
   "item featured edition language": "div:text('Languages') >> nth=0",
-  "item featured edition license": "[href='/license'] >> nth=0",
+  "item featured edition license": "[href='/copyright'] >> nth=0",
   "item details heading": "#details-list-heading",
   "item details authors heading": "dt:text('Authors')",
   "item details authors": "dd > a[href*='display=author'] >> nth=0",

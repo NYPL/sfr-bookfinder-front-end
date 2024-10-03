@@ -8,13 +8,13 @@ import {
 import Link from "../Link/Link";
 import DrbBreakout from "../DrbBreakout/DrbBreakout";
 
-const License: React.FC = () => {
+const Copyright: React.FC = () => {
   const breakoutElement = (
-    <DrbBreakout breadcrumbsData={[{ url: "/license", text: "License" }]} />
+    <DrbBreakout breadcrumbsData={[{ url: "/copyright", text: "Copyright" }]} />
   );
   const contentPrimaryElement = (
     <>
-      <Heading level="h1">License Explanations</Heading>
+      <Heading level="h1">Copyright Explanations</Heading>
       <Heading level="h2">Public Domain</Heading>
       <p>
         Works in the public domain have no copyright (in most cases because the
@@ -159,6 +159,17 @@ const License: React.FC = () => {
         , you may copy, distribute and modify the work as long as any
         modifications are also made available under the GPL.
       </p>
+      <Heading level="h2">In Copyright</Heading>
+      <p>
+        Works that are{" "}
+        <Link to="https://rightsstatements.org/page/InC/1.0/?language=en">
+          In Copyright
+        </Link>{" "}
+        are protected by copyright and/or related rights. You are free to use
+        this Item in any way that is permitted by the copyright and related
+        rights legislation that applies to your use. For other uses you need to
+        obtain permission from the rights-holder(s).
+      </p>
     </>
   );
   return (
@@ -169,4 +180,4 @@ const License: React.FC = () => {
   );
 };
 
-export default License;
+export default Copyright;
