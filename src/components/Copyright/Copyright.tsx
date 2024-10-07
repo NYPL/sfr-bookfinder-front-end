@@ -161,14 +161,10 @@ const Copyright: React.FC = () => {
       </p>
       <Heading level="h2">In Copyright</Heading>
       <p>
-        Works that are{" "}
-        <Link to="https://rightsstatements.org/page/InC/1.0/?language=en">
-          In Copyright
-        </Link>{" "}
-        are protected by copyright and/or related rights. You are free to use
-        this Item in any way that is permitted by the copyright and related
-        rights legislation that applies to your use. For other uses you need to
-        obtain permission from the rights-holder(s).
+        Works that are In Copyright are protected by copyright and/or related
+        rights. You are free to use this Item in any way that is permitted by
+        the copyright and related rights legislation that applies to your use.
+        For other uses you need to obtain permission from the rights-holder(s).
       </p>
     </>
   );
