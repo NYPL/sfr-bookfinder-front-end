@@ -1,5 +1,9 @@
 # CHANGE LOG
 
+## [Prerelease]
+
+- Update license link for editions, works, and collections to copyright
+
 ## [0.18.3]
 
 - Fix error when collections are empty

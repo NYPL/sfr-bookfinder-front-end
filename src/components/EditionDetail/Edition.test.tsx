@@ -73,7 +73,7 @@ describe("Renders edition component when given valid edition", () => {
     expect(screen.getAllByAltText("").length).toBe(2);
     expect(
       screen
-        .getAllByText("License: Public Domain when viewed in the US")[0]
+        .getAllByText("Copyright: Public Domain when viewed in the US")[0]
         .closest("a").href
     ).toContain("/license");
   });

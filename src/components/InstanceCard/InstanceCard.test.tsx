@@ -40,7 +40,7 @@ describe("Instance Card with Valid Data", () => {
   });
   test("shows license", () => {
     expect(
-      screen.getByText("License: test rights statement").closest("a").href
+      screen.getByText("Copyright: test rights statement").closest("a").href
     ).toContain("/license");
   });
 });
@@ -74,7 +74,7 @@ describe("Instance Card with Minmal Data", () => {
     );
   });
   test("shows license", () => {
-    expect(screen.getByText("License: Unknown").closest("a").href).toContain(
+    expect(screen.getByText("Copyright: Unknown").closest("a").href).toContain(
       "/license"
     );
   });

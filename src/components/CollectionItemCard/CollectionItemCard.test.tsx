@@ -29,7 +29,7 @@ describe("Collection Item Card", () => {
     );
   });
   test("shows license", () => {
-    expect(screen.getByText("License: Unknown").closest("a").href).toContain(
+    expect(screen.getByText("Copyright: Unknown").closest("a").href).toContain(
       "/license"
     );
   });

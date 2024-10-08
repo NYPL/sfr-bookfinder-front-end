@@ -99,7 +99,7 @@ describe("Renders Collection Page", () => {
     });
     test("Shows license with links", () => {
       expect(
-        screen.getByText("License: Public Domain").closest("a").href
+        screen.getByText("Copyright: Public Domain").closest("a").href
       ).toContain("/license");
     });
   });
