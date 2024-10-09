@@ -366,7 +366,7 @@ describe("Renders Search Results Page", () => {
       });
       test("Shows license with links", () => {
         expect(
-          screen.getByText("License: Public Domain").closest("a").href
+          screen.getByText("Copyright: Public Domain").closest("a").href
         ).toContain("/copyright");
       });
       test("Shows cover", () => {
@@ -415,7 +415,7 @@ describe("Renders Search Results Page", () => {
       });
       test("Shows Unknown license with links", () => {
         expect(
-          screen.getByText("License: Unknown").closest("a").href
+          screen.getByText("Copyright: Unknown").closest("a").href
         ).toContain("/copyright");
       });
       test("Shows Placeholder cover", () => {
@@ -483,7 +483,7 @@ describe("Renders Search Results Page", () => {
         expect(
           screen
             .getByText(
-              "License: Public Domain Public Domain Public Domain Public Domain Public Domain Public Domain Public Domain Public Domain Public Domain"
+              "Copyright: Public Domain Public Domain Public Domain Public Domain Public Domain Public Domain Public Domain Public Domain Public Domain"
             )
             .closest("a").href
         ).toContain("/copyright");
