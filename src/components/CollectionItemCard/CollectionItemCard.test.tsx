@@ -30,7 +30,7 @@ describe("Collection Item Card", () => {
   });
   test("shows license", () => {
     expect(screen.getByText("Copyright: Unknown").closest("a").href).toContain(
-      "/license"
+      "/copyright"
     );
   });
 });

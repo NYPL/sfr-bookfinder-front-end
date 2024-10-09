@@ -3,6 +3,7 @@
 ## [Prerelease]
 
 - Update license link for editions, works, and collections to copyright
+- Update License page to Copyright and add section for "In Copyright" explanation
 
 ## [0.18.3]
 
