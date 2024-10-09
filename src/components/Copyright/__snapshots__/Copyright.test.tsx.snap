@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders License page unchanged 1`] = `
+exports[`renders Copyright page unchanged 1`] = `
 <div
   class="css-1u8qly9"
 >
@@ -101,12 +101,12 @@ exports[`renders License page unchanged 1`] = `
             <a
               aria-current="page"
               class="chakra-breadcrumb__link css-0"
-              href="/license"
+              href="/copyright"
             >
               <span
                 class="breadcrumb-label"
               >
-                License
+                Copyright
               </span>
             </a>
           </li>
@@ -124,7 +124,7 @@ exports[`renders License page unchanged 1`] = `
       <h1
         class="chakra-heading css-1xdhyk6"
       >
-        License Explanations
+        Copyright Explanations
       </h1>
       <h2
         class="chakra-heading css-1xdhyk6"
@@ -315,6 +315,14 @@ exports[`renders License page unchanged 1`] = `
           GNU General Public License
         </a>
         , you may copy, distribute and modify the work as long as any modifications are also made available under the GPL.
+      </p>
+      <h2
+        class="chakra-heading css-1xdhyk6"
+      >
+        In Copyright
+      </h2>
+      <p>
+        Works that are In Copyright are protected by copyright and/or related rights. You are free to use this Item in any way that is permitted by the copyright and related rights legislation that applies to your use. For other uses you need to obtain permission from the rights-holder(s).
       </p>
     </div>
   </main>

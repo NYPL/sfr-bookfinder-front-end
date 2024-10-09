@@ -1,5 +1,9 @@
 # CHANGE LOG
 
+## [Prerelease]
+
+- Update License page to Copyright and add section for "In Copyright" explanation
+
 ## [0.18.3]
 
 - Fix error when collections are empty

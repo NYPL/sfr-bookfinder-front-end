@@ -142,7 +142,7 @@ exports[`renders about unchanged 1`] = `
          
         <a
           class="chakra-link css-qsaw8"
-          href="/license"
+          href="/copyright"
         >
           public domain
         </a>
@@ -150,7 +150,7 @@ exports[`renders about unchanged 1`] = `
          
         <a
           class="chakra-link css-qsaw8"
-          href="/license"
+          href="/copyright"
         >
           Creative Commons licences
         </a>
