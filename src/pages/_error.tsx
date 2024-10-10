@@ -14,26 +14,19 @@ import { FeedbackContext } from "../context/FeedbackContext";
 
 const ERROR_PERSISTS = " if the error persists.";
 
-const getNotificationText = (statusCode) => {
-  return `You are asking for help or information about a page error (error code ${statusCode})`;
-};
-
 const errorMap = {
   500: {
-    overline: "error 500",
     heading: "Something went wrong on our end.",
     subText: "We encountered an error while trying to load the page. ",
     tryText: "Try refreshing the page or ",
   },
   404: {
-    overline: "error 404",
     heading: "We couldn't find that page.",
     subText:
       "The page you were looking for doesn't exist or may have moved elsewhere. ",
     tryText: "Try a different URL or ",
   },
   400: {
-    overline: "error 400",
     heading: "There was an unexpected error.",
     subText: "We couldn't process your request at this time. ",
     tryText: "Try again later or ",
@@ -41,21 +34,23 @@ const errorMap = {
 };
 
 const Error = ({ statusCode }) => {
-  const { onOpen, isError, setNotificationText, setIsError } =
+  const { onOpen, isError, setIsError, setStatusCode } =
     useContext(FeedbackContext);
 
   useEffect(() => {
     if (!isError) {
       setIsError(true);
-      setNotificationText(getNotificationText(statusCode));
+      setStatusCode(statusCode);
     }
-  }, [isError, setIsError, setNotificationText, statusCode]);
+  }, [isError, setIsError, setStatusCode, statusCode]);
 
   return (
     <Layout>
       <Flex
         alignItems="center"
         flexDir="column"
+        paddingLeft="l"
+        paddingRight="l"
         textAlign="center"
         role="alert"
       >
@@ -63,10 +58,9 @@ const Error = ({ statusCode }) => {
           src="/images/error-img.png"
           alt=""
           marginBottom="xl"
-          marginTop="xxxl"
+          marginTop={{ base: "xl", md: "xxxl" }}
           width={100}
         />
-        <Text size="overline1">{errorMap[statusCode].overline}</Text>
         <Heading marginTop="s" marginBottom="s">
           {errorMap[statusCode].heading}
         </Heading>
@@ -89,7 +83,11 @@ const Error = ({ statusCode }) => {
           </Button>
           {ERROR_PERSISTS}
         </Box>
-        <Box width="fit-content" marginTop="xxl" marginBottom="xxxl">
+        <Box
+          width="fit-content"
+          marginTop={{ base: "xl", md: "xxl" }}
+          marginBottom={{ base: "xxl", md: "xxxl" }}
+        >
           <Link to="/" linkType="buttonPrimary">
             Back to Digital Research Books
           </Link>
