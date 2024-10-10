@@ -44,7 +44,9 @@ const Feedback: React.FC<any> = ({ location }) => {
     values: React.ComponentProps<typeof FeedbackBox>["onSubmit"]
   ) => {
     submitFeedback({
-      feedback: isError ? `${statusCode} - ${values.comment}` : values.comment,
+      feedback: isError
+        ? `Error Code: ${statusCode ?? "Unknown"} - ${values.comment}`
+        : values.comment,
       category: isError ? "Bug" : values.category,
       url: location,
       email: values.email,
