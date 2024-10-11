@@ -44,6 +44,11 @@ const Error = ({ statusCode }) => {
     }
   }, [isError, setIsError, setStatusCode, statusCode]);
 
+  // default to 400 messages for unexpected error codes
+  const errorValues = errorMap[statusCode]
+    ? errorMap[statusCode]
+    : errorMap[400];
+
   return (
     <Layout>
       <Flex
@@ -62,14 +67,14 @@ const Error = ({ statusCode }) => {
           width={100}
         />
         <Heading marginTop="s" marginBottom="s">
-          {errorMap[statusCode].heading}
+          {errorValues.heading}
         </Heading>
         <Box>
           <Text noSpace display={{ base: "inline", md: "block" }}>
-            {errorMap[statusCode].subText}
+            {errorValues.subText}
           </Text>
           <Text noSpace display="inline">
-            {errorMap[statusCode].tryText}
+            {errorValues.tryText}
           </Text>
           <Button
             buttonType="text"
