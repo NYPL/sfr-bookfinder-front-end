@@ -19,6 +19,22 @@ jobs:
         with:
           node-version-file: ".nvmrc"
 
+      - name: Install Docker
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build and Run Docker Compose
+        run: |
+          docker-compose up -d
+        working-directory: ./sfr-bookfinder-front-end
+
+      - name: Update /etc/hosts
+        run: |
+          echo "127.0.0.1 local.nypl.org" | sudo tee -a /etc/hosts
+
+      - name: Wait for the application to start
+        run: |
+          sleep 30 # Ensure the app has enough time to start up
+
       - name: Install Deps
         run: npm i @cucumber/cucumber@8.11.1 @playwright/test@1.29.1
 
