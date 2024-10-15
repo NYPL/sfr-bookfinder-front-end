@@ -4,6 +4,8 @@
 
 - Update license link for editions, works, and collections to copyright
 - Update License page to Copyright and add section for "In Copyright" explanation
+- Remove error codes from error page
+- Update styling for mobile view of error page
 
 ## [0.18.3]
 
