@@ -1,6 +1,6 @@
 # CHANGE LOG
 
-## [Prerelease]
+## [0.18.4]
 
 - Update license link for editions, works, and collections to copyright
 - Update License page to Copyright and add section for "In Copyright" explanation
