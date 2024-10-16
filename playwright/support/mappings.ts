@@ -213,7 +213,7 @@ export const elements = {
   "language footer link": "//a[@href='http://www.nypl.org/language']",
 
   /** license page locators */
-  "license explanations header": "//h1[text()='License Explanations']",
+  "copyright explanations header": "//h1[text()='Copyright Explanations']",
   "public domain header": "//h2[text()='Public Domain']",
   "creative commons licenses header":
     "//h2[text()='Creative Commons Licenses']",

@@ -15,13 +15,13 @@ Feature: Footer Links
         And the "language footer link" should be displayed
 
         Examples:
-        | DRB                 |
-        | "home"              |
-        | "advanced search"   |
-        | "search results"    |
-        | "item details"      |
-        | "edition details"   |
-        | "collection"        |
-        | "read online"       |
-        | "license"           |
-        | "about"             |
+            | DRB               |
+            | "home"            |
+            | "advanced search" |
+            | "search results"  |
+            | "item details"    |
+            | "edition details" |
+            | "collection"      |
+            | "read online"     |
+            | "copyright"       |
+            | "about"           |
