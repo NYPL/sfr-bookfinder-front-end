@@ -27,7 +27,7 @@ Feature: Header Links
             | "edition details" |
             | "collection"      |
             | "read online"     |
-            | "license"         |
+            | "copyright"       |
             | "about"           |
 
     Scenario: As a user I navigate to the Digital Research Books home page and verify the account and search header sub-links and elements are displayed
