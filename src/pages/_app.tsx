@@ -66,8 +66,8 @@ const sendAnalytics = (query: any, pathname: string) => {
     trackPageview(pageNames.advancedSearch);
   } else if (pathname === "/about") {
     trackPageview(pageNames.about);
-  } else if (pathname === "/license") {
-    trackPageview(pageNames.license);
+  } else if (pathname === "/copyright") {
+    trackPageview(pageNames.copyright);
   } else {
     trackPageview(pageNames.home);
   }

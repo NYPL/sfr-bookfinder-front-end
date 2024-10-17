@@ -134,8 +134,8 @@ export default class EditionCardUtils {
   // Rights
   static getLicense(item: ApiItem): string {
     return item && item.rights && item.rights.length > 0
-      ? `License: ${item.rights[0].rightsStatement}`
-      : "License: Unknown";
+      ? `Copyright: ${item.rights[0].rightsStatement}`
+      : "Copyright: Unknown";
   }
 
   static getReadLink = (item: ApiItem, type: "reader" | "embed"): ItemLink => {

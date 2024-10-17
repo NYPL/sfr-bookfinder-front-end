@@ -39,10 +39,10 @@ const About: React.FC = () => {
         All the materials in Digital Research Books Beta are completely free to
         read and most of them you can download and keep, with no library card
         required. The books are either in the{" "}
-        <Link to="/license">public domain</Link>, with no restrictions on your
+        <Link to="/copyright">public domain</Link>, with no restrictions on your
         use of them, or under{" "}
-        <Link to="/license">Creative Commons licences</Link> that may have some
-        conditions, but only on redistribution or adaptation.
+        <Link to="/copyright">Creative Commons licences</Link> that may have
+        some conditions, but only on redistribution or adaptation.
       </p>
 
       <p>

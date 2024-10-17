@@ -12,6 +12,8 @@ type FeedbackContextType = {
   setIsError: React.Dispatch<React.SetStateAction<boolean | null>>;
   notificationText: string | null;
   setNotificationText: React.Dispatch<React.SetStateAction<string | null>>;
+  statusCode: number | null;
+  setStatusCode: React.Dispatch<React.SetStateAction<number | null>>;
 };
 
 export const FeedbackContext = createContext<FeedbackContextType | undefined>(
@@ -24,6 +26,7 @@ export const FeedbackProvider: React.FC<{
   const { FeedbackBox, isOpen, onOpen, onClose } = useFeedbackBox();
   const [isError, setIsError] = useState(null);
   const [notificationText, setNotificationText] = useState(null);
+  const [statusCode, setStatusCode] = useState(null);
 
   return (
     <FeedbackContext.Provider
@@ -36,6 +39,8 @@ export const FeedbackProvider: React.FC<{
         setIsError,
         notificationText,
         setNotificationText,
+        statusCode,
+        setStatusCode,
       }}
     >
       {children}

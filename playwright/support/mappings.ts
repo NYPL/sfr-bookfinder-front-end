@@ -27,8 +27,8 @@ export const pages: { [name: string]: Pages } = {
   about: {
     route: "/about",
   },
-  license: {
-    route: "/license",
+  copyright: {
+    route: "/copyright",
   },
   "read online": {
     route: "/read/4440666",
@@ -117,7 +117,7 @@ export const elements = {
   "item featured edition year": "a:has-text('Edition') >> nth=0",
   "item featured edition publisher": "div:text('Published by') >> nth=0",
   "item featured edition language": "div:text('Languages') >> nth=0",
-  "item featured edition license": "[href='/license'] >> nth=0",
+  "item featured edition license": "[href='/copyright'] >> nth=0",
   "item details heading": "#details-list-heading",
   "item details authors heading": "dt:text('Authors')",
   "item details authors": "dd > a[href*='display=author'] >> nth=0",
@@ -213,7 +213,7 @@ export const elements = {
   "language footer link": "//a[@href='http://www.nypl.org/language']",
 
   /** license page locators */
-  "license explanations header": "//h1[text()='License Explanations']",
+  "copyright explanations header": "//h1[text()='Copyright Explanations']",
   "public domain header": "//h2[text()='Public Domain']",
   "creative commons licenses header":
     "//h2[text()='Creative Commons Licenses']",

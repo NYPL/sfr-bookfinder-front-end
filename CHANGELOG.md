@@ -1,5 +1,13 @@
 # CHANGE LOG
 
+## [0.18.4]
+
+- Update license link for editions, works, and collections to copyright
+- Update License page to Copyright and add section for "In Copyright" explanation
+- Remove error codes from error page
+- Update styling for mobile view of error page
+- SFR:2257 - fix pw tests for modified license page
+
 ## [0.18.3]
 
 - Fix error when collections are empty

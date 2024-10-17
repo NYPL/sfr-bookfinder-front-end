@@ -36,8 +36,8 @@ describe("Edition Card with Valid Data", () => {
   });
   test("Shows license with links", () => {
     expect(
-      screen.getByText("License: test rights statement").closest("a").href
-    ).toContain("/license");
+      screen.getByText("Copyright: test rights statement").closest("a").href
+    ).toContain("/copyright");
   });
   test("Shows cover", () => {
     expect(
@@ -79,8 +79,8 @@ describe("Edition Year with Minimal Data", () => {
     expect(screen.getByText("Languages: Undetermined")).toBeInTheDocument();
   });
   test("Shows Unknown license with links", () => {
-    expect(screen.getByText("License: Unknown").closest("a").href).toContain(
-      "/license"
+    expect(screen.getByText("Copyright: Unknown").closest("a").href).toContain(
+      "/copyright"
     );
   });
   test("Shows Placeholder cover", () => {

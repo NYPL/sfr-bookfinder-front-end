@@ -12,7 +12,7 @@ import CollectionUtils from "~/src/util/CollectionUtils";
 import Ctas from "~/src/components/CollectionItemCard/Ctas";
 import EditionYear from "~/src/components/CollectionItemCard/EditionYear";
 import PublisherAndLocation from "~/src/components/CollectionItemCard/PublisherAndLocation";
-import LicenseLink from "~/src/components/CollectionItemCard/LicenseLink";
+import CopyrightLink from "~/src/components/CollectionItemCard/CopyrightLink";
 import LanguageDisplayText from "~/src/components/CollectionItemCard/LanguageDisplayText";
 
 // Creates an Collection item card out of the collectionItem object
@@ -56,7 +56,7 @@ export const CollectionItemCard: React.FC<{
           publisher={publisher}
         />
         <LanguageDisplayText language={language} />
-        <LicenseLink rights={rights} />
+        <CopyrightLink rights={rights} />
       </CardContent>
       <CardActions display="flex" flexDir="column" whiteSpace="nowrap" gap={4}>
         <Ctas

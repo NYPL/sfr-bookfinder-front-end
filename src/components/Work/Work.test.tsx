@@ -76,8 +76,8 @@ describe("Renders Work component when given valid work", () => {
     ).toBe(1);
     expect(screen.getAllByText("Languages: English, German").length).toBe(1);
     expect(
-      screen.getAllByText("License: Unknown")[0].closest("a").href
-    ).toContain("/license");
+      screen.getAllByText("Copyright: Unknown")[0].closest("a").href
+    ).toContain("/copyright");
   });
   test("Shows Details Table", () => {
     expect(

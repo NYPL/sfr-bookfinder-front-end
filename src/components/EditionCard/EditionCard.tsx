@@ -19,6 +19,7 @@ import FeaturedEditionBadge from "./FeaturedEditionBadge";
 import PhysicalEditionBadge from "./PhysicalEditionBadge";
 import ScanAndDeliverBlurb from "./ScanAndDeliverBlurb";
 import UpBlurb from "./UpBlurb";
+import CopyrightLink from "./CopyrightLink";
 
 export const EditionCard: React.FC<{
   edition: WorkEdition;
@@ -114,9 +115,7 @@ export const EditionCard: React.FC<{
               publishers={edition.publishers}
             />
             <LanguageDisplayText edition={edition} />
-            <Link to="/license">
-              {EditionCardUtils.getLicense(previewItem)}
-            </Link>
+            <CopyrightLink rights={previewItem?.rights} />
           </Box>
           {isPhysicalEdition && <ScanAndDeliverBlurb />}
           {isUniversityPress && <UpBlurb publishers={edition.publishers} />}
