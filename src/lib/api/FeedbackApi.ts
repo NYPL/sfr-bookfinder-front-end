@@ -6,7 +6,7 @@ import { log } from "../newrelic/NewRelic";
 
 export const submitFeedback = async (feedback: Feedback) => {
   try {
-    await fetch(appConfig.feedback.formURL, {
+    const res = await fetch(appConfig.feedback.formURL, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_API_KEY}`,
@@ -20,7 +20,9 @@ export const submitFeedback = async (feedback: Feedback) => {
         },
       }),
     });
+    return res;
   } catch (error) {
     log(error, "Airtable API error");
+    throw new Error(`Airtable POST failed: ${error.message}`);
   }
 };
