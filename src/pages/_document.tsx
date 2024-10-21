@@ -20,7 +20,7 @@ class MyDocument extends Document<DocumentProps> {
         <Head>
           <script src={appConfig.analytics} async />
         </Head>
-        <body>
+        <body style={{ display: "flex", flexDirection: "column", minHeight: '100vh' }}>
           <div id="nypl-header"></div>
           <Script
             src="https://ds-header.nypl.org/header.min.js?containerId=nypl-header"
@@ -28,7 +28,7 @@ class MyDocument extends Document<DocumentProps> {
             async
           ></Script>
           <Main />
-          <div id="nypl-footer" style={{ marginTop: "2rem" }}></div>
+          <div id="nypl-footer" style={{ marginTop: "auto", paddingTop: '2rem' }}></div>
           <Script
             src="https://ds-header.nypl.org/footer.min.js?containerId=nypl-footer"
             strategy="lazyOnload"
