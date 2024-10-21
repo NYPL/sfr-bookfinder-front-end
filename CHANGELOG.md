@@ -1,5 +1,8 @@
 # CHANGE LOG
 
+## [Prerelease]
+- Make NYPL footer sticky
+
 ## [0.18.4]
 
 - Update license link for editions, works, and collections to copyright
