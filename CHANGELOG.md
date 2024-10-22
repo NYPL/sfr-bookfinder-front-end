@@ -1,6 +1,6 @@
 # CHANGE LOG
 
-## Prerelease
+## [Prerelease]
 - Add error logging for Airtable API
 
 ## [0.18.5]
