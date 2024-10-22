@@ -1,6 +1,6 @@
 # CHANGE LOG
 
-## [Prerelease]
+## [0.18.5]
 - Make NYPL footer sticky
 
 ## [0.18.4]
