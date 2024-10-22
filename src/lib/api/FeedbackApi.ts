@@ -16,7 +16,7 @@ export const submitFeedback = async (feedback: Feedback) => {
         fields: {
           Feedback: feedback.feedback,
           Category: feedback.category,
-          Date: new Date().toLocaleDateString('en-US'),
+          Date: new Date().toLocaleDateString("en-US"),
           Environment: process.env.APP_ENV,
           URL: feedback.url,
         },
@@ -24,6 +24,6 @@ export const submitFeedback = async (feedback: Feedback) => {
     });
   } catch (error) {
     log(error, "Failed to submit feedback");
-    throw new Error(`Failed to submit feedback: ${error.message}`)
+    throw new Error(`Failed to submit feedback: ${error.message}`);
   }
 };
