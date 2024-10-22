@@ -1,5 +1,8 @@
 # CHANGE LOG
 
+## [Prerelease]
+- Add submit feedback error handling and new fields
+
 ## [0.18.5]
 - Make NYPL footer sticky
 
