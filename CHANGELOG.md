@@ -26,6 +26,7 @@
 - Add error logging to New Relic for API route errors and client side errors
 - Update `actions/checkout`, `actions/setup-node`, `aws-actions/configure-aws-credentials`, and `aws-actions/amazon-ecr-login` Github action versions
 - Update unit tests to use custom render function
+- SFR-2238: Run GHA on Localhost
 
 ## [0.18.2]
 
