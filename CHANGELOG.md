@@ -1,5 +1,8 @@
 # CHANGE LOG
 
+## [0.18.5]
+- Make NYPL footer sticky
+
 ## [0.18.4]
 
 - Update license link for editions, works, and collections to copyright
@@ -23,6 +26,7 @@
 - Add error logging to New Relic for API route errors and client side errors
 - Update `actions/checkout`, `actions/setup-node`, `aws-actions/configure-aws-credentials`, and `aws-actions/amazon-ecr-login` Github action versions
 - Update unit tests to use custom render function
+- SFR-2238: Run GHA on Localhost
 
 ## [0.18.2]
 
