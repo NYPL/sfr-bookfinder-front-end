@@ -25,10 +25,20 @@ jobs:
         run: NODE_ENV=test npm run build
 
       - name: Run your tests on local server
-        run: npm run playwright
+        run: |
+          echo "Starting server..."
+          nohup npm run dev > server.log 2>&1 &  # Redirect stdout and stderr to server.log
+          echo "Server started"
 
-      - name: Start local server
-        run: NODE_ENV=test npm run dev
+      - name: Wait for localhost to be ready
+        run: |
+          echo "Waiting for localhost:3000 to be ready..."
+          timeout 300 bash -c 'until curl -s http://localhost:3000 > /dev/null; do echo waiting for localhost...; sleep 5; done'
+
+      - name: Show server logs
+        run: |
+          echo "Server logs:"
+          cat server.log  # Output the server log to the GitHub Actions console
 
       - name: Set the world parameters as an env var
         # WORLD_PARAMETERS set here will override anything set in cucumber.json
