@@ -21,7 +21,7 @@ jobs:
       - name: Build app
         run: NODE_ENV=test npm run build
 
-      - name: Run your tests
+      - name: Run your tests on local server
         run: npm run playwright
 
       - name: Install Playwright Browser Utils
