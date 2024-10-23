@@ -1,11 +1,7 @@
 name: Playwright Tests for Digital Research Books
 
 on:
-  schedule:
-    - cron: "00 14 * * 1-5"
   pull_request:
-    branches: [production]
-    types: [opened, synchronize, reopened]
 
 jobs:
   tests:
@@ -19,20 +15,14 @@ jobs:
         with:
           node-version-file: ".nvmrc"
 
-      - name: Install Docker
-        uses: docker/setup-buildx-action@v2
-
-      - name: Build and Run Docker Compose
-        run: |
-          docker-compose up -d
-        working-directory: ./sfr-bookfinder-front-end
-
-      - name: Update /etc/hosts
-        run: |
-          echo "127.0.0.1 local.nypl.org" | sudo tee -a /etc/hosts
-
       - name: Install Deps
         run: npm i @cucumber/cucumber@8.11.1 @playwright/test@1.29.1
+
+      - name: Build app
+        run: NODE_ENV=test npm run build
+
+      - name: Run your tests
+        run: npm run playwright
 
       - name: Install Playwright Browser Utils
         run: npx playwright install --with-deps
