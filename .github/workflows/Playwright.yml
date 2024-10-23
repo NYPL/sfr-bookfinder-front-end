@@ -18,14 +18,14 @@ jobs:
       - name: Install Deps
         run: npm i @cucumber/cucumber@8.11.1 @playwright/test@1.29.1
 
+      - name: Install Playwright Browser Utils
+        run: npx playwright install --with-deps
+
       - name: Build app
         run: NODE_ENV=test npm run build
 
       - name: Run your tests on local server
         run: npm run playwright
-
-      - name: Install Playwright Browser Utils
-        run: npx playwright install --with-deps
 
       - name: Set the world parameters as an env var
         # WORLD_PARAMETERS set here will override anything set in cucumber.json
