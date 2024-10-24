@@ -7,6 +7,10 @@ jobs:
   tests:
     name: Run Tests
     runs-on: ubuntu-latest
+    env:
+      APP_ENV: ${{ secrets.APP_ENV }}
+      NEW_RELIC_LICENSE_KEY: ${{ secrets.NEW_RELIC_LICENSE_KEY }}
+      API_URL: ${{ secrets.API_URL }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
