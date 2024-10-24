@@ -15,14 +15,11 @@ jobs:
         with:
           node-version-file: ".nvmrc"
 
-      - name: Install Cucumber
+      - name: Install Test Dependencies
         run: npm i @cucumber/cucumber@8.11.1 @playwright/test@1.29.1
 
       - name: Install Playwright
         run: npx playwright install --with-deps
-
-      - name: Install Dependencies
-        run: npm i
 
       - name: Build app
         run: NODE_ENV=test npm run build
@@ -35,11 +32,11 @@ jobs:
         run: |
           RETRIES=6
           until curl --output /dev/null --silent --head --fail http://localhost:3000 || [ $((RETRIES--)) -eq 0 ]; do
-            echo "Waiting for server..."
+            echo "Waiting for http://localhost:3000"
             sleep 5
           done
           if [ $RETRIES -lt 0 ]; then
-            echo "Server failed to start within the timeout period."
+            echo "Failed to connect to http://localhost:3000"
             exit 1
           fi
         shell: bash
