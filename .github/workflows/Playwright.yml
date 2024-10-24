@@ -36,7 +36,7 @@ jobs:
       - name: Wait for localhost to be ready
         run: |
           echo "Waiting for localhost:3000 to be ready..."
-          timeout 600 bash -c 'until curl -s http://localhost:3000 > /dev/null; do echo waiting for localhost...; sleep'
+          timeout 600 bash -c 'until curl -s http://localhost:3000 > /dev/null; do echo waiting for localhost...; sleep 5; done'
 
       - name: Show server logs
         run: |
