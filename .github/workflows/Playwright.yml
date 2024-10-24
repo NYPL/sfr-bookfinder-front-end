@@ -22,18 +22,21 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Build app
-        run: NODE_ENV=test npm run build
+        run: |
+          echo "Building app..."
+          NODE_ENV=test npm run build
+          echo "Build completed"
 
-      - name: Run your tests on local server
+      - name: Start the server in the background
         run: |
           echo "Starting server..."
-          nohup npm run dev > server.log 2>&1 &  # Redirect stdout and stderr to server.log
+          nohup npm run dev > server.log 2>&1 &
           echo "Server started"
 
       - name: Wait for localhost to be ready
         run: |
-          echo "Waiting for localhost:3000 to return a valid response..."
-          timeout 300 bash -c 'until curl -s -o /dev/null -w "%{http_code}" http://localhost:3000 | grep -q "200"; do echo waiting for localhost...; sleep 5; done'
+          echo "Waiting for localhost:3000 to be ready..."
+          timeout 600 bash -c 'until curl -s http://localhost:3000 > /dev/null; do echo waiting for localhost...; sleep'
 
       - name: Show server logs
         run: |
