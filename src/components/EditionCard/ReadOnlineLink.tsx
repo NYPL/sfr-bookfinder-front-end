@@ -3,6 +3,7 @@ import React from "react";
 import Link from "~/src/components/Link/Link";
 import { LOGIN_LINK_BASE } from "~/src/constants/links";
 import { ItemLink } from "~/src/types/DataModel";
+import { LOGIN_TO_READ_TEST_ID } from "~/src/constants/testIds";
 
 // "Read Online" button should only show up if the link was flagged as "reader" or "embed"
 const ReadOnlineLink: React.FC<{
@@ -27,7 +28,7 @@ const ReadOnlineLink: React.FC<{
 
   return (
     readOnlineLink && (
-      <Box>
+      <Box data-testid={LOGIN_TO_READ_TEST_ID}>
         <Link
           to={linkUrl}
           linkType="button"

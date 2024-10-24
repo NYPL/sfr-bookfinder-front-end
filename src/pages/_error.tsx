@@ -11,6 +11,7 @@ import {
   Text,
 } from "@nypl/design-system-react-components";
 import { FeedbackContext } from "../context/FeedbackContext";
+import { ERROR_LAYOUT_TEST_ID } from "../constants/testIds";
 
 const ERROR_PERSISTS = " if the error persists.";
 
@@ -58,6 +59,7 @@ const Error = ({ statusCode }) => {
         paddingRight="l"
         textAlign="center"
         role="alert"
+        data-testid={ERROR_LAYOUT_TEST_ID}
       >
         <Image
           src="/images/error-img.png"

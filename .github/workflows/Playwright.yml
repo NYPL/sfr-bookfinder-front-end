@@ -1,7 +1,8 @@
 name: Playwright Tests for Digital Research Books
 
-on:
-  pull_request:
+# TODO: Remove https://drb-api-qa.nypl.org from behind the VPC
+# on:
+#   pull_request:
 
 jobs:
   tests:
@@ -15,17 +16,34 @@ jobs:
         with:
           node-version-file: ".nvmrc"
 
-      - name: Install Deps
+      - name: Install Test Dependencies
         run: npm i @cucumber/cucumber@8.11.1 @playwright/test@1.29.1
+
+      - name: Install Playwright
+        run: npx playwright install --with-deps
 
       - name: Build app
         run: NODE_ENV=test npm run build
 
+      - name: Start the app
+        run: npm run dev &
+        shell: bash
+
+      - name: Wait for the app
+        run: |
+          RETRIES=6
+          until curl --output /dev/null --silent --head --fail http://localhost:3000 || [ $((RETRIES--)) -eq 0 ]; do
+            echo "Waiting for http://localhost:3000"
+            sleep 5
+          done
+          if [ $RETRIES -lt 0 ]; then
+            echo "Failed to connect to http://localhost:3000"
+            exit 1
+          fi
+        shell: bash
+
       - name: Run your tests
         run: npm run playwright
-
-      - name: Install Playwright Browser Utils
-        run: npx playwright install --with-deps
 
       - name: Set the world parameters as an env var
         # WORLD_PARAMETERS set here will override anything set in cucumber.json
