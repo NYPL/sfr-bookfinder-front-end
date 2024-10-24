@@ -15,17 +15,32 @@ jobs:
         with:
           node-version-file: ".nvmrc"
 
-      - name: Install Deps
+      - name: Install Cucumber
         run: npm i @cucumber/cucumber@8.11.1 @playwright/test@1.29.1
+
+      - name: Install Playwright
+        run: npx playwright install --with-deps
+
+      - name: Install Dependencies
+        run: npm run i
 
       - name: Build app
         run: NODE_ENV=test npm run build
 
+      - name: Start the app
+        run: npm run dev &
+        shell: bash
+
+      - name: Wait for the app
+        run: |
+          until curl --output /dev/null --silent --head --fail http://localhost:3000; do
+            echo "Waiting for server..."
+            sleep 2
+          done
+        shell: bash
+
       - name: Run your tests
         run: npm run playwright
-
-      - name: Install Playwright Browser Utils
-        run: npx playwright install --with-deps
 
       - name: Set the world parameters as an env var
         # WORLD_PARAMETERS set here will override anything set in cucumber.json

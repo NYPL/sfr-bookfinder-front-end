@@ -13,7 +13,7 @@ test("View landing page with search", async ({ page }) => {
   await page.goto(`${HOME_PATH}`);
 
   const searchBar = page.getByTestId(SEARCH_BAR_TEST_ID);
-  expect(searchBar).toBeDefined();
+  expect(searchBar).toBeInViewport();
 });
 
 test("Shows error page for invalid collection", async ({ page }) => {
