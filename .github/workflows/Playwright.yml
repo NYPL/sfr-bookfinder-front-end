@@ -22,7 +22,7 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Install Dependencies
-        run: npm run i
+        run: npm i
 
       - name: Build app
         run: NODE_ENV=test npm run build
