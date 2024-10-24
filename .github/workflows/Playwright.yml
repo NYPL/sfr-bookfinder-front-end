@@ -1,7 +1,8 @@
 name: Playwright Tests for Digital Research Books
 
-on:
-  pull_request:
+# TODO: Remove https://drb-api-qa.nypl.org from behind the VPC
+# on:
+#   pull_request:
 
 jobs:
   tests:
