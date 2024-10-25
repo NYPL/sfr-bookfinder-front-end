@@ -2,6 +2,7 @@
 
 ## [Prerelease]
 - Add submit feedback error handling and new fields
+- Fix docker file and playwright tests
 
 ## [0.18.5]
 - Make NYPL footer sticky

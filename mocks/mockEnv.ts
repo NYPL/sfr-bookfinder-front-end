@@ -1,11 +1,9 @@
 export const NYPL_LOGIN_URL = "https://login.nypl.org/auth/login?redirect_uri=";
 export const API_URL = "https://backend.msw";
-export const FULFILL_PATH = "/fulfill/12345";
-export const LIMITED_ACCESS_WORK_PATH =
-  "/work/12345678-1234-1234-1234-1234567890ab";
+export const FULFILL_PATH = "/fulfill/9351827";
+export const LIMITED_ACCESS_EDITION_PATH = "/edition/6977884";
+export const WORK_PATH = "/work/5950e6df-9d99-42fe-8924-1116166a2acb";
 export const DOWNLOAD_PATH = "/test-download-pdf";
 export const HOME_PATH = "/";
 export const COLLECTION_LIST_PATH = "/collection/list";
-export const COLLECTION_PATH =
-  "/collection/978ea0e0-8ecc-4de2-bfe8-032fea641d8e?page=1";
 export const INVALID_COLLECTION_PATH = "/collection/invalid-collection";

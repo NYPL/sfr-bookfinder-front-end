@@ -12,6 +12,7 @@ import { trackCtaClick } from "~/src/lib/adobe/Analytics";
 import { fulfillFetcher } from "~/src/lib/api/SearchApi";
 import { ItemLink } from "~/src/types/DataModel";
 import { formatUrl } from "~/src/util/Util";
+import { LOGIN_TO_DOWNLOAD_TEST_ID } from "~/src/constants/testIds";
 
 const DownloadLink: React.FC<{
   downloadLink: ItemLink;
@@ -73,7 +74,7 @@ const DownloadLink: React.FC<{
     }
 
     return (
-      <Box>
+      <Box data-testid={LOGIN_TO_DOWNLOAD_TEST_ID}>
         <Link
           to={`${linkUrl}`}
           linkType="buttonSecondary"
