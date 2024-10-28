@@ -1,5 +1,11 @@
 # CHANGE LOG
 
+## [Prerelease]
+
+## [0.18.6]
+- Add submit feedback error handling and new fields
+- Fix docker file and playwright tests
+
 ## [0.18.5]
 - Make NYPL footer sticky
 

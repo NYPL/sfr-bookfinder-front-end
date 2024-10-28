@@ -7,7 +7,7 @@ import {
   INVALID_COLLECTION_PATH,
   DOWNLOAD_PATH,
   FULFILL_PATH,
-  LIMITED_ACCESS_WORK_PATH,
+  WORK_PATH,
 } from "./mockEnv";
 
 const isAuthenticated = (request) => {
@@ -15,7 +15,7 @@ const isAuthenticated = (request) => {
   return auth === "Bearer access-token";
 };
 
-const workUrl = new URL(LIMITED_ACCESS_WORK_PATH, API_URL).toString();
+const workUrl = new URL(WORK_PATH, API_URL).toString();
 const fulfillUrl = new URL(FULFILL_PATH, API_URL).toString();
 const downloadUrl = new URL(DOWNLOAD_PATH, API_URL).toString();
 const collectionListUrl = new URL(COLLECTION_LIST_PATH, API_URL).toString();
