@@ -1,11 +1,8 @@
 name: Playwright Tests for Digital Research Books
 
-on:
-  schedule:
-    - cron: "00 14 * * 1-5"
-  pull_request:
-    branches: [production]
-    types: [opened, synchronize, reopened]
+# TODO: Remove https://drb-api-qa.nypl.org from behind the VPC
+# on:
+#   pull_request:
 
 jobs:
   tests:
@@ -19,23 +16,34 @@ jobs:
         with:
           node-version-file: ".nvmrc"
 
-      - name: Install Docker
-        uses: docker/setup-buildx-action@v2
-
-      - name: Build and Run Docker Compose
-        run: |
-          docker-compose up -d
-        working-directory: ./sfr-bookfinder-front-end
-
-      - name: Update /etc/hosts
-        run: |
-          echo "127.0.0.1 local.nypl.org" | sudo tee -a /etc/hosts
-
-      - name: Install Deps
+      - name: Install Test Dependencies
         run: npm i @cucumber/cucumber@8.11.1 @playwright/test@1.29.1
 
-      - name: Install Playwright Browser Utils
+      - name: Install Playwright
         run: npx playwright install --with-deps
+
+      - name: Build app
+        run: NODE_ENV=test npm run build
+
+      - name: Start the app
+        run: npm run dev &
+        shell: bash
+
+      - name: Wait for the app
+        run: |
+          RETRIES=6
+          until curl --output /dev/null --silent --head --fail http://localhost:3000 || [ $((RETRIES--)) -eq 0 ]; do
+            echo "Waiting for http://localhost:3000"
+            sleep 5
+          done
+          if [ $RETRIES -lt 0 ]; then
+            echo "Failed to connect to http://localhost:3000"
+            exit 1
+          fi
+        shell: bash
+
+      - name: Run your tests
+        run: npm run playwright
 
       - name: Set the world parameters as an env var
         # WORLD_PARAMETERS set here will override anything set in cucumber.json

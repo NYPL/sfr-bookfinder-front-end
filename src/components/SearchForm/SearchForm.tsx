@@ -1,6 +1,7 @@
 import React, { ChangeEvent, useState } from "react";
 import { useRouter } from "next/router";
 import { SearchBar, Box } from "@nypl/design-system-react-components";
+import { SEARCH_BAR_TEST_ID } from "~/src/constants/testIds";
 import { SearchQuery, SearchQueryDefaults } from "~/src/types/SearchQuery";
 import { errorMessagesText, inputTerms } from "~/src/constants/labels";
 import { toLocationQuery, toApiQuery } from "~/src/util/apiConversion";
@@ -89,6 +90,7 @@ const SearchForm: React.FC<{
           onChange: (e) => onQueryChange(e),
         }}
         labelText="Search"
+        data-testid={SEARCH_BAR_TEST_ID}
       />
       <Box float="right" marginTop={{ md: "xs" }}>
         <Link to="/advanced-search" isUnderlined={false}>
