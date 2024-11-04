@@ -1,6 +1,8 @@
 # CHANGE LOG
 
 ## [Prerelease]
+
+## [0.18.7]
 - Fix header when banner is up
 
 ## [0.18.6]
