@@ -27,7 +27,7 @@ class MyDocument extends Document<DocumentProps> {
             minHeight: "100vh",
           }}
         >
-          <div id="nypl-header"></div>
+          <div id="nypl-header" style={{ flexShrink: 0 }}></div>
           <Script
             src="https://ds-header.nypl.org/header.min.js?containerId=nypl-header"
             strategy="beforeInteractive"
