@@ -2,11 +2,15 @@
 
 ## [Prerelease]
 
+- SFR-2078: autoamte and validate different publishing source collections
+
 ## [0.18.6]
+
 - Add submit feedback error handling and new fields
 - Fix docker file and playwright tests
 
 ## [0.18.5]
+
 - Make NYPL footer sticky
 
 ## [0.18.4]

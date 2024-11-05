@@ -251,4 +251,9 @@ export const inputs = {
   petroleum: "petroleum",
   "Robot Soccer": "Robot Soccer",
   "Jane Austen": "Jane Austen",
+  "How safe is eating chicken?": "How safe is eating chicken?",
+  "Chicken Farm": "Chicken Farm",
+  "Reading Fiction in Antebellum America":
+    "Reading Fiction in Antebellum America",
+  "Climate Change and Agriculture": "Climate Change and Agriculture",
 };
