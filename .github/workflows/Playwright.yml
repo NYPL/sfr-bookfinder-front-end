@@ -31,7 +31,7 @@ jobs:
       - name: Wait for the app
         run: |
           RETRIES=6
-          until curl --output /dev/null --silent --head --fail http://localhost:3000 || [ $((RETRIES--)) -eq 0 ]; do
+          until curl --output /dev/null --silent --head --verbose --fail http://localhost:3000 || [ $((RETRIES--)) -eq 0 ]; do
             echo "Waiting for http://localhost:3000"
             sleep 5
           done
