@@ -25,7 +25,10 @@ jobs:
         run: NODE_ENV=test npm run build
 
       - name: Start the app
-        run: NODE_ENV=test npm run dev &
+        run: |
+          NODE_ENV=test npm run dev > app.log 2>&1 &
+          sleep 5
+          tail -n 50 app.log
         shell: bash
 
       - name: Wait for the app
@@ -39,6 +42,11 @@ jobs:
             echo "Failed to connect to http://localhost:3000"
             exit 1
           fi
+        shell: bash
+
+      - name: Display app log on failure
+        if: failure()
+        run: cat app.log
         shell: bash
 
       - name: Run your tests
