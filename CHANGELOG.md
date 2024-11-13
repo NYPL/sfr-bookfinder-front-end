@@ -2,14 +2,19 @@
 
 ## [Prerelease]
 
+- Add survey banner to Landing, Collection, Edition, Work, and Search pages
+
 ## [0.18.7]
+
 - Fix header when banner is up
 
 ## [0.18.6]
+
 - Add submit feedback error handling and new fields
 - Fix docker file and playwright tests
 
 ## [0.18.5]
+
 - Make NYPL footer sticky
 
 ## [0.18.4]
