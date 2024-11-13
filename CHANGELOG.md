@@ -1,6 +1,7 @@
 # CHANGE LOG
 
 ## [Prerelease]
+- Enable playwright tests GH action
 
 ## [0.18.7]
 - Fix header when banner is up
