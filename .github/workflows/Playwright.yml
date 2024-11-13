@@ -25,7 +25,7 @@ jobs:
         run: NODE_ENV=test npm run build
 
       - name: Start the app
-        run: npm run dev &
+        run: NODE_ENV=test npm run dev &
         shell: bash
 
       - name: Wait for the app
