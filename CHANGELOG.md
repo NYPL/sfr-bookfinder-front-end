@@ -1,6 +1,6 @@
 # CHANGE LOG
 
-## [Prerelease]
+## [0.18.8]
 
 - Add survey banner to Landing, Collection, Edition, Work, and Search pages
 
