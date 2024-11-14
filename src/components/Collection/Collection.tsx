@@ -29,6 +29,7 @@ import Loading from "~/src/components/Loading/Loading";
 import DrbHero from "../DrbHero/DrbHero";
 import { CollectionItem } from "./CollectionItem";
 import DrbBreakout from "../DrbBreakout/DrbBreakout";
+import SurveyBanner from "../SurveyBanner/SurveyBanner";
 
 const Collection: React.FC<{
   collectionQuery: CollectionQuery;
@@ -139,6 +140,7 @@ const Collection: React.FC<{
 
   const contentTopElement = (
     <>
+      <SurveyBanner />
       <Heading level="h2" marginBottom="xl">
         {`Collection - ${title}`}
       </Heading>

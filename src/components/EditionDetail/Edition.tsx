@@ -26,6 +26,7 @@ import { Instance } from "~/src/types/DataModel";
 import { PLACEHOLDER_LINK } from "~/src/constants/collection";
 import DrbBreakout from "../DrbBreakout/DrbBreakout";
 import AuthorsList from "../AuthorsList/AuthorsList";
+import SurveyBanner from "../SurveyBanner/SurveyBanner";
 
 const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
   props
@@ -81,6 +82,7 @@ const Edition: React.FC<{ editionResult: EditionResult; backUrl?: string }> = (
 
   const contentTopElement = (
     <>
+      <SurveyBanner />
       <Flex direction={{ base: "column", md: "row" }}>
         {edition && (
           <Heading
