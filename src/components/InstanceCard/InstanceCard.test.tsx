@@ -89,8 +89,8 @@ describe("Instance with EDD", () => {
       ></InstanceCard>
     );
 
-    expect(screen.queryByText("Download PDF")).toBeInTheDocument();
-    expect(screen.queryByText("Read Online")).toBeInTheDocument();
+    expect(screen.getByText("Download PDF")).toBeInTheDocument();
+    expect(screen.getByText("Read Online")).toBeInTheDocument();
     expect(screen.queryByText("Log in for options")).not.toBeInTheDocument();
     expect(screen.queryByText("Request Scan")).not.toBeInTheDocument();
   });

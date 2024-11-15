@@ -21,7 +21,7 @@ describe("Collection Item Card", () => {
     ).toBeInTheDocument();
   });
   test("Shows Read Online button", () => {
-    expect(screen.queryByText("Read Online")).toBeInTheDocument();
+    expect(screen.getByText("Read Online")).toBeInTheDocument();
   });
   test("Shows cover", () => {
     expect(screen.getByAltText("").closest("img").src).toEqual(

@@ -1,5 +1,9 @@
 # CHANGE LOG
 
+## [Prerelease]
+
+- Remove duplicate eslint packages, update eslint config, and resolve linting errors
+
 ## [0.18.8]
 
 - Add survey banner to Landing, Collection, Edition, Work, and Search pages

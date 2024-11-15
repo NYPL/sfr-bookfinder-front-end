@@ -66,6 +66,7 @@ export function log(error: Error, errorInfo: string) {
   if (typeof window !== "undefined") {
     window.newrelic.noticeError(error, { errorInfo: errorInfo });
   } else {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const newrelic = require("newrelic");
     newrelic.noticeError(error, { errorInfo: errorInfo });
   }

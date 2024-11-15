@@ -28,7 +28,7 @@ describe("Renders Work component when given valid work", () => {
       screen.getByRole("heading", { name: breadcrumbTitles.drb })
     ).toBeInTheDocument();
     expect(screen.getByRole("combobox")).toHaveValue(inputTerms[0].value);
-    expect(screen.getByRole("textbox")).toBeInTheDocument;
+    expect(screen.getByRole("textbox")).toBeInTheDocument();
     expect(screen.getByText("Advanced Search").closest("a").href).toContain(
       "/advanced-search"
     );
@@ -99,7 +99,7 @@ describe("Edition Cards and toggles", () => {
       const toggle = screen.getByLabelText(
         "Show only items currently available online"
       ) as HTMLInputElement;
-      expect(toggle).toBeInTheDocument;
+      expect(toggle).toBeInTheDocument();
       expect(toggle).not.toBeChecked();
     });
 
@@ -126,7 +126,7 @@ describe("Edition Cards and toggles", () => {
       const toggle = screen.getByLabelText(
         "Show only items currently available online"
       ) as HTMLInputElement;
-      expect(toggle).toBeInTheDocument;
+      expect(toggle).toBeInTheDocument();
       expect(toggle).not.toBeChecked();
     });
 
@@ -153,7 +153,7 @@ describe("Edition Cards and toggles", () => {
       const toggle = screen.getByLabelText(
         "Show only items currently available online"
       ) as HTMLInputElement;
-      expect(toggle).toBeInTheDocument;
+      expect(toggle).toBeInTheDocument();
       expect(toggle).toBeChecked();
     });
 
