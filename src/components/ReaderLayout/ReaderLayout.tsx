@@ -149,7 +149,7 @@ const ReaderLayout: React.FC<{
   const BackButton = () => {
     return (
       //Apends design system classname to use Design System Link.
-      <Link to={props.backUrl} className="nypl-ds logo-link">
+      <Link to={props.backUrl} type="action" className="nypl-ds logo-link">
         <Icon decorative className="logo-link__icon">
           <ReaderLogoSvg />
         </Icon>
