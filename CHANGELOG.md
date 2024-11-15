@@ -1,5 +1,9 @@
 # CHANGE LOG
 
+## [Prerelease]
+
+- Remove unused scss and img files
+
 ## [0.18.8]
 
 - Add survey banner to Landing, Collection, Edition, Work, and Search pages
