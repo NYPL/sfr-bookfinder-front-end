@@ -26,7 +26,7 @@ jobs:
 
       - name: Start the app
         run: |
-          NODE_ENV=test npm start
+          NODE_ENV=test npm start &
           sleep 5
         shell: bash
 
