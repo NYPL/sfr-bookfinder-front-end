@@ -5,10 +5,4 @@ Feature: EDD Request Process
         When I fill in the "homepage search box" with "Africa"
         And I click the "search button"
         And I click the "requestable checkbox"
-        And I click the "first login for options button"
-        And I fill in the "username field" with "catalog username"
-        And I fill in the "password field" with "catalog password"
-        And I click the "login button"
-        And the "first request button" should be displayed
-        And I click the "first request button"
-        Then the "delivery location heading" should be displayed
+        Then the "first login for options button" should be displayed

@@ -1,8 +1,7 @@
 name: Playwright Tests for Digital Research Books
 
-# TODO: Remove https://drb-api-qa.nypl.org from behind the VPC
-# on:
-#   pull_request:
+on:
+  pull_request:
 
 jobs:
   tests:
@@ -26,20 +25,9 @@ jobs:
         run: NODE_ENV=test npm run build
 
       - name: Start the app
-        run: npm run dev &
-        shell: bash
-
-      - name: Wait for the app
         run: |
-          RETRIES=6
-          until curl --output /dev/null --silent --head --fail http://localhost:3000 || [ $((RETRIES--)) -eq 0 ]; do
-            echo "Waiting for http://localhost:3000"
-            sleep 5
-          done
-          if [ $RETRIES -lt 0 ]; then
-            echo "Failed to connect to http://localhost:3000"
-            exit 1
-          fi
+          NODE_ENV=test npm start &
+          sleep 5
         shell: bash
 
       - name: Run your tests

@@ -2,6 +2,7 @@
 
 ## [Prerelease]
 
+- Enable playwright tests GH action
 - Remove unused scss and img files
 
 ## [0.18.8]
