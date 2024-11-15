@@ -7,6 +7,8 @@
 
 - Add survey banner to Landing, Collection, Edition, Work, and Search pages
 
+- SFR-2078: autoamte and validate different publishing source collections
+
 ## [0.18.7]
 
 - Fix header when banner is up
