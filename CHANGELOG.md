@@ -1,5 +1,8 @@
 # CHANGE LOG
 
+## [Prerelease]
+- Enable playwright tests GH action
+
 ## [0.18.8]
 
 - Add survey banner to Landing, Collection, Edition, Work, and Search pages
