@@ -3,7 +3,6 @@ import {
   Box,
   Heading,
   Hero,
-  Link,
   TemplateAppContainer,
   useNYPLBreakpoints,
 } from "@nypl/design-system-react-components";
@@ -12,6 +11,8 @@ import CollectionList from "../CollectionList/CollectionList";
 import { Opds2Feed } from "~/src/types/OpdsModel";
 import DrbHero from "../DrbHero/DrbHero";
 import DrbBreakout from "../DrbBreakout/DrbBreakout";
+import Link from "../Link/Link";
+import SurveyBanner from "../SurveyBanner/SurveyBanner";
 
 const LandingPage: React.FC<{ collections?: Opds2Feed }> = ({
   collections,
@@ -28,7 +29,7 @@ const LandingPage: React.FC<{ collections?: Opds2Feed }> = ({
         Find millions of digital books for research from multiple sources
         world-wide--all free to read, download, and keep. No library card
         required. This is an early beta test, so we want your feedback!{" "}
-        <Link href="/about">Read more about the project</Link>.
+        <Link to="/about">Read more about the project</Link>.
       </span>
       <Box marginTop="s">
         <SearchForm />
@@ -87,6 +88,7 @@ const LandingPage: React.FC<{ collections?: Opds2Feed }> = ({
 
   const contentPrimaryElement = (
     <Box marginLeft="l" marginRight="l">
+      <SurveyBanner />
       <Heading level="h2">Recently Added Collections</Heading>
       <CollectionList collections={collections} />
     </Box>

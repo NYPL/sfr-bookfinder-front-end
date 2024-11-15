@@ -25,6 +25,7 @@ import { MAX_TITLE_LENGTH } from "~/src/constants/editioncard";
 import { PLACEHOLDER_LINK } from "~/src/constants/collection";
 import DrbBreakout from "../DrbBreakout/DrbBreakout";
 import AuthorsList from "../AuthorsList/AuthorsList";
+import SurveyBanner from "../SurveyBanner/SurveyBanner";
 
 const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
   props
@@ -77,6 +78,7 @@ const WorkDetail: React.FC<{ workResult: WorkResult; backUrl?: string }> = (
 
   const contentTopElement = (
     <>
+      <SurveyBanner />
       <Box>
         <Heading level="h1" size="heading2" id="work-title">
           {work.title}
