@@ -10,7 +10,6 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "next lint --fix",
-    "lint:fix": "next lint --quiet --fix --ignore-path .gitignore",
     "cucumber": "NODE_OPTIONS='--experimental-loader ts-node/esm' cucumber-js",
     "playwright": "playwright test"
   },
