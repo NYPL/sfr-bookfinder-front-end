@@ -23,11 +23,10 @@ jobs:
 
       - name: Build app
         run: NODE_ENV=test npm run build
-        working-directory: /home/runner/work/sfr-bookfinder-front-end/sfr-bookfinder-front-end
 
       - name: Start the app
         run: |
-          NODE_ENV=test npm run dev > app.log 2>&1 &
+          NODE_ENV=test npm start
           sleep 5
         shell: bash
 
