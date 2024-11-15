@@ -2,6 +2,7 @@
 
 ## [Prerelease]
 
+- Enable playwright tests GH action
 - Remove duplicate eslint packages, update eslint config, and resolve linting errors
 
 ## [0.18.8]
