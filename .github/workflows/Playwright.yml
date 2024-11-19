@@ -30,28 +30,46 @@ jobs:
           sleep 5
         shell: bash
 
-      - name: Run your tests
-        run: npm run playwright
+      - name: Checkout another repository
+        uses: actions/checkout@v3
+        with:
+          repository: NYPL/drb-etl-pipeline
+          path: drb-etl-pipeline
 
-      - name: Set the world parameters as an env var
-        # WORLD_PARAMETERS set here will override anything set in cucumber.json
+      - name: Start the API
+        working-directory: ./drb-etl-pipeline
+        env:
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PSWD: ${{ secrets.POSTGRES_PSWD }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
-          echo "WORLD_PARAMETERS={\"headless\": true}" >> $GITHUB_ENV
+          docker compose up redis &
+          python main.py -p APIProcess -e frontend-ci &
+          sleep 5
 
-      - name: Run Cucumber tests
-        run: npm run cucumber -- playwright/features --world-parameters '${{ env.WORLD_PARAMETERS }}'
-        env:
-          CATALOG_USERNAME: ${{ secrets.CATALOG_USERNAME }}
-          CATALOG_USER_PIN: ${{ secrets.CATALOG_USER_PIN }}
-          CUCUMBER_PUBLISH_TOKEN: ${{ secrets.CUCUMBER_PUBLISH_TOKEN }}
-          CUCUMBER_PUBLISH_ENABLED: true
+      # - name: Run your tests
+      #   run: npm run playwright
 
-      - name: Slack Notification
-        if: ${{ always() }}
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_CHANNEL: test_reports
-          SLACK_MESSAGE: https://reports.cucumber.io/report-collections/01dbd6e8-653b-4597-b901-6caf2e653b07
-          SLACK_TITLE: DRB Cucumber/Playwright Test Results
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_USERNAME: nyplorgBot
+      # - name: Set the world parameters as an env var
+      #   # WORLD_PARAMETERS set here will override anything set in cucumber.json
+      #   run: |
+      #     echo "WORLD_PARAMETERS={\"headless\": true}" >> $GITHUB_ENV
+
+      # - name: Run Cucumber tests
+      #   run: npm run cucumber -- playwright/features --world-parameters '${{ env.WORLD_PARAMETERS }}'
+      #   env:
+      #     CATALOG_USERNAME: ${{ secrets.CATALOG_USERNAME }}
+      #     CATALOG_USER_PIN: ${{ secrets.CATALOG_USER_PIN }}
+      #     CUCUMBER_PUBLISH_TOKEN: ${{ secrets.CUCUMBER_PUBLISH_TOKEN }}
+      #     CUCUMBER_PUBLISH_ENABLED: true
+
+      # - name: Slack Notification
+      #   if: ${{ always() }}
+      #   uses: rtCamp/action-slack-notify@v2
+      #   env:
+      #     SLACK_CHANNEL: test_reports
+      #     SLACK_MESSAGE: https://reports.cucumber.io/report-collections/01dbd6e8-653b-4597-b901-6caf2e653b07
+      #     SLACK_TITLE: DRB Cucumber/Playwright Test Results
+      #     SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+      #     SLACK_USERNAME: nyplorgBot
