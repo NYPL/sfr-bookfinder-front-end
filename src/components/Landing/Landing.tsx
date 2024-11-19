@@ -79,7 +79,7 @@ const LandingPage: React.FC<{ collections?: Opds2Feed }> = ({
             id="primary-hero"
             color="ui.black"
           >
-            Search the World's Research Collections
+            Search the World&apos;s Research Collections
           </Heading>
         }
         subHeaderText={subHeader}

@@ -6,8 +6,10 @@ import { toApiQuery, toSearchQuery } from "../apiConversion";
 // Use require instead of import so that it will cast correctly to `ApiSearchQuery`
 // https://github.com/microsoft/TypeScript/issues/11152
 
-const apiQuery: ApiSearchQuery = require("../../__tests__/fixtures/search-query.json");
-const emptyApiQuery: ApiSearchQuery = require("../../__tests__/fixtures/search-query-missing-query.json");
+import {
+  searchQuery as apiQuery,
+  emptySearchQuery,
+} from "../../__tests__/fixtures/SearchQueryFixture";
 
 /**
  * Unit tests for `ApiConversion.ts`
@@ -73,7 +75,7 @@ describe("Converting api query to search query", () => {
 
   test("Throws error when empty api query is passed", () => {
     expect(() => {
-      toSearchQuery(emptyApiQuery);
+      toSearchQuery(emptySearchQuery);
     }).toThrowError("Mising param `queries` in search request");
   });
 

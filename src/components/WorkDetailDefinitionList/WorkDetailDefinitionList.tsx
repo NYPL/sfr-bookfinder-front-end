@@ -2,7 +2,7 @@ import React from "react";
 import { List } from "@nypl/design-system-react-components";
 import Link from "~/src/components/Link/Link";
 import { unique, flattenDeep, uniqueAndSortByFrequency } from "~/src/util/Util";
-import { Language, Subject } from "~/src/types/DataModel";
+import { Language, Subject, WorkEdition } from "~/src/types/DataModel";
 import { ApiWork } from "~/src/types/WorkQuery";
 import AuthorsList from "../AuthorsList/AuthorsList";
 
@@ -13,7 +13,7 @@ const getLanguagesForWork = (work: ApiWork) =>
   uniqueAndSortByFrequency(
     flattenDeep(
       work.editions.map(
-        (edition: any) =>
+        (edition: WorkEdition) =>
           edition.languages &&
           edition.languages.length &&
           edition.languages.map(

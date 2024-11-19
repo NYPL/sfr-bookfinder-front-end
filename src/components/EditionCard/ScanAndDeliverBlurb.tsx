@@ -12,7 +12,7 @@ const ScanAndDeliverBlurb: React.FC = () => {
     >
       <Icon name="errorOutline" size="small" />
       <Text size="caption" noSpace marginLeft="xxs">
-        A partial scan of this edition can be requested via NYPL's{" "}
+        A partial scan of this edition can be requested via NYPL&apos;s{" "}
         <Link to={SCAN_AND_DELIVER_LINK}>Scan and Deliver</Link> service
       </Text>
     </Flex>

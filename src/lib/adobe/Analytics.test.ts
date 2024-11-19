@@ -1,4 +1,3 @@
-import React from "react";
 import { SITE_SECTION } from "../../constants/analytics";
 import { documentTitles } from "../../constants/labels";
 import { trackCtaClick, trackPageview } from "./Analytics";

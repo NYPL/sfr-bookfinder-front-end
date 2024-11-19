@@ -1,6 +1,7 @@
 import React from "react";
 import ReaderLayout from "~/src/components/ReaderLayout/ReaderLayout";
 import { readFetcher, proxyUrlConstructor } from "~/src/lib/api/SearchApi";
+import { log } from "~/src/lib/newrelic/NewRelic";
 import { LinkResult } from "~/src/types/LinkQuery";
 import { getBackUrl } from "~/src/util/LinkUtils";
 import Error from "../_error";
@@ -21,6 +22,7 @@ export async function getServerSideProps(context: any) {
       },
     };
   } catch (e) {
+    log(e, "Failed to fetch link");
     return {
       notFound: true,
     };

@@ -153,7 +153,7 @@ export const toApiQuery = (searchQuery: SearchQuery): ApiSearchQuery => {
         sort: toApiSorts(searchQuery.sort),
       }),
     ...(searchQuery.showAll !== undefined &&
-      typeof searchQuery.showAll !== undefined &&
+      typeof searchQuery.showAll !== "undefined" &&
       searchQuery.showAll !== SearchQueryDefaults.showAll && {
         showAll: searchQuery.showAll.toString(),
       }),
