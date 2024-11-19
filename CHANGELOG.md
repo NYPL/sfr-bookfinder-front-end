@@ -5,6 +5,7 @@
 - Enable playwright tests GH action
 - Remove unused scss and img files
 - Remove duplicate eslint packages, update eslint config, and resolve linting errors
+- Run Playwright tests against local backend API
 
 ## [0.18.8]
 
