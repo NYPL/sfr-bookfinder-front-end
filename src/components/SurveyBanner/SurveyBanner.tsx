@@ -5,18 +5,18 @@ import Link from "../Link/Link";
 const SurveyBanner: React.FC = () => {
   return (
     <Banner
-      type="informative"
+      type="recommendation"
       content={
         <>
-          <Text noSpace>
-            Do you use Digital Research Books at the Library? Help us learn
-            about your experiences by{" "}
-            <Link to="https://www.surveymonkey.com/r/8B37XDL">
-              taking a short survey.
-            </Link>
-          </Text>
+          <Text>Tell us about your experience by taking a short survey.</Text>
+          <Link to="https://www.surveymonkey.com/r/8B37XDL">
+            <Text noSpace fontWeight={500}>
+              Take the survey
+            </Text>
+          </Link>
         </>
       }
+      heading="Do you use Digital Research Books?"
       marginBottom="l"
     />
   );
