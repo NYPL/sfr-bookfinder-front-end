@@ -15,6 +15,7 @@ import { getQueryDecodedString } from "../util/SearchQueryUtils";
 import NewRelicSnippet from "../lib/newrelic/NewRelic";
 import ErrorBoundary from "../components/ErrorBoundary";
 import { FeedbackProvider } from "../context/FeedbackContext";
+import { ParsedUrlQuery } from "querystring";
 
 if (process.env.APP_ENV === "testing") {
   const { initMocks } = await import("mocks");
@@ -34,7 +35,7 @@ function isServerRendered(): boolean {
  * @param query the router query
  * @returns the title of the page (as shown in browser tab)
  */
-const setTitle = (query: any) => {
+const setTitle = (query: ParsedUrlQuery) => {
   if (query.workId) {
     return documentTitles.workItem;
   } else if (query.editionId) {
@@ -50,7 +51,7 @@ const setTitle = (query: any) => {
   }
 };
 
-const sendAnalytics = (query: any, pathname: string) => {
+const sendAnalytics = (query: ParsedUrlQuery, pathname: string) => {
   if (query.workId) {
     trackPageview(pageNames.workItem + query.workId);
   } else if (query.editionId) {

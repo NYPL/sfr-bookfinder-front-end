@@ -30,7 +30,7 @@ describe("Renders edition component when given valid edition", () => {
       screen.getByRole("heading", { name: breadcrumbTitles.drb })
     ).toBeInTheDocument();
     expect(screen.getByRole("combobox")).toHaveValue(inputTerms[0].value);
-    expect(screen.getByRole("textbox")).toBeInTheDocument;
+    expect(screen.getByRole("textbox")).toBeInTheDocument();
     expect(screen.getByText("Advanced Search").closest("a").href).toContain(
       "/advanced-search"
     );
@@ -137,7 +137,7 @@ describe("All Copies Toggle", () => {
       const toggle = screen.getByLabelText(
         "Show only items currently available online"
       ) as HTMLInputElement;
-      expect(toggle).toBeInTheDocument;
+      expect(toggle).toBeInTheDocument();
       expect(toggle).not.toBeChecked();
     });
 
@@ -164,7 +164,7 @@ describe("All Copies Toggle", () => {
       const toggle = screen.getByLabelText(
         "Show only items currently available online"
       ) as HTMLInputElement;
-      expect(toggle).toBeInTheDocument;
+      expect(toggle).toBeInTheDocument();
       expect(toggle).toBeChecked();
     });
 

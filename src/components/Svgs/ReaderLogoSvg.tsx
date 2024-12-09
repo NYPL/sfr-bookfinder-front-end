@@ -1,6 +1,7 @@
+import { PropsOf } from "@chakra-ui/react";
 import React from "react";
 
-const ReaderLogoSvg: React.FC = () => (
+const ReaderLogoSvg: React.FC<PropsOf<"svg">> = () => (
   <svg
     width="48"
     height="49"

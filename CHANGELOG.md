@@ -1,5 +1,15 @@
 # CHANGE LOG
 
+## [Prerelease]
+
+## [0.18.9]
+
+- Enable playwright tests GH action
+- Remove unused scss and img files
+- Remove duplicate eslint packages, update eslint config, and resolve linting errors
+- Update survey banner to be more visible
+- Deploy to both ECS clusters in QA
+
 ## [0.18.8]
 
 - Add survey banner to Landing, Collection, Edition, Work, and Search pages

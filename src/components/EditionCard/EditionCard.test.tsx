@@ -99,8 +99,8 @@ describe("Edition with EDD", () => {
   test("Shows Download and Read Online button when edition has both EDD and readable links", () => {
     render(<EditionCard edition={fullEdition} title={"title"}></EditionCard>);
 
-    expect(screen.queryByText("Download PDF")).toBeInTheDocument();
-    expect(screen.queryByText("Read Online")).toBeInTheDocument();
+    expect(screen.getByText("Download PDF")).toBeInTheDocument();
+    expect(screen.getByText("Read Online")).toBeInTheDocument();
     expect(
       screen.queryByText("Log in to request scan")
     ).not.toBeInTheDocument();

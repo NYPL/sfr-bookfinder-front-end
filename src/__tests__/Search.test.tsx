@@ -17,8 +17,8 @@ import { FilterFormatTests } from "./componentHelpers/FilterFormats";
 import { findFiltersForField } from "../util/SearchQueryUtils";
 import filterFields from "../constants/filters";
 import mockRouter from "next-router-mock";
+import { searchResults } from "./fixtures/SearchResultFixture";
 
-const searchResults: ApiSearchResult = require("./fixtures/results-list.json");
 const searchQuery: SearchQuery = {
   queries: [{ field: SearchField.Keyword, query: "Animal Crossing" }],
 };
@@ -174,7 +174,7 @@ describe("Renders Search Results Page", () => {
           name: "Available Online",
         });
         await userEvent.click(modalCheckbox);
-        expect(modalCheckbox).not.toBeChecked;
+        expect(modalCheckbox).not.toBeChecked();
         expect(mockRouter).toMatchObject({
           pathname: "/search",
           query: {
@@ -495,7 +495,7 @@ describe("Renders Search Results Page", () => {
       });
       test("Does not show download link", () => {
         // The found `download` link is from the first result
-        expect(screen.getAllByText("Download PDF")[1]).not.toBeDefined();
+        expect(screen.queryAllByText("Download PDF")[1]).not.toBeDefined();
       });
       test("Shows 'read online' as link", () => {
         expect(
