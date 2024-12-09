@@ -56,4 +56,4 @@ jobs:
         
       - name: Force ECS Update - Terraform
         run: |
-          aws ecs update-service --cluster sfr-front-end-qa-tf --service sfr-front-end-qa-tf --force-new-deployment
+          aws ecs update-service --cluster sfr-frontend-qa-tf --service sfr-frontend-qa-tf --force-new-deployment
