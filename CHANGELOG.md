@@ -2,6 +2,8 @@
 
 ## [Prerelease]
 
+- Remove Kristo, Jiayong, and Olivia and add Kyle as codeowners
+
 ## [0.18.9]
 
 - Enable playwright tests GH action
