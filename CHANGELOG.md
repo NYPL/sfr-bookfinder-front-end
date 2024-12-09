@@ -5,6 +5,7 @@
 - Enable playwright tests GH action
 - Remove unused scss and img files
 - Remove duplicate eslint packages, update eslint config, and resolve linting errors
+- Update survey banner to be more visible
 
 ## [0.18.8]
 
