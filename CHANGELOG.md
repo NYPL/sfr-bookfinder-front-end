@@ -2,6 +2,8 @@
 
 ## [Prerelease]
 
+## [0.18.9]
+
 - Enable playwright tests GH action
 - Remove unused scss and img files
 - Remove duplicate eslint packages, update eslint config, and resolve linting errors
