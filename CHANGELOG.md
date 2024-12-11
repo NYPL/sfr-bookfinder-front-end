@@ -3,6 +3,7 @@
 ## [Prerelease]
 
 - Remove Kristo, Jiayong, and Olivia and add Kyle as codeowners
+- Deploy to new Terraform ECS cluster in production
 
 ## [0.18.9]
 
