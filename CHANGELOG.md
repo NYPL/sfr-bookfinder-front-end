@@ -4,6 +4,7 @@
 
 - Remove Kristo, Jiayong, and Olivia and add Kyle as codeowners
 - Deploy to new Terraform ECS cluster in production
+- Deploy only to the new Terraform ECS clusters
 
 ## [0.18.9]
 
