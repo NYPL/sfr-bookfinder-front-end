@@ -21,22 +21,38 @@ jobs:
       - name: Install Playwright
         run: npx playwright install --with-deps
 
-      - name: Build app
-        run: NODE_ENV=test npm run build
+      # Step 1: Retrieve the Vercel Preview URL
+      - name: vercel-preview-url
+        uses: zentered/vercel-preview-url@v1.1.9
+        id: vercel_preview_url
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          GITHUB_REF: "main"
+          GITHUB_REPOSITORY: "your-repo/your-project"
+        with:
+          vercel_project_id: ${{ secrets.VERCEL_PROJECT_ID }}
 
-      - name: Start the app
-        run: |
-          NODE_ENV=test npm start &
-          sleep 5
-        shell: bash
+      # Step 2: Wait for the Vercel deployment to be ready
+      - uses: UnlyEd/github-action-await-vercel@v1
+        id: await-vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        with:
+          deployment-url: ${{ steps.vercel_preview_url.outputs.preview_url }}
+          timeout: 420
+          poll-interval: 15
 
       - name: Run your tests
+        env:
+          BASE_URL: ${{ steps.vercel_preview_url.outputs.preview_url }}
         run: npm run playwright
 
       - name: Set the world parameters as an env var
+        env:
+          BASE_URL: ${{ steps.vercel_preview_url.outputs.preview_url }}
         # WORLD_PARAMETERS set here will override anything set in cucumber.json
         run: |
-          echo "WORLD_PARAMETERS={\"headless\": true}" >> $GITHUB_ENV
+          echo "WORLD_PARAMETERS={\"appUrl\": \"$BASE_URL\", \"headless\": true}" >> $GITHUB_ENV
 
       - name: Run Cucumber tests
         run: npm run cucumber -- playwright/features --world-parameters '${{ env.WORLD_PARAMETERS }}'
