@@ -28,7 +28,7 @@ jobs:
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           GITHUB_REF: "main"
-          GITHUB_REPOSITORY: "your-repo/your-project"
+          GITHUB_REPOSITORY: "NYPL/sfr-bookfinder-front-end"
         with:
           vercel_project_id: ${{ secrets.VERCEL_PROJECT_ID }}
 
