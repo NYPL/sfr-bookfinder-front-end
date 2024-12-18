@@ -1,12 +1,15 @@
 name: Playwright Tests for Digital Research Books
 
 on:
-  pull_request:
+  deployment_status:
 
 jobs:
   tests:
+    if: github.event_name == 'deployment_status' && github.event.deployment_status.state == 'success'
     name: Run Tests
     runs-on: ubuntu-latest
+    env:
+      BASE_URL: ${{ github.event.deployment_status.target_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -21,35 +24,10 @@ jobs:
       - name: Install Playwright
         run: npx playwright install --with-deps
 
-      # Step 1: Retrieve the Vercel Preview URL
-      - name: vercel-preview-url
-        uses: zentered/vercel-preview-url@v1.1.9
-        id: vercel_preview_url
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          GITHUB_REF: "main"
-          GITHUB_REPOSITORY: "NYPL/sfr-bookfinder-front-end"
-        with:
-          vercel_project_id: ${{ secrets.VERCEL_PROJECT_ID }}
-
-      # Step 2: Wait for the Vercel deployment to be ready
-      - uses: UnlyEd/github-action-await-vercel@v1
-        id: await-vercel
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-        with:
-          deployment-url: ${{ steps.vercel_preview_url.outputs.preview_url }}
-          timeout: 420
-          poll-interval: 15
-
       - name: Run your tests
-        env:
-          BASE_URL: ${{ steps.vercel_preview_url.outputs.preview_url }}
         run: npm run playwright
 
       - name: Set the world parameters as an env var
-        env:
-          BASE_URL: ${{ steps.vercel_preview_url.outputs.preview_url }}
         # WORLD_PARAMETERS set here will override anything set in cucumber.json
         run: |
           echo "WORLD_PARAMETERS={\"appUrl\": \"$BASE_URL\", \"headless\": true}" >> $GITHUB_ENV
