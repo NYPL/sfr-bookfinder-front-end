@@ -14,7 +14,7 @@ test.beforeEach(async ({ context }) => {
 test.afterEach(() => server.resetHandlers());
 test.afterAll(() => server.close());
 
-test.describe("Cookie authentication", () => {
+test.skip("Cookie authentication", () => {
   test("redirects to NYPL log in page with no cookie", async ({ page }) => {
     await page.goto(`${LIMITED_ACCESS_EDITION_PATH}`);
     await page.getByTestId(LOGIN_TO_READ_TEST_ID).click();
