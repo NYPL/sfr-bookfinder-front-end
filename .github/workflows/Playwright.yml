@@ -24,6 +24,9 @@ jobs:
       - name: Install Playwright
         run: npx playwright install --with-deps
 
+      - name: Build app
+        run: NODE_ENV=test npm run build
+
       - name: Run your tests
         run: npm run playwright
 
