@@ -1,15 +1,12 @@
 name: Playwright Tests for Digital Research Books
 
 on:
-  deployment_status:
+  pull_request:
 
 jobs:
   tests:
-    if: github.event_name == 'deployment_status' && github.event.deployment_status.state == 'success'
     name: Run Tests
     runs-on: ubuntu-latest
-    env:
-      BASE_URL: ${{ github.event.deployment_status.target_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -17,6 +14,19 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
+
+      - name: Set environment for branch
+        run: |
+          if [[ $GITHUB_REF_NAME == 'production' ]]; then
+              echo "BASE_URL=https://drb-qa.nypl.org/" >> "$GITHUB_ENV"
+          else
+              echo "BASE_URL=http://local.nypl.org:3000/" >> "$GITHUB_ENV"
+          fi
+
+      - name: Add hosts to /etc/hosts
+        if: github.ref != 'production'
+        run: |
+          sudo echo "127.0.0.1 local.nypl.org" | sudo tee -a /etc/hosts
 
       - name: Install Test Dependencies
         run: npm i @cucumber/cucumber@8.11.1 @playwright/test@1.29.1
@@ -26,6 +36,13 @@ jobs:
 
       - name: Build app
         run: NODE_ENV=test npm run build
+
+      - name: Start the app
+        if: github.ref != 'production'
+        run: |
+          NODE_ENV=test npm start &
+          sleep 5
+        shell: bash
 
       - name: Run your tests
         run: npm run playwright
