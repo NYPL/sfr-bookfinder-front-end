@@ -15,7 +15,10 @@ const collectionUrl = apiUrl + collectionPath;
 export const collectionFetcher = async (query: CollectionQuery) => {
   const collectionApiQuery = toApiCollectionQuery(query);
 
-  const url = new URL(collectionUrl + "/" + query.identifier);
+  const urlWithIdentifier = query.identifier
+    ? collectionUrl + "/" + query.identifier
+    : collectionUrl;
+  const url = new URL(urlWithIdentifier);
   url.search = new URLSearchParams(
     toLocationQuery(collectionApiQuery)
   ).toString();

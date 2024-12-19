@@ -6,7 +6,7 @@ export type ApiCollectionQuery = {
 };
 
 export type CollectionQuery = {
-  identifier: string;
+  identifier?: string;
   page?: number;
   perPage?: number;
   sort?: string;
