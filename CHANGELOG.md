@@ -2,6 +2,13 @@
 
 ## [Prerelease]
 
+## [0.18.10]
+
+- Remove Kristo, Jiayong, and Olivia and add Kyle as codeowners
+- Deploy to new Terraform ECS cluster in production
+- Deploy only to the new Terraform ECS clusters
+- Update API endpoints to plural nouns
+
 ## [0.18.9]
 
 - Enable playwright tests GH action
