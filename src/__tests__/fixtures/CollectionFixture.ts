@@ -188,7 +188,7 @@ export const oneCollectionListData: Opds2Feed = {
   ],
   links: [
     {
-      href: "/collection/list?page=1",
+      href: "/collections?page=1",
       rel: ["self", "first", "previous", "next", "last"],
       type: "application/opds+json",
     },
@@ -1721,7 +1721,7 @@ export const collectionListData: CollectionResult = {
     ],
     links: [
       {
-        href: "/collection/list?page=1",
+        href: "/collections?page=1",
         rel: ["self", "first", "previous", "next", "last"],
         type: "application/opds+json",
       },
