@@ -1,4 +1,4 @@
-export const NYPL_LOGIN_URL = "https://login.nypl.org/auth/login?redirect_uri=";
+export const NYPL_LOGIN_URL = "login.nypl.org";
 export const API_URL = "https://backend.msw";
 export const FULFILL_PATH = "/fulfill/9351827";
 export const LIMITED_ACCESS_EDITION_PATH = "/edition/6977884";
