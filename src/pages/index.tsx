@@ -9,7 +9,6 @@ import Error from "./_error";
 export async function getServerSideProps() {
   // Fetch all collections
   const collectionResult: CollectionResult = await collectionFetcher({
-    identifier: "list",
     perPage: 8,
   });
 
