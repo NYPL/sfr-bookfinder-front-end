@@ -73,7 +73,7 @@ test.describe("Item Details Page Elements", () => {
   }) => {
     const itemDetailPage = new ItemDetailPage(page);
     await itemDetailPage.navigateToItemDetailPage();
-    await itemDetailPage.doubleClickElement(
+    await itemDetailPage.clickElement(
       itemDetailPage.itemsCurrentlyAvailableOnlineToggle
     );
     await itemDetailPage.verifyElementVisible(

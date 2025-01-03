@@ -114,10 +114,6 @@ class ItemDetailPage {
   async verifyElementVisible(element: Locator) {
     await expect(element).toBeVisible();
   }
-
-  async doubleClickElement(element: Locator) {
-    await element.dblclick();
-  }
 }
 
 export { ItemDetailPage };

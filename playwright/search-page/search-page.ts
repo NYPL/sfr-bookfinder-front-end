@@ -84,7 +84,9 @@ class SearchPage {
       "a:text('1900 Edition') >> nth=0"
     );
 
-    this.categoryDropdown = page.locator('select[name="category dropdown"]');
+    this.categoryDropdown = page.locator(
+      "[aria-label='Select a search category']"
+    );
     this.firstSearchResultLink = page.locator("h2 a >> nth=0");
     this.firstSearchResultSubject = page.locator(
       "a:text('Petroleum') >> nth=0"
