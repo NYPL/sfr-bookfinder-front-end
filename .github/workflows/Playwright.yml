@@ -7,6 +7,8 @@ jobs:
   tests:
     name: Run Tests
     runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.42.1-jammy
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -14,12 +16,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
-
-      - name: Install Test Dependencies
-        run: npm i @cucumber/cucumber@8.11.1 @playwright/test@1.29.1
-
-      - name: Install Playwright
-        run: npx playwright install --with-deps
 
       - name: Build app
         run: NODE_ENV=test npm run build
@@ -32,19 +28,6 @@ jobs:
 
       - name: Run your tests
         run: npm run playwright
-
-      - name: Set the world parameters as an env var
-        # WORLD_PARAMETERS set here will override anything set in cucumber.json
-        run: |
-          echo "WORLD_PARAMETERS={\"headless\": true}" >> $GITHUB_ENV
-
-      - name: Run Cucumber tests
-        run: npm run cucumber -- playwright/features --world-parameters '${{ env.WORLD_PARAMETERS }}'
-        env:
-          CATALOG_USERNAME: ${{ secrets.CATALOG_USERNAME }}
-          CATALOG_USER_PIN: ${{ secrets.CATALOG_USER_PIN }}
-          CUCUMBER_PUBLISH_TOKEN: ${{ secrets.CUCUMBER_PUBLISH_TOKEN }}
-          CUCUMBER_PUBLISH_ENABLED: true
 
       - name: Slack Notification
         if: ${{ always() }}

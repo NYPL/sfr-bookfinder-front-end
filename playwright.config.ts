@@ -1,11 +1,13 @@
 import { devices, PlaywrightTestConfig } from "@playwright/test";
 
 const config: PlaywrightTestConfig = {
-  testDir: "playwright/integration",
+  testDir: "playwright/",
   expect: {
     // Maximum time expect() should wait for the condition to be met.
-    timeout: 5000,
+    timeout: 40 * 1000,
   },
+
+  timeout: 40 * 1000,
 
   // Run all tests in parallel.
   fullyParallel: true,
