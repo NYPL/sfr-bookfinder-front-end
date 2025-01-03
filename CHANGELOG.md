@@ -2,6 +2,8 @@
 
 ## [Prerelease]
 
+- Replace Cucumber with Playwright Page Object Model tests
+
 ## [0.18.10]
 
 - Remove Kristo, Jiayong, and Olivia and add Kyle as codeowners
