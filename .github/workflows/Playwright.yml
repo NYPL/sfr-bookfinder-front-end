@@ -16,7 +16,7 @@ jobs:
           node-version-file: ".nvmrc"
 
       - name: Install Test Dependencies
-        run: npm i @playwright/test@1.42.1
+        run: npm i @playwright/test@1.49.1
 
       - name: Install Playwright
         run: npx playwright install --with-deps
