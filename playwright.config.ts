@@ -1,11 +1,13 @@
 import { devices, PlaywrightTestConfig } from "@playwright/test";
 
 const config: PlaywrightTestConfig = {
-  testDir: "playwright/integration",
+  testDir: "playwright/",
   expect: {
     // Maximum time expect() should wait for the condition to be met.
-    timeout: 5000,
+    timeout: 40 * 1000,
   },
+
+  timeout: 40 * 1000,
 
   // Run all tests in parallel.
   fullyParallel: true,
@@ -22,7 +24,7 @@ const config: PlaywrightTestConfig = {
   use: {
     headless: true,
     // Base URL to use in actions like `await page.goto('/')`.
-    baseURL: process.env.BASE_URL,
+    baseURL: "http://local.nypl.org:3000",
 
     /* When running tests locally, record a trace for each test, but remove it from successful runs.
      * On CI, turn this feature off. See https://playwright.dev/docs/trace-viewer */

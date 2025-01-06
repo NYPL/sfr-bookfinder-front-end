@@ -1,9 +1,0 @@
-{
-  "default": {
-    "import": ["playwright/tests/**/*.ts", "playwright/support/**/*.ts"],
-    "worldParameters": {
-      "appUrl": "http://localhost:3000/",
-      "headless": false
-    }
-  }
-}
