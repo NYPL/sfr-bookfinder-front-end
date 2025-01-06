@@ -2,6 +2,7 @@
 
 ## [Prerelease]
 
+- Add `fallbackSrc` for `Card` images
 - Remove survey banner
 - Replace Cucumber with Playwright Page Object Model tests
 - Update GH action to run tests against local.nypl.org and QA for prod PRs
