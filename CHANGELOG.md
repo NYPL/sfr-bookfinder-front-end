@@ -2,6 +2,8 @@
 
 ## [Prerelease]
 
+- Add `fallbackSrc` for `Card` images
+
 ## [0.18.10]
 
 - Remove Kristo, Jiayong, and Olivia and add Kyle as codeowners

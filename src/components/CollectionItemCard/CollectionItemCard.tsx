@@ -14,6 +14,7 @@ import EditionYear from "~/src/components/CollectionItemCard/EditionYear";
 import PublisherAndLocation from "~/src/components/CollectionItemCard/PublisherAndLocation";
 import CopyrightLink from "~/src/components/CollectionItemCard/CopyrightLink";
 import LanguageDisplayText from "~/src/components/CollectionItemCard/LanguageDisplayText";
+import { PLACEHOLDER_COVER_LINK } from "~/src/constants/editioncard";
 
 // Creates an Collection item card out of the collectionItem object
 export const CollectionItemCard: React.FC<{
@@ -29,6 +30,7 @@ export const CollectionItemCard: React.FC<{
     <Card
       imageProps={{
         src: CollectionUtils.getCover(collectionItem),
+        fallbackSrc: PLACEHOLDER_COVER_LINK,
         size: "xsmall",
         aspectRatio: "original",
         alt: ``,
