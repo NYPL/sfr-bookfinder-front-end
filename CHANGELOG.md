@@ -2,6 +2,8 @@
 
 ## [Prerelease]
 
+- Remove survey banner
+
 ## [0.18.10]
 
 - Remove Kristo, Jiayong, and Olivia and add Kyle as codeowners
