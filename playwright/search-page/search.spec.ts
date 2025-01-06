@@ -40,16 +40,16 @@ test.describe("Keyword Search", () => {
 });
 
 test.describe("Language Filter", () => {
-  test("Filter search results by a Latin language and the first search result contains that language", async ({
+  test("Filter search results by a French language and the first search result contains that language", async ({
     page,
   }) => {
     const searchPage = new SearchPage(page);
     await searchPage.navigateToSearchPage();
-    await searchPage.fillSearchBox("New York");
+    await searchPage.fillSearchBox("Computer Science");
     await searchPage.clickSearchButton();
-    await searchPage.clickLanguageCheckbox(searchPage.latinLanguageCheckbox);
+    await searchPage.clickLanguageCheckbox(searchPage.frenchLanguageCheckbox);
     await searchPage.verifyFirstSearchResultLanguageVisible(
-      searchPage.firstSearchResultLatinLanguage
+      searchPage.firstSearchResultFrenchLanguage
     );
   });
 
@@ -58,7 +58,7 @@ test.describe("Language Filter", () => {
   }) => {
     const searchPage = new SearchPage(page);
     await searchPage.navigateToSearchPage();
-    await searchPage.fillSearchBox("New York");
+    await searchPage.fillSearchBox("Computer Science");
     await searchPage.clickSearchButton();
     await searchPage.clickLanguageCheckbox(searchPage.spanishLanguageCheckbox);
     await searchPage.verifyFirstSearchResultLanguageVisible(
@@ -66,16 +66,16 @@ test.describe("Language Filter", () => {
     );
   });
 
-  test("Filter search results by a Japanese language and the first search result contains that language", async ({
+  test("Filter search results by a German language and the first search result contains that language", async ({
     page,
   }) => {
     const searchPage = new SearchPage(page);
     await searchPage.navigateToSearchPage();
-    await searchPage.fillSearchBox("New York");
+    await searchPage.fillSearchBox("Computer Science");
     await searchPage.clickSearchButton();
-    await searchPage.clickLanguageCheckbox(searchPage.japaneseLanguageCheckbox);
+    await searchPage.clickLanguageCheckbox(searchPage.germanLanguageCheckbox);
     await searchPage.verifyFirstSearchResultLanguageVisible(
-      searchPage.firstSearchResultJapaneseLanguage
+      searchPage.firstSearchResultGermanLanguage
     );
   });
 

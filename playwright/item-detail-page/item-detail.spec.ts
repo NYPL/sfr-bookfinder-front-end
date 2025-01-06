@@ -88,16 +88,16 @@ test.describe("Item Details Page Elements", () => {
     await itemDetailPage.navigateToItemDetailPage();
     await itemDetailPage.fillSearchBox("Jane Austen");
     await itemDetailPage.clickSearchButton();
-    await itemDetailPage.clickElement(itemDetailPage.theNovelsOfJaneAustenLink);
+    await itemDetailPage.clickElement(itemDetailPage.lettersOfJaneAustenLink);
     await itemDetailPage.verifyElementVisible(
-      itemDetailPage.theNovelsOfJaneAustenHeading
+      itemDetailPage.lettersOfJaneAustenHeading
     );
     await itemDetailPage.verifyElementVisible(
       itemDetailPage.backToSearchResultsButton
     );
     await itemDetailPage.clickElement(itemDetailPage.backToSearchResultsButton);
     await itemDetailPage.verifyElementVisible(
-      itemDetailPage.theNovelsOfJaneAustenLink
+      itemDetailPage.lettersOfJaneAustenLink
     );
   });
 });

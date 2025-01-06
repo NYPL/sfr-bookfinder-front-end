@@ -10,14 +10,14 @@ class SearchPage {
   readonly governmentDocumentsCheckbox: Locator;
   readonly firstGovernmentDocumentAuthor: Locator;
 
-  readonly latinLanguageCheckbox: Locator;
+  readonly frenchLanguageCheckbox: Locator;
   readonly spanishLanguageCheckbox: Locator;
-  readonly japaneseLanguageCheckbox: Locator;
+  readonly germanLanguageCheckbox: Locator;
   readonly polishLanguageCheckbox: Locator;
   readonly portugueseLanguageCheckbox: Locator;
-  readonly firstSearchResultLatinLanguage: Locator;
+  readonly firstSearchResultFrenchLanguage: Locator;
   readonly firstSearchResultSpanishLanguage: Locator;
-  readonly firstSearchResultJapaneseLanguage: Locator;
+  readonly firstSearchResultGermanLanguage: Locator;
   readonly firstSearchResultPolishLanguage: Locator;
   readonly firstSearchResultPortugueseLanguage: Locator;
 
@@ -56,19 +56,19 @@ class SearchPage {
       "iframe[src='https://babel.hathitrust.org/cgi/pt?id=hvd.32044079201976']"
     );
 
-    this.latinLanguageCheckbox = page.locator("span:text('Latin')");
+    this.frenchLanguageCheckbox = page.locator("span:text('French')");
     this.spanishLanguageCheckbox = page.locator("span:text('Spanish')");
-    this.japaneseLanguageCheckbox = page.locator("span:text('Japanese')");
+    this.germanLanguageCheckbox = page.locator("span:text('German')");
     this.polishLanguageCheckbox = page.locator("span:text('Polish')");
     this.portugueseLanguageCheckbox = page.locator("span:text('Portuguese')");
-    this.firstSearchResultLatinLanguage = page.locator(
-      "div:text('Latin') >> nth=0"
+    this.firstSearchResultFrenchLanguage = page.locator(
+      "div:text('French') >> nth=0"
     );
     this.firstSearchResultSpanishLanguage = page.locator(
       "div:text('Spanish') >> nth=0"
     );
-    this.firstSearchResultJapaneseLanguage = page.locator(
-      "div:text('Japanese') >> nth=0"
+    this.firstSearchResultGermanLanguage = page.locator(
+      "div:text('German') >> nth=0"
     );
     this.firstSearchResultPolishLanguage = page.locator(
       "div:text('Polish') >> nth=0"

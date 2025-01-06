@@ -27,8 +27,8 @@ class ItemDetailPage {
   readonly secondItemEdition: Locator;
   readonly firstReadOnlineButtonForAllEditions: Locator;
   readonly backToSearchResultsButton: Locator;
-  readonly theNovelsOfJaneAustenLink: Locator;
-  readonly theNovelsOfJaneAustenHeading: Locator;
+  readonly lettersOfJaneAustenLink: Locator;
+  readonly lettersOfJaneAustenHeading: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -85,17 +85,17 @@ class ItemDetailPage {
     this.backToSearchResultsButton = page.locator(
       "a:text('Back to search results')"
     );
-    this.theNovelsOfJaneAustenLink = page.locator(
-      "//a[text()='The novels of Jane Austen'] >> nth=0"
+    this.lettersOfJaneAustenLink = page.locator(
+      "//a[text()='Letters of Jane Austen'] >> nth=0"
     );
-    this.theNovelsOfJaneAustenHeading = page.locator(
-      "//h1[text()='The novels of Jane Austen']"
+    this.lettersOfJaneAustenHeading = page.locator(
+      "//h1[text()='Letters of Jane Austen']"
     );
   }
 
   async navigateToItemDetailPage() {
     await this.page.goto(
-      "/work/01ca64fb-31cc-4451-b8b2-7fc0d9c4f1a8?featured=6428716"
+      "/work/afed4441-43a7-4020-87d6-770ca88faac6?featured=4801342"
     );
   }
 
