@@ -10,7 +10,13 @@ test.describe("EDD Request Process", () => {
     await searchPage.fillSearchBox("Africa");
     await searchPage.clickSearchButton();
     await searchPage.clickRequestableCheckbox();
-    await searchPage.verifyFirstLoginForOptionsButtonVisible();
+    await searchPage.clickFirstLoginForOptionsButton();
+    await searchPage.fillUsernameField(process.env.CATALOG_USERNAME);
+    await searchPage.fillPasswordField(process.env.CATALOG_USER_PIN);
+    await searchPage.clickLoginButton();
+    await searchPage.verifyFirstRequestButtonVisible();
+    await searchPage.clickFirstRequestButton();
+    await searchPage.verifyDeliveryLocationHeadingVisible();
   });
 });
 

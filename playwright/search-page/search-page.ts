@@ -7,6 +7,12 @@ class SearchPage {
 
   readonly requestableCheckbox: Locator;
   readonly firstLoginForOptionsButton: Locator;
+  readonly usernameField: Locator;
+  readonly passwordField: Locator;
+  readonly loginButton: Locator;
+  readonly firstRequestButton: Locator;
+  readonly deliveryLocationHeading: Locator;
+
   readonly governmentDocumentsCheckbox: Locator;
   readonly firstGovernmentDocumentAuthor: Locator;
 
@@ -44,6 +50,14 @@ class SearchPage {
     this.firstLoginForOptionsButton = page.locator(
       "a:text('Log in to request scan') >> nth=0"
     );
+    this.usernameField = page.locator("#code");
+    this.passwordField = page.locator("#pin");
+    this.loginButton = page.locator("[value='Submit']");
+    this.firstRequestButton = page.locator("a:text('Request scan') >> nth=0");
+    this.deliveryLocationHeading = page.locator(
+      "h2:text('Choose a delivery location')"
+    );
+
     this.governmentDocumentsCheckbox = page.locator(
       "span:text('Show only US government documents')"
     );
@@ -108,6 +122,34 @@ class SearchPage {
 
   async clickRequestableCheckbox() {
     await this.requestableCheckbox.click();
+  }
+
+  async clickFirstLoginForOptionsButton() {
+    await this.firstLoginForOptionsButton.click();
+  }
+
+  async fillUsernameField(username: string) {
+    await this.usernameField.fill(username);
+  }
+
+  async fillPasswordField(password: string) {
+    await this.passwordField.fill(password);
+  }
+
+  async clickLoginButton() {
+    await this.loginButton.click();
+  }
+
+  async verifyFirstRequestButtonVisible() {
+    await expect(this.firstRequestButton).toBeVisible();
+  }
+
+  async clickFirstRequestButton() {
+    await this.firstRequestButton.click();
+  }
+
+  async verifyDeliveryLocationHeadingVisible() {
+    await expect(this.deliveryLocationHeading).toBeVisible();
   }
 
   async verifyFirstLoginForOptionsButtonVisible() {

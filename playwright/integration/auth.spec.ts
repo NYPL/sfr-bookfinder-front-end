@@ -15,14 +15,14 @@ test.afterEach(() => server.resetHandlers());
 test.afterAll(() => server.close());
 
 test.describe("Cookie authentication", () => {
-  test("redirects to NYPL log in page with no cookie", async ({ page }) => {
+  test("redirects to NYPL login page with no cookie", async ({ page }) => {
     await page.goto(`${LIMITED_ACCESS_EDITION_PATH}`);
     await page.getByTestId(LOGIN_TO_READ_TEST_ID).click();
-    await page.waitForURL(`**${NYPL_LOGIN_URL}**`);
+    await page.waitForURL(/.*login.nypl.org.*/);
     const url = new URL(page.url());
-    const redirectUri = url.searchParams.get("redirect_uri");
+    const service = url.searchParams.get("service");
 
-    expect(redirectUri).toContain(LIMITED_ACCESS_EDITION_PATH);
+    expect(service).toContain(NYPL_LOGIN_URL);
   });
 
   test("redirects to NYPL login page with expired cookie", async ({
@@ -34,11 +34,11 @@ test.describe("Cookie authentication", () => {
 
     await page.goto(`${LIMITED_ACCESS_EDITION_PATH}`);
     await page.getByTestId(LOGIN_TO_READ_TEST_ID).click();
-    await page.waitForURL(`**${NYPL_LOGIN_URL}**`);
+    await page.waitForURL(/.*login.nypl.org.*/);
     const url = new URL(page.url());
-    const redirectUri = url.searchParams.get("redirect_uri");
+    const service = url.searchParams.get("service");
 
-    expect(redirectUri).toContain(LIMITED_ACCESS_EDITION_PATH);
+    expect(service).toContain(NYPL_LOGIN_URL);
   });
 
   // TODO: logging in from localhost does not work
