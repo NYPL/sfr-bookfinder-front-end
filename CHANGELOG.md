@@ -2,6 +2,8 @@
 
 ## [Prerelease]
 
+- Update GH action to run tests against local.nypl.org and QA for prod PRs
+
 ## [0.18.10]
 
 - Remove Kristo, Jiayong, and Olivia and add Kyle as codeowners
