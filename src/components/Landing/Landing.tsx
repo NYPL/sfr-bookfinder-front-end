@@ -12,7 +12,6 @@ import { Opds2Feed } from "~/src/types/OpdsModel";
 import DrbHero from "../DrbHero/DrbHero";
 import DrbBreakout from "../DrbBreakout/DrbBreakout";
 import Link from "../Link/Link";
-import SurveyBanner from "../SurveyBanner/SurveyBanner";
 
 const LandingPage: React.FC<{ collections?: Opds2Feed }> = ({
   collections,
@@ -89,7 +88,6 @@ const LandingPage: React.FC<{ collections?: Opds2Feed }> = ({
 
   const contentPrimaryElement = (
     <Box marginLeft="l" marginRight="l">
-      <SurveyBanner />
       <Heading level="h2">Recently Added Collections</Heading>
       <CollectionList collections={collections} />
     </Box>

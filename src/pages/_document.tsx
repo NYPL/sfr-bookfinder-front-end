@@ -43,6 +43,13 @@ class MyDocument extends Document<DocumentProps> {
             strategy="lazyOnload"
             async
           ></Script>
+          {/* OptinMonster */}
+          <Script
+            src="https://assets.nypl.org/js/advocacy.js"
+            strategy="afterInteractive"
+            async
+          ></Script>
+          {/* /OptinMonster */}
           <NextScript />
         </body>
       </Html>
