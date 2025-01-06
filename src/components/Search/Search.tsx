@@ -33,7 +33,6 @@ import TotalWorks from "../TotalWorks/TotalWorks";
 import filterFields from "~/src/constants/filters";
 import { findFiltersForField } from "~/src/util/SearchQueryUtils";
 import DrbBreakout from "../DrbBreakout/DrbBreakout";
-import SurveyBanner from "../SurveyBanner/SurveyBanner";
 
 const SearchResults: React.FC<{
   searchQuery: SearchQuery;
@@ -264,7 +263,7 @@ const SearchResults: React.FC<{
           <TotalWorks totalWorks={numberOfWorks} />
         </Box>
       )}
-      <SurveyBanner />
+
       <Box className="search-heading">
         <Box role="alert">
           <Heading level="h1" size="heading3" id="page-title-heading">
