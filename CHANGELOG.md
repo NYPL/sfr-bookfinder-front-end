@@ -2,6 +2,8 @@
 
 ## [Prerelease]
 
+- Update OptinMonster script
+
 ## [0.18.11]
 
 - Add `fallbackSrc` for `Card` images
