@@ -3,6 +3,7 @@
 ## [Prerelease]
 
 - Update OptinMonster script
+- Add GTM scripts
 
 ## [0.18.11]
 
