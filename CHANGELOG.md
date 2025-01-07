@@ -2,6 +2,8 @@
 
 ## [Prerelease]
 
+## [0.18.11]
+
 - Add `fallbackSrc` for `Card` images
 - Remove survey banner
 - Replace Cucumber with Playwright Page Object Model tests
