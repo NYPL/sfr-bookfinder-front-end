@@ -16,6 +16,7 @@ import NewRelicSnippet from "../lib/newrelic/NewRelic";
 import ErrorBoundary from "../components/ErrorBoundary";
 import { FeedbackProvider } from "../context/FeedbackContext";
 import { ParsedUrlQuery } from "querystring";
+import Script from "next/script";
 
 if (process.env.APP_ENV === "testing") {
   const { initMocks } = await import("mocks");
@@ -89,6 +90,14 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 
   return (
     <>
+      {/* OptinMonster */}
+      <Script
+        id="optinmonster"
+        dangerouslySetInnerHTML={{
+          __html: `(function(d,u,ac){var s=d.createElement('script');s.type='text/javascript';s.src='https://a.omappapi.com/app/js/api.min.js';s.async=true;s.dataset.user=u;s.dataset.account=ac;d.getElementsByTagName('head')[0].appendChild(s);})(document,12468,1044);`,
+        }}
+      ></Script>
+      {/* /OptinMonster */}
       <Head>
         <title>{setTitle(router.query)}</title>
 

@@ -2,6 +2,11 @@
 
 ## [Prerelease]
 
+## [0.18.12]
+
+- Update OptinMonster script
+- Add GTM scripts
+
 ## [0.18.11]
 
 - Add `fallbackSrc` for `Card` images
