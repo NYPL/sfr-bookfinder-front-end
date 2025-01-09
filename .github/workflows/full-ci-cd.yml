@@ -1,0 +1,23 @@
+name: Full CI/CD Pipeline
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  # Job to deploy to the QA environment on successful merge to `main`
+  deploy_to_qa:
+    uses: NYPL/sfr-bookfinder-front-end/.github/workflows/build-qa.yml@main
+    secrets: inherit
+
+  # Job to run e2e tests on the QA environment after deployment
+  run_e2e_tests:
+    needs: deploy_to_qa
+    uses: NYPL/sfr-bookfinder-front-end/.github/workflows/Playwright.yml@main
+    secrets: inherit
+
+  # Job to deploy to production after successful e2e tests on QA
+  deploy_to_production:
+    needs: run_e2e_tests
+    uses: NYPL/sfr-bookfinder-front-end/.github/workflows/build-production.yaml@main
+    secrets: inherit

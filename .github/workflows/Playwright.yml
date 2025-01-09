@@ -1,6 +1,7 @@
 name: Playwright Tests for Digital Research Books
 
 on:
+  workflow_call:
   pull_request:
 
 jobs:

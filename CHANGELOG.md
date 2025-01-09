@@ -2,6 +2,8 @@
 
 ## [Prerelease]
 
+- Add new yml file for full ci/cd and auto bump version in prod release workflow
+
 ## [0.18.12]
 
 - Update OptinMonster script
