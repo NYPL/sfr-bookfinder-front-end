@@ -2,44 +2,33 @@
 # build a container and deploy to ECR
 name: Publish Production
 on:
-  pull_request:
-    branches: [production]
-    types: [closed]
+  workflow_call:
 
 jobs:
   tag_release:
     name: Tag and Release
-    # only run if PR is merged (not just closed)
-    if: github.event.pull_request.merged
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-        # the tag will match the package.json version (eg. v1.0.0)
-      - name: Tag
-        id: autotagger
-        uses: butlerlogic/action-autotag@1.1.2
-        env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      - name: Bump version and push tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.2
         with:
-          strategy: package
-          tag_prefix: v
-          # use the body of the PR commit as the tag message
-          tag_message: ${{ github.event.pull_request.body }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Release
         id: create_release
-        if: steps.autotagger.outputs.tagname != ''
+        if: steps.tag_version.outputs.new_tag != ''
         uses: softprops/action-gh-release@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.autotagger.outputs.tagname }}
-          name: ${{ steps.autotagger.outputs.tagname }}
-          # use the body of the PR commit as the release body
-          body: ${{ github.event.pull_request.body }}
+          tag_name: ${{ steps.tag_version.outputs.new_tag }}
+          name: ${{ steps.tag_version.outputs.new_tag }}
+          body: ${{ steps.tag_version.outputs.changelog }}
           draft: false
           prerelease: false
+
   publish_qa:
     name: Publish image to ECR
     if: github.event.pull_request.merged
@@ -85,4 +74,4 @@ jobs:
 
       - name: Force ECS Update
         run: |
-            aws ecs update-service --cluster sfr-frontend-production-tf --service sfr-frontend-production-tf --force-new-deployment
+          aws ecs update-service --cluster sfr-frontend-production-tf --service sfr-frontend-production-tf --force-new-deployment
