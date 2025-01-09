@@ -14,6 +14,8 @@ jobs:
   run_e2e_tests:
     needs: deploy_to_qa
     uses: NYPL/sfr-bookfinder-front-end/.github/workflows/Playwright.yml@main
+    with:
+      base_url: "https://drb-qa.nypl.org/"
     secrets: inherit
 
   # Job to deploy to production after successful e2e tests on QA

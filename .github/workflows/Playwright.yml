@@ -2,6 +2,12 @@ name: Playwright Tests for Digital Research Books
 
 on:
   workflow_call:
+    inputs:
+      base_url:
+        description: "Base URL for environment"
+        default: "http://local.nypl.org:3000/"
+        required: false
+        type: string
   pull_request:
 
 jobs:
@@ -18,8 +24,8 @@ jobs:
 
       - name: Set environment for branch
         run: |
-          if [[ $GITHUB_REF_NAME == 'production' ]]; then
-              echo "BASE_URL=https://drb-qa.nypl.org/" >> "$GITHUB_ENV"
+          if [[ github.event.inputs.base_url != '' ]]; then
+              echo "BASE_URL=${{ github.event.inputs.base_url }}" >> "$GITHUB_ENV"
           else
               echo "BASE_URL=http://local.nypl.org:3000/" >> "$GITHUB_ENV"
           fi
