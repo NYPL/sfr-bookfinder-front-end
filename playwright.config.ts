@@ -1,4 +1,9 @@
 import { devices, PlaywrightTestConfig } from "@playwright/test";
+import dotenv from "dotenv";
+import path from "path";
+
+// Read from ".env" file.
+dotenv.config({ path: path.resolve(__dirname, ".env") });
 
 const config: PlaywrightTestConfig = {
   testDir: "playwright/",
