@@ -59,12 +59,12 @@ jobs:
           CATALOG_USERNAME: ${{ secrets.CATALOG_USERNAME }}
           CATALOG_USER_PIN: ${{ secrets.CATALOG_USER_PIN }}
 
-      # - name: Slack Notification
-      #   if: ${{ always() }}
-      #   uses: rtCamp/action-slack-notify@v2
-      #   env:
-      #     SLACK_CHANNEL: test_reports
-      #     SLACK_MESSAGE: https://reports.cucumber.io/report-collections/01dbd6e8-653b-4597-b901-6caf2e653b07
-      #     SLACK_TITLE: DRB Cucumber/Playwright Test Results
-      #     SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-      #     SLACK_USERNAME: nyplorgBot
+      - name: Slack Notification
+        if: ${{ always() }}
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_CHANNEL: test_reports
+          SLACK_MESSAGE: https://reports.cucumber.io/report-collections/01dbd6e8-653b-4597-b901-6caf2e653b07
+          SLACK_TITLE: DRB Cucumber/Playwright Test Results
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_USERNAME: nyplorgBot
