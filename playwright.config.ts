@@ -24,7 +24,7 @@ const config: PlaywrightTestConfig = {
   use: {
     headless: true,
     // Base URL to use in actions like `await page.goto('/')`.
-    baseURL: "http://local.nypl.org:3000",
+    baseURL: process.env.BASE_URL,
 
     /* When running tests locally, record a trace for each test, but remove it from successful runs.
      * On CI, turn this feature off. See https://playwright.dev/docs/trace-viewer */

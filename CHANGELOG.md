@@ -2,6 +2,10 @@
 
 ## [Prerelease]
 
+- Add rollback step to ci/cd yml file
+
+## [0.18.13]
+
 - Add new yml file for full ci/cd and auto bump version in prod release workflow
 
 ## [0.18.12]
