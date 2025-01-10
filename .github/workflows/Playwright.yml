@@ -24,7 +24,7 @@ jobs:
 
       - name: Set environment for branch
         run: |
-          if [[ github.event.inputs.base_url != '' ]]; then
+          if [[ ${{ github.event.inputs.base_url }} != '' ]]; then
               echo "BASE_URL=${{ github.event.inputs.base_url }}" >> "$GITHUB_ENV"
           else
               echo "BASE_URL=http://local.nypl.org:3000/" >> "$GITHUB_ENV"
