@@ -29,9 +29,8 @@ jobs:
           draft: false
           prerelease: false
 
-  publish_qa:
+  publish_prod:
     name: Publish image to ECR
-    if: github.event.pull_request.merged
     runs-on: ubuntu-latest
     steps:
       - name: checkout
@@ -68,6 +67,8 @@ jobs:
           --build-arg NEW_RELIC_APP_NAME="Digital Research Books (PROD)" \
           --build-arg NEW_RELIC_LICENSE_KEY=$NEW_RELIC_LICENSE_KEY \
           --build-arg NEXT_PUBLIC_ADOBE_ANALYTICS="https://assets.adobedtm.com/1a9376472d37/8519dfce636d/launch-672b7e7f98ee.min.js" .
+          MANIFEST=$(aws ecr batch-get-image --repository-name $ECR_REPOSITORY --image-ids imageTag="production-latest" --output json | jq --raw-output --join-output '.images[0].imageManifest')
+          aws ecr put-image --repository-name $ECR_REPOSITORY --image-tag "production-previous" --image-manifest "$MANIFEST"
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:production-latest
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:production-latest

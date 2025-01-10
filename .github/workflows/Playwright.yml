@@ -24,14 +24,16 @@ jobs:
 
       - name: Set environment for branch
         run: |
-          if [[ github.event.inputs.base_url != '' ]]; then
-              echo "BASE_URL=${{ github.event.inputs.base_url }}" >> "$GITHUB_ENV"
+          touch .env
+          if [[ "${{ github.event.inputs.base_url }}" != '' ]]; then
+              echo "BASE_URL=${{ github.event.inputs.base_url }}" >> .env
           else
-              echo "BASE_URL=http://local.nypl.org:3000/" >> "$GITHUB_ENV"
+              echo "BASE_URL=http://local.nypl.org:3000/" >> .env
           fi
+        shell: bash
 
       - name: Add hosts to /etc/hosts
-        if: github.ref != 'production'
+        if: github.event_name == 'pull_request'
         run: |
           sudo echo "127.0.0.1 local.nypl.org" | sudo tee -a /etc/hosts
 
@@ -45,7 +47,7 @@ jobs:
         run: NODE_ENV=test npm run build
 
       - name: Start the app
-        if: github.ref != 'production'
+        if: github.event_name == 'pull_request'
         run: |
           NODE_ENV=test npm start &
           sleep 5
