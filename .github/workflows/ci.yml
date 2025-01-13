@@ -142,7 +142,7 @@ jobs:
           --build-arg APP_ENV=$APP_ENV .
 
   playwright_tests:
-    uses: NYPL/sfr-bookfinder-front-end/.github/workflows/Playwright.yml@main
+    uses: NYPL/sfr-bookfinder-front-end/.github/workflows/Playwright.yml@NO-REF/fix-playwright-yml
     secrets: inherit
     with:
-      base_url: "https://drb-qa.nypl.org/"
+      base_url: "http://local.nypl.org:3000/"
