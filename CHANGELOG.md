@@ -3,6 +3,7 @@
 ## [Prerelease]
 
 - Add rollback step to ci/cd yml file
+- Update Playwright.yml step for setting env
 
 ## [0.18.13]
 

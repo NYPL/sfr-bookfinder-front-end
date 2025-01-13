@@ -140,3 +140,9 @@ jobs:
         run: |
           docker build --build-arg airtable_api_key=$AIRTABLE_KEY \
           --build-arg APP_ENV=$APP_ENV .
+
+  playwright_tests:
+    uses: NYPL/sfr-bookfinder-front-end/.github/workflows/Playwright.yml@main
+    secrets: inherit
+    with:
+      base_url: "http://local.nypl.org:3000/"

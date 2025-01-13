@@ -8,7 +8,6 @@ on:
         default: "http://local.nypl.org:3000/"
         required: false
         type: string
-  pull_request:
 
 jobs:
   tests:
@@ -25,15 +24,11 @@ jobs:
       - name: Set environment for branch
         run: |
           touch .env
-          if [[ "${{ github.event.inputs.base_url }}" != '' ]]; then
-              echo "BASE_URL=${{ github.event.inputs.base_url }}" >> .env
-          else
-              echo "BASE_URL=http://local.nypl.org:3000/" >> .env
-          fi
+          echo "BASE_URL=${{ inputs.base_url }}" >> .env
         shell: bash
 
       - name: Add hosts to /etc/hosts
-        if: github.event_name == 'pull_request'
+        if: inputs.base_url == 'http://local.nypl.org:3000/'
         run: |
           sudo echo "127.0.0.1 local.nypl.org" | sudo tee -a /etc/hosts
 
@@ -47,7 +42,7 @@ jobs:
         run: NODE_ENV=test npm run build
 
       - name: Start the app
-        if: github.event_name == 'pull_request'
+        if: inputs.base_url == 'http://local.nypl.org:3000/'
         run: |
           NODE_ENV=test npm start &
           sleep 5
