@@ -55,7 +55,7 @@ class SearchPage {
     this.loginButton = page.locator("[value='Submit']");
     this.firstRequestButton = page.locator("a:text('Request scan') >> nth=0");
     this.deliveryLocationHeading = page.locator(
-      "h2:text('Choose a delivery location')"
+      "h2:text('Choose a pickup location')"
     );
 
     this.governmentDocumentsCheckbox = page.locator(
