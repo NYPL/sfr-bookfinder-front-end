@@ -1,4 +1,12 @@
-# Digital Research Books Frontend
+# Deprecated
+
+As of April 1, 2025, the Digital Research Books (DRB) frontend code has been moved into https://github.com/NYPL/drb-etl-pipeline to create a frontend-backend monorepo. All future updates to the web application should be made there.
+
+Pull request for reference: https://github.com/NYPL/drb-etl-pipeline/pull/645
+
+This repository is now archived and will no longer receive updates.
+
+## Digital Research Books Frontend
 
 [![GitHub version](https://badge.fury.io/gh/NYPL%2Fsfr-bookfinder-front-end.svg)](https://badge.fury.io/gh/NYPL%2Fsfr-bookfinder-front-end)
 
