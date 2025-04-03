@@ -1,6 +1,8 @@
 # CHANGE LOG
 
-## [Pre-release]
+- Adds deprecation and archiving message to the README
+
+## [0.18.15]
 
 - Update to Next.js 13.5.9 for vulnerability patch
 
